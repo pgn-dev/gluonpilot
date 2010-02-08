@@ -1,0 +1,73 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.5.4	//
+!_TAG_REVISION_NAME	MCHPTags	//
+!_TAG_REVISION_VERSION	6.0.1	//
+CS::PORTFbits.RF0	C:\pic\IMUboard\lib\dataflash\dataflash.c	13;"	d	line:13	file:
+FCY::PLL*FOSC/2	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	15;"	d	line:15
+FNOSC_PRIPLL	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	7;"	v	line:7
+FOSC::4000000	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	13;"	d	line:13
+PLL::80/4	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	14;"	d	line:14
+POSCMD_XT	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	8;"	v	line:8
+RCONbits_backup	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	4;"	v	line:4
+SCL::PORTGbits.RG6	C:\pic\IMUboard\lib\dataflash\dataflash.c	10;"	d	line:10	file:
+SDI::PORTGbits.RG7	C:\pic\IMUboard\lib\dataflash\dataflash.c	11;"	d	line:11	file:
+SDO::PORTGbits.RG8	C:\pic\IMUboard\lib\dataflash\dataflash.c	12;"	d	line:12	file:
+_AddressError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	79;"	f	line:79	signature:(void)
+_MathError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	94;"	f	line:94	signature:(void)
+_OscillatorFail	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	71;"	f	line:71	signature:(void)
+_StackError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	87;"	f	line:87	signature:(void)
+_trapISR::__attribute__((interrupt,no_au	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	69;"	d	line:69	file:
+add1	C:\pic\IMUboard\lib\dataflash\dataflash.c	150;"	l	line:150
+add1	C:\pic\IMUboard\lib\dataflash\dataflash.c	89;"	l	line:89
+add2	C:\pic\IMUboard\lib\dataflash\dataflash.c	150;"	l	line:150
+add2	C:\pic\IMUboard\lib\dataflash\dataflash.c	89;"	l	line:89
+buffer1	C:\pic\IMUboard\examples\dataflash_test\dataflash_test.c	22;"	l	line:22
+buffer2	C:\pic\IMUboard\examples\dataflash_test\dataflash_test.c	23;"	l	line:23
+dataflash_disable_spi	C:\pic\IMUboard\lib\dataflash\dataflash.c	47;"	f	line:47
+dataflash_disable_spi	C:\pic\IMUboard\lib\dataflash\dataflash.h	7;"	p	line:7	signature:()
+dataflash_enable_spi	C:\pic\IMUboard\lib\dataflash\dataflash.c	42;"	f	line:42
+dataflash_enable_spi	C:\pic\IMUboard\lib\dataflash\dataflash.h	8;"	p	line:8	signature:()
+dataflash_open	C:\pic\IMUboard\lib\dataflash\dataflash.c	16;"	f	line:16
+dataflash_open	C:\pic\IMUboard\lib\dataflash\dataflash.h	2;"	p	line:2	signature:()
+dataflash_read	C:\pic\IMUboard\lib\dataflash\dataflash.c	148;"	f	line:148	signature:(int page, int size, unsigned char *buffer)
+dataflash_read	C:\pic\IMUboard\lib\dataflash\dataflash.h	4;"	p	line:4	signature:(int page, int size, unsigned char *buffer)
+dataflash_read_config	C:\pic\IMUboard\lib\dataflash\dataflash.c	139;"	f	line:139	signature:(int size, unsigned char *configbuffer)
+dataflash_read_config	C:\pic\IMUboard\lib\dataflash\dataflash.h	5;"	p	line:5	signature:(int size, unsigned char *configbuffer)
+dataflash_write	C:\pic\IMUboard\lib\dataflash\dataflash.c	87;"	f	line:87	signature:(int page, int size, unsigned char *buffer)
+dataflash_write	C:\pic\IMUboard\lib\dataflash\dataflash.h	6;"	p	line:6	signature:(int page, int size, unsigned char *buffer)
+i	C:\pic\IMUboard\examples\dataflash_test\dataflash_test.c	25;"	l	line:25
+i	C:\pic\IMUboard\lib\dataflash\dataflash.c	151;"	l	line:151
+i	C:\pic\IMUboard\lib\dataflash\dataflash.c	55;"	l	line:55
+i	C:\pic\IMUboard\lib\dataflash\dataflash.c	90;"	l	line:90
+i	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	40;"	l	line:40
+i	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	52;"	l	line:52
+incoming_byte	C:\pic\IMUboard\lib\dataflash\dataflash.c	193;"	l	line:193
+main	C:\pic\IMUboard\examples\dataflash_test\dataflash_test.c	7;"	f	line:7
+microcontroller_after_reboot	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	58;"	f	line:58
+microcontroller_after_reboot	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	21;"	p	line:21	signature:()
+microcontroller_delay_ms	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	37;"	f	line:37	signature:(unsigned long ms)
+microcontroller_delay_ms	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	20;"	p	line:20	signature:(unsigned long ms)
+microcontroller_delay_us	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	50;"	f	line:50	signature:(unsigned long us)
+microcontroller_delay_us	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	19;"	p	line:19	signature:(unsigned long us)
+microcontroller_init	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	15;"	f	line:15
+microcontroller_init	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	17;"	p	line:17	signature:()
+spi_comm2	C:\pic\IMUboard\lib\dataflash\dataflash.c	53;"	f	line:53	signature:(unsigned char add)
+spi_comm2	C:\pic\IMUboard\lib\dataflash\dataflash.c	5;"	p	line:5	file:	signature:(unsigned char outgoing_byte)
+spi_comm3	C:\pic\IMUboard\lib\dataflash\dataflash.c	191;"	f	line:191	signature:(unsigned char outgoing_byte)
+spi_comm3	C:\pic\IMUboard\lib\dataflash\dataflash.c	6;"	p	line:6	file:	signature:(unsigned char outgoing_byte)
+spi_comm::(x)spi_comm3(x)	C:\pic\IMUboard\lib\dataflash\dataflash.c	8;"	d	line:8	file:
+uart1_dataready	C:\pic\IMUboard\lib\uart1\uart1.c	60;"	f	line:60
+uart1_dataready	C:\pic\IMUboard\lib\uart1\uart1.h	3;"	p	line:3	signature:()
+uart1_getc	C:\pic\IMUboard\lib\uart1\uart1.c	81;"	f	line:81
+uart1_getc	C:\pic\IMUboard\lib\uart1\uart1.h	4;"	p	line:4	signature:()
+uart1_open	C:\pic\IMUboard\lib\uart1\uart1.c	12;"	f	line:12	signature:(long baud)
+uart1_open	C:\pic\IMUboard\lib\uart1\uart1.h	2;"	p	line:2	signature:(long baud)
+uart1_putc	C:\pic\IMUboard\lib\uart1\uart1.c	76;"	f	line:76	signature:(char c)
+uart1_putc	C:\pic\IMUboard\lib\uart1\uart1.h	6;"	p	line:6	signature:(char c)
+uart1_puts	C:\pic\IMUboard\lib\uart1\uart1.c	66;"	f	line:66	signature:(char *str)
+uart1_puts	C:\pic\IMUboard\lib\uart1\uart1.h	5;"	p	line:5	signature:(char *str)
+x	C:\pic\IMUboard\lib\dataflash\dataflash.c	193;"	l	line:193

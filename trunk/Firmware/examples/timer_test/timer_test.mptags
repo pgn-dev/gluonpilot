@@ -1,0 +1,53 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.5.4	//
+!_TAG_REVISION_NAME	MCHPTags	//
+!_TAG_REVISION_VERSION	6.0.1	//
+FCY::PLL*FOSC/2	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	15;"	d	line:15
+FNOSC_PRIPLL	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	7;"	v	line:7
+FOSC::4000000	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	13;"	d	line:13
+FWDTEN_OFF	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	10;"	v	line:10
+PLL::80/4	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	14;"	d	line:14
+POSCMD_XT	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	8;"	v	line:8
+RCONbits_backup	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	4;"	v	line:4
+_AddressError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	77;"	f	line:77	signature:(void)
+_MathError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	92;"	f	line:92	signature:(void)
+_OscillatorFail	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	69;"	f	line:69	signature:(void)
+_StackError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	85;"	f	line:85	signature:(void)
+_trapISR::__attribute__((interrupt,no_au	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	67;"	d	line:67	file:
+i	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	38;"	l	line:38
+i	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	50;"	l	line:50
+main	C:\pic\IMUboard\examples\timer_test\timer_test.c	8;"	f	line:8
+microcontroller_after_reboot	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	56;"	f	line:56
+microcontroller_after_reboot	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	21;"	p	line:21	signature:()
+microcontroller_delay_ms	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	36;"	f	line:36	signature:(unsigned long ms)
+microcontroller_delay_ms	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	20;"	p	line:20	signature:(unsigned long ms)
+microcontroller_delay_us	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	48;"	f	line:48	signature:(unsigned long us)
+microcontroller_delay_us	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	19;"	p	line:19	signature:(unsigned long us)
+microcontroller_init	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	15;"	f	line:15
+microcontroller_init	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	17;"	p	line:17	signature:()
+t	C:\pic\IMUboard\lib\timer\timer.c	34;"	l	line:34
+t1	C:\pic\IMUboard\examples\timer_test\timer_test.c	19;"	l	line:19
+t10	C:\pic\IMUboard\examples\timer_test\timer_test.c	19;"	l	line:19
+t100	C:\pic\IMUboard\examples\timer_test\timer_test.c	19;"	l	line:19
+ticks	C:\pic\IMUboard\lib\timer\timer.c	36;"	l	line:36
+ticks_per_second	C:\pic\IMUboard\lib\timer\timer.c	5;"	v	line:5	file:
+timer_dt	C:\pic\IMUboard\lib\timer\timer.c	32;"	f	line:32
+timer_dt	C:\pic\IMUboard\lib\timer\timer.h	8;"	p	line:8	signature:()
+timer_init	C:\pic\IMUboard\lib\timer\timer.c	7;"	f	line:7
+timer_init	C:\pic\IMUboard\lib\timer\timer.h	4;"	p	line:4	signature:()
+timer_reset	C:\pic\IMUboard\lib\timer\timer.c	24;"	f	line:24
+timer_reset	C:\pic\IMUboard\lib\timer\timer.h	6;"	p	line:6	signature:()
+uart1_dataready	C:\pic\IMUboard\lib\uart1\uart1.c	60;"	f	line:60
+uart1_dataready	C:\pic\IMUboard\lib\uart1\uart1.h	3;"	p	line:3	signature:()
+uart1_getc	C:\pic\IMUboard\lib\uart1\uart1.c	81;"	f	line:81
+uart1_getc	C:\pic\IMUboard\lib\uart1\uart1.h	4;"	p	line:4	signature:()
+uart1_open	C:\pic\IMUboard\lib\uart1\uart1.c	12;"	f	line:12	signature:(long baud)
+uart1_open	C:\pic\IMUboard\lib\uart1\uart1.h	2;"	p	line:2	signature:(long baud)
+uart1_putc	C:\pic\IMUboard\lib\uart1\uart1.c	76;"	f	line:76	signature:(char c)
+uart1_putc	C:\pic\IMUboard\lib\uart1\uart1.h	6;"	p	line:6	signature:(char c)
+uart1_puts	C:\pic\IMUboard\lib\uart1\uart1.c	66;"	f	line:66	signature:(char *str)
+uart1_puts	C:\pic\IMUboard\lib\uart1\uart1.h	5;"	p	line:5	signature:(char *str)

@@ -1,0 +1,1096 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CsGL.Basecode</name>
+    </assembly>
+    <members>
+        <member name="T:CsGL.Basecode.App">
+            <summary>
+            Provides static (Shared in Visual Basic) methods and properties to manage a CsGL application.  
+            It provides methods and properties to start and stop a looped CsGL application and to manage 
+            its runtime state.  This class cannot be inherited.
+            </summary>
+            <remarks>
+            <para>
+            The <b>App</b> class has methods to start and stop CsGL applications and to provide useful 
+            CsGL application functionality.
+            </para>
+            <para>
+            Call <see cref="M:CsGL.Basecode.App.Run(CsGL.Basecode.Model)"/> to start a CsGL application using the appropriate inherited 
+            <see cref="P:CsGL.Basecode.App.Model"/>.  Call <see cref="M:CsGL.Basecode.App.Terminate"/> to forcibly end a running CsGL 
+            application.  Calling <see cref="M:CsGL.Basecode.App.ToggleFullscreen"/> toggles between your supplied 
+            Windows Form and the fullscreen form.  Call <see cref="M:CsGL.Basecode.App.ResetFramerate"/> to reset 
+            the application's current framerate calculations.
+            </para>
+            <para>
+            This class has numerous properties to get or set information about the current state of the 
+            application.
+            </para>
+            <para>
+            You cannot create an instance of this class.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:CsGL.Basecode.App.#ctor">
+            <summary>
+            Contructor is private to prevent instantiation.  This is a Singleton class, only one 
+            instance is allowed.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.App.Dispose">
+            <summary>
+            Disposes of this class, since this is a Singleton class, we'll take care of it ourselves
+            and not allow the user to call it themselves.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.App.Dispose(System.Boolean)">
+            <summary>
+            Cleans up either unmanaged resources or managed and unmanaged resources.
+            </summary>
+            <remarks>
+            <para>
+            If disposing equals true, the method has been called directly or indirectly by a user's 
+            code.  Managed and unmanaged resources can be disposed.
+            </para>
+            <para>
+            If disposing equals false, the method has been called by the runtime from inside the 
+            finalizer and you should not reference other objects.  Only unmanaged resources can 
+            be disposed.
+            </para>
+            </remarks>
+            <param name="disposing">Was Dispose called manually?</param>
+        </member>
+        <member name="M:CsGL.Basecode.App.Finalize">
+            <summary>
+            This destructor will run only if the Dispose method does not get called.  It gives 
+            the class the opportunity to finalize.  Simply calls Dispose(false).
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.App.CreateForm">
+            <summary>
+            Creates either a fullscreen form or the user-supplied windowed form, based on the
+            <see cref="P:CsGL.Basecode.App.IsFullscreen"/> property.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.App.DestroyForm">
+            <summary>
+            Destroys the current Windows Form and releases its resources.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.App.MainLoop">
+            <summary>
+            Runs the main application loop until the application terminates.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.App.ResetFramerate">
+            <summary>
+            Resets the framerate counter.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.App.Run(CsGL.Basecode.Model)">
+            <summary>
+            Runs the supplied <see cref="P:CsGL.Basecode.App.Model"/> as a Windows Forms application.
+            </summary>
+            <param name="inheritedModel">
+            The inherited <see cref="P:CsGL.Basecode.App.Model"/> to run as an application.
+            </param>
+        </member>
+        <member name="M:CsGL.Basecode.App.Terminate">
+            <summary>
+            Terminates and cleans up the application.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.App.ToggleFullscreen">
+            <summary>
+            Toggles between fullscreen and windowed mode.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.App.WaitMessage">
+            <summary>
+            Stalls the current thread until there's a message.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.AccumDepth">
+            <summary>
+            Gets or sets OpenGL's accumulation buffer depth, in bits per pixel.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.ColorDepth">
+            <summary>
+            Gets or sets the current color depth, in bits per pixel.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.CurrentFramerate">
+            <summary>
+            Gets the current framerate, in frames per second.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.CurrentFrameTime">
+            <summary>
+            Gets the frametime, in ticks, when the current frame began drawing.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.FarClippingPlane">
+            <summary>
+            Gets or sets GLU's distance from the viewer to the far clipping plane (always positive).
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.Form">
+            <summary>
+            Gets or sets the application's form.  Should likely only be used in <see cref="M:CsGL.Basecode.Model.WindowsForm"/>.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.FovY">
+            <summary>
+            Gets or sets GLU's field of view angle, in degrees, in the Y direction.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.FramerateReady">
+            <summary>
+            Gets whether or not a framerate has been calculated.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.Height">
+            <summary>
+            Gets or sets the height of the application's window at creation.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.HighestFramerate">
+            <summary>
+            Gets the highest framerate, in frames per second, recorded for the application's run.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.IsActive">
+            <summary>
+            Gets or sets the application's active state.  You could use this to make your application 
+            idle while it's inactive by setting this property in your Windows Form's Activate and 
+            Deactivated events.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.IsFullscreen">
+            <summary>
+            Gets or sets whether the application is currently in fullscreen or windowed mode.  You
+            should likely only use this to get, except if you define it in <see cref="P:CsGL.Basecode.App.Model"/>.
+            After the start of your application, use <see cref="M:CsGL.Basecode.App.ToggleFullscreen"/>.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.IsRgba">
+            <summary>
+            Gets or sets whether the application uses RGBA or color index mode.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.IsRunning">
+            <summary>
+            Gets whether or not the application is currently running.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.LowestFramerate">
+            <summary>
+            Gets the lowest framerate, in frames per second, recorded for the application's run.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.Model">
+            <summary>
+            Gets the application's <see cref="P:CsGL.Basecode.App.Model"/>.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.NearClippingPlane">
+            <summary>
+            Gets or sets GLU's distance from the viewer to the near clipping plane (always positive).
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.RunWhileMinimized">
+            <summary>
+            Gets or sets whether the application should continue running the main loop even when 
+            the application is minimized.  If it shouldn't, it'll wait until the application is put 
+            back into normal mode, saving CPU cycles.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.ShowCursorFullscreen">
+            <summary>
+            Gets or sets whether the mouse cursor should be displayed in fullscreen mode.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.ShowCursorWindowed">
+            <summary>
+            Gets or sets whether the mouse cursor should be displayed in windowed mode.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.ShowStatusBar">
+            <summary>
+            Gets or sets whether the StatusBar of the basecode's default windowed form 
+            should be displayed.  If you're providing a custom form, you could use this 
+            however you like.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.StencilDepth">
+            <summary>
+            Gets or sets OpenGL's stencil buffer depth, in bits per pixel.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.Timer">
+            <summary>
+            Get's the application's <see cref="T:CsGL.Basecode.HighResolutionTimer"/>.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.View">
+            <summary>
+            Gets the application's current <see cref="P:CsGL.Basecode.App.View"/>.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.Width">
+            <summary>
+            Gets or sets the width of the application's window at creation.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.App.ZDepth">
+            <summary>
+            Gets or sets OpenGL's Z-buffer depth, in bits per pixel.
+            </summary>
+        </member>
+        <member name="T:CsGL.Basecode.AppForm">
+            <summary>
+            Provides a default Windows Form for basecode applications.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.AppForm.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.AppForm.Dispose(System.Boolean)">
+            <summary>
+            Cleans up either unmanaged resources or managed and unmanaged resources.
+            </summary>
+            <remarks>
+            <para>
+            If disposing equals true, the method has been called directly or indirectly by a user's 
+            code.  Managed and unmanaged resources can be disposed.
+            </para>
+            <para>
+            If disposing equals false, the method has been called by the runtime from inside the 
+            finalizer and you should not reference other objects.  Only unmanaged resources can 
+            be disposed.
+            </para>
+            </remarks>
+            <param name="disposing">Was Dispose called manually?</param>
+        </member>
+        <member name="M:CsGL.Basecode.AppForm.Finalize">
+            <summary>
+            This destructor will run only if the Dispose method does not get called.  It gives 
+            the class the opportunity to finalize.  Simply calls Dispose(false).
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.AppForm.ToggleStatusBar">
+            <summary>
+            Toggles the display of the StatusBar.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.AppForm.UpdateStatusBar(System.String,System.String,System.String)">
+            <summary>
+            Updates framerate display in StatusBar.
+            </summary>
+            <param name="current">Current FPS.</param>
+            <param name="highest">Highest FPS.</param>
+            <param name="lowest">Lowest FPS.</param>
+        </member>
+        <member name="M:CsGL.Basecode.AppForm.Form_Activated(System.Object,System.EventArgs)">
+            <summary>
+            Handles Form Activated event.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The EventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.AppForm.Form_SizeChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the form's resizing.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The EventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.AppForm.OnClosing(System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Handles the Closing event.
+            </summary>
+            <param name="e">The CancelEventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.AppForm.Timer_Tick(System.Object,System.EventArgs)">
+            <summary>
+            Handles The timer's Tick event.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The EventArgs.</param>
+        </member>
+        <member name="T:CsGL.Basecode.HelpForm">
+            <summary>
+            Provides a Windows Form for example information and help.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.HelpForm.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.HelpForm.Dispose(System.Boolean)">
+            <summary>
+            Cleans up either unmanaged resources or managed and unmanaged resources.
+            </summary>
+            <remarks>
+            <para>
+            If disposing equals true, the method has been called directly or indirectly by a user's 
+            code.  Managed and unmanaged resources can be disposed.
+            </para>
+            <para>
+            If disposing equals false, the method has been called by the runtime from inside the 
+            finalizer and you should not reference other objects.  Only unmanaged resources can 
+            be disposed.
+            </para>
+            </remarks>
+            <param name="disposing">Was Dispose called manually?</param>
+        </member>
+        <member name="M:CsGL.Basecode.HelpForm.Finalize">
+            <summary>
+            This destructor will run only if the Dispose method does not get called.  It gives 
+            the class the opportunity to finalize.  Simply calls Dispose(false).
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.HelpForm.UpdateStatusBar(System.String,System.String,System.String)">
+            <summary>
+            Updates framerate display in StatusBar.
+            </summary>
+            <param name="current">Current FPS.</param>
+            <param name="highest">Highest FPS.</param>
+            <param name="lowest">Lowest FPS.</param>
+        </member>
+        <member name="M:CsGL.Basecode.HelpForm.UpdateResolution(System.String,System.String)">
+            <summary>
+            Updates resolution display in StatusBar.
+            </summary>
+            <param name="opengl">OpenGL Resolution.</param>
+            <param name="window">Window Resolution.</param>
+        </member>
+        <member name="M:CsGL.Basecode.HelpForm.HelpForm_Closed(System.Object,System.EventArgs)">
+            <summary>
+            Handles the help form's Closed event.  Marks the help form as not displayed.
+            </summary>
+            <param name="sender">The Sender.</param>
+            <param name="e">The EventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.HelpForm.OnKeyDown(System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            Handles the KeyDown event.
+            </summary>
+            <param name="e">The KeyEventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.HelpForm.RtbInformation_LinkClicked(System.Object,System.Windows.Forms.LinkClickedEventArgs)">
+            <summary>
+            Handles the Link Clicked event, launches URL in browser.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The LinkClickedEventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.HelpForm.Timer_Tick(System.Object,System.EventArgs)">
+            <summary>
+            Handles the timer's Tick event.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The EventArgs.</param>
+        </member>
+        <member name="P:CsGL.Basecode.HelpForm.InputHelpDataGrid">
+            <summary>
+            The HelpForm's input help DataGrid.
+            </summary>
+        </member>
+        <member name="T:CsGL.Basecode.HelpFormDataGrid">
+            <summary>
+            Custom DataGrid to enable ScrollBar and override editing mode.  This is FUGLY!
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.HelpFormDataGrid.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.HelpFormDataGrid.Dispose(System.Boolean)">
+            <summary>
+            Cleans up either unmanaged resources or managed and unmanaged resources.
+            </summary>
+            <remarks>
+            <para>
+            If disposing equals true, the method has been called directly or indirectly by a user's 
+            code.  Managed and unmanaged resources can be disposed.
+            </para>
+            <para>
+            If disposing equals false, the method has been called by the runtime from inside the 
+            finalizer and you should not reference other objects.  Only unmanaged resources can 
+            be disposed.
+            </para>
+            </remarks>
+            <param name="disposing">Was Dispose called manually?</param>
+        </member>
+        <member name="M:CsGL.Basecode.HelpFormDataGrid.Finalize">
+            <summary>
+            This destructor will run only if the Dispose method does not get called.  It gives 
+            the class the opportunity to finalize.  Simply calls Dispose(false).
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.HelpFormDataGrid.ScrollToRow">
+            <summary>
+            Scrolls to a particular row in the DataGrid.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.HelpFormDataGrid.OnDataSourceChanged(System.EventArgs)">
+            <summary>
+            Overrides the DataGrid's DataSource Changed event.
+            </summary>
+            <param name="e">The EventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.HelpFormDataGrid.OnMouseDown(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Overrides the DataGrid's Mouse Down event.
+            </summary>
+            <param name="e">The MouseEventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.HelpFormDataGrid.OnMouseMove(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Overrides the DataGrid's Mouse Move event.
+            </summary>
+            <param name="e">The MouseEventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.HelpFormDataGrid.OnMouseWheel(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Overrides the DataGrid's Mouse Wheel event.
+            </summary>
+            <param name="e">The MouseEventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.HelpFormDataGrid.PreProcessMessage(System.Windows.Forms.Message@)">
+            <summary>
+            Overrides the PreProcessMessage event.
+            </summary>
+            <param name="msg">The message.</param>
+            <returns>Boolean indicating if the message was processed.</returns>
+        </member>
+        <member name="M:CsGL.Basecode.HelpFormDataGrid.Scroller(System.Object,System.Windows.Forms.ScrollEventArgs)">
+            <summary>
+            Overrides DataGrid's Vertical ScrollBar's Scroll event.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The ScrollEventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.HelpFormDataGrid.ShowScrollBars(System.Object,System.EventArgs)">
+            <summary>
+            Show the DataGrid's Vertical ScrollBar at all times.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The EventArgs.</param>
+        </member>
+        <member name="T:CsGL.Basecode.HighResolutionTimer">
+            <summary>
+            Encapsulates the functionality of the platform's highest resolution timer available.
+            </summary>
+            <remarks>
+            On Windows this will be a QueryPerformanceCounter (if available), otherwise tt will be TimeGetTime().  
+            On Linux this will be GetTimeOfDay (not currently implemented).
+            </remarks>
+        </member>
+        <member name="M:CsGL.Basecode.HighResolutionTimer.#cctor">
+            <summary>
+            This static constructor determines which platform timer to use
+            and populates the timer's <see cref="P:CsGL.Basecode.HighResolutionTimer.Frequency"/>
+            and <see cref="T:CsGL.Basecode.HighResolutionTimer.TimerType"/>.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.HighResolutionTimer.Dispose">
+            <summary>
+            Disposes of this class.  Implements IDisposable.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.HighResolutionTimer.Dispose(System.Boolean)">
+            <summary>
+            Cleans up either unmanaged resources or managed and unmanaged resources.
+            </summary>
+            <remarks>
+            <para>
+            If disposing equals true, the method has been called directly or indirectly by a user's 
+            code.  Managed and unmanaged resources can be disposed.
+            </para>
+            <para>
+            If disposing equals false, the method has been called by the runtime from inside the 
+            finalizer and you should not reference other objects.  Only unmanaged resources can 
+            be disposed.
+            </para>
+            </remarks>
+            <param name="disposing">Was Dispose called manually?</param>
+        </member>
+        <member name="M:CsGL.Basecode.HighResolutionTimer.Finalize">
+            <summary>
+            This destructor will run only if the Dispose method does not get called.  It gives 
+            the class the opportunity to finalize.  Simply calls Dispose(false).
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.HighResolutionTimer.GetCurrentCount">
+            <summary>
+            Gets the current tick count.
+            </summary>
+            <returns>
+            Number Of Ticks (ulong).
+            </returns>
+        </member>
+        <member name="M:CsGL.Basecode.HighResolutionTimer.Start">
+            <summary>
+            Start this instance's timer.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.HighResolutionTimer.Stop">
+            <summary>
+            Stop this instance's timer.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.HighResolutionTimer.Reset">
+            <summary>
+            Reset this instance's timer.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.HighResolutionTimer.Count">
+            <summary>
+            Gets a <see cref="T:System.UInt64"/> representing the 
+            current tick count of the timer.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.HighResolutionTimer.Difference">
+            <summary>
+            Gets a <see cref="T:System.UInt64"/> representing the 
+            difference, in ticks, between the <see cref="P:CsGL.Basecode.HighResolutionTimer.StartCount"/> 
+            and <see cref="P:CsGL.Basecode.HighResolutionTimer.EndCount"/>.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.HighResolutionTimer.Elapsed">
+            <summary>
+            Gets a <see cref="T:System.Double"/> representing the 
+            elapsed time, in seconds, between the <see cref="P:CsGL.Basecode.HighResolutionTimer.StartCount"/> 
+            and <see cref="P:CsGL.Basecode.HighResolutionTimer.EndCount"/>.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.HighResolutionTimer.EndCount">
+            <summary>
+            Gets a <see cref="T:System.UInt64"/> representing the 
+            tick count at the end of the timer's run.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.HighResolutionTimer.Frequency">
+            <summary>
+            Gets a <see cref="T:System.UInt64"/> representing the 
+            frequency of the counter in ticks-per-second.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.HighResolutionTimer.IsRunning">
+            <summary>
+            Gets a <see cref="T:System.Boolean"/> representing whether the 
+            timer has been started and is currently running.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.HighResolutionTimer.Resolution">
+            <summary>
+            Gets a <see cref="T:System.Double"/> representing the 
+            resolution of the timer in seconds.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.HighResolutionTimer.StartCount">
+            <summary>
+            Gets a <see cref="T:System.UInt64"/> representing the 
+            tick count at the start of the timer's run.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.HighResolutionTimer.Type">
+            <summary>
+            Gets the <see cref="T:CsGL.Basecode.HighResolutionTimer.TimerType"/> for this
+            timer, which is based on what is supported by the underlying platform.
+            </summary>
+        </member>
+        <member name="T:CsGL.Basecode.HighResolutionTimer.TimerType">
+            <summary>
+            The type of timer supported by this platform.
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.HighResolutionTimer.TimerType.None">
+            <summary>
+            No timer available.
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.HighResolutionTimer.TimerType.QueryPerformanceCounter">
+            <summary>
+            The timer is a Query Performance Counter.
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.HighResolutionTimer.TimerType.TimeGetTime">
+            <summary>
+            The timer will use TimeGetTime.
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.HighResolutionTimer.TimerType.GetTimeOfDay">
+            <summary>
+            The timer will use GetTimeOfDay.
+            </summary>
+        </member>
+        <member name="T:CsGL.Basecode.Model">
+            <summary>
+            Provides a template for a CsGL application using the CsGL Basecode.  It provides methods 
+            for setting up the application, initializing, drawing, and user input.  Many of the provided 
+            methods can and should be overridden in your inherited model.
+            </summary>
+            <remarks>
+            <para>
+            The <b>Model</b> class is the template for all applications using the CsGL Basecode.  It 
+            provides basic functionality on its own, to allow for rapid development, however, by 
+            overriding the appropriate methods you can modify and extend your application's functionality 
+            over what is provided by default.
+            </para>
+            </remarks>
+        </member>
+        <member name="F:CsGL.Basecode.Model.KeyState">
+            <summary>
+            Current keyboard state.  The key's integer value, is the index for this array.  If that 
+            index is true, the key is being pressed, if it's false, the key is not being pressed.  You 
+            should likely mark the key as handled, by setting it's index to false when you've processed it.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.Model.Dispose">
+            <summary>
+            Disposes of this class.  Implements IDisposable.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.Model.Dispose(System.Boolean)">
+            <summary>
+            Cleans up either unmanaged resources or managed and unmanaged resources.
+            </summary>
+            <remarks>
+            <para>
+            If disposing equals true, the method has been called directly or indirectly by a user's 
+            code.  Managed and unmanaged resources can be disposed.
+            </para>
+            <para>
+            If disposing equals false, the method has been called by the runtime from inside the 
+            finalizer and you should not reference other objects.  Only unmanaged resources can 
+            be disposed.
+            </para>
+            </remarks>
+            <param name="disposing">Was Dispose called manually?</param>
+        </member>
+        <member name="M:CsGL.Basecode.Model.Finalize">
+            <summary>
+            This destructor will run only if the Dispose method does not get called.  It gives 
+            the class the opportunity to finalize.  Simply calls Dispose(false).
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.Model.DisplayHelp">
+            <summary>
+            Displays a basecode help screen, including model-specific input help information.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.Model.Draw">
+            <summary>
+            All drawing occurs here.  Override to provide your scene's OpenGL drawing.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.Model.Initialize">
+            <summary>
+            All initial setup for OpenGL goes here, override for application-specific setup.
+            This method is called every time a form for your application is created, including
+            at startup, when desktop resolution changes, and when you toggle to or from
+            fullscreen or windowed mode.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.Model.InputHelp">
+            <summary>
+            Defines the input help information, override to supply model-specific input help.  If
+            you are not allowing <see cref="M:CsGL.Basecode.Model.ProcessInput"/> to handle the default basecode input, 
+            then ignore this.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.Model.WindowsForm">
+            <summary>
+            Provides a hook for you to setup your own application's Windows Form for windowed 
+            mode.  If you do not override this, then the default basecode's Windows Form will 
+            be used.  If you do override this, make sure to add <see cref="T:CsGL.Basecode.View"/> to 
+            your form as a control and don't forget to Show() your form.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.Model.ProcessInput">
+            <summary>
+            Handles some default user input, override for custom input handling and functionality.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.Model.Reshape(System.Int32,System.Int32)">
+            <summary>
+            Reshaping code for OpenGL goes here, override for application-specific 
+            resizing functionality.
+            </summary>
+            <param name="width">The new width of the window.</param>
+            <param name="height">The new height of the window.</param>
+        </member>
+        <member name="M:CsGL.Basecode.Model.Setup">
+            <summary>
+            Provides a place to perform any initial or one-time-only setup for your 
+            application before it begins the main loop.
+            </summary>
+            <remarks>
+            Override to provide your own setup.  You could run a dialog, a splash screen, 
+            override <see cref="T:CsGL.Basecode.App"/> properties, whatever you like.  The default 
+            implementation shows the basecode's <see cref="T:CsGL.Basecode.SetupForm"/>, which provides 
+            a basic setup screen for the end-user.
+            </remarks>
+        </member>
+        <member name="M:CsGL.Basecode.Model.UpdateInputHelp">
+            <summary>
+            Updates the help screen's input help, call when you need to update state on the help screen.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.Model.Description">
+            <summary>
+            Model-specific description.
+            </summary>
+            <remarks>
+            Override this to provide a description of your application for use in the
+            basecode's help screen.  If you're not using the basecode's help screen, 
+            you can either disregard this property, or use it how you like.
+            </remarks>
+            <example>
+            In your inherited <see cref="T:CsGL.Basecode.Model"/>:
+            <code>
+            public override string Description {
+            	get {
+            		return "My fancy OpenGL lesson!";
+            	}
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:CsGL.Basecode.Model.IsHelpDisplayed">
+            <summary>
+            Is the basecode's help screen currently displayed?
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.Model.HelpForm">
+            <summary>
+            The basecode's help form.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.Model.InputHelpDataTable">
+            <summary>
+            The model's input help DataTable.
+            </summary>
+        </member>
+        <member name="P:CsGL.Basecode.Model.Title">
+            <summary>
+            Model-specific title.
+            </summary>
+            <remarks>
+            Override this to provide a title for your application for use in the
+            basecode's help screen.  If you're not using the basecode's help screen, 
+            you can either disregard this property, or use it how you like.
+            </remarks>
+            <example>
+            In your inherited <see cref="T:CsGL.Basecode.Model"/>:
+            <code>
+            public override string Title {
+            	get {
+            		return "My OpenGL Lesson";
+            	}
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:CsGL.Basecode.Model.Url">
+            <summary>
+            Model-specific URL.
+            </summary>
+            <remarks>
+            Override this to provide a URL for your application for use in the
+            basecode's help screen.  If you're not using the basecode's help screen, 
+            you can either disregard this property, or use it how you like.
+            </remarks>
+            <example>
+            In your inherited <see cref="T:CsGL.Basecode.Model"/>:
+            <code>
+            public override string Url {
+            	get {
+            		return "http://csgl.sourceforge.net/";
+            	}
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:CsGL.Basecode.Model.WindowIcon">
+            <summary>
+            Model-specific window icon.
+            </summary>
+            <remarks>
+            Override this to provide an <see cref="T:System.Drawing.Icon"/> for your application to use 
+            in place of the basecode's default icon.
+            </remarks>
+            <example>
+            In your inherited <see cref="T:CsGL.Basecode.Model"/>:
+            <code>
+            public override Icon WindowIcon {
+            	get {
+            		return new Icon(filename);
+            	}
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:CsGL.Basecode.Model.WindowTitle">
+            <summary>
+            Model-specific window title.
+            </summary>
+            <remarks>
+            Override this to provide a title for your application in its title bar.  
+            This title is not used in the basecode's help screen, only in the 
+            application's title bar.  If this is not supplied in your model, the
+            basecode will use the <see cref="P:CsGL.Basecode.Model.Title"/> property for the title bar.
+            </remarks>
+            <example>
+            In your inherited <see cref="T:CsGL.Basecode.Model"/>:
+            <code>
+            public override string WindowTitle {
+            	get {
+            		return "My OpenGL Lesson's Title Bar!";
+            	}
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CsGL.Basecode.Model.Mouse">
+            <summary>
+            Current mouse state.
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.Model.Mouse.X">
+            <summary>
+            X-axis position in the view.
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.Model.Mouse.Y">
+            <summary>
+            Y-axis position in the view.
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.Model.Mouse.LastX">
+            <summary>
+            Previous X-axis position in the view.
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.Model.Mouse.LastY">
+            <summary>
+            Previous Y-axis position in the view.
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.Model.Mouse.DifferenceX">
+            <summary>
+            Difference between the current and previous X-axis position in the view.
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.Model.Mouse.DifferenceY">
+            <summary>
+            Difference between the current and previous Y-axis position in the view.
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.Model.Mouse.LeftButton">
+            <summary>
+            Is left mouse button pressed?
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.Model.Mouse.MiddleButton">
+            <summary>
+            Is middle mouse button pressed?
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.Model.Mouse.RightButton">
+            <summary>
+            Is right mouse button pressed?
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.Model.Mouse.XButton1">
+            <summary>
+            Is X button 1 (Intellimouse) pressed?  Windows 2000 and above only.
+            </summary>
+        </member>
+        <member name="F:CsGL.Basecode.Model.Mouse.XButton2">
+            <summary>
+            Is X button 2 (Intellimouse) pressed?  Windows 2000 and above only.
+            </summary>
+        </member>
+        <member name="T:CsGL.Basecode.SetupForm">
+            <summary>
+            Provides a default form for end-user application setup.
+            </summary>
+            <remarks>
+            <b>SetupForm</b> provides a form allowing the end-user to make some 
+            application setting choices.  Including setting resolution, color depth,
+            and windowed/fullscreen startup.  This form is called by default 
+            from <see cref="M:CsGL.Basecode.Model.Setup"/>.  You can override <see cref="M:CsGL.Basecode.Model.Setup"/> 
+            to provide your own form, your own custom setup, or nothing at all.
+            </remarks>
+        </member>
+        <member name="M:CsGL.Basecode.SetupForm.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.SetupForm.Dispose(System.Boolean)">
+            <summary>
+            Cleans up either unmanaged resources or managed and unmanaged resources.
+            </summary>
+            <remarks>
+            <para>
+            If disposing equals true, the method has been called directly or indirectly by a user's 
+            code.  Managed and unmanaged resources can be disposed.
+            </para>
+            <para>
+            If disposing equals false, the method has been called by the runtime from inside the 
+            finalizer and you should not reference other objects.  Only unmanaged resources can 
+            be disposed.
+            </para>
+            </remarks>
+            <param name="disposing">Was Dispose called manually?</param>
+        </member>
+        <member name="M:CsGL.Basecode.SetupForm.Finalize">
+            <summary>
+            This destructor will run only if the Dispose method does not get called.  It gives 
+            the class the opportunity to finalize.  Simply calls Dispose(false).
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.SetupForm.BtnOk_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the OK button Click event.  Saves user selections to 
+            <see cref="T:CsGL.Basecode.App"/>'s properties.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The EventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.SetupForm.BtnOk_MouseEnter(System.Object,System.EventArgs)">
+            <summary>
+            Handles the OK button MouseEnter event.  Changes the button color to a reddish.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The EventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.SetupForm.BtnOk_MouseLeave(System.Object,System.EventArgs)">
+            <summary>
+            Handles the OK button MouseLeave event.  Changes the button color back to a gray.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The EventArgs.</param>
+        </member>
+        <member name="T:CsGL.Basecode.View">
+            <summary>
+            Provides an OpenGL view control for your application's form.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.View.#ctor(CsGL.Basecode.Model)">
+            <summary>
+            Creates a <see cref="T:CsGL.Basecode.View"/> displaying the supplied, inherited <see cref="T:CsGL.Basecode.Model"/>.
+            </summary>
+            <param name="inheritedModel">
+            The <see cref="T:CsGL.Basecode.Model"/> to be displayed by this view.
+            </param>
+        </member>
+        <member name="M:CsGL.Basecode.View.Dispose(System.Boolean)">
+            <summary>
+            Cleans up either unmanaged resources or managed and unmanaged resources.
+            </summary>
+            <remarks>
+            <para>
+            If disposing equals true, the method has been called directly or indirectly by a user's 
+            code.  Managed and unmanaged resources can be disposed.
+            </para>
+            <para>
+            If disposing equals false, the method has been called by the runtime from inside the 
+            finalizer and you should not reference other objects.  Only unmanaged resources can 
+            be disposed.
+            </para>
+            </remarks>
+            <param name="disposing">Was Dispose called manually?</param>
+        </member>
+        <member name="M:CsGL.Basecode.View.Finalize">
+            <summary>
+            This destructor will run only if the Dispose method does not get called.  It gives 
+            the class the opportunity to finalize.  Simply calls Dispose(false).
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.View.CreateContext">
+            <summary>
+            Overrides the creation of the OpenGL context.
+            </summary>
+            <returns>An OpenGLContext.</returns>
+        </member>
+        <member name="M:CsGL.Basecode.View.glDraw">
+            <summary>
+            Draws the <see cref="T:CsGL.Basecode.Model"/> on the control, overriding OpenGLControl's glDraw().
+            This is for the basecode to call itself.  You shouldn't need to call this directly.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.View.Redraw">
+            <summary>
+            Paints the control.  This is for the basecode to call itself.  You shouldn't 
+            need to call this directly.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.View.Screenshot">
+            <summary>
+            Saves a screenshot of the current view to a JPEG image file named
+            the current assembly name.  If the file already exists, a numerical counter
+            is added to the filename.
+            </summary>
+        </member>
+        <member name="M:CsGL.Basecode.View.IsInputKey(System.Windows.Forms.Keys)">
+            <summary>
+            Handle these keys, by default they are ignored.
+            </summary>
+            <param name="key">Key to test.</param>
+            <returns>Key handled?</returns>
+        </member>
+        <member name="M:CsGL.Basecode.View.OnKeyDown(System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            Handles the KeyDown event.
+            </summary>
+            <param name="e">The KeyEventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.View.OnKeyUp(System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            Handles the KeyUp event.
+            </summary>
+            <param name="e">The KeyEventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.View.OnMouseDown(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Handles the MouseDown event.
+            </summary>
+            <param name="e">The MouseEventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.View.OnMouseEnter(System.EventArgs)">
+            <summary>
+            Handles the MouseEnter event.
+            </summary>
+            <param name="e">The EventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.View.OnMouseMove(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Handles the MouseMove event.
+            </summary>
+            <param name="e">The MouseEventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.View.OnMouseUp(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Handles the MouseUp event.
+            </summary>
+            <param name="e">The MouseEventArgs.</param>
+        </member>
+        <member name="M:CsGL.Basecode.View.OnSizeChanged(System.EventArgs)">
+            <summary>
+            Handles the OnSizeChanged event.  Reshapes the OpenGL control.
+            </summary>
+            <param name="e">The EventArgs.</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ConfigurationModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GpsInitialBaudrate>57600</GpsInitialBaudrate>
+  <GpsOperationalBaudrate>0</GpsOperationalBaudrate>
+  <TelemetryGyroAccRaw>10</TelemetryGyroAccRaw>
+  <TelemetryGyroAccProc>10</TelemetryGyroAccProc>
+  <TelemetryPpm>10</TelemetryPpm>
+  <TelemetryGpsBasic>30</TelemetryGpsBasic>
+  <TelemetryPressureTemp>30</TelemetryPressureTemp>
+  <NeutralAccX>31970</NeutralAccX>
+  <NeutralAccY>32586</NeutralAccY>
+  <NeutralAccZ>32100</NeutralAccZ>
+  <ChannelRoll>1</ChannelRoll>
+  <ChannelPitch>2</ChannelPitch>
+  <ChannelYaw>3</ChannelYaw>
+  <ChannelMotor>4</ChannelMotor>
+  <ChannelAp>6</ChannelAp>
+</ConfigurationModel>
