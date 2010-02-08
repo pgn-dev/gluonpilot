@@ -1,0 +1,73 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.5.4	//
+!_TAG_REVISION_NAME	MCHPTags	//
+!_TAG_REVISION_VERSION	6.0.1	//
+CS::PORTFbits.RF0	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	10;"	d	line:10	file:
+FCY::PLL*FOSC/2	C:\pic\RTOS_test_dsPicImu\microcontroller.h	18;"	d	line:18
+FNOSC_PRIPLL	C:\pic\RTOS_test_dsPicImu\microcontroller.c	7;"	v	line:7
+FOSC::4000000	C:\pic\RTOS_test_dsPicImu\microcontroller.h	16;"	d	line:16
+FWDTEN_OFF	C:\pic\RTOS_test_dsPicImu\microcontroller.c	10;"	v	line:10
+PLL::80/4	C:\pic\RTOS_test_dsPicImu\microcontroller.h	17;"	d	line:17
+POSCMD_XT	C:\pic\RTOS_test_dsPicImu\microcontroller.c	8;"	v	line:8
+RCONbits_backup	C:\pic\RTOS_test_dsPicImu\microcontroller.c	4;"	v	line:4
+SCL::PORTGbits.RG6	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	7;"	d	line:7	file:
+SDI::PORTGbits.RG7	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	8;"	d	line:8	file:
+SDO::PORTGbits.RG8	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	9;"	d	line:9	file:
+_AddressError	C:\pic\RTOS_test_dsPicImu\microcontroller.c	77;"	f	line:77	signature:(void)
+_MathError	C:\pic\RTOS_test_dsPicImu\microcontroller.c	92;"	f	line:92	signature:(void)
+_OscillatorFail	C:\pic\RTOS_test_dsPicImu\microcontroller.c	69;"	f	line:69	signature:(void)
+_StackError	C:\pic\RTOS_test_dsPicImu\microcontroller.c	85;"	f	line:85	signature:(void)
+_trapISR::__attribute__((interrupt,no_au	C:\pic\RTOS_test_dsPicImu\microcontroller.c	67;"	d	line:67	file:
+add1	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	128;"	l	line:128
+add1	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	84;"	l	line:84
+add2	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	128;"	l	line:128
+add2	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	84;"	l	line:84
+buffer1	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash_test.c	35;"	l	line:35
+buffer2	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash_test.c	36;"	l	line:36
+dataflash_disable_spi	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	36;"	f	line:36
+dataflash_disable_spi	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.h	7;"	p	line:7	signature:()
+dataflash_enable_spi	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	31;"	f	line:31
+dataflash_enable_spi	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.h	8;"	p	line:8	signature:()
+dataflash_open	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	13;"	f	line:13
+dataflash_open	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.h	2;"	p	line:2	signature:()
+dataflash_read	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	126;"	f	line:126	signature:(int page, int size, unsigned char *buffer)
+dataflash_read	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.h	4;"	p	line:4	signature:(int page, int size, unsigned char *buffer)
+dataflash_read_config	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	117;"	f	line:117	signature:(int size, unsigned char *configbuffer)
+dataflash_read_config	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.h	5;"	p	line:5	signature:(int size, unsigned char *configbuffer)
+dataflash_write	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	82;"	f	line:82	signature:(int page, int size, unsigned char *buffer)
+dataflash_write	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.h	6;"	p	line:6	signature:(int page, int size, unsigned char *buffer)
+i	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	128;"	l	line:128
+i	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	44;"	l	line:44
+i	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	84;"	l	line:84
+i	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash_test.c	38;"	l	line:38
+i	C:\pic\RTOS_test_dsPicImu\microcontroller.c	38;"	l	line:38
+i	C:\pic\RTOS_test_dsPicImu\microcontroller.c	50;"	l	line:50
+incoming_byte	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	163;"	l	line:163
+main	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash_test.c	11;"	f	line:11
+microcontroller_after_reboot	C:\pic\RTOS_test_dsPicImu\microcontroller.c	56;"	f	line:56
+microcontroller_after_reboot	C:\pic\RTOS_test_dsPicImu\microcontroller.h	24;"	p	line:24	signature:()
+microcontroller_delay_ms	C:\pic\RTOS_test_dsPicImu\microcontroller.c	36;"	f	line:36	signature:(unsigned long ms)
+microcontroller_delay_ms	C:\pic\RTOS_test_dsPicImu\microcontroller.h	23;"	p	line:23	signature:(unsigned long ms)
+microcontroller_delay_us	C:\pic\RTOS_test_dsPicImu\microcontroller.c	48;"	f	line:48	signature:(unsigned long us)
+microcontroller_delay_us	C:\pic\RTOS_test_dsPicImu\microcontroller.h	22;"	p	line:22	signature:(unsigned long us)
+microcontroller_init	C:\pic\RTOS_test_dsPicImu\microcontroller.c	15;"	f	line:15
+microcontroller_init	C:\pic\RTOS_test_dsPicImu\microcontroller.h	20;"	p	line:20	signature:()
+spi_comm	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	42;"	f	line:42	signature:(unsigned char add)
+spi_comm	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	5;"	p	line:5	file:	signature:(unsigned char outgoing_byte)
+spi_comm	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash_test.c	8;"	p	line:8	file:	signature:(unsigned char outgoing_byte)
+spi_comm3	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	161;"	f	line:161	signature:(unsigned char outgoing_byte)
+uart1_dataready	C:\pic\RTOS_test_dsPicImu\uart1\uart1.c	60;"	f	line:60
+uart1_dataready	C:\pic\RTOS_test_dsPicImu\uart1\uart1.h	3;"	p	line:3	signature:()
+uart1_getc	C:\pic\RTOS_test_dsPicImu\uart1\uart1.c	81;"	f	line:81
+uart1_getc	C:\pic\RTOS_test_dsPicImu\uart1\uart1.h	4;"	p	line:4	signature:()
+uart1_open	C:\pic\RTOS_test_dsPicImu\uart1\uart1.c	12;"	f	line:12	signature:(long baud)
+uart1_open	C:\pic\RTOS_test_dsPicImu\uart1\uart1.h	2;"	p	line:2	signature:(long baud)
+uart1_putc	C:\pic\RTOS_test_dsPicImu\uart1\uart1.c	76;"	f	line:76	signature:(char c)
+uart1_putc	C:\pic\RTOS_test_dsPicImu\uart1\uart1.h	6;"	p	line:6	signature:(char c)
+uart1_puts	C:\pic\RTOS_test_dsPicImu\uart1\uart1.c	66;"	f	line:66	signature:(char *str)
+uart1_puts	C:\pic\RTOS_test_dsPicImu\uart1\uart1.h	5;"	p	line:5	signature:(char *str)
+x	C:\pic\RTOS_test_dsPicImu\dataflash\dataflash.c	163;"	l	line:163

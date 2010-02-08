@@ -1,0 +1,11 @@
+C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\obj\Release\Gluonpilot.ConfigurationFrame.resources
+C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\obj\Release\Configuration.csproj.GenerateResource.Cache
+C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\bin\Release\Configuration.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\bin\Release\Configuration.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\bin\Release\Communication.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\bin\Release\SmartThreadPool.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\bin\Release\Communication.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\obj\Release\Configuration.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\obj\Release\Configuration.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\obj\Release\Configuration.PidControl.resources

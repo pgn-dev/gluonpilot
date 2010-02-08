@@ -1,0 +1,24 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.5.4	//
+!_TAG_REVISION_NAME	MCHPTags	//
+!_TAG_REVISION_VERSION	6.0.1	//
+Main	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	295;"	l	line:295
+Write	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	447;"	l	line:447
+buffer	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	181;"	l	line:181
+compl	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	456;"	l	line:456
+config	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	436;"	l	line:436
+erase	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	377;"	l	line:377
+exit	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	486;"	l	line:486
+latlo	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	392;"	l	line:392
+main1	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	299;"	l	line:299
+notrcv	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	475;"	l	line:475
+rcvdata	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	338;"	l	line:338
+rpt1	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	467;"	l	line:467
+rptc	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	468;"	l	line:468
+usrapp	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	197;"	l	line:197
+verrow	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	408;"	l	line:408
+vfail	C:\pic\ds30 Loader\firmware dsPIC33F\1.0.2\src\ds30loader.s	428;"	l	line:428
