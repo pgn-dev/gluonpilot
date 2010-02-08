@@ -19,3 +19,5 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\G
 C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\obj\Debug\Gluonpilot.csproj.GenerateResource.Cache
 C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\obj\Debug\Gluonpilot.exe
 C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\obj\Debug\Gluonpilot.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonpilot\Gluonpilot\obj\Debug\Gluonpilot.exe
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonpilot\Gluonpilot\obj\Debug\Gluonpilot.pdb
