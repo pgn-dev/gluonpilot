@@ -57,5 +57,9 @@ namespace Communication.Frames.Configuration
 
         // servo
         public bool[] servo_reverse = new bool[8];
+
+        public int[] servo_min = new int[6];
+        public int[] servo_max = new int[6];
+        public int[] servo_neutral = new int[6];
     }
 }

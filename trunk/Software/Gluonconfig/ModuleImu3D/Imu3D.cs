@@ -117,7 +117,9 @@ namespace ModuleImu3D
         
         public static void Run(SerialCommunication serial)
         {														// Entry Point
-            App.Run(new Imu3D(serial));												// Run Our NeHe Lesson As A Windows Forms Application
+            Imu3D n = new Imu3D(serial);
+            App.Run(n);												// Run Our NeHe Lesson As A Windows Forms Application
+
         }
 
         // --- Basecode Methods ---

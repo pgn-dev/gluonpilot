@@ -9,3 +9,14 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\G
 C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\obj\Debug\Configuration.dll
 C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\obj\Debug\Configuration.pdb
 C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Configuration\obj\Debug\Configuration.PidControl.resources
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\obj\Debug\Configuration.PidControl.resources
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\obj\Debug\Configuration.csproj.GenerateResource.Cache
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\obj\Debug\Configuration.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\obj\Debug\Configuration.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Debug\Configuration.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Debug\Configuration.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Debug\Communication.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Debug\SmartThreadPool.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Debug\Communication.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\obj\Debug\Gluonpilot.ConfigurationFrame.resources

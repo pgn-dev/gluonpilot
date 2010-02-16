@@ -1065,6 +1065,7 @@
             // 
             this._rb_serovs_neutral_auto.AutoSize = true;
             this._rb_serovs_neutral_auto.Checked = true;
+            this._rb_serovs_neutral_auto.Enabled = false;
             this._rb_serovs_neutral_auto.Location = new System.Drawing.Point(10, 18);
             this._rb_serovs_neutral_auto.Name = "_rb_serovs_neutral_auto";
             this._rb_serovs_neutral_auto.Size = new System.Drawing.Size(304, 17);
@@ -1076,11 +1077,11 @@
             // _rb_servos_neutral_configurable
             // 
             this._rb_servos_neutral_configurable.AutoSize = true;
+            this._rb_servos_neutral_configurable.Enabled = false;
             this._rb_servos_neutral_configurable.Location = new System.Drawing.Point(10, 41);
             this._rb_servos_neutral_configurable.Name = "_rb_servos_neutral_configurable";
             this._rb_servos_neutral_configurable.Size = new System.Drawing.Size(168, 17);
             this._rb_servos_neutral_configurable.TabIndex = 34;
-            this._rb_servos_neutral_configurable.TabStop = true;
             this._rb_servos_neutral_configurable.Text = "Servo neutral value is set here";
             this._rb_servos_neutral_configurable.UseVisualStyleBackColor = true;
             // 
@@ -1157,6 +1158,7 @@
             // 
             this._tb_servo6_max.Location = new System.Drawing.Point(222, 225);
             this._tb_servo6_max.Name = "_tb_servo6_max";
+            this._tb_servo6_max.ReadOnly = true;
             this._tb_servo6_max.Size = new System.Drawing.Size(56, 20);
             this._tb_servo6_max.TabIndex = 26;
             // 
@@ -1164,6 +1166,7 @@
             // 
             this._tb_servo6_min.Location = new System.Drawing.Point(98, 225);
             this._tb_servo6_min.Name = "_tb_servo6_min";
+            this._tb_servo6_min.ReadOnly = true;
             this._tb_servo6_min.Size = new System.Drawing.Size(56, 20);
             this._tb_servo6_min.TabIndex = 25;
             // 
@@ -1180,6 +1183,7 @@
             // 
             this._tb_servo5_max.Location = new System.Drawing.Point(222, 196);
             this._tb_servo5_max.Name = "_tb_servo5_max";
+            this._tb_servo5_max.ReadOnly = true;
             this._tb_servo5_max.Size = new System.Drawing.Size(56, 20);
             this._tb_servo5_max.TabIndex = 22;
             // 
@@ -1187,6 +1191,7 @@
             // 
             this._tb_servo5_min.Location = new System.Drawing.Point(98, 196);
             this._tb_servo5_min.Name = "_tb_servo5_min";
+            this._tb_servo5_min.ReadOnly = true;
             this._tb_servo5_min.Size = new System.Drawing.Size(56, 20);
             this._tb_servo5_min.TabIndex = 21;
             // 
@@ -1203,6 +1208,7 @@
             // 
             this._tb_servo4_max.Location = new System.Drawing.Point(222, 167);
             this._tb_servo4_max.Name = "_tb_servo4_max";
+            this._tb_servo4_max.ReadOnly = true;
             this._tb_servo4_max.Size = new System.Drawing.Size(56, 20);
             this._tb_servo4_max.TabIndex = 18;
             // 
@@ -1210,6 +1216,7 @@
             // 
             this._tb_servo4_min.Location = new System.Drawing.Point(98, 167);
             this._tb_servo4_min.Name = "_tb_servo4_min";
+            this._tb_servo4_min.ReadOnly = true;
             this._tb_servo4_min.Size = new System.Drawing.Size(56, 20);
             this._tb_servo4_min.TabIndex = 17;
             // 
@@ -1226,6 +1233,7 @@
             // 
             this._tb_servo3_max.Location = new System.Drawing.Point(222, 138);
             this._tb_servo3_max.Name = "_tb_servo3_max";
+            this._tb_servo3_max.ReadOnly = true;
             this._tb_servo3_max.Size = new System.Drawing.Size(56, 20);
             this._tb_servo3_max.TabIndex = 14;
             // 
@@ -1233,6 +1241,7 @@
             // 
             this._tb_servo3_min.Location = new System.Drawing.Point(98, 138);
             this._tb_servo3_min.Name = "_tb_servo3_min";
+            this._tb_servo3_min.ReadOnly = true;
             this._tb_servo3_min.Size = new System.Drawing.Size(56, 20);
             this._tb_servo3_min.TabIndex = 13;
             // 
@@ -1249,6 +1258,7 @@
             // 
             this._tb_servo2_max.Location = new System.Drawing.Point(222, 109);
             this._tb_servo2_max.Name = "_tb_servo2_max";
+            this._tb_servo2_max.ReadOnly = true;
             this._tb_servo2_max.Size = new System.Drawing.Size(56, 20);
             this._tb_servo2_max.TabIndex = 10;
             // 
@@ -1256,6 +1266,7 @@
             // 
             this._tb_servo2_min.Location = new System.Drawing.Point(98, 109);
             this._tb_servo2_min.Name = "_tb_servo2_min";
+            this._tb_servo2_min.ReadOnly = true;
             this._tb_servo2_min.Size = new System.Drawing.Size(56, 20);
             this._tb_servo2_min.TabIndex = 9;
             // 
@@ -1272,6 +1283,7 @@
             // 
             this._tb_servo1_max.Location = new System.Drawing.Point(222, 80);
             this._tb_servo1_max.Name = "_tb_servo1_max";
+            this._tb_servo1_max.ReadOnly = true;
             this._tb_servo1_max.Size = new System.Drawing.Size(56, 20);
             this._tb_servo1_max.TabIndex = 6;
             // 
@@ -1288,6 +1300,7 @@
             // 
             this._tb_servo1_min.Location = new System.Drawing.Point(98, 80);
             this._tb_servo1_min.Name = "_tb_servo1_min";
+            this._tb_servo1_min.ReadOnly = true;
             this._tb_servo1_min.Size = new System.Drawing.Size(56, 20);
             this._tb_servo1_min.TabIndex = 4;
             // 

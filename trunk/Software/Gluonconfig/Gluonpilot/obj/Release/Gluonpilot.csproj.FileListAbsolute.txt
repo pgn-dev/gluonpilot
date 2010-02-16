@@ -14,3 +14,25 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\G
 C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Release\Graph.dll
 C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Release\ZedGraph.dll
 C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Release\Graph.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\Gluonpilot.exe
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\Gluonpilot.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\Communication.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\Configuration.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\CsGL.Basecode.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\csgl.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\Graph.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\ModuleImu3D.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\ZedGraph.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\SmartThreadPool.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\ModuleImu3D.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\CsGL.Basecode.xml
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\Graph.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\Configuration.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\Communication.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Release\Gluonpilot.Form1.resources
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Release\Gluonpilot.Properties.Resources.resources
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Release\Gluonpilot.csproj.GenerateResource.Cache
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Release\Gluonpilot.exe
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Release\Gluonpilot.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Release\Gluonpilot.ConnectDialog.resources
