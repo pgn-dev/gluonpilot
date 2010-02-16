@@ -9,3 +9,14 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\G
 C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\ModuleImu3D\bin\Debug\Communication.dll
 C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\ModuleImu3D\bin\Debug\SmartThreadPool.dll
 C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\ModuleImu3D\bin\Debug\Communication.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\ModuleImu3D.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\ModuleImu3D.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\Communication.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\CsGL.Basecode.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\csgl.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\SmartThreadPool.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\Communication.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\CsGL.Basecode.xml
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\obj\Debug\ModuleImu3D.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\obj\Debug\ModuleImu3D.pdb

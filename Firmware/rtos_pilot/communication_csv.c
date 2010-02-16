@@ -282,15 +282,18 @@ void communication_input_task( void *parameters )
 					config.control.channel_yaw = (buffer[token[5] + 0] - 'a');
 					
 				}
+				///////////////////////////////////////////////////////////////
+				//                    SET SERVO REVERSE                      //
+				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'R')    // Set servo reverse
 				{
 					unsigned int tmp = atoi(&(buffer[token[1]]));
-					config.control.reverse_servo1 = (tmp & 1 != 0);
-					config.control.reverse_servo2 = (tmp & 5 != 0);
-					config.control.reverse_servo3 = (tmp & 4 != 0);
-					config.control.reverse_servo4 = (tmp & 8 != 0);
-					config.control.reverse_servo5 = (tmp & 16 != 0);
-					config.control.reverse_servo6 = (tmp & 32 != 0);
+					config.control.reverse_servo1 = ((tmp & 1) != 0);
+					config.control.reverse_servo2 = ((tmp & 2) != 0);
+					config.control.reverse_servo3 = ((tmp & 4) != 0);
+					config.control.reverse_servo4 = ((tmp & 8) != 0);
+					config.control.reverse_servo5 = ((tmp & 16) != 0);
+					config.control.reverse_servo6 = ((tmp & 32) != 0);
 				}
 				///////////////////////////////////////////////////////////////
 				//                  SET GPS CONFIGURATION                    //
@@ -388,6 +391,7 @@ void communication_input_task( void *parameters )
 				{
 					if (buffer[token[1]] == 'A') 
 					{
+						int i;
 						uart1_puts("\n\rCA;");
 						
 						//config.sensors
@@ -456,12 +460,18 @@ void communication_input_task( void *parameters )
 
 						// servo_reverse
 						uart1_putc(';');
-						print_unsigned_integer((config.control.reverse_servo1) +
-						                       (config.control.reverse_servo2<<1) +
-						                       (config.control.reverse_servo3<<2) +
-						                       (config.control.reverse_servo4<<3) +
-						                       (config.control.reverse_servo5<<4) +
-						                       (config.control.reverse_servo6<<5), uart1_puts); 
+						print_unsigned_integer(((int)config.control.reverse_servo1) +
+						                       ((int)config.control.reverse_servo2<<1) +
+						                       ((int)config.control.reverse_servo3<<2) +
+						                       ((int)config.control.reverse_servo4<<3) +
+						                       ((int)config.control.reverse_servo5<<4) +
+						                       ((int)config.control.reverse_servo6<<5), uart1_puts); 
+						                       
+						// servo max/min/neutral
+						for (i = 0; i < 6; i++)
+						{
+							printf(";%d;%d;%d", config.control.servo_min[i], config.control.servo_max[i], config.control.servo_neutral[i]);
+						}	
 						uart1_puts("\n\r");
 					}	
 					

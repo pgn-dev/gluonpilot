@@ -2,6 +2,10 @@
  *   ConfigurationFrame.c
  *   Manages the User Control for changing gluonpilot configuration.
  *   
+ *   ConfigurationFrame <---------> ConfigurationModel <---------> AllConfig
+ *                      < ReadModel()        model.ToAllConfig() >
+ *                                >                    < model.SetFromAllConfig
+ *
  *   @author  Tom Pycke
  */
 
@@ -25,7 +29,7 @@ namespace Gluonpilot
     {
         private SerialCommunication _serial;
 
-        private ConfigurationModel _model;
+        private ConfigurationModel _model = new ConfigurationModel();
 
         public ConfigurationFrame(ConfigurationModel model)
         {
@@ -36,7 +40,6 @@ namespace Gluonpilot
         public ConfigurationFrame()
         {
             InitializeComponent();
-            _model = new ConfigurationModel();
         }
 
         public ConfigurationModel Model
@@ -134,64 +137,28 @@ namespace Gluonpilot
                 case 6: _rbApCh6.Checked = true; break;
                 case 7: _rbApCh7.Checked = true; break;
             }
-        }
 
-        /*!
-         *    Converts to _model to AllConfig communication frame.
-         */
-        public AllConfig ToAllConfig()
-        {
-            AllConfig ac = new AllConfig();
-            ac.acc_x_neutral = _model.NeutralAccX;
-            ac.acc_y_neutral = _model.NeutralAccY;
-            ac.acc_z_neutral = _model.NeutralAccZ;
-            ac.gyro_x_neutral = _model.NeutralGyroX;
-            ac.gyro_y_neutral = _model.NeutralGyroY;
-            ac.gyro_z_neutral = _model.NeutralGyroZ;
-
-            ac.channel_pitch = _model.ChannelPitch;
-            ac.channel_roll = _model.ChannelRoll;
-            ac.channel_motor = _model.ChannelMotor;
-            ac.channel_yaw = _model.ChannelYaw;
-            ac.channel_ap = _model.ChannelAp;
-
-            ac.telemetry_basicgps = _model.TelemetryGpsBasic;
-            ac.telemetry_gyroaccraw = _model.TelemetryGyroAccRaw;
-            ac.telemetry_gyroaccproc = _model.TelemetryGyroAccProc;
-            ac.telemetry_ppm = _model.TelemetryPpm;
-            ac.telemetry_pressuretemp = _model.TelemetryPressureTemp;
-
-            ac.gps_initial_baudrate = _model.GpsInitialBaudrate;
-
-            ac.pid_pitch2elevator_p = _model.Pitch2ElevatorPidModel.P;
-            ac.pid_pitch2elevator_i = _model.Pitch2ElevatorPidModel.I;
-            ac.pid_pitch2elevator_d = _model.Pitch2ElevatorPidModel.D;
-            ac.pid_pitch2elevator_imin = _model.Pitch2ElevatorPidModel.IMin;
-            ac.pid_pitch2elevator_imax = _model.Pitch2ElevatorPidModel.IMax;
-            ac.pid_pitch2elevator_dmin = _model.Pitch2ElevatorPidModel.DMin;
-
-            ac.pid_roll2aileron_p = _model.Roll2AileronPidModel.P;
-            ac.pid_roll2aileron_i = _model.Roll2AileronPidModel.I;
-            ac.pid_roll2aileron_d = _model.Roll2AileronPidModel.D;
-            ac.pid_roll2aileron_imin = _model.Roll2AileronPidModel.IMin;
-            ac.pid_roll2aileron_imax = _model.Roll2AileronPidModel.IMax;
-            ac.pid_roll2aileron_dmin = _model.Roll2AileronPidModel.DMin;
-
-            ac.pid_heading2roll_p = _model.Heading2RollPidModel.P;
-            ac.pid_heading2roll_i = _model.Heading2RollPidModel.I;
-            ac.pid_heading2roll_d = _model.Heading2RollPidModel.D;
-            ac.pid_heading2roll_imin = _model.Heading2RollPidModel.IMin;
-            ac.pid_heading2roll_imax = _model.Heading2RollPidModel.IMax;
-            ac.pid_heading2roll_dmin = _model.Heading2RollPidModel.DMin;
-
-            ac.servo_reverse[0] = _model.ReverseServo1;
-            ac.servo_reverse[1] = _model.ReverseServo2;
-            ac.servo_reverse[2] = _model.ReverseServo3;
-            ac.servo_reverse[3] = _model.ReverseServo4;
-            ac.servo_reverse[4] = _model.ReverseServo5;
-            ac.servo_reverse[5] = _model.ReverseServo6;
-
-            return ac;
+            if (_model.ServoMin != null) // EXTREMELY ANNOYING BUG
+            {
+                _tb_servo1_min.Text = _model.ServoMin[0].ToString();
+                _tb_servo2_min.Text = _model.ServoMin[1].ToString();
+                _tb_servo3_min.Text = _model.ServoMin[2].ToString();
+                _tb_servo4_min.Text = _model.ServoMin[3].ToString();
+                _tb_servo5_min.Text = _model.ServoMin[4].ToString();
+                _tb_servo6_min.Text = _model.ServoMin[5].ToString();
+                _tb_servo1_max.Text = _model.ServoMax[0].ToString();
+                _tb_servo2_max.Text = _model.ServoMax[1].ToString();
+                _tb_servo3_max.Text = _model.ServoMax[2].ToString();
+                _tb_servo4_max.Text = _model.ServoMax[3].ToString();
+                _tb_servo5_max.Text = _model.ServoMax[4].ToString();
+                _tb_servo6_max.Text = _model.ServoMax[5].ToString();
+                _tb_servo1_neutral.Text = _model.ServoNeutral[0].ToString();
+                _tb_servo2_neutral.Text = _model.ServoNeutral[1].ToString();
+                _tb_servo3_neutral.Text = _model.ServoNeutral[2].ToString();
+                _tb_servo4_neutral.Text = _model.ServoNeutral[3].ToString();
+                _tb_servo5_neutral.Text = _model.ServoNeutral[4].ToString();
+                _tb_servo6_neutral.Text = _model.ServoNeutral[5].ToString();
+            }
         }
 
         /*!
@@ -215,53 +182,7 @@ namespace Gluonpilot
         private delegate void D_ReceiveAllConfig(AllConfig ac);
         private void AllConfig(AllConfig ac)
         {
-            _model.NeutralAccX = ac.acc_x_neutral;
-            _model.NeutralAccY = ac.acc_y_neutral;
-            _model.NeutralAccZ = ac.acc_z_neutral;
-            _model.NeutralGyroX = ac.gyro_x_neutral;
-            _model.NeutralGyroY = ac.gyro_y_neutral;
-            _model.NeutralGyroZ = ac.gyro_z_neutral;
-
-            _model.TelemetryGpsBasic = ac.telemetry_basicgps;
-            _model.TelemetryGyroAccRaw = ac.telemetry_gyroaccraw;
-            _model.TelemetryGyroAccProc = ac.telemetry_gyroaccproc;
-            _model.TelemetryPpm = ac.telemetry_ppm;
-            _model.TelemetryPressureTemp = ac.telemetry_pressuretemp;
-
-            _model.ChannelAp = ac.channel_ap;
-            _model.ChannelPitch = ac.channel_pitch;
-            _model.ChannelRoll = ac.channel_roll;
-            _model.ChannelYaw = ac.channel_yaw;
-            _model.ChannelMotor = ac.channel_motor;
-
-            _model.GpsInitialBaudrate = ac.gps_initial_baudrate;
-            _model.GpsOperationalBaudrate = ac.gps_operational_baudrate;
-
-            _model.Pitch2ElevatorPidModel = new PidModel(ac.pid_pitch2elevator_p,
-                                                         ac.pid_pitch2elevator_i,
-                                                         ac.pid_pitch2elevator_d,
-                                                         ac.pid_pitch2elevator_imin,
-                                                         ac.pid_pitch2elevator_imax,
-                                                         ac.pid_pitch2elevator_dmin);
-            _model.Roll2AileronPidModel = new PidModel(ac.pid_roll2aileron_p,
-                                                         ac.pid_roll2aileron_i,
-                                                         ac.pid_roll2aileron_d,
-                                                         ac.pid_roll2aileron_imin,
-                                                         ac.pid_roll2aileron_imax,
-                                                         ac.pid_roll2aileron_dmin);
-            _model.Heading2RollPidModel = new PidModel(ac.pid_heading2roll_p,
-                                                         ac.pid_heading2roll_i,
-                                                         ac.pid_heading2roll_d,
-                                                         ac.pid_heading2roll_imin,
-                                                         ac.pid_heading2roll_imax,
-                                                         ac.pid_heading2roll_dmin);
-            _model.ReverseServo1 = ac.servo_reverse[0];
-            _model.ReverseServo2 = ac.servo_reverse[1];
-            _model.ReverseServo3 = ac.servo_reverse[2];
-            _model.ReverseServo4 = ac.servo_reverse[3];
-            _model.ReverseServo5 = ac.servo_reverse[4];
-            _model.ReverseServo6 = ac.servo_reverse[5];
-            
+            _model.SetFromAllConfig(ac);
             ReadModel();
         }
 
@@ -591,6 +512,5 @@ namespace Gluonpilot
         {
             System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_sensors");
         }
-
     }
 }

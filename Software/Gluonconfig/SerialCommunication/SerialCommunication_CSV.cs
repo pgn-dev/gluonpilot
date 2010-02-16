@@ -171,7 +171,15 @@ namespace Communication
                         ac.servo_reverse[3] = (r & 8) != 0;
                         ac.servo_reverse[4] = (r & 16) != 0;
                         ac.servo_reverse[5] = (r & 32) != 0;
-                        
+
+                        for (int i = 0; i < 6; i++)
+                        {
+                            ac.servo_min[i] = int.Parse(lines[38 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
+                            ac.servo_max[i] = int.Parse(lines[39 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
+                            ac.servo_neutral[i] = int.Parse(lines[40 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
+                        }
+                        // 58
+
                         AllConfigCommunicationReceived(ac);
                     }
 

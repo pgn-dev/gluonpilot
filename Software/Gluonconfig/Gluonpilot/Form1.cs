@@ -26,17 +26,7 @@ namespace Gluonpilot
             _serial = new SerialCommunication_CSV();
             InvalidateEnableds();
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            _serial.Open("COM25", 115200);
-            _serial.CommunicationReceived += 
-                new SerialCommunication_CSV.ReceiveCommunication(ReceiveCommunication);
-            
-            configurationFrame.Connect(_serial);
-        }
-
-        
+      
 
         private delegate void UpdateTextBox(string line);
         private void ReceiveCommunication(string line)
@@ -57,8 +47,11 @@ namespace Gluonpilot
         {
             if (!_serial.IsOpen)
             {
+                ConnectDialog cd = new ConnectDialog();
+                cd.ShowDialog();
+
                 _serial = new SerialCommunication_CSV();
-                _serial.Open("COM25", 115200);
+                _serial.Open(cd.SelectedPort(), cd.SelectedBaudrate());
                 _serial.CommunicationReceived +=
                     new SerialCommunication_CSV.ReceiveCommunication(ReceiveCommunication);
 
@@ -88,7 +81,7 @@ namespace Gluonpilot
 
         private void _btn_write_Click(object sender, EventArgs e)
         {
-            _serial.Send(configurationFrame.ToAllConfig());
+            _serial.Send(configurationFrame.Model.ToAllConfig());
         }
 
         private void _btn_burn_Click(object sender, EventArgs e)

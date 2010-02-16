@@ -16,6 +16,8 @@
 #include "sensors.h"
 #include "configuration.h"
 #include "quaternion.h"
+#include "kalman.h"
+
 
 #include <math.h>
 
@@ -37,6 +39,9 @@ struct pid pid_p_bias;   // roll gyro bias
 struct pid pid_q_bias;   // pitch gyro bias
 struct pid pid_r_bias;   // yaw gyro bias
 
+struct Gyro1DKalman filter_roll;
+struct Gyro1DKalman filter_pitch;
+
 static float p_bias = 0.0f;  // in rad/sec
 static float q_bias = 0.0f;
 static float r_bias = 0.0f;
@@ -52,6 +57,9 @@ void ahrs_init()
 	pid_init(&pid_p_bias, 0.0f, 0.15f, /*0.00001f*/ 0.001f, -15.0f /* guess */, 15.0f, 0.0f);
 	pid_init(&pid_q_bias, 0.0f, 0.15f, /*0.00001f*/ 0.001f, -15.0f /* guess */, 15.0f, 0.0f);
 	//pid_init(&r_bias, 0.0f, float p_gain, float i_gain, float i_min, float i_max, float d_term_min_var);
+	
+	//init_Gyro1DKalman(&filter_roll, 10e-10, 10e-6, 0.096);
+	//init_Gyro1DKalman(&filter_pitch, 10e-10, 10e-6, 0.01);
 	
 	quaternion_from_attitude(0.0f, 0.0f, 0.0f, q);
 	
@@ -76,13 +84,22 @@ void ahrs_filter()
 	MODULO_ANGLE(roll_rad);
 	MODULO_ANGLE(pitch_rad);*/
 	
+	// for PID:
 	sensor_data.p += p_bias;
 	sensor_data.q += q_bias;
-	
+
+	//ars_predict(&filter_roll, sensor_data.p /*+ ((sensor_data.q * sinf(filter_roll.x_angle) + sensor_data.r * cosf(filter_roll.x_angle)) * tanf(filter_pitch.x_angle))*/, DT);
+	//ars_predict(&filter_pitch, (sensor_data.q * cosf(filter_roll.x_angle))/* - sensor_data.r * sinf(filter_roll.x_angle))*/, DT);
+		
+	//quaternion_update_with_rates(sensor_data.p- filter_roll.x_bias, sensor_data.q-filter_pitch.x_bias/cosf(filter_roll.x_angle), sensor_data.r, q, DT);
 	quaternion_update_with_rates(sensor_data.p, sensor_data.q, sensor_data.r, q, DT);
+	
 	roll_rad = quaternion_to_roll(q);
 	pitch_rad = quaternion_to_pitch(q);
 	sensor_data.yaw = quaternion_to_yaw(q);
+	//filter_roll.x_angle = roll_rad;
+	//filter_pitch.x_angle = pitch_rad;
+	
 	
 	float u = sensor_data.gps.speed_ms;
 	
@@ -132,10 +149,16 @@ void ahrs_filter()
 			float error = (pitch_acc - pitch_rad) * cosf(roll_rad);    // because pitch_rad += (sensor_data.q * cos_roll - sensor_data.r * sin_roll) * DT
 			q_bias = pid_update_only_p_and_i(&pid_q_bias, error, 0.2f);
 		}
+		
+		ars_update(&filter_roll, roll_acc);
+		ars_update(&filter_pitch, pitch_acc);
 	}
 	
 	sensor_data.pitch = pitch_rad;
 	sensor_data.roll = roll_rad;
+	//sensor_data.pitch = filter_pitch.x_angle;
+	//sensor_data.roll = filter_roll.x_angle;
+	
 	sensor_data.pitch_acc = pitch_acc;
 	sensor_data.roll_acc = roll_acc;
 }
