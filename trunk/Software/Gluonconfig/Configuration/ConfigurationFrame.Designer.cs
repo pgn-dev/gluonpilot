@@ -101,7 +101,7 @@
             this.label69 = new System.Windows.Forms.Label();
             this.label68 = new System.Windows.Forms.Label();
             this.label67 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this._llServos = new System.Windows.Forms.LinkLabel();
             this._rb_serovs_neutral_auto = new System.Windows.Forms.RadioButton();
             this._rb_servos_neutral_configurable = new System.Windows.Forms.RadioButton();
             this._cb_reverse_servo6 = new System.Windows.Forms.CheckBox();
@@ -963,7 +963,7 @@
             this._tpServos.Controls.Add(this.label69);
             this._tpServos.Controls.Add(this.label68);
             this._tpServos.Controls.Add(this.label67);
-            this._tpServos.Controls.Add(this.linkLabel1);
+            this._tpServos.Controls.Add(this._llServos);
             this._tpServos.Controls.Add(this._rb_serovs_neutral_auto);
             this._tpServos.Controls.Add(this._rb_servos_neutral_configurable);
             this._tpServos.Controls.Add(this._cb_reverse_servo6);
@@ -1053,15 +1053,16 @@
             this.label67.TabIndex = 37;
             this.label67.Text = "Aileron / Elevon (delta)";
             // 
-            // linkLabel1
+            // _llServos
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(551, 9);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(28, 13);
-            this.linkLabel1.TabIndex = 36;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Wiki";
+            this._llServos.AutoSize = true;
+            this._llServos.Location = new System.Drawing.Point(551, 9);
+            this._llServos.Name = "_llServos";
+            this._llServos.Size = new System.Drawing.Size(28, 13);
+            this._llServos.TabIndex = 36;
+            this._llServos.TabStop = true;
+            this._llServos.Text = "Wiki";
+            this._llServos.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._llServos_LinkClicked);
             // 
             // _rb_serovs_neutral_auto
             // 
@@ -2828,7 +2829,7 @@
         private System.Windows.Forms.CheckBox _cb_reverse_servo3;
         private System.Windows.Forms.RadioButton _rb_servos_neutral_configurable;
         private System.Windows.Forms.RadioButton _rb_serovs_neutral_auto;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel _llServos;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.Label label46;
