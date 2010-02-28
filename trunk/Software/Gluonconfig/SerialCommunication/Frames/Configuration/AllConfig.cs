@@ -25,6 +25,7 @@ namespace Communication.Frames.Configuration
         public int channel_yaw;
         public int channel_motor;
         public int channel_ap;
+        public int rc_ppm;
 
         // telemetry
         public int telemetry_gyroaccraw;

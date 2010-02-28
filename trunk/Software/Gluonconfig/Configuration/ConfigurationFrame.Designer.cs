@@ -151,6 +151,7 @@
             this._cbControlMix = new System.Windows.Forms.ComboBox();
             this.label58 = new System.Windows.Forms.Label();
             this._tpRc = new System.Windows.Forms.TabPage();
+            this.label75 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label24 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -223,6 +224,7 @@
             this._rbPwm = new System.Windows.Forms.RadioButton();
             this._rbPpm = new System.Windows.Forms.RadioButton();
             this._tbGps = new System.Windows.Forms.TabPage();
+            this._llConfigGps = new System.Windows.Forms.LinkLabel();
             this._llGoogleMaps = new System.Windows.Forms.LinkLabel();
             this._tb_gps_numsat = new System.Windows.Forms.TextBox();
             this._tb_gps_heading = new System.Windows.Forms.TextBox();
@@ -1507,6 +1509,7 @@
             // 
             // _tpRc
             // 
+            this._tpRc.Controls.Add(this.label75);
             this._tpRc.Controls.Add(this.groupBox3);
             this._tpRc.Controls.Add(this._rbPwm);
             this._tpRc.Controls.Add(this._rbPpm);
@@ -1516,6 +1519,15 @@
             this._tpRc.TabIndex = 2;
             this._tpRc.Text = "RC input";
             this._tpRc.UseVisualStyleBackColor = true;
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Location = new System.Drawing.Point(278, 22);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(156, 13);
+            this.label75.TabIndex = 24;
+            this.label75.Text = "(Burn to flash && Reset required!)";
             // 
             // groupBox3
             // 
@@ -2301,9 +2313,11 @@
             this._rbPpm.TabStop = true;
             this._rbPpm.Text = "PPM pulse train";
             this._rbPpm.UseVisualStyleBackColor = true;
+            this._rbPpm.CheckedChanged += new System.EventHandler(this._rbPpm_CheckedChanged);
             // 
             // _tbGps
             // 
+            this._tbGps.Controls.Add(this._llConfigGps);
             this._tbGps.Controls.Add(this._llGoogleMaps);
             this._tbGps.Controls.Add(this._tb_gps_numsat);
             this._tbGps.Controls.Add(this._tb_gps_heading);
@@ -2330,6 +2344,17 @@
             this._tbGps.TabIndex = 4;
             this._tbGps.Text = "GPS";
             this._tbGps.UseVisualStyleBackColor = true;
+            // 
+            // _llConfigGps
+            // 
+            this._llConfigGps.AutoSize = true;
+            this._llConfigGps.Location = new System.Drawing.Point(550, 9);
+            this._llConfigGps.Name = "_llConfigGps";
+            this._llConfigGps.Size = new System.Drawing.Size(28, 13);
+            this._llConfigGps.TabIndex = 22;
+            this._llConfigGps.TabStop = true;
+            this._llConfigGps.Text = "Wiki";
+            this._llConfigGps.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._llConfigGps_LinkClicked);
             // 
             // _llGoogleMaps
             // 
@@ -2507,6 +2532,7 @@
             // _tb_operational_baudrate
             // 
             this._tb_operational_baudrate.AllowSpace = false;
+            this._tb_operational_baudrate.Enabled = false;
             this._tb_operational_baudrate.Location = new System.Drawing.Point(129, 39);
             this._tb_operational_baudrate.Name = "_tb_operational_baudrate";
             this._tb_operational_baudrate.Size = new System.Drawing.Size(100, 20);
@@ -2873,5 +2899,7 @@
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.Button _btn_use_current_gyro;
+        private System.Windows.Forms.LinkLabel _llConfigGps;
+        private System.Windows.Forms.Label label75;
     }
 }

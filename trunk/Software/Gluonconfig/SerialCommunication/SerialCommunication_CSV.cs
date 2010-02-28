@@ -178,7 +178,8 @@ namespace Communication
                             ac.servo_max[i] = int.Parse(lines[39 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
                             ac.servo_neutral[i] = int.Parse(lines[40 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
                         }
-                        // 58
+                        
+                        ac.rc_ppm = 1 - int.Parse(lines[56]);
 
                         AllConfigCommunicationReceived(ac);
                     }
@@ -203,7 +204,7 @@ namespace Communication
                         GpsBasic gb = new GpsBasic(
                             double.Parse(lines[2], System.Globalization.CultureInfo.InvariantCulture),
                             double.Parse(lines[3], System.Globalization.CultureInfo.InvariantCulture),
-                            0,
+                            int.Parse(lines[7]),
                             double.Parse(lines[5])/100,
                             double.Parse(lines[4])/10,
                             int.Parse(lines[6]),
@@ -287,12 +288,14 @@ namespace Communication
             
             // channel config
             _serialPort.WriteLine("\nSI;" + 
+                (1 - ac.rc_ppm).ToString() + ";" +
                 Char.ConvertFromUtf32(97 + ac.channel_ap - 1) + ";" +
                 Char.ConvertFromUtf32(97 + ac.channel_motor - 1) + ";" +
                 Char.ConvertFromUtf32(97 + ac.channel_pitch - 1) + ";" +
                 Char.ConvertFromUtf32(97 + ac.channel_roll - 1) + ";" +
                 Char.ConvertFromUtf32(97 + ac.channel_yaw - 1) + "\n");
             Console.WriteLine("\nSI;" +
+                (1 - ac.rc_ppm).ToString() + ";" +
                 Char.ConvertFromUtf32(97 + ac.channel_ap - 1) + ";" +
                 Char.ConvertFromUtf32(97 + ac.channel_motor - 1) + ";" +
                 Char.ConvertFromUtf32(97 + ac.channel_pitch - 1) + ";" +
