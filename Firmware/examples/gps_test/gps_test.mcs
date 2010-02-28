@@ -67,6 +67,71 @@ ToolArgsString=-g -Wall -DTEST
 TraceCmdString=
 DebugOptions=
 [File005]
+Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\gps_test\tmp\gps_test.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|gps_test.c|..\..\lib\gps\gps.c|..\..\lib\microcontroller\microcontroller.c|..\..\lib\uart1\uart1.c|..\..\lib\uart2\uart2.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall -DTEST
+TraceCmdString=
+DebugOptions=
+[File006]
+Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\gps_test\tmp\gps.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|gps_test.c|..\..\lib\gps\gps.c|..\..\lib\microcontroller\microcontroller.c|..\..\lib\uart1\uart1.c|..\..\lib\uart2\uart2.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall -DTEST
+TraceCmdString=
+DebugOptions=
+[File007]
+Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\gps_test\tmp\microcontroller.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|gps_test.c|..\..\lib\gps\gps.c|..\..\lib\microcontroller\microcontroller.c|..\..\lib\uart1\uart1.c|..\..\lib\uart2\uart2.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall -DTEST
+TraceCmdString=
+DebugOptions=
+[File008]
+Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\gps_test\tmp\uart1.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|gps_test.c|..\..\lib\gps\gps.c|..\..\lib\microcontroller\microcontroller.c|..\..\lib\uart1\uart1.c|..\..\lib\uart2\uart2.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall -DTEST
+TraceCmdString=
+DebugOptions=
+[File009]
+Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\gps_test\tmp\uart2.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|gps_test.c|..\..\lib\gps\gps.c|..\..\lib\microcontroller\microcontroller.c|..\..\lib\uart1\uart1.c|..\..\lib\uart2\uart2.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall -DTEST
+TraceCmdString=
+DebugOptions=
+[File010]
 Location=C:\pic\IMUboard\examples\gps_test\hex\gps_test.cof
 Folder=Output
 DeviceName=dsPIC33FJ256MC710
@@ -79,8 +144,34 @@ SuiteArgsString=
 ToolArgsString=--heap=128 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TraceCmdString=
 DebugOptions=
-[File006]
+[File011]
 Location=C:\pic\IMUboard\examples\gps_test\hex\gps_test.hex
+Folder=Output
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
+LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-ld.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|gps_test.c|..\..\lib\gps\gps.c|..\..\lib\microcontroller\microcontroller.c|..\..\lib\uart1\uart1.c|..\..\lib\uart2\uart2.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=--heap=128 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
+TraceCmdString=
+DebugOptions=
+[File012]
+Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\gps_test\hex\gps_test.cof
+Folder=Output
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
+LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-ld.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|gps_test.c|..\..\lib\gps\gps.c|..\..\lib\microcontroller\microcontroller.c|..\..\lib\uart1\uart1.c|..\..\lib\uart2\uart2.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=--heap=128 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
+TraceCmdString=
+DebugOptions=
+[File013]
+Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\gps_test\hex\gps_test.hex
 Folder=Output
 DeviceName=dsPIC33FJ256MC710
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}

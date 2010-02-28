@@ -30,6 +30,7 @@ struct ControlConfig
 	unsigned int reverse_servo6 : 1;
 	
 	unsigned int manual_trim : 1;
+	unsigned int use_pwm : 1;
 
 	enum MixTypes servo_mix;	
 	float max_roll;

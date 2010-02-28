@@ -45,53 +45,42 @@ volatile int  nmea_buffer_GGA_counter = 0;
 void gps_init(struct GpsConfig *gpsconfig)
 {
 	//uart2_open(57600l);   // For Locosys module
+	//uart2_open(4800l);    // For EB-85
+	
 	uart2_open(gpsconfig->initial_baudrate);
 
+	
 	//while (! uart2_dataready())
 	//	;
+	if (! uart2_dataready())
+		microcontroller_delay_ms(10);
+	if (! uart2_dataready())
+		microcontroller_delay_ms(50);
+	if (! uart2_dataready())
+		microcontroller_delay_ms(100);
+	if (! uart2_dataready())
+		microcontroller_delay_ms(200);		
+	
 	
 	// First we configure which sentences we want. If the unit outputs all sentences at 5Hz by default, then 38400 will be too slow 
 	// and the unit won't allow us to change the baudrate.
 	
 	// only RMC and GGA
-    //uart2_puts("$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28");
-	//uart2_putc(0x0D); uart2_putc(0x0A);
-
-	// change baudrate to 38400
-	microcontroller_delay_ms(1);
-	//uart2_puts("$PMTK251,38400*27");
-	uart2_putc(0x0D); uart2_putc(0x0A);
-	uart2_puts("$PMTK251,115200*1F");
-	uart2_putc(0x0D); uart2_putc(0x0A);
-	
-	uart2_open(57600l); // 38400
-	
-	//while (! uart2_dataready())
-	//	;
-	
-	//microcontroller_delay_ms(10);
-	
 	IFS1bits.U2RXIF = 0;	// Clear the Recieve Interrupt Flag
 	IEC1bits.U2RXIE = 1;
 	
-	// only RMC and GGA @ 5Hz
-	uart2_putc(0x0D); uart2_putc(0x0A);
-    uart2_puts("$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28");
-    uart2_putc(0x0D); uart2_putc(0x0A);
-    
-    //uart2_puts("$PMTK314,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*2D");
-    microcontroller_delay_ms(10);    // beats me why it only works with this delay...
+	// RMC & GGA
+    uart2_puts("$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28\r\n");
+	microcontroller_delay_ms(10);
 	
+	// Change to 115200 baud
+	uart2_puts("$PMTK251,115200*1F\r\n"); 
+	microcontroller_delay_ms(10);
+	uart2_open(115200l);
 	
-	// 5Hz (might be needed for EB-85
-	uart2_putc(0x0D); uart2_putc(0x0A);
-	uart2_puts("$PMTK220,200*2C");
-	uart2_putc(0x0D); uart2_putc(0x0A);
-	microcontroller_delay_ms(1);
-
-		
-	IFS1bits.U2RXIF = 0;	// Clear the Recieve Interrupt Flag
-	IEC1bits.U2RXIE = 1;
+	// 5Hz mode
+	microcontroller_delay_ms(10);
+	uart2_puts("$PMTK220,200*2C\r\n");
 }
 
 
@@ -370,6 +359,10 @@ void __attribute__((__interrupt__, __shadow__)) _U2RXInterrupt(void)
 		if (checksum == 0)
 			gga_sentence_number++;
 		state = 92;
+#ifndef TEST
+		static portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE; 
+		xSemaphoreGiveFromISR( xGpsSemaphore, &xHigherPriorityTaskWoken );
+#endif		
 	}	
 	else if (state == 98)
 	{

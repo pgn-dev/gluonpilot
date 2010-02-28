@@ -137,7 +137,6 @@ void sensors_gps_task( void *parameters )
 		/* Wait until it is time for the next cycle. */
 		if( xSemaphoreTake( xGpsSemaphore, LONG_TIME ) == pdTRUE )
 		{
-			//uart1_puts("OK\n\r");
 			gps_update_info(&(sensor_data.gps));
 			//navigation_update(&navigationinfo, &gpsinfo);
 		}

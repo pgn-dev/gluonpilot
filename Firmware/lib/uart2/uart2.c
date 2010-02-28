@@ -57,6 +57,8 @@ void uart2_open(long baud)
 
 	U2STAbits.UTXEN = 1;
 	// I think I have the thing working now.
+	
+	TRISFbits.TRISF5 = 0;	// just make this an output
 }
 
 

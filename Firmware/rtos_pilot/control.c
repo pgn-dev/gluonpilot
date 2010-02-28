@@ -49,15 +49,7 @@ void control_init()
 {
 	int i;
 	
-	// ppm_in_open(); MOVED TO MAIN
-	
-	uart1_puts("Waiting for PPM frame...\n\r");
-	
-	// FIXME: PPM input needs this, but it is annoying when no receiver is connected! -> timeout?
-	//while (ppm.channel[0] == 0 || !ppm.valid_frame) // wait for valid frame
-	//	;
-	
-	uart1_puts("done\n\r");
+	//ppm_in_open(); MOVED TO MAIN
 	
 	// Manual trim mode: the servo's neutral settings are defined by the RC-transmitters trim settings. See wiki.
 	if (config.control.manual_trim)
@@ -120,6 +112,7 @@ void control_task( void *parameters )
 			control_manual(); // manual mode
 	}
 }
+
 
 /*!
  *   Reads the input from the RC-transmitter, mixes it and sends it to the servos.

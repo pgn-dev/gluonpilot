@@ -33,19 +33,30 @@ extern xSemaphoreHandle xGpsSemaphore;
 int main()
 {
 	microcontroller_init();
+	
 	uart1_queue_init(115200l);  // default baudrate: 115200
 	
 	uart1_puts("Gluonpilot v0.1\n\r");
 	printf("Config: %d bytes\n\r", sizeof(struct Configuration));
 
-	uart1_puts("Loading configuration");
-	ppm_in_open();  // We need a complete frame (which takes at least 20ms) to start so never can start early enough!
+	uart1_puts("Loading configuration...");
 	dataflash_open();
 	configuration_load();
-	gps_init(&(config.gps));
-	vSemaphoreCreateBinary( xGpsSemaphore );
 	uart1_puts("done\n\r");
 	
+	if (config.control.use_pwm)
+		pwm_in_open(); 
+	else
+	{
+		uart1_puts("Opening ppm...");
+		ppm_in_open(); // We need a complete frame (which takes at least 20ms) to start so never can start early enough!
+		uart1_puts("done\r\n");
+	}	
+		
+	gps_init(&(config.gps));
+	vSemaphoreCreateBinary( xGpsSemaphore );
+
+
 	// Create our tasks. 
 	xTaskCreate( control_task, ( signed portCHAR * ) "Control", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 6, NULL );
 	xTaskCreate( sensors_task, ( signed portCHAR * ) "Sensors", ( configMINIMAL_STACK_SIZE * 4 ), NULL, tskIDLE_PRIORITY + 5, NULL );

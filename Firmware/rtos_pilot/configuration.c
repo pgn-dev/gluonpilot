@@ -71,6 +71,9 @@ void configuration_default()
 	config.control.reverse_servo5 = 0;
 	config.control.reverse_servo6 = 0;
 	
+	config.control.manual_trim = 0;
+	config.control.use_pwm = 0;
+	
 	for (i = 0; i < 6; i++)
 	{
 		config.control.servo_max[i] = 2000;
