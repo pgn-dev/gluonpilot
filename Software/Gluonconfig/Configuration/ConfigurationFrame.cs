@@ -542,5 +542,11 @@ namespace Gluonpilot
             else
                 _model.RcTransmitterFromPpm = 0;
         }
+
+        private void _llServos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_Servos");
+        }
+
     }
 }
