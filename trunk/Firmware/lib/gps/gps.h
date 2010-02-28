@@ -3,7 +3,7 @@
 
 
 
-enum gps_status { ACTIVE, VOID, EMPTY };
+enum gps_status { ACTIVE = 1, VOID = 0, EMPTY = 2};
 
 struct gps_info {
 	long time;

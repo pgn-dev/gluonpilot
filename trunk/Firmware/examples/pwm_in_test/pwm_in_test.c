@@ -7,6 +7,7 @@
 
 #include "microcontroller/microcontroller.h"
 #include "uart1/uart1.h"
+#include "ppm_in/ppm_in.h"
 #include "pwm_in/pwm_in.h"
 
 int main()
@@ -14,11 +15,11 @@ int main()
 	int i;
 	
 	microcontroller_init();
-	uart1_open(38400L);
+	uart1_open(115200L);
 	
 	printf ("Testing PWM input functionality\n\r");
-	ppm_in_open();
-	//ppm_in_guess_num_channels();
+	pwm_in_open();
+
 	
 	while (1)
 	{
@@ -27,7 +28,7 @@ int main()
 		else
 			printf (":-( ");
 
-		printf (" %u %u %u %u", ppm.channel[0], ppm.channel[1], ppm.channel[2], ppm.channel[3]);
+		printf (" %u %u %u %u %u", ppm.channel[0], ppm.channel[1], ppm.channel[2], ppm.channel[3], ppm.channel[4]);
 			
 		printf ("\n\r");
 		microcontroller_delay_ms(100);	

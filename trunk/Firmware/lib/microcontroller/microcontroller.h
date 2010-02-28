@@ -19,3 +19,12 @@ void microcontroller_init();
 void microcontroller_delay_us(unsigned long us);
 void microcontroller_delay_ms(unsigned long ms);
 int microcontroller_after_reboot();
+
+
+#define INTERRUPT_PROTECT(x) {              \
+    char saved_ipl;                         \
+                                            \
+    SET_AND_SAVE_CPU_IPL(saved_ipl,7);      \
+    x;                                      \
+    RESTORE_CPU_IPL(saved_ipl); } (void) 0;
+

@@ -29,6 +29,56 @@ volatile struct ppm_info ppm;
 float dt_no_valid_frame = 1.0;
 #define connection_lost_after_seconds  0.5
 
+unsigned int ppm_in_us_to_raw(unsigned int us);
+
+
+/**
+ *   Opens input capture 4 (PPM1) to capture the pulse train from the receiver
+ */
+void ppm_in_open()
+{
+	// Use alternate vector able. (normal vector table is for pwm_in)
+	INTCON2bits.ALTIVT = 1;	
+		
+	ppm.connection_alive = 0;
+	T3CONbits.TCS = 0;		// Use internal clock source
+    T3CONbits.TCKPS = 0b10;	// Prescale Select 1:64
+    PR3 = 0xFFFF;           // Timer 3 uses full 16 bit
+    T3CONbits.TON = 1;	    // Enable timer 3
+
+    //         9876543210
+	TRISD |= 0b100000000000;   // IC4 = RD11 = in
+
+	// Interrupt capture:
+	_IC4IF = 0;             // Clear interrupt flag
+	_IC4IE = 1;             // Enable interrupts
+	IC4CON = 1;             // start module
+	IC4CONbits.ICTMR = 0;   // TMR3
+	IC4CONbits.ICI = 0b11;  // Interrupt on every 4th capture event
+	IC4CONbits.ICM = 0b010; // Capture falling edge 
+
+	_IC4IP = 5;
+	
+	servo_pulse_max = ppm_in_us_to_raw(2200);
+	servo_pulse_min = ppm_in_us_to_raw(800);	
+	sync_pulse = ppm_in_us_to_raw(4500);
+	
+	ppm.valid_frame = 0;
+	ppm.channel[0] = 0;
+	ppm.channel[1] = 0;
+	ppm.channel[2] = 0;
+	ppm.channel[3] = 0;
+	ppm.channel[4] = 0;
+	ppm.channel[5] = 0;
+	ppm.channel[6] = 0;
+	
+	ppm_in_guess_num_channels();
+	//while (ppm.channel[0] == 0 || !ppm.valid_frame) // wait for valid frame
+	//	;
+}
+
+
+
 void ppm_in_update_status(float dt)
 {
 	if (ppm.valid_frame && dt_no_valid_frame > 0)
@@ -69,11 +119,19 @@ unsigned int ppm_in_raw_to_us(unsigned int raw)
 }
 
 
+/**
+ *   Guesses the number of channels in the PPM pulse train.
+ *
+ *   Times out after about 2 seconds
+ */
 void ppm_in_guess_num_channels()
 {
 	unsigned int i;
-	while (! ppm.valid_frame)
+	unsigned int tries = 0;
+	
+	while (! ppm.valid_frame && tries < 100)
 	{
+		tries++;
 		for (i = 4; i <= 12; i++)
 			NUM_CHANNELS = i;
 		microcontroller_delay_ms(20);
@@ -85,44 +143,6 @@ void ppm_in_guess_num_channels()
 		}	
 	}
 }	
-
-
-void ppm_in_open()
-{
-	ppm.connection_alive = 0;
-	T3CONbits.TCS = 0;		// Use internal clock source
-    T3CONbits.TCKPS = 0b10;	// Prescale Select 1:64
-    PR3 = 0xFFFF;           // Timer 3 uses full 16 bit
-    T3CONbits.TON = 1;	    // Enable timer 3
-
-    //         9876543210
-	TRISD |= 0b100000000000;   // IC4 = RD11 = in
-
-	// Interrupt capture:
-	_IC4IF = 0;             // Clear interrupt flag
-	_IC4IE = 1;             // Enable interrupts
-	IC4CON = 1;             // start module
-	IC4CONbits.ICTMR = 0;   // TMR3
-	IC4CONbits.ICI = 0b11;  // Interrupt on every 4th capture event
-	IC4CONbits.ICM = 0b010; // Capture falling edge 
-
-	_IC4IP = 5;
-	
-	servo_pulse_max = ppm_in_us_to_raw(2200);
-	servo_pulse_min = ppm_in_us_to_raw(800);	
-	sync_pulse = ppm_in_us_to_raw(4500);
-	
-	ppm.valid_frame = 0;
-	ppm.channel[0] = 0;
-	ppm.channel[1] = 0;
-	ppm.channel[2] = 0;
-	ppm.channel[3] = 0;
-	ppm.channel[4] = 0;
-	ppm.channel[5] = 0;
-	ppm.channel[6] = 0;
-	
-	//ppm_in_guess_num_channels();
-}
 
 
 // shadow: fast context save DONT USE IT HERE!!!
@@ -137,8 +157,11 @@ void ppm_in_open()
  *
  *  If these conditions are not met, the frame is discared. The results
  *  are saved in the global ppm_info struct.
+ *
+ *
+ *  This routine uses the alternate interrupt vector table pwm_in uses the normal one.
  */
-void __attribute__((__interrupt__)) _IC4Interrupt(void)
+void __attribute__((__interrupt__)) _AltIC4Interrupt(void)
 {
 	static volatile unsigned int counter = 0;
 	static volatile unsigned char invalid_pulse = 1;

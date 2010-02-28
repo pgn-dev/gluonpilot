@@ -1,96 +1,52 @@
-
+/*
+ *   The library decodes the PWM impulses the module receives
+ *   from the RC-receiver on PPM1..5. 
+ *   This decoding will mainly be done by the Input Capture hardware
+ *   of the dsPic. This code uses TIMER3, so make sure your code doesn't
+ *   modify the settings of this timer!
+ *
+ *   This code looks a bit messy because it needs to co-exist with ppm_in.
+ *   Basically, pwm_in uses the same interrupt (IC4), but decodes the signal
+ *   differently. That's why pwm_in uses the normal vector table, and ppm_in
+ *   uses the alternate vector table. On boot, the software chooses wich one to
+ *   initialize, based on the configuration.
+ *
+ */
+ 
+ 
 
 
 #include "microcontroller/microcontroller.h"
+#include "ppm_in/ppm_in.h"
 #include "pwm_in/pwm_in.h"
 
+// from ppm_in
+extern unsigned int servo_pulse_max; 
+extern unsigned int servo_pulse_min;
 
-static unsigned int NUM_CHANNELS = 8;
+extern unsigned int ppm_in_us_to_raw(unsigned int us);
 
-//! The maximum allowed servo pulse, in timer ticks.
-unsigned int servo_pulse_max; 
-//! The minimum allowed servo pulse, in timer ticks.
-unsigned int servo_pulse_min;
-//! The minimum length of the PPM sync pulse, in timer ticks.
-unsigned int sync_pulse;
-
-//! Global struct that contains the state of the PPM pulses.
-volatile struct ppm_info ppm;
-
-float dt_no_valid_frame = 1.0;
-#define connection_lost_after_seconds  0.5
-
-
-
-void ppm_in_update_status(float dt)
+void pwm_in_open()
 {
-	if (ppm.valid_frame && dt_no_valid_frame > 0)
-		dt_no_valid_frame -= dt;
-	else if (dt_no_valid_frame < connection_lost_after_seconds)
-		dt_no_valid_frame += dt;
+	INTCON2bits.ALTIVT = 0;	
 	
-	ppm.connection_alive = (dt_no_valid_frame < connection_lost_after_seconds);
-}	
-
-unsigned int ppm_in_us_to_raw(unsigned int us)
-{
-	//us <<= 2;    // * 4, to prevent losing bits while /8 
-	// scale from 625 to 1000
-	us *= 5;
-	us /= 8;
-	//us >>= 2; 
-	
-	return us;
-}
-
-
-int ppm_signal_quality()
-{
-	return (int)(dt_no_valid_frame * 20.0);
-}
-	
-
-unsigned int ppm_in_raw_to_us(unsigned int raw)
-{
-	//raw <<= 2;    // * 4, to prevent losing bits while /8 
-	// scale from 625 to 1000
-	raw *= 8;
-	raw /= 5;
-	//raw >>= 2; 
-	
-	return raw;
-}
-
-
-void ppm_in_guess_num_channels()
-{
-	unsigned int i;
-	while (! ppm.valid_frame)
-	{
-		for (i = 4; i <= 12; i++)
-			NUM_CHANNELS = i;
-		microcontroller_delay_ms(20);
-		if (ppm.valid_frame)
-		{
-			microcontroller_delay_ms(20);
-			if (ppm.valid_frame)
-				return;
-		}	
-	}
-}	
-
-
-void ppm_in_open()
-{
 	ppm.connection_alive = 0;
 	T3CONbits.TCS = 0;		// Use internal clock source
     T3CONbits.TCKPS = 0b10;	// Prescale Select 1:64
     PR3 = 0xFFFF;           // Timer 3 uses full 16 bit
     T3CONbits.TON = 1;	    // Enable timer 3
 
-	TRISD |= 0b111100000000;   // IC4 = RD11 = in
+	TRISD |= 0b1111100000000;   // IC4 = RD11 = in
 
 	// Interrupt capture:
+	_IC5IF = 0;             // Clear interrupt flag
+	_IC5IE = 1;             // Enable interrupts
+	IC5CON = 1;             // start module
+	IC5CONbits.ICTMR = 0;   // TMR3
+	//IC5CONbits.ICI = 0b11;  // Interrupt on every 4th capture event
+	IC5CONbits.ICM = 0b001; // Capture every edge 
+	_IC5IP = 5;
+	
 	_IC4IF = 0;             // Clear interrupt flag
 	_IC4IE = 1;             // Enable interrupts
 	IC4CON = 1;             // start module
@@ -123,10 +79,8 @@ void ppm_in_open()
 	IC1CONbits.ICM = 0b001; // Capture every edge 
 	_IC1IP = 5;
 	
-	servo_pulse_max = ppm_in_us_to_raw(2200);
-	printf ("-> %u\n\r", servo_pulse_max);
-	servo_pulse_min = ppm_in_us_to_raw(800);	
-	sync_pulse = ppm_in_us_to_raw(4500);
+	servo_pulse_max = ppm_in_us_to_raw(2300);
+	servo_pulse_min = ppm_in_us_to_raw(700);	
 }
 
 
@@ -134,7 +88,7 @@ void ppm_in_open()
 // no_auto_psv: code does not access string literals or const vars
 void __attribute__((__interrupt__)) _IC4Interrupt(void)
 {
-	static unsigned int raw_in, 
+	static volatile unsigned int raw_in, 
 	                    last_raw_in = 0,
 	                    in;
 	
@@ -161,9 +115,38 @@ void __attribute__((__interrupt__)) _IC4Interrupt(void)
 		last_raw_in = raw_in;
 }
 
+void __attribute__((__interrupt__)) _IC5Interrupt(void)
+{
+	static volatile unsigned int raw_in, 
+	                    last_raw_in = 0,
+	                    in;
+	
+	_IC5IF = 0;		
+	raw_in = IC5BUF;
+	if (PORTDbits.RD12 == 0)
+	{	
+		if (last_raw_in < raw_in)
+			in = raw_in - last_raw_in;
+		else
+			in = 0xFFFF - last_raw_in + raw_in;  // 16 bit counter
+		
+		if (in < servo_pulse_max && in > servo_pulse_min)// && !invalid_pulse)
+		{
+			ppm.channel[4] = ppm_in_raw_to_us(in);
+			ppm.valid_frame = 1;
+		}
+		else
+		{
+			ppm.valid_frame = 0;
+		}
+	}
+	else
+		last_raw_in = raw_in;
+}
+
 void __attribute__((__interrupt__)) _IC3Interrupt(void)
 {
-	static unsigned int raw_in, 
+	static volatile unsigned int raw_in, 
 	                    last_raw_in = 0,
 	                    in;
 	
@@ -178,7 +161,7 @@ void __attribute__((__interrupt__)) _IC3Interrupt(void)
 		
 		if (in < servo_pulse_max && in > servo_pulse_min)// && !invalid_pulse)
 		{
-			ppm.channel[1] = ppm_in_raw_to_us(in);
+			ppm.channel[3] = ppm_in_raw_to_us(in);
 			ppm.valid_frame = 1;
 		}
 		else
@@ -193,7 +176,7 @@ void __attribute__((__interrupt__)) _IC3Interrupt(void)
 
 void __attribute__((__interrupt__)) _IC2Interrupt(void)
 {
-	static unsigned int raw_in, 
+	static volatile unsigned int raw_in, 
 	                    last_raw_in = 0,
 	                    in;
 	
@@ -224,7 +207,7 @@ void __attribute__((__interrupt__)) _IC2Interrupt(void)
 
 void __attribute__((__interrupt__)) _IC1Interrupt(void)
 {
-	static unsigned int raw_in, 
+	static volatile unsigned int raw_in, 
 	                    last_raw_in = 0,
 	                    in;
 	
@@ -239,7 +222,7 @@ void __attribute__((__interrupt__)) _IC1Interrupt(void)
 		
 		if (in < servo_pulse_max && in > servo_pulse_min)// && !invalid_pulse)
 		{
-			ppm.channel[3] = ppm_in_raw_to_us(in);
+			ppm.channel[1] = ppm_in_raw_to_us(in);
 			ppm.valid_frame = 1;
 		}
 		else

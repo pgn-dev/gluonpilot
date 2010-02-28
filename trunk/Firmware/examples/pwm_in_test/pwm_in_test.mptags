@@ -6,77 +6,55 @@
 !_TAG_PROGRAM_VERSION	5.5.4	//
 !_TAG_REVISION_NAME	MCHPTags	//
 !_TAG_REVISION_VERSION	6.0.1	//
-FCY::PLL*FOSC/2	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	15;"	d	line:15
-FNOSC_PRIPLL	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	7;"	v	line:7
-FOSC::4000000	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	13;"	d	line:13
-MODE1::ppm.channel[config.channel_mod	C:\pic\IMUboard\lib\pwm_in\pwm_in.h	21;"	d	line:21
-MODE2::(ppm.channel[config.channel_mo	C:\pic\IMUboard\lib\pwm_in\pwm_in.h	22;"	d	line:22
-MODE3::ppm.channel[config.channel_mod	C:\pic\IMUboard\lib\pwm_in\pwm_in.h	23;"	d	line:23
-NUM_CHANNELS	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	8;"	v	line:8	file:
-PLL::80/4	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	14;"	d	line:14
-POSCMD_XT	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	8;"	v	line:8
-RCONbits_backup	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	4;"	v	line:4
-_AddressError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	79;"	f	line:79	signature:(void)
-_IC1Interrupt	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	225;"	f	line:225	signature:(void)
-_IC2Interrupt	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	194;"	f	line:194	signature:(void)
-_IC3Interrupt	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	164;"	f	line:164	signature:(void)
-_IC4Interrupt	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	135;"	f	line:135	signature:(void)
-_MathError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	94;"	f	line:94	signature:(void)
-_OscillatorFail	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	71;"	f	line:71	signature:(void)
-_StackError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	87;"	f	line:87	signature:(void)
-_trapISR::__attribute__((interrupt,no_au	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	69;"	d	line:69	file:
-channel	C:\pic\IMUboard\lib\pwm_in\pwm_in.h	9;"	m	line:9	struct:ppm_info
-connection_alive	C:\pic\IMUboard\lib\pwm_in\pwm_in.h	7;"	m	line:7	struct:ppm_info
-connection_lost_after_seconds::0.5	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	21;"	d	line:21	file:
-dt_no_valid_frame	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	20;"	v	line:20
-i	C:\pic\IMUboard\examples\pwm_in_test\pwm_in_test.c	14;"	l	line:14
-i	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	40;"	l	line:40
-i	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	52;"	l	line:52
-i	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	67;"	l	line:67
-in	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	139;"	l	line:139	file:
-in	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	168;"	l	line:168	file:
-in	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	198;"	l	line:198	file:
-in	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	229;"	l	line:229	file:
-last_raw_in	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	138;"	l	line:138	file:
-last_raw_in	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	167;"	l	line:167	file:
-last_raw_in	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	197;"	l	line:197	file:
-last_raw_in	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	228;"	l	line:228	file:
-main	C:\pic\IMUboard\examples\pwm_in_test\pwm_in_test.c	12;"	f	line:12
-microcontroller_after_reboot	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	58;"	f	line:58
-microcontroller_after_reboot	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	21;"	p	line:21	signature:()
-microcontroller_delay_ms	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	37;"	f	line:37	signature:(unsigned long ms)
-microcontroller_delay_ms	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	20;"	p	line:20	signature:(unsigned long ms)
-microcontroller_delay_us	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	50;"	f	line:50	signature:(unsigned long us)
-microcontroller_delay_us	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	19;"	p	line:19	signature:(unsigned long us)
-microcontroller_init	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	15;"	f	line:15
-microcontroller_init	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	17;"	p	line:17	signature:()
-ppm	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	18;"	v	line:18
-ppm_in_guess_num_channels	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	65;"	f	line:65
-ppm_in_guess_num_channels	C:\pic\IMUboard\lib\pwm_in\pwm_in.h	4;"	p	line:4	signature:()
-ppm_in_open	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	83;"	f	line:83
-ppm_in_open	C:\pic\IMUboard\lib\pwm_in\pwm_in.h	3;"	p	line:3	signature:()
-ppm_in_raw_to_us	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	53;"	f	line:53	signature:(unsigned int raw)
-ppm_in_update_status	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	25;"	f	line:25	signature:(float dt)
-ppm_in_update_status	C:\pic\IMUboard\lib\pwm_in\pwm_in.h	16;"	p	line:16	signature:(float dt)
-ppm_in_us_to_raw	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	35;"	f	line:35	signature:(unsigned int us)
-ppm_info	C:\pic\IMUboard\lib\pwm_in\pwm_in.h	6;"	s	line:6
-ppm_signal_quality	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	47;"	f	line:47
-ppm_signal_quality	C:\pic\IMUboard\lib\pwm_in\pwm_in.h	18;"	p	line:18	signature:()
-raw_in	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	137;"	l	line:137	file:
-raw_in	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	166;"	l	line:166	file:
-raw_in	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	196;"	l	line:196	file:
-raw_in	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	227;"	l	line:227	file:
-servo_pulse_max	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	11;"	v	line:11
-servo_pulse_min	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	13;"	v	line:13
-sync_pulse	C:\pic\IMUboard\lib\pwm_in\pwm_in.c	15;"	v	line:15
-uart1_dataready	C:\pic\IMUboard\lib\uart1\uart1.c	60;"	f	line:60
-uart1_dataready	C:\pic\IMUboard\lib\uart1\uart1.h	3;"	p	line:3	signature:()
-uart1_getc	C:\pic\IMUboard\lib\uart1\uart1.c	81;"	f	line:81
-uart1_getc	C:\pic\IMUboard\lib\uart1\uart1.h	4;"	p	line:4	signature:()
-uart1_open	C:\pic\IMUboard\lib\uart1\uart1.c	12;"	f	line:12	signature:(long baud)
-uart1_open	C:\pic\IMUboard\lib\uart1\uart1.h	2;"	p	line:2	signature:(long baud)
-uart1_putc	C:\pic\IMUboard\lib\uart1\uart1.c	76;"	f	line:76	signature:(char c)
-uart1_putc	C:\pic\IMUboard\lib\uart1\uart1.h	6;"	p	line:6	signature:(char c)
-uart1_puts	C:\pic\IMUboard\lib\uart1\uart1.c	66;"	f	line:66	signature:(char *str)
-uart1_puts	C:\pic\IMUboard\lib\uart1\uart1.h	5;"	p	line:5	signature:(char *str)
-valid_frame	C:\pic\IMUboard\lib\pwm_in\pwm_in.h	8;"	m	line:8	struct:ppm_info
+FCY::PLL*FOSC/2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	15;"	d	line:15
+FNOSC_PRIPLL	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	7;"	v	line:7
+FOSC::4000000	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	13;"	d	line:13
+INTERRUPT_PROTECT::(x){	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	29;"	d	line:29
+PLL::80/4	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	14;"	d	line:14
+POSCMD_XT	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	8;"	v	line:8
+RCONbits_backup	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	4;"	v	line:4
+_AddressError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	78;"	f	line:78	signature:(void)
+_IC1Interrupt	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	169;"	f	line:169	signature:(void)
+_IC2Interrupt	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	138;"	f	line:138	signature:(void)
+_IC3Interrupt	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	108;"	f	line:108	signature:(void)
+_IC4Interrupt	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	79;"	f	line:79	signature:(void)
+_MathError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	93;"	f	line:93	signature:(void)
+_OscillatorFail	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	71;"	f	line:71	signature:(void)
+_StackError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	86;"	f	line:86	signature:(void)
+_trapISR::__attribute__((interrupt,no_au	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	69;"	d	line:69	file:
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\pwm_in_test\pwm_in_test.c	14;"	l	line:14
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	40;"	l	line:40
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	52;"	l	line:52
+in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	112;"	l	line:112	file:
+in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	142;"	l	line:142	file:
+in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	173;"	l	line:173	file:
+in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	83;"	l	line:83	file:
+last_raw_in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	111;"	l	line:111	file:
+last_raw_in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	141;"	l	line:141	file:
+last_raw_in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	172;"	l	line:172	file:
+last_raw_in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	82;"	l	line:82	file:
+main	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\pwm_in_test\pwm_in_test.c	12;"	f	line:12
+microcontroller_after_reboot	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	58;"	f	line:58
+microcontroller_after_reboot	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	21;"	p	line:21	signature:()
+microcontroller_delay_ms	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	37;"	f	line:37	signature:(unsigned long ms)
+microcontroller_delay_ms	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	20;"	p	line:20	signature:(unsigned long ms)
+microcontroller_delay_us	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	50;"	f	line:50	signature:(unsigned long us)
+microcontroller_delay_us	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	19;"	p	line:19	signature:(unsigned long us)
+microcontroller_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	15;"	f	line:15
+microcontroller_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	17;"	p	line:17	signature:()
+pwm_in_open	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	27;"	f	line:27
+pwm_in_open	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.h	3;"	p	line:3	signature:()
+raw_in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	110;"	l	line:110	file:
+raw_in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	140;"	l	line:140	file:
+raw_in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	171;"	l	line:171	file:
+raw_in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	81;"	l	line:81	file:
+uart1_dataready	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	60;"	f	line:60
+uart1_dataready	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	3;"	p	line:3	signature:()
+uart1_getc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	81;"	f	line:81
+uart1_getc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	4;"	p	line:4	signature:()
+uart1_open	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	12;"	f	line:12	signature:(long baud)
+uart1_open	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	2;"	p	line:2	signature:(long baud)
+uart1_putc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	76;"	f	line:76	signature:(char c)
+uart1_putc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	6;"	p	line:6	signature:(char c)
+uart1_puts	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	66;"	f	line:66	signature:(char *str)
+uart1_puts	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	5;"	p	line:5	signature:(char *str)

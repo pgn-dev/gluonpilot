@@ -188,7 +188,8 @@ void communication_telemetry_task( void *parameters )
 			print_unsigned_integer((unsigned int)(sensor_data.gps.heading_rad*100), &uart1_puts);
 			uart1_putc(';');
 			print_unsigned_integer((unsigned int)(sensor_data.gps.satellites_in_view), &uart1_puts);
-			
+			uart1_putc(';');
+			print_unsigned_integer((unsigned int)(sensor_data.gps.height_m), &uart1_puts);
 
 			uart1_puts("\n\r");
 			counters.stream_GpsBasic = 0;
@@ -275,11 +276,12 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'I')    // Set Input Channel
 				{
-					config.control.channel_ap = (buffer[token[1] + 0] - 'a');
-					config.control.channel_motor = (buffer[token[2] + 0] - 'a');
-					config.control.channel_pitch = (buffer[token[3] + 0] - 'a');
-					config.control.channel_roll = (buffer[token[4] + 0] - 'a');
-					config.control.channel_yaw = (buffer[token[5] + 0] - 'a');
+					config.control.use_pwm = (buffer[token[1] + 0]) == '1';
+					config.control.channel_ap = (buffer[token[2] + 0] - 'a');
+					config.control.channel_motor = (buffer[token[3] + 0] - 'a');
+					config.control.channel_pitch = (buffer[token[4] + 0] - 'a');
+					config.control.channel_roll = (buffer[token[5] + 0] - 'a');
+					config.control.channel_yaw = (buffer[token[6] + 0] - 'a');
 					
 				}
 				///////////////////////////////////////////////////////////////
@@ -472,6 +474,8 @@ void communication_input_task( void *parameters )
 						{
 							printf(";%d;%d;%d", config.control.servo_min[i], config.control.servo_max[i], config.control.servo_neutral[i]);
 						}	
+						
+						printf(";%d", (int)config.control.use_pwm);
 						uart1_puts("\n\r");
 					}	
 					
