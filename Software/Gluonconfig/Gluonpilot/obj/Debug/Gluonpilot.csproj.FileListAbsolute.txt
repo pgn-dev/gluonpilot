@@ -1,26 +1,3 @@
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\Gluonpilot.exe
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\Gluonpilot.pdb
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\Communication.dll
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\Configuration.dll
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\CsGL.Basecode.dll
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\csgl.dll
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\Graph.dll
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\ModuleImu3D.dll
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\ZedGraph.dll
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\SmartThreadPool.dll
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\ModuleImu3D.pdb
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\CsGL.Basecode.xml
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\Graph.pdb
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\Configuration.pdb
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\bin\Debug\Communication.pdb
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\obj\Debug\ResolveAssemblyReference.cache
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\obj\Debug\Gluonpilot.Form1.resources
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\obj\Debug\Gluonpilot.Properties.Resources.resources
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\obj\Debug\Gluonpilot.csproj.GenerateResource.Cache
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\obj\Debug\Gluonpilot.exe
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\Gluonpilot\obj\Debug\Gluonpilot.pdb
-C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonpilot\Gluonpilot\obj\Debug\Gluonpilot.exe
-C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonpilot\Gluonpilot\obj\Debug\Gluonpilot.pdb
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Debug\Gluonpilot.exe
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Debug\Gluonpilot.pdb
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Debug\Gluonpilot.exe
@@ -39,7 +16,7 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconf
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Debug\Configuration.pdb
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Debug\Communication.pdb
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Debug\Gluonpilot.ConnectDialog.resources
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Debug\Gluonpilot.Form1.resources
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Debug\Gluonpilot.Properties.Resources.resources
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Debug\Gluonpilot.csproj.GenerateResource.Cache
-C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Debug\Gluonpilot.ConnectDialog.resources

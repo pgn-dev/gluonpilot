@@ -46,6 +46,7 @@ namespace Gluonpilot
         public int ChannelYaw;
         public int ChannelMotor;
         public int ChannelAp;
+        public int RcTransmitterFromPpm;
 
         /*!
          *    Converts to _model to AllConfig communication frame.
@@ -66,6 +67,7 @@ namespace Gluonpilot
             ac.channel_motor = _model.ChannelMotor;
             ac.channel_yaw = _model.ChannelYaw;
             ac.channel_ap = _model.ChannelAp;
+            ac.rc_ppm = _model.RcTransmitterFromPpm;
 
             ac.telemetry_basicgps = _model.TelemetryGpsBasic;
             ac.telemetry_gyroaccraw = _model.TelemetryGyroAccRaw;
@@ -130,6 +132,7 @@ namespace Gluonpilot
             _model.ChannelRoll = ac.channel_roll;
             _model.ChannelYaw = ac.channel_yaw;
             _model.ChannelMotor = ac.channel_motor;
+            _model.RcTransmitterFromPpm = ac.rc_ppm;
 
             _model.GpsInitialBaudrate = ac.gps_initial_baudrate;
             _model.GpsOperationalBaudrate = ac.gps_operational_baudrate;

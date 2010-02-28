@@ -46,6 +46,7 @@ namespace Gluonpilot
         {
             get
             {
+                _tbHeight.Focus(); // hack to trigger is_changed on other controls.
                 return _model;
             }
             set
@@ -86,6 +87,9 @@ namespace Gluonpilot
             _cb_reverse_servo4.Checked = _model.ReverseServo4;
             _cb_reverse_servo5.Checked = _model.ReverseServo5;
             _cb_reverse_servo6.Checked = _model.ReverseServo6;
+
+            _rbPpm.Checked = _model.RcTransmitterFromPpm == 1? true : false;
+            _rbPwm.Checked = _model.RcTransmitterFromPpm == 0? true : false;
 
             switch (_model.ChannelRoll)
             {
@@ -187,36 +191,7 @@ namespace Gluonpilot
         }
 
 
-        private void ReceiveRcInput(RcInput rc)
-        {
-            this.BeginInvoke(new D_ReceiveRcInput(RcTransmitterInput), new object[] { rc });
-        }
-        private delegate void D_ReceiveRcInput(RcInput rc);
-        private void RcTransmitterInput(RcInput rc)
-        {
-            _pbCh1.Value = InBetween(rc.GetPwm(1), 500, 2200);
-            _lblCh1Ms.Text = rc.GetPwm(1).ToString();
-            _pbCh2.Value = InBetween(rc.GetPwm(2), 500, 2200);
-            _lblCh2Ms.Text = rc.GetPwm(2).ToString();
-            _pbCh3.Value = InBetween(rc.GetPwm(3), 500, 2200);
-            _lblCh3Ms.Text = rc.GetPwm(3).ToString();
-            _pbCh4.Value = InBetween(rc.GetPwm(4), 500, 2200);
-            _lblCh4Ms.Text = rc.GetPwm(4).ToString();
-            _pbCh5.Value = InBetween(rc.GetPwm(5), 500, 2200);
-            _lblCh5Ms.Text = rc.GetPwm(5).ToString();
-            _pbCh6.Value = InBetween(rc.GetPwm(6), 500, 2200);
-            _lblCh6Ms.Text = rc.GetPwm(6).ToString();
-            _pbCh7.Value = InBetween(rc.GetPwm(7), 500, 2200);
-            _lblCh7Ms.Text = rc.GetPwm(7).ToString();
-        }
-        private int InBetween(int x, int a, int b)
-        {
-            if (x < a)
-                return a;
-            if (x > b)
-                return b;
-            return x;
-        }
+#region Sensors tab page
 
         private void ReceiveGyroAccRaw(GyroAccRaw ga)
         {
@@ -300,8 +275,41 @@ namespace Gluonpilot
                 _model.NeutralAccZ = _tbAccZNeutral.IntValue;
         }
 
+#endregion
 
 #region RcInput tab page
+
+        private void ReceiveRcInput(RcInput rc)
+        {
+            this.BeginInvoke(new D_ReceiveRcInput(RcTransmitterInput), new object[] { rc });
+        }
+        private delegate void D_ReceiveRcInput(RcInput rc);
+        private void RcTransmitterInput(RcInput rc)
+        {
+            _pbCh1.Value = InBetween(rc.GetPwm(1), 500, 2200);
+            _lblCh1Ms.Text = rc.GetPwm(1).ToString();
+            _pbCh2.Value = InBetween(rc.GetPwm(2), 500, 2200);
+            _lblCh2Ms.Text = rc.GetPwm(2).ToString();
+            _pbCh3.Value = InBetween(rc.GetPwm(3), 500, 2200);
+            _lblCh3Ms.Text = rc.GetPwm(3).ToString();
+            _pbCh4.Value = InBetween(rc.GetPwm(4), 500, 2200);
+            _lblCh4Ms.Text = rc.GetPwm(4).ToString();
+            _pbCh5.Value = InBetween(rc.GetPwm(5), 500, 2200);
+            _lblCh5Ms.Text = rc.GetPwm(5).ToString();
+            _pbCh6.Value = InBetween(rc.GetPwm(6), 500, 2200);
+            _lblCh6Ms.Text = rc.GetPwm(6).ToString();
+            _pbCh7.Value = InBetween(rc.GetPwm(7), 500, 2200);
+            _lblCh7Ms.Text = rc.GetPwm(7).ToString();
+        }
+
+        private int InBetween(int x, int a, int b)
+        {
+            if (x < a)
+                return a;
+            if (x > b)
+                return b;
+            return x;
+        }
 
         private void RollChannel_CheckedChanged(object sender, EventArgs e)
         {
@@ -454,12 +462,21 @@ namespace Gluonpilot
         {
             if (gb.Status == 1)
                 _rb_gps_status_active.Checked = true;
-            else if(gb.Status == 0)
+            else if (gb.Status == 0)
                 _rb_gps_status_void.Checked = true;
+            else
+            {
+                _rb_gps_status_void.Checked = false;
+                _rb_gps_status_active.Checked = false;
+            }
+
 
             _tb_gps_numsat.Text = gb.NumberOfSatellites.ToString();
             _tb_gps_latitude.Text = gb.Latitude.ToString();
             _tb_gps_longitude.Text = gb.Longitude.ToString();
+            _tb_gps_height.Text = gb.Height_m.ToString();
+            _tb_gps_speed.Text = gb.Speed_ms.ToString();
+            _tb_gps_heading.Text = gb.Heading_deg.ToString();
         }
 
         private void _tb_operational_baudrate_TextChanged(object sender, EventArgs e)
@@ -511,6 +528,19 @@ namespace Gluonpilot
         private void _llConfigSensors_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_sensors");
+        }
+
+        private void _llConfigGps_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_Gps");
+        }
+
+        private void _rbPpm_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_rbPpm.Checked)
+                _model.RcTransmitterFromPpm = 1;
+            else
+                _model.RcTransmitterFromPpm = 0;
         }
     }
 }
