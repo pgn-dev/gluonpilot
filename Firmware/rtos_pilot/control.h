@@ -4,7 +4,7 @@
 #include "pid.h"
 
 
-enum MixTypes { AILERON, DELTA_PLUS, DELTA_MIN, QUADROCOPTER };
+enum MixTypes { AILERON = 0, DELTA_PLUS = 1, DELTA_MIN = 2, QUADROCOPTER  = 3};
 
 /*!
  *   This struct assigns channel input (from the rc transmitter - see ppm_in or pwm_in) to a function.

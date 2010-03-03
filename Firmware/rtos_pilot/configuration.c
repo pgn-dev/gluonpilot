@@ -98,4 +98,8 @@ void configuration_default()
 	config.telemetry.stream_GyroAccRaw = 10;
 	config.telemetry.stream_PPM = 10;
 	config.telemetry.stream_PressureTemp = 30;
+	
+	config.control.max_pitch = 30.0/180.0*3.14;
+	config.control.max_roll = 30.0/180.0*3.14;
+	config.control.servo_mix = AILERON;
 }

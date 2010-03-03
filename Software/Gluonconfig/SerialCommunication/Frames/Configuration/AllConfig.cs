@@ -15,6 +15,11 @@ namespace Communication.Frames.Configuration
         public int gyro_y_neutral;
         public int gyro_z_neutral;
 
+        // control
+        public double control_max_roll;
+        public double control_max_pitch;
+        public int control_mixing;
+
         // gps
         public int gps_initial_baudrate;
         public int gps_operational_baudrate;

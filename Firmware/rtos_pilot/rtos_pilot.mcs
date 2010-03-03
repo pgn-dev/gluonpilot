@@ -2,344 +2,6 @@
 MagicCookie={0b13fe8c-dfe0-40eb-8900-6712719559a7}
 Version=1.0
 [File000]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\adc.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File001]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\button.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File002]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\dataflash.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File003]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\gps.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File004]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\microcontroller.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File005]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\scp1000.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File006]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\servo.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File007]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\uart1_queue.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File008]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\uart2.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File009]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\croutine.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File010]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\heap_1.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File011]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\list.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File012]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\port.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File013]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\portasm_dsPIC.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={DE18EB1A-B46B-486B-B96F-A811A635DFAC}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-as.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g
-TraceCmdString=
-DebugOptions=
-[File014]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\queue.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File015]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\tasks.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File016]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\rtos_pilot.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File017]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\sensors.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File018]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\configuration.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File019]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\ppm_in.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File020]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\control.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File021]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\quaternion.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File022]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\led.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File023]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\pid.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File024]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\communication_csv.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File025]
-Location=C:\pic\IMUboard\rtos_pilot\tmp\ahrs_simple_quaternion.o
-Folder=Intermediary
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
-TraceCmdString=
-DebugOptions=
-[File026]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\adc.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -352,7 +14,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File027]
+[File001]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\button.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -365,7 +27,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File028]
+[File002]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\dataflash.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -378,7 +40,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File029]
+[File003]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\gps.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -391,7 +53,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File030]
+[File004]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\microcontroller.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -404,7 +66,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File031]
+[File005]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\scp1000.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -417,7 +79,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File032]
+[File006]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\servo.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -430,7 +92,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File033]
+[File007]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\uart1_queue.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -443,7 +105,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File034]
+[File008]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\uart2.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -456,7 +118,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File035]
+[File009]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\croutine.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -464,12 +126,12 @@ LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
 LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
+SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c|kalman.c|..\lib\pwm_in\pwm_in.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File036]
+[File010]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\heap_1.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -477,12 +139,12 @@ LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
 LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
+SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c|kalman.c|..\lib\pwm_in\pwm_in.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File037]
+[File011]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\list.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -490,12 +152,12 @@ LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
 LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
+SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c|kalman.c|..\lib\pwm_in\pwm_in.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File038]
+[File012]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\port.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -503,12 +165,12 @@ LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
 LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
+SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c|kalman.c|..\lib\pwm_in\pwm_in.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File039]
+[File013]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\portasm_dsPIC.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -516,12 +178,12 @@ LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 LanguageToolID={DE18EB1A-B46B-486B-B96F-A811A635DFAC}
 LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-as.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
+SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c|kalman.c|..\lib\pwm_in\pwm_in.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
 ToolArgsString=-g
 TraceCmdString=
 DebugOptions=
-[File040]
+[File014]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\queue.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -529,12 +191,12 @@ LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
 LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
+SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c|kalman.c|..\lib\pwm_in\pwm_in.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File041]
+[File015]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\tasks.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -542,12 +204,12 @@ LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
 LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
+SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c|kalman.c|..\lib\pwm_in\pwm_in.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File042]
+[File016]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\rtos_pilot.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -560,7 +222,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File043]
+[File017]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\sensors.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -573,7 +235,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File044]
+[File018]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\configuration.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -586,7 +248,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File045]
+[File019]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\ppm_in.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -599,7 +261,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File046]
+[File020]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\control.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -612,7 +274,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File047]
+[File021]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\quaternion.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -620,12 +282,12 @@ LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
 LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
+SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c|kalman.c|..\lib\pwm_in\pwm_in.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File048]
+[File022]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\led.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -638,7 +300,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File049]
+[File023]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\pid.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -651,7 +313,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File050]
+[File024]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\communication_csv.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -664,7 +326,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File051]
+[File025]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\ahrs_simple_quaternion.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -677,7 +339,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File052]
+[File026]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\kalman.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -685,12 +347,12 @@ LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
 LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c|kalman.c||<obj>||<lib>||<lkr>||
+SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c|kalman.c|..\lib\pwm_in\pwm_in.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File053]
+[File027]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\pwm_in.o
 Folder=Intermediary
 DeviceName=dsPIC33FJ256MC710
@@ -703,33 +365,7 @@ SuiteArgsString=
 ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data
 TraceCmdString=
 DebugOptions=
-[File054]
-Location=C:\pic\IMUboard\rtos_pilot\hex\rtos_pilot.cof
-Folder=Output
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-ld.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=--heap=8192 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
-TraceCmdString=
-DebugOptions=
-[File055]
-Location=C:\pic\IMUboard\rtos_pilot\hex\rtos_pilot.hex
-Folder=Output
-DeviceName=dsPIC33FJ256MC710
-LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
-LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
-LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-ld.exe
-PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|quaternion.c|..\lib\led\led.c|pid.c|communication_csv.c|ahrs_simple_quaternion.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=--heap=8192 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
-TraceCmdString=
-DebugOptions=
-[File056]
+[File028]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\hex\rtos_pilot.cof
 Folder=Output
 DeviceName=dsPIC33FJ256MC710
@@ -742,7 +378,7 @@ SuiteArgsString=
 ToolArgsString=--heap=8192 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TraceCmdString=
 DebugOptions=
-[File057]
+[File029]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\hex\rtos_pilot.hex
 Folder=Output
 DeviceName=dsPIC33FJ256MC710

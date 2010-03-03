@@ -50,7 +50,7 @@ int main()
 	{
 		uart1_puts("Opening ppm...");
 		ppm_in_open(); // We need a complete frame (which takes at least 20ms) to start so never can start early enough!
-		uart1_puts("done\r\n");
+		uart1_puts("...done\r\n");
 	}	
 		
 	gps_init(&(config.gps));
