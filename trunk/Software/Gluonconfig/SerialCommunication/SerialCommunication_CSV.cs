@@ -181,6 +181,10 @@ namespace Communication
                         
                         ac.rc_ppm = 1 - int.Parse(lines[56]);
 
+                        ac.control_mixing = int.Parse(lines[57]);
+                        ac.control_max_pitch = int.Parse(lines[58]);
+                        ac.control_max_roll = int.Parse(lines[59]);
+
                         AllConfigCommunicationReceived(ac);
                     }
 
@@ -360,6 +364,17 @@ namespace Communication
             if (ac.servo_reverse[5])
                 s += 32;
             _serialPort.WriteLine("\nSR;" + s.ToString() + "\n");
+
+            Thread.Sleep(200);
+
+            _serialPort.WriteLine("\nSC;" +
+                ac.control_mixing.ToString() + ";" + 
+                ac.control_max_pitch.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
+                ac.control_max_roll.ToString(System.Globalization.CultureInfo.InvariantCulture) + "\n");
+            Console.WriteLine("\nSC;" +
+                ac.control_mixing.ToString() + ";" +
+                ac.control_max_pitch.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
+                ac.control_max_roll.ToString(System.Globalization.CultureInfo.InvariantCulture) + "\n");
         }
 
         public override void ReadAllConfig()

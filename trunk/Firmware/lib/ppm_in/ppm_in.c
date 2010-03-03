@@ -129,19 +129,25 @@ void ppm_in_guess_num_channels()
 	unsigned int i;
 	unsigned int tries = 0;
 	
-	while (! ppm.valid_frame && tries < 100)
+	while (! ppm.valid_frame && tries < 6)
 	{
 		tries++;
 		for (i = 4; i <= 12; i++)
-			NUM_CHANNELS = i;
-		microcontroller_delay_ms(20);
-		if (ppm.valid_frame)
 		{
-			microcontroller_delay_ms(20);
+			NUM_CHANNELS = i;
+			microcontroller_delay_ms(50);
 			if (ppm.valid_frame)
-				return;
+			{
+				microcontroller_delay_ms(24);
+				if (ppm.valid_frame)
+				{
+					printf ("channels: %d", NUM_CHANNELS+1);
+					return;
+				}	
+			}	
 		}	
 	}
+	printf("timeout");
 }	
 
 
@@ -165,7 +171,6 @@ void __attribute__((__interrupt__)) _AltIC4Interrupt(void)
 {
 	static volatile unsigned int counter = 0;
 	static volatile unsigned char invalid_pulse = 1;
-	static volatile unsigned int num_of_channels = 0;
 	static volatile int ppm_in[14];
 
 	unsigned int raw_in, 
@@ -187,11 +192,10 @@ void __attribute__((__interrupt__)) _AltIC4Interrupt(void)
 			// this is a valid frame if 
 			//  - the number of received channels is the same as last time
 			//  - no invalid pulses encountered
-			ppm.valid_frame = (num_of_channels == counter) && !invalid_pulse;
-			num_of_channels = counter;
+			ppm.valid_frame = (NUM_CHANNELS == counter) && !invalid_pulse;
 			counter = 0;
 			invalid_pulse = 0;
-			if (ppm.valid_frame)
+			if (ppm.valid_frame) //
 				for (counter=0; counter < NUM_CHANNELS; counter++)
 					ppm.channel[counter] = ppm_in[counter];
 			counter = 0;
@@ -210,7 +214,7 @@ void __attribute__((__interrupt__)) _AltIC4Interrupt(void)
 			ppm.valid_frame = 0;
 		}
 			
-		if (counter >= NUM_CHANNELS)
+		if (counter > NUM_CHANNELS)
 		{
 			counter = 0;
 			invalid_pulse = 1;

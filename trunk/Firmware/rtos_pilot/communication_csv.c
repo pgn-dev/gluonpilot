@@ -298,6 +298,15 @@ void communication_input_task( void *parameters )
 					config.control.reverse_servo6 = ((tmp & 32) != 0);
 				}
 				///////////////////////////////////////////////////////////////
+				//                       SET CONTROL                         //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'C')    // Set control
+				{
+					config.control.servo_mix = (buffer[token[1] + 0]) - '0';
+					config.control.max_pitch = atof(&(buffer[token[2]])) / 180.0 * 3.14;
+					config.control.max_roll = atof(&(buffer[token[3]])) / 180.0 * 3.14;
+				}	
+				///////////////////////////////////////////////////////////////
 				//                  SET GPS CONFIGURATION                    //
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'G')    // Set GPS
@@ -476,6 +485,8 @@ void communication_input_task( void *parameters )
 						}	
 						
 						printf(";%d", (int)config.control.use_pwm);
+						
+						printf(";%d;%d;%d", (int)config.control.servo_mix, (int)(config.control.max_pitch/3.14*180.0), (int)(config.control.max_roll/3.14*180.0));
 						uart1_puts("\n\r");
 					}	
 					

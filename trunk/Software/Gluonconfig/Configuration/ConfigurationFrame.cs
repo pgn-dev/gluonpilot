@@ -91,6 +91,10 @@ namespace Gluonpilot
             _rbPpm.Checked = _model.RcTransmitterFromPpm == 1? true : false;
             _rbPwm.Checked = _model.RcTransmitterFromPpm == 0? true : false;
 
+            _nud_control_pitch_max.Value = (int)_model.ControlMaxPitch;
+            _nud_control_roll_max.Value = (int)_model.ControlMaxRoll;
+            _cbControlMix.SelectedIndex = _model.ControlMixing;
+
             switch (_model.ChannelRoll)
             {
                 case 1: _rbRollCh1.Checked = true; break;
@@ -502,6 +506,7 @@ namespace Gluonpilot
 
         private void _cbControlMix_SelectedIndexChanged(object sender, EventArgs e)
         {
+            _model.ControlMixing = _cbControlMix.SelectedIndex;
             _lblControlMixInfo.Text = "1: Up/Down, 2: Aileron1, 3: Aileron2, 4: Motor";
         }
 
@@ -546,6 +551,16 @@ namespace Gluonpilot
         private void _llServos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_Servos");
+        }
+
+        private void _nud_control_roll_max_ValueChanged(object sender, EventArgs e)
+        {
+            _model.ControlMaxRoll = Convert.ToDouble(_nud_control_roll_max.Value);
+        }
+
+        private void _nud_control_pitch_max_ValueChanged(object sender, EventArgs e)
+        {
+            _model.ControlMaxPitch = Convert.ToDouble(_nud_control_pitch_max.Value);
         }
 
     }

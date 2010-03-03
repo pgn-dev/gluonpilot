@@ -48,6 +48,10 @@ namespace Gluonpilot
         public int ChannelAp;
         public int RcTransmitterFromPpm;
 
+        public double ControlMaxPitch;
+        public double ControlMaxRoll;
+        public int ControlMixing;
+
         /*!
          *    Converts to _model to AllConfig communication frame.
          */
@@ -68,6 +72,10 @@ namespace Gluonpilot
             ac.channel_yaw = _model.ChannelYaw;
             ac.channel_ap = _model.ChannelAp;
             ac.rc_ppm = _model.RcTransmitterFromPpm;
+
+            ac.control_max_pitch = _model.ControlMaxPitch;
+            ac.control_max_roll = _model.ControlMaxRoll;
+            ac.control_mixing = _model.ControlMixing;
 
             ac.telemetry_basicgps = _model.TelemetryGpsBasic;
             ac.telemetry_gyroaccraw = _model.TelemetryGyroAccRaw;
@@ -133,6 +141,10 @@ namespace Gluonpilot
             _model.ChannelYaw = ac.channel_yaw;
             _model.ChannelMotor = ac.channel_motor;
             _model.RcTransmitterFromPpm = ac.rc_ppm;
+
+            _model.ControlMixing = ac.control_mixing;
+            _model.ControlMaxPitch = ac.control_max_pitch;
+            _model.ControlMaxRoll = ac.control_max_roll;
 
             _model.GpsInitialBaudrate = ac.gps_initial_baudrate;
             _model.GpsOperationalBaudrate = ac.gps_operational_baudrate;
