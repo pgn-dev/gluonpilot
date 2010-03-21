@@ -20,6 +20,7 @@ unsigned char spi_comm_hw(unsigned char outgoing_byte);
 
 // Let's use the hardware module!
 #define spi_comm(x) spi_comm_hw(x)
+//#define spi_comm(x) spi_comm_bitbang(x)
 
 
 inline void dataflash_disable_spi();
@@ -69,13 +70,17 @@ unsigned char spi_comm_hw(unsigned char add)
 {
 	unsigned int i;
 
+INTERRUPT_PROTECT (
+	while(SPI2STATbits.SPITBF) ;
+	
+	i = SPI2BUF;
+	
 	// Take a look at the Errata for this microcontroller to see why we need to wait for the flags
 	SPI2BUF = add;
-	while(SPI2STATbits.SPITBF) ;	
+	while(SPI2STATbits.SPITBF) ;
 	while(! SPI2STATbits.SPIRBF) ;
-
 	i = SPI2BUF;
-		
+)
 	return i;
 }	
 

@@ -227,6 +227,7 @@
             this._cbControlMix = new System.Windows.Forms.ComboBox();
             this.label58 = new System.Windows.Forms.Label();
             this._tbGps = new System.Windows.Forms.TabPage();
+            this._rb_gps_notfound = new System.Windows.Forms.RadioButton();
             this._llConfigGps = new System.Windows.Forms.LinkLabel();
             this._llGoogleMaps = new System.Windows.Forms.LinkLabel();
             this._tb_gps_numsat = new System.Windows.Forms.TextBox();
@@ -255,6 +256,20 @@
             this._pid_roll_to_aileron = new Configuration.PidControl();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this._pid_pitch_to_elevator = new Configuration.PidControl();
+            this._tp_datalog = new System.Windows.Forms.TabPage();
+            this._pb_datalog = new System.Windows.Forms.ProgressBar();
+            this._btn_datalog_load_xml = new System.Windows.Forms.Button();
+            this._btn_datalog_to_xml = new System.Windows.Forms.Button();
+            this._dgv_datalog = new System.Windows.Forms.DataGridView();
+            this._button_datalog_kml = new System.Windows.Forms.Button();
+            this._btn_readdatalog = new System.Windows.Forms.Button();
+            this._lv_datalogtable = new System.Windows.Forms.ListView();
+            this.columnHeaderIndex = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderPage = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderDate = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderTime = new System.Windows.Forms.ColumnHeader();
+            this._btn_datalog_readtable = new System.Windows.Forms.Button();
+            this._btn_dataflash_format = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this._tpTelemetry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gyroaccproc_telemetry)).BeginInit();
@@ -281,10 +296,15 @@
             this.groupBox5.SuspendLayout();
             this._pid_roll2aileron.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this._tp_datalog.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._dgv_datalog)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this._tpTelemetry);
             this.tabControl1.Controls.Add(this._tpSensors);
             this.tabControl1.Controls.Add(this._tpRc);
@@ -292,7 +312,7 @@
             this.tabControl1.Controls.Add(this._tbControl);
             this.tabControl1.Controls.Add(this._tbGps);
             this.tabControl1.Controls.Add(this._tbPid);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Controls.Add(this._tp_datalog);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -2354,6 +2374,7 @@
             // 
             // _tbGps
             // 
+            this._tbGps.Controls.Add(this._rb_gps_notfound);
             this._tbGps.Controls.Add(this._llConfigGps);
             this._tbGps.Controls.Add(this._llGoogleMaps);
             this._tbGps.Controls.Add(this._tb_gps_numsat);
@@ -2381,6 +2402,18 @@
             this._tbGps.TabIndex = 4;
             this._tbGps.Text = "GPS";
             this._tbGps.UseVisualStyleBackColor = true;
+            // 
+            // _rb_gps_notfound
+            // 
+            this._rb_gps_notfound.AutoSize = true;
+            this._rb_gps_notfound.Enabled = false;
+            this._rb_gps_notfound.Location = new System.Drawing.Point(235, 127);
+            this._rb_gps_notfound.Name = "_rb_gps_notfound";
+            this._rb_gps_notfound.Size = new System.Drawing.Size(72, 17);
+            this._rb_gps_notfound.TabIndex = 23;
+            this._rb_gps_notfound.TabStop = true;
+            this._rb_gps_notfound.Text = "Not found";
+            this._rb_gps_notfound.UseVisualStyleBackColor = true;
             // 
             // _llConfigGps
             // 
@@ -2519,24 +2552,24 @@
             // 
             this._rb_gps_status_active.AutoSize = true;
             this._rb_gps_status_active.Enabled = false;
-            this._rb_gps_status_active.Location = new System.Drawing.Point(112, 128);
+            this._rb_gps_status_active.Location = new System.Drawing.Point(168, 127);
             this._rb_gps_status_active.Name = "_rb_gps_status_active";
-            this._rb_gps_status_active.Size = new System.Drawing.Size(55, 17);
+            this._rb_gps_status_active.Size = new System.Drawing.Size(61, 17);
             this._rb_gps_status_active.TabIndex = 6;
             this._rb_gps_status_active.TabStop = true;
-            this._rb_gps_status_active.Text = "Active";
+            this._rb_gps_status_active.Text = "Locked";
             this._rb_gps_status_active.UseVisualStyleBackColor = true;
             // 
             // _rb_gps_status_void
             // 
             this._rb_gps_status_void.AutoSize = true;
             this._rb_gps_status_void.Enabled = false;
-            this._rb_gps_status_void.Location = new System.Drawing.Point(60, 128);
+            this._rb_gps_status_void.Location = new System.Drawing.Point(71, 127);
             this._rb_gps_status_void.Name = "_rb_gps_status_void";
-            this._rb_gps_status_void.Size = new System.Drawing.Size(46, 17);
+            this._rb_gps_status_void.Size = new System.Drawing.Size(92, 17);
             this._rb_gps_status_void.TabIndex = 5;
             this._rb_gps_status_void.TabStop = true;
-            this._rb_gps_status_void.Text = "Void";
+            this._rb_gps_status_void.Text = "Acquiring lock";
             this._rb_gps_status_void.UseVisualStyleBackColor = true;
             // 
             // label456
@@ -2663,10 +2696,159 @@
             this._pid_pitch_to_elevator.TabIndex = 0;
             this._pid_pitch_to_elevator.IsChanged += new System.EventHandler(this._pid_pitch_to_elevator_IsChanged);
             // 
+            // _tp_datalog
+            // 
+            this._tp_datalog.Controls.Add(this._pb_datalog);
+            this._tp_datalog.Controls.Add(this._btn_datalog_load_xml);
+            this._tp_datalog.Controls.Add(this._btn_datalog_to_xml);
+            this._tp_datalog.Controls.Add(this._dgv_datalog);
+            this._tp_datalog.Controls.Add(this._button_datalog_kml);
+            this._tp_datalog.Controls.Add(this._btn_readdatalog);
+            this._tp_datalog.Controls.Add(this._lv_datalogtable);
+            this._tp_datalog.Controls.Add(this._btn_datalog_readtable);
+            this._tp_datalog.Controls.Add(this._btn_dataflash_format);
+            this._tp_datalog.Location = new System.Drawing.Point(4, 22);
+            this._tp_datalog.Name = "_tp_datalog";
+            this._tp_datalog.Size = new System.Drawing.Size(590, 271);
+            this._tp_datalog.TabIndex = 7;
+            this._tp_datalog.Text = "Datalog";
+            this._tp_datalog.UseVisualStyleBackColor = true;
+            // 
+            // _pb_datalog
+            // 
+            this._pb_datalog.Location = new System.Drawing.Point(224, 8);
+            this._pb_datalog.Maximum = 50;
+            this._pb_datalog.Name = "_pb_datalog";
+            this._pb_datalog.Size = new System.Drawing.Size(120, 14);
+            this._pb_datalog.Step = 1;
+            this._pb_datalog.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this._pb_datalog.TabIndex = 11;
+            // 
+            // _btn_datalog_load_xml
+            // 
+            this._btn_datalog_load_xml.Location = new System.Drawing.Point(350, 3);
+            this._btn_datalog_load_xml.Name = "_btn_datalog_load_xml";
+            this._btn_datalog_load_xml.Size = new System.Drawing.Size(75, 23);
+            this._btn_datalog_load_xml.TabIndex = 10;
+            this._btn_datalog_load_xml.Text = "Load XML";
+            this._btn_datalog_load_xml.UseVisualStyleBackColor = true;
+            this._btn_datalog_load_xml.Click += new System.EventHandler(this._btn_datalog_load_xml_Click);
+            // 
+            // _btn_datalog_to_xml
+            // 
+            this._btn_datalog_to_xml.Location = new System.Drawing.Point(431, 3);
+            this._btn_datalog_to_xml.Name = "_btn_datalog_to_xml";
+            this._btn_datalog_to_xml.Size = new System.Drawing.Size(75, 23);
+            this._btn_datalog_to_xml.TabIndex = 9;
+            this._btn_datalog_to_xml.Text = "To XML";
+            this._btn_datalog_to_xml.UseVisualStyleBackColor = true;
+            this._btn_datalog_to_xml.Click += new System.EventHandler(this._btn_datalog_to_xml_Click);
+            // 
+            // _dgv_datalog
+            // 
+            this._dgv_datalog.AllowUserToAddRows = false;
+            this._dgv_datalog.AllowUserToDeleteRows = false;
+            this._dgv_datalog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._dgv_datalog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this._dgv_datalog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._dgv_datalog.Location = new System.Drawing.Point(224, 32);
+            this._dgv_datalog.Name = "_dgv_datalog";
+            this._dgv_datalog.ReadOnly = true;
+            this._dgv_datalog.Size = new System.Drawing.Size(363, 236);
+            this._dgv_datalog.TabIndex = 8;
+            // 
+            // _button_datalog_kml
+            // 
+            this._button_datalog_kml.Location = new System.Drawing.Point(512, 3);
+            this._button_datalog_kml.Name = "_button_datalog_kml";
+            this._button_datalog_kml.Size = new System.Drawing.Size(75, 23);
+            this._button_datalog_kml.TabIndex = 7;
+            this._button_datalog_kml.Text = "To KML";
+            this._button_datalog_kml.UseVisualStyleBackColor = true;
+            this._button_datalog_kml.Click += new System.EventHandler(this._button_datalog_kml_Click);
+            // 
+            // _btn_readdatalog
+            // 
+            this._btn_readdatalog.Location = new System.Drawing.Point(196, 148);
+            this._btn_readdatalog.Name = "_btn_readdatalog";
+            this._btn_readdatalog.Size = new System.Drawing.Size(21, 23);
+            this._btn_readdatalog.TabIndex = 3;
+            this._btn_readdatalog.Text = ">";
+            this._btn_readdatalog.UseVisualStyleBackColor = true;
+            this._btn_readdatalog.Click += new System.EventHandler(this._btn_readdatalog_Click);
+            // 
+            // _lv_datalogtable
+            // 
+            this._lv_datalogtable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this._lv_datalogtable.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderIndex,
+            this.columnHeaderPage,
+            this.columnHeaderDate,
+            this.columnHeaderTime});
+            this._lv_datalogtable.FullRowSelect = true;
+            this._lv_datalogtable.GridLines = true;
+            this._lv_datalogtable.HideSelection = false;
+            this._lv_datalogtable.Location = new System.Drawing.Point(7, 66);
+            this._lv_datalogtable.MultiSelect = false;
+            this._lv_datalogtable.Name = "_lv_datalogtable";
+            this._lv_datalogtable.ShowItemToolTips = true;
+            this._lv_datalogtable.Size = new System.Drawing.Size(182, 173);
+            this._lv_datalogtable.TabIndex = 2;
+            this._lv_datalogtable.UseCompatibleStateImageBehavior = false;
+            this._lv_datalogtable.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeaderIndex
+            // 
+            this.columnHeaderIndex.Text = "Index";
+            this.columnHeaderIndex.Width = 22;
+            // 
+            // columnHeaderPage
+            // 
+            this.columnHeaderPage.Text = "Page start";
+            this.columnHeaderPage.Width = 49;
+            // 
+            // columnHeaderDate
+            // 
+            this.columnHeaderDate.Text = "Date";
+            this.columnHeaderDate.Width = 51;
+            // 
+            // columnHeaderTime
+            // 
+            this.columnHeaderTime.Text = "Time";
+            this.columnHeaderTime.Width = 54;
+            // 
+            // _btn_datalog_readtable
+            // 
+            this._btn_datalog_readtable.Image = ((System.Drawing.Image)(resources.GetObject("_btn_datalog_readtable.Image")));
+            this._btn_datalog_readtable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this._btn_datalog_readtable.Location = new System.Drawing.Point(7, 37);
+            this._btn_datalog_readtable.Name = "_btn_datalog_readtable";
+            this._btn_datalog_readtable.Size = new System.Drawing.Size(182, 23);
+            this._btn_datalog_readtable.TabIndex = 1;
+            this._btn_datalog_readtable.Text = "Read datalog index";
+            this._btn_datalog_readtable.UseVisualStyleBackColor = true;
+            this._btn_datalog_readtable.Click += new System.EventHandler(this._btn_datalog_readtable_Click);
+            // 
+            // _btn_dataflash_format
+            // 
+            this._btn_dataflash_format.Image = ((System.Drawing.Image)(resources.GetObject("_btn_dataflash_format.Image")));
+            this._btn_dataflash_format.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this._btn_dataflash_format.Location = new System.Drawing.Point(7, 8);
+            this._btn_dataflash_format.Name = "_btn_dataflash_format";
+            this._btn_dataflash_format.Size = new System.Drawing.Size(182, 23);
+            this._btn_dataflash_format.TabIndex = 0;
+            this._btn_dataflash_format.Text = "Format datalog memory";
+            this._btn_dataflash_format.UseVisualStyleBackColor = true;
+            this._btn_dataflash_format.Click += new System.EventHandler(this._btn_dataflash_format_Click);
+            // 
             // ConfigurationFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.tabControl1);
             this.Name = "ConfigurationFrame";
             this.Size = new System.Drawing.Size(598, 297);
@@ -2709,6 +2891,8 @@
             this.groupBox5.ResumeLayout(false);
             this._pid_roll2aileron.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this._tp_datalog.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this._dgv_datalog)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2941,5 +3125,20 @@
         private System.Windows.Forms.Label label77;
         private System.Windows.Forms.Label label76;
         private System.Windows.Forms.LinkLabel _llRc;
+        private System.Windows.Forms.RadioButton _rb_gps_notfound;
+        private System.Windows.Forms.TabPage _tp_datalog;
+        private System.Windows.Forms.Button _btn_datalog_readtable;
+        private System.Windows.Forms.Button _btn_dataflash_format;
+        private System.Windows.Forms.ListView _lv_datalogtable;
+        private System.Windows.Forms.ColumnHeader columnHeaderDate;
+        private System.Windows.Forms.ColumnHeader columnHeaderTime;
+        private System.Windows.Forms.ColumnHeader columnHeaderIndex;
+        private System.Windows.Forms.ColumnHeader columnHeaderPage;
+        private System.Windows.Forms.Button _btn_readdatalog;
+        private System.Windows.Forms.Button _button_datalog_kml;
+        private System.Windows.Forms.DataGridView _dgv_datalog;
+        private System.Windows.Forms.Button _btn_datalog_to_xml;
+        private System.Windows.Forms.Button _btn_datalog_load_xml;
+        private System.Windows.Forms.ProgressBar _pb_datalog;
     }
 }

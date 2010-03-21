@@ -147,7 +147,7 @@ void ppm_in_guess_num_channels()
 			}	
 		}	
 	}
-	printf("timeout");
+	printf("timeout...");
 }	
 
 

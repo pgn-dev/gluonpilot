@@ -32,19 +32,20 @@
 #include "sensors.h"
 #include "communication.h"
 #include "configuration.h"
+#include "datalogger.h"
 
 
 // Helper functions
 void print_signed_integer(int x, void (*printer)(char[]));
 void print_unsigned_integer(unsigned int x, void (*printer)(char[]));
-
+void print_logline(struct LogLine *l);
 
 /*!
  *    This task will send a line directly to uart1 20 times a second.
  */
 void communication_telemetry_task( void *parameters )
 {
-	int i;
+	int i, c = 0;
 	struct TelemetryConfig counters;
 		
 	/* Used to wake the task at the correct frequency. */
@@ -60,7 +61,7 @@ void communication_telemetry_task( void *parameters )
 	
 	led_init();
 	
-	uart1_puts("done\n\r");
+	uart1_puts("done\r\n");
 	
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil() works correctly. */
 	xLastExecutionTime = xTaskGetTickCount();
@@ -74,8 +75,10 @@ void communication_telemetry_task( void *parameters )
 		counters.stream_PressureTemp++;
 		counters.stream_GpsBasic++;
 		
-		if (counters.stream_GpsBasic % 2 == 0)  // this counter will never be used at 20Hz
-			led1_toggle();
+		if (c++ % 10 == 0)  // this counter will never be used at 20Hz
+			led1_on();
+		else
+			led1_off();
 				
 		///////////////////////////////////////////////////////////////
 		//               GYRO AND ACCELEROMETER RAW                  //
@@ -95,7 +98,7 @@ void communication_telemetry_task( void *parameters )
 			uart1_putc(';');
 			print_unsigned_integer((int)(sensor_data.gyro_z_raw), &uart1_puts);
 			//printf(";%f", sensor_data.temperature);
-			uart1_puts("\n\r");
+			uart1_puts("\r\n");
 			counters.stream_GyroAccRaw = 0;
 		} 
 		else if (counters.stream_GyroAccRaw > config.telemetry.stream_GyroAccRaw)
@@ -118,7 +121,7 @@ void communication_telemetry_task( void *parameters )
 			print_signed_integer((int)(sensor_data.q*1000), &uart1_puts);
 			uart1_putc(';');
 			print_signed_integer((int)(sensor_data.r*1000), &uart1_puts);
-			uart1_puts("\n\r");
+			uart1_puts("\r\n");
 			
 			uart1_puts("TA;");
 			print_signed_integer((int)(sensor_data.roll*1000), &uart1_puts);
@@ -130,7 +133,7 @@ void communication_telemetry_task( void *parameters )
 			print_signed_integer((int)(sensor_data.pitch_acc*1000), &uart1_puts);
 			uart1_putc(';');
 			print_signed_integer((int)(sensor_data.yaw*1000), &uart1_puts);
-			uart1_puts("\n\r");
+			uart1_puts("\r\n");
 			counters.stream_GyroAccProc = 0;
 		} 
 		else if (counters.stream_GyroAccProc > config.telemetry.stream_GyroAccProc)
@@ -146,7 +149,7 @@ void communication_telemetry_task( void *parameters )
 			//PrintUnsignedInteger((unsigned int)(sensor_data.pressure/10), &uart1_puts);
 			uart1_putc(';');
 			print_signed_integer((int)sensor_data.temperature, &uart1_puts);
-			uart1_puts("\n\r");
+			uart1_puts("\r\n");
 			counters.stream_PressureTemp = 0;
 		}
 		else if (counters.stream_PressureTemp > config.telemetry.stream_PressureTemp)
@@ -163,7 +166,7 @@ void communication_telemetry_task( void *parameters )
 				uart1_putc(';');
 				print_unsigned_integer((unsigned int)ppm.channel[i], &uart1_puts);
 			}			
-			uart1_puts("\n\r");
+			uart1_puts("\r\n");
 			counters.stream_PPM = 0;
 		}
 		else if (counters.stream_PPM > config.telemetry.stream_PPM)
@@ -191,7 +194,7 @@ void communication_telemetry_task( void *parameters )
 			uart1_putc(';');
 			print_unsigned_integer((unsigned int)(sensor_data.gps.height_m), &uart1_puts);
 
-			uart1_puts("\n\r");
+			uart1_puts("\r\n");
 			counters.stream_GpsBasic = 0;
 		}
 		else if (counters.stream_GpsBasic > config.telemetry.stream_GpsBasic)
@@ -220,7 +223,7 @@ void communication_input_task( void *parameters )
 	char tmp;
 
 	uart1_puts("Console input task initializing...");
-	uart1_puts("done\n\r");
+	uart1_puts("done\r\n");
 	
 	for( ;; )
 	{
@@ -375,6 +378,36 @@ void communication_input_task( void *parameters )
 					config.control.pid_heading2roll.d_term_min_var = (float)atof(&(buffer[token[6]]));
 				}
 				///////////////////////////////////////////////////////////////
+				//                      FORMAT DATALOG                       //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'F')   
+				{
+					datalogger_format();
+				}
+				///////////////////////////////////////////////////////////////
+				//                    DATALOG INDEX TABLE                    //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'I')    
+				{
+					int i;
+					for (i = 0; i < MAX_INDEX; i++)
+						printf("DT;%d;%d;%ld;%ld\r\n", i, datalogger_index_table[i].page_num, datalogger_index_table[i].date, datalogger_index_table[i].time);
+				}	
+				///////////////////////////////////////////////////////////////
+				//                       DATALOG READ                        //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'D' && buffer[token[0] + 1] == 'R')    
+				{
+					int i = atoi(&(buffer[token[1]]));
+					printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;");
+					printf ("HeightBaro;Pitch;Roll;AccX;AccY;AccZ;GyroX;");
+					printf ("GyroY;GyroZ;TempC;FlightMode\r\n");
+					datalogger_disable();
+					while (datalogger_print_next_page(i, &print_logline))
+						;
+					//datalogger_enable();
+				}	
+				///////////////////////////////////////////////////////////////
 				//                      WRITE TO FLASH                       //
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'C')    // FC write to flash!
@@ -487,14 +520,14 @@ void communication_input_task( void *parameters )
 						printf(";%d", (int)config.control.use_pwm);
 						
 						printf(";%d;%d;%d", (int)config.control.servo_mix, (int)(config.control.max_pitch/3.14*180.0), (int)(config.control.max_roll/3.14*180.0));
-						uart1_puts("\n\r");
+						uart1_puts("\r\n");
 					}	
 					
 					else if (current_token > 0)
-						uart1_puts("\n\rERROR\n\r");
+						uart1_puts("\r\nERROR\r\n");
 				}
 				else if (current_token > 0)
-					uart1_puts("\n\rERROR\n\r");
+					uart1_puts("\r\nERROR\r\n");
 
             	buffer_position = 0;
             	current_token = 0;
@@ -518,6 +551,19 @@ void communication_input_task( void *parameters )
 	}
 }
 
+
+
+void print_logline(struct LogLine *l)
+{
+	//printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;HeightBaro;Pitch;Roll;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;TempC;Control");
+	printf ("DD;%f;%f;", l->gps_latitude_rad*(180.0/3.14159), l->gps_longitude_rad*(180.0/3.14159));
+	printf ("%d;%d;%d;", l->gps_speed_m_s, l->gps_heading, l->gps_height_m);
+	printf ("%d;%d;%d;", l->height_m, l->pitch, l->roll);
+	printf ("%d;%d;%d;", l->acc_x, l->acc_y, l->acc_z);
+	printf ("%d;%d;%d;", l->gyro_x, l->gyro_y, l->gyro_z);
+	printf ("%d;%d\r\n", (int)l->temperature_c, l->control_state);
+
+}	
 
 
 

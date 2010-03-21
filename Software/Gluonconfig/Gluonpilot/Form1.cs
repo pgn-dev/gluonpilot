@@ -31,10 +31,18 @@ namespace Gluonpilot
         private delegate void UpdateTextBox(string line);
         private void ReceiveCommunication(string line)
         {
-            this.BeginInvoke(new UpdateTextBox(UpdateText), new object[] { line });
+            if (! this._cb_hide_parsed.Checked)
+                this.BeginInvoke(new UpdateTextBox(UpdateText), new object[] { line });
+        }
+        private void ReceiveNonParsedCommunication(string line)
+        {
+            if (this._cb_hide_parsed.Checked)
+                this.BeginInvoke(new UpdateTextBox(UpdateText), new object[] { line });
         }
         private void UpdateText(string line)
         {
+            if (_cb_print_timestamp.Checked)
+                textBox1.AppendText("[" + DateTime.Now.ToString("hh:mm:ss.ff") + "]  ");
             textBox1.AppendText(line + "\r\n");
         }
 
@@ -54,6 +62,7 @@ namespace Gluonpilot
                 _serial.Open(cd.SelectedPort(), cd.SelectedBaudrate());
                 _serial.CommunicationReceived +=
                     new SerialCommunication_CSV.ReceiveCommunication(ReceiveCommunication);
+                _serial.NonParsedCommunicationReceived += new SerialCommunication.ReceiveNonParsedCommunication(ReceiveNonParsedCommunication);
 
                 configurationFrame.Connect(_serial);
             }
@@ -147,10 +156,7 @@ namespace Gluonpilot
         {
             ModuleImu3D.Imu3D.Run(_serial);
         }
-
-
- 
-      
+     
 
     }
 }

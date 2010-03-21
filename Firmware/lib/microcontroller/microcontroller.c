@@ -14,6 +14,8 @@ _FOSC(FCKSM_CSDCMD & OSCIOFNC_OFF  & POSCMD_XT);
 
 void microcontroller_init()
 {	
+	INTCON2bits.ALTIVT = 0;	 // Don't use alternate interrupt vector
+	
 	// Disable Watch Dog Timer
 	RCONbits.SWDTEN=0;
 	
@@ -72,14 +74,14 @@ void _trapISR _OscillatorFail(void)
 {
         INTCON1bits.OSCFAIL = 0;
         printf("Oscillator error!\n\r");
-        while(1);
+        //while(1);
 }
 
 void _trapISR _AddressError(void)
 {
         INTCON1bits.ADDRERR = 0;
         printf("Address error!\n\r");
-        while(1);
+        //while(1);
         asm("reset");
 }
 
@@ -87,12 +89,14 @@ void _trapISR _StackError(void)
 {
         INTCON1bits.STKERR = 0;
         printf("Stack error!\n\r");
-        while(1);
+        //while(1);
+        asm("reset");
 }
 
 void _trapISR _MathError(void)
 {
         INTCON1bits.MATHERR = 0;
         printf("Math error!\n\r");
-        while(1);
+        //while(1);
+        asm("reset");
 }

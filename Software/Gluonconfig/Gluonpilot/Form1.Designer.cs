@@ -49,24 +49,33 @@
             this._btnChart = new System.Windows.Forms.ToolStripButton();
             this._btnOpenGl = new System.Windows.Forms.ToolStripButton();
             this.configurationFrame = new Gluonpilot.ConfigurationFrame();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this._cb_print_timestamp = new System.Windows.Forms.CheckBox();
+            this._cb_hide_parsed = new System.Windows.Forms.CheckBox();
             this.toolStrip1.SuspendLayout();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(13, 333);
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(5, 21);
             this.textBox1.MaxLength = 327670;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(590, 142);
+            this.textBox1.Size = new System.Drawing.Size(603, 102);
             this.textBox1.TabIndex = 1;
             // 
             // statusStrip1
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 482);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(619, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(613, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -91,7 +100,7 @@
             this._btnOpenGl});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(619, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(613, 25);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip";
             // 
@@ -224,25 +233,79 @@
             // 
             // configurationFrame
             // 
-            this.configurationFrame.Location = new System.Drawing.Point(12, 28);
+            this.configurationFrame.AutoSize = true;
+            this.configurationFrame.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.configurationFrame.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.configurationFrame.Location = new System.Drawing.Point(5, 5);
             this.configurationFrame.Model = ((Gluonpilot.ConfigurationModel)(resources.GetObject("configurationFrame.Model")));
             this.configurationFrame.Name = "configurationFrame";
-            this.configurationFrame.Size = new System.Drawing.Size(598, 299);
+            this.configurationFrame.Size = new System.Drawing.Size(603, 315);
             this.configurationFrame.TabIndex = 4;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 25);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.configurationFrame);
+            this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(5);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this._cb_print_timestamp);
+            this.splitContainer1.Panel2.Controls.Add(this._cb_hide_parsed);
+            this.splitContainer1.Panel2.Controls.Add(this.textBox1);
+            this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(5);
+            this.splitContainer1.Size = new System.Drawing.Size(613, 457);
+            this.splitContainer1.SplitterDistance = 325;
+            this.splitContainer1.TabIndex = 7;
+            // 
+            // _cb_print_timestamp
+            // 
+            this._cb_print_timestamp.AutoSize = true;
+            this._cb_print_timestamp.Checked = true;
+            this._cb_print_timestamp.CheckState = System.Windows.Forms.CheckState.Checked;
+            this._cb_print_timestamp.Location = new System.Drawing.Point(122, 4);
+            this._cb_print_timestamp.Name = "_cb_print_timestamp";
+            this._cb_print_timestamp.Size = new System.Drawing.Size(97, 17);
+            this._cb_print_timestamp.TabIndex = 3;
+            this._cb_print_timestamp.Text = "Print timestamp";
+            this._cb_print_timestamp.UseVisualStyleBackColor = true;
+            // 
+            // _cb_hide_parsed
+            // 
+            this._cb_hide_parsed.AutoSize = true;
+            this._cb_hide_parsed.Checked = true;
+            this._cb_hide_parsed.CheckState = System.Windows.Forms.CheckState.Checked;
+            this._cb_hide_parsed.Location = new System.Drawing.Point(8, 4);
+            this._cb_hide_parsed.Name = "_cb_hide_parsed";
+            this._cb_hide_parsed.Size = new System.Drawing.Size(107, 17);
+            this._cb_hide_parsed.TabIndex = 2;
+            this._cb_hide_parsed.Text = "Hide parsed lines";
+            this._cb_hide_parsed.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(619, 504);
+            this.ClientSize = new System.Drawing.Size(613, 504);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.configurationFrame);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.textBox1);
             this.Name = "Form1";
             this.Text = "Gluonpilot config";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -270,6 +333,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripButton _btnOpenGl;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.CheckBox _cb_hide_parsed;
+        private System.Windows.Forms.CheckBox _cb_print_timestamp;
     }
 }
 

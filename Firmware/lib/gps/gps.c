@@ -33,7 +33,7 @@
 #endif
 
 
-int rmc_sentence_number = -1;
+int rmc_sentence_number = -1;  // making these volatile gives me an address error
 int gga_sentence_number = -1;
 volatile char nmea_buffer_RMC[100];
 volatile int  nmea_buffer_RMC_counter = 0;
@@ -42,43 +42,74 @@ volatile char nmea_buffer_GGA[100];
 volatile int  nmea_buffer_GGA_counter = 0;
 
 
+//! Contains the state of the RMC parser.
+// state   1234567                                                                98|99|100
+//         $GPRMC,235955.505,V,8960.000000,N,00000.000000,E,0.000,0.00,050180,,,N*40 
+volatile unsigned int state = 0;
+//! Contains the current checksum of the RMC sentence.
+volatile unsigned int checksum = 0;
+
+
+
 void gps_init(struct GpsConfig *gpsconfig)
 {
-	//uart2_open(57600l);   // For Locosys module
-	//uart2_open(4800l);    // For EB-85
+	//uart2_open(4800l);    // For Locosys module
+	//uart2_open(38400l);    // For Old EB-85
+	//uart2_open(38400l);    // For San Jose EB-85
 	
 	uart2_open(gpsconfig->initial_baudrate);
 
 	
-	//while (! uart2_dataready())
-	//	;
-	if (! uart2_dataready())
-		microcontroller_delay_ms(10);
-	if (! uart2_dataready())
+	/*while (! uart2_dataready())
+	{
+		uart1_putc('.');
 		microcontroller_delay_ms(50);
-	if (! uart2_dataready())
+	}*/
+
+	IFS1bits.U2RXIF = 0;	// Clear the Recieve Interrupt Flag
+	IEC1bits.U2RXIE = 1;
+	
+	
+		
+	// Wait for GPS output. On some old EB85 devices, this can take over 2sec
+	if (rmc_sentence_number == -1 && nmea_buffer_RMC_counter == 0)
+		microcontroller_delay_ms(10);
+	if (rmc_sentence_number == -1 && nmea_buffer_RMC_counter == 0)
+		microcontroller_delay_ms(50);
+	if (rmc_sentence_number == -1 && nmea_buffer_RMC_counter == 0)
 		microcontroller_delay_ms(100);
-	if (! uart2_dataready())
+	if (rmc_sentence_number == -1 && nmea_buffer_RMC_counter == 0)
 		microcontroller_delay_ms(200);		
-	
-	
+	if (rmc_sentence_number == -1 && nmea_buffer_RMC_counter == 0)
+		microcontroller_delay_ms(400);	 // 760ms
+	if (rmc_sentence_number == -1 && nmea_buffer_RMC_counter == 0)
+		microcontroller_delay_ms(800);	 // 1560ms
+	if (rmc_sentence_number == -1 && nmea_buffer_RMC_counter == 0)
+		microcontroller_delay_ms(1000);	 // 2560ms
+
+	if (rmc_sentence_number == -1 && nmea_buffer_RMC_counter == 0)
+	{
+		uart1_puts("timeout...");
+		//return;	// Don't return! If module was rebooted, but GPS not, then we need to change the speed for the GPS module to become accessible
+	}
+
 	// First we configure which sentences we want. If the unit outputs all sentences at 5Hz by default, then 38400 will be too slow 
 	// and the unit won't allow us to change the baudrate.
 	
 	// only RMC and GGA
-	IFS1bits.U2RXIF = 0;	// Clear the Recieve Interrupt Flag
-	IEC1bits.U2RXIE = 1;
-	
 	// RMC & GGA
+	//uart1_puts("$PMTK314...");
     uart2_puts("$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28\r\n");
 	microcontroller_delay_ms(10);
 	
 	// Change to 115200 baud
-	uart2_puts("$PMTK251,115200*1F\r\n"); 
+	//uart1_puts("$PMTK251...");
+	uart2_puts("$PMTK251,115200*1F\r\n");
 	microcontroller_delay_ms(10);
 	uart2_open(115200l);
 	
 	// 5Hz mode
+	//uart1_puts("$PMTK220...");
 	microcontroller_delay_ms(10);
 	uart2_puts("$PMTK220,200*2C\r\n");
 }
@@ -312,15 +343,6 @@ char gps_update_info(struct gps_info *gpsinfo)
 	else
 		return 0;
 }
-
-
-
-//! Contains the state of the RMC parser.
-// state   1234567                                                                98|99|100
-//         $GPRMC,235955.505,V,8960.000000,N,00000.000000,E,0.000,0.00,050180,,,N*40 
-volatile unsigned int state = 0;
-//! Contains the current checksum of the RMC sentence.
-volatile unsigned int checksum = 0;
 
 
 /*!

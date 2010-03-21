@@ -22,6 +22,7 @@ using Communication;
 using Communication.Frames.Configuration;
 using Communication.Frames.Incoming;
 using Configuration;
+using System.IO;
 
 namespace Gluonpilot
 {
@@ -181,7 +182,10 @@ namespace Gluonpilot
             _serial.AllConfigCommunicationReceived += new SerialCommunication_CSV.ReceiveAllConfigCommunicationFrame(ReceiveAllConfig);
             _serial.RcInputCommunicationReceived += new SerialCommunication_CSV.ReceiveRcInputCommunicationFrame(ReceiveRcInput);
             _serial.GpsBasicCommunicationReceived += new SerialCommunication.ReceiveGpsBasicCommunicationFrame(ReceiveGpsBasic);
+            _serial.DatalogTableCommunicationReceived += new SerialCommunication.ReceiveDatalogTableCommunicationFrame(ReceiveDatalogTable);
+            _serial.DatalogLineCommunicationReceived += new SerialCommunication.ReceiveDatalogLineCommunicationFrame(ReceiveDatalogLine);
         }
+
 
         private void ReceiveAllConfig(AllConfig ac)
         {
@@ -469,10 +473,7 @@ namespace Gluonpilot
             else if (gb.Status == 0)
                 _rb_gps_status_void.Checked = true;
             else
-            {
-                _rb_gps_status_void.Checked = false;
-                _rb_gps_status_active.Checked = false;
-            }
+                _rb_gps_notfound.Checked = true;
 
 
             _tb_gps_numsat.Text = gb.NumberOfSatellites.ToString();
@@ -503,6 +504,181 @@ namespace Gluonpilot
 
 #endregion
 
+#region Datalog
+        private DataSet _ds_logLines;
+
+        void ReceiveDatalogTable(DatalogTable table)
+        {
+            this.BeginInvoke(new D_ReceiveDatalogTable(DatalogTable), new object[] { table });
+        }
+        private delegate void D_ReceiveDatalogTable(DatalogTable table);
+        private void DatalogTable(DatalogTable table)
+        {
+            while (_lv_datalogtable.Items.Count <= table.Index)
+                _lv_datalogtable.Items.Add("");
+            _lv_datalogtable.Items[table.Index] = new ListViewItem();
+            while (_lv_datalogtable.Items[table.Index].SubItems.Count <= 4)
+                _lv_datalogtable.Items[table.Index].SubItems.Add("");
+            _lv_datalogtable.Items[table.Index].SubItems[0] = new ListViewItem.ListViewSubItem(_lv_datalogtable.Items[table.Index], table.Index.ToString());
+            _lv_datalogtable.Items[table.Index].SubItems[1] = new ListViewItem.ListViewSubItem(_lv_datalogtable.Items[table.Index], table.StartPage.ToString());
+            string date = table.Date / 10000 + "." + (table.Date / 100) % 100 + "." + table.Date % 100;
+            string time = table.Time / 10000 + ":" + (table.Time / 100) % 100 + ":" + table.Time % 100;
+            _lv_datalogtable.Items[table.Index].SubItems[2] = new ListViewItem.ListViewSubItem(_lv_datalogtable.Items[table.Index], date);
+            _lv_datalogtable.Items[table.Index].SubItems[3] = new ListViewItem.ListViewSubItem(_lv_datalogtable.Items[table.Index], time);
+        }
+
+        void ReceiveDatalogLine(DatalogLine line)
+        {
+            this.BeginInvoke(new D_ReceiveDatalogLine(DatalogLine), new object[] { line });
+        }
+        private delegate void D_ReceiveDatalogLine(DatalogLine line);
+        private void DatalogLine(DatalogLine line)
+        {
+            // first call: init dataset & headers
+            if (_ds_logLines == null)
+            {
+                _ds_logLines = new DataSet();
+                _ds_logLines.Tables.Add("Data");
+
+                foreach (string s in line.Header)
+                    _ds_logLines.Tables["Data"].Columns.Add(s);
+
+                _dgv_datalog.SelectionMode = DataGridViewSelectionMode.CellSelect;
+                _dgv_datalog.DataSource = _ds_logLines;
+                _dgv_datalog.DataMember = "Data";
+                foreach (DataGridViewColumn dgvc in _dgv_datalog.Columns)
+                    dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
+                _dgv_datalog.SelectionMode = DataGridViewSelectionMode.ColumnHeaderSelect;
+            }
+            // add row
+            DataRow dr = _ds_logLines.Tables["Data"].NewRow();
+            dr.ItemArray = new String[line.Line.Length];
+            for (int i = 0; i < line.Line.Length; i++)
+                dr[i] = line.Line[i];
+            _ds_logLines.Tables["Data"].Rows.Add(dr);
+
+            _pb_datalog.Value = (_pb_datalog.Value + 1) % 50;
+         
+        }
+
+     private void _btn_dataflash_format_Click(object sender, EventArgs e)
+        {
+            _serial.SendDatalogFormat();
+        }
+
+        private void _btn_datalog_readtable_Click(object sender, EventArgs e)
+        {
+            _serial.SendDatalogTableRequest();
+        }
+
+        private void _btn_readdatalog_Click(object sender, EventArgs e)
+        {
+            _ds_logLines = null;
+            if (_lv_datalogtable.SelectedIndices.Count != 1)
+                MessageBox.Show("Please select 1 row from the index table.");
+            else
+                _serial.SendDatalogTableRead(_lv_datalogtable.SelectedIndices[0]);
+        }
+        
+        private void _button_datalog_kml_Click(object sender, EventArgs e)
+        {
+            string[] flightmodes = new string[5] { "Manual", "Stabilized", "Autopilot", "Loiter", "Return" };
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.DefaultExt = "kml";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string filename = sfd.FileName.Replace(".kml", "");
+                int flightmode = -1;
+
+                string head = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                              " <kml xmlns=\"http://earth.google.com/kml/2.0\">" +
+                              " <Document xmlns:xlink=\"http://www.w3/org/1999/xlink\">" +
+                              " <name>KML output</name>" +
+                              " <Style id=\"lineStyle\">" +
+                              "   <LineStyle>" +
+                              "   <color>ff00ffff</color>" +
+                              "   <width>6</width>" +
+                              "   </LineStyle>" +
+                              "   </Style>" +
+                              "   <Folder>" +
+                              "   <name>Flight path</name>";
+                string tail = "</coordinates></LineString></MultiGeometry></Placemark></Folder></Document></kml>";
+                Stream s = sfd.OpenFile();
+                StreamWriter sw = new StreamWriter(s);
+                sw.WriteLine(head);
+
+                bool firstcall = true;
+                foreach (DataRow dr in _ds_logLines.Tables["Data"].Rows)
+                {
+                    if (dr["FlightMode"].ToString() != flightmode.ToString())
+                    {
+                        flightmode = int.Parse(dr["FlightMode"].ToString());
+                        if (!firstcall)
+                            sw.WriteLine("</coordinates></LineString></MultiGeometry></Placemark>");
+                        else
+                            firstcall = false;
+                        sw.WriteLine("<Placemark>" +
+                              "   <name>" + flightmodes[flightmode] + "</name>" +
+                              "   <styleUrl>#lineStyle</styleUrl>" +
+                              "   <MultiGeometry>" +
+                              "     <LineString>" +
+                              "       <altitudeMode>absolute</altitudeMode>" +
+                              "       <coordinates>");
+                    }
+                    sw.WriteLine("{0},{1},{2}", dr["Longitude"], dr["Latitude"], dr["HeightGPS"]);
+                }
+
+                sw.WriteLine(tail);
+                sw.Close();
+            }
+        }
+
+        // Save datalog to XML file
+        private void _btn_datalog_to_xml_Click(object sender, EventArgs e)
+        {
+            Stream s;
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.DefaultExt = "xml";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                s = sfd.OpenFile();
+                _ds_logLines.WriteXml(s);
+                s.Close();
+            }
+        }
+
+        // Load datalog from XML file
+        private void _btn_datalog_load_xml_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (_ds_logLines != null)
+                _ds_logLines.Tables.Clear();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                Stream s = ofd.OpenFile();
+                if (_ds_logLines == null)
+                {
+                    _ds_logLines = new DataSet();
+                }
+                _ds_logLines.ReadXml(s);
+                _dgv_datalog.SelectionMode = DataGridViewSelectionMode.CellSelect;
+                _dgv_datalog.DataSource = _ds_logLines;
+
+                foreach (DataGridViewColumn dgvc in _dgv_datalog.Columns)
+                    dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
+                _dgv_datalog.SelectionMode = DataGridViewSelectionMode.ColumnHeaderSelect;
+                s.Close();
+            }
+        }
+        
+        private void _btn_datalog_copy_Click(object sender, EventArgs e)
+        {
+            _dgv_datalog.SelectAll();
+            DataObject dataObj = _dgv_datalog.GetClipboardContent();
+            Clipboard.SetDataObject(dataObj, true);
+            _dgv_datalog.ClearSelection();
+        }
+#endregion
 
         private void _cbControlMix_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -562,6 +738,12 @@ namespace Gluonpilot
         {
             _model.ControlMaxPitch = Convert.ToDouble(_nud_control_pitch_max.Value);
         }
+
+
+
+
+
+       
 
     }
 }
