@@ -24,6 +24,7 @@ namespace Communication
 
         // delegates used for the communication frames events
         public delegate void ReceiveCommunication(string line);
+        public delegate void ReceiveNonParsedCommunication(string line);
         public delegate void ReceiveGyroAccRawCommunicationFrame(GyroAccRaw ga);
         public delegate void ReceiveGyroAccProcCommunicationFrame(GyroAccProcessed ga);
         public delegate void ReceivePressureTempCommunicationFrame(PressureTemp info);
@@ -31,9 +32,12 @@ namespace Communication
         public delegate void ReceiveRcInputCommunicationFrame(RcInput rcinput);
         public delegate void ReceiveGpsBasicCommunicationFrame(GpsBasic gpsbasic);
         public delegate void ReceiveAttitudeCommunicationFrame(Attitude attitude);
+        public delegate void ReceiveDatalogTableCommunicationFrame(DatalogTable table);
+        public delegate void ReceiveDatalogLineCommunicationFrame(DatalogLine line);
 
         // General: all lines received will be broadcasted by this event
-        public abstract event ReceiveCommunication CommunicationReceived;  
+        public abstract event ReceiveCommunication CommunicationReceived;
+        public abstract event ReceiveNonParsedCommunication NonParsedCommunicationReceived;  
         // Gyro & Acc
         public abstract event ReceiveGyroAccRawCommunicationFrame GyroAccRawCommunicationReceived;
         public abstract event ReceiveGyroAccProcCommunicationFrame GyroAccProcCommunicationReceived;
@@ -47,6 +51,9 @@ namespace Communication
         public abstract event ReceiveGpsBasicCommunicationFrame GpsBasicCommunicationReceived;
         // Attitude
         public abstract event ReceiveAttitudeCommunicationFrame AttitudeCommunicationReceived;
+        // Datalog
+        public abstract event ReceiveDatalogTableCommunicationFrame DatalogTableCommunicationReceived;
+        public abstract event ReceiveDatalogLineCommunicationFrame DatalogLineCommunicationReceived;
 
 
         public static string[] GetPorts()
@@ -81,5 +88,11 @@ namespace Communication
         public abstract void SendLoadConfigurationFromFlash();
         
         public abstract void SendLoadConfigurationDefault();
+
+        public abstract void SendDatalogFormat();
+
+        public abstract void SendDatalogTableRequest();
+
+        public abstract void SendDatalogTableRead(int i);
     }
 }

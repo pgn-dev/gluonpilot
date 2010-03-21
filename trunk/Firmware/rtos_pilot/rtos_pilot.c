@@ -26,6 +26,7 @@
 #include "sensors.h"
 #include "communication.h"
 #include "configuration.h"
+#include "datalogger.h"
 
 
 extern xSemaphoreHandle xGpsSemaphore;
@@ -36,33 +37,38 @@ int main()
 	
 	uart1_queue_init(115200l);  // default baudrate: 115200
 	
-	uart1_puts("Gluonpilot v0.1\n\r");
-	printf("Config: %d bytes\n\r", sizeof(struct Configuration));
+	uart1_puts("Gluonpilot v0.1\r\n");
+	printf("Config: %d bytes\r\n", sizeof(struct Configuration));
 
 	uart1_puts("Loading configuration...");
 	dataflash_open();
 	configuration_load();
-	uart1_puts("done\n\r");
+	uart1_puts("done\r\n");
 	
+	// pwm_in/ppm_in task: in ppm_in/pwm_in.c
 	if (config.control.use_pwm)
 		pwm_in_open(); 
 	else
 	{
 		uart1_puts("Opening ppm...");
 		ppm_in_open(); // We need a complete frame (which takes at least 20ms) to start so never can start early enough!
-		uart1_puts("...done\r\n");
+		uart1_puts("done\r\n");
 	}	
-		
-	gps_init(&(config.gps));
+	
+	// Gps task: in sensors.c
+	uart1_puts("Opening GPS...");
 	vSemaphoreCreateBinary( xGpsSemaphore );
-
+	gps_init(&(config.gps));
+	uart1_puts("done\r\n");
 
 	// Create our tasks. 
 	xTaskCreate( control_task, ( signed portCHAR * ) "Control", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 6, NULL );
 	xTaskCreate( sensors_task, ( signed portCHAR * ) "Sensors", ( configMINIMAL_STACK_SIZE * 4 ), NULL, tskIDLE_PRIORITY + 5, NULL );
 	xTaskCreate( sensors_gps_task, ( signed portCHAR * ) "Gps", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 4, NULL );
 	xTaskCreate( communication_input_task, ( signed portCHAR * ) "ConsoleInput", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 3, NULL );
-	xTaskCreate( communication_telemetry_task, ( signed portCHAR * ) "Telemetry", ( configMINIMAL_STACK_SIZE * 2 ), NULL, tskIDLE_PRIORITY + 2, NULL );
+	xTaskCreate( datalogger_task, ( signed portCHAR * ) "Dataflash", ( configMINIMAL_STACK_SIZE * 2 ), NULL, tskIDLE_PRIORITY + 2, NULL );
+	xTaskCreate( communication_telemetry_task, ( signed portCHAR * ) "Telemetry", ( configMINIMAL_STACK_SIZE * 2 ), NULL, tskIDLE_PRIORITY + 1, NULL );
+
 		
 	// Order the scheduler to start scheduling our two tasks.
 	vTaskStartScheduler();

@@ -50,6 +50,8 @@ struct SensorData sensor_data;
 
 static const float acc_value_g = 6600.0f;
 
+extern xSemaphoreHandle xSpiSemaphore;
+
 /*!
  *   FreeRTOS task that reads all the sensor data and stored it in the
  *   sensor_data struct.
@@ -65,12 +67,12 @@ void sensors_task( void *parameters )
 	portTickType xLastExecutionTime; 
 
 	uart1_puts("Sensors task initializing...");
-
+	vSemaphoreCreateBinary( xSpiSemaphore );
 	adc_open();	
 	scp1000_init();
 	ahrs_init();
 	
-	uart1_puts("done\n\r");
+	uart1_puts("done\r\n");
 	
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil()	works correctly. */
 	xLastExecutionTime = xTaskGetTickCount();
@@ -84,8 +86,12 @@ void sensors_task( void *parameters )
 		if (scp1000_dataready())
 		{
 			// this should be at 1.8Hz ->0.555s
-			sensor_data.pressure = scp1000_get_pressure();
-			sensor_data.temperature = scp1000_get_temperature();
+			if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 0 ))  // Spi1 is shared with SCP1000 and Dataflash
+			{
+				sensor_data.pressure = scp1000_get_pressure();
+				sensor_data.temperature = scp1000_get_temperature();
+				xSemaphoreGive( xSpiSemaphore );
+			}	
 			temperature_10 = (unsigned int)sensor_data.temperature * 10;
 			sensor_data.pressure_height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
 			sensor_data.w = sensor_data.w * 0.4 + (sensor_data.pressure_height - last_height)/0.555 * 0.6;
@@ -128,9 +134,10 @@ xSemaphoreHandle xGpsSemaphore = NULL;
 #define LONG_TIME 0xffff
 void sensors_gps_task( void *parameters )
 {
+	int i;
 	uart1_puts("Gps task initializing...");
 	sensor_data.gps.status = EMPTY;	
-	uart1_puts("done\n\r");
+	uart1_puts("done\r\n");
 
 	for( ;; )
 	{
@@ -138,7 +145,15 @@ void sensors_gps_task( void *parameters )
 		if( xSemaphoreTake( xGpsSemaphore, LONG_TIME ) == pdTRUE )
 		{
 			gps_update_info(&(sensor_data.gps));
-			//navigation_update(&navigationinfo, &gpsinfo);
+			if (i++ % 6 == 0)  // this is used for both RMC and GGA, so only update every other tick
+			{
+				//navigation_update(&navigationinfo, &gpsinfo);
+				if (sensor_data.gps.status == ACTIVE)
+					led2_on();
+			}	
+			else
+				led2_off();
+
 		}
 	}
 }

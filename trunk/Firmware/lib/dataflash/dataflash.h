@@ -4,7 +4,9 @@
  *    @author (c) Tom Pycke
  *    @date    23-nov-2008
  */
- 
+
+#define MAX_PAGE 4096 
+#define PAGE_SIZE 528
 
 /*!
  *    Opens the connection with the hardware.

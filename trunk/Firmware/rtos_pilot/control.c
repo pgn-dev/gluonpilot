@@ -38,6 +38,9 @@ int pitch_out = 0, roll_out = 0, yaw_out = 0, motor_out = 0;
 
 //! Mix xyz_out to servo_out
 void control_mix_out();
+
+//! Contains the currect state of the control loop
+struct ControlState control_state;
           
 
 /*!
@@ -95,7 +98,7 @@ void control_task( void *parameters )
 	servo_init();
 	control_init();
 	
-	uart1_puts("done\n\r");
+	uart1_puts("done\r\n");
 	
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil()	works correctly. */
 	xLastExecutionTime = xTaskGetTickCount();
@@ -105,11 +108,17 @@ void control_task( void *parameters )
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 10 / portTICK_RATE_MS ) );   //!> 100Hz
 		
 		if (ppm.channel[config.control.channel_ap] < 1333)
+		{
 			; // autopilot mode
+		} 
 		else if (ppm.channel[config.control.channel_ap] < 1666)
+		{
 			control_stabilized(0.01f); // stabilized mode
+		} 
 		else
+		{
 			control_manual(); // manual mode
+		}
 	}
 }
 
@@ -141,9 +150,9 @@ void control_stabilized(float dt)
 	      aileron_out_radians;
 	      
 	desired_roll += (float)((int)ppm.channel[config.control.channel_roll]
-	                             - config.control.channel_neutral[config.control.channel_roll]) / 500.0 * /*config.max_roll*/ (45.0f/180.0f*3.14159f);
+	                             - config.control.channel_neutral[config.control.channel_roll]) / 500.0 * /*config.max_roll*/ (config.control.max_roll);
 	desired_pitch += (float)((int)ppm.channel[config.control.channel_pitch]
-	                              - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * /*config.max_pitch*/ (20.0f/180.0f*3.14159f);
+	                              - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * /*config.max_pitch*/ (config.control.max_pitch);
 
 	//desired_pitch = ((navigation->home_height + 45.0) - gps->height_m)  / 20.0 * config.max_pitch; 
 	
@@ -153,7 +162,7 @@ void control_stabilized(float dt)
 		desired_pitch = -config.control.max_pitch;*/
 
 	// compensate the loss in lift
-	desired_pitch += (1.0/cosf(sensor_data.roll) - 1.0)*0.68;
+	desired_pitch += (1.0/cosf(sensor_data.roll) - 1.0)*0.70;
 	
 	elevator_out_radians = pid_update_only_p(&config.control.pid_pitch2elevator, desired_pitch - sensor_data.pitch, dt); //pid_pitch_to_elevator(desired_pitch, ahrs);
 	aileron_out_radians = pid_update_only_p(&config.control.pid_roll2aileron, desired_roll - sensor_data.roll, dt);  //pid_roll_to_aileron(desired_roll, ahrs);
@@ -178,14 +187,31 @@ void control_mix_out()
 	{
 		case DELTA_PLUS:
 			if (config.control.reverse_servo1)
+				servo_out[0] = +roll_out + pitch_out + config.control.servo_neutral[0];
+			else
+				servo_out[0] = -roll_out - pitch_out + config.control.servo_neutral[0];
+				
+			if (config.control.reverse_servo2)
+				servo_out[1] = +roll_out - pitch_out + config.control.servo_neutral[1];
+			else
+				servo_out[1] = -roll_out + pitch_out + config.control.servo_neutral[1];
+				
+			if (config.control.reverse_servo4)
+				servo_out[4] = -motor_out + config.control.servo_neutral[4];
+			else 
+				servo_out[4] = motor_out + config.control.servo_neutral[4];
+
+			break;
+		case DELTA_MIN:
+			if (config.control.reverse_servo1)
+				servo_out[0] = +roll_out - pitch_out + config.control.servo_neutral[0];
+			else
+				servo_out[0] = -roll_out + pitch_out + config.control.servo_neutral[0];
+				
+			if (config.control.reverse_servo2)
 				servo_out[1] = +roll_out + pitch_out + config.control.servo_neutral[1];
 			else
 				servo_out[1] = -roll_out - pitch_out + config.control.servo_neutral[1];
-				
-			if (config.control.reverse_servo2)
-				servo_out[2] = +roll_out - pitch_out + config.control.servo_neutral[2];
-			else
-				servo_out[2] = -roll_out + pitch_out + config.control.servo_neutral[2];
 				
 			if (config.control.reverse_servo4)
 				servo_out[4] = -motor_out + config.control.servo_neutral[4];

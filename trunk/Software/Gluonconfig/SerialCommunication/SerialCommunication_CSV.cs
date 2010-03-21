@@ -25,6 +25,7 @@ namespace Communication
 
         // General: all lines received will be broadcasted by this event
         public override event ReceiveCommunication CommunicationReceived;
+        public override event ReceiveNonParsedCommunication NonParsedCommunicationReceived;
         // Gyro & Acc
         public override event ReceiveGyroAccRawCommunicationFrame GyroAccRawCommunicationReceived;
         public override event ReceiveGyroAccProcCommunicationFrame GyroAccProcCommunicationReceived;
@@ -38,7 +39,11 @@ namespace Communication
         public override event ReceiveGpsBasicCommunicationFrame GpsBasicCommunicationReceived;
         // Attitude
         public override event ReceiveAttitudeCommunicationFrame AttitudeCommunicationReceived;
+        // Datalog
+        public override event ReceiveDatalogTableCommunicationFrame DatalogTableCommunicationReceived;
+        public override event ReceiveDatalogLineCommunicationFrame DatalogLineCommunicationReceived;
 
+        private string[] DatalogHeader;
 
         public SerialCommunication_CSV()
         {
@@ -78,7 +83,7 @@ namespace Communication
             {
                 try
                 {
-                    string line = _serialPort.ReadLine();
+                    string line = _serialPort.ReadLine().Replace("\r", "");
                     string[] lines = line.Split(';');
                     Console.WriteLine(line + "\n\r");
                     // TR: Gyro & Acc raw
@@ -178,7 +183,7 @@ namespace Communication
                             ac.servo_max[i] = int.Parse(lines[39 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
                             ac.servo_neutral[i] = int.Parse(lines[40 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
                         }
-                        
+
                         ac.rc_ppm = 1 - int.Parse(lines[56]);
 
                         ac.control_mixing = int.Parse(lines[57]);
@@ -209,8 +214,8 @@ namespace Communication
                             double.Parse(lines[2], System.Globalization.CultureInfo.InvariantCulture),
                             double.Parse(lines[3], System.Globalization.CultureInfo.InvariantCulture),
                             int.Parse(lines[7]),
-                            double.Parse(lines[5])/100,
-                            double.Parse(lines[4])/10,
+                            double.Parse(lines[5]) / 100,
+                            double.Parse(lines[4]) / 10,
                             int.Parse(lines[6]),
                             int.Parse(lines[1])
                             );
@@ -228,6 +233,42 @@ namespace Communication
                             );
                         if (AttitudeCommunicationReceived != null)
                             AttitudeCommunicationReceived(att);
+                    }
+                    // DT: Datalog table
+                    else if (lines[0].EndsWith("DT") && lines.Length >= 4)
+                    {
+                        DatalogTable dt = new DatalogTable(
+                            int.Parse(lines[1]),
+                            int.Parse(lines[3]),
+                            int.Parse(lines[4]),
+                            int.Parse(lines[2]),
+                            0);
+                        if (DatalogTableCommunicationReceived != null)
+                            DatalogTableCommunicationReceived(dt);
+                    }
+                    // DH: Datalog header
+                    else if (lines[0].EndsWith("DH") && lines.Length >= 4)
+                    {
+                        DatalogHeader = new string[lines.Length - 1];
+
+                        for (int i = 1; i < lines.Length; i++)
+                            DatalogHeader[i - 1] = lines[i];
+
+                    }
+                    // DD: Datalog data
+                    else if (lines[0].EndsWith("DD") && lines.Length >= 4)
+                    {
+                        string[] logline = new string[DatalogHeader.Length];
+                        for (int i = 0; i < logline.Length; i++)
+                            logline[i] = lines[i + 1];
+                        DatalogLine dl = new DatalogLine(
+                            logline, DatalogHeader);
+                        if (DatalogLineCommunicationReceived != null)
+                            DatalogLineCommunicationReceived(dl);
+                    }
+                    else
+                    {
+                        NonParsedCommunicationReceived(line);
                     }
                     CommunicationReceived(line);
                 }
@@ -396,5 +437,21 @@ namespace Communication
         {
             _serialPort.WriteLine("\nLD;\n");
         }
+
+        public override void SendDatalogFormat()
+        {
+            _serialPort.WriteLine("\nFF;\n");
+        }
+
+        public override void SendDatalogTableRequest()
+        {
+            _serialPort.WriteLine("\nFI;\n");
+        }
+
+        public override void SendDatalogTableRead(int i)
+        {
+            _serialPort.WriteLine("\nDR;" + i.ToString() + "\n");
+        }
+
     }
 }

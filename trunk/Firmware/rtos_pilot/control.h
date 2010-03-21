@@ -6,6 +6,15 @@
 
 enum MixTypes { AILERON = 0, DELTA_PLUS = 1, DELTA_MIN = 2, QUADROCOPTER  = 3};
 
+enum FlightModes { MANUAL = 0, STABILIZED = 1, AUTOPILOT = 2, LOITER = 3, RETURN = 4};
+
+struct ControlState
+{
+	enum FlightModes flight_mode;
+};
+
+extern struct ControlState control_state;
+
 /*!
  *   This struct assigns channel input (from the rc transmitter - see ppm_in or pwm_in) to a function.
  */

@@ -26,7 +26,7 @@ int main()
 	struct gps_info gpsinfo;
 	struct GpsConfig config;
 	
-	config.initial_baudrate = 4800l;
+	config.initial_baudrate =  38400L;
 	
 	microcontroller_init();
 	
@@ -35,8 +35,9 @@ int main()
 	
 	microcontroller_delay_ms(10);
 	
-	printf("Initializing GPS...");
+	printf("\r\nInitializing GPS...");
 	gps_init(&config);
+	//uart2_open(config.initial_baudrate);
 	
 	printf("done\n\r");
 	
@@ -44,11 +45,7 @@ int main()
 	IEC1bits.U2RXIE = 1;
 	
 	//gps_wait_for_lock();
-	
-	
-	
-	//uart2_open(config.initial_baudrate);
-		
+			
 	while (1)
 	{
 		//if (gps_update_info(&gpsinfo))

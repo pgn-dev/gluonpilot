@@ -108,6 +108,7 @@ void ahrs_filter()
 	//float a_z = (-sensor_data.q * u) / G - cos_pitch*cos_roll;
 	
 	// calculate the gravity-component from the accelerometers by substracting the dynamics
+	w = 0.0;
 	float g_ax = sensor_data.acc_x - sensor_data.q * w / G;
 	float g_ay = sensor_data.acc_y - (sensor_data.r * u - sensor_data.p * w) / G;
 	float g_az = sensor_data.acc_z - (-sensor_data.q * u);
@@ -192,7 +193,7 @@ inline float gravity_to_roll(float a_y, float a_z)
  */
 inline float gravity_to_pitch(float a_x, float a_z)
 {
-	float pitch_acc = -atanf(a_x / a_z);
+	float pitch_acc = -atanf(a_x / a_z); // replace with asin?
 	if (a_x < 0.0f)
 	{
 		if (a_z > 0.0f)

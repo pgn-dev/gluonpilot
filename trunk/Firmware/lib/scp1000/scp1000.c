@@ -111,9 +111,9 @@ unsigned int Read16(unsigned int register_name)
 	register_name <<= 2;
     register_name &= 0b11111100; //Read command
 	
+	//CS = 0;
+	//microcontroller_delay_us(10);
 	CS = 0;
-	microcontroller_delay_us(10);
-	
 	i = SPI2BUF;
 	SPI2BUF = register_name;  // address
 	while(SPI2STATbits.SPITBF) ;	
@@ -164,9 +164,8 @@ unsigned int Read8(unsigned int add)
 	while(SPI2STATbits.SPITBF) ;
 	while(! SPI2STATbits.SPIRBF) ;
 	microcontroller_delay_us(1);
-	CS = 1;
 	i = SPI2BUF;
-		
+	CS = 1;	
 	//PORTGbits.RG1 = 1;
 	
 	return i;

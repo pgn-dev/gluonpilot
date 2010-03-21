@@ -26,6 +26,7 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilo
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_simple_quaternion.c
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\kalman.c
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.h
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\button\button.h
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.h
@@ -57,3 +58,4 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilo
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs.h
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\kalman.h
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.h
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h

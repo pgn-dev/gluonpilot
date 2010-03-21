@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="Frames\Configuration\AllConfig.cs" />
     <Compile Include="Frames\Incoming\Attitude.cs" />
+    <Compile Include="Frames\Incoming\DatalogLine.cs" />
+    <Compile Include="Frames\Incoming\DatalogTable.cs" />
     <Compile Include="Frames\Incoming\GpsBasic.cs" />
     <Compile Include="Frames\Incoming\GyroAccProcessed.cs" />
     <Compile Include="Frames\Incoming\GyroAccRaw.cs" />
