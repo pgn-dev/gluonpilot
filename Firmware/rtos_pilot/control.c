@@ -197,9 +197,9 @@ void control_mix_out()
 				servo_out[1] = -roll_out + pitch_out + config.control.servo_neutral[1];
 				
 			if (config.control.reverse_servo4)
-				servo_out[4] = -motor_out + config.control.servo_neutral[4];
+				servo_out[3] = -motor_out + config.control.servo_neutral[3];
 			else 
-				servo_out[4] = motor_out + config.control.servo_neutral[4];
+				servo_out[3] = motor_out + config.control.servo_neutral[3];
 
 			break;
 		case DELTA_MIN:
@@ -214,12 +214,12 @@ void control_mix_out()
 				servo_out[1] = -roll_out - pitch_out + config.control.servo_neutral[1];
 				
 			if (config.control.reverse_servo4)
-				servo_out[4] = -motor_out + config.control.servo_neutral[4];
+				servo_out[3] = -motor_out + config.control.servo_neutral[3];
 			else 
-				servo_out[4] = motor_out + config.control.servo_neutral[4];
+				servo_out[3] = motor_out + config.control.servo_neutral[3];
 
 			break;
-		default:
+		default:  // aileron
 			if (config.control.reverse_servo1)
 				servo_out[0] = -roll_out + config.control.servo_neutral[0];
 			else
@@ -232,14 +232,15 @@ void control_mix_out()
 				servo_out[2] = -pitch_out + config.control.servo_neutral[2];
 			else
 				servo_out[2] = pitch_out + config.control.servo_neutral[2];
+				
 			if (config.control.reverse_servo4)
-				servo_out[4] = -motor_out + config.control.servo_neutral[4];
+				servo_out[3] = -motor_out + config.control.servo_neutral[3];
 			else
-				servo_out[4] = motor_out + config.control.servo_neutral[4];
+				servo_out[3] = motor_out + config.control.servo_neutral[3];
 			break;
 	}
 	
-	for(i = 0; i < 3; i++)
+	for(i = 0; i < 6; i++)
 	{	
 		if (servo_out[i] > config.control.servo_max[i])
 			servo_out[i] = config.control.servo_max[i];
