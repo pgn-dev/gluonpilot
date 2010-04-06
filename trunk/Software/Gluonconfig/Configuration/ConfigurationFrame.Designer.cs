@@ -257,6 +257,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this._pid_pitch_to_elevator = new Configuration.PidControl();
             this._tp_datalog = new System.Windows.Forms.TabPage();
+            this._btn_datalog_to_matlab = new System.Windows.Forms.Button();
             this._pb_datalog = new System.Windows.Forms.ProgressBar();
             this._btn_datalog_load_xml = new System.Windows.Forms.Button();
             this._btn_datalog_to_xml = new System.Windows.Forms.Button();
@@ -270,7 +271,7 @@
             this.columnHeaderTime = new System.Windows.Forms.ColumnHeader();
             this._btn_datalog_readtable = new System.Windows.Forms.Button();
             this._btn_dataflash_format = new System.Windows.Forms.Button();
-            this._btn_datalog_to_matlab = new System.Windows.Forms.Button();
+            this.label78 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this._tpTelemetry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gyroaccproc_telemetry)).BeginInit();
@@ -982,6 +983,7 @@
             // 
             // _tpRc
             // 
+            this._tpRc.Controls.Add(this.label78);
             this._tpRc.Controls.Add(this._llRc);
             this._tpRc.Controls.Add(this.label75);
             this._tpRc.Controls.Add(this.groupBox3);
@@ -1060,16 +1062,16 @@
             // label77
             // 
             this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(203, 193);
+            this.label77.Location = new System.Drawing.Point(221, 190);
             this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(149, 13);
+            this.label77.Size = new System.Drawing.Size(120, 13);
             this.label77.TabIndex = 36;
-            this.label77.Text = "Down/Left/Idle/Manual mode";
+            this.label77.Text = "Down/Left/Idle/Manual";
             // 
             // label76
             // 
             this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(9, 193);
+            this.label76.Location = new System.Drawing.Point(5, 190);
             this.label76.Name = "label76";
             this.label76.Size = new System.Drawing.Size(153, 13);
             this.label76.TabIndex = 35;
@@ -2716,6 +2718,16 @@
             this._tp_datalog.Text = "Datalog";
             this._tp_datalog.UseVisualStyleBackColor = true;
             // 
+            // _btn_datalog_to_matlab
+            // 
+            this._btn_datalog_to_matlab.Location = new System.Drawing.Point(461, 3);
+            this._btn_datalog_to_matlab.Name = "_btn_datalog_to_matlab";
+            this._btn_datalog_to_matlab.Size = new System.Drawing.Size(57, 23);
+            this._btn_datalog_to_matlab.TabIndex = 12;
+            this._btn_datalog_to_matlab.Text = "To *.dat";
+            this._btn_datalog_to_matlab.UseVisualStyleBackColor = true;
+            this._btn_datalog_to_matlab.Click += new System.EventHandler(this._btn_datalog_to_matlab_Click);
+            // 
             // _pb_datalog
             // 
             this._pb_datalog.Location = new System.Drawing.Point(224, 8);
@@ -2846,15 +2858,14 @@
             this._btn_dataflash_format.UseVisualStyleBackColor = true;
             this._btn_dataflash_format.Click += new System.EventHandler(this._btn_dataflash_format_Click);
             // 
-            // _btn_datalog_to_matlab
+            // label78
             // 
-            this._btn_datalog_to_matlab.Location = new System.Drawing.Point(461, 3);
-            this._btn_datalog_to_matlab.Name = "_btn_datalog_to_matlab";
-            this._btn_datalog_to_matlab.Size = new System.Drawing.Size(57, 23);
-            this._btn_datalog_to_matlab.TabIndex = 12;
-            this._btn_datalog_to_matlab.Text = "To *.dat";
-            this._btn_datalog_to_matlab.UseVisualStyleBackColor = true;
-            this._btn_datalog_to_matlab.Click += new System.EventHandler(this._btn_datalog_to_matlab_Click);
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(173, 248);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(52, 13);
+            this.label78.TabIndex = 26;
+            this.label78.Text = "Stabilized";
             // 
             // ConfigurationFrame
             // 
@@ -3153,5 +3164,6 @@
         private System.Windows.Forms.Button _btn_datalog_load_xml;
         private System.Windows.Forms.ProgressBar _pb_datalog;
         private System.Windows.Forms.Button _btn_datalog_to_matlab;
+        private System.Windows.Forms.Label label78;
     }
 }
