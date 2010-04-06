@@ -13,7 +13,7 @@ struct LogIndex
 
 extern struct LogIndex datalogger_index_table[MAX_INDEX];
 
-struct LogLine
+/*struct LogLine
 {
 	float gps_latitude_rad;
 	float gps_longitude_rad;
@@ -22,20 +22,51 @@ struct LogLine
 	int gps_heading;
 	
 	int pitch;
+	int pitch_acc;
 	int roll;
+	int roll_acc;
 	int yaw;
-	int acc_x;
-	int acc_y;
-	int acc_z;
-	int gyro_x;
-	int gyro_y;
-	int gyro_z;
-	
+	unsigned int acc_x;
+	unsigned int acc_y;
+	unsigned int acc_z;
+	float acc_x_g;
+	float acc_y_g;
+	float acc_z_g;
+	unsigned int gyro_x;
+	unsigned int gyro_y;
+	unsigned int gyro_z;
+	int p;
+	int q;
+	int r;
 	int control_state;
 	
 	char temperature_c;
 	int  height_m;
+};*/
+
+struct LogLine
+{
+	float gps_latitude_rad;
+	float gps_longitude_rad;
+	long  gps_time;
+	//int gps_height_m;
+	unsigned char gps_speed_m_s_10;
+	unsigned char gps_heading_2;
+	
+	unsigned int acc_x;
+	unsigned int acc_y;
+	unsigned int acc_z;
+	unsigned int gyro_x;
+	unsigned int gyro_y;
+	unsigned int gyro_z;
+	//int control_state;
+	int roll;
+	int pitch;
+	int pitch_acc;
+	
+	int  height_m_5;
 };
+
 
 
 void datalogger_init();

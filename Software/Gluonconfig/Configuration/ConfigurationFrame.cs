@@ -588,47 +588,104 @@ namespace Gluonpilot
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 string filename = sfd.FileName.Replace(".kml", "");
-                int flightmode = -1;
+                int flightmode = 0;
 
-                string head = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                              " <kml xmlns=\"http://earth.google.com/kml/2.0\">" +
-                              " <Document xmlns:xlink=\"http://www.w3/org/1999/xlink\">" +
-                              " <name>KML output</name>" +
-                              " <Style id=\"lineStyle\">" +
-                              "   <LineStyle>" +
-                              "   <color>ff00ffff</color>" +
-                              "   <width>6</width>" +
-                              "   </LineStyle>" +
-                              "   </Style>" +
-                              "   <Folder>" +
-                              "   <name>Flight path</name>";
-                string tail = "</coordinates></LineString></MultiGeometry></Placemark></Folder></Document></kml>";
                 Stream s = sfd.OpenFile();
                 StreamWriter sw = new StreamWriter(s);
-                sw.WriteLine(head);
+
+                sw.WriteLine( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                              " <kml xmlns=\"http://earth.google.com/kml/2.0\">" +
+                              " <Document xmlns:xlink=\"http://www.w3/org/1999/xlink\">" +
+                              " <name>Gluonpilot export</name>");
+                for (int j = 0; j <= 180; j++)
+                {
+                    sw.WriteLine(
+                              " <Style id=\"dataStyle_" + j + "\">" +
+                              "     <IconStyle><Icon><href>http://maps.google.com/mapfiles/kml/shapes/airports.png</href></Icon><scale>0.5</scale><heading>" + j*2 + "</heading></IconStyle>" +
+                              " </Style>");
+                }
+                sw.WriteLine(
+                              " <Style id=\"dataStyle\">" +
+                              "     <IconStyle><Icon><href>http://maps.google.com/mapfiles/kml/shapes/airports.png</href></Icon><scale>0.5</scale></IconStyle>" +
+                              " </Style>" +
+                              " <Style id=\"manualStyle\">" +
+                              "   <LineStyle>" +
+                              "   <color>ff00ffff</color>" +
+                              "   <width>5</width>" +
+                              "   </LineStyle>" +
+                              " </Style>" +
+                              " <Style id=\"autoStyle\">" +
+                              "   <LineStyle>" +
+                              "   <color>ff0000ff</color>" +
+                              "   <width>5</width>" +
+                              "   </LineStyle>" +
+                              " </Style>" +
+                              "   <Folder>" +
+                              "   <name>Flight path</name>") ;
+                string tailpath = "</coordinates></LineString></MultiGeometry></Placemark></Folder>";
+                string tailkml = "</Document></kml>";
+
 
                 bool firstcall = true;
+                int startheight = -11111;
                 foreach (DataRow dr in _ds_logLines.Tables["Data"].Rows)
                 {
-                    if (dr["FlightMode"].ToString() != flightmode.ToString())
+                    if (firstcall || (dr.Table.Columns.Contains("FlightMode") && dr["FlightMode"].ToString() != flightmode.ToString()))
                     {
-                        flightmode = int.Parse(dr["FlightMode"].ToString());
+                        if (dr.Table.Columns.Contains("FlightMode"))
+                            flightmode = int.Parse(dr["FlightMode"].ToString());
+
                         if (!firstcall)
                             sw.WriteLine("</coordinates></LineString></MultiGeometry></Placemark>");
                         else
                             firstcall = false;
                         sw.WriteLine("<Placemark>" +
-                              "   <name>" + flightmodes[flightmode] + "</name>" +
-                              "   <styleUrl>#lineStyle</styleUrl>" +
+                                     "   <name>" + flightmodes[flightmode] + "</name>");
+                        if (dr.Table.Columns.Contains("FlightMode") && dr["FlightMode"].ToString() == "0") // manual
+                            sw.WriteLine("   <styleUrl>#manualStyle</styleUrl>");
+                        else
+                            sw.WriteLine("   <styleUrl>#autoStyle</styleUrl>");
+                        sw.WriteLine(
                               "   <MultiGeometry>" +
                               "     <LineString>" +
-                              "       <altitudeMode>absolute</altitudeMode>" +
+                              "       <altitudeMode>relativeToGround</altitudeMode>" +
                               "       <coordinates>");
                     }
-                    sw.WriteLine("{0},{1},{2}", dr["Longitude"], dr["Latitude"], dr["HeightGPS"]);
+                    if (startheight == -11111)
+                        startheight = (int)double.Parse(dr["HeightBaro"].ToString(), System.Globalization.CultureInfo.InvariantCulture);
+                    sw.WriteLine("{0},{1},{2}", dr["Longitude"], dr["Latitude"], (double.Parse(dr["HeightBaro"].ToString(), System.Globalization.CultureInfo.InvariantCulture) - startheight).ToString(System.Globalization.CultureInfo.InvariantCulture));
                 }
+                sw.WriteLine(tailpath);
 
-                sw.WriteLine(tail);
+                sw.WriteLine("<Folder><name>Datalog</name>");
+                int i = 0;
+                double time = 0.0;
+                foreach (DataRow dr in _ds_logLines.Tables["Data"].Rows)
+                {
+                    time += 0.02;
+                    if (i++ % 15 == 0)
+                    {
+                        if (dr.Table.Columns.Contains("HeadingGPS") && dr.Table.Columns.Contains("HeightBaro"))
+                        {
+                            sw.WriteLine("<Placemark><Point><coordinates>");
+                            sw.WriteLine("{0},{1},{2}", dr["Longitude"], dr["Latitude"], double.Parse(dr["HeightBaro"].ToString(), System.Globalization.CultureInfo.InvariantCulture) - startheight);
+
+                            sw.WriteLine("</coordinates><altitudeMode>relativeToGround</altitudeMode></Point><styleUrl>#dataStyle_" + int.Parse(dr["HeadingGPS"].ToString()) / 2 + "</styleUrl>");
+                            if (dr.Table.Columns.Contains("Pitch") && dr.Table.Columns.Contains("HeightGPS"))
+                            {
+                                sw.WriteLine("<description>" + (int)time + " - Roll: " + dr["Roll"].ToString() + ", Pitch: " + dr["Pitch"].ToString() + ", Height: " + dr["HeightGPS"].ToString() + "</description>");
+                            } 
+                            else if (dr.Table.Columns.Contains("Time"))
+                            {
+                                    sw.WriteLine("<description>GPS time: " + dr["Time"] + " - elapsed time: " + Math.Round(time, 2) + " - datasample " + i + "</description>");
+                            }
+                            sw.WriteLine("</Placemark>");
+                        }
+                    }
+                }
+                sw.WriteLine("</Folder>");
+                
+                sw.WriteLine(tailkml);
                 sw.Close();
             }
         }
@@ -652,17 +709,19 @@ namespace Gluonpilot
         {
             OpenFileDialog ofd = new OpenFileDialog();
             if (_ds_logLines != null)
+            {
                 _ds_logLines.Tables.Clear();
+            }
+                
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                Stream s = ofd.OpenFile();
                 if (_ds_logLines == null)
-                {
                     _ds_logLines = new DataSet();
-                }
+                Stream s = ofd.OpenFile();
                 _ds_logLines.ReadXml(s);
                 _dgv_datalog.SelectionMode = DataGridViewSelectionMode.CellSelect;
                 _dgv_datalog.DataSource = _ds_logLines;
+                _dgv_datalog.DataMember = "Data";
 
                 foreach (DataGridViewColumn dgvc in _dgv_datalog.Columns)
                     dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -677,6 +736,80 @@ namespace Gluonpilot
             DataObject dataObj = _dgv_datalog.GetClipboardContent();
             Clipboard.SetDataObject(dataObj, true);
             _dgv_datalog.ClearSelection();
+        }
+
+        private void _btn_datalog_to_matlab_Click(object sender, EventArgs e)
+        {
+            DataColumnCollection dc = _ds_logLines.Tables["Data"].Columns;
+            if (!dc.Contains("AccX") || !dc.Contains("GyroX") || !dc.Contains("SpeedGPS") ||
+                !dc.Contains("HeightBaro") || !dc.Contains("HeadingGPS") || !dc.Contains("Latitude"))
+            {
+                MessageBox.Show("Not all needed data available: Acc[XYZ], Gyro[XYZ], Latitude, Longitude, SpeedGPS, HeadingGPS, HeightBaro");
+                return;
+            }
+            string prefix = Microsoft.VisualBasic.Interaction.InputBox("Please enter the prefix for the files:", "Export to *.dat", "", 10, 20);
+            SaveFileDialog sfd = new SaveFileDialog();
+            System.Windows.Forms.FolderBrowserDialog f = new FolderBrowserDialog();
+            DialogResult r = f.ShowDialog();
+            if (r == DialogResult.OK)
+            {
+                StreamWriter f_acc_x = new StreamWriter(f.SelectedPath + "\\" +
+                                                        prefix + "_raw_acc_x.dat");
+                StreamWriter f_acc_y = new StreamWriter(f.SelectedPath + "\\" +
+                                                        prefix + "_raw_acc_y.dat");
+                StreamWriter f_acc_z = new StreamWriter(f.SelectedPath + "\\" +
+                                                        prefix + "_raw_acc_z.dat");
+                StreamWriter f_gyro_x = new StreamWriter(f.SelectedPath + "\\" +
+                                                        prefix + "_raw_gyro_x.dat");
+                StreamWriter f_gyro_y = new StreamWriter(f.SelectedPath + "\\" +
+                                                        prefix + "_raw_gyro_y.dat");
+                StreamWriter f_gyro_z = new StreamWriter(f.SelectedPath + "\\" +
+                                                        prefix + "_raw_gyro_z.dat");
+                StreamWriter f_speed_m_s = new StreamWriter(f.SelectedPath + "\\" +
+                                                        prefix + "_speed_m_s.dat");
+                StreamWriter f_time_s = new StreamWriter(f.SelectedPath + "\\" +
+                                                        prefix + "_time_s.dat");
+                StreamWriter f_longitude_deg = new StreamWriter(f.SelectedPath + "\\" +
+                                                        prefix + "_longitude_deg.dat");
+                StreamWriter f_latitude_deg = new StreamWriter(f.SelectedPath + "\\" +
+                                                        prefix + "_latitude_deg.dat");
+                StreamWriter f_heading_deg = new StreamWriter(f.SelectedPath + "\\" +
+                                                        prefix + "_heading_deg.dat");
+                StreamWriter f_height_m = new StreamWriter(f.SelectedPath + "\\" +
+                                                        prefix + "_height_m.dat");
+
+
+                foreach (DataRow dr in _ds_logLines.Tables["Data"].Rows)
+                {
+                    f_acc_x.WriteLine(dr["AccX"]);
+                    f_acc_y.WriteLine(dr["AccY"]);
+                    f_acc_z.WriteLine(dr["AccZ"]);
+                    f_gyro_x.WriteLine(dr["GyroX"]);
+                    f_gyro_y.WriteLine(dr["GyroY"]);
+                    f_gyro_z.WriteLine(dr["GyroZ"]);
+
+                    f_speed_m_s.WriteLine(dr["SpeedGPS"]);
+                    f_height_m.WriteLine(dr["HeightBaro"]);
+                    f_heading_deg.WriteLine(dr["HeadingGPS"]);
+                    f_latitude_deg.WriteLine(dr["Latitude"]);
+                    f_longitude_deg.WriteLine(dr["Longitude"]);
+                    if (dr.Table.Columns.Contains("Time"))
+                        f_time_s.WriteLine(dr["Time"]);
+                }
+                f_acc_x.Close();
+                f_acc_y.Close();
+                f_acc_z.Close();
+                f_gyro_x.Close();
+                f_gyro_y.Close();
+                f_gyro_z.Close();
+
+                f_speed_m_s.Close();
+                f_height_m.Close();
+                f_heading_deg.Close();
+                f_latitude_deg.Close();
+                f_longitude_deg.Close();
+                f_time_s.Close();
+            }
         }
 #endregion
 
@@ -738,6 +871,7 @@ namespace Gluonpilot
         {
             _model.ControlMaxPitch = Convert.ToDouble(_nud_control_pitch_max.Value);
         }
+
 
 
 

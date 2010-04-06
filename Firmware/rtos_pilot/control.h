@@ -11,6 +11,9 @@ enum FlightModes { MANUAL = 0, STABILIZED = 1, AUTOPILOT = 2, LOITER = 3, RETURN
 struct ControlState
 {
 	enum FlightModes flight_mode;
+	double desired_roll;
+	double desired_pitch;
+	double desired_height;
 };
 
 extern struct ControlState control_state;

@@ -8,15 +8,15 @@ struct SensorData
 {
 	unsigned int acc_x_raw, acc_y_raw, acc_z_raw;
 	unsigned int gyro_x_raw, gyro_y_raw, gyro_z_raw;
-	float acc_x, acc_y, acc_z;
-	float p, q, r;
-	float roll, pitch, yaw;
-	float roll_acc, pitch_acc;
-	float w; // estimated speed along z axis
+	double acc_x, acc_y, acc_z;
+	double p, q, r;
+	double roll, pitch, yaw;
+	double roll_acc, pitch_acc;
+	double vertical_speed; // estimated speed along z axis
 	
-	float pressure;
-	float temperature;
-	float pressure_height;
+	double pressure;
+	double temperature;
+	double pressure_height;
 	int temperature_10;
 	
 	struct gps_info gps;

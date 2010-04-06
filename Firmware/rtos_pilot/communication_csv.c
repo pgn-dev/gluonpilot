@@ -39,6 +39,8 @@
 void print_signed_integer(int x, void (*printer)(char[]));
 void print_unsigned_integer(unsigned int x, void (*printer)(char[]));
 void print_logline(struct LogLine *l);
+void print_logline_simulation(struct LogLine *l);
+
 
 /*!
  *    This task will send a line directly to uart1 20 times a second.
@@ -231,8 +233,8 @@ void communication_input_task( void *parameters )
 		if( xQueueReceive( xRxedChars, &tmp, portMAX_DELAY  ) )
         {           
 	        //vTaskList(&buffer1);
-	        //uart1_puts(buffer1);
-            if (tmp == '\n' || tmp == '\r')
+	        //uart1_putc(tmp);
+            if ((tmp == '\n' || tmp == '\r'))
             {
 	            buffer[buffer_position] = '\0';
 	            //token[current_token + 1] = buffer_position;
@@ -399,12 +401,21 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'D' && buffer[token[0] + 1] == 'R')    
 				{
 					int i = atoi(&(buffer[token[1]]));
-					printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;");
-					printf ("HeightBaro;Pitch;Roll;AccX;AccY;AccZ;GyroX;");
-					printf ("GyroY;GyroZ;TempC;FlightMode\r\n");
+					/*printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;");
+					printf ("HeightBaro;Pitch;PitchAcc;Roll;RollAcc;AccX;AccXG;AccY;AccYG;AccZ;");
+					printf ("AccZG;GyroX;GyroY;GyroZ;P;Q;R;TempC;FlightMode\r\n");*/
+					
+					printf ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");
+	
 					datalogger_disable();
+					
 					while (datalogger_print_next_page(i, &print_logline))
 						;
+					/* ** SIMULATION ** */
+					/*ahrs_init();
+					while (datalogger_print_next_page(i, &print_logline_simulation))
+						;
+					*/
 					//datalogger_enable();
 				}	
 				///////////////////////////////////////////////////////////////
@@ -555,14 +566,49 @@ void communication_input_task( void *parameters )
 
 void print_logline(struct LogLine *l)
 {
-	//printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;HeightBaro;Pitch;Roll;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;TempC;Control");
-	printf ("DD;%f;%f;", l->gps_latitude_rad*(180.0/3.14159), l->gps_longitude_rad*(180.0/3.14159));
+	/*printf ("DD;%f;%f;", l->gps_latitude_rad*(180.0/3.14159), l->gps_longitude_rad*(180.0/3.14159));
 	printf ("%d;%d;%d;", l->gps_speed_m_s, l->gps_heading, l->gps_height_m);
-	printf ("%d;%d;%d;", l->height_m, l->pitch, l->roll);
-	printf ("%d;%d;%d;", l->acc_x, l->acc_y, l->acc_z);
-	printf ("%d;%d;%d;", l->gyro_x, l->gyro_y, l->gyro_z);
-	printf ("%d;%d\r\n", (int)l->temperature_c, l->control_state);
+	printf ("%d;%d;%d;", l->height_m, l->pitch, l->pitch_acc);
+	printf ("%d;%d;", l->roll, l->roll_acc);
+	printf ("%u;%f;%u;", l->acc_x, l->acc_x_g, l->acc_y);
+	printf ("%f;%u;%f;", l->acc_y_g, l->acc_z, l->acc_z_g);
+	printf ("%u;%u;%u;", l->gyro_x, l->gyro_y, l->gyro_z);
+	printf ("%d;%d;%d;", l->p, l->q, l->r);
+	printf ("%d;%d\r\n", (int)l->temperature_c, l->control_state);*/
+	
+	printf ("DD;%f;%f;", l->gps_latitude_rad*(180.0/3.14159), l->gps_longitude_rad*(180.0/3.14159));
+	printf ("%lu;%f;%d;", l->gps_time, ((float)l->gps_speed_m_s_10) / 10.0, ((int)l->gps_heading_2)*2);
 
+	printf ("%u;%u;%u;", l->acc_x, l->acc_y, l->acc_z);
+	printf ("%u;%u;%u;", l->gyro_x, l->gyro_y, l->gyro_z);
+
+	printf ("%f;%d;%d;%d\r\n", ((float)l->height_m_5) / 5.0, l->pitch, l->roll, l->pitch_acc);
+
+}	
+
+void print_logline_simulation(struct LogLine *l)
+{
+	sensor_data.acc_x_raw = l->acc_x;
+	sensor_data.acc_y_raw = l->acc_y;
+	sensor_data.acc_z_raw = l->acc_z;
+	sensor_data.gyro_x_raw = l->gyro_x;
+	sensor_data.gyro_y_raw = l->gyro_y;
+	sensor_data.gyro_z_raw = l->gyro_z;
+	sensor_data.gps.speed_ms = (float)l->gps_speed_m_s_10/10.0;
+	
+	sensor_data.acc_x = ((double)(sensor_data.acc_x_raw) - (double)config.sensors.acc_x_neutral) / (-6600.0*-1.0);
+	sensor_data.acc_y = ((double)(sensor_data.acc_y_raw) - (double)config.sensors.acc_y_neutral) / (-6600.0*-1.0);
+	sensor_data.acc_z = ((double)(sensor_data.acc_z_raw) - (double)config.sensors.acc_z_neutral) / (-6600.0);
+			
+	// scale to rad/sec
+	sensor_data.p = ((double)(sensor_data.gyro_x_raw)-config.sensors.gyro_x_neutral) * (-0.02518315*3.14159/180.0 * -1.0);  // 0.02518315f
+	sensor_data.q = ((double)(sensor_data.gyro_y_raw)-config.sensors.gyro_y_neutral) * (-0.02538315*3.14159/180.0 * -1.0);
+	sensor_data.r = ((double)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)
+	
+	ahrs_filter();
+	
+	
+	printf ("%f;%f;%f\r\n", sensor_data.pitch, sensor_data.roll, sensor_data.pitch_acc );
 }	
 
 
