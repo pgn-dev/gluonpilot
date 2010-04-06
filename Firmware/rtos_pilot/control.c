@@ -117,7 +117,7 @@ void control_task( void *parameters )
 		if (ppm.channel[config.control.channel_ap] < 1333)
 		{
 			control_state.flight_mode = AUTOPILOT;
-			; // autopilot mode
+			control_stabilized(0.01); // stabilized mode as long as navigation isn't available
 		} 
 		else if (ppm.channel[config.control.channel_ap] < 1666)
 		{
@@ -125,7 +125,7 @@ void control_task( void *parameters )
 				control_state.desired_height = sensor_data.pressure_height;
 				
 			control_state.flight_mode = STABILIZED;
-			control_stabilized(0.01f); // stabilized mode
+			control_stabilized(0.01); // stabilized mode
 		} 
 		else
 		{
