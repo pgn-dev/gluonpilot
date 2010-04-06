@@ -4,6 +4,11 @@
  *  Input: RC-transmitter, sensor data
  *  Output: Servo positions
  *
+ *  Conventions: For RC-transmitter and mixer input:
+ *                 Right roll > 0 -> input > 1500ms
+ *                 Up pitch > 0 -> input > 1500ms
+ *
+ *
  *  @file     control.c
  *  @author   Tom Pycke
  *  @date     24-dec-2009
@@ -79,9 +84,9 @@ void control_init()
 	}
 	
 	// Initialize PID 
-	pid_init(&config.control.pid_roll2aileron,   0.0,     0.45f,  1.2*(0.56*0.45)/1.5, -0.2, 0.2, 2.0*0.017);
-	pid_init(&config.control.pid_pitch2elevator, 0.0,     1.15f,0.0, -2.0, 2.0, 2.0*0.017);
-	pid_init(&config.control.pid_heading2roll,   0.00001, 0.4f,  0.00001, -0.9, 0.9, 4.0*0.017);  //0.4 = 23°
+	//pid_init(&config.control.pid_roll2aileron,   0.0,     0.45f,  1.2*(0.56*0.45)/1.5, -0.2, 0.2, 2.0*0.017);
+	//pid_init(&config.control.pid_pitch2elevator, 0.0,     1.15f,0.0, -2.0, 2.0, 2.0*0.017);
+	//pid_init(&config.control.pid_heading2roll,   0.00001, 0.4f,  0.00001, -0.9, 0.9, 4.0*0.017);  //0.4 = 23°
 }
 
 
@@ -90,6 +95,8 @@ void control_init()
  */
 void control_task( void *parameters )
 {
+	enum FlightModes lastMode = MANUAL;
+	
 	/* Used to wake the task at the correct frequency. */
 	portTickType xLastExecutionTime; 
 
@@ -109,16 +116,23 @@ void control_task( void *parameters )
 		
 		if (ppm.channel[config.control.channel_ap] < 1333)
 		{
+			control_state.flight_mode = AUTOPILOT;
 			; // autopilot mode
 		} 
 		else if (ppm.channel[config.control.channel_ap] < 1666)
 		{
+			if (lastMode != control_state.flight_mode)
+				control_state.desired_height = sensor_data.pressure_height;
+				
+			control_state.flight_mode = STABILIZED;
 			control_stabilized(0.01f); // stabilized mode
 		} 
 		else
 		{
+			control_state.flight_mode = MANUAL;
 			control_manual(); // manual mode
 		}
+		lastMode = control_state.flight_mode;
 	}
 }
 
@@ -128,8 +142,11 @@ void control_task( void *parameters )
  */
 void control_manual()
 {
+	// > 0 => Up
 	pitch_out = ppm.channel[config.control.channel_pitch] - config.control.channel_neutral[config.control.channel_pitch];
+	// > 0 => Right
 	roll_out = ppm.channel[config.control.channel_roll] - config.control.channel_neutral[config.control.channel_roll];
+	// > 0 => Motor on
 	motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
 	
 	control_mix_out();
@@ -143,34 +160,29 @@ void control_manual()
  */
 void control_stabilized(float dt)
 {
-
-	float desired_pitch = 0.0,
-	      desired_roll  = 0.0;
 	float elevator_out_radians,
 	      aileron_out_radians;
 	      
-	desired_roll += (float)((int)ppm.channel[config.control.channel_roll]
-	                             - config.control.channel_neutral[config.control.channel_roll]) / 500.0 * /*config.max_roll*/ (config.control.max_roll);
-	desired_pitch += (float)((int)ppm.channel[config.control.channel_pitch]
-	                              - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * /*config.max_pitch*/ (config.control.max_pitch);
+	control_state.desired_roll = (float)((int)ppm.channel[config.control.channel_roll]
+	                             - config.control.channel_neutral[config.control.channel_roll]) / 500.0 * (config.control.max_roll);
+	control_state.desired_pitch = (float)((int)ppm.channel[config.control.channel_pitch]
+	                              - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * (config.control.max_pitch);
 
 	//desired_pitch = ((navigation->home_height + 45.0) - gps->height_m)  / 20.0 * config.max_pitch; 
-	
-	/*if (desired_pitch > config.control.max_pitch)
-		desired_pitch = config.control.max_pitch;
-	else if (desired_pitch < -config.control.max_pitch)
-		desired_pitch = -config.control.max_pitch;*/
+
 
 	// compensate the loss in lift
-	desired_pitch += (1.0/cosf(sensor_data.roll) - 1.0)*0.70;
+	control_state.desired_pitch += (1.0/cosf(sensor_data.roll) - 1.0)*0.30; // (0.5: 12° up at 45° roll)
 	
-	elevator_out_radians = pid_update_only_p(&config.control.pid_pitch2elevator, desired_pitch - sensor_data.pitch, dt); //pid_pitch_to_elevator(desired_pitch, ahrs);
-	aileron_out_radians = pid_update_only_p(&config.control.pid_roll2aileron, desired_roll - sensor_data.roll, dt);  //pid_roll_to_aileron(desired_roll, ahrs);
+	elevator_out_radians = pid_update_only_p(&config.control.pid_pitch2elevator, 
+	                                         control_state.desired_pitch - sensor_data.pitch, dt); //pid_pitch_to_elevator(desired_pitch, ahrs);
+	aileron_out_radians = pid_update_only_p(&config.control.pid_roll2aileron, 
+	                                        control_state.desired_roll - sensor_data.roll, dt);  //pid_roll_to_aileron(desired_roll, ahrs);
 
 	motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
 
-	pitch_out = (int)(elevator_out_radians * 630.0f); // +-45° -> +- 500
-	roll_out = (int)(aileron_out_radians * 630.0f);
+	pitch_out = (int)(elevator_out_radians * 630.0); // +-45° -> +- 500
+	roll_out = (int)(aileron_out_radians * 630.0);
 	//printf ("%f %f %d\n\r", desired_pitch, desired_pitch - ahrs->pitch, elevator_out);
 
 	control_mix_out();
@@ -178,6 +190,12 @@ void control_stabilized(float dt)
 
 /*!
  *   Mixes variables xyz_out into correct servo positions, according to the configured mixing type.
+ * 
+ *   Input: 
+ *      roll_out: > 0 means right
+ *      pitch_out: > 0 means up
+ *      motor_out: > 0 means on/more gas
+ *
  */
 void control_mix_out()
 {

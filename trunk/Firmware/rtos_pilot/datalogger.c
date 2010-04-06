@@ -37,51 +37,91 @@ xSemaphoreHandle xSpiSemaphore;
 void datalogger_read(int page, int size, unsigned char *buffer);
 void datalogger_write(int page, int size, unsigned char *buffer);
 
-
+/*!
+ *   Initializes the datalogging (to dataflash) functionality.
+ *
+ *   First the current index page is read out.
+ *   Then we look for the oldest index. 
+ *   Then we look for the youngest page
+ *   Then we take the first page after the youngest page, that is not from the youngest index
+ */
 void datalogger_init()
 {
-	int i, start_page = 3;
+	int i, start_page = 3, last_index = -1;
+	unsigned long date2 = 0xFFFFFFFF;
+	unsigned long date;
 	
 	//printf("formatting...");
 	//datalogger_format();
 	//printf("done");
 	datalogger_read(2, sizeof(struct LogIndex) * MAX_INDEX, (unsigned char*)datalogger_index_table);
 	
-	// find the first empty page
+	// find the index with the oldest date
 	for (i = 0; i < MAX_INDEX; i++)
 	{
-		if (datalogger_index_table[i].page_num >= start_page)
+		date = (datalogger_index_table[i].date % 100) * 100000000 + 
+		       ((datalogger_index_table[i].date % 10000) / 100) * 1000000 + 
+		       ((datalogger_index_table[i].date / 10000) * 10000) +
+		       datalogger_index_table[i].time / 100;
+		if (date < date2)
 		{
-			start_page = datalogger_index_table[i].page_num + 1;
-			current_index = (i+1)%MAX_INDEX;
-		}	
+			date2 = date;
+			//start_page = datalogger_index_table[i].page_num + 1;
+			current_index = (i)%MAX_INDEX + 1;
+		}
 	}
+	
+	// find the index with the youngest date: we need to find the first available page after the one used by the youngest index
+	date2 = 0;
+	for (i = 0; i < MAX_INDEX; i++)
+	{
+		date = (datalogger_index_table[i].date % 100) * 100000000 + 
+		       ((datalogger_index_table[i].date % 10000) / 100) * 1000000 + 
+		       ((datalogger_index_table[i].date / 10000) * 10000) +
+		       datalogger_index_table[i].time / 100;
+		if (date > date2)
+		{
+			date2 = date;
+			start_page = datalogger_index_table[i].page_num + 1;
+		}
+	}	
+	
+	if (start_page < 3)  // possible after a format
+		start_page = 3;
 
+	// Lets find the first page	that is
+	//    - 0: not been written yet: OK
+	//    - (current index) = page written by this index: the previous index didn't overwrite it: OK
+	//    - A change in index: this is the one we will need to sacrifice...
 	for (i = start_page; i < MAX_PAGE; i++)
 	{
 		int *index;
-		datalogger_read(i, PAGE_SIZE, buffer);
-		//printf("reading page %d: %d %d %d %d\r\n", i, (int)buffer[0], (int)buffer[1], (int)buffer[2], (int)buffer[3]);
+		datalogger_read(i, 4, buffer);
 		index = (int*) &(buffer[0]);
-		if (*index == 0)
+		if (*index == 0 || *index == (current_index) || (*index != last_index && last_index > 0))
 		{
 			current_page = i;
-			*index = (current_index+1); // buffer[0] + [1] contains current_index + 1
+			*index = (current_index); // buffer[0] + [1] contains current_index + 1
 			break;
-		}			
+		}
+		last_index = *index;
 	}
-	
-	// update the index
-	datalogger_index_table[current_index].page_num = current_page;
-	datalogger_index_table[current_index].time = sensor_data.gps.time;
-	datalogger_index_table[current_index].date = sensor_data.gps.date;
+	//printf("index %d , page %d\r\n", current_index, current_page);
 }
 
 
+/*!
+ *    This function is called when the GPS (date & time!) is available and the index page can be written.
+ */ 
 void datalogger_start_session()
-{
+{	
+	// update the index
+	datalogger_index_table[current_index - 1].page_num = current_page;
+	datalogger_index_table[current_index - 1].time = sensor_data.gps.time;
+	datalogger_index_table[current_index - 1].date = sensor_data.gps.date;
+	
 	datalogger_write(2, sizeof(struct LogIndex) * MAX_INDEX, (unsigned char*)datalogger_index_table);
-	//printf("Starting to datalog to page %d, index %d\r\n", current_page, current_index);	
+	//printf("Starting to datalog to page %d, index %d\r\n", current_page, current_index);
 }	
 
 
@@ -103,8 +143,11 @@ void datalogger_write(int page, int size, unsigned char *buffer)
 	}	
 }	
 
-	
+
 int current_line = 0;
+/*!
+ *    Save the LogLine line to a buffer. Write the buffer when full.
+ */
 void datalogger_writeline(struct LogLine *line)
 {
 	unsigned char *a, *b;
@@ -128,7 +171,14 @@ void datalogger_writeline(struct LogLine *line)
 		b[i] = a[i];
 }
 
-
+/*!
+ *    Prints the contents of the next available page on "index" using the
+ *    "printer" function.
+ *    
+ *    @index   The index (see dataflash page 3) we want to read.
+ *    @printer The function used to format the LogLine according to the current
+ *             used communication protocol.
+ */
 int datalogger_print_next_page(int index, void(*printer)(struct LogLine*))
 {
 	static int last_index = -1;
@@ -161,6 +211,9 @@ int datalogger_print_next_page(int index, void(*printer)(struct LogLine*))
 }
 	
 
+/*!
+ *   Formats all dataflash pages except the first 2 (used for configuration)
+ */
 void datalogger_format()
 {
 	int i;
@@ -187,6 +240,12 @@ void datalogger_enable()
 }
 
 
+/*!
+ *    This task takes care of the logging, both initialization and actual logging.
+ * 
+ *    The initialization of the logging index (page 3) starts when a valid GPS frame
+ *    is available. This is needed because the date & time are stored in the index.
+ */
 void datalogger_task( void *parameters )
 {
 	static struct LogLine l;
@@ -203,25 +262,52 @@ void datalogger_task( void *parameters )
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil()	works correctly. */
 	xLastExecutionTime = xTaskGetTickCount();
 	
-	// wait for GPS	
+	// wait for GPS	(date & time!)
 	while(sensor_data.gps.status != ACTIVE)
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );   // 1Hz
-		
+	
+	// ok, now we've got the current date and time, we can find an available page and write the index	
 	datalogger_start_session();
 	
 	for( ;; )
 	{	
-		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 250 / portTICK_RATE_MS ) );   // 4Hz
+		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 20 / portTICK_RATE_MS ) );   // 50Hz
 		
-		if (! disable_logging)
+		if (! disable_logging)   // logging is disabled when the config tool reads out logging.
 		{
-			l.temperature_c = (char)sensor_data.temperature; // -128°C...+128°C
+			/*l.temperature_c = (char)sensor_data.temperature; // -128°C...+128°C
 			l.height_m = (int)sensor_data.pressure_height;
 			l.gps_latitude_rad = sensor_data.gps.latitude_rad;
 			l.gps_longitude_rad = sensor_data.gps.longitude_rad;
 			l.gps_height_m = sensor_data.gps.height_m;
-			l.gps_heading = sensor_data.gps.heading_rad;
+			l.gps_heading = (int)(sensor_data.gps.heading_rad * (180.0/3.14159));
 			l.gps_speed_m_s = sensor_data.gps.speed_ms;
+			l.acc_x = sensor_data.acc_x_raw;
+			l.acc_y = sensor_data.acc_y_raw;
+			l.acc_z = sensor_data.acc_z_raw;
+			l.acc_x_g = sensor_data.acc_x;
+			l.acc_y_g = sensor_data.acc_y;
+			l.acc_z_g = sensor_data.acc_z;
+
+			l.gyro_x = sensor_data.gyro_x_raw;
+			l.gyro_y = sensor_data.gyro_y_raw;
+			l.gyro_z = sensor_data.gyro_z_raw;
+			l.p = (int)(sensor_data.p * (180.0/3.14159));
+			l.q = (int)(sensor_data.q * (180.0/3.14159));
+			l.r = (int)(sensor_data.r * (180.0/3.14159));
+			l.pitch = (int)(sensor_data.pitch * (180.0/3.14159));
+			l.roll = (int)(sensor_data.roll * (180.0/3.14159));
+			l.pitch_acc = (int)(sensor_data.pitch_acc * (180.0/3.14159));
+			l.roll_acc = (int)(sensor_data.roll_acc * (180.0/3.14159));
+			l.control_state = control_state.flight_mode;*/
+			
+			
+			l.height_m_5 = (int)(sensor_data.pressure_height*5);
+			l.gps_latitude_rad = sensor_data.gps.latitude_rad;
+			l.gps_longitude_rad = sensor_data.gps.longitude_rad;
+			l.gps_heading_2 = (unsigned char)(sensor_data.gps.heading_rad * (180.0/3.14159) / 2.0);
+			l.gps_speed_m_s_10 = (unsigned char)(sensor_data.gps.speed_ms * 10.0);
+			l.gps_time = sensor_data.gps.time;
 			l.acc_x = sensor_data.acc_x_raw;
 			l.acc_y = sensor_data.acc_y_raw;
 			l.acc_z = sensor_data.acc_z_raw;
@@ -229,8 +315,8 @@ void datalogger_task( void *parameters )
 			l.gyro_y = sensor_data.gyro_y_raw;
 			l.gyro_z = sensor_data.gyro_z_raw;
 			l.pitch = (int)(sensor_data.pitch * (180.0/3.14159));
+			l.pitch_acc = (int)(sensor_data.pitch_acc * (180.0/3.14159));
 			l.roll = (int)(sensor_data.roll * (180.0/3.14159));
-			l.control_state = control_state.flight_mode;
 			
 			datalogger_writeline(&l);
 		}

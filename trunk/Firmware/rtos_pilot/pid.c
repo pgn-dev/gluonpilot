@@ -29,7 +29,7 @@
  *                        term. Used to prevent jitter on the output.
  *  @todo  Add global min and max value for the output.
  */
-void pid_init(struct pid *pid, float d_gain, float p_gain, float i_gain, float i_min, float i_max, float d_term_min_var)
+void pid_init(struct pid *pid, double d_gain, double p_gain, double i_gain, double i_min, double i_max, double d_term_min_var)
 {
 	pid->last_error = 0.0;
 	pid->i_state = 0.0;
@@ -50,14 +50,14 @@ void pid_init(struct pid *pid, float d_gain, float p_gain, float i_gain, float i
  *  @param dt Time since last update, needed for the integral and derivative term.
  *  @return The calculated pid output.
  */
-float pid_update(struct pid *pid, float position, float dt)
+double pid_update(struct pid *pid, double position, double dt)
 {
-	float tmp;
+	double tmp;
 	
 	tmp = (position - pid->d_state) * pid->d_gain / dt;   // D-term
 	
 	// to eliminate jittering which wears out servos
-	if (fabsf(tmp) < pid->d_term_min_var)
+	if (abs(tmp) < pid->d_term_min_var)
 		tmp = 0.0;
 	
 	// update d_state for next call.
@@ -82,13 +82,13 @@ float pid_update(struct pid *pid, float position, float dt)
  *  @param dt Time since last update, needed for the integral and derivative term.
  *  @return The calculated pid output.
  */
-float pid_update_only_p(struct pid *pid, float position, float dt)
+double pid_update_only_p(struct pid *pid, double position, double dt)
 {
 	return pid->p_gain * position;                        // P-term	
 }
 
 
-float pid_update_only_p_and_i(struct pid *pid, float position, float dt)
+double pid_update_only_p_and_i(struct pid *pid, double position, double dt)
 {
 	pid->i_state += position * dt;                        // I-term
 	if (pid->i_state > pid->i_max)

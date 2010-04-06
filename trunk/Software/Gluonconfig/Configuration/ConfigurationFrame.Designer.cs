@@ -270,6 +270,7 @@
             this.columnHeaderTime = new System.Windows.Forms.ColumnHeader();
             this._btn_datalog_readtable = new System.Windows.Forms.Button();
             this._btn_dataflash_format = new System.Windows.Forms.Button();
+            this._btn_datalog_to_matlab = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this._tpTelemetry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gyroaccproc_telemetry)).BeginInit();
@@ -2698,6 +2699,7 @@
             // 
             // _tp_datalog
             // 
+            this._tp_datalog.Controls.Add(this._btn_datalog_to_matlab);
             this._tp_datalog.Controls.Add(this._pb_datalog);
             this._tp_datalog.Controls.Add(this._btn_datalog_load_xml);
             this._tp_datalog.Controls.Add(this._btn_datalog_to_xml);
@@ -2719,14 +2721,14 @@
             this._pb_datalog.Location = new System.Drawing.Point(224, 8);
             this._pb_datalog.Maximum = 50;
             this._pb_datalog.Name = "_pb_datalog";
-            this._pb_datalog.Size = new System.Drawing.Size(120, 14);
+            this._pb_datalog.Size = new System.Drawing.Size(87, 14);
             this._pb_datalog.Step = 1;
             this._pb_datalog.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this._pb_datalog.TabIndex = 11;
             // 
             // _btn_datalog_load_xml
             // 
-            this._btn_datalog_load_xml.Location = new System.Drawing.Point(350, 3);
+            this._btn_datalog_load_xml.Location = new System.Drawing.Point(317, 3);
             this._btn_datalog_load_xml.Name = "_btn_datalog_load_xml";
             this._btn_datalog_load_xml.Size = new System.Drawing.Size(75, 23);
             this._btn_datalog_load_xml.TabIndex = 10;
@@ -2736,9 +2738,9 @@
             // 
             // _btn_datalog_to_xml
             // 
-            this._btn_datalog_to_xml.Location = new System.Drawing.Point(431, 3);
+            this._btn_datalog_to_xml.Location = new System.Drawing.Point(398, 3);
             this._btn_datalog_to_xml.Name = "_btn_datalog_to_xml";
-            this._btn_datalog_to_xml.Size = new System.Drawing.Size(75, 23);
+            this._btn_datalog_to_xml.Size = new System.Drawing.Size(57, 23);
             this._btn_datalog_to_xml.TabIndex = 9;
             this._btn_datalog_to_xml.Text = "To XML";
             this._btn_datalog_to_xml.UseVisualStyleBackColor = true;
@@ -2761,9 +2763,9 @@
             // 
             // _button_datalog_kml
             // 
-            this._button_datalog_kml.Location = new System.Drawing.Point(512, 3);
+            this._button_datalog_kml.Location = new System.Drawing.Point(524, 3);
             this._button_datalog_kml.Name = "_button_datalog_kml";
-            this._button_datalog_kml.Size = new System.Drawing.Size(75, 23);
+            this._button_datalog_kml.Size = new System.Drawing.Size(62, 23);
             this._button_datalog_kml.TabIndex = 7;
             this._button_datalog_kml.Text = "To KML";
             this._button_datalog_kml.UseVisualStyleBackColor = true;
@@ -2843,6 +2845,16 @@
             this._btn_dataflash_format.Text = "Format datalog memory";
             this._btn_dataflash_format.UseVisualStyleBackColor = true;
             this._btn_dataflash_format.Click += new System.EventHandler(this._btn_dataflash_format_Click);
+            // 
+            // _btn_datalog_to_matlab
+            // 
+            this._btn_datalog_to_matlab.Location = new System.Drawing.Point(461, 3);
+            this._btn_datalog_to_matlab.Name = "_btn_datalog_to_matlab";
+            this._btn_datalog_to_matlab.Size = new System.Drawing.Size(57, 23);
+            this._btn_datalog_to_matlab.TabIndex = 12;
+            this._btn_datalog_to_matlab.Text = "To *.dat";
+            this._btn_datalog_to_matlab.UseVisualStyleBackColor = true;
+            this._btn_datalog_to_matlab.Click += new System.EventHandler(this._btn_datalog_to_matlab_Click);
             // 
             // ConfigurationFrame
             // 
@@ -3140,5 +3152,6 @@
         private System.Windows.Forms.Button _btn_datalog_to_xml;
         private System.Windows.Forms.Button _btn_datalog_load_xml;
         private System.Windows.Forms.ProgressBar _pb_datalog;
+        private System.Windows.Forms.Button _btn_datalog_to_matlab;
     }
 }

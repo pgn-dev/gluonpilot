@@ -22,14 +22,14 @@
 
 
 #define configUSE_PREEMPTION			1
-#define configUSE_IDLE_HOOK				1
+#define configUSE_IDLE_HOOK				0
 #define configUSE_TICK_HOOK				0
 #define configTICK_RATE_HZ				( ( portTickType ) 1000 )
 #define configCPU_CLOCK_HZ				( ( unsigned portLONG ) 40000000 )  /* Fosc / 2 */
 #define configMAX_PRIORITIES			( ( unsigned portBASE_TYPE ) 8 )
 //#define configMINIMAL_STACK_SIZE		( 115 )
 #define configMINIMAL_STACK_SIZE		( 215 )
-#define configTOTAL_HEAP_SIZE			( ( size_t ) 8192 )
+#define configTOTAL_HEAP_SIZE			( ( size_t ) 16384 )
 #define configMAX_TASK_NAME_LEN			( 8 )
 #define configUSE_TRACE_FACILITY		1
 #define configUSE_16_BIT_TICKS			1

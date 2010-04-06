@@ -44,13 +44,15 @@
 struct SensorData sensor_data;
 
 // Usefull constants
-#define G 9.81f
-#define DT 0.01f   // 100Hz
-#define RAD2DEG (180.f/3.14159f)
+#define G 9.81
+#define DT 0.01   // 100Hz
+#define RAD2DEG (180.0/3.14159)
 
-static const float acc_value_g = 6600.0f;
+static const float acc_value_g = 6600.0;
 
 extern xSemaphoreHandle xSpiSemaphore;
+
+#define INVERT_X -1.0   // set to -1 if front becomes back
 
 /*!
  *   FreeRTOS task that reads all the sensor data and stored it in the
@@ -79,13 +81,12 @@ void sensors_task( void *parameters )
 
 	for( ;; )
 	{
-	
-		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 10 / portTICK_RATE_MS ) );   // 100Hz
+		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 20 / portTICK_RATE_MS ) );   // 50Hz
 
 		// The SPC1000 pressure sensor is updated at 9Hz
 		if (scp1000_dataready())
 		{
-			// this should be at 1.8Hz ->0.555s
+			// this should be at 9Hz ->0.11s
 			if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 0 ))  // Spi1 is shared with SCP1000 and Dataflash
 			{
 				sensor_data.pressure = scp1000_get_pressure();
@@ -94,16 +95,17 @@ void sensors_task( void *parameters )
 			}	
 			temperature_10 = (unsigned int)sensor_data.temperature * 10;
 			sensor_data.pressure_height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
-			sensor_data.w = sensor_data.w * 0.4 + (sensor_data.pressure_height - last_height)/0.555 * 0.6;
+			sensor_data.vertical_speed = sensor_data.vertical_speed * 0.5 + (sensor_data.pressure_height - last_height)/0.11 * 0.5;
 			last_height = sensor_data.pressure_height;
+			//printf("! %f\r\n", sensor_data.pressure_height);
 		}
 		
 		
 		// read accelerometer data and apply temperature compensation
 		// (cfr. http://www.gluonpilot.com/wiki/Temperature_compensation)
-		sensor_data.acc_x_raw = adc_get_channel(6)- temperature_10;
-		sensor_data.acc_z_raw = adc_get_channel(1)- temperature_10;
-		sensor_data.acc_y_raw = adc_get_channel(0)- temperature_10;
+		sensor_data.acc_x_raw = adc_get_channel(6);//- temperature_10;
+		sensor_data.acc_z_raw = adc_get_channel(1);//- temperature_10;
+		sensor_data.acc_y_raw = adc_get_channel(0);//- temperature_10;
 
 		sensor_data.gyro_x_raw = adc_get_channel(4);
 		sensor_data.gyro_y_raw = adc_get_channel(7);
@@ -112,14 +114,14 @@ void sensors_task( void *parameters )
 		adc_start();
 
 		// scale to "g" units. We prefer "g" over SI units (m/s^2) because this allows to cancel out the gravity constant as it is "1"
-		sensor_data.acc_x = ((float)(sensor_data.acc_x_raw) - (float)config.sensors.acc_x_neutral) / (-acc_value_g);
-		sensor_data.acc_z = ((float)(sensor_data.acc_z_raw) - (float)config.sensors.acc_z_neutral) / (-acc_value_g);
-		sensor_data.acc_y = ((float)(sensor_data.acc_y_raw) - (float)config.sensors.acc_y_neutral) / (-acc_value_g);
-		
+		sensor_data.acc_x = ((double)(sensor_data.acc_x_raw) - (double)config.sensors.acc_x_neutral) / (-acc_value_g*INVERT_X);
+		sensor_data.acc_y = ((double)(sensor_data.acc_y_raw) - (double)config.sensors.acc_y_neutral) / (-acc_value_g*INVERT_X);
+		sensor_data.acc_z = ((double)(sensor_data.acc_z_raw) - (double)config.sensors.acc_z_neutral) / (-acc_value_g);
+				
 		// scale to rad/sec
-		sensor_data.p = ((float)(sensor_data.gyro_x_raw)-config.sensors.gyro_x_neutral) * (-0.02518315f*3.14159f/180.0f);  // 0.02518315f
-		sensor_data.q = ((float)(sensor_data.gyro_y_raw)-config.sensors.gyro_y_neutral) * (-0.02538315f*3.14159f/180.0f);
-		sensor_data.r = ((float)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * (0.0062286f*3.14159f/180.0f);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)
+		sensor_data.p = ((double)(sensor_data.gyro_x_raw)-config.sensors.gyro_x_neutral) * (-0.02518315*3.14159/180.0 * INVERT_X);  // 0.02518315f
+		sensor_data.q = ((double)(sensor_data.gyro_y_raw)-config.sensors.gyro_y_neutral) * (-0.02538315*3.14159/180.0 * INVERT_X);
+		sensor_data.r = ((double)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)
 			
 		
 		// x = (Pitch; Roll)'

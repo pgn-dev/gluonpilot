@@ -44,11 +44,13 @@ void scp1000_init()
 	
 	Write8(0x02, 0x00);   // indirect access to 0x00
 	microcontroller_delay_us(100);
-	Write8(0x01, 0x05);   // high resolution to data write register
+	//Write8(0x01, 0x05);   // high resolution to data write register
+	Write8(0x01, 0x0D);    // high speed to data write register
 	microcontroller_delay_us(100);
 	Write8(0x03, 0x02);   // write data to 0x00
 	microcontroller_delay_ms(50);
-	Write8(0x03, 0x0A);
+	Write8(0x03, 0x0A);   // start high resolution
+	Write8(0x03, 0x09);   // start high speed
 }
 
 
@@ -67,7 +69,8 @@ float scp1000_get_height()
 float scp1000_pressure_to_height(float pressure, float temperature)
 {
 	//return 44330.0 * (1.0 - powf(pressure / 101325.0, 0.19));
-	return logf(pressure / 101000.f) * (273.f + temperature) * (287.05f / 9.81f);
+	//return logf(pressure / 101000.f) * (273.f + temperature) * (287.05f / 9.81f);
+	return logf(pressure / 101000.f) * (273.f + 20.f) * (-287.05f / 9.81f);
 }	
 
 
