@@ -17,6 +17,7 @@
  *  @since    0.1
  */
  
+ #include <math.h>
  
 // Include all FreeRTOS header files
 #include "FreeRTOS/FreeRTOS.h"
@@ -30,14 +31,13 @@
 #include "adc/adc.h"
 #include "gps/gps.h"
 #include "button/button.h"
+#include "pid/pid.h"
+#include "uart1_queue/uart1_queue.h"
+#include "led/led.h"
 
-#include "pid.h"
 #include "sensors.h"
 #include "configuration.h"
-#include "quaternion.h"
 #include "ahrs.h"
-
-#include <math.h>
 
 
 //! Contains all usefull (processed) sensor data
@@ -47,7 +47,6 @@ struct SensorData sensor_data;
 #define G 9.81
 #define DT 0.01   // 100Hz
 #define RAD2DEG (180.0/3.14159)
-
 static const float acc_value_g = 6600.0;
 
 extern xSemaphoreHandle xSpiSemaphore;
@@ -69,11 +68,9 @@ void sensors_task( void *parameters )
 	portTickType xLastExecutionTime; 
 
 	uart1_puts("Sensors task initializing...");
-	vSemaphoreCreateBinary( xSpiSemaphore );
 	adc_open();	
 	scp1000_init();
 	ahrs_init();
-	
 	uart1_puts("done\r\n");
 	
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil()	works correctly. */
@@ -130,13 +127,14 @@ void sensors_task( void *parameters )
 }
 
 
+//! This semaphore is set in the uart2 interrupt routine when a new GPS message arrives
+xSemaphoreHandle xGpsSemaphore = NULL; 
 
-xSemaphoreHandle xGpsSemaphore = NULL;
 
 #define LONG_TIME 0xffff
 void sensors_gps_task( void *parameters )
 {
-	int i;
+	int i = 0;
 	uart1_puts("Gps task initializing...");
 	sensor_data.gps.status = EMPTY;	
 	uart1_puts("done\r\n");

@@ -12,7 +12,8 @@
  *  @since    0.1
  */
  
- 
+#include <stdio.h>
+
 #include "FreeRTOS/FreeRTOS.h"
 #include "FreeRTOS/task.h"
 #include "FreeRTOS/queue.h"
@@ -22,6 +23,9 @@
 #include "microcontroller/microcontroller.h"
 #include "uart1_queue/uart1_queue.h"
 #include "dataflash/dataflash.h"
+#include "pwm_in/pwm_in.h"
+#include "ppm_in/ppm_in.h"
+
 #include "control.h"
 #include "sensors.h"
 #include "communication.h"
@@ -31,15 +35,17 @@
 
 extern xSemaphoreHandle xGpsSemaphore;
 extern xSemaphoreHandle xSpiSemaphore;
+
 int main()
 {
 	microcontroller_init();
 	
 	uart1_queue_init(115200l);  // default baudrate: 115200
 	
-	printf("Gluonpilot v0.1 [%s %s, config: %d bytes, logline: %d bytes, f: %d bytes, d: %d bytes]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(float), sizeof(double));
+	printf("Gluonpilot v0.1 [%s %s, config: %d bytes, logline: %d bytes, double: %d bytes]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(double));
 
 	uart1_puts("Loading configuration...");
+	vSemaphoreCreateBinary( xSpiSemaphore );
 	dataflash_open();
 	configuration_load();
 	//configuration_default();
@@ -65,8 +71,6 @@ int main()
 	xTaskCreate( control_task, ( signed portCHAR * ) "Control", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 6, NULL );
 	xTaskCreate( sensors_task, ( signed portCHAR * ) "Sensors", ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 5, NULL );
 	xTaskCreate( sensors_gps_task, ( signed portCHAR * ) "Gps", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 4, NULL );
-	//vSemaphoreCreateBinary( xSpiSemaphore );
-
 	xTaskCreate( communication_input_task, ( signed portCHAR * ) "ConsoleInput", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 3, NULL );
 	xTaskCreate( datalogger_task, ( signed portCHAR * ) "Dataflash", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 2, NULL );
 	xTaskCreate( communication_telemetry_task, ( signed portCHAR * ) "Telemetry", ( configMINIMAL_STACK_SIZE * 2 ), NULL, tskIDLE_PRIORITY + 1, NULL );
@@ -85,7 +89,7 @@ int main()
 void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed portCHAR *pcTaskName )
 {
 	uart1_puts("Stack overflow! ");
-	uart1_puts(pcTaskName);
+	uart1_puts((char*)pcTaskName);
 	uart1_puts("\n\r");
 	while(1) ; 
 }

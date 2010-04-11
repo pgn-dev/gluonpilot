@@ -3,6 +3,9 @@
 
 #define MAX_INDEX 10 
 
+// Uncomment this define if you want to use 50Hz raw data logging
+//#define RAW_50HZ_LOG 1
+
 struct LogIndex
 {
 	int  page_num;
@@ -13,7 +16,9 @@ struct LogIndex
 
 extern struct LogIndex datalogger_index_table[MAX_INDEX];
 
-/*struct LogLine
+#ifndef RAW_50HZ_LOG
+
+struct LogLine
 {
 	float gps_latitude_rad;
 	float gps_longitude_rad;
@@ -42,7 +47,9 @@ extern struct LogIndex datalogger_index_table[MAX_INDEX];
 	
 	char temperature_c;
 	int  height_m;
-};*/
+};
+
+#else
 
 struct LogLine
 {
@@ -66,6 +73,8 @@ struct LogLine
 	
 	int  height_m_5;
 };
+
+#endif
 
 
 

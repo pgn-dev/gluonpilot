@@ -13,8 +13,8 @@
 
 #include <math.h>
 
-#include "pid.h"
-#include "configuration.h"
+#include "pid/pid.h"
+
 
 
 /*!
@@ -45,9 +45,9 @@ void pid_init(struct pid *pid, double d_gain, double p_gain, double i_gain, doub
 
 /*!
  *  Updates the pid structure with all the available bells and whistles.
- *  @param pid The pid structure that has to be updated.
+ *  @param pid      The pid structure that has to be updated.
  *  @param position The reading (proportional term).
- *  @param dt Time since last update, needed for the integral and derivative term.
+ *  @param dt       Time since last update, needed for the integral and derivative term.
  *  @return The calculated pid output.
  */
 double pid_update(struct pid *pid, double position, double dt)
@@ -57,7 +57,7 @@ double pid_update(struct pid *pid, double position, double dt)
 	tmp = (position - pid->d_state) * pid->d_gain / dt;   // D-term
 	
 	// to eliminate jittering which wears out servos
-	if (abs(tmp) < pid->d_term_min_var)
+	if (fabs(tmp) < pid->d_term_min_var)
 		tmp = 0.0;
 	
 	// update d_state for next call.
@@ -79,7 +79,7 @@ double pid_update(struct pid *pid, double position, double dt)
 /*!
  *  Update the pid struct using only the proportional term.
  *  @param position The reading (proportional term).
- *  @param dt Time since last update, needed for the integral and derivative term.
+ *  @param dt       Time since last update, needed for the integral and derivative term.
  *  @return The calculated pid output.
  */
 double pid_update_only_p(struct pid *pid, double position, double dt)

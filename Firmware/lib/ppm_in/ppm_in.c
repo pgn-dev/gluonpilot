@@ -9,7 +9,8 @@
  *
  */
  
- 
+#include <stdio.h>
+
 #include "microcontroller/microcontroller.h"
 #include "ppm_in/ppm_in.h"
 

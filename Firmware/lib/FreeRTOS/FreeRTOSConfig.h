@@ -16,7 +16,12 @@
  *----------------------------------------------------------*/
 
 
-#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() (TMR5=0)
+#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()  \
+T5CONbits.TCS = 0;    \
+	T5CONbits.TCKPS = 0b11;  \
+	T5CONbits.TON = 1; \
+	TMR5 = 0;           
+
 #define portGET_RUN_TIME_COUNTER_VALUE()  TMR5
 #define configGENERATE_RUN_TIME_STATS 0
 

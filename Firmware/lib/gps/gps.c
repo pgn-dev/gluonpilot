@@ -13,12 +13,12 @@
  */
 
 
+#include <math.h>
+
 #include "gps/gps.h"
 #include "microcontroller/microcontroller.h"
 #include "uart2/uart2.h"
-
-#include <math.h>
-
+#include "uart1_queue/uart1_queue.h"
 
 
 #define KTS2MS       0.5144                // knots to meter per second
@@ -246,7 +246,7 @@ char gps_update_info(struct gps_info *gpsinfo)
 	{
 		//  $GPGGA,110917.000,5051.0242,N,00340.1555,E,1,6,1.16,41.5,M,47.3,M,,*65
 		//printf("new gga");
-		char *stringpointer = nmea_buffer_GGA;
+		char *stringpointer = (char*) nmea_buffer_GGA;   // overriding the volatileness
 		
 		//Time
 		while (*(stringpointer++) != ',') ;
@@ -276,7 +276,7 @@ char gps_update_info(struct gps_info *gpsinfo)
 	}	
 	else if (rmc_sentence_number != last_call_rmc_sentence_number)  // not really an else...
 	{
-		char *stringpointer = nmea_buffer_RMC;   // we pretend is it not volatile. WARNING
+		char *stringpointer = (char*) nmea_buffer_RMC;  // overriding the volatileness
 		
 		gpsinfo->time = read_positive_long(stringpointer);
 		

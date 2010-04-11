@@ -91,7 +91,7 @@ INTERRUPT_PROTECT (
  */
 unsigned char spi_comm_bitbang(unsigned char outgoing_byte)
 {
-    unsigned char incoming_byte, x;
+    unsigned char incoming_byte = 0, x;
 
     for(x = 0 ; x < 8 ; x++)
     {
