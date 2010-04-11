@@ -10,6 +10,8 @@
  */
  
  
+#include <stdio.h>
+
 // Include all FreeRTOS header files
 #include "FreeRTOS/FreeRTOS.h"
 #include "FreeRTOS/task.h"
@@ -19,6 +21,8 @@
 
 #include "microcontroller/microcontroller.h"
 #include "dataflash/dataflash.h"
+#include "uart1_queue/uart1_queue.h"
+
 #include "datalogger.h"
 #include "sensors.h"
 #include "control.h"
@@ -271,11 +275,17 @@ void datalogger_task( void *parameters )
 	
 	for( ;; )
 	{	
+#ifndef RAW_50HZ_LOG
+		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 200 / portTICK_RATE_MS ) );   // 5Hz
+#else
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 20 / portTICK_RATE_MS ) );   // 50Hz
-		
+#endif		
+
 		if (! disable_logging)   // logging is disabled when the config tool reads out logging.
 		{
-			/*l.temperature_c = (char)sensor_data.temperature; // -128°C...+128°C
+#ifndef RAW_50HZ_LOG
+			// Normal logging
+			l.temperature_c = (char)sensor_data.temperature; // -128°C...+128°C
 			l.height_m = (int)sensor_data.pressure_height;
 			l.gps_latitude_rad = sensor_data.gps.latitude_rad;
 			l.gps_longitude_rad = sensor_data.gps.longitude_rad;
@@ -299,9 +309,9 @@ void datalogger_task( void *parameters )
 			l.roll = (int)(sensor_data.roll * (180.0/3.14159));
 			l.pitch_acc = (int)(sensor_data.pitch_acc * (180.0/3.14159));
 			l.roll_acc = (int)(sensor_data.roll_acc * (180.0/3.14159));
-			l.control_state = control_state.flight_mode;*/
-			
-			
+			l.control_state = control_state.flight_mode;		
+#else
+			// Raw sensor logging at 50Hz
 			l.height_m_5 = (int)(sensor_data.pressure_height*5);
 			l.gps_latitude_rad = sensor_data.gps.latitude_rad;
 			l.gps_longitude_rad = sensor_data.gps.longitude_rad;
@@ -317,7 +327,7 @@ void datalogger_task( void *parameters )
 			l.pitch = (int)(sensor_data.pitch * (180.0/3.14159));
 			l.pitch_acc = (int)(sensor_data.pitch_acc * (180.0/3.14159));
 			l.roll = (int)(sensor_data.roll * (180.0/3.14159));
-			
+#endif
 			datalogger_writeline(&l);
 		}
 	}

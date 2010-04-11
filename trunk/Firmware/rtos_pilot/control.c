@@ -5,8 +5,8 @@
  *  Output: Servo positions
  *
  *  Conventions: For RC-transmitter and mixer input:
- *                 Right roll > 0 -> input > 1500ms
- *                 Up pitch > 0 -> input > 1500ms
+ *               Right roll > 0 -> input > 1500ms
+ *               Up pitch > 0 -> input > 1500ms
  *
  *
  *  @file     control.c
@@ -14,6 +14,8 @@
  *  @date     24-dec-2009
  *  @since    0.1
  */
+
+#include <math.h>
 
 #include "FreeRTOS/FreeRTOS.h"
 #include "FreeRTOS/task.h"
@@ -23,12 +25,12 @@
 
 #include "ppm_in/ppm_in.h"
 #include "servo/servo.h"
+#include "pid/pid.h"
+#include "uart1_queue/uart1_queue.h"
 
 #include "control.h"
 #include "configuration.h"
-#include "pid.h"
 
-#include <math.h>
 
 void control_manual();
 void control_stabilized(float dt);
@@ -121,10 +123,9 @@ void control_task( void *parameters )
 		} 
 		else if (ppm.channel[config.control.channel_ap] < 1666)
 		{
-			if (lastMode != control_state.flight_mode)
-				control_state.desired_height = sensor_data.pressure_height;
-				
 			control_state.flight_mode = STABILIZED;
+			if (lastMode != control_state.flight_mode)  // target altitude = altitude when switching from manual to stabilized
+				control_state.desired_height = sensor_data.pressure_height;
 			control_stabilized(0.01); // stabilized mode
 		} 
 		else
@@ -160,19 +161,24 @@ void control_manual()
  */
 void control_stabilized(float dt)
 {
-	float elevator_out_radians,
-	      aileron_out_radians;
-	      
-	control_state.desired_roll = (float)((int)ppm.channel[config.control.channel_roll]
+	double elevator_out_radians,
+	       aileron_out_radians;
+	static double home_height = 0.0;
+	
+	if (home_height == 0.0)
+		home_height = sensor_data.pressure_height;
+	//control_state.desired_height = home_height + 65.0;
+
+	control_state.desired_roll = (double)((int)ppm.channel[config.control.channel_roll]
 	                             - config.control.channel_neutral[config.control.channel_roll]) / 500.0 * (config.control.max_roll);
-	control_state.desired_pitch = (float)((int)ppm.channel[config.control.channel_pitch]
+	control_state.desired_pitch = (double)((int)ppm.channel[config.control.channel_pitch]
 	                              - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * (config.control.max_pitch);
 
-	//desired_pitch = ((navigation->home_height + 45.0) - gps->height_m)  / 20.0 * config.max_pitch; 
-
+	// Comment this line if you want pitch stabilization instead of altitude
+	control_state.desired_pitch = (control_state.desired_height - sensor_data.pressure_height)  / 15.0 * config.control.max_pitch; 
 
 	// compensate the loss in lift
-	control_state.desired_pitch += (1.0/cosf(sensor_data.roll) - 1.0)*0.30; // (0.5: 12° up at 45° roll)
+	control_state.desired_pitch += (1.0/cosf(sensor_data.roll) - 1.0)*0.25; // (0.5: 12° up at 45° roll)
 	
 	elevator_out_radians = pid_update_only_p(&config.control.pid_pitch2elevator, 
 	                                         control_state.desired_pitch - sensor_data.pitch, dt); //pid_pitch_to_elevator(desired_pitch, ahrs);
@@ -187,6 +193,7 @@ void control_stabilized(float dt)
 
 	control_mix_out();
 }
+
 
 /*!
  *   Mixes variables xyz_out into correct servo positions, according to the configured mixing type.

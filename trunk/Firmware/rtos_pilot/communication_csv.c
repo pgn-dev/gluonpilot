@@ -41,9 +41,14 @@ void print_unsigned_integer(unsigned int x, void (*printer)(char[]));
 void print_logline(struct LogLine *l);
 void print_logline_simulation(struct LogLine *l);
 
+#define BUFFERSIZE 200
+static char  buffer[BUFFERSIZE];
+
+
 
 /*!
- *    This task will send a line directly to uart1 20 times a second.
+ *    This task will send telemetry directly to uart1 at a rate of maximum 
+ *    20 times a second.
  */
 void communication_telemetry_task( void *parameters )
 {
@@ -162,6 +167,9 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_PPM == config.telemetry.stream_PPM)
 		{
+			//vTaskGetRunTimeStats( buffer );
+			//uart1_puts(buffer);
+
 			uart1_puts("TT");
 			for (i = 0; i < 8; i++)
 			{
@@ -208,7 +216,6 @@ void communication_telemetry_task( void *parameters )
 extern xQueueHandle xRxedChars;
 
 
-#define BUFFERSIZE 50
 /*!
  *   This task parses and executes all commands coming from the groundstation
  *   or configuration utility. It depends on uart1_queue.c because all data received
@@ -217,7 +224,6 @@ extern xQueueHandle xRxedChars;
  */
 void communication_input_task( void *parameters )
 {
-	static char  buffer[BUFFERSIZE];
 	static int   buffer_position;
 	static int   token[7] = {0,0,0,0,0,0,0};
 	static int   current_token;
@@ -255,7 +261,6 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'A')    // Set Accelerometer neutral
 				{
-					unsigned int x;
 					//sscanf(&(buffer[token[1]]), "%u", &x);
 					config.sensors.acc_x_neutral = (float)atof(&(buffer[token[1]]));
 					//sscanf(&(buffer[token[2]]), "%u", &x);
@@ -268,7 +273,6 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'Y')    // Set Gyro neutral
 				{
-					unsigned int x;
 					//sscanf(&(buffer[token[1]]), "%u", &x);
 					config.sensors.gyro_x_neutral = (float)atof(&(buffer[token[1]]));
 					//sscanf(&(buffer[token[2]]), "%u", &x);
@@ -327,18 +331,11 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////				
 				else if (buffer[token[0]] == 'P' && buffer[token[0] + 1] == 'P')    // Set PID
 				{
-					float f;
-					//sscanf(&(buffer[token[1]]), "%f", &f);
 					config.control.pid_pitch2elevator.p_gain = (float)atof(&(buffer[token[1]]));
-					//sscanf(&(buffer[token[2]]), "%f", &f);
 					config.control.pid_pitch2elevator.i_gain = (float)atof(&(buffer[token[2]]));
-					//sscanf(&(buffer[token[3]]), "%f", &f);
 					config.control.pid_pitch2elevator.d_gain = (float)atof(&(buffer[token[3]]));
-					//sscanf(&(buffer[token[4]]), "%f", &f);
 					config.control.pid_pitch2elevator.i_min = (float)atof(&(buffer[token[4]]));
-					//sscanf(&(buffer[token[5]]), "%f", &f);
 					config.control.pid_pitch2elevator.i_max = (float)atof(&(buffer[token[5]]));
-					//sscanf(&(buffer[token[6]]), "%f", &f);
 					config.control.pid_pitch2elevator.d_term_min_var = (float)atof(&(buffer[token[6]]));
 				}
 				///////////////////////////////////////////////////////////////
@@ -346,18 +343,11 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////				
 				else if (buffer[token[0]] == 'P' && buffer[token[0] + 1] == 'R')    // Set PID
 				{
-					float f;
-					//sscanf(&(buffer[token[1]]), "%f", &f);
 					config.control.pid_roll2aileron.p_gain = (float)atof(&(buffer[token[1]]));
-					//sscanf(&(buffer[token[2]]), "%f", &f);
 					config.control.pid_roll2aileron.i_gain = (float)atof(&(buffer[token[2]]));
-					//sscanf(&(buffer[token[3]]), "%f", &f);
 					config.control.pid_roll2aileron.d_gain = (float)atof(&(buffer[token[3]]));
-					//sscanf(&(buffer[token[4]]), "%f", &f);
 					config.control.pid_roll2aileron.i_min = (float)atof(&(buffer[token[4]]));
-					//sscanf(&(buffer[token[5]]), "%f", &f);
 					config.control.pid_roll2aileron.i_max = (float)atof(&(buffer[token[5]]));
-					//sscanf(&(buffer[token[6]]), "%f", &f);
 					config.control.pid_roll2aileron.d_term_min_var = (float)atof(&(buffer[token[6]]));
 				}
 				///////////////////////////////////////////////////////////////
@@ -365,18 +355,11 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////				
 				else if (buffer[token[0]] == 'P' && buffer[token[0] + 1] == 'H')    // Set PID
 				{
-					float f;
-					//sscanf(&(buffer[token[1]]), "%f", &f);
 					config.control.pid_heading2roll.p_gain = (float)atof(&(buffer[token[1]]));
-					//sscanf(&(buffer[token[2]]), "%f", &f);
 					config.control.pid_heading2roll.i_gain = (float)atof(&(buffer[token[2]]));
-					//sscanf(&(buffer[token[3]]), "%f", &f);
 					config.control.pid_heading2roll.d_gain = (float)atof(&(buffer[token[3]]));
-					//sscanf(&(buffer[token[4]]), "%f", &f);
 					config.control.pid_heading2roll.i_min = (float)atof(&(buffer[token[4]]));
-					//sscanf(&(buffer[token[5]]), "%f", &f);
 					config.control.pid_heading2roll.i_max = (float)atof(&(buffer[token[5]]));
-					//sscanf(&(buffer[token[6]]), "%f", &f);
 					config.control.pid_heading2roll.d_term_min_var = (float)atof(&(buffer[token[6]]));
 				}
 				///////////////////////////////////////////////////////////////
@@ -401,21 +384,24 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'D' && buffer[token[0] + 1] == 'R')    
 				{
 					int i = atoi(&(buffer[token[1]]));
-					/*printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;");
-					printf ("HeightBaro;Pitch;PitchAcc;Roll;RollAcc;AccX;AccXG;AccY;AccYG;AccZ;");
-					printf ("AccZG;GyroX;GyroY;GyroZ;P;Q;R;TempC;FlightMode\r\n");*/
 					
+#ifndef RAW_50HZ_LOG
+					printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;");
+					printf ("HeightBaro;Pitch;PitchAcc;Roll;RollAcc;AccX;AccXG;AccY;AccYG;AccZ;");
+					printf ("AccZG;GyroX;GyroY;GyroZ;P;Q;R;TempC;FlightMode\r\n");
+#else
 					printf ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");
-	
+#endif
+
 					datalogger_disable();
 					
 					while (datalogger_print_next_page(i, &print_logline))
 						;
 					/* ** SIMULATION ** */
-					/*ahrs_init();
-					while (datalogger_print_next_page(i, &print_logline_simulation))
-						;
-					*/
+					//ahrs_init();
+					//while (datalogger_print_next_page(i, &print_logline_simulation))
+					//	;
+					
 					//datalogger_enable();
 				}	
 				///////////////////////////////////////////////////////////////
@@ -563,10 +549,14 @@ void communication_input_task( void *parameters )
 }
 
 
-
+/*!
+ *     This function sends LogLine l to the communication channel.
+ */ 
 void print_logline(struct LogLine *l)
 {
-	/*printf ("DD;%f;%f;", l->gps_latitude_rad*(180.0/3.14159), l->gps_longitude_rad*(180.0/3.14159));
+#ifndef RAW_50HZ_LOG
+	// Normal logging
+	printf ("DD;%f;%f;", l->gps_latitude_rad*(180.0/3.14159), l->gps_longitude_rad*(180.0/3.14159));
 	printf ("%d;%d;%d;", l->gps_speed_m_s, l->gps_heading, l->gps_height_m);
 	printf ("%d;%d;%d;", l->height_m, l->pitch, l->pitch_acc);
 	printf ("%d;%d;", l->roll, l->roll_acc);
@@ -574,8 +564,9 @@ void print_logline(struct LogLine *l)
 	printf ("%f;%u;%f;", l->acc_y_g, l->acc_z, l->acc_z_g);
 	printf ("%u;%u;%u;", l->gyro_x, l->gyro_y, l->gyro_z);
 	printf ("%d;%d;%d;", l->p, l->q, l->r);
-	printf ("%d;%d\r\n", (int)l->temperature_c, l->control_state);*/
-	
+	printf ("%d;%d\r\n", (int)l->temperature_c, l->control_state);
+#else
+	// Raw sensor logging @ 50Hz
 	printf ("DD;%f;%f;", l->gps_latitude_rad*(180.0/3.14159), l->gps_longitude_rad*(180.0/3.14159));
 	printf ("%lu;%f;%d;", l->gps_time, ((float)l->gps_speed_m_s_10) / 10.0, ((int)l->gps_heading_2)*2);
 
@@ -583,11 +574,16 @@ void print_logline(struct LogLine *l)
 	printf ("%u;%u;%u;", l->gyro_x, l->gyro_y, l->gyro_z);
 
 	printf ("%f;%d;%d;%d\r\n", ((float)l->height_m_5) / 5.0, l->pitch, l->roll, l->pitch_acc);
-
+#endif
 }	
 
+
+#ifdef RAW_50HZ_LOG
 void print_logline_simulation(struct LogLine *l)
 {
+	static int i = 0;
+	static double last_height;
+	
 	sensor_data.acc_x_raw = l->acc_x;
 	sensor_data.acc_y_raw = l->acc_y;
 	sensor_data.acc_z_raw = l->acc_z;
@@ -595,6 +591,13 @@ void print_logline_simulation(struct LogLine *l)
 	sensor_data.gyro_y_raw = l->gyro_y;
 	sensor_data.gyro_z_raw = l->gyro_z;
 	sensor_data.gps.speed_ms = (float)l->gps_speed_m_s_10/10.0;
+	sensor_data.pressure_height = ((float)l->height_m_5) / 5.0;
+	
+	if (i++ % 5 == 0)
+	{
+		sensor_data.vertical_speed = sensor_data.vertical_speed * 0.5 + (sensor_data.pressure_height - last_height)/0.1 * 0.5;
+		last_height = sensor_data.pressure_height;
+	}	
 	
 	sensor_data.acc_x = ((double)(sensor_data.acc_x_raw) - (double)config.sensors.acc_x_neutral) / (-6600.0*-1.0);
 	sensor_data.acc_y = ((double)(sensor_data.acc_y_raw) - (double)config.sensors.acc_y_neutral) / (-6600.0*-1.0);
@@ -610,7 +613,7 @@ void print_logline_simulation(struct LogLine *l)
 	
 	printf ("%f;%f;%f\r\n", sensor_data.pitch, sensor_data.roll, sensor_data.pitch_acc );
 }	
-
+#endif
 
 
 /*!

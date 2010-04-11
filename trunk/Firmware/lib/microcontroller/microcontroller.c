@@ -1,5 +1,6 @@
 	
 #include "microcontroller/microcontroller.h"
+#include "uart1_queue/uart1_queue.h"
 
 RCONBITS RCONbits_backup;
 
@@ -73,14 +74,14 @@ int microcontroller_after_reboot()
 void _trapISR _OscillatorFail(void)
 {
         INTCON1bits.OSCFAIL = 0;
-        printf("Oscillator error!\n\r");
+        uart1_puts("Oscillator error!\n\r");
         //while(1);
 }
 
 void _trapISR _AddressError(void)
 {
         INTCON1bits.ADDRERR = 0;
-        printf("Address error!\n\r");
+        uart1_puts("Address error!\n\r");
         //while(1);
         asm("reset");
 }
@@ -88,7 +89,7 @@ void _trapISR _AddressError(void)
 void _trapISR _StackError(void)
 {
         INTCON1bits.STKERR = 0;
-        printf("Stack error!\n\r");
+        uart1_puts("Stack error!\n\r");
         //while(1);
         asm("reset");
 }
@@ -96,7 +97,7 @@ void _trapISR _StackError(void)
 void _trapISR _MathError(void)
 {
         INTCON1bits.MATHERR = 0;
-        printf("Math error!\n\r");
+        uart1_puts("Math error!\n\r");
         //while(1);
         asm("reset");
 }

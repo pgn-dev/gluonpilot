@@ -96,6 +96,7 @@
             this._tbPressure = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this._tpRc = new System.Windows.Forms.TabPage();
+            this.label78 = new System.Windows.Forms.Label();
             this._llRc = new System.Windows.Forms.LinkLabel();
             this.label75 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -271,7 +272,6 @@
             this.columnHeaderTime = new System.Windows.Forms.ColumnHeader();
             this._btn_datalog_readtable = new System.Windows.Forms.Button();
             this._btn_dataflash_format = new System.Windows.Forms.Button();
-            this.label78 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this._tpTelemetry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gyroaccproc_telemetry)).BeginInit();
@@ -996,6 +996,15 @@
             this._tpRc.Text = "RC input";
             this._tpRc.UseVisualStyleBackColor = true;
             // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(173, 248);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(52, 13);
+            this.label78.TabIndex = 26;
+            this.label78.Text = "Stabilized";
+            // 
             // _llRc
             // 
             this._llRc.AutoSize = true;
@@ -1062,20 +1071,20 @@
             // label77
             // 
             this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(221, 190);
+            this.label77.Location = new System.Drawing.Point(208, 190);
             this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(120, 13);
+            this.label77.Size = new System.Drawing.Size(147, 13);
             this.label77.TabIndex = 36;
-            this.label77.Text = "Down/Left/Idle/Manual";
+            this.label77.Text = "Up/Right/Full throttle/Manual";
             // 
             // label76
             // 
             this.label76.AutoSize = true;
             this.label76.Location = new System.Drawing.Point(5, 190);
             this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(153, 13);
+            this.label76.Size = new System.Drawing.Size(126, 13);
             this.label76.TabIndex = 35;
-            this.label76.Text = "Up/Right/Full throttle/Autopilot";
+            this.label76.Text = "Down/Left/Idle/Autopilot";
             // 
             // label24
             // 
@@ -2857,15 +2866,6 @@
             this._btn_dataflash_format.Text = "Format datalog memory";
             this._btn_dataflash_format.UseVisualStyleBackColor = true;
             this._btn_dataflash_format.Click += new System.EventHandler(this._btn_dataflash_format_Click);
-            // 
-            // label78
-            // 
-            this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(173, 248);
-            this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(52, 13);
-            this.label78.TabIndex = 26;
-            this.label78.Text = "Stabilized";
             // 
             // ConfigurationFrame
             // 
