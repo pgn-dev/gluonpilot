@@ -70,7 +70,7 @@ float scp1000_pressure_to_height(float pressure, float temperature)
 {
 	//return 44330.0 * (1.0 - powf(pressure / 101325.0, 0.19));
 	//return logf(pressure / 101000.f) * (273.f + temperature) * (287.05f / 9.81f);
-	return logf(pressure / 101000.f) * (273.f + 20.f) * (-287.05f / 9.81f);
+	return log(pressure / 101000.0) * (273.0 + 20.0) * (-287.05 / 9.81);
 }	
 
 

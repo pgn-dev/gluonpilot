@@ -14,18 +14,21 @@
  
 #include <stdio.h>
 
+// FreeRTOS includes
 #include "FreeRTOS/FreeRTOS.h"
 #include "FreeRTOS/task.h"
 #include "FreeRTOS/queue.h"
 #include "FreeRTOS/croutine.h"
 #include "FreeRTOS/semphr.h"
 
+// Gluonpilot library includes
 #include "microcontroller/microcontroller.h"
 #include "uart1_queue/uart1_queue.h"
 #include "dataflash/dataflash.h"
 #include "pwm_in/pwm_in.h"
 #include "ppm_in/ppm_in.h"
 
+// rtos_pilot includes
 #include "control.h"
 #include "sensors.h"
 #include "communication.h"
@@ -35,6 +38,7 @@
 
 extern xSemaphoreHandle xGpsSemaphore;
 extern xSemaphoreHandle xSpiSemaphore;
+
 
 int main()
 {
@@ -68,12 +72,12 @@ int main()
 	uart1_puts("done\r\n");
 
 	// Create our tasks. 
-	xTaskCreate( control_task, ( signed portCHAR * ) "Control", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 6, NULL );
-	xTaskCreate( sensors_task, ( signed portCHAR * ) "Sensors", ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 5, NULL );
-	xTaskCreate( sensors_gps_task, ( signed portCHAR * ) "Gps", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 4, NULL );
-	xTaskCreate( communication_input_task, ( signed portCHAR * ) "ConsoleInput", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 3, NULL );
-	xTaskCreate( datalogger_task, ( signed portCHAR * ) "Dataflash", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 2, NULL );
-	xTaskCreate( communication_telemetry_task, ( signed portCHAR * ) "Telemetry", ( configMINIMAL_STACK_SIZE * 2 ), NULL, tskIDLE_PRIORITY + 1, NULL );
+	xTaskCreate( control_task,                 ( signed portCHAR * ) "Control",      ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 6, NULL );
+	xTaskCreate( sensors_task,                 ( signed portCHAR * ) "Sensors",      ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 5, NULL );
+	xTaskCreate( sensors_gps_task,             ( signed portCHAR * ) "Gps",          ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 4, NULL );
+	xTaskCreate( communication_input_task,     ( signed portCHAR * ) "ConsoleInput", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 3, NULL );
+	xTaskCreate( datalogger_task,              ( signed portCHAR * ) "Dataflash",    ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 2, NULL );
+	xTaskCreate( communication_telemetry_task, ( signed portCHAR * ) "Telemetry",    ( configMINIMAL_STACK_SIZE * 2 ), NULL, tskIDLE_PRIORITY + 1, NULL );
 
 		
 	// Order the scheduler to start scheduling our two tasks.
@@ -97,6 +101,5 @@ void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed portCHAR *pcTask
 
 void vApplicationIdleHook( void )
 {
-	//uart1_putc('.');
 }
 

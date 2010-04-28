@@ -91,24 +91,24 @@ void sensors_task( void *parameters )
 				xSemaphoreGive( xSpiSemaphore );
 			}	
 			temperature_10 = (unsigned int)sensor_data.temperature * 10;
-			sensor_data.pressure_height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
+			float height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
+			if (height > -30000.0 && height < 30000.0)   // sometimes we get bad readings ~ -31000
+				sensor_data.pressure_height = height;
 			sensor_data.vertical_speed = sensor_data.vertical_speed * 0.5 + (sensor_data.pressure_height - last_height)/0.11 * 0.5;
 			last_height = sensor_data.pressure_height;
-			//printf("! %f\r\n", sensor_data.pressure_height);
 		}
 		
 		
-		// read accelerometer data and apply temperature compensation
-		// (cfr. http://www.gluonpilot.com/wiki/Temperature_compensation)
-		sensor_data.acc_x_raw = adc_get_channel(6);//- temperature_10;
-		sensor_data.acc_z_raw = adc_get_channel(1);//- temperature_10;
-		sensor_data.acc_y_raw = adc_get_channel(0);//- temperature_10;
+		// read accelerometer data 
+		sensor_data.acc_x_raw = adc_get_channel(6);
+		sensor_data.acc_z_raw = adc_get_channel(1);
+		sensor_data.acc_y_raw = adc_get_channel(0);
 
 		sensor_data.gyro_x_raw = adc_get_channel(4);
 		sensor_data.gyro_y_raw = adc_get_channel(7);
 		sensor_data.gyro_z_raw = adc_get_channel(5);  //*0.6 = 3V max
 				
-		adc_start();
+		adc_start();  // restart ADC sampling to make sure we have our samples on the next loop iteration.
 
 		// scale to "g" units. We prefer "g" over SI units (m/s^2) because this allows to cancel out the gravity constant as it is "1"
 		sensor_data.acc_x = ((double)(sensor_data.acc_x_raw) - (double)config.sensors.acc_x_neutral) / (-acc_value_g*INVERT_X);

@@ -48,7 +48,12 @@ void control_mix_out();
 
 //! Contains the currect state of the control loop
 struct ControlState control_state;
-          
+
+
+//! Temporary until we have navigation
+static double home_height = 0.0;
+	
+	          
 
 /*!
  *    Initializes the control module.
@@ -84,11 +89,6 @@ void control_init()
 		for (i = 0; i < 6; i++)
 			config.control.servo_neutral[i] = servo_out[i];
 	}
-	
-	// Initialize PID 
-	//pid_init(&config.control.pid_roll2aileron,   0.0,     0.45f,  1.2*(0.56*0.45)/1.5, -0.2, 0.2, 2.0*0.017);
-	//pid_init(&config.control.pid_pitch2elevator, 0.0,     1.15f,0.0, -2.0, 2.0, 2.0*0.017);
-	//pid_init(&config.control.pid_heading2roll,   0.00001, 0.4f,  0.00001, -0.9, 0.9, 4.0*0.017);  //0.4 = 23°
 }
 
 
@@ -119,19 +119,23 @@ void control_task( void *parameters )
 		if (ppm.channel[config.control.channel_ap] < 1333)
 		{
 			control_state.flight_mode = AUTOPILOT;
+			control_state.desired_height = home_height + 65.0;
 			control_stabilized(0.01); // stabilized mode as long as navigation isn't available
 		} 
 		else if (ppm.channel[config.control.channel_ap] < 1666)
 		{
 			control_state.flight_mode = STABILIZED;
+			if (home_height == 0.0)
+				home_height = sensor_data.pressure_height;
 			if (lastMode != control_state.flight_mode)  // target altitude = altitude when switching from manual to stabilized
-				control_state.desired_height = sensor_data.pressure_height;
+				control_state.desired_height = sensor_data.pressure_height; //home_height + 65.0;
 			control_stabilized(0.01); // stabilized mode
 		} 
 		else
 		{
 			control_state.flight_mode = MANUAL;
 			control_manual(); // manual mode
+			
 		}
 		lastMode = control_state.flight_mode;
 	}
@@ -163,27 +167,42 @@ void control_stabilized(float dt)
 {
 	double elevator_out_radians,
 	       aileron_out_radians;
-	static double home_height = 0.0;
 	
-	if (home_height == 0.0)
-		home_height = sensor_data.pressure_height;
-	//control_state.desired_height = home_height + 65.0;
-
 	control_state.desired_roll = (double)((int)ppm.channel[config.control.channel_roll]
 	                             - config.control.channel_neutral[config.control.channel_roll]) / 500.0 * (config.control.max_roll);
 	control_state.desired_pitch = (double)((int)ppm.channel[config.control.channel_pitch]
 	                              - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * (config.control.max_pitch);
 
-	// Comment this line if you want pitch stabilization instead of altitude
-	control_state.desired_pitch = (control_state.desired_height - sensor_data.pressure_height)  / 15.0 * config.control.max_pitch; 
+	// Comment this line if you want pitch stabilization instead of altitude hold
+	control_state.desired_pitch = (control_state.desired_height - sensor_data.pressure_height)  / 20.0 * config.control.max_pitch; 
+
+	// Keep pitch & roll within limits
+	if (control_state.desired_pitch > config.control.max_pitch)
+		control_state.desired_pitch = config.control.max_pitch;
+	else if (control_state.desired_pitch < -config.control.max_pitch)
+		control_state.desired_pitch = -config.control.max_pitch;
+	if (control_state.desired_roll > config.control.max_roll)
+		control_state.desired_roll = config.control.max_roll;
+	else if (control_state.desired_roll < -config.control.max_roll)
+		control_state.desired_roll = -config.control.max_roll;
 
 	// compensate the loss in lift
-	control_state.desired_pitch += (1.0/cosf(sensor_data.roll) - 1.0)*0.25; // (0.5: 12° up at 45° roll)
+	control_state.desired_pitch += (1.0/cosf(sensor_data.roll) - 1.0)*0.20; // (0.5: 12° up at 45° roll)
 	
-	elevator_out_radians = pid_update_only_p(&config.control.pid_pitch2elevator, 
+	elevator_out_radians = pid_update_only_p_and_i(&config.control.pid_pitch2elevator, 
 	                                         control_state.desired_pitch - sensor_data.pitch, dt); //pid_pitch_to_elevator(desired_pitch, ahrs);
-	aileron_out_radians = pid_update_only_p(&config.control.pid_roll2aileron, 
+	aileron_out_radians = pid_update_only_p_and_i(&config.control.pid_roll2aileron, 
 	                                        control_state.desired_roll - sensor_data.roll, dt);  //pid_roll_to_aileron(desired_roll, ahrs);
+	
+	// Experimental: when flying with the wind, the elevons become less effective. Avoid have a too large roll angle!
+	// Fixme: gain scheduling depending on V_air
+	if (sensor_data.roll > config.control.max_roll)
+		aileron_out_radians *= 2.0;
+	if (sensor_data.roll < -config.control.max_roll)
+		aileron_out_radians *= 2.0;
+	if (sensor_data.pitch > config.control.max_pitch)
+		elevator_out_radians *= 2.0;
+
 
 	motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
 

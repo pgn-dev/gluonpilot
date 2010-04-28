@@ -111,7 +111,7 @@
             this._btn_open.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._btn_open.Name = "_btn_open";
             this._btn_open.Size = new System.Drawing.Size(23, 22);
-            this._btn_open.Text = "Open...";
+            this._btn_open.Text = "Open config file...";
             this._btn_open.Click += new System.EventHandler(this._btn_open_Click);
             // 
             // _btn_save
@@ -121,7 +121,7 @@
             this._btn_save.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._btn_save.Name = "_btn_save";
             this._btn_save.Size = new System.Drawing.Size(23, 22);
-            this._btn_save.Text = "Save...";
+            this._btn_save.Text = "Save config to file...";
             this._btn_save.Click += new System.EventHandler(this._btn_save_Click);
             // 
             // toolStripSeparator2
@@ -157,6 +157,7 @@
             this._btn_read.Name = "_btn_read";
             this._btn_read.Size = new System.Drawing.Size(52, 22);
             this._btn_read.Text = "Read";
+            this._btn_read.ToolTipText = "Read from module\'s memory";
             this._btn_read.Click += new System.EventHandler(this._btn_read_Click);
             // 
             // _btn_write
@@ -166,6 +167,7 @@
             this._btn_write.Name = "_btn_write";
             this._btn_write.Size = new System.Drawing.Size(53, 22);
             this._btn_write.Text = "Write";
+            this._btn_write.ToolTipText = "Write to module\'s memory";
             this._btn_write.Click += new System.EventHandler(this._btn_write_Click);
             // 
             // _btnLoadDefault
@@ -175,6 +177,7 @@
             this._btnLoadDefault.Name = "_btnLoadDefault";
             this._btnLoadDefault.Size = new System.Drawing.Size(62, 22);
             this._btnLoadDefault.Text = "Default";
+            this._btnLoadDefault.ToolTipText = "Load a default configuration to the module\'s memory";
             this._btnLoadDefault.Click += new System.EventHandler(this._btnLoadDefault_Click);
             // 
             // toolStripSeparator4
@@ -195,6 +198,7 @@
             this._btn_burn.Name = "_btn_burn";
             this._btn_burn.Size = new System.Drawing.Size(49, 22);
             this._btn_burn.Text = "Burn";
+            this._btn_burn.ToolTipText = "Burn configuration from the module\'s memory to flash";
             this._btn_burn.Click += new System.EventHandler(this._btn_burn_Click);
             // 
             // _btn_reload
@@ -204,6 +208,7 @@
             this._btn_reload.Name = "_btn_reload";
             this._btn_reload.Size = new System.Drawing.Size(50, 22);
             this._btn_reload.Text = "Load";
+            this._btn_reload.ToolTipText = "Load from flash";
             this._btn_reload.Click += new System.EventHandler(this._btn_reload_Click);
             // 
             // toolStripSeparator3
