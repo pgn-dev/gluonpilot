@@ -74,6 +74,23 @@ double fast_cos(double x)
 	return fast_sin((3.14159/2.0) - x);
 }	
 
+#define normalize(pitch, roll)              \
+		if (pitch > 100.0/180.0*3.14159) \
+		{                                   \
+            pitch = pitch - 3.14159/2.0;    \
+            roll = roll + 3.14159;          \
+  		}                                   \
+        if (pitch < -100.0/180.0*3.14159) \
+        {                                    \
+            pitch = pitch + 3.14159/2.0;     \
+            roll = roll + 3.14159;           \
+        }                                    \
+        if (roll > 3.14159)     \
+            roll = roll - 3.14159; \
+        if (roll < -3.14159)    \
+            roll = roll + 3.14159; \
+
+
 
 void ahrs_filter()
 {
@@ -126,10 +143,10 @@ void ahrs_filter()
     /* optimize me: P is symmectric: P[1] = P[2] */
     matrix_2x2_mul(df_dx, P, tmp1);   // A * P = tmp1
     matrix_2x2_mul_transp(P, df_dx, tmp2);  //  P * A' = tmp2
-    tmp2[0] += 0.001 + tmp1[0]; // Q
+    tmp2[0] += 0.005 + tmp1[0]; // Q
     tmp2[1] += tmp1[1];
     //tmp2[2] += tmp1[2];
-    tmp2[3] += 0.001 + tmp1[3];
+    tmp2[3] += 0.005 + tmp1[3];
     P[0] += tmp2[0] * DT;
     P[1] += tmp2[1] * DT;
     //P[2] += tmp2[2] * DT;
@@ -166,13 +183,13 @@ void ahrs_filter()
 	   	matrix_3x2_times_2x2(dh_dx_3x2, P, tmp1);  // C * P = tmp1
 	   	matrix_3x2_times_3x2_transp(tmp1, dh_dx_3x2, tmp2);  // tmp1 * C' = tmp2
 	   	//R = diag([0.25 0.25 0.25]);
-	   	tmp2[0] += 0.25;
-	   	tmp2[4] += 0.25;
-	   	tmp2[8] += 0.25;
+	   	tmp2[0] += 0.15;
+	   	tmp2[4] += 0.15;
+	   	tmp2[8] += 0.3;   // our Z-gyro is a lot better quality!
 	   	
 	   	double d;
 	   	INVERT_3X3(tmp1, d, tmp2); // result = tmp1
-	   	if (fabs(d) < 0.01)  // almost division by 0 
+	   	if (abs(d) < 0.01)  // almost division by 0 
 	   		return;
 	   	
 	   	// P * C'  [2x3] = tmp2
@@ -208,7 +225,9 @@ void ahrs_filter()
 	    pitch_rad = pitch_rad + L[3] * tmp1[0] + L[4] * tmp1[1] +  L[5] * tmp1[2];
     }
     
-    if (pitch_rad != pitch_rad || roll_rad != roll_rad) // we have a NaN -> ALERT
+    int p = (int)pitch_rad;   
+    //if (pitch_rad != pitch_rad || roll_rad != roll_rad || abs(pitch_rad) > 999999.0 || abs(roll_rad) > 999999.9) // we have a NaN -> ALERT
+    if (p == -1 && (int)roll_rad == -1)
     {
 		// reset everything
 		pitch_rad = 0.0;
@@ -224,10 +243,9 @@ void ahrs_filter()
 		P[1] = 0.0;
 		P[2] = 0.0;
 		P[3] = 1.0;
+		printf("\r\n!\r\n");
 	}
-	else
-	{
-    	sensor_data.pitch = pitch_rad;
-		sensor_data.roll = roll_rad;
-	}
+	normalize(pitch_rad, roll_rad);
+   	sensor_data.pitch = pitch_rad;
+	sensor_data.roll = roll_rad;
 }	
