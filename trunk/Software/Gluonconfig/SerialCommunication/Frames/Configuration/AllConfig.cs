@@ -18,6 +18,7 @@ namespace Communication.Frames.Configuration
         // control
         public double control_max_roll;
         public double control_max_pitch;
+        public double control_aileron_differential;
         public int control_mixing;
 
         // gps

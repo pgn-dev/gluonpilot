@@ -242,7 +242,7 @@
             this.configurationFrame.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.configurationFrame.Dock = System.Windows.Forms.DockStyle.Fill;
             this.configurationFrame.Location = new System.Drawing.Point(5, 5);
-            this.configurationFrame.Model = ((Gluonpilot.ConfigurationModel)(resources.GetObject("configurationFrame.Model")));
+            //this.configurationFrame.Model = ((Gluonpilot.ConfigurationModel)(resources.GetObject("configurationFrame.Model")));
             this.configurationFrame.Name = "configurationFrame";
             this.configurationFrame.Size = new System.Drawing.Size(603, 315);
             this.configurationFrame.TabIndex = 4;
