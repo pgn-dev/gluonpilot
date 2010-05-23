@@ -20,3 +20,4 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconf
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Release\Communication.dll
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Release\SmartThreadPool.dll
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Release\Communication.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\obj\Release\Configuration.Properties.Resources.resources

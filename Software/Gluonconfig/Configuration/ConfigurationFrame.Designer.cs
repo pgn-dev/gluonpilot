@@ -272,6 +272,9 @@
             this.columnHeaderTime = new System.Windows.Forms.ColumnHeader();
             this._btn_datalog_readtable = new System.Windows.Forms.Button();
             this._btn_dataflash_format = new System.Windows.Forms.Button();
+            this.label79 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label80 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this._tpTelemetry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gyroaccproc_telemetry)).BeginInit();
@@ -300,6 +303,7 @@
             this.groupBox4.SuspendLayout();
             this._tp_datalog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgv_datalog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -309,10 +313,10 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this._tpTelemetry);
             this.tabControl1.Controls.Add(this._tpSensors);
+            this.tabControl1.Controls.Add(this._tbGps);
             this.tabControl1.Controls.Add(this._tpRc);
             this.tabControl1.Controls.Add(this._tpServos);
             this.tabControl1.Controls.Add(this._tbControl);
-            this.tabControl1.Controls.Add(this._tbGps);
             this.tabControl1.Controls.Add(this._tbPid);
             this.tabControl1.Controls.Add(this._tp_datalog);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -2264,6 +2268,9 @@
             // 
             // _tbControl
             // 
+            this._tbControl.Controls.Add(this.label80);
+            this._tbControl.Controls.Add(this.numericUpDown1);
+            this._tbControl.Controls.Add(this.label79);
             this._tbControl.Controls.Add(this.label64);
             this._tbControl.Controls.Add(this.label65);
             this._tbControl.Controls.Add(this._nud_control_pitch_max);
@@ -2867,6 +2874,36 @@
             this._btn_dataflash_format.UseVisualStyleBackColor = true;
             this._btn_dataflash_format.Click += new System.EventHandler(this._btn_dataflash_format_Click);
             // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Location = new System.Drawing.Point(221, 82);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(90, 13);
+            this.label79.TabIndex = 11;
+            this.label79.Text = "Aileron differential";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(317, 80);
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDown1.TabIndex = 12;
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Location = new System.Drawing.Point(370, 82);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(69, 13);
+            this.label80.TabIndex = 13;
+            this.label80.Text = "% (-100..100)";
+            // 
             // ConfigurationFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2916,6 +2953,7 @@
             this.groupBox4.ResumeLayout(false);
             this._tp_datalog.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._dgv_datalog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3165,5 +3203,8 @@
         private System.Windows.Forms.ProgressBar _pb_datalog;
         private System.Windows.Forms.Button _btn_datalog_to_matlab;
         private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label79;
+        private System.Windows.Forms.Label label80;
     }
 }

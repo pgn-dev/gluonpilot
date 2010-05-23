@@ -87,7 +87,7 @@ namespace ModuleImu3D
         {
             get
             {
-                return "Gluonpilot - IMU module attitude 3D representation";
+                return "Gluonpilot - IMU module attitude 3D representation - Purple/Right is front, Green is top";
             }
         }
 

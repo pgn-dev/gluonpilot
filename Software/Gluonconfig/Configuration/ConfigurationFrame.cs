@@ -40,8 +40,11 @@ namespace Gluonpilot
 
         public ConfigurationFrame()
         {
+            _model = new ConfigurationModel();
             InitializeComponent();
+
         }
+
 
         public ConfigurationModel Model
         {
@@ -614,6 +617,12 @@ namespace Gluonpilot
                               "   <width>5</width>" +
                               "   </LineStyle>" +
                               " </Style>" +
+                              " <Style id=\"stabiStyle\">" +
+                              "   <LineStyle>" +
+                              "   <color>ffff00ff</color>" +
+                              "   <width>5</width>" +
+                              "   </LineStyle>" +
+                              " </Style>" +
                               " <Style id=\"autoStyle\">" +
                               "   <LineStyle>" +
                               "   <color>ff0000ff</color>" +
@@ -628,36 +637,58 @@ namespace Gluonpilot
 
                 bool firstcall = true;
                 int startheight = -11111;
+                int exceptions = 0;
                 foreach (DataRow dr in _ds_logLines.Tables["Data"].Rows)
                 {
-                    if (firstcall || (dr.Table.Columns.Contains("FlightMode") && dr["FlightMode"].ToString() != flightmode.ToString()))
+                    try
                     {
-                        if (dr.Table.Columns.Contains("FlightMode"))
-                            flightmode = int.Parse(dr["FlightMode"].ToString());
+                        if (firstcall || (dr.Table.Columns.Contains("FlightMode") &&
+                            dr["FlightMode"].ToString() != flightmode.ToString() &&
+                            int.Parse(dr["FlightMode"].ToString()) >= 0 &&
+                            int.Parse(dr["FlightMode"].ToString()) <= flightmodes.Length))
+                        {
+                            if (dr.Table.Columns.Contains("FlightMode"))
+                            {
+                                flightmode = int.Parse(dr["FlightMode"].ToString());
+                                if (flightmode >= flightmodes.Length)
+                                    flightmode = 0;
+                            }
 
-                        if (!firstcall)
-                            sw.WriteLine("</coordinates></LineString></MultiGeometry></Placemark>");
-                        else
-                            firstcall = false;
-                        sw.WriteLine("<Placemark>" +
-                                     "   <name>" + flightmodes[flightmode] + "</name>");
-                        if (dr.Table.Columns.Contains("FlightMode") && dr["FlightMode"].ToString() == "0") // manual
-                            sw.WriteLine("   <styleUrl>#manualStyle</styleUrl>");
-                        else
-                            sw.WriteLine("   <styleUrl>#autoStyle</styleUrl>");
-                        sw.WriteLine(
-                              "   <MultiGeometry>" +
-                              "     <LineString>" +
-                              "       <altitudeMode>relativeToGround</altitudeMode>" +
-                              "       <coordinates>");
+                            if (!firstcall)
+                                sw.WriteLine("</coordinates></LineString></MultiGeometry></Placemark>");
+                            else
+                                firstcall = false;
+                            sw.WriteLine("<Placemark>" +
+                                         "   <name>" + flightmodes[flightmode] + "</name>");
+                            if (flightmode == 0) // manual
+                                sw.WriteLine("   <styleUrl>#manualStyle</styleUrl>");
+                            else if (flightmode == 1) // stabilized
+                                sw.WriteLine("   <styleUrl>#stabiStyle</styleUrl>");
+                            else
+                                sw.WriteLine("   <styleUrl>#autoStyle</styleUrl>");
+                            sw.WriteLine(
+                                  "   <MultiGeometry>" +
+                                  "     <LineString>" +
+                                  "       <altitudeMode>relativeToGround</altitudeMode>" +
+                                  "       <coordinates>");
+                        }
+                        if (startheight == -11111)
+                            startheight = (int)double.Parse(dr["HeightBaro"].ToString(), System.Globalization.CultureInfo.InvariantCulture);
+
+                        if (Math.Abs(double.Parse(dr["Longitude"].ToString(), System.Globalization.CultureInfo.InvariantCulture)) <= 360.0 &&
+                            Math.Abs(double.Parse(dr["Latitude"].ToString(), System.Globalization.CultureInfo.InvariantCulture)) <= 360.0)
+                            sw.WriteLine("{0},{1},{2}", dr["Longitude"], dr["Latitude"], (double.Parse(dr["HeightBaro"].ToString(), System.Globalization.CultureInfo.InvariantCulture) - startheight).ToString(System.Globalization.CultureInfo.InvariantCulture));
                     }
-                    if (startheight == -11111)
-                        startheight = (int)double.Parse(dr["HeightBaro"].ToString(), System.Globalization.CultureInfo.InvariantCulture);
-                    sw.WriteLine("{0},{1},{2}", dr["Longitude"], dr["Latitude"], (double.Parse(dr["HeightBaro"].ToString(), System.Globalization.CultureInfo.InvariantCulture) - startheight).ToString(System.Globalization.CultureInfo.InvariantCulture));
+                    catch (Exception ex)
+                    {
+                        exceptions++;
+                    }
                 }
                 sw.WriteLine(tailpath);
 
                 sw.WriteLine("<Folder><name>Datalog</name>");
+
+                
                 int i = 0;
                 double time = 0.0;
                 foreach (DataRow dr in _ds_logLines.Tables["Data"].Rows)
@@ -687,6 +718,10 @@ namespace Gluonpilot
                 
                 sw.WriteLine(tailkml);
                 sw.Close();
+
+                if (exceptions > 0)
+                    MessageBox.Show("Export ended with " + exceptions + " exceptions");
+
             }
         }
 
