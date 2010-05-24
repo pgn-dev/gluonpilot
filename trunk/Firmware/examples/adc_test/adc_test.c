@@ -21,17 +21,17 @@ int main()
 	while(1)
 	{
 		printf ("%u %u %u %u %u %u %u\r\n",
-			adc_get_channel(0),  // x_acc
-			adc_get_channel(6),  // y_acc
+			adc_get_channel(6),  // x_acc
+			adc_get_channel(0),  // y_acc
 			adc_get_channel(1),  // z_acc
-			adc_get_channel(7),  // idg500_xrate
-			adc_get_channel(4),  // idg500_yrate
+			adc_get_channel(4),  // idg500_xrate
+			adc_get_channel(7),  // idg500_yrate
 			adc_get_channel(5),  // zrate
 			adc_get_channel(3)); // idg500_vref
 		
-		microcontroller_delay_ms(1);
+		microcontroller_delay_ms(10);
 		adc_start();
-		microcontroller_delay_ms(1);
+		microcontroller_delay_ms(10);
 	}	
 	
 	return 0;

@@ -292,6 +292,7 @@ void datalogger_task( void *parameters )
 			l.gps_height_m = sensor_data.gps.height_m;
 			l.gps_heading = (int)(sensor_data.gps.heading_rad * (180.0/3.14159));
 			l.gps_speed_m_s = sensor_data.gps.speed_ms;
+			l.gps_satellites = (char)sensor_data.gps.satellites_in_view;
 			l.acc_x = sensor_data.acc_x_raw;
 			l.acc_y = sensor_data.acc_y_raw;
 			l.acc_z = sensor_data.acc_z_raw;
@@ -324,9 +325,11 @@ void datalogger_task( void *parameters )
 			l.gyro_x = sensor_data.gyro_x_raw;
 			l.gyro_y = sensor_data.gyro_y_raw;
 			l.gyro_z = sensor_data.gyro_z_raw;
+			//l.idg500_vref = sensor_data.idg500_vref;
 			l.pitch = (int)(sensor_data.pitch * (180.0/3.14159));
 			l.pitch_acc = (int)(sensor_data.pitch_acc * (180.0/3.14159));
 			l.roll = (int)(sensor_data.roll * (180.0/3.14159));
+			//l.control_state = control_state.flight_mode;
 #endif
 			datalogger_writeline(&l);
 		}

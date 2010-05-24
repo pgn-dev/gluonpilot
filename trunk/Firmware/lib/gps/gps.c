@@ -90,7 +90,8 @@ void gps_init(struct GpsConfig *gpsconfig)
 	if (rmc_sentence_number == -1 && nmea_buffer_RMC_counter == 0)
 	{
 		uart1_puts("timeout...");
-		//return;	// Don't return! If module was rebooted, but GPS not, then we need to change the speed for the GPS module to become accessible
+		uart2_open(115200l);
+		return;	// Don't return? If module was rebooted, but GPS not, then we need to change the speed for the GPS module to become accessible
 	}
 
 	// First we configure which sentences we want. If the unit outputs all sentences at 5Hz by default, then 38400 will be too slow 
@@ -99,12 +100,12 @@ void gps_init(struct GpsConfig *gpsconfig)
 	// only RMC and GGA
 	// RMC & GGA
 	//uart1_puts("$PMTK314...");
-    uart2_puts("$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28\r\n");
+    uart2_puts("$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28\r\n");  // this can take a while if no GPS is connected
 	microcontroller_delay_ms(10);
 	
 	// Change to 115200 baud
 	//uart1_puts("$PMTK251...");
-	uart2_puts("$PMTK251,115200*1F\r\n");
+	uart2_puts("$PMTK251,115200*1F\r\n");  // this can take a while if no GPS is connected
 	microcontroller_delay_ms(10);
 	uart2_open(115200l);
 	

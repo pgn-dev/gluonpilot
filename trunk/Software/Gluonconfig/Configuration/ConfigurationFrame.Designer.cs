@@ -95,6 +95,29 @@
             this.label2 = new System.Windows.Forms.Label();
             this._tbPressure = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this._tbGps = new System.Windows.Forms.TabPage();
+            this._rb_gps_notfound = new System.Windows.Forms.RadioButton();
+            this._llConfigGps = new System.Windows.Forms.LinkLabel();
+            this._llGoogleMaps = new System.Windows.Forms.LinkLabel();
+            this._tb_gps_numsat = new System.Windows.Forms.TextBox();
+            this._tb_gps_heading = new System.Windows.Forms.TextBox();
+            this._tb_gps_speed = new System.Windows.Forms.TextBox();
+            this._tb_gps_height = new System.Windows.Forms.TextBox();
+            this._tb_gps_longitude = new System.Windows.Forms.TextBox();
+            this._tb_gps_latitude = new System.Windows.Forms.TextBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
+            this.label55 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label51 = new System.Windows.Forms.Label();
+            this._rb_gps_status_active = new System.Windows.Forms.RadioButton();
+            this._rb_gps_status_void = new System.Windows.Forms.RadioButton();
+            this.label456 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this._tb_initial_baudrate = new Configuration.NumericTextBox();
+            this._tb_operational_baudrate = new Configuration.NumericTextBox();
             this._tpRc = new System.Windows.Forms.TabPage();
             this.label78 = new System.Windows.Forms.Label();
             this._llRc = new System.Windows.Forms.LinkLabel();
@@ -216,6 +239,9 @@
             this._tb_servo2_neutral = new Configuration.NumericTextBox();
             this._tb_servo1_neutral = new Configuration.NumericTextBox();
             this._tbControl = new System.Windows.Forms.TabPage();
+            this.label80 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label79 = new System.Windows.Forms.Label();
             this.label64 = new System.Windows.Forms.Label();
             this.label65 = new System.Windows.Forms.Label();
             this._nud_control_pitch_max = new System.Windows.Forms.NumericUpDown();
@@ -227,29 +253,6 @@
             this._lblControlMixInfo = new System.Windows.Forms.Label();
             this._cbControlMix = new System.Windows.Forms.ComboBox();
             this.label58 = new System.Windows.Forms.Label();
-            this._tbGps = new System.Windows.Forms.TabPage();
-            this._rb_gps_notfound = new System.Windows.Forms.RadioButton();
-            this._llConfigGps = new System.Windows.Forms.LinkLabel();
-            this._llGoogleMaps = new System.Windows.Forms.LinkLabel();
-            this._tb_gps_numsat = new System.Windows.Forms.TextBox();
-            this._tb_gps_heading = new System.Windows.Forms.TextBox();
-            this._tb_gps_speed = new System.Windows.Forms.TextBox();
-            this._tb_gps_height = new System.Windows.Forms.TextBox();
-            this._tb_gps_longitude = new System.Windows.Forms.TextBox();
-            this._tb_gps_latitude = new System.Windows.Forms.TextBox();
-            this.label57 = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
-            this.label54 = new System.Windows.Forms.Label();
-            this.label53 = new System.Windows.Forms.Label();
-            this.label52 = new System.Windows.Forms.Label();
-            this.label51 = new System.Windows.Forms.Label();
-            this._rb_gps_status_active = new System.Windows.Forms.RadioButton();
-            this._rb_gps_status_void = new System.Windows.Forms.RadioButton();
-            this.label456 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
-            this._tb_initial_baudrate = new Configuration.NumericTextBox();
-            this._tb_operational_baudrate = new Configuration.NumericTextBox();
             this._tbPid = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this._pid_heading_to_roll = new Configuration.PidControl();
@@ -272,9 +275,8 @@
             this.columnHeaderTime = new System.Windows.Forms.ColumnHeader();
             this._btn_datalog_readtable = new System.Windows.Forms.Button();
             this._btn_dataflash_format = new System.Windows.Forms.Button();
-            this.label79 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label80 = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.cb_altitudehold = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this._tpTelemetry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gyroaccproc_telemetry)).BeginInit();
@@ -285,6 +287,7 @@
             this._tpSensors.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this._tbGps.SuspendLayout();
             this._tpRc.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -294,16 +297,16 @@
             this._pnlRoll.SuspendLayout();
             this._tpServos.SuspendLayout();
             this._tbControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_pitch_max)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_roll_max)).BeginInit();
-            this._tbGps.SuspendLayout();
             this._tbPid.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this._pid_roll2aileron.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this._tp_datalog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgv_datalog)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -984,6 +987,243 @@
             this.label1.Size = new System.Drawing.Size(51, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Pressure:";
+            // 
+            // _tbGps
+            // 
+            this._tbGps.Controls.Add(this._rb_gps_notfound);
+            this._tbGps.Controls.Add(this._llConfigGps);
+            this._tbGps.Controls.Add(this._llGoogleMaps);
+            this._tbGps.Controls.Add(this._tb_gps_numsat);
+            this._tbGps.Controls.Add(this._tb_gps_heading);
+            this._tbGps.Controls.Add(this._tb_gps_speed);
+            this._tbGps.Controls.Add(this._tb_gps_height);
+            this._tbGps.Controls.Add(this._tb_gps_longitude);
+            this._tbGps.Controls.Add(this._tb_gps_latitude);
+            this._tbGps.Controls.Add(this.label57);
+            this._tbGps.Controls.Add(this.label56);
+            this._tbGps.Controls.Add(this.label55);
+            this._tbGps.Controls.Add(this.label54);
+            this._tbGps.Controls.Add(this.label53);
+            this._tbGps.Controls.Add(this.label52);
+            this._tbGps.Controls.Add(this.label51);
+            this._tbGps.Controls.Add(this._rb_gps_status_active);
+            this._tbGps.Controls.Add(this._rb_gps_status_void);
+            this._tbGps.Controls.Add(this.label456);
+            this._tbGps.Controls.Add(this.label50);
+            this._tbGps.Controls.Add(this._tb_initial_baudrate);
+            this._tbGps.Controls.Add(this._tb_operational_baudrate);
+            this._tbGps.Location = new System.Drawing.Point(4, 22);
+            this._tbGps.Name = "_tbGps";
+            this._tbGps.Size = new System.Drawing.Size(590, 271);
+            this._tbGps.TabIndex = 4;
+            this._tbGps.Text = "GPS";
+            this._tbGps.UseVisualStyleBackColor = true;
+            // 
+            // _rb_gps_notfound
+            // 
+            this._rb_gps_notfound.AutoSize = true;
+            this._rb_gps_notfound.Enabled = false;
+            this._rb_gps_notfound.Location = new System.Drawing.Point(235, 127);
+            this._rb_gps_notfound.Name = "_rb_gps_notfound";
+            this._rb_gps_notfound.Size = new System.Drawing.Size(72, 17);
+            this._rb_gps_notfound.TabIndex = 23;
+            this._rb_gps_notfound.TabStop = true;
+            this._rb_gps_notfound.Text = "Not found";
+            this._rb_gps_notfound.UseVisualStyleBackColor = true;
+            // 
+            // _llConfigGps
+            // 
+            this._llConfigGps.AutoSize = true;
+            this._llConfigGps.Location = new System.Drawing.Point(550, 9);
+            this._llConfigGps.Name = "_llConfigGps";
+            this._llConfigGps.Size = new System.Drawing.Size(28, 13);
+            this._llConfigGps.TabIndex = 22;
+            this._llConfigGps.TabStop = true;
+            this._llConfigGps.Text = "Wiki";
+            this._llConfigGps.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._llConfigGps_LinkClicked);
+            // 
+            // _llGoogleMaps
+            // 
+            this._llGoogleMaps.AutoSize = true;
+            this._llGoogleMaps.Location = new System.Drawing.Point(370, 129);
+            this._llGoogleMaps.Name = "_llGoogleMaps";
+            this._llGoogleMaps.Size = new System.Drawing.Size(93, 13);
+            this._llGoogleMaps.TabIndex = 21;
+            this._llGoogleMaps.TabStop = true;
+            this._llGoogleMaps.Text = "Goto google maps";
+            this._llGoogleMaps.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._llGoogleMaps_LinkClicked);
+            // 
+            // _tb_gps_numsat
+            // 
+            this._tb_gps_numsat.Location = new System.Drawing.Point(122, 186);
+            this._tb_gps_numsat.Name = "_tb_gps_numsat";
+            this._tb_gps_numsat.ReadOnly = true;
+            this._tb_gps_numsat.Size = new System.Drawing.Size(35, 20);
+            this._tb_gps_numsat.TabIndex = 19;
+            // 
+            // _tb_gps_heading
+            // 
+            this._tb_gps_heading.Location = new System.Drawing.Point(518, 153);
+            this._tb_gps_heading.Name = "_tb_gps_heading";
+            this._tb_gps_heading.ReadOnly = true;
+            this._tb_gps_heading.Size = new System.Drawing.Size(42, 20);
+            this._tb_gps_heading.TabIndex = 18;
+            // 
+            // _tb_gps_speed
+            // 
+            this._tb_gps_speed.Location = new System.Drawing.Point(414, 153);
+            this._tb_gps_speed.Name = "_tb_gps_speed";
+            this._tb_gps_speed.ReadOnly = true;
+            this._tb_gps_speed.Size = new System.Drawing.Size(42, 20);
+            this._tb_gps_speed.TabIndex = 17;
+            // 
+            // _tb_gps_height
+            // 
+            this._tb_gps_height.Location = new System.Drawing.Point(319, 153);
+            this._tb_gps_height.Name = "_tb_gps_height";
+            this._tb_gps_height.ReadOnly = true;
+            this._tb_gps_height.Size = new System.Drawing.Size(42, 20);
+            this._tb_gps_height.TabIndex = 16;
+            // 
+            // _tb_gps_longitude
+            // 
+            this._tb_gps_longitude.Location = new System.Drawing.Point(203, 153);
+            this._tb_gps_longitude.Name = "_tb_gps_longitude";
+            this._tb_gps_longitude.ReadOnly = true;
+            this._tb_gps_longitude.Size = new System.Drawing.Size(63, 20);
+            this._tb_gps_longitude.TabIndex = 15;
+            // 
+            // _tb_gps_latitude
+            // 
+            this._tb_gps_latitude.Location = new System.Drawing.Point(71, 153);
+            this._tb_gps_latitude.Name = "_tb_gps_latitude";
+            this._tb_gps_latitude.ReadOnly = true;
+            this._tb_gps_latitude.Size = new System.Drawing.Size(63, 20);
+            this._tb_gps_latitude.TabIndex = 14;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(14, 189);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(102, 13);
+            this.label57.TabIndex = 13;
+            this.label57.Text = "Number of satellites:";
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(462, 156);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(50, 13);
+            this.label56.TabIndex = 12;
+            this.label56.Text = "Heading:";
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(367, 156);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(41, 13);
+            this.label55.TabIndex = 11;
+            this.label55.Text = "Speed:";
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(272, 156);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(41, 13);
+            this.label54.TabIndex = 10;
+            this.label54.Text = "Height:";
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(140, 156);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(57, 13);
+            this.label53.TabIndex = 9;
+            this.label53.Text = "Longitude:";
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(14, 156);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(51, 13);
+            this.label52.TabIndex = 8;
+            this.label52.Text = "Latitude: ";
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(14, 130);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(40, 13);
+            this.label51.TabIndex = 7;
+            this.label51.Text = "Status:";
+            // 
+            // _rb_gps_status_active
+            // 
+            this._rb_gps_status_active.AutoSize = true;
+            this._rb_gps_status_active.Enabled = false;
+            this._rb_gps_status_active.Location = new System.Drawing.Point(168, 127);
+            this._rb_gps_status_active.Name = "_rb_gps_status_active";
+            this._rb_gps_status_active.Size = new System.Drawing.Size(61, 17);
+            this._rb_gps_status_active.TabIndex = 6;
+            this._rb_gps_status_active.TabStop = true;
+            this._rb_gps_status_active.Text = "Locked";
+            this._rb_gps_status_active.UseVisualStyleBackColor = true;
+            // 
+            // _rb_gps_status_void
+            // 
+            this._rb_gps_status_void.AutoSize = true;
+            this._rb_gps_status_void.Enabled = false;
+            this._rb_gps_status_void.Location = new System.Drawing.Point(71, 127);
+            this._rb_gps_status_void.Name = "_rb_gps_status_void";
+            this._rb_gps_status_void.Size = new System.Drawing.Size(92, 17);
+            this._rb_gps_status_void.TabIndex = 5;
+            this._rb_gps_status_void.TabStop = true;
+            this._rb_gps_status_void.Text = "Acquiring lock";
+            this._rb_gps_status_void.UseVisualStyleBackColor = true;
+            // 
+            // label456
+            // 
+            this.label456.AutoSize = true;
+            this.label456.Location = new System.Drawing.Point(14, 40);
+            this.label456.Name = "label456";
+            this.label456.Size = new System.Drawing.Size(109, 13);
+            this.label456.TabIndex = 2;
+            this.label456.Text = "Operational baudrate:";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(14, 16);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(92, 13);
+            this.label50.TabIndex = 0;
+            this.label50.Text = "Start-up baudrate:";
+            // 
+            // _tb_initial_baudrate
+            // 
+            this._tb_initial_baudrate.AllowSpace = false;
+            this._tb_initial_baudrate.Location = new System.Drawing.Point(129, 13);
+            this._tb_initial_baudrate.Name = "_tb_initial_baudrate";
+            this._tb_initial_baudrate.Size = new System.Drawing.Size(100, 20);
+            this._tb_initial_baudrate.TabIndex = 20;
+            this._tb_initial_baudrate.TextChanged += new System.EventHandler(this._tb_initial_baudrate_TextChanged);
+            // 
+            // _tb_operational_baudrate
+            // 
+            this._tb_operational_baudrate.AllowSpace = false;
+            this._tb_operational_baudrate.Enabled = false;
+            this._tb_operational_baudrate.Location = new System.Drawing.Point(129, 39);
+            this._tb_operational_baudrate.Name = "_tb_operational_baudrate";
+            this._tb_operational_baudrate.Size = new System.Drawing.Size(100, 20);
+            this._tb_operational_baudrate.TabIndex = 3;
+            this._tb_operational_baudrate.TextChanged += new System.EventHandler(this._tb_operational_baudrate_TextChanged);
             // 
             // _tpRc
             // 
@@ -2268,6 +2508,7 @@
             // 
             // _tbControl
             // 
+            this._tbControl.Controls.Add(this.groupBox6);
             this._tbControl.Controls.Add(this.label80);
             this._tbControl.Controls.Add(this.numericUpDown1);
             this._tbControl.Controls.Add(this.label79);
@@ -2288,6 +2529,41 @@
             this._tbControl.TabIndex = 6;
             this._tbControl.Text = "Control";
             this._tbControl.UseVisualStyleBackColor = true;
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Location = new System.Drawing.Point(157, 108);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(69, 13);
+            this.label80.TabIndex = 13;
+            this.label80.Text = "% (-100..100)";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Location = new System.Drawing.Point(104, 106);
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDown1.TabIndex = 12;
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Location = new System.Drawing.Point(9, 108);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(90, 13);
+            this.label79.TabIndex = 11;
+            this.label79.Text = "Aileron differential";
             // 
             // label64
             // 
@@ -2318,7 +2594,7 @@
             // label66
             // 
             this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(16, 82);
+            this.label66.Location = new System.Drawing.Point(9, 82);
             this.label66.Name = "label66";
             this.label66.Size = new System.Drawing.Size(43, 13);
             this.label66.TabIndex = 7;
@@ -2353,7 +2629,7 @@
             // label61
             // 
             this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(16, 56);
+            this.label61.Location = new System.Drawing.Point(9, 56);
             this.label61.Name = "label61";
             this.label61.Size = new System.Drawing.Size(53, 13);
             this.label61.TabIndex = 3;
@@ -2390,243 +2666,6 @@
             this.label58.Size = new System.Drawing.Size(60, 13);
             this.label58.TabIndex = 0;
             this.label58.Text = "Output mix:";
-            // 
-            // _tbGps
-            // 
-            this._tbGps.Controls.Add(this._rb_gps_notfound);
-            this._tbGps.Controls.Add(this._llConfigGps);
-            this._tbGps.Controls.Add(this._llGoogleMaps);
-            this._tbGps.Controls.Add(this._tb_gps_numsat);
-            this._tbGps.Controls.Add(this._tb_gps_heading);
-            this._tbGps.Controls.Add(this._tb_gps_speed);
-            this._tbGps.Controls.Add(this._tb_gps_height);
-            this._tbGps.Controls.Add(this._tb_gps_longitude);
-            this._tbGps.Controls.Add(this._tb_gps_latitude);
-            this._tbGps.Controls.Add(this.label57);
-            this._tbGps.Controls.Add(this.label56);
-            this._tbGps.Controls.Add(this.label55);
-            this._tbGps.Controls.Add(this.label54);
-            this._tbGps.Controls.Add(this.label53);
-            this._tbGps.Controls.Add(this.label52);
-            this._tbGps.Controls.Add(this.label51);
-            this._tbGps.Controls.Add(this._rb_gps_status_active);
-            this._tbGps.Controls.Add(this._rb_gps_status_void);
-            this._tbGps.Controls.Add(this.label456);
-            this._tbGps.Controls.Add(this.label50);
-            this._tbGps.Controls.Add(this._tb_initial_baudrate);
-            this._tbGps.Controls.Add(this._tb_operational_baudrate);
-            this._tbGps.Location = new System.Drawing.Point(4, 22);
-            this._tbGps.Name = "_tbGps";
-            this._tbGps.Size = new System.Drawing.Size(590, 271);
-            this._tbGps.TabIndex = 4;
-            this._tbGps.Text = "GPS";
-            this._tbGps.UseVisualStyleBackColor = true;
-            // 
-            // _rb_gps_notfound
-            // 
-            this._rb_gps_notfound.AutoSize = true;
-            this._rb_gps_notfound.Enabled = false;
-            this._rb_gps_notfound.Location = new System.Drawing.Point(235, 127);
-            this._rb_gps_notfound.Name = "_rb_gps_notfound";
-            this._rb_gps_notfound.Size = new System.Drawing.Size(72, 17);
-            this._rb_gps_notfound.TabIndex = 23;
-            this._rb_gps_notfound.TabStop = true;
-            this._rb_gps_notfound.Text = "Not found";
-            this._rb_gps_notfound.UseVisualStyleBackColor = true;
-            // 
-            // _llConfigGps
-            // 
-            this._llConfigGps.AutoSize = true;
-            this._llConfigGps.Location = new System.Drawing.Point(550, 9);
-            this._llConfigGps.Name = "_llConfigGps";
-            this._llConfigGps.Size = new System.Drawing.Size(28, 13);
-            this._llConfigGps.TabIndex = 22;
-            this._llConfigGps.TabStop = true;
-            this._llConfigGps.Text = "Wiki";
-            this._llConfigGps.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._llConfigGps_LinkClicked);
-            // 
-            // _llGoogleMaps
-            // 
-            this._llGoogleMaps.AutoSize = true;
-            this._llGoogleMaps.Location = new System.Drawing.Point(370, 129);
-            this._llGoogleMaps.Name = "_llGoogleMaps";
-            this._llGoogleMaps.Size = new System.Drawing.Size(93, 13);
-            this._llGoogleMaps.TabIndex = 21;
-            this._llGoogleMaps.TabStop = true;
-            this._llGoogleMaps.Text = "Goto google maps";
-            this._llGoogleMaps.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._llGoogleMaps_LinkClicked);
-            // 
-            // _tb_gps_numsat
-            // 
-            this._tb_gps_numsat.Location = new System.Drawing.Point(122, 186);
-            this._tb_gps_numsat.Name = "_tb_gps_numsat";
-            this._tb_gps_numsat.ReadOnly = true;
-            this._tb_gps_numsat.Size = new System.Drawing.Size(35, 20);
-            this._tb_gps_numsat.TabIndex = 19;
-            // 
-            // _tb_gps_heading
-            // 
-            this._tb_gps_heading.Location = new System.Drawing.Point(518, 153);
-            this._tb_gps_heading.Name = "_tb_gps_heading";
-            this._tb_gps_heading.ReadOnly = true;
-            this._tb_gps_heading.Size = new System.Drawing.Size(42, 20);
-            this._tb_gps_heading.TabIndex = 18;
-            // 
-            // _tb_gps_speed
-            // 
-            this._tb_gps_speed.Location = new System.Drawing.Point(414, 153);
-            this._tb_gps_speed.Name = "_tb_gps_speed";
-            this._tb_gps_speed.ReadOnly = true;
-            this._tb_gps_speed.Size = new System.Drawing.Size(42, 20);
-            this._tb_gps_speed.TabIndex = 17;
-            // 
-            // _tb_gps_height
-            // 
-            this._tb_gps_height.Location = new System.Drawing.Point(319, 153);
-            this._tb_gps_height.Name = "_tb_gps_height";
-            this._tb_gps_height.ReadOnly = true;
-            this._tb_gps_height.Size = new System.Drawing.Size(42, 20);
-            this._tb_gps_height.TabIndex = 16;
-            // 
-            // _tb_gps_longitude
-            // 
-            this._tb_gps_longitude.Location = new System.Drawing.Point(203, 153);
-            this._tb_gps_longitude.Name = "_tb_gps_longitude";
-            this._tb_gps_longitude.ReadOnly = true;
-            this._tb_gps_longitude.Size = new System.Drawing.Size(63, 20);
-            this._tb_gps_longitude.TabIndex = 15;
-            // 
-            // _tb_gps_latitude
-            // 
-            this._tb_gps_latitude.Location = new System.Drawing.Point(71, 153);
-            this._tb_gps_latitude.Name = "_tb_gps_latitude";
-            this._tb_gps_latitude.ReadOnly = true;
-            this._tb_gps_latitude.Size = new System.Drawing.Size(63, 20);
-            this._tb_gps_latitude.TabIndex = 14;
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(14, 189);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(102, 13);
-            this.label57.TabIndex = 13;
-            this.label57.Text = "Number of satellites:";
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(462, 156);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(50, 13);
-            this.label56.TabIndex = 12;
-            this.label56.Text = "Heading:";
-            // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(367, 156);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(41, 13);
-            this.label55.TabIndex = 11;
-            this.label55.Text = "Speed:";
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(272, 156);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(41, 13);
-            this.label54.TabIndex = 10;
-            this.label54.Text = "Height:";
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(140, 156);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(57, 13);
-            this.label53.TabIndex = 9;
-            this.label53.Text = "Longitude:";
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(14, 156);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(51, 13);
-            this.label52.TabIndex = 8;
-            this.label52.Text = "Latitude: ";
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(14, 130);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(40, 13);
-            this.label51.TabIndex = 7;
-            this.label51.Text = "Status:";
-            // 
-            // _rb_gps_status_active
-            // 
-            this._rb_gps_status_active.AutoSize = true;
-            this._rb_gps_status_active.Enabled = false;
-            this._rb_gps_status_active.Location = new System.Drawing.Point(168, 127);
-            this._rb_gps_status_active.Name = "_rb_gps_status_active";
-            this._rb_gps_status_active.Size = new System.Drawing.Size(61, 17);
-            this._rb_gps_status_active.TabIndex = 6;
-            this._rb_gps_status_active.TabStop = true;
-            this._rb_gps_status_active.Text = "Locked";
-            this._rb_gps_status_active.UseVisualStyleBackColor = true;
-            // 
-            // _rb_gps_status_void
-            // 
-            this._rb_gps_status_void.AutoSize = true;
-            this._rb_gps_status_void.Enabled = false;
-            this._rb_gps_status_void.Location = new System.Drawing.Point(71, 127);
-            this._rb_gps_status_void.Name = "_rb_gps_status_void";
-            this._rb_gps_status_void.Size = new System.Drawing.Size(92, 17);
-            this._rb_gps_status_void.TabIndex = 5;
-            this._rb_gps_status_void.TabStop = true;
-            this._rb_gps_status_void.Text = "Acquiring lock";
-            this._rb_gps_status_void.UseVisualStyleBackColor = true;
-            // 
-            // label456
-            // 
-            this.label456.AutoSize = true;
-            this.label456.Location = new System.Drawing.Point(14, 40);
-            this.label456.Name = "label456";
-            this.label456.Size = new System.Drawing.Size(109, 13);
-            this.label456.TabIndex = 2;
-            this.label456.Text = "Operational baudrate:";
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(14, 16);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(92, 13);
-            this.label50.TabIndex = 0;
-            this.label50.Text = "Start-up baudrate:";
-            // 
-            // _tb_initial_baudrate
-            // 
-            this._tb_initial_baudrate.AllowSpace = false;
-            this._tb_initial_baudrate.Location = new System.Drawing.Point(129, 13);
-            this._tb_initial_baudrate.Name = "_tb_initial_baudrate";
-            this._tb_initial_baudrate.Size = new System.Drawing.Size(100, 20);
-            this._tb_initial_baudrate.TabIndex = 20;
-            this._tb_initial_baudrate.TextChanged += new System.EventHandler(this._tb_initial_baudrate_TextChanged);
-            // 
-            // _tb_operational_baudrate
-            // 
-            this._tb_operational_baudrate.AllowSpace = false;
-            this._tb_operational_baudrate.Enabled = false;
-            this._tb_operational_baudrate.Location = new System.Drawing.Point(129, 39);
-            this._tb_operational_baudrate.Name = "_tb_operational_baudrate";
-            this._tb_operational_baudrate.Size = new System.Drawing.Size(100, 20);
-            this._tb_operational_baudrate.TabIndex = 3;
-            this._tb_operational_baudrate.TextChanged += new System.EventHandler(this._tb_operational_baudrate_TextChanged);
             // 
             // _tbPid
             // 
@@ -2874,35 +2913,25 @@
             this._btn_dataflash_format.UseVisualStyleBackColor = true;
             this._btn_dataflash_format.Click += new System.EventHandler(this._btn_dataflash_format_Click);
             // 
-            // label79
+            // groupBox6
             // 
-            this.label79.AutoSize = true;
-            this.label79.Location = new System.Drawing.Point(221, 82);
-            this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(90, 13);
-            this.label79.TabIndex = 11;
-            this.label79.Text = "Aileron differential";
+            this.groupBox6.Controls.Add(this.cb_altitudehold);
+            this.groupBox6.Location = new System.Drawing.Point(12, 149);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(214, 111);
+            this.groupBox6.TabIndex = 14;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Stabilization";
             // 
-            // numericUpDown1
+            // cb_altitudehold
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(317, 80);
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDown1.TabIndex = 12;
-            // 
-            // label80
-            // 
-            this.label80.AutoSize = true;
-            this.label80.Location = new System.Drawing.Point(370, 82);
-            this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(69, 13);
-            this.label80.TabIndex = 13;
-            this.label80.Text = "% (-100..100)";
+            this.cb_altitudehold.AutoSize = true;
+            this.cb_altitudehold.Location = new System.Drawing.Point(6, 19);
+            this.cb_altitudehold.Name = "cb_altitudehold";
+            this.cb_altitudehold.Size = new System.Drawing.Size(188, 17);
+            this.cb_altitudehold.TabIndex = 0;
+            this.cb_altitudehold.Text = "Altitude hold (instead of pitch hold)";
+            this.cb_altitudehold.UseVisualStyleBackColor = true;
             // 
             // ConfigurationFrame
             // 
@@ -2925,6 +2954,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this._tbGps.ResumeLayout(false);
+            this._tbGps.PerformLayout();
             this._tpRc.ResumeLayout(false);
             this._tpRc.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -2943,17 +2974,17 @@
             this._tpServos.PerformLayout();
             this._tbControl.ResumeLayout(false);
             this._tbControl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_pitch_max)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_roll_max)).EndInit();
-            this._tbGps.ResumeLayout(false);
-            this._tbGps.PerformLayout();
             this._tbPid.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this._pid_roll2aileron.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this._tp_datalog.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._dgv_datalog)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3206,5 +3237,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label79;
         private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.CheckBox cb_altitudehold;
     }
 }
