@@ -1,32 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ds30LoaderSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Debugmode>false</Debugmode>
   <CheckVerStart>false</CheckVerStart>
   <WindowOnTop>false</WindowOnTop>
-  <advancedMode>true</advancedMode>
   <WindowWidth>566</WindowWidth>
   <WindowHeight>554</WindowHeight>
-  <Filename>C:\pic\IMUboard\rtos_pilot\hex\rtos_pilot.hex</Filename>
-  <Portname>COM25</Portname>
-  <Baudrate>115200</Baudrate>
-  <Familyname>dsPIC33FJ</Familyname>
-  <Devicename>dsPIC33FJ256MC710</Devicename>
-  <WriteProgram>true</WriteProgram>
-  <WriteEEPROM>false</WriteEEPROM>
-  <WriteConfigs>false</WriteConfigs>
-  <NoGoto>false</NoGoto>
-  <ignoreBLOverwrite>false</ignoreBLOverwrite>
-  <Polltime>200</Polltime>
-  <Timeout>5000</Timeout>
-  <CommandReset>false</CommandReset>
-  <ResetCommand>a;0;ff;e0</ResetCommand>
-  <resetBaudrate>9600</resetBaudrate>
-  <DTRReset>false</DTRReset>
-  <ManualReset>true</ManualReset>
-  <RTSReset>false</RTSReset>
-  <ResetTime>250</ResetTime>
-  <ActivateDTR>false</ActivateDTR>
-  <ActivateRTS>false</ActivateRTS>
-  <termSwithTo>true</termSwithTo>
-  <termBaudrate>115200</termBaudrate>
+  <Filename>C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\hex\rtos_pilot.hex</Filename>
+  <DefaultStartSettings>
+    <AdvancedMode>false</AdvancedMode>
+    <AdvancedModeAllow>true</AdvancedModeAllow>
+    <FilenameAllow>false</FilenameAllow>
+    <Portname />
+    <PortnameAllow>true</PortnameAllow>
+    <Baudrate>9600</Baudrate>
+    <BaudrateAllow>true</BaudrateAllow>
+    <Familyname />
+    <FamilynameAllow>true</FamilynameAllow>
+    <Devicename />
+    <DevicenameAllow>true</DevicenameAllow>
+    <WriteProgram>false</WriteProgram>
+    <WriteProgramAllow>true</WriteProgramAllow>
+    <WriteEeprom>false</WriteEeprom>
+    <WriteEepromAllow>true</WriteEepromAllow>
+    <WriteConfigs>false</WriteConfigs>
+    <WriteConfigsAllow>true</WriteConfigsAllow>
+    <NoGoto>false</NoGoto>
+    <NoGotoAllow>true</NoGotoAllow>
+    <IgnoreBLOverwrite>false</IgnoreBLOverwrite>
+    <IgnoreBLOverwriteAllow>true</IgnoreBLOverwriteAllow>
+    <CustomBl>false</CustomBl>
+    <CustomBlAllow>true</CustomBlAllow>
+    <CustomBlPlacementP>1</CustomBlPlacementP>
+    <CustomBlPlacementPAllow>true</CustomBlPlacementPAllow>
+    <CustomBlSizeP>1</CustomBlSizeP>
+    <CustomBlSizePAllow>true</CustomBlSizePAllow>
+    <AutoBaudRate>false</AutoBaudRate>
+    <EchoVerification>false</EchoVerification>
+    <Polltime>500</Polltime>
+    <PolltimeAllow>true</PolltimeAllow>
+    <Timeout>10000</Timeout>
+    <TimeoutAllow>true</TimeoutAllow>
+    <CommandReset>false</CommandReset>
+    <CommandResetAllow>true</CommandResetAllow>
+    <ResetCommand />
+    <ResetCommandAllow>true</ResetCommandAllow>
+    <ResetBaudrate>9600</ResetBaudrate>
+    <ResetBaudrateAllow>true</ResetBaudrateAllow>
+    <DTRReset>false</DTRReset>
+    <DTRResetAllow>true</DTRResetAllow>
+    <ManualReset>true</ManualReset>
+    <ManualResetAllow>true</ManualResetAllow>
+    <RTSReset>false</RTSReset>
+    <RTSResetAllow>true</RTSResetAllow>
+    <ResetTime>1000</ResetTime>
+    <ResetTimeAllow>true</ResetTimeAllow>
+    <ActivateDTR>false</ActivateDTR>
+    <ActivateDTRAllow>true</ActivateDTRAllow>
+    <ActivateRTS>false</ActivateRTS>
+    <ActivateRTSAllow>true</ActivateRTSAllow>
+    <TermSwithTo>false</TermSwithTo>
+    <TermBaudrate>9600</TermBaudrate>
+    <TermRxType>0</TermRxType>
+    <TermTxType>0</TermTxType>
+    <TermTx />
+  </DefaultStartSettings>
 </ds30LoaderSettings>

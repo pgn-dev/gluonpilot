@@ -25,6 +25,7 @@ struct LogLine
 	int gps_height_m;
 	int gps_speed_m_s;
 	int gps_heading;
+	char gps_satellites;
 	
 	int pitch;
 	int pitch_acc;
@@ -66,6 +67,7 @@ struct LogLine
 	unsigned int gyro_x;
 	unsigned int gyro_y;
 	unsigned int gyro_z;
+	//unsigned int idg500_vref;
 	//int control_state;
 	int roll;
 	int pitch;

@@ -59,11 +59,14 @@ extern xSemaphoreHandle xSpiSemaphore;
  *
  *   The current execution rate is 100Hz.
  */
+ 
 void sensors_task( void *parameters )
 {
 	unsigned int temperature_10 = 200;
 	float last_height = 0.0;
-	
+	double dt_since_last_height = 0.0;
+
+		
 	/* Used to wake the task at the correct frequency. */
 	portTickType xLastExecutionTime; 
 
@@ -81,6 +84,7 @@ void sensors_task( void *parameters )
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 20 / portTICK_RATE_MS ) );   // 50Hz
 
 		// The SPC1000 pressure sensor is updated at 9Hz
+		dt_since_last_height += 0.02;
 		if (scp1000_dataready())
 		{
 			// this should be at 9Hz ->0.11s
@@ -94,8 +98,9 @@ void sensors_task( void *parameters )
 			float height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
 			if (height > -30000.0 && height < 30000.0)   // sometimes we get bad readings ~ -31000
 				sensor_data.pressure_height = height;
-			sensor_data.vertical_speed = sensor_data.vertical_speed * 0.5 + (sensor_data.pressure_height - last_height)/0.11 * 0.5;
+			sensor_data.vertical_speed = sensor_data.vertical_speed * 0.5 + (sensor_data.pressure_height - last_height)/dt_since_last_height * 0.5;
 			last_height = sensor_data.pressure_height;
+			dt_since_last_height = 0.0;
 		}
 		
 		
@@ -107,6 +112,8 @@ void sensors_task( void *parameters )
 		sensor_data.gyro_x_raw = adc_get_channel(4);
 		sensor_data.gyro_y_raw = adc_get_channel(7);
 		sensor_data.gyro_z_raw = adc_get_channel(5);  //*0.6 = 3V max
+
+		sensor_data.idg500_vref = adc_get_channel(3);
 				
 		adc_start();  // restart ADC sampling to make sure we have our samples on the next loop iteration.
 
@@ -118,9 +125,8 @@ void sensors_task( void *parameters )
 		// scale to rad/sec
 		sensor_data.p = ((double)(sensor_data.gyro_x_raw)-config.sensors.gyro_x_neutral) * (-0.02518315*3.14159/180.0 * INVERT_X);  // 0.02518315f
 		sensor_data.q = ((double)(sensor_data.gyro_y_raw)-config.sensors.gyro_y_neutral) * (-0.02538315*3.14159/180.0 * INVERT_X);
-		sensor_data.r = ((double)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)
-			
-		
+		sensor_data.r = ((double)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)		
+	
 		// x = (Pitch; Roll)'
 		ahrs_filter();	
 	}
@@ -138,6 +144,8 @@ void sensors_gps_task( void *parameters )
 	uart1_puts("Gps task initializing...");
 	sensor_data.gps.status = EMPTY;	
 	uart1_puts("done\r\n");
+	
+	navigation_init ();
 
 	for( ;; )
 	{
@@ -145,9 +153,12 @@ void sensors_gps_task( void *parameters )
 		if( xSemaphoreTake( xGpsSemaphore, LONG_TIME ) == pdTRUE )
 		{
 			gps_update_info(&(sensor_data.gps));
-			if (i++ % 6 == 0)  // this is used for both RMC and GGA, so only update every other tick
+			i++;
+			if (i % 2 == 0)
+				navigation_update();
+			
+			if (i % 6 == 0 || (i+1) % 6 == 0 || (i+2) % 6 == 0)  // this is used for both RMC and GGA, so only update every other tick
 			{
-				//navigation_update(&navigationinfo, &gpsinfo);
 				if (sensor_data.gps.status == ACTIVE)
 					led2_on();
 			}	

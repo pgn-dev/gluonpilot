@@ -143,10 +143,10 @@ void ahrs_filter()
     /* optimize me: P is symmectric: P[1] = P[2] */
     matrix_2x2_mul(df_dx, P, tmp1);   // A * P = tmp1
     matrix_2x2_mul_transp(P, df_dx, tmp2);  //  P * A' = tmp2
-    tmp2[0] += 0.005 + tmp1[0]; // Q
+    tmp2[0] += 0.1 + tmp1[0]; // Q
     tmp2[1] += tmp1[1];
     //tmp2[2] += tmp1[2];
-    tmp2[3] += 0.005 + tmp1[3];
+    tmp2[3] += 0.1 + tmp1[3];
     P[0] += tmp2[0] * DT;
     P[1] += tmp2[1] * DT;
     //P[2] += tmp2[2] * DT;
@@ -183,9 +183,9 @@ void ahrs_filter()
 	   	matrix_3x2_times_2x2(dh_dx_3x2, P, tmp1);  // C * P = tmp1
 	   	matrix_3x2_times_3x2_transp(tmp1, dh_dx_3x2, tmp2);  // tmp1 * C' = tmp2
 	   	//R = diag([0.25 0.25 0.25]);
-	   	tmp2[0] += 0.15;
-	   	tmp2[4] += 0.15;
-	   	tmp2[8] += 0.3;   // our Z-gyro is a lot better quality!
+	   	tmp2[0] += 25.0;
+	   	tmp2[4] += 25.0;
+	   	tmp2[8] += 30.0;   // our Z-gyro is a lot better quality!
 	   	
 	   	double d;
 	   	INVERT_3X3(tmp1, d, tmp2); // result = tmp1

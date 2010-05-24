@@ -30,7 +30,7 @@ void adc_open()
 	AD1CON2bits.VCFG  = 0b000;  // use AVDD and AGND
 
 	AD1CON3bits.ADRC = 0;		// ADC Clock is derived from Systems Clock (0; 1=internal clock)
-	AD1CON3bits.ADCS = 11; //63;		// ADC Conversion Clock Tad=Tcy*(ADCS+1)= (1/40M)*64 = 1.6us (625Khz)
+	AD1CON3bits.ADCS = 63;		// ADC Conversion Clock Tad=Tcy*(ADCS+1)= (1/40M)*64 = 1.6us (625Khz)
 								// ADC Conversion Time for 10-bit Tc=12*Tab = 19.2us	
 	AD1CON3bits.SAMC = 31;  // auto sample time bits
 
@@ -64,7 +64,7 @@ void adc_open()
 	AD1PCFGH=0xFFFF;
 	AD1PCFGLbits.PCFG0 = 0;		// AN0 as Analog Input
 	AD1PCFGLbits.PCFG1 = 0;
- 	//AD1PCFGLbits.PCFG3 = 0;
+ 	AD1PCFGLbits.PCFG3 = 0;
 	AD1PCFGLbits.PCFG4 = 0;
 	AD1PCFGLbits.PCFG5 = 0;
 	AD1PCFGLbits.PCFG6 = 0;
@@ -106,40 +106,21 @@ void initDma0(void)
 }
 
 
-unsigned int middle(unsigned int x, unsigned int y, unsigned int z)
+unsigned int ProcessADCSamples(unsigned int * AdcBuffer)
 {
-	if (x > y)
-	{
-		if (z > x)
-			return x;
-		else if (z > y)
-			return z;
-		else
-			return y;	
-	} 
-	else // x < y 
-	{
-		if (z < x)
-			return x;
-		else if (z < y) // & x < z
-			return z;
-		else
-			return y;		
-	}
-}
-
-
-void ProcessADCSamples(unsigned int * AdcBuffer)
-{
+	/*unsigned long s = 0;
 	int i;
-	unsigned long s = 0;
 	for (i = 0; i < SAMP_BUFF_SIZE; i++)
 	{
 		s += AdcBuffer[i];
 	}
+	
 	s /= SAMP_BUFF_SIZE;
-	AdcBuffer[0] = (unsigned int)s;
-
+	
+	//AdcBuffer[0] = (unsigned int)s;
+	*/
+	
+	return (unsigned int) (((long)(AdcBuffer[0]/4 + AdcBuffer[1]/4 + AdcBuffer[2]/4 + AdcBuffer[3]/4) + (long)(AdcBuffer[4]/4 + AdcBuffer[5]/4 + AdcBuffer[6]/4 + AdcBuffer[7]/4)) / 2);
 }
 
 
@@ -149,7 +130,7 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void)
 {
 	if(DmaBuffer == 0)
 	{
-		ProcessADCSamples(&BufferA[0][0]); 
+	/*	ProcessADCSamples(&BufferA[0][0]); 
 		ProcessADCSamples(&BufferA[1][0]);
 		//ProcessADCSamples(&BufferA[2][0]);    // we don't use AN2
 		ProcessADCSamples(&BufferA[3][0]);
@@ -157,10 +138,11 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void)
 		ProcessADCSamples(&BufferA[5][0]);
 		ProcessADCSamples(&BufferA[6][0]);
 		ProcessADCSamples(&BufferA[7][0]);
+	*/
 	}
 	else
 	{
-		ProcessADCSamples(&BufferB[0][0]);
+	/*	ProcessADCSamples(&BufferB[0][0]);
 		ProcessADCSamples(&BufferB[1][0]);
 		//ProcessADCSamples(&BufferB[2][0]);    // we don't use AN2
 		ProcessADCSamples(&BufferB[3][0]);
@@ -168,18 +150,22 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void)
 		ProcessADCSamples(&BufferB[5][0]);
 		ProcessADCSamples(&BufferB[6][0]);
 		ProcessADCSamples(&BufferB[7][0]);
+	*/
 		adc_stop();
+		// we converted everything * 8 * 2buffers every 8ms
+	
 	}
 
 	DmaBuffer ^= 1;
 
 	IFS0bits.DMA0IF = 0;		// Clear the DMA0 Interrupt Flag
-	
 }
 
 
 unsigned int adc_get_channel(int i)
 {
-	return (BufferB[i][0]/2 + BufferA[i][0]/2);
+	return ProcessADCSamples(&BufferA[i][0]) / 2 + ProcessADCSamples(&BufferB[i][0]) / 2; 
+
+	//return (BufferB[i][0]/2 + BufferA[i][0]/2);
 	//return BufferA[i][1];
 }

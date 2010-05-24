@@ -44,8 +44,8 @@ inline double gravity_to_pitch(double a_x, double a_z);
 void ahrs_init()
 {
 	// I is 10 to 100 times smaller than P
-	pid_init(&pid_p_bias, 0.0, 0.1, /*0.00001*/ 0.001, -100.0, 100.0, 0.0);
-	pid_init(&pid_q_bias, 0.0, 0.1, /*0.00001*/ 0.001, -100.0, 100.0, 0.0);
+	pid_init(&pid_p_bias, 0.0, 0.3, /*0.00001*/ 0.001, -100.0, 100.0, 0.0);
+	pid_init(&pid_q_bias, 0.0, 0.3, /*0.00001*/ 0.001, -100.0, 100.0, 0.0);
 	//pid_init(&r_bias, 0.0f, float p_gain, float i_gain, float i_min, float i_max, float d_term_min_var);
 	
 	quaternion_from_attitude(0.0, 0.0, 0.0, q);
@@ -117,7 +117,7 @@ void ahrs_filter()
 	sensor_data.pitch = pitch_rad;
 	sensor_data.roll = roll_rad;
 	
-	sensor_data.pitch_acc = pid_q_bias.i_state;
+	sensor_data.pitch_acc = pitch_acc;
 	sensor_data.roll_acc = roll_acc;
 }
 

@@ -386,22 +386,24 @@ void communication_input_task( void *parameters )
 					int i = atoi(&(buffer[token[1]]));
 					
 #ifndef RAW_50HZ_LOG
-					printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;");
+					printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
 					printf ("HeightBaro;Pitch;PitchAcc;Roll;RollAcc;AccX;AccXG;AccY;AccYG;AccZ;");
 					printf ("AccZG;GyroX;GyroY;GyroZ;P;Q;R;TempC;FlightMode\r\n");
 #else
-					printf ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");
+					printf ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");//;idg500-vref;FlightMode\r\n");
 #endif
 
 					datalogger_disable();
 					
 					while (datalogger_print_next_page(i, &print_logline))
 						;
-					/* ** SIMULATION ** */
-					//ahrs_init();
-					//while (datalogger_print_next_page(i, &print_logline_simulation))
-					//	;
 					
+					
+					/* ** SIMULATION ** */
+					/*ahrs_init();
+					while (datalogger_print_next_page(i, &print_logline_simulation))
+						;
+					*/
 					//datalogger_enable();
 				}	
 				///////////////////////////////////////////////////////////////
@@ -557,7 +559,7 @@ void print_logline(struct LogLine *l)
 #ifndef RAW_50HZ_LOG
 	// Normal logging
 	printf ("DD;%f;%f;", l->gps_latitude_rad*(180.0/3.14159), l->gps_longitude_rad*(180.0/3.14159));
-	printf ("%d;%d;%d;", l->gps_speed_m_s, l->gps_heading, l->gps_height_m);
+	printf ("%d;%d;%d;%d;", l->gps_speed_m_s, l->gps_heading, l->gps_height_m, (int)l->gps_satellites);
 	printf ("%d;%d;%d;", l->height_m, l->pitch, l->pitch_acc);
 	printf ("%d;%d;", l->roll, l->roll_acc);
 	printf ("%u;%f;%u;", l->acc_x, l->acc_x_g, l->acc_y);
@@ -573,6 +575,7 @@ void print_logline(struct LogLine *l)
 	printf ("%u;%u;%u;", l->acc_x, l->acc_y, l->acc_z);
 	printf ("%u;%u;%u;", l->gyro_x, l->gyro_y, l->gyro_z);
 
+//	printf ("%f;%d;%d;%d;%u;%d\r\n", ((float)l->height_m_5) / 5.0, l->pitch, l->roll, l->pitch_acc, l->idg500_vref, l->control_state);
 	printf ("%f;%d;%d;%d\r\n", ((float)l->height_m_5) / 5.0, l->pitch, l->roll, l->pitch_acc);
 #endif
 }	
@@ -593,10 +596,14 @@ void print_logline_simulation(struct LogLine *l)
 	sensor_data.gps.speed_ms = (float)l->gps_speed_m_s_10/10.0;
 	sensor_data.pressure_height = ((float)l->height_m_5) / 5.0;
 	
-	if (i++ % 5 == 0)
+	i++;
+	if (last_height != sensor_data.pressure_height)
 	{
-		sensor_data.vertical_speed = sensor_data.vertical_speed * 0.5 + (sensor_data.pressure_height - last_height)/0.1 * 0.5;
+		double dt = (double)i * 0.02;
+		i = 0;
+		sensor_data.vertical_speed = sensor_data.vertical_speed * 0.5 + (sensor_data.pressure_height - last_height)/dt * 0.5;
 		last_height = sensor_data.pressure_height;
+		sensor_data.vertical_speed = 0.0;
 	}	
 	
 	sensor_data.acc_x = ((double)(sensor_data.acc_x_raw) - (double)config.sensors.acc_x_neutral) / (-6600.0*-1.0);
@@ -610,8 +617,10 @@ void print_logline_simulation(struct LogLine *l)
 	
 	ahrs_filter();
 	
-	
-	printf ("%f;%f;%f\r\n", sensor_data.pitch, sensor_data.roll, sensor_data.pitch_acc );
+	l->pitch = (sensor_data.pitch/3.14*180.0);
+	l->roll = (sensor_data.roll/3.14*180.0);
+	print_logline(l);
+	//printf ("%f;%f;%f\r\n", sensor_data.pitch, sensor_data.roll, sensor_data.pitch_acc );
 }	
 #endif
 

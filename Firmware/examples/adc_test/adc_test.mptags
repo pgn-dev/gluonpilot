@@ -6,56 +6,54 @@
 !_TAG_PROGRAM_VERSION	5.5.4	//
 !_TAG_REVISION_NAME	MCHPTags	//
 !_TAG_REVISION_VERSION	6.0.1	//
-BufferA	C:\pic\IMUboard\lib\adc\adc.c	14;"	v	line:14
-BufferB	C:\pic\IMUboard\lib\adc\adc.c	15;"	v	line:15
-DmaBuffer	C:\pic\IMUboard\lib\adc\adc.c	137;"	v	line:137
-FCY::PLL*FOSC/2	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	15;"	d	line:15
-FNOSC_PRIPLL	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	7;"	v	line:7
-FOSC::4000000	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	13;"	d	line:13
-MAX_CHNUM::12	C:\pic\IMUboard\lib\adc\adc.c	8;"	d	line:8	file:
-NUM_CHS2SCAN::7	C:\pic\IMUboard\lib\adc\adc.c	10;"	d	line:10	file:
-PLL::80/4	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	14;"	d	line:14
-POSCMD_XT	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	8;"	v	line:8
-ProcessADCSamples	C:\pic\IMUboard\lib\adc\adc.c	123;"	f	line:123	signature:(unsigned int * AdcBuffer)
-RCONbits_backup	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	4;"	v	line:4
-SAMP_BUFF_SIZE::8	C:\pic\IMUboard\lib\adc\adc.c	9;"	d	line:9	file:
-_AddressError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	79;"	f	line:79	signature:(void)
-_DMA0Interrupt	C:\pic\IMUboard\lib\adc\adc.c	139;"	f	line:139	signature:(void)
-_MathError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	94;"	f	line:94	signature:(void)
-_OscillatorFail	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	71;"	f	line:71	signature:(void)
-_StackError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	87;"	f	line:87	signature:(void)
-_trapISR::__attribute__((interrupt,no_au	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	69;"	d	line:69	file:
-adc_get_channel	C:\pic\IMUboard\lib\adc\adc.c	172;"	f	line:172	signature:(int i)
-adc_get_channel	C:\pic\IMUboard\lib\adc\adc.h	5;"	p	line:5	signature:(int i)
-adc_open	C:\pic\IMUboard\lib\adc\adc.c	20;"	f	line:20
-adc_open	C:\pic\IMUboard\lib\adc\adc.h	3;"	p	line:3	signature:()
-adc_start	C:\pic\IMUboard\lib\adc\adc.c	72;"	f	line:72
-adc_start	C:\pic\IMUboard\lib\adc\adc.h	7;"	p	line:7	signature:()
-adc_stop	C:\pic\IMUboard\lib\adc\adc.c	77;"	f	line:77
-adc_stop	C:\pic\IMUboard\lib\adc\adc.h	9;"	p	line:9	signature:()
-i	C:\pic\IMUboard\lib\adc\adc.c	125;"	l	line:125
-i	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	40;"	l	line:40
-i	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	52;"	l	line:52
-initDma0	C:\pic\IMUboard\lib\adc\adc.c	17;"	p	line:17	file:	signature:(void)
-initDma0	C:\pic\IMUboard\lib\adc\adc.c	82;"	f	line:82	signature:(void)
-main	C:\pic\IMUboard\examples\adc_test\adc_test.c	8;"	f	line:8
-microcontroller_after_reboot	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	58;"	f	line:58
-microcontroller_after_reboot	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	21;"	p	line:21	signature:()
-microcontroller_delay_ms	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	37;"	f	line:37	signature:(unsigned long ms)
-microcontroller_delay_ms	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	20;"	p	line:20	signature:(unsigned long ms)
-microcontroller_delay_us	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	50;"	f	line:50	signature:(unsigned long us)
-microcontroller_delay_us	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	19;"	p	line:19	signature:(unsigned long us)
-microcontroller_init	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	15;"	f	line:15
-microcontroller_init	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	17;"	p	line:17	signature:()
-middle	C:\pic\IMUboard\lib\adc\adc.c	100;"	f	line:100	signature:(unsigned int x, unsigned int y, unsigned int z)
-s	C:\pic\IMUboard\lib\adc\adc.c	126;"	l	line:126
-uart1_dataready	C:\pic\IMUboard\lib\uart1\uart1.c	60;"	f	line:60
-uart1_dataready	C:\pic\IMUboard\lib\uart1\uart1.h	3;"	p	line:3	signature:()
-uart1_getc	C:\pic\IMUboard\lib\uart1\uart1.c	81;"	f	line:81
-uart1_getc	C:\pic\IMUboard\lib\uart1\uart1.h	4;"	p	line:4	signature:()
-uart1_open	C:\pic\IMUboard\lib\uart1\uart1.c	12;"	f	line:12	signature:(long baud)
-uart1_open	C:\pic\IMUboard\lib\uart1\uart1.h	2;"	p	line:2	signature:(long baud)
-uart1_putc	C:\pic\IMUboard\lib\uart1\uart1.c	76;"	f	line:76	signature:(char c)
-uart1_putc	C:\pic\IMUboard\lib\uart1\uart1.h	6;"	p	line:6	signature:(char c)
-uart1_puts	C:\pic\IMUboard\lib\uart1\uart1.c	66;"	f	line:66	signature:(char *str)
-uart1_puts	C:\pic\IMUboard\lib\uart1\uart1.h	5;"	p	line:5	signature:(char *str)
+BufferA	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	14;"	v	line:14
+BufferB	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	15;"	v	line:15
+DmaBuffer	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	127;"	v	line:127
+FCY::PLL*FOSC/2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	15;"	d	line:15
+FNOSC_PRIPLL	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	8;"	v	line:8
+FOSC::4000000	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	13;"	d	line:13
+INTERRUPT_PROTECT::(x){	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	29;"	d	line:29
+MAX_CHNUM::8	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	8;"	d	line:8	file:
+NUM_CHS2SCAN::7	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	10;"	d	line:10	file:
+PLL::80/4	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	14;"	d	line:14
+POSCMD_XT	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	9;"	v	line:9
+ProcessADCSamples	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	109;"	f	line:109	signature:(unsigned int * AdcBuffer)
+RCONbits_backup	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	5;"	v	line:5
+SAMP_BUFF_SIZE::8	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	9;"	d	line:9	file:
+_AddressError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	81;"	f	line:81	signature:(void)
+_DMA0Interrupt	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	129;"	f	line:129	signature:(void)
+_MathError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	97;"	f	line:97	signature:(void)
+_OscillatorFail	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	74;"	f	line:74	signature:(void)
+_StackError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	89;"	f	line:89	signature:(void)
+_trapISR::__attribute__((interrupt,no_au	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	72;"	d	line:72	file:
+adc_get_channel	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	165;"	f	line:165	signature:(int i)
+adc_get_channel	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.h	5;"	p	line:5	signature:(int i)
+adc_open	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	20;"	f	line:20
+adc_open	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.h	3;"	p	line:3	signature:()
+adc_start	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	81;"	f	line:81
+adc_start	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.h	7;"	p	line:7	signature:()
+adc_stop	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	86;"	f	line:86
+adc_stop	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.h	9;"	p	line:9	signature:()
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	43;"	l	line:43
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	55;"	l	line:55
+initDma0	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	17;"	p	line:17	file:	signature:(void)
+initDma0	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.c	91;"	f	line:91	signature:(void)
+main	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\adc_test\adc_test.c	8;"	f	line:8
+microcontroller_after_reboot	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	61;"	f	line:61
+microcontroller_after_reboot	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	21;"	p	line:21	signature:()
+microcontroller_delay_ms	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	40;"	f	line:40	signature:(unsigned long ms)
+microcontroller_delay_ms	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	20;"	p	line:20	signature:(unsigned long ms)
+microcontroller_delay_us	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	53;"	f	line:53	signature:(unsigned long us)
+microcontroller_delay_us	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	19;"	p	line:19	signature:(unsigned long us)
+microcontroller_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	16;"	f	line:16
+microcontroller_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	17;"	p	line:17	signature:()
+uart1_dataready	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	60;"	f	line:60
+uart1_dataready	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	3;"	p	line:3	signature:()
+uart1_getc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	81;"	f	line:81
+uart1_getc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	4;"	p	line:4	signature:()
+uart1_open	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	12;"	f	line:12	signature:(long baud)
+uart1_open	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	2;"	p	line:2	signature:(long baud)
+uart1_putc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	76;"	f	line:76	signature:(char c)
+uart1_putc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	6;"	p	line:6	signature:(char c)
+uart1_puts	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	66;"	f	line:66	signature:(char *str)
+uart1_puts	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	5;"	p	line:5	signature:(char *str)
