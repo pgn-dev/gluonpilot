@@ -12,15 +12,13 @@ _FOSC(FCKSM_CSDCMD & OSCIOFNC_OFF  & POSCMD_XT);
 
 
 
-
 void microcontroller_init()
 {	
 	INTCON2bits.ALTIVT = 0;	 // Don't use alternate interrupt vector
 	
 	// Disable Watch Dog Timer
-	RCONbits.SWDTEN=0;
-	
-	
+	RCONbits.SWDTEN = 0;
+		
 	/*  Configure Oscillator to operate the device at 80Mhz (40MIPS)
     	Fosc= Fin*M/(N1*N2), Fcy=Fosc/2
     	Fosc= 4M*80/(2*2)=80Mhz for 4MHz input clock */
@@ -57,6 +55,55 @@ void microcontroller_delay_us(unsigned long us)
         asm("clrwdt");
 }
 
+
+void microcontroller_reset_type()
+{
+	if (RCONbits_backup.BOR)
+	{
+		uart1_puts("A Brown-out Reset has occurred\r\n");
+	}
+	if (RCONbits_backup.EXTR)
+	{
+		uart1_puts("A Master Clear (pin) Reset has occurred\r\n");
+	}
+	if (RCONbits_backup.IDLE)
+	{
+		uart1_puts("Device was in Idle mode\r\n");
+	}
+	if (RCONbits_backup.IOPUWR)
+	{
+		uart1_puts("An illegal opcode detection, an illegal address mode or uninitialized W register used as an Address Pointer caused a Reset\r\n");
+	}	
+	if (RCONbits_backup.POR)
+	{
+		uart1_puts("A Power-up Reset has occurred\r\n");
+	}
+	if (RCONbits_backup.SLEEP)
+	{
+		uart1_puts("Device has been in Sleep mode\r\n");
+	}
+	if (RCONbits_backup.SWDTEN)
+	{
+		uart1_puts("WDT is enabled\r\n");
+	}
+	if (RCONbits_backup.SWR)
+	{
+		uart1_puts("A RESET instruction has been executed\r\n");
+	}
+	if (RCONbits_backup.TRAPR)
+	{
+		uart1_puts("A Trap Conflict Reset has occurred\r\n");
+	}
+	/*if (RCONbits_backup.VREGS)
+	{
+		uart1_puts("Voltage regulator is active during Sleep\r\n");
+	}*/
+	if (RCONbits_backup.WDTO)
+	{
+		uart1_puts("WDT time-out has occurred\r\n");
+	}										
+}
+	
 
 int microcontroller_after_reboot()
 {
@@ -95,6 +142,40 @@ void _trapISR _StackError(void)
 }
 
 void _trapISR _MathError(void)
+{
+        INTCON1bits.MATHERR = 0;
+        uart1_puts("Math error!\n\r");
+        //while(1);
+        asm("reset");
+}
+
+
+
+
+void __attribute__((interrupt, no_auto_psv)) _AltOscillatorFail(void)
+{
+        INTCON1bits.OSCFAIL = 0;
+        uart1_puts("Oscillator error!\n\r");
+        //while(1);
+}
+
+void __attribute__((interrupt, no_auto_psv)) _AltAddressError(void)
+{
+        INTCON1bits.ADDRERR = 0;
+        uart1_puts("Address error!\n\r");
+        //while(1);
+        asm("reset");
+}
+
+void __attribute__((interrupt, no_auto_psv)) _AltStackError(void)
+{
+        INTCON1bits.STKERR = 0;
+        uart1_puts("Stack error!\n\r");
+        //while(1);
+        asm("reset");
+}
+
+void __attribute__((interrupt, no_auto_psv)) _AltMathError(void)
 {
         INTCON1bits.MATHERR = 0;
         uart1_puts("Math error!\n\r");

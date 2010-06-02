@@ -27,7 +27,6 @@
 
 // Usefull constants
 #define G 9.81
-#define DT 0.02   // 50Hz
 #define RAD2DEG (180.0/3.14159)
 
 static double pitch_rad = 0.0, roll_rad = 0.0;
@@ -92,7 +91,7 @@ double fast_cos(double x)
 
 
 
-void ahrs_filter()
+void ahrs_filter(double dt)
 {
 	static int i = 0;
 	if (button_down())
@@ -110,8 +109,8 @@ void ahrs_filter()
 	f0 = sensor_data.p + sensor_data.q*sin_roll*tan_pitch + sensor_data.r*cos_roll*tan_pitch;
 	f1 = sensor_data.q*cos_roll - sensor_data.r*sin_roll;
 	
-	roll_rad += f0*DT;
-	pitch_rad += f1*DT;
+	roll_rad += f0*dt;
+	pitch_rad += f1*dt;
 	
 	// pitch = (-90,90]; roll = (-180,180]
 	if (pitch_rad > 3.14159)
@@ -147,11 +146,11 @@ void ahrs_filter()
     tmp2[1] += tmp1[1];
     //tmp2[2] += tmp1[2];
     tmp2[3] += 0.1 + tmp1[3];
-    P[0] += tmp2[0] * DT;
-    P[1] += tmp2[1] * DT;
-    //P[2] += tmp2[2] * DT;
+    P[0] += tmp2[0] * dt;
+    P[1] += tmp2[1] * dt;
+    //P[2] += tmp2[2] * dt;
     P[2] = P[1];
-    P[3] += tmp2[3] * DT;
+    P[3] += tmp2[3] * dt;
     
     ////////////////////////////////
     

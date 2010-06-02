@@ -53,8 +53,7 @@ void control_mix_out();
 
 //! Contains the currect state of the control loop
 struct ControlState control_state;
-
-       
+      
 	          
 
 /*!
@@ -108,16 +107,27 @@ void control_task( void *parameters )
 	
 	servo_init();
 	control_init();
-	
+
+#ifdef ENABLE_QUADROCOPTER
+	vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );
+	servo_turbopwm();
+#endif
+
 	uart1_puts("done\r\n");
 	
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil()	works correctly. */
 	xLastExecutionTime = xTaskGetTickCount();
 
 	for( ;; )
-	{		
+	{
+#ifdef ENABLE_QUADROCOPTER
+		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 5 / portTICK_RATE_MS ) );    //!> 200Hz
+		#define DT 0.005
+#else
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 10 / portTICK_RATE_MS ) );   //!> 100Hz
-		
+		#define DT 0.01
+#endif
+
 		if (ppm.channel[config.control.channel_ap] < 1333)
 		{
 			control_state.flight_mode = AUTOPILOT;
@@ -126,15 +136,15 @@ void control_task( void *parameters )
 			if (lastMode != control_state.flight_mode)  // target altitude = altitude when switching from manual to stabilized
 				control_state.desired_height = sensor_data.pressure_height;
 				
-			control_navigate(0.01); // stabilized mode as long as navigation isn't available
-			//control_stabilized(0.01, 1); // stabilized mode
+			control_navigate(DT); // stabilized mode as long as navigation isn't available
+			//control_stabilized(DT, 1); // stabilized mode
 		} 
 		else if (ppm.channel[config.control.channel_ap] < 1666)
 		{
 			control_state.flight_mode = STABILIZED;
 			if (lastMode != control_state.flight_mode)  // target altitude = altitude when switching from manual to stabilized
 				control_state.desired_height = sensor_data.pressure_height; //home_height + 65.0;
-			control_stabilized(0.01, 1); // stabilized mode
+			control_stabilized(DT, 0); // stabilized mode
 		} 
 		else
 		{
@@ -249,12 +259,23 @@ void control_desired_to_servos(double dt)
 		control_state.desired_roll = -config.control.max_roll;
 
 	// compensate the loss in lift
-	control_state.desired_pitch += (1.0/cosf(sensor_data.roll) - 1.0)*0.25; // (0.5: 12° up at 45° roll)
+	//control_state.desired_pitch += (1.0/cosf(sensor_data.roll) - 1.0)*0.25; // (0.5: 12° up at 45° roll)
 	
+#ifdef ENABLE_QUADROCOPTER	
 	elevator_out_radians = pid_update_only_p(&config.control.pid_pitch2elevator, 
-	                                         control_state.desired_pitch - sensor_data.pitch, dt); //pid_pitch_to_elevator(desired_pitch, ahrs);
+	                                         control_state.desired_pitch - sensor_data.pitch, dt);
+	elevator_out_radians -= sensor_data.q * config.control.pid_pitch2elevator.d_gain;
 	aileron_out_radians = pid_update_only_p(&config.control.pid_roll2aileron, 
-	                                        control_state.desired_roll - sensor_data.roll, dt);  //pid_roll_to_aileron(desired_roll, ahrs);
+	                                        control_state.desired_roll - sensor_data.roll, dt);
+	aileron_out_radians -= (sensor_data.p) * config.control.pid_roll2aileron.d_gain;
+	
+	yaw_out -= (int)((sensor_data.r) * config.control.pid_heading2roll.d_gain * 630.0);
+#else
+	elevator_out_radians = pid_update(&config.control.pid_pitch2elevator, 
+	                                         control_state.desired_pitch - sensor_data.pitch, dt);
+	aileron_out_radians = pid_update(&config.control.pid_roll2aileron, 
+	                                        control_state.desired_roll - sensor_data.roll, dt);
+#endif
 	
 	// Experimental: when flying with the wind, the elevons become less effective. Avoid have a too large roll angle!
 	// Fixme: gain scheduling depending on V_air
@@ -286,6 +307,7 @@ void control_desired_to_servos(double dt)
  */
 void control_mix_out()
 {
+	static int j = 0;
 	int i;
 	int aileron_out_left, aileron_out_right;
 	
@@ -300,6 +322,10 @@ void control_mix_out()
 		aileron_out_right = aileron_out - (aileron_out / 10) * 5;
 		aileron_out_left = aileron_out + (aileron_out / 10) * 5;		
 	}*/
+	
+	// no differential
+	aileron_out_right = aileron_out;
+	aileron_out_left = aileron_out;		
 		
 	
 	switch(config.control.servo_mix)
@@ -361,10 +387,13 @@ void control_mix_out()
 				// servo_neutral(init) = 1500
 				// motor_out(init) = 1200 - 1500 = -300 -> in mix -> 
 				// servo_neutral(mix) = 1200
-				servo_out[0] = motor_out + aileron_out/10 + yaw_out/10 + config.control.servo_neutral[0];
-				servo_out[1] = motor_out + elevator_out/10 - yaw_out/10 + config.control.servo_neutral[1];
-				servo_out[2] = motor_out - aileron_out/10  + yaw_out/10 + config.control.servo_neutral[2];
-				servo_out[3] = motor_out - elevator_out/10 - yaw_out/10 + config.control.servo_neutral[3];
+				
+				// P:0.4 (convergeert traag), D: 0.45 (0.6 oscilleert)
+
+				servo_out[0] = motor_out + aileron_out/5 + yaw_out/5 + config.control.servo_neutral[0];
+				servo_out[1] = motor_out + elevator_out/5 - yaw_out/5 + config.control.servo_neutral[1];
+				servo_out[2] = motor_out - aileron_out/5  + yaw_out/5 + config.control.servo_neutral[2];
+				servo_out[3] = motor_out - elevator_out/5 - yaw_out/5 + config.control.servo_neutral[3];
 			}
 			break;
 		}	

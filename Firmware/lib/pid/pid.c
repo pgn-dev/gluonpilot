@@ -43,6 +43,13 @@ void pid_init(struct pid *pid, double d_gain, double p_gain, double i_gain, doub
 }
 
 
+__attribute__((__const__)) int isNaN (double* f) 
+{
+	const int* rep = ((const int*) f) + 1;
+	return ((*rep & 0x7F00) == 0x7F00);
+}
+
+
 /*!
  *  Updates the pid structure with all the available bells and whistles.
  *  @param pid      The pid structure that has to be updated.
@@ -57,12 +64,15 @@ double pid_update(struct pid *pid, double position, double dt)
 	tmp = (position - pid->d_state) * pid->d_gain / dt;   // D-term
 	
 	// to eliminate jittering which wears out servos
-	if (fabs(tmp) < pid->d_term_min_var)
-		tmp = 0.0;
+	//if (fabs(tmp) < pid->d_term_min_var)
+	//	tmp = 0.0;
 	
 	// update d_state for next call.
 	pid->d_state = position;
 	
+	if (isNaN(&(pid->i_state))) // no NAN
+		pid->i_state = 0.0;
+		
 	pid->i_state += position * dt;                        // I-term
 	if (pid->i_state > pid->i_max)
 		pid->i_state = pid->i_max;

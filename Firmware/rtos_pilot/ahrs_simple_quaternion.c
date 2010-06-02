@@ -23,7 +23,6 @@
 
 // Usefull constants
 #define G 9.81
-#define DT 0.02   // 50Hz
 #define RAD2DEG (180.0/3.14159)
 
 static double pitch_rad = 0.0, roll_rad = 0.0;
@@ -44,8 +43,8 @@ inline double gravity_to_pitch(double a_x, double a_z);
 void ahrs_init()
 {
 	// I is 10 to 100 times smaller than P
-	pid_init(&pid_p_bias, 0.0, 0.3, /*0.00001*/ 0.001, -100.0, 100.0, 0.0);
-	pid_init(&pid_q_bias, 0.0, 0.3, /*0.00001*/ 0.001, -100.0, 100.0, 0.0);
+	pid_init(&pid_p_bias, 0.0, 0.6, /*0.00001*/ 0.001, -100.0, 100.0, 0.0);
+	pid_init(&pid_q_bias, 0.0, 0.6, /*0.00001*/ 0.001, -100.0, 100.0, 0.0);
 	//pid_init(&r_bias, 0.0f, float p_gain, float i_gain, float i_min, float i_max, float d_term_min_var);
 	
 	quaternion_from_attitude(0.0, 0.0, 0.0, q);
@@ -55,7 +54,7 @@ void ahrs_init()
 }	
 
 
-void ahrs_filter()
+void ahrs_filter(double dt)
 {
 	//static int counter_since_last_update = 0;
 	//static int last_gps_sentence_number_last_fix = 0;
@@ -69,7 +68,7 @@ void ahrs_filter()
 	sensor_data.p += p_bias;
 	sensor_data.q += q_bias;
 
-	quaternion_update_with_rates(sensor_data.p, sensor_data.q, sensor_data.r, q, DT);
+	quaternion_update_with_rates(sensor_data.p, sensor_data.q, sensor_data.r, q, dt);
 	
 	roll_rad = quaternion_to_roll(q);
 	pitch_rad = quaternion_to_pitch(q);
@@ -104,14 +103,14 @@ void ahrs_filter()
 			else if (roll_error < (-250.0f/RAD2DEG))
 				roll_error += 2.0 * 3.14159; 
 			
-			p_bias = pid_update_only_p_and_i(&pid_p_bias, roll_error, DT);
+			p_bias = pid_update_only_p_and_i(&pid_p_bias, roll_error, dt);
 		}	
 		
 		double pitch_error;
 		if (abs_roll < (75) || abs_roll > (105)) // don't trust accelerometer roll when pitch is around +-90°
 		{
 			pitch_error = (pitch_acc - pitch_rad);
-			q_bias =  pid_update_only_p_and_i(&pid_q_bias, pitch_error, DT);
+			q_bias =  pid_update_only_p_and_i(&pid_q_bias, pitch_error, dt);
 		}
 	
 	sensor_data.pitch = pitch_rad;
