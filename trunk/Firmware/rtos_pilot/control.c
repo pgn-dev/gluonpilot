@@ -288,6 +288,7 @@ void control_desired_to_servos(double dt)
 	
 
 	motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
+	yaw_out = ppm.channel[config.control.channel_yaw] - config.control.channel_neutral[config.control.channel_yaw];
 	
 	elevator_out = (int)(elevator_out_radians * 630.0); // +-45° -> +- 500
 	aileron_out = (int)(aileron_out_radians * 630.0);
@@ -357,7 +358,7 @@ void control_mix_out()
 				servo_out[1] = +aileron_out_left + elevator_out + config.control.servo_neutral[1];
 			else
 				servo_out[1] = -aileron_out_left - elevator_out + config.control.servo_neutral[1];
-				
+			
 			if (config.control.reverse_servo4)
 				servo_out[3] = -motor_out + config.control.servo_neutral[3];
 			else 
@@ -418,6 +419,12 @@ void control_mix_out()
 			else
 				servo_out[3] = motor_out + config.control.servo_neutral[3];
 			break;
+			
+			if (config.control.reverse_servo5)
+				servo_out[4] = +yaw_out + config.control.servo_neutral[4];
+			else 
+				servo_out[4] = -yaw_out + config.control.servo_neutral[4];
+
 	}
 	
 	for(i = 0; i < 6; i++)
