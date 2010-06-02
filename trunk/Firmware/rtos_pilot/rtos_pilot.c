@@ -48,6 +48,8 @@ int main()
 	
 	printf("Gluonpilot v0.2DVLP [%s %s, config: %d bytes, logline: %d bytes, double: %d bytes]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(double));
 
+	microcontroller_reset_type();  // for debugging
+
 	uart1_puts("Loading configuration...");
 	vSemaphoreCreateBinary( xSpiSemaphore );
 	dataflash_open();

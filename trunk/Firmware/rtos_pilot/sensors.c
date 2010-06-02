@@ -81,10 +81,13 @@ void sensors_task( void *parameters )
 
 	for( ;; )
 	{
+#ifdef ENABLE_QUADROCOPTER
+		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 5 / portTICK_RATE_MS ) );   // 200Hz
+		dt_since_last_height += 0.005;
+#else
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 20 / portTICK_RATE_MS ) );   // 50Hz
-
-		// The SPC1000 pressure sensor is updated at 9Hz
 		dt_since_last_height += 0.02;
+#endif
 		if (scp1000_dataready())
 		{
 			// this should be at 9Hz ->0.11s
@@ -128,7 +131,11 @@ void sensors_task( void *parameters )
 		sensor_data.r = ((double)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)		
 	
 		// x = (Pitch; Roll)'
-		ahrs_filter();	
+#ifdef ENABLE_QUADROCOPTER
+		ahrs_filter(0.005);	
+#else
+		ahrs_filter(0.02);	
+#endif
 	}
 }
 

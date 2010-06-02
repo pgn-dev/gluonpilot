@@ -19,6 +19,7 @@ void microcontroller_init();
 void microcontroller_delay_us(unsigned long us);
 void microcontroller_delay_ms(unsigned long ms);
 int microcontroller_after_reboot();
+void microcontroller_reset_type();
 
 
 #define INTERRUPT_PROTECT(x) {              \

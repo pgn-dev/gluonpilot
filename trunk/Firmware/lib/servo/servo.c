@@ -13,13 +13,20 @@
 #define servo_raw_1ms 625
 #define servo_raw_2ms 1250
 
+void servo_turbopwm()
+{
+	PR2 = FCY/50/8;         //= 400Hz = 0.0025ms period
+}	
+
 
 void servo_init()
 {	
 	T2CONbits.TCS = 0;	     // Use internal clock source
     T2CONbits.TCKPS = 0b10;  // Prescale Select 1:64  -> 1,6us
     T2CONbits.TON = 1;	
+	
 	PR2 = FCY/50/64;         // period = 0.02s
+
 	
 	OC1R = 0;  // start pulse
 	OC1CONbits.OCTSEL = 0;   // use TMR2

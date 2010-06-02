@@ -10,5 +10,6 @@ void servo_set_ms(int servo, float ms);
 
 void servo_all_neutral();
 
+void servo_turbopwm();
 
 #endif // SERVO_H
