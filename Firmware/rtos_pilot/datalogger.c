@@ -308,6 +308,8 @@ void datalogger_task( void *parameters )
 			l.r = (int)(sensor_data.r * (180.0/3.14159));
 			l.pitch = (int)(sensor_data.pitch * (180.0/3.14159));
 			l.roll = (int)(sensor_data.roll * (180.0/3.14159));
+			l.desired_pitch = (int)(control_state.desired_pitch * (180.0/3.14159));
+			l.desired_roll = (int)(control_state.desired_roll * (180.0/3.14159));
 			l.pitch_acc = (int)(sensor_data.pitch_acc * (180.0/3.14159));
 			l.roll_acc = (int)(sensor_data.roll_acc * (180.0/3.14159));
 			l.control_state = control_state.flight_mode;		

@@ -96,7 +96,8 @@ void navigation_update()
 		
 		float r = 90.0; // meter
 		float rad_s = sensor_data.gps.speed_ms / r;   // rad/s for this circle
-		
+		float distance_ahead = carrot * sensor_data.gps.speed_ms;
+			
 		// heading towards center of circle
 		navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - navigation_data.home_longitude_rad,
 		                                                         sensor_data.gps.latitude_rad - navigation_data.home_latitude_rad);
@@ -107,8 +108,8 @@ void navigation_update()
 		                           sensor_data.gps.latitude_rad, navigation_data.home_latitude_rad);
 		
 		float next_alpha;
-		if (distance_center > r + carrot*sensor_data.gps.speed_ms ||
-		    distance_center < r - carrot*sensor_data.gps.speed_ms)  // too far in or out of the circle?
+		if (distance_center > r + distance_ahead ||
+		    distance_center < r - distance_ahead)  // too far in or out of the circle?
 		{
 			next_alpha = current_alpha + 3.14159/2.0; // fly to point where you would touch the circle
 		}
@@ -123,13 +124,25 @@ void navigation_update()
 				next_alpha = current_alpha + rad_ahead; // go to the position one second ahead
 
 		}	
+
 		
+		navigation_data.desired_pre_bank =(distance_center > r + distance_ahead || 
+		                                   distance_center < r + distance_ahead) ? 0 :
+   				                          atan(sensor_data.gps.speed_ms*sensor_data.gps.speed_ms / (9.81*r));
+
+		float next_r = sqrt(r*r + distance_ahead*distance_ahead);
+				
 		// max desired_heading
-		float pointlon = navigation_data.home_longitude_rad + sin(next_alpha) * r / longitude_meter_per_radian;
-		float pointlat = navigation_data.home_latitude_rad + cos(next_alpha) * r / latitude_meter_per_radian;
+		float pointlon = navigation_data.home_longitude_rad + sin(next_alpha) * next_r / longitude_meter_per_radian;
+		float pointlat = navigation_data.home_latitude_rad + cos(next_alpha) * next_r / latitude_meter_per_radian;
 	
 		navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - pointlon,
 			                                                     sensor_data.gps.latitude_rad - pointlat);
+			                                                     
+		if (navigation_data.desired_heading_rad > (3.14159*2.0))
+			navigation_data.desired_heading_rad -= (3.14159*2.0);
+		else if (navigation_data.desired_heading_rad < 0.0)
+			navigation_data.desired_heading_rad += (3.14159*2.0);
 	}
 }
 

@@ -28,6 +28,7 @@ struct NavigationData
 	float home_pressure_height;
 	
 	float desired_heading_rad;    //!< Last calculated desired heading. In radians. Zero is north.
+	float desired_pre_bank;
 	//float heading_error_rad;      //!< Last calculated error between current heading and actual heading.
 	float height_error;       
 	float distance_next_waypoint; //!< Distance to next waypoint in meter.
