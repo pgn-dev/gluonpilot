@@ -190,9 +190,9 @@ ahrs_filter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmwa
 ahrs_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs.h	5;"	p	line:5	signature:()
 ahrs_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_simple_quaternion.c	43;"	f	line:43
 aileron_out	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	49;"	v	line:49
-aileron_out_left	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	312;"	l	line:312
+aileron_out_left	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	313;"	l	line:313
 aileron_out_radians	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	249;"	l	line:249
-aileron_out_right	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	312;"	l	line:312
+aileron_out_right	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	313;"	l	line:313
 airborne	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	34;"	m	line:34	struct:NavigationData
 b	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	157;"	l	line:157
 boot_sequence	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	14;"	m	line:14	struct:LogIndex
@@ -272,7 +272,7 @@ control_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmw
 control_manual	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	163;"	f	line:163
 control_manual	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	38;"	p	line:38	file:
 control_mix_aileron_uint	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	41;"	p	line:41	file:	signature:(int pitch, int roll, int yaw, int motor)
-control_mix_out	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	308;"	f	line:308
+control_mix_out	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	309;"	f	line:309
 control_mix_out	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	52;"	p	line:52	file:
 control_navigate	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	214;"	f	line:214	signature:(double dt)
 control_navigate	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	40;"	p	line:40	file:	signature:(double dt)
@@ -458,7 +458,7 @@ i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pi
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	641;"	l	line:641
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	685;"	l	line:685
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.c	56;"	l	line:56
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	311;"	l	line:311
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	312;"	l	line:312
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	66;"	l	line:66
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	158;"	l	line:158
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	192;"	l	line:192
@@ -484,7 +484,7 @@ initial_baudrate	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\F
 integer	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	188;"	l	line:188
 invalid_pulse	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.c	174;"	l	line:174	file:
 isNaN	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.c	46;"	f	line:46	signature:(double* f)
-j	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	310;"	l	line:310	file:
+j	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	311;"	l	line:311	file:
 j	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	193;"	l	line:193
 l	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	255;"	l	line:255	file:
 lastMode	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	101;"	l	line:101

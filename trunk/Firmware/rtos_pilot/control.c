@@ -68,9 +68,9 @@ void control_init()
 	//ppm_in_open(); MOVED TO MAIN
 	
 	// Manual trim mode: the servo's neutral settings are defined by the RC-transmitters trim settings. See wiki.
-	if (config.control.manual_trim)
+	if (1/*config.control.manual_trim*/)
 	{	
-		for (i = 0; i < 3; i++)
+		for (i = 0; i < 6; i++)
 			config.control.servo_neutral[i] = 1500;
 			
 		// The current position of the sticks on the RC-transmitter are 
@@ -144,7 +144,11 @@ void control_task( void *parameters )
 			control_state.flight_mode = STABILIZED;
 			if (lastMode != control_state.flight_mode)  // target altitude = altitude when switching from manual to stabilized
 				control_state.desired_height = sensor_data.pressure_height; //home_height + 65.0;
+#ifdef ENABLE_QUADROCOPTER
 			control_stabilized(DT, 0); // stabilized mode
+#else
+			control_stabilized(DT, 1); // stabilized mode
+#endif
 		} 
 		else
 		{
@@ -221,7 +225,8 @@ void control_navigate(double dt)
 	else if (heading_error_rad <= -PI)
 		heading_error_rad += (PI*2.0);
 		
-	control_state.desired_roll = pid_update_only_p(&config.control.pid_heading2roll, heading_error_rad, dt);	
+	control_state.desired_roll = navigation_data.desired_pre_bank +
+	                             pid_update_only_p(&config.control.pid_heading2roll, heading_error_rad, dt);	
 	
 	// from paparazzi
 	double speed_depend_nav = sensor_data.gps.speed_ms/20.0;   // cruising airspeed = 20m/s
@@ -418,13 +423,13 @@ void control_mix_out()
 				servo_out[3] = -motor_out + config.control.servo_neutral[3];
 			else
 				servo_out[3] = motor_out + config.control.servo_neutral[3];
-			break;
 			
 			if (config.control.reverse_servo5)
 				servo_out[4] = +yaw_out + config.control.servo_neutral[4];
 			else 
 				servo_out[4] = -yaw_out + config.control.servo_neutral[4];
-
+			printf("\r\n%d\r\n", servo_out[4]);
+			break;
 	}
 	
 	for(i = 0; i < 6; i++)

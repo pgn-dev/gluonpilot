@@ -47,6 +47,10 @@ void servo_init()
 	OC5R = 0;
 	OC5CONbits.OCTSEL = 0;
 	OC5CONbits.OCM = 6;
+	
+	OC6R = 0;
+	OC6CONbits.OCTSEL = 0;
+	OC6CONbits.OCM = 6;
 }
 
 
@@ -57,6 +61,7 @@ void servo_all_neutral()
 	servo_set_us(3, 1500);
 	servo_set_us(4, 1500);
 	servo_set_us(5, 1500);
+	servo_set_us(6, 1500);
 }
 
 
@@ -105,6 +110,9 @@ void servo_set_us(int servo, unsigned int us)
 			break;
 		case 4: 
 			OC5RS = raw;
+			break;
+		case 5:
+			OC6RS = raw;
 			break;
 		default:
 			break;

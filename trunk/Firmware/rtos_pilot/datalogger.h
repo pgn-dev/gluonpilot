@@ -26,7 +26,8 @@ struct LogLine
 	int gps_speed_m_s;
 	int gps_heading;
 	char gps_satellites;
-	
+	int desired_roll;
+	int desired_pitch;
 	int pitch;
 	int pitch_acc;
 	int roll;

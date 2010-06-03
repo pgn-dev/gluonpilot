@@ -387,7 +387,7 @@ void communication_input_task( void *parameters )
 					
 #ifndef RAW_50HZ_LOG
 					printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
-					printf ("HeightBaro;Pitch;PitchAcc;Roll;RollAcc;AccX;AccXG;AccY;AccYG;AccZ;");
+					printf ("HeightBaro;Pitch;PitchAcc;Roll;RollAcc;DesiredPitch;DesiredRoll;AccX;AccXG;AccY;AccYG;AccZ;");
 					printf ("AccZG;GyroX;GyroY;GyroZ;P;Q;R;TempC;FlightMode\r\n");
 #else
 					printf ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");//;idg500-vref;FlightMode\r\n");
@@ -562,11 +562,13 @@ void print_logline(struct LogLine *l)
 	printf ("%d;%d;%d;%d;", l->gps_speed_m_s, l->gps_heading, l->gps_height_m, (int)l->gps_satellites);
 	printf ("%d;%d;%d;", l->height_m, l->pitch, l->pitch_acc);
 	printf ("%d;%d;", l->roll, l->roll_acc);
+	printf ("%d;%d;", l->desired_pitch, l->desired_roll);
 	printf ("%u;%f;%u;", l->acc_x, l->acc_x_g, l->acc_y);
 	printf ("%f;%u;%f;", l->acc_y_g, l->acc_z, l->acc_z_g);
 	printf ("%u;%u;%u;", l->gyro_x, l->gyro_y, l->gyro_z);
 	printf ("%d;%d;%d;", l->p, l->q, l->r);
 	printf ("%d;%d\r\n", (int)l->temperature_c, l->control_state);
+
 #else
 	// Raw sensor logging @ 50Hz
 	printf ("DD;%f;%f;", l->gps_latitude_rad*(180.0/3.14159), l->gps_longitude_rad*(180.0/3.14159));
