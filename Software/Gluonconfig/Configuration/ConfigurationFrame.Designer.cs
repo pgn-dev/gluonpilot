@@ -239,6 +239,12 @@
             this._tb_servo2_neutral = new Configuration.NumericTextBox();
             this._tb_servo1_neutral = new Configuration.NumericTextBox();
             this._tbControl = new System.Windows.Forms.TabPage();
+            this.tb_min_circle_radius = new Configuration.DistanceTextBox();
+            this.label82 = new System.Windows.Forms.Label();
+            this.tb_speed = new Configuration.SpeedTextBox();
+            this.label81 = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.cb_altitudehold = new System.Windows.Forms.CheckBox();
             this.label80 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label79 = new System.Windows.Forms.Label();
@@ -275,8 +281,6 @@
             this.columnHeaderTime = new System.Windows.Forms.ColumnHeader();
             this._btn_datalog_readtable = new System.Windows.Forms.Button();
             this._btn_dataflash_format = new System.Windows.Forms.Button();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.cb_altitudehold = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this._tpTelemetry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gyroaccproc_telemetry)).BeginInit();
@@ -297,6 +301,7 @@
             this._pnlRoll.SuspendLayout();
             this._tpServos.SuspendLayout();
             this._tbControl.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_pitch_max)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_roll_max)).BeginInit();
@@ -306,7 +311,6 @@
             this.groupBox4.SuspendLayout();
             this._tp_datalog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgv_datalog)).BeginInit();
-            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -2508,6 +2512,10 @@
             // 
             // _tbControl
             // 
+            this._tbControl.Controls.Add(this.tb_min_circle_radius);
+            this._tbControl.Controls.Add(this.label82);
+            this._tbControl.Controls.Add(this.tb_speed);
+            this._tbControl.Controls.Add(this.label81);
             this._tbControl.Controls.Add(this.groupBox6);
             this._tbControl.Controls.Add(this.label80);
             this._tbControl.Controls.Add(this.numericUpDown1);
@@ -2529,6 +2537,63 @@
             this._tbControl.TabIndex = 6;
             this._tbControl.Text = "Control";
             this._tbControl.UseVisualStyleBackColor = true;
+            // 
+            // tb_min_circle_radius
+            // 
+            this.tb_min_circle_radius.DistanceM = 0;
+            this.tb_min_circle_radius.Enabled = false;
+            this.tb_min_circle_radius.Location = new System.Drawing.Point(426, 81);
+            this.tb_min_circle_radius.Name = "tb_min_circle_radius";
+            this.tb_min_circle_radius.ReadOnly = true;
+            this.tb_min_circle_radius.Size = new System.Drawing.Size(110, 21);
+            this.tb_min_circle_radius.TabIndex = 18;
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Location = new System.Drawing.Point(310, 83);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(107, 13);
+            this.label82.TabIndex = 17;
+            this.label82.Text = "Minimum circle radius";
+            // 
+            // tb_speed
+            // 
+            this.tb_speed.Location = new System.Drawing.Point(426, 54);
+            this.tb_speed.Name = "tb_speed";
+            this.tb_speed.Size = new System.Drawing.Size(110, 21);
+            this.tb_speed.SpeedMS = 0;
+            this.tb_speed.TabIndex = 16;
+            this.tb_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CalculateMinimumRadius);
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Location = new System.Drawing.Point(310, 56);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(76, 13);
+            this.label81.TabIndex = 15;
+            this.label81.Text = "Cruising speed";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.cb_altitudehold);
+            this.groupBox6.Location = new System.Drawing.Point(12, 149);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(214, 111);
+            this.groupBox6.TabIndex = 14;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Stabilization";
+            // 
+            // cb_altitudehold
+            // 
+            this.cb_altitudehold.AutoSize = true;
+            this.cb_altitudehold.Location = new System.Drawing.Point(6, 19);
+            this.cb_altitudehold.Name = "cb_altitudehold";
+            this.cb_altitudehold.Size = new System.Drawing.Size(188, 17);
+            this.cb_altitudehold.TabIndex = 0;
+            this.cb_altitudehold.Text = "Altitude hold (instead of pitch hold)";
+            this.cb_altitudehold.UseVisualStyleBackColor = true;
             // 
             // label80
             // 
@@ -2913,26 +2978,6 @@
             this._btn_dataflash_format.UseVisualStyleBackColor = true;
             this._btn_dataflash_format.Click += new System.EventHandler(this._btn_dataflash_format_Click);
             // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.cb_altitudehold);
-            this.groupBox6.Location = new System.Drawing.Point(12, 149);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(214, 111);
-            this.groupBox6.TabIndex = 14;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Stabilization";
-            // 
-            // cb_altitudehold
-            // 
-            this.cb_altitudehold.AutoSize = true;
-            this.cb_altitudehold.Location = new System.Drawing.Point(6, 19);
-            this.cb_altitudehold.Name = "cb_altitudehold";
-            this.cb_altitudehold.Size = new System.Drawing.Size(188, 17);
-            this.cb_altitudehold.TabIndex = 0;
-            this.cb_altitudehold.Text = "Altitude hold (instead of pitch hold)";
-            this.cb_altitudehold.UseVisualStyleBackColor = true;
-            // 
             // ConfigurationFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2974,6 +3019,8 @@
             this._tpServos.PerformLayout();
             this._tbControl.ResumeLayout(false);
             this._tbControl.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_pitch_max)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_roll_max)).EndInit();
@@ -2983,8 +3030,6 @@
             this.groupBox4.ResumeLayout(false);
             this._tp_datalog.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._dgv_datalog)).EndInit();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3239,5 +3284,9 @@
         private System.Windows.Forms.Label label80;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.CheckBox cb_altitudehold;
+        private System.Windows.Forms.Label label81;
+        private Configuration.SpeedTextBox tb_speed;
+        private System.Windows.Forms.Label label82;
+        private Configuration.DistanceTextBox tb_min_circle_radius;
     }
 }

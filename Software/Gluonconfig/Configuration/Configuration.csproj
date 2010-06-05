@@ -55,6 +55,12 @@
       <DependentUpon>ConfigurationFrame.cs</DependentUpon>
     </Compile>
     <Compile Include="ConfigurationModel.cs" />
+    <Compile Include="DistanceTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DistanceTextBox.Designer.cs">
+      <DependentUpon>DistanceTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="NumericTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -71,10 +77,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SpeedTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpeedTextBox.Designer.cs">
+      <DependentUpon>SpeedTextBox.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ConfigurationFrame.resx">
       <DependentUpon>ConfigurationFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DistanceTextBox.resx">
+      <DependentUpon>DistanceTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PidControl.resx">
       <DependentUpon>PidControl.cs</DependentUpon>
@@ -82,6 +97,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpeedTextBox.resx">
+      <DependentUpon>SpeedTextBox.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
