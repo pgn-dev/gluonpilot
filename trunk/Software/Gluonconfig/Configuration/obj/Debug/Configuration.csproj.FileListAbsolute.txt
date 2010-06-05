@@ -21,3 +21,5 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconf
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Debug\Communication.pdb
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\obj\Debug\Gluonpilot.ConfigurationFrame.resources
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\obj\Debug\Configuration.Properties.Resources.resources
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\obj\Debug\Configuration.SpeedTextBox.resources
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\obj\Debug\Configuration.DistanceTextBox.resources

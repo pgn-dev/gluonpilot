@@ -37,7 +37,7 @@
 
 void control_manual();
 void control_stabilized(double dt, int h);
-void control_navigate(double dt);
+void control_navigate(double dt, int altitude_controllable);
 void control_mix_aileron_uint(int pitch, int roll, int yaw, int motor);
 void control_desired_to_servos();
 
@@ -136,7 +136,7 @@ void control_task( void *parameters )
 			if (lastMode != control_state.flight_mode)  // target altitude = altitude when switching from manual to stabilized
 				control_state.desired_height = sensor_data.pressure_height;
 				
-			control_navigate(DT); // stabilized mode as long as navigation isn't available
+			control_navigate(DT, 1); // stabilized mode as long as navigation isn't available
 			//control_stabilized(DT, 1); // stabilized mode
 		} 
 		else if (ppm.channel[config.control.channel_ap] < 1666)
@@ -189,21 +189,21 @@ void control_stabilized(double dt, int altitude_hold)
 	control_state.desired_roll = (double)((int)ppm.channel[config.control.channel_roll]
 	                             - config.control.channel_neutral[config.control.channel_roll]) / 500.0 * (config.control.max_roll);
 
+	control_state.desired_pitch = (double)((int)ppm.channel[config.control.channel_pitch]
+	                              - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * (config.control.max_pitch);
+
+
 	// Comment this line if you want pitch stabilization instead of altitude hold
 	if (altitude_hold)
 	{
 		if (abs(control_state.desired_pitch) > (config.control.max_pitch / 5.0)) // elevator stick not in neutral position
 		{
-			control_state.desired_pitch = (double)((int)ppm.channel[config.control.channel_pitch]
-	        		                      - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * (config.control.max_pitch);
+			// Keep RC-input desired pitch
 			control_state.desired_height = sensor_data.pressure_height;  // keep height in case stick goes back to neutral
 		}	
-		else
+		else  // altitude hold
 		  control_state.desired_pitch = (control_state.desired_height - sensor_data.pressure_height)  / 20.0 * config.control.max_pitch; 
 	} 
-	else
-		control_state.desired_pitch = (double)((int)ppm.channel[config.control.channel_pitch]
-		                              - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * (config.control.max_pitch);
 
 	control_desired_to_servos(dt);
 }
@@ -215,8 +215,9 @@ void control_stabilized(double dt, int altitude_hold)
  *   the module's attitude are used in a PID loop to position the servo's so the
  *   desired attitude can be obtained.
  */
-void control_navigate(double dt)
+void control_navigate(double dt, int altitude_controllable)
 {
+	/* Calculate desired roll */
 	double heading_error_rad = navigation_data.desired_heading_rad - sensor_data.gps.heading_rad;
 	
 	// Choose shortest turn-direction
@@ -225,6 +226,7 @@ void control_navigate(double dt)
 	else if (heading_error_rad <= -PI)
 		heading_error_rad += (PI*2.0);
 		
+	
 	control_state.desired_roll = navigation_data.desired_pre_bank +
 	                             pid_update_only_p(&config.control.pid_heading2roll, heading_error_rad, dt);	
 	
@@ -238,7 +240,19 @@ void control_navigate(double dt)
 		control_state.desired_roll *= speed_depend_nav;
 	
 	
-	control_state.desired_pitch = (control_state.desired_height - sensor_data.pressure_height)  / 20.0 * config.control.max_pitch; 
+	/* Calculate desired pitch */
+  	// altitude hold
+	control_state.desired_pitch = (control_state.desired_height - sensor_data.pressure_height) / 20.0 * config.control.max_pitch; 
+	if (altitude_controllable)  // control altitude with pitch transmitter stick?
+	{
+		double manual_desired_pitch = (double)((int)ppm.channel[config.control.channel_pitch]
+		                              - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * (config.control.max_pitch);
+	    if (abs(manual_desired_pitch) > (config.control.max_pitch / 5.0)) // elevator stick not in neutral position
+	    {
+			control_state.desired_pitch = manual_desired_pitch;
+			control_state.desired_height = sensor_data.pressure_height;  // save current height in case stick goes back to neutral
+		}
+	}	
 
 	control_desired_to_servos(dt);
 }
@@ -428,7 +442,7 @@ void control_mix_out()
 				servo_out[4] = +yaw_out + config.control.servo_neutral[4];
 			else 
 				servo_out[4] = -yaw_out + config.control.servo_neutral[4];
-			printf("\r\n%d\r\n", servo_out[4]);
+
 			break;
 	}
 	

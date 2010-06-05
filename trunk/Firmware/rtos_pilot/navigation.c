@@ -92,7 +92,7 @@ void navigation_update()
 	
 	if (1)   // One waypoint: "home"
 	{
-		float carrot = 5.0;
+#define carrot 5.0
 		
 		float r = 90.0; // meter
 		float rad_s = sensor_data.gps.speed_ms / r;   // rad/s for this circle
@@ -121,8 +121,7 @@ void navigation_update()
 			if (rad_ahead < 3.14159/16.0)	
 				next_alpha = current_alpha + 3.14159/16.0; // go to the position one second ahead
 			else*/
-				next_alpha = current_alpha + rad_ahead; // go to the position one second ahead
-
+				next_alpha = current_alpha + atan(distance_ahead/r);
 		}	
 
 		
@@ -135,7 +134,8 @@ void navigation_update()
 		// max desired_heading
 		float pointlon = navigation_data.home_longitude_rad + sin(next_alpha) * next_r / longitude_meter_per_radian;
 		float pointlat = navigation_data.home_latitude_rad + cos(next_alpha) * next_r / latitude_meter_per_radian;
-	
+		
+		
 		navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - pointlon,
 			                                                     sensor_data.gps.latitude_rad - pointlat);
 			                                                     
@@ -169,7 +169,8 @@ void navigation_set_home()
  */
 double heading_rad_fromto (double diff_long, double diff_lat)
 {
-	diff_lat *= cos_latitude;   // Local, flat earth approximation!
+	//diff_lat *= cos_latitude;   // Local, flat earth approximation!
+	diff_long *= cos_latitude;   // Local, flat earth approximation!
 	
 	double waypointHeading = atan2(diff_long, -diff_lat);
 

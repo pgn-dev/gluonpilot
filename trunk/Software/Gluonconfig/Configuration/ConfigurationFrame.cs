@@ -256,7 +256,7 @@ namespace Gluonpilot
         {
             _tbAccXNeutral.Text = _tbAccXRaw.Text;
             _tbAccYNeutral.Text = _tbAccYRaw.Text;
-            _tbAccZNeutral.Text = _tbAccZRaw.Text;
+            _tbAccZNeutral.Text = (double.Parse(_tbAccZRaw.Text, System.Globalization.CultureInfo.InvariantCulture) - 6600.0).ToString();
         }
 
         private void _btn_use_current_gyro_Click(object sender, EventArgs e)
@@ -704,7 +704,7 @@ namespace Gluonpilot
                             sw.WriteLine("</coordinates><altitudeMode>relativeToGround</altitudeMode></Point><styleUrl>#dataStyle_" + int.Parse(dr["HeadingGPS"].ToString()) / 2 + "</styleUrl>");
                             if (dr.Table.Columns.Contains("Pitch") && dr.Table.Columns.Contains("HeightGPS"))
                             {
-                                sw.WriteLine("<description>" + (int)time + " - Roll: " + dr["Roll"].ToString() + ", Pitch: " + dr["Pitch"].ToString() + ", Height: " + dr["HeightGPS"].ToString() + "</description>");
+                                sw.WriteLine("<description>" + (int)time + " - Roll: " + dr["Roll"].ToString() + ", Desired: " + dr["DesiredRoll"].ToString() + " - Pitch: " + dr["Pitch"].ToString() + ", Desired: " + dr["DesiredPitch"].ToString() + " - Height: " + dr["HeightGPS"].ToString() + "</description>");
                             } 
                             else if (dr.Table.Columns.Contains("Time"))
                             {
@@ -900,11 +900,20 @@ namespace Gluonpilot
         private void _nud_control_roll_max_ValueChanged(object sender, EventArgs e)
         {
             _model.ControlMaxRoll = Convert.ToDouble(_nud_control_roll_max.Value);
+            CalculateMinimumRadius(sender, null);
         }
 
         private void _nud_control_pitch_max_ValueChanged(object sender, EventArgs e)
         {
             _model.ControlMaxPitch = Convert.ToDouble(_nud_control_pitch_max.Value);
+        }
+
+        private void CalculateMinimumRadius(object sender, KeyPressEventArgs e)
+        {
+            // atan(v^2  / (G * r)) = roll
+            // tan(roll) = v^2 / (G * r)
+            tb_min_circle_radius.DistanceM =
+                tb_speed.SpeedMS * tb_speed.SpeedMS / Math.Tan((double)_nud_control_roll_max.Value / 180.0 * 3.14) / 9.81;
         }
 
 
