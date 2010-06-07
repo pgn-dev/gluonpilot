@@ -279,12 +279,12 @@ void control_desired_to_servos(double dt)
 #ifdef ENABLE_QUADROCOPTER	
 
 	double desired_pitch_rate = (control_state.desired_pitch - sensor_data.pitch)*5.0; // move at "error" degrees per second
-	elevator_out_radians = pid_update_only_p(&config.control.pid_pitch2elevator, 
+	elevator_out_radians = pid_update(&config.control.pid_pitch2elevator, 
 	                                         desired_pitch_rate - sensor_data.q, dt);
 	//elevator_out_radians -= sensor_data.q * config.control.pid_pitch2elevator.d_gain;
 	
 	double desired_roll_rate = (control_state.desired_roll - sensor_data.roll)*5.0; // move at "error" degrees per second
-	aileron_out_radians = pid_update_only_p(&config.control.pid_roll2aileron, 
+	aileron_out_radians = pid_update(&config.control.pid_roll2aileron, 
 	                                        desired_roll_rate - sensor_data.p, dt);
 	//aileron_out_radians -= (sensor_data.p) * config.control.pid_roll2aileron.d_gain;
 	
