@@ -45,7 +45,6 @@ struct SensorData sensor_data;
 
 // Usefull constants
 #define G 9.81
-#define DT 0.01   // 100Hz
 #define RAD2DEG (180.0/3.14159)
 static const float acc_value_g = 6600.0;
 
@@ -82,8 +81,8 @@ void sensors_task( void *parameters )
 	for( ;; )
 	{
 #ifdef ENABLE_QUADROCOPTER
-		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 5 / portTICK_RATE_MS ) );   // 200Hz
-		dt_since_last_height += 0.005;
+		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 4 / portTICK_RATE_MS ) );   // 250Hz
+		dt_since_last_height += 0.004;
 #else
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 20 / portTICK_RATE_MS ) );   // 50Hz
 		dt_since_last_height += 0.02;

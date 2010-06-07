@@ -87,6 +87,7 @@ file_059=lib
 file_060=lib
 file_061=lib
 file_062=.
+file_063=.
 [GENERATED_FILES]
 file_000=no
 file_001=no
@@ -151,6 +152,7 @@ file_059=no
 file_060=no
 file_061=no
 file_062=no
+file_063=no
 [OTHER_FILES]
 file_000=no
 file_001=no
@@ -215,6 +217,7 @@ file_059=no
 file_060=no
 file_061=no
 file_062=no
+file_063=no
 [FILE_INFO]
 file_000=..\lib\adc\adc.c
 file_001=..\lib\button\button.c
@@ -245,7 +248,7 @@ file_025=..\lib\matrix\matrix.c
 file_026=..\lib\pid\pid.c
 file_027=..\lib\quaternion\quaternion.c
 file_028=navigation.c
-file_029=ahrs_kalman_2x3.c
+file_029=ahrs_simple_quaternion.c
 file_030=..\lib\adc\adc.h
 file_031=..\lib\button\button.h
 file_032=..\lib\dataflash\dataflash.h
@@ -279,12 +282,13 @@ file_059=..\lib\pid\pid.h
 file_060=..\lib\quaternion\quaternion.h
 file_061=..\lib\matrix\matrix.h
 file_062=navigation.h
+file_063=common.h
 [SUITE_INFO]
 suite_guid={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 suite_state=
 [TOOL_SETTINGS]
 TS{7D9C6ECE-785D-44CB-BA22-17BF2E119622}=-g
-TS{25AC22BD-2378-4FDB-BFB6-7345A15512D3}=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+TS{25AC22BD-2378-4FDB-BFB6-7345A15512D3}=-g -Wall -DMPLAB_DSPIC_PORT -DENABLE_QUADROCOPTER -mlarge-data -Os
 TS{7DAC9A1D-4C45-45D6-B25A-D117C74E8F5A}=--heap=8192 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TS{509E5861-1E2A-483B-8B6B-CA8DB7F2DD78}=
 [INSTRUMENTED_TRACE]

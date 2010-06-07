@@ -94,7 +94,7 @@ void navigation_update()
 	{
 #define carrot 5.0
 		
-		float r = 90.0; // meter
+		float r = 70.0; // meter
 		float rad_s = sensor_data.gps.speed_ms / r;   // rad/s for this circle
 		float distance_ahead = carrot * sensor_data.gps.speed_ms;
 			

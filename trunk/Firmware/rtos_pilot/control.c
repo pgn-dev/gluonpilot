@@ -33,7 +33,7 @@
 #include "sensors.h"
 #include "navigation.h"
 
-#define PI 3.14159
+#include "common.h"
 
 void control_manual();
 void control_stabilized(double dt, int h);
@@ -121,11 +121,11 @@ void control_task( void *parameters )
 	for( ;; )
 	{
 #ifdef ENABLE_QUADROCOPTER
-		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 5 / portTICK_RATE_MS ) );    //!> 200Hz
-		#define DT 0.005
+		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 4 / portTICK_RATE_MS ) );    //!> 250Hz
+		#define DT 0.004
 #else
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 10 / portTICK_RATE_MS ) );   //!> 100Hz
-		#define DT 0.01
+		#define DT 0.010
 #endif
 
 		if (ppm.channel[config.control.channel_ap] < 1333)
@@ -268,32 +268,40 @@ void control_desired_to_servos(double dt)
 	       aileron_out_radians;
 	
 	// Keep pitch & roll within limits
-	if (control_state.desired_pitch > config.control.max_pitch)
-		control_state.desired_pitch = config.control.max_pitch;
-	else if (control_state.desired_pitch < -config.control.max_pitch)
-		control_state.desired_pitch = -config.control.max_pitch;
-	if (control_state.desired_roll > config.control.max_roll)
-		control_state.desired_roll = config.control.max_roll;
-	else if (control_state.desired_roll < -config.control.max_roll)
-		control_state.desired_roll = -config.control.max_roll;
+	control_state.desired_pitch = MIN(control_state.desired_pitch, config.control.max_pitch);
+	control_state.desired_pitch = MAX(control_state.desired_pitch, -config.control.max_pitch);
+	control_state.desired_roll = MIN(control_state.desired_roll, config.control.max_roll);
+	control_state.desired_roll = MAX(control_state.desired_roll, -config.control.max_roll);
 
 	// compensate the loss in lift
 	//control_state.desired_pitch += (1.0/cosf(sensor_data.roll) - 1.0)*0.25; // (0.5: 12° up at 45° roll)
 	
 #ifdef ENABLE_QUADROCOPTER	
+
+	double desired_pitch_rate = (control_state.desired_pitch - sensor_data.pitch)*5.0; // move at "error" degrees per second
 	elevator_out_radians = pid_update_only_p(&config.control.pid_pitch2elevator, 
-	                                         control_state.desired_pitch - sensor_data.pitch, dt);
-	elevator_out_radians -= sensor_data.q * config.control.pid_pitch2elevator.d_gain;
-	aileron_out_radians = pid_update_only_p(&config.control.pid_roll2aileron, 
-	                                        control_state.desired_roll - sensor_data.roll, dt);
-	aileron_out_radians -= (sensor_data.p) * config.control.pid_roll2aileron.d_gain;
+	                                         desired_pitch_rate - sensor_data.q, dt);
+	//elevator_out_radians -= sensor_data.q * config.control.pid_pitch2elevator.d_gain;
 	
-	yaw_out -= (int)((sensor_data.r) * config.control.pid_heading2roll.d_gain * 630.0);
+	double desired_roll_rate = (control_state.desired_roll - sensor_data.roll)*5.0; // move at "error" degrees per second
+	aileron_out_radians = pid_update_only_p(&config.control.pid_roll2aileron, 
+	                                        desired_roll_rate - sensor_data.p, dt);
+	//aileron_out_radians -= (sensor_data.p) * config.control.pid_roll2aileron.d_gain;
+	
+	double desired_yaw_rate  = (double)((int)ppm.channel[config.control.channel_yaw]
+		                            - config.control.channel_neutral[config.control.channel_yaw]) / 500.0 * 35.0; // max 30°/s
+	
+	if (abs(desired_yaw_rate) < 5.0) // stick in the middle
+		desired_yaw_rate = 0.0;
+	
+	yaw_out = (int) (config.control.pid_heading2roll.d_gain * (desired_yaw_rate*(3.14159/180.0) - sensor_data.yaw) / dt * 630.0);
+
 #else
 	elevator_out_radians = pid_update(&config.control.pid_pitch2elevator, 
 	                                         control_state.desired_pitch - sensor_data.pitch, dt);
 	aileron_out_radians = pid_update(&config.control.pid_roll2aileron, 
 	                                        control_state.desired_roll - sensor_data.roll, dt);
+	yaw_out = ppm.channel[config.control.channel_yaw] - config.control.channel_neutral[config.control.channel_yaw];
 #endif
 	
 	// Experimental: when flying with the wind, the elevons become less effective. Avoid have a too large roll angle!
@@ -307,7 +315,6 @@ void control_desired_to_servos(double dt)
 	
 
 	motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
-	yaw_out = ppm.channel[config.control.channel_yaw] - config.control.channel_neutral[config.control.channel_yaw];
 	
 	elevator_out = (int)(elevator_out_radians * 630.0); // +-45° -> +- 500
 	aileron_out = (int)(aileron_out_radians * 630.0);
@@ -389,9 +396,10 @@ void control_mix_out()
 			/*          >
 			 *          0
 			 *      < /   \ <
-			 *      3       1
+			 *      3       1        FRONT
 			 *        \ > /
 			 *          2
+			 *    
 			 */
 			
 			/*if (motor_out < 100) // about zero throttle
