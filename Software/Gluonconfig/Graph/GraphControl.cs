@@ -192,17 +192,6 @@ namespace Graph
 
             myPane.YAxis.MajorGrid.IsVisible = true;
 
-            //myPane.YAxis.Title.Text = "Height [m]";
-
-            // Make up some data arrays based on the Sine function
-
-            // Generate a red curve with diamond
-
-            // symbols, and "Porsche" in the legend
-
-            //_lineItems.Add("Height (SCP1000)", myPane.AddCurve("Height",
-            //      new PointPairList(), Color., SymbolType.None));
-            
             _zed_graph.AxisChange();
         }
 
@@ -211,7 +200,22 @@ namespace Graph
             _timewindow = (int)_nud_timewindow.Value;
         }
 
-        private void _clb_variables_SelectedIndexChanged(object sender, EventArgs e)
+        private Color RandomColor()
+        {
+            Random r = new Random();
+            return System.Drawing.Color.FromArgb(
+                r.Next(256),
+                r.Next(256),
+                r.Next(256)
+            );
+        }
+
+        private void btn_collapse_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = !splitContainer1.Panel1Collapsed;
+        }
+
+        private void _clb_variables_MouseClick(object sender, MouseEventArgs e)
         {
             foreach (Object o in _clb_variables.Items)
             {
@@ -234,16 +238,6 @@ namespace Graph
                     }
                 }
             }
-        }
-
-        private Color RandomColor()
-        {
-            Random r = new Random();
-            return System.Drawing.Color.FromArgb(
-                r.Next(256),
-                r.Next(256),
-                r.Next(256)
-            );
         }
     }
 }

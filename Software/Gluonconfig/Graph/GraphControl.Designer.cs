@@ -35,6 +35,7 @@
             this._nud_timewindow = new System.Windows.Forms.NumericUpDown();
             this._clb_variables = new System.Windows.Forms.CheckedListBox();
             this._zed_graph = new ZedGraph.ZedGraphControl();
+            this.btn_collapse = new System.Windows.Forms.Button();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -57,6 +58,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.btn_collapse);
             this.splitContainer1.Panel2.Controls.Add(this._zed_graph);
             this.splitContainer1.Size = new System.Drawing.Size(640, 372);
             this.splitContainer1.SplitterDistance = 165;
@@ -132,7 +134,7 @@
             this._clb_variables.Name = "_clb_variables";
             this._clb_variables.Size = new System.Drawing.Size(165, 304);
             this._clb_variables.TabIndex = 0;
-            this._clb_variables.SelectedIndexChanged += new System.EventHandler(this._clb_variables_SelectedIndexChanged);
+            this._clb_variables.MouseClick += new System.Windows.Forms.MouseEventHandler(this._clb_variables_MouseClick);
             // 
             // _zed_graph
             // 
@@ -150,6 +152,20 @@
             this._zed_graph.ScrollMinY2 = 0;
             this._zed_graph.Size = new System.Drawing.Size(471, 372);
             this._zed_graph.TabIndex = 0;
+            // 
+            // btn_collapse
+            // 
+            this.btn_collapse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_collapse.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_collapse.Location = new System.Drawing.Point(0, 0);
+            this.btn_collapse.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_collapse.Name = "btn_collapse";
+            this.btn_collapse.Size = new System.Drawing.Size(25, 20);
+            this.btn_collapse.TabIndex = 1;
+            this.btn_collapse.Text = "<>";
+            this.btn_collapse.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.btn_collapse.UseVisualStyleBackColor = true;
+            this.btn_collapse.Click += new System.EventHandler(this.btn_collapse_Click);
             // 
             // GraphControl
             // 
@@ -176,6 +192,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown _nud_timewindow;
+        private System.Windows.Forms.Button btn_collapse;
 
     }
 }

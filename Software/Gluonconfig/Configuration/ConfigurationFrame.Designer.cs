@@ -281,6 +281,9 @@
             this.columnHeaderTime = new System.Windows.Forms.ColumnHeader();
             this._btn_datalog_readtable = new System.Windows.Forms.Button();
             this._btn_dataflash_format = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label83 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this._tpTelemetry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gyroaccproc_telemetry)).BeginInit();
@@ -311,6 +314,7 @@
             this.groupBox4.SuspendLayout();
             this._tp_datalog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgv_datalog)).BeginInit();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -2080,6 +2084,7 @@
             // 
             // _tpServos
             // 
+            this._tpServos.Controls.Add(this.label83);
             this._tpServos.Controls.Add(this.label71);
             this._tpServos.Controls.Add(this.label70);
             this._tpServos.Controls.Add(this.label69);
@@ -2512,6 +2517,7 @@
             // 
             // _tbControl
             // 
+            this._tbControl.Controls.Add(this.groupBox7);
             this._tbControl.Controls.Add(this.tb_min_circle_radius);
             this._tbControl.Controls.Add(this.label82);
             this._tbControl.Controls.Add(this.tb_speed);
@@ -2578,9 +2584,9 @@
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.cb_altitudehold);
-            this.groupBox6.Location = new System.Drawing.Point(12, 149);
+            this.groupBox6.Location = new System.Drawing.Point(12, 138);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(214, 111);
+            this.groupBox6.Size = new System.Drawing.Size(255, 122);
             this.groupBox6.TabIndex = 14;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Stabilization";
@@ -2588,11 +2594,12 @@
             // cb_altitudehold
             // 
             this.cb_altitudehold.AutoSize = true;
-            this.cb_altitudehold.Location = new System.Drawing.Point(6, 19);
+            this.cb_altitudehold.Enabled = false;
+            this.cb_altitudehold.Location = new System.Drawing.Point(8, 19);
             this.cb_altitudehold.Name = "cb_altitudehold";
-            this.cb_altitudehold.Size = new System.Drawing.Size(188, 17);
+            this.cb_altitudehold.Size = new System.Drawing.Size(236, 17);
             this.cb_altitudehold.TabIndex = 0;
-            this.cb_altitudehold.Text = "Altitude hold (instead of pitch hold)";
+            this.cb_altitudehold.Text = "Altitude hold (instead of pitch hold) with pitch";
             this.cb_altitudehold.UseVisualStyleBackColor = true;
             // 
             // label80
@@ -2618,6 +2625,7 @@
             0,
             -2147483648});
             this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.ReadOnly = true;
             this.numericUpDown1.Size = new System.Drawing.Size(47, 20);
             this.numericUpDown1.TabIndex = 12;
             // 
@@ -2978,6 +2986,36 @@
             this._btn_dataflash_format.UseVisualStyleBackColor = true;
             this._btn_dataflash_format.Click += new System.EventHandler(this._btn_dataflash_format_Click);
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.checkBox1);
+            this.groupBox7.Location = new System.Drawing.Point(313, 138);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(265, 122);
+            this.groupBox7.TabIndex = 19;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Navigation";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
+            this.checkBox1.Location = new System.Drawing.Point(9, 19);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(80, 17);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Location = new System.Drawing.Point(365, 199);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(42, 13);
+            this.label83.TabIndex = 42;
+            this.label83.Text = "Rudder";
+            // 
             // ConfigurationFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3030,6 +3068,8 @@
             this.groupBox4.ResumeLayout(false);
             this._tp_datalog.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._dgv_datalog)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3288,5 +3328,8 @@
         private Configuration.SpeedTextBox tb_speed;
         private System.Windows.Forms.Label label82;
         private Configuration.DistanceTextBox tb_min_circle_radius;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label83;
     }
 }
