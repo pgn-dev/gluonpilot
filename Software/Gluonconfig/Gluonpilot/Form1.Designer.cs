@@ -48,7 +48,7 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this._btnChart = new System.Windows.Forms.ToolStripButton();
             this._btnOpenGl = new System.Windows.Forms.ToolStripButton();
-            this.configurationFrame = new Gluonpilot.ConfigurationFrame();
+            this.configurationTabpage = new Gluonpilot.ConfigurationTabpage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this._cb_print_timestamp = new System.Windows.Forms.CheckBox();
             this._cb_hide_parsed = new System.Windows.Forms.CheckBox();
@@ -236,16 +236,15 @@
             this._btnOpenGl.Text = "3D orientation";
             this._btnOpenGl.Click += new System.EventHandler(this._btnOpenGl_Click);
             // 
-            // configurationFrame
+            // configurationTabpage
             // 
-            this.configurationFrame.AutoSize = true;
-            this.configurationFrame.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.configurationFrame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.configurationFrame.Location = new System.Drawing.Point(5, 5);
-            //this.configurationFrame.Model = ((Gluonpilot.ConfigurationModel)(resources.GetObject("configurationFrame.Model")));
-            this.configurationFrame.Name = "configurationFrame";
-            this.configurationFrame.Size = new System.Drawing.Size(603, 315);
-            this.configurationFrame.TabIndex = 4;
+            this.configurationTabpage.AutoSize = true;
+            this.configurationTabpage.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.configurationTabpage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.configurationTabpage.Location = new System.Drawing.Point(5, 5);
+            this.configurationTabpage.Name = "configurationTabpage";
+            this.configurationTabpage.Size = new System.Drawing.Size(603, 315);
+            this.configurationTabpage.TabIndex = 4;
             // 
             // splitContainer1
             // 
@@ -257,7 +256,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.configurationFrame);
+            this.splitContainer1.Panel1.Controls.Add(this.configurationTabpage);
             this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(5);
             // 
             // splitContainer1.Panel2
@@ -320,7 +319,7 @@
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private ConfigurationFrame configurationFrame;
+        private ConfigurationTabpage configurationTabpage;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton _btn_connect;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

@@ -16,6 +16,7 @@ using Amib.Threading;
 using Communication.Frames.Configuration;
 using Communication.Frames.Incoming;
 using System.Threading;
+using System.Globalization;
 
 namespace Communication
 {
@@ -42,6 +43,8 @@ namespace Communication
         // Datalog
         public override event ReceiveDatalogTableCommunicationFrame DatalogTableCommunicationReceived;
         public override event ReceiveDatalogLineCommunicationFrame DatalogLineCommunicationReceived;
+        // Navigation
+        public override event ReceiveNavigationInstructionCommunicationFrame NavigationInstructionCommunicationReceived;
 
         private string[] DatalogHeader;
 
@@ -137,38 +140,39 @@ namespace Communication
                         ac.telemetry_gyroaccraw = int.Parse(lines[9]);
                         ac.telemetry_gyroaccproc = int.Parse(lines[10]);
                         ac.telemetry_pressuretemp = int.Parse(lines[11]);
+                        ac.telemetry_attitude = int.Parse(lines[12]);
 
-                        ac.gps_initial_baudrate = int.Parse(lines[12]) * 10;
-                        ac.gps_operational_baudrate = int.Parse(lines[13]) * 10;
+                        ac.gps_initial_baudrate = int.Parse(lines[13]) * 10;
+                        ac.gps_operational_baudrate = int.Parse(lines[14]) * 10;
 
-                        ac.channel_ap = int.Parse(lines[14]) + 1;
-                        ac.channel_motor = int.Parse(lines[15]) + 1;
-                        ac.channel_pitch = int.Parse(lines[16]) + 1;
-                        ac.channel_roll = int.Parse(lines[17]) + 1;
-                        ac.channel_yaw = int.Parse(lines[18]) + 1;
+                        ac.channel_ap = int.Parse(lines[15]) + 1;
+                        ac.channel_motor = int.Parse(lines[16]) + 1;
+                        ac.channel_pitch = int.Parse(lines[17]) + 1;
+                        ac.channel_roll = int.Parse(lines[18]) + 1;
+                        ac.channel_yaw = int.Parse(lines[19]) + 1;
 
-                        ac.pid_pitch2elevator_p = double.Parse(lines[19], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_pitch2elevator_d = double.Parse(lines[20], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_pitch2elevator_i = double.Parse(lines[21], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_pitch2elevator_imin = double.Parse(lines[22], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_pitch2elevator_imax = double.Parse(lines[23], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_pitch2elevator_dmin = double.Parse(lines[24], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_pitch2elevator_p = double.Parse(lines[20], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_pitch2elevator_d = double.Parse(lines[21], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_pitch2elevator_i = double.Parse(lines[22], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_pitch2elevator_imin = double.Parse(lines[23], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_pitch2elevator_imax = double.Parse(lines[24], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_pitch2elevator_dmin = double.Parse(lines[25], System.Globalization.CultureInfo.InvariantCulture);
 
-                        ac.pid_roll2aileron_p = double.Parse(lines[25], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_roll2aileron_d = double.Parse(lines[26], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_roll2aileron_i = double.Parse(lines[27], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_roll2aileron_imin = double.Parse(lines[28], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_roll2aileron_imax = double.Parse(lines[29], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_roll2aileron_dmin = double.Parse(lines[30], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_roll2aileron_p = double.Parse(lines[26], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_roll2aileron_d = double.Parse(lines[27], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_roll2aileron_i = double.Parse(lines[28], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_roll2aileron_imin = double.Parse(lines[29], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_roll2aileron_imax = double.Parse(lines[30], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_roll2aileron_dmin = double.Parse(lines[31], System.Globalization.CultureInfo.InvariantCulture);
 
-                        ac.pid_heading2roll_p = double.Parse(lines[31], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_heading2roll_d = double.Parse(lines[32], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_heading2roll_i = double.Parse(lines[33], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_heading2roll_imin = double.Parse(lines[34], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_heading2roll_imax = double.Parse(lines[35], System.Globalization.CultureInfo.InvariantCulture);
-                        ac.pid_heading2roll_dmin = double.Parse(lines[36], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_heading2roll_p = double.Parse(lines[32], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_heading2roll_d = double.Parse(lines[33], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_heading2roll_i = double.Parse(lines[34], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_heading2roll_imin = double.Parse(lines[35], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_heading2roll_imax = double.Parse(lines[36], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_heading2roll_dmin = double.Parse(lines[37], System.Globalization.CultureInfo.InvariantCulture);
 
-                        int r = int.Parse(lines[37]);
+                        int r = int.Parse(lines[38]);
                         byte r2 = (byte)r;
                         ac.servo_reverse[0] = (r & 1) != 0;
                         ac.servo_reverse[1] = (r & 2) != 0;
@@ -179,16 +183,16 @@ namespace Communication
 
                         for (int i = 0; i < 6; i++)
                         {
-                            ac.servo_min[i] = int.Parse(lines[38 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
-                            ac.servo_max[i] = int.Parse(lines[39 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
-                            ac.servo_neutral[i] = int.Parse(lines[40 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
+                            ac.servo_min[i] = int.Parse(lines[39 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
+                            ac.servo_max[i] = int.Parse(lines[40 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
+                            ac.servo_neutral[i] = int.Parse(lines[41 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
                         }
 
-                        ac.rc_ppm = 1 - int.Parse(lines[56]);
+                        ac.rc_ppm = 1 - int.Parse(lines[57]);
 
-                        ac.control_mixing = int.Parse(lines[57]);
-                        ac.control_max_pitch = int.Parse(lines[58]);
-                        ac.control_max_roll = int.Parse(lines[59]);
+                        ac.control_mixing = int.Parse(lines[58]);
+                        ac.control_max_pitch = int.Parse(lines[59]);
+                        ac.control_max_roll = int.Parse(lines[60]);
 
                         AllConfigCommunicationReceived(ac);
                     }
@@ -225,11 +229,11 @@ namespace Communication
                     else if (lines[0].EndsWith("TA") && lines.Length >= 3)
                     {
                         Attitude att = new Attitude(
-                            double.Parse(lines[1], System.Globalization.CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0,
-                            double.Parse(lines[2], System.Globalization.CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0,
-                            double.Parse(lines[3], System.Globalization.CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0,
-                            double.Parse(lines[4], System.Globalization.CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0,
-                            double.Parse(lines[5], System.Globalization.CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0
+                            double.Parse(lines[1], CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0,
+                            double.Parse(lines[2], CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0,
+                            /*double.Parse(lines[3], CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0,
+                            double.Parse(lines[4], CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0,*/0,0,
+                            double.Parse(lines[3], CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0
                             );
                         if (AttitudeCommunicationReceived != null)
                             AttitudeCommunicationReceived(att);
@@ -266,6 +270,19 @@ namespace Communication
                         if (DatalogLineCommunicationReceived != null)
                             DatalogLineCommunicationReceived(dl);
                     }
+                    else if (lines[0].EndsWith("ND") && lines.Length >= 6)
+                    {
+                        NavigationInstruction ni = 
+                            new NavigationInstruction(
+                                int.Parse(lines[1]),
+                                (NavigationInstruction.navigation_command)int.Parse(lines[2]),
+                                double.Parse(lines[3], CultureInfo.InvariantCulture),
+                                double.Parse(lines[4], CultureInfo.InvariantCulture),
+                                int.Parse(lines[5]),
+                                int.Parse(lines[6]) );
+                        if (NavigationInstructionCommunicationReceived != null)
+                            NavigationInstructionCommunicationReceived(ni);
+                    }
                     else
                     {
                         NonParsedCommunicationReceived(line);
@@ -299,13 +316,15 @@ namespace Communication
                 ac.telemetry_gyroaccraw.ToString() + ";" +
                 ac.telemetry_gyroaccproc.ToString() + ";" + 
                 ac.telemetry_ppm.ToString() + ";" +
-                ac.telemetry_pressuretemp.ToString() + "\n");
+                ac.telemetry_pressuretemp.ToString() + ";" +
+                ac.telemetry_attitude.ToString() + "\n");
             Console.WriteLine("\nST;" +
                 ac.telemetry_basicgps.ToString() + ";" +
                 ac.telemetry_gyroaccraw.ToString() + ";" +
                 ac.telemetry_gyroaccproc.ToString() + ";" +
                 ac.telemetry_ppm.ToString() + ";" +
-                ac.telemetry_pressuretemp.ToString() + "\n");
+                ac.telemetry_pressuretemp.ToString() + ";" +
+                ac.telemetry_attitude.ToString() + "\n");
 
             Thread.Sleep(200);
             
@@ -410,12 +429,12 @@ namespace Communication
 
             _serialPort.WriteLine("\nSC;" +
                 ac.control_mixing.ToString() + ";" + 
-                ac.control_max_pitch.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
-                ac.control_max_roll.ToString(System.Globalization.CultureInfo.InvariantCulture) + "\n");
+                ac.control_max_pitch.ToString(CultureInfo.InvariantCulture) + ";" +
+                ac.control_max_roll.ToString(CultureInfo.InvariantCulture) + "\n");
             Console.WriteLine("\nSC;" +
                 ac.control_mixing.ToString() + ";" +
-                ac.control_max_pitch.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
-                ac.control_max_roll.ToString(System.Globalization.CultureInfo.InvariantCulture) + "\n");
+                ac.control_max_pitch.ToString(CultureInfo.InvariantCulture) + ";" +
+                ac.control_max_roll.ToString(CultureInfo.InvariantCulture) + "\n");
         }
 
         public override void ReadAllConfig()
@@ -453,5 +472,30 @@ namespace Communication
             _serialPort.WriteLine("\nDR;" + i.ToString() + "\n");
         }
 
+        public override void SendNavigationInstruction(NavigationInstruction ni)
+        {
+            _serialPort.WriteLine("\nWN;" + ni.line.ToString() + ";" + (int)ni.opcode + ";" + 
+                ni.x.ToString(CultureInfo.InvariantCulture) + ";" + ni.y.ToString(CultureInfo.InvariantCulture) + ";" +
+                ni.a.ToString() + ";" + ni.b.ToString() + "\n");
+            Console.WriteLine("\nWN;" + ni.line.ToString() + ";" +
+                ni.x.ToString(CultureInfo.InvariantCulture) + ";" + ni.y.ToString(CultureInfo.InvariantCulture) + ";" +
+                ni.a.ToString() + ";" + ni.b.ToString() + "\n");
+
+        }
+
+        public override void SendNavigationBurn()
+        {
+            _serialPort.WriteLine("\nFN;\n");
+        }
+
+        public override void SendNavigationRead()
+        {
+            _serialPort.WriteLine("\nRN;\n");
+        }
+
+        public override void SendNavigationLoad()
+        {
+            _serialPort.WriteLine("\nLN;\n");
+        }
     }
 }

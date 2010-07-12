@@ -34,7 +34,7 @@
 #include "communication.h"
 #include "configuration.h"
 #include "datalogger.h"
-
+#include "navigation.h"
 
 extern xSemaphoreHandle xGpsSemaphore;
 extern xSemaphoreHandle xSpiSemaphore;
@@ -46,15 +46,16 @@ int main()
 	
 	uart1_queue_init(115200l);  // default baudrate: 115200
 	
-	printf("Gluonpilot v0.2DVLP [%s %s, config: %d bytes, logline: %d bytes, double: %d bytes]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(double));
+	printf("Gluonpilot v0.3DVLP [%s %s, config: %d bytes, logline: %d bytes, navigation: %d bytes, double: %d bytes]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(navigation_data.navigation_codes), sizeof(double));
 
 	microcontroller_reset_type();  // for debugging
-
-	uart1_puts("Loading configuration...");
+	led_init();
+	
 	vSemaphoreCreateBinary( xSpiSemaphore );
 	dataflash_open();
+	printf("%d MB flash found\r\n", (int)MAX_PAGE/1986);
+	uart1_puts("Loading configuration...");
 	configuration_load();
-	//configuration_default();
 	uart1_puts("done\r\n");
 	
 	// pwm_in/ppm_in task: in ppm_in/pwm_in.c

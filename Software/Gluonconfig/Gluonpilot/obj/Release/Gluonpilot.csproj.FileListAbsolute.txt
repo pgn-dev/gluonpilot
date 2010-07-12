@@ -36,3 +36,6 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconf
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Release\Gluonpilot.exe
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Release\Gluonpilot.pdb
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Release\Gluonpilot.ConnectDialog.resources
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\Kml.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\Kml.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Release\Gluonpilot.GluonConfig.resources

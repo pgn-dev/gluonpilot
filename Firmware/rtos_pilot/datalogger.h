@@ -1,7 +1,7 @@
 #ifndef DATALOGGER_H
 #define DATALOGGER_H
 
-#define MAX_INDEX 10 
+#define MAX_INDEX 16 
 
 // Uncomment this define if you want to use 50Hz raw data logging
 //#define RAW_50HZ_LOG 1
@@ -28,6 +28,7 @@ struct LogLine
 	char gps_satellites;
 	int desired_roll;
 	int desired_pitch;
+	int desired_heading;
 	int pitch;
 	int pitch_acc;
 	int roll;

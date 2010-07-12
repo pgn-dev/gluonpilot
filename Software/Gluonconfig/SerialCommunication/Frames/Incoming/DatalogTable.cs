@@ -13,6 +13,7 @@ namespace Communication.Frames.Incoming
         public int StartPage;
         public int BootStatus;
 
+
         public DatalogTable(int index, long date, long time, int startpage, int bootstatus)
         {
             this.Index = index;

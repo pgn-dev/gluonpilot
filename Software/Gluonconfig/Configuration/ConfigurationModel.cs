@@ -33,6 +33,7 @@ namespace Gluonpilot
         public int TelemetryPpm;
         public int TelemetryGpsBasic;
         public int TelemetryPressureTemp;
+        public int TelemetryAttitude;
 
         public int NeutralAccX;
         public int NeutralAccY;
@@ -82,6 +83,7 @@ namespace Gluonpilot
             ac.telemetry_gyroaccproc = _model.TelemetryGyroAccProc;
             ac.telemetry_ppm = _model.TelemetryPpm;
             ac.telemetry_pressuretemp = _model.TelemetryPressureTemp;
+            ac.telemetry_attitude = _model.TelemetryAttitude;
 
             ac.gps_initial_baudrate = _model.GpsInitialBaudrate;
 
@@ -134,6 +136,7 @@ namespace Gluonpilot
             _model.TelemetryGyroAccProc = ac.telemetry_gyroaccproc;
             _model.TelemetryPpm = ac.telemetry_ppm;
             _model.TelemetryPressureTemp = ac.telemetry_pressuretemp;
+            _model.TelemetryAttitude = ac.telemetry_attitude;
 
             _model.ChannelAp = ac.channel_ap;
             _model.ChannelPitch = ac.channel_pitch;

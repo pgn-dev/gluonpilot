@@ -64,7 +64,7 @@ namespace Gluonpilot
                     new SerialCommunication_CSV.ReceiveCommunication(ReceiveCommunication);
                 _serial.NonParsedCommunicationReceived += new SerialCommunication.ReceiveNonParsedCommunication(ReceiveNonParsedCommunication);
 
-                configurationFrame.Connect(_serial);
+                configurationTabpage.Connect(_serial);
             }
             else
                 _serial.Close();
@@ -90,7 +90,7 @@ namespace Gluonpilot
 
         private void _btn_write_Click(object sender, EventArgs e)
         {
-            _serial.Send(configurationFrame.Model.ToAllConfig());
+            _serial.Send(configurationTabpage.GetModel().ToAllConfig());
         }
 
         private void _btn_burn_Click(object sender, EventArgs e)
@@ -107,7 +107,10 @@ namespace Gluonpilot
         {
             Graph.GraphForm gf = new Graph.GraphForm(_serial);
             gf.Activate();
-            gf.Show(this);
+            gf.Show(this.Owner);
+
+            Kml.KmlListener kl = new Kml.KmlListener(_serial);
+            kl.Start();
         }
 
         private void _btnLoadDefault_Click(object sender, EventArgs e)
@@ -129,7 +132,7 @@ namespace Gluonpilot
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(ConfigurationModel));
 
                 Console.WriteLine("Writing model information");
-                xmlSerializer.Serialize(stream, configurationFrame.Model);
+                xmlSerializer.Serialize(stream, configurationTabpage.GetModel());
                 stream.Close();
             }
         }
@@ -146,7 +149,7 @@ namespace Gluonpilot
                 Console.WriteLine("Reading model information");
 
                 ConfigurationModel model = (ConfigurationModel)xmlSerializer.Deserialize(stream);
-                configurationFrame.Model = model;
+                configurationTabpage.SetModel(model);
                 stream.Close();
             }
             

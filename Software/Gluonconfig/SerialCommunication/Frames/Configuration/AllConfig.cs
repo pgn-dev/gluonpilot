@@ -39,6 +39,7 @@ namespace Communication.Frames.Configuration
         public int telemetry_ppm;
         public int telemetry_basicgps;
         public int telemetry_pressuretemp;
+        public int telemetry_attitude;
 
         // pid
         public double pid_pitch2elevator_p;

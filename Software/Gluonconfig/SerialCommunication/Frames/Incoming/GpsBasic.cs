@@ -64,13 +64,13 @@ namespace Communication.Frames.Incoming
             }
         }
 
-        public GpsBasic(double lat, double lon, double height_m, double heading_deg, double speed_ms,
+        public GpsBasic(double lat, double lon, double height_m, double heading_rad, double speed_ms,
                         int num_of_satellites, int status)
         {
             this.lat = lat;
             this.lon = lon;
             this.height_m = height_m;
-            this.heading_deg = heading_deg;
+            this.heading_deg = heading_rad/3.14159*180.0;
             this.speed_ms = speed_ms;
             this.numberOfSatellites = num_of_satellites;
             this.status = status;

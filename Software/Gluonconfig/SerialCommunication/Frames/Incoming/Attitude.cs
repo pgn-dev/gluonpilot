@@ -7,54 +7,54 @@ namespace Communication.Frames.Incoming
 {
     public class Attitude
     {
-        double _pitch_deg_sec;
-        double _roll_deg_sec;
-        double _yaw_deg_sec;
-        double _pitch_acc_deg_sec;
-        double _roll_acc_deg_sec;
+        double _pitch_deg;
+        double _roll_deg;
+        double _yaw_deg;
+        double _pitch_acc_deg;
+        double _roll_acc_deg;
 
-        public double PitchAccDegSec
+        public double PitchAccDeg
         {
             get
             {
-                return _pitch_acc_deg_sec;
+                return _pitch_acc_deg;
             }
         }
-        public double RollAccDegSec
+        public double RollAccDeg
         {
             get
             {
-                return _roll_acc_deg_sec;
+                return _roll_acc_deg;
             }
         }
-        public double PitchDegSec
+        public double PitchDeg
         {
             get { 
-                return _pitch_deg_sec; 
+                return _pitch_deg; 
             }
         }
-        public double RollDegSec
+        public double RollDeg
         {
             get
             {
-                return _roll_deg_sec;
+                return _roll_deg;
             }
         }
-        public double YawDegSec
+        public double YawDeg
         {
             get
             {
-                return _yaw_deg_sec;
+                return _yaw_deg;
             }
         }
 
         public Attitude(double roll, double pitch, double roll_acc, double pitch_acc, double yaw)
         {
-            _pitch_deg_sec = pitch;
-            _roll_deg_sec = roll;
-            _pitch_acc_deg_sec = pitch_acc;
-            _roll_acc_deg_sec = roll_acc;
-            _yaw_deg_sec = yaw;
+            _pitch_deg = pitch;
+            _roll_deg = roll;
+            _pitch_acc_deg = pitch_acc;
+            _roll_acc_deg = roll_acc;
+            _yaw_deg = yaw;
         }
     }
 }
