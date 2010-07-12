@@ -38,6 +38,7 @@
 #include "sensors.h"
 #include "configuration.h"
 #include "ahrs.h"
+#include "navigation.h"
 
 
 //! Contains all usefull (processed) sensor data
@@ -152,6 +153,21 @@ void sensors_gps_task( void *parameters )
 	uart1_puts("done\r\n");
 	
 	navigation_init ();
+		
+	while(1)
+	{
+		xSemaphoreTake( xGpsSemaphore, 1000 / portTICK_RATE_MS ); // wait for lock or timeout after 1s
+		
+		if (sensor_data.gps.status == EMPTY)
+			led2_off();
+		else if (sensor_data.gps.status == VOID)
+			led2_on();
+		else
+			break;
+	}	
+
+		
+	
 
 	for( ;; )
 	{

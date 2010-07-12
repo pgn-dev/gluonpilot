@@ -33,6 +33,9 @@ inline void dataflash_enable_spi();
 #define SDO  PORTGbits.RG8 //MOSI
 #define CS   PORTFbits.RF0 //CSB 
 
+// This became a variable so we can use different AT45xxx chips
+int MAX_PAGE = 4095;
+
 /**
  *   Initializes the SPI hardware
  */
@@ -50,7 +53,52 @@ void dataflash_open()
 	         FRAME_ENABLE_OFF, SPI_ENABLE & SPI_RX_OVFLOW_CLR); 
 
 	dataflash_disable_spi();
+	
+	switch (dataflash_read_Mbit())
+	{
+		case 8:
+			MAX_PAGE = 16383;
+			break;
+		case 7:
+			MAX_PAGE = 8191;
+			break;
+		case 6:
+			MAX_PAGE = 4095;
+			break;
+		case 5:
+			MAX_PAGE = 2047;
+			break;
+		case 4:
+			MAX_PAGE = 1023;
+			break;
+		case 3:
+			MAX_PAGE = 511;
+			break;
+		default:
+			MAX_PAGE = 4095;
+			break;
+	}	
 }
+
+int dataflash_read_Mbit()
+{
+	dataflash_disable_spi();
+	
+	microcontroller_delay_us(1);
+	
+	dataflash_enable_spi();
+	
+	// Write to buffer 1
+	spi_comm(0x9F);
+	int manu = spi_comm(0x00);
+	int size = spi_comm(0x00) & 31;
+	spi_comm(0x00);
+	spi_comm(0x00);
+
+	dataflash_disable_spi();
+	
+	return size;
+}	
 
 inline void dataflash_enable_spi()
 {

@@ -48,6 +48,8 @@ struct ControlConfig
 	float max_roll;
 	float max_pitch;
 	
+	int aileron_differential;  //! Since 0.4
+	
 	//! Pid structs to control the stabilization
 	struct pid pid_roll2aileron;
     struct pid pid_pitch2elevator;

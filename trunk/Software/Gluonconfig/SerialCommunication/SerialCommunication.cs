@@ -34,6 +34,8 @@ namespace Communication
         public delegate void ReceiveAttitudeCommunicationFrame(Attitude attitude);
         public delegate void ReceiveDatalogTableCommunicationFrame(DatalogTable table);
         public delegate void ReceiveDatalogLineCommunicationFrame(DatalogLine line);
+        public delegate void ReceiveNavigationInstructionCommunicationFrame(NavigationInstruction ni);
+
 
         // General: all lines received will be broadcasted by this event
         public abstract event ReceiveCommunication CommunicationReceived;
@@ -54,7 +56,8 @@ namespace Communication
         // Datalog
         public abstract event ReceiveDatalogTableCommunicationFrame DatalogTableCommunicationReceived;
         public abstract event ReceiveDatalogLineCommunicationFrame DatalogLineCommunicationReceived;
-
+        // Navigation
+        public abstract event ReceiveNavigationInstructionCommunicationFrame NavigationInstructionCommunicationReceived;
 
         public static string[] GetPorts()
         {
@@ -94,5 +97,13 @@ namespace Communication
         public abstract void SendDatalogTableRequest();
 
         public abstract void SendDatalogTableRead(int i);
+
+        public abstract void SendNavigationInstruction(NavigationInstruction ni);
+
+        public abstract void SendNavigationBurn();
+
+        public abstract void SendNavigationRead();
+
+        public abstract void SendNavigationLoad();
     }
 }

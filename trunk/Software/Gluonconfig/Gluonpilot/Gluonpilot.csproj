@@ -68,6 +68,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GluonConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GluonConfig.Designer.cs">
+      <DependentUpon>GluonConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ConnectDialog.resx">
@@ -75,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GluonConfig.resx">
+      <DependentUpon>GluonConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -103,6 +112,10 @@
     <ProjectReference Include="..\Graph\Graph.csproj">
       <Project>{860A7C20-C8B7-48AA-BEE3-498F85B48EDA}</Project>
       <Name>Graph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kml\Kml.csproj">
+      <Project>{3F7BDAB7-2F07-4D0B-A517-42E6DE6C70DB}</Project>
+      <Name>Kml</Name>
     </ProjectReference>
     <ProjectReference Include="..\ModuleImu3D\ModuleImu3D.csproj">
       <Project>{F9704876-1533-4E3A-A1C6-3FE0132AB487}</Project>

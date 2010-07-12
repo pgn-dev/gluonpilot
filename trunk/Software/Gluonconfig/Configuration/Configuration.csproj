@@ -48,18 +48,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationFrame.cs">
+    <Compile Include="ConfigurationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConfigurationFrame.Designer.cs">
-      <DependentUpon>ConfigurationFrame.cs</DependentUpon>
+    <Compile Include="ConfigurationControl.Designer.cs">
+      <DependentUpon>ConfigurationControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationTabpage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigurationTabpage.Designer.cs">
+      <DependentUpon>ConfigurationTabpage.cs</DependentUpon>
     </Compile>
     <Compile Include="ConfigurationModel.cs" />
+    <Compile Include="Datalogging.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Datalogging.Designer.cs">
+      <DependentUpon>Datalogging.cs</DependentUpon>
+    </Compile>
     <Compile Include="DistanceTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="DistanceTextBox.Designer.cs">
       <DependentUpon>DistanceTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationInstructionEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NavigationInstructionEdit.Designer.cs">
+      <DependentUpon>NavigationInstructionEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationListView.Designer.cs">
+      <DependentUpon>NavigationListView.cs</DependentUpon>
     </Compile>
     <Compile Include="NumericTextBox.cs">
       <SubType>Component</SubType>
@@ -85,11 +109,23 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ConfigurationFrame.resx">
-      <DependentUpon>ConfigurationFrame.cs</DependentUpon>
+    <EmbeddedResource Include="ConfigurationControl.resx">
+      <DependentUpon>ConfigurationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigurationTabpage.resx">
+      <DependentUpon>ConfigurationTabpage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Datalogging.resx">
+      <DependentUpon>Datalogging.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DistanceTextBox.resx">
       <DependentUpon>DistanceTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationInstructionEdit.resx">
+      <DependentUpon>NavigationInstructionEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationListView.resx">
+      <DependentUpon>NavigationListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PidControl.resx">
       <DependentUpon>PidControl.cs</DependentUpon>
@@ -103,10 +139,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Kml\Kml.csproj">
+      <Project>{3F7BDAB7-2F07-4D0B-A517-42E6DE6C70DB}</Project>
+      <Name>Kml</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SerialCommunication\Communication.csproj">
       <Project>{D4C21631-D662-4C79-8047-1BB72967B3B1}</Project>
       <Name>Communication</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\xhtml.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

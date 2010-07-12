@@ -33,6 +33,7 @@
 #include "communication.h"
 #include "configuration.h"
 #include "datalogger.h"
+#include "navigation.h"
 
 
 // Helper functions
@@ -66,8 +67,6 @@ void communication_telemetry_task( void *parameters )
 	counters.stream_PressureTemp = 0;
 	counters.stream_GpsBasic = 0;
 	
-	led_init();
-	
 	uart1_puts("done\r\n");
 	
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil() works correctly. */
@@ -81,6 +80,7 @@ void communication_telemetry_task( void *parameters )
 		counters.stream_GyroAccProc++;
 		counters.stream_PressureTemp++;
 		counters.stream_GpsBasic++;
+		counters.stream_Attitude++;
 		
 		if (c++ % 10 == 0)  // this counter will never be used at 20Hz
 			led1_on();
@@ -129,22 +129,26 @@ void communication_telemetry_task( void *parameters )
 			uart1_putc(';');
 			print_signed_integer((int)(sensor_data.r*1000), &uart1_puts);
 			uart1_puts("\r\n");
-			
+		}	
+		else if (counters.stream_GyroAccProc > config.telemetry.stream_GyroAccProc)
+			counters.stream_GyroAccProc = 0;
+		
+		///////////////////////////////////////////////////////////////
+		//                         ATTITUDE                          //
+		///////////////////////////////////////////////////////////////	
+		if (counters.stream_Attitude == config.telemetry.stream_Attitude)
+		{		
 			uart1_puts("TA;");
 			print_signed_integer((int)(sensor_data.roll*1000), &uart1_puts);
 			uart1_putc(';');
 			print_signed_integer((int)(sensor_data.pitch*1000), &uart1_puts);
 			uart1_putc(';');
-			print_signed_integer((int)(sensor_data.roll_acc*1000), &uart1_puts);
-			uart1_putc(';');
-			print_signed_integer((int)(sensor_data.pitch_acc*1000), &uart1_puts);
-			uart1_putc(';');
 			print_signed_integer((int)(sensor_data.yaw*1000), &uart1_puts);
 			uart1_puts("\r\n");
-			counters.stream_GyroAccProc = 0;
+			counters.stream_Attitude = 0;
 		} 
-		else if (counters.stream_GyroAccProc > config.telemetry.stream_GyroAccProc)
-			counters.stream_GyroAccProc = 0;
+		else if (counters.stream_Attitude > config.telemetry.stream_Attitude)
+			counters.stream_Attitude = 0;
 			
 		///////////////////////////////////////////////////////////////
 		//           SCP1000: PRESSURE & TEMPERATURE                 //
@@ -255,6 +259,7 @@ void communication_input_task( void *parameters )
 					config.telemetry.stream_GyroAccProc = atoi(&(buffer[token[3]]));
 					config.telemetry.stream_PPM = atoi(&(buffer[token[4]]));
 					config.telemetry.stream_PressureTemp = atoi(&(buffer[token[5]]));
+					config.telemetry.stream_Attitude = atoi(&(buffer[token[6]]));
 				}
 				///////////////////////////////////////////////////////////////
 				//                    SET ACCELEROMETER                      //
@@ -387,7 +392,7 @@ void communication_input_task( void *parameters )
 					
 #ifndef RAW_50HZ_LOG
 					printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
-					printf ("HeightBaro;Pitch;PitchAcc;Roll;RollAcc;DesiredPitch;DesiredRoll;AccX;AccXG;AccY;AccYG;AccZ;");
+					printf ("HeightBaro;Pitch;PitchAcc;Roll;RollAcc;DesiredPitch;DesiredRoll;DesiredHeading;AccX;AccXG;AccY;AccYG;AccZ;");
 					printf ("AccZG;GyroX;GyroY;GyroZ;P;Q;R;TempC;FlightMode\r\n");
 #else
 					printf ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");//;idg500-vref;FlightMode\r\n");
@@ -428,6 +433,45 @@ void communication_input_task( void *parameters )
 					configuration_default();
 				}	
 				///////////////////////////////////////////////////////////////
+				//                       BURN NAVIGATION                     //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'N') 
+				{
+					navigation_burn();
+				}	
+				///////////////////////////////////////////////////////////////
+				//                       LOAD NAVIGATION                     //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'L' && buffer[token[0] + 1] == 'N') 
+				{
+					navigation_load();
+				}	
+				///////////////////////////////////////////////////////////////
+				//                       READ NAVIGATION                     //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'R' && buffer[token[0] + 1] == 'N') 
+				{
+					int i;
+					for (i = 0; i < MAX_NAVIGATIONCODES; i++)
+					{
+						printf("ND;%d;%d;%f;%f;%d;%d\n\r", i+1, navigation_data.navigation_codes[i].opcode,
+							navigation_data.navigation_codes[i].x, navigation_data.navigation_codes[i].y,
+							navigation_data.navigation_codes[i].a, navigation_data.navigation_codes[i].b);
+					}	
+				}
+				///////////////////////////////////////////////////////////////
+				//                      WRITE NAVIGATION                     //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'W' && buffer[token[0] + 1] == 'N') 
+				{
+					int i = atoi(&(buffer[token[1]])) - 1;
+					navigation_data.navigation_codes[i].opcode = atoi(&(buffer[token[2]]));
+					navigation_data.navigation_codes[i].x = atof(&(buffer[token[3]]));
+					navigation_data.navigation_codes[i].y = atof(&(buffer[token[4]]));
+					navigation_data.navigation_codes[i].a = atoi(&(buffer[token[5]]));
+					navigation_data.navigation_codes[i].b = atoi(&(buffer[token[6]]));
+				}
+				///////////////////////////////////////////////////////////////
 				//                  READ ALL CONFIGURATION                   //
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'R' && buffer[token[0] + 1] == 'C')    // RC;x  Read configuration
@@ -461,6 +505,8 @@ void communication_input_task( void *parameters )
 						print_unsigned_integer((unsigned int)config.telemetry.stream_GyroAccProc, uart1_puts);
 						uart1_putc(';');
 						print_unsigned_integer((unsigned int)config.telemetry.stream_PressureTemp, uart1_puts);
+						uart1_putc(';');
+						print_unsigned_integer((unsigned int)config.telemetry.stream_Attitude, uart1_puts);
 						uart1_putc(';');
 						
 						//config.gps
@@ -562,7 +608,7 @@ void print_logline(struct LogLine *l)
 	printf ("%d;%d;%d;%d;", l->gps_speed_m_s, l->gps_heading, l->gps_height_m, (int)l->gps_satellites);
 	printf ("%d;%d;%d;", l->height_m, l->pitch, l->pitch_acc);
 	printf ("%d;%d;", l->roll, l->roll_acc);
-	printf ("%d;%d;", l->desired_pitch, l->desired_roll);
+	printf ("%d;%d;%d;", l->desired_pitch, l->desired_roll, l->desired_heading);
 	printf ("%u;%f;%u;", l->acc_x, l->acc_x_g, l->acc_y);
 	printf ("%f;%u;%f;", l->acc_y_g, l->acc_z, l->acc_z_g);
 	printf ("%u;%u;%u;", l->gyro_x, l->gyro_y, l->gyro_z);

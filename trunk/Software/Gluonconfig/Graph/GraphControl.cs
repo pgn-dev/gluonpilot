@@ -26,6 +26,7 @@ namespace Graph
         public GraphControl()
         {
             InitializeComponent();
+            _zed_graph.GraphPane.IsFontsScaled = false;
         }
 
           
@@ -126,16 +127,16 @@ namespace Graph
         {
             double time = (DateTime.Now - _beginDateTime).TotalSeconds;
             if (_lineItems.ContainsKey("Roll"))
-                _lineItems["Roll"].AddPoint(new PointPair(time, attitude.RollDegSec));
+                _lineItems["Roll"].AddPoint(new PointPair(time, attitude.RollDeg));
 
             if (_lineItems.ContainsKey("Pitch"))
-                _lineItems["Pitch"].AddPoint(new PointPair(time, attitude.PitchDegSec));
+                _lineItems["Pitch"].AddPoint(new PointPair(time, attitude.PitchDeg));
             if (_lineItems.ContainsKey("Roll acc"))
-                _lineItems["Roll acc"].AddPoint(new PointPair(time, attitude.RollAccDegSec));
+                _lineItems["Roll acc"].AddPoint(new PointPair(time, attitude.RollAccDeg));
             if (_lineItems.ContainsKey("Pitch acc"))
-                _lineItems["Pitch acc"].AddPoint(new PointPair(time, attitude.PitchAccDegSec));
+                _lineItems["Pitch acc"].AddPoint(new PointPair(time, attitude.PitchAccDeg));
             if (_lineItems.ContainsKey("Yaw"))
-                _lineItems["Yaw"].AddPoint(new PointPair(time, attitude.YawDegSec));
+                _lineItems["Yaw"].AddPoint(new PointPair(time, attitude.YawDeg));
 
 
             Scale xScale = _zed_graph.GraphPane.XAxis.Scale;
@@ -238,6 +239,11 @@ namespace Graph
                     }
                 }
             }
+        }
+
+        private void _zed_graph_Resize(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -26,7 +26,7 @@ struct Configuration config;
  */
 void configuration_load()
 {
-	dataflash_read(0, sizeof(struct Configuration), (unsigned char*)&config);
+	dataflash_read(CONFIGURATION_PAGE, sizeof(struct Configuration), (unsigned char*)&config);
 }
 
 
@@ -44,7 +44,7 @@ void configuration_load()
  */
 void configuration_write()
 {
-	dataflash_write(0, sizeof(struct Configuration), (unsigned char*)&config);
+	dataflash_write(CONFIGURATION_PAGE, sizeof(struct Configuration), (unsigned char*)&config);
 }
 
 

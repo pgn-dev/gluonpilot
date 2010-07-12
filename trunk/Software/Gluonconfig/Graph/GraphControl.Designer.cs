@@ -34,8 +34,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this._nud_timewindow = new System.Windows.Forms.NumericUpDown();
             this._clb_variables = new System.Windows.Forms.CheckedListBox();
-            this._zed_graph = new ZedGraph.ZedGraphControl();
             this.btn_collapse = new System.Windows.Forms.Button();
+            this._zed_graph = new ZedGraph.ZedGraphControl();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -107,7 +107,8 @@
             // 
             // _clb_variables
             // 
-            this._clb_variables.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this._clb_variables.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
             this._clb_variables.FormattingEnabled = true;
             this._clb_variables.Items.AddRange(new object[] {
             "Height (SCP1000)",
@@ -136,23 +137,6 @@
             this._clb_variables.TabIndex = 0;
             this._clb_variables.MouseClick += new System.Windows.Forms.MouseEventHandler(this._clb_variables_MouseClick);
             // 
-            // _zed_graph
-            // 
-            this._zed_graph.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._zed_graph.EditButtons = System.Windows.Forms.MouseButtons.None;
-            this._zed_graph.IsAntiAlias = true;
-            this._zed_graph.Location = new System.Drawing.Point(0, 0);
-            this._zed_graph.Name = "_zed_graph";
-            this._zed_graph.ScrollGrace = 0;
-            this._zed_graph.ScrollMaxX = 0;
-            this._zed_graph.ScrollMaxY = 0;
-            this._zed_graph.ScrollMaxY2 = 0;
-            this._zed_graph.ScrollMinX = 0;
-            this._zed_graph.ScrollMinY = 0;
-            this._zed_graph.ScrollMinY2 = 0;
-            this._zed_graph.Size = new System.Drawing.Size(471, 372);
-            this._zed_graph.TabIndex = 0;
-            // 
             // btn_collapse
             // 
             this.btn_collapse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -166,6 +150,25 @@
             this.btn_collapse.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btn_collapse.UseVisualStyleBackColor = true;
             this.btn_collapse.Click += new System.EventHandler(this.btn_collapse_Click);
+            // 
+            // _zed_graph
+            // 
+            this._zed_graph.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._zed_graph.EditButtons = System.Windows.Forms.MouseButtons.None;
+            this._zed_graph.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._zed_graph.IsAntiAlias = true;
+            this._zed_graph.Location = new System.Drawing.Point(0, 0);
+            this._zed_graph.Name = "_zed_graph";
+            this._zed_graph.ScrollGrace = 0;
+            this._zed_graph.ScrollMaxX = 0;
+            this._zed_graph.ScrollMaxY = 0;
+            this._zed_graph.ScrollMaxY2 = 0;
+            this._zed_graph.ScrollMinX = 0;
+            this._zed_graph.ScrollMinY = 0;
+            this._zed_graph.ScrollMinY2 = 0;
+            this._zed_graph.Size = new System.Drawing.Size(471, 372);
+            this._zed_graph.TabIndex = 0;
+            this._zed_graph.Resize += new System.EventHandler(this._zed_graph_Resize);
             // 
             // GraphControl
             // 

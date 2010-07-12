@@ -20,3 +20,6 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconf
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Debug\Gluonpilot.Form1.resources
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Debug\Gluonpilot.Properties.Resources.resources
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Debug\Gluonpilot.csproj.GenerateResource.Cache
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Debug\Kml.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Debug\Kml.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Debug\Gluonpilot.GluonConfig.resources

@@ -142,11 +142,11 @@ void control_task( void *parameters )
 		else if (ppm.channel[config.control.channel_ap] < 1666)
 		{
 			control_state.flight_mode = STABILIZED;
-			if (lastMode != control_state.flight_mode)  // target altitude = altitude when switching from manual to stabilized
-				control_state.desired_height = sensor_data.pressure_height; //home_height + 65.0;
 #ifdef ENABLE_QUADROCOPTER
 			control_stabilized(DT, 0); // stabilized mode
 #else
+			if (lastMode != control_state.flight_mode)  // target altitude = altitude when switching from manual to stabilized
+				control_state.desired_height = sensor_data.pressure_height; //home_height + 65.0;
 			control_stabilized(DT, 1); // stabilized mode
 #endif
 		} 
@@ -265,7 +265,8 @@ void control_navigate(double dt, int altitude_controllable)
 void control_desired_to_servos(double dt)
 {
 	double elevator_out_radians,
-	       aileron_out_radians;
+	       aileron_out_radians;     
+	static int counter = 0;
 	
 	// Keep pitch & roll within limits
 	control_state.desired_pitch = MIN(control_state.desired_pitch, config.control.max_pitch);
@@ -289,13 +290,22 @@ void control_desired_to_servos(double dt)
 	//aileron_out_radians -= (sensor_data.p) * config.control.pid_roll2aileron.d_gain;
 	
 	double desired_yaw_rate  = (double)((int)ppm.channel[config.control.channel_yaw]
-		                            - config.control.channel_neutral[config.control.channel_yaw]) / 500.0 * 35.0; // max 30°/s
+		                            - config.control.channel_neutral[config.control.channel_yaw]) / 500.0 * (DEG2RAD(30.0)); // max 30°/s
 	
-	if (abs(desired_yaw_rate) < 5.0) // stick in the middle
-		desired_yaw_rate = 0.0;
+	if (abs(desired_yaw_rate) < DEG2RAD(5.0)) // stick in the middle
+	{
+		desired_yaw_rate = 0.0;		
+	}
 	
-	yaw_out = (int) (config.control.pid_heading2roll.d_gain * (desired_yaw_rate*(3.14159/180.0) - sensor_data.yaw) / dt * 630.0);
+	navigation_data.desired_heading_rad += desired_yaw_rate*dt;
+	if (navigation_data.desired_heading_rad > DEG2RAD(360.0))
+		navigation_data.desired_heading_rad	 -= DEG2RAD(360.0);
+	if (navigation_data.desired_heading_rad < -DEG2RAD(360.0))
+		navigation_data.desired_heading_rad	 += DEG2RAD(360.0);
+	
+	yaw_out = (int) (config.control.pid_heading2roll.d_gain * (navigation_data.desired_heading_rad - sensor_data.yaw) / dt * 630.0);
 
+	
 #else
 	elevator_out_radians = pid_update(&config.control.pid_pitch2elevator, 
 	                                         control_state.desired_pitch - sensor_data.pitch, dt);

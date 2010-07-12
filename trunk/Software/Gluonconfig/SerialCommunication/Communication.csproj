@@ -33,7 +33,7 @@
   <ItemGroup>
     <Reference Include="SmartThreadPool, Version=1.0.2235.39078, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\SmartThreadPool.dll</HintPath>
+      <HintPath>..\SmartThreadPool.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -56,6 +56,7 @@
     <Compile Include="Frames\Incoming\GpsBasic.cs" />
     <Compile Include="Frames\Incoming\GyroAccProcessed.cs" />
     <Compile Include="Frames\Incoming\GyroAccRaw.cs" />
+    <Compile Include="Frames\Incoming\NavigationInstruction.cs" />
     <Compile Include="Frames\Incoming\PressureTemp.cs" />
     <Compile Include="Frames\Incoming\RcInput.cs" />
     <Compile Include="Frames\Incoming\Sensors.cs" />

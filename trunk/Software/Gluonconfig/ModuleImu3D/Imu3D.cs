@@ -74,9 +74,9 @@ namespace ModuleImu3D
 
         void serial_AttitudeCommunicationReceived(Communication.Frames.Incoming.Attitude attitude)
         {
-            roll = (float)attitude.RollDegSec;
-            pitch = (float)attitude.PitchDegSec;
-            yaw = -(float)attitude.YawDegSec;
+            roll = (float)attitude.RollDeg;
+            pitch = (float)attitude.PitchDeg;
+            yaw = -(float)attitude.YawDeg;
         }
 
         #region Public Properties

@@ -12,6 +12,7 @@ struct TelemetryConfig
 	unsigned char stream_GyroAccProc;
 	unsigned char stream_PressureTemp;
 	unsigned char stream_GpsBasic;
+	unsigned char stream_Attitude;       //! Since 0.4
 };
 
 /*!

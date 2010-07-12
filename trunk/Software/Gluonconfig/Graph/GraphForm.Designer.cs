@@ -36,7 +36,7 @@
             this.graph1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.graph1.Location = new System.Drawing.Point(0, 0);
             this.graph1.Name = "graph1";
-            this.graph1.Size = new System.Drawing.Size(605, 360);
+            this.graph1.Size = new System.Drawing.Size(640, 372);
             this.graph1.TabIndex = 0;
             // 
             // GraphForm
@@ -44,8 +44,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.ClientSize = new System.Drawing.Size(605, 360);
+            this.ClientSize = new System.Drawing.Size(640, 372);
             this.Controls.Add(this.graph1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "GraphForm";
             this.Text = "Graph";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GraphForm_FormClosing);

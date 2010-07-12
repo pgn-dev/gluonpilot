@@ -26,12 +26,14 @@
 #include "datalogger.h"
 #include "sensors.h"
 #include "control.h"
+#include "navigation.h"
+
 
 struct LogIndex datalogger_index_table[MAX_INDEX];
 
 unsigned char buffer[PAGE_SIZE];
 
-int current_page = 3;
+int current_page = START_LOG_PAGE;
 int current_index = 0;
 
 int disable_logging = 0; // used when reading out data
@@ -51,14 +53,16 @@ void datalogger_write(int page, int size, unsigned char *buffer);
  */
 void datalogger_init()
 {
-	int i, start_page = 3, last_index = -1;
+	int i, start_page = START_LOG_PAGE, last_index = -1;
 	unsigned long date2 = 0xFFFFFFFF;
 	unsigned long date;
 	
 	//printf("formatting...");
 	//datalogger_format();
 	//printf("done");
-	datalogger_read(2, sizeof(struct LogIndex) * MAX_INDEX, (unsigned char*)datalogger_index_table);
+	
+	// read index page
+	datalogger_read(LOG_INDEX_PAGE, sizeof(struct LogIndex) * MAX_INDEX, (unsigned char*)datalogger_index_table);
 	
 	// find the index with the oldest date
 	for (i = 0; i < MAX_INDEX; i++)
@@ -90,8 +94,8 @@ void datalogger_init()
 		}
 	}	
 	
-	if (start_page < 3)  // possible after a format
-		start_page = 3;
+	if (start_page < START_LOG_PAGE)  // possible after a format
+		start_page = START_LOG_PAGE;
 
 	// Lets find the first page	that is
 	//    - 0: not been written yet: OK
@@ -124,7 +128,7 @@ void datalogger_start_session()
 	datalogger_index_table[current_index - 1].time = sensor_data.gps.time;
 	datalogger_index_table[current_index - 1].date = sensor_data.gps.date;
 	
-	datalogger_write(2, sizeof(struct LogIndex) * MAX_INDEX, (unsigned char*)datalogger_index_table);
+	datalogger_write(LOG_INDEX_PAGE, sizeof(struct LogIndex) * MAX_INDEX, (unsigned char*)datalogger_index_table);
 	//printf("Starting to datalog to page %d, index %d\r\n", current_page, current_index);
 }	
 
@@ -163,7 +167,7 @@ void datalogger_writeline(struct LogLine *line)
 		datalogger_write(current_page, sizeof(buffer), buffer);
 		current_page++;
 		if (current_page > MAX_PAGE)
-			current_page = 3;
+			current_page = START_LOG_PAGE;
 		current_line = 0;
 		//printf("write page!\n\r");
 	}	
@@ -200,7 +204,7 @@ int datalogger_print_next_page(int index, void(*printer)(struct LogLine*))
 
 	datalogger_read(last_page++, sizeof(buffer), buffer);
 	if (last_page > MAX_PAGE)
-			last_page = 3;
+			last_page = START_LOG_PAGE;
 
 	if (*i != index+1)
 	{
@@ -224,11 +228,13 @@ void datalogger_format()
 	for (i = 0; i < PAGE_SIZE; i++)
 		buffer[i] = 0;
 		
-	for (i = 2; i < MAX_PAGE; i++)
+	for (i = LOG_INDEX_PAGE; i <= MAX_PAGE; i++)
 	{
 		printf("page %d\r\n", i);
 		datalogger_write(i, PAGE_SIZE, buffer);
 	}	
+	
+	datalogger_init();
 }	
 
 
@@ -312,7 +318,8 @@ void datalogger_task( void *parameters )
 			l.desired_roll = (int)(control_state.desired_roll * (180.0/3.14159));
 			l.pitch_acc = (int)(sensor_data.pitch_acc * (180.0/3.14159));
 			l.roll_acc = (int)(sensor_data.roll_acc * (180.0/3.14159));
-			l.control_state = control_state.flight_mode;		
+			l.control_state = control_state.flight_mode;
+			l.desired_heading = ((int)(navigation_data.desired_heading_rad * 180.0/3.14159));
 #else
 			// Raw sensor logging at 50Hz
 			l.height_m_5 = (int)(sensor_data.pressure_height*5);

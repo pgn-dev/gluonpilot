@@ -12,6 +12,8 @@ namespace Configuration
     public partial class PidControl : UserControl
     {
         public event EventHandler IsChanged;
+
+        [NonSerialized]
         private PidModel _model = new PidModel();
 
         public double P
@@ -45,16 +47,9 @@ namespace Configuration
             set { _tb_Dmin.Text = value.ToString(System.Globalization.CultureInfo.InvariantCulture.NumberFormat); }
         }
 
-        public PidModel Model
+        public PidModel GetModel()
         {
-            get
-            {
-                return _model;
-            }
-            set
-            {
-                SetModel(value);
-            }
+            return _model;
         }
 
         public void SetModel(PidModel m)
