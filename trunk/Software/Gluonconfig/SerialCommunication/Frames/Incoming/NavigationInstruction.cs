@@ -88,7 +88,7 @@ namespace Communication.Frames.Incoming
                 s += "FLY_TO_ABSOLUTE(lon: " + RAD2DEG(y).ToString("F5") + "°, lat: " + RAD2DEG(x).ToString("F5") + "°, height: " + a + " m)";
                 break;
             case navigation_command.GOTO:	   // line number
-                s += "GOTO(" + a + ")";
+                s += "GOTO(" + (a+1) + ")";
                 break;
             case navigation_command.CIRCLE_ABS:    // x, y, radius, height <-- should be inside a while  12 B
                 s += "CIRCLE_ABSOLUTE(lon: " + RAD2DEG(y).ToString("F5") + "°, lat: " + RAD2DEG(x).ToString("F5") + "°, radius: " + a + "m, height: " + b + " m)";

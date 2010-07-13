@@ -393,7 +393,7 @@ void communication_input_task( void *parameters )
 #ifndef RAW_50HZ_LOG
 					printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
 					printf ("HeightBaro;Pitch;PitchAcc;Roll;RollAcc;DesiredPitch;DesiredRoll;DesiredHeading;AccX;AccXG;AccY;AccYG;AccZ;");
-					printf ("AccZG;GyroX;GyroY;GyroZ;P;Q;R;TempC;FlightMode\r\n");
+					printf ("AccZG;GyroX;GyroY;GyroZ;P;Q;R;TempC;FlightMode;NavigationLine\r\n");
 #else
 					printf ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");//;idg500-vref;FlightMode\r\n");
 #endif
@@ -613,7 +613,7 @@ void print_logline(struct LogLine *l)
 	printf ("%f;%u;%f;", l->acc_y_g, l->acc_z, l->acc_z_g);
 	printf ("%u;%u;%u;", l->gyro_x, l->gyro_y, l->gyro_z);
 	printf ("%d;%d;%d;", l->p, l->q, l->r);
-	printf ("%d;%d\r\n", (int)l->temperature_c, l->control_state);
+	printf ("%d;%d;%d\r\n", (int)l->temperature_c, l->control_state, l->navigation_code_line);
 
 #else
 	// Raw sensor logging @ 50Hz

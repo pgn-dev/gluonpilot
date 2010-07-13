@@ -50,6 +50,7 @@ struct LogLine
 	
 	char temperature_c;
 	int  height_m;
+	int  navigation_code_line;
 };
 
 #else
