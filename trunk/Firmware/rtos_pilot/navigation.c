@@ -102,7 +102,8 @@ void navigation_update()
 		if (sensor_data.gps.speed_ms >= 2.0)
 		{
 			navigation_data.airborne = 1;
-			navigation_set_home();  // also precalculates relative waypoints
+			navigation_set_home();
+			navigation_calculate_relative_positions();
 		}
 		else
 			return;
@@ -294,8 +295,6 @@ void navigation_set_home()
 	
 	cos_latitude = cos(sensor_data.gps.latitude_rad);
 	longitude_meter_per_radian = latitude_meter_per_radian * cos_latitude;  // approx
-	
-	navigation_calculate_relative_positions();
 }
 
 
