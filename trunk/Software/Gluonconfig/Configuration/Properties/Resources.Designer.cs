@@ -59,12 +59,5 @@ namespace Configuration.Properties {
                 resourceCulture = value;
             }
         }
-        
-        internal static System.Drawing.Bitmap xhtml {
-            get {
-                object obj = ResourceManager.GetObject("xhtml", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

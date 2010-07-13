@@ -45,11 +45,11 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.xMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._btn_kml_classic = new System.Windows.Forms.ToolStripMenuItem();
-            this._btn_save_xml = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this._btn_format = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this._pb = new System.Windows.Forms.ToolStripProgressBar();
+            this.xMLToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -207,7 +207,7 @@
             // 
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.xMLToolStripMenuItem,
-            this._btn_save_xml});
+            this.xMLToolStripMenuItem1});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -220,7 +220,7 @@
             this._btn_kml_classic});
             this.xMLToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("xMLToolStripMenuItem.Image")));
             this.xMLToolStripMenuItem.Name = "xMLToolStripMenuItem";
-            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.xMLToolStripMenuItem.Text = "KML";
             this.xMLToolStripMenuItem.Click += new System.EventHandler(this.xMLToolStripMenuItem_Click);
             // 
@@ -232,13 +232,6 @@
             this._btn_kml_classic.Size = new System.Drawing.Size(221, 126);
             this._btn_kml_classic.Text = "Classic";
             this._btn_kml_classic.Click += new System.EventHandler(this._btn_kml_classic_Click);
-            // 
-            // _btn_save_xml
-            // 
-            this._btn_save_xml.Image = global::Configuration.Properties.Resources.xhtml;
-            this._btn_save_xml.Name = "_btn_save_xml";
-            this._btn_save_xml.Size = new System.Drawing.Size(152, 22);
-            this._btn_save_xml.Text = "XML";
             // 
             // toolStripSeparator3
             // 
@@ -270,6 +263,13 @@
             this._pb.Padding = new System.Windows.Forms.Padding(5);
             this._pb.Size = new System.Drawing.Size(100, 22);
             this._pb.Value = 100;
+            // 
+            // xMLToolStripMenuItem1
+            // 
+            this.xMLToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("xMLToolStripMenuItem1.Image")));
+            this.xMLToolStripMenuItem1.Name = "xMLToolStripMenuItem1";
+            this.xMLToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.xMLToolStripMenuItem1.Text = "XML";
             // 
             // Datalogging
             // 
@@ -308,10 +308,10 @@
         private System.Windows.Forms.ToolStripButton _btn_open;
         private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _btn_kml_classic;
-        private System.Windows.Forms.ToolStripMenuItem _btn_save_xml;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton _btn_format;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripProgressBar _pb;
+        private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem1;
     }
 }
