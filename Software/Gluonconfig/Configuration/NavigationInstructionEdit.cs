@@ -38,6 +38,10 @@ namespace Configuration
                 _tb_x.Text = RAD2DEG(ni.x).ToString("F5", CultureInfo.InvariantCulture);
                 _tb_y.Text = RAD2DEG(ni.y).ToString("F5", CultureInfo.InvariantCulture);
             }
+
+            // index normally starts at 0
+            if (ni.opcode == NavigationInstruction.navigation_command.GOTO)
+                _tb_a.Text = (ni.a + 1).ToString();
         }
 
         private double RAD2DEG(double x)
@@ -72,6 +76,10 @@ namespace Configuration
                 ni.x = DEG2RAD(ni.x);
                 ni.y = DEG2RAD(ni.y);
             }
+
+            // index normally starts at 0
+            if (ni.opcode == NavigationInstruction.navigation_command.GOTO)
+                ni.a -= 1;
 
             this.Close();
         }

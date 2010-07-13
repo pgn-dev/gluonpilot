@@ -139,8 +139,29 @@ namespace Configuration
 
         private void _btn_open_Click(object sender, EventArgs e)
         {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (loglines != null)
+            {
+                loglines.Tables.Clear();
+            }
 
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                if (loglines == null)
+                    loglines = new DataSet();
+                Stream s = ofd.OpenFile();
+                loglines.ReadXml(s);
+                _dgv_datalog.SelectionMode = DataGridViewSelectionMode.CellSelect;
+                _dgv_datalog.DataSource = loglines;
+                _dgv_datalog.DataMember = "Data";
+
+                foreach (DataGridViewColumn dgvc in _dgv_datalog.Columns)
+                    dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
+                _dgv_datalog.SelectionMode = DataGridViewSelectionMode.ColumnHeaderSelect;
+                s.Close();
+            }
         }
+
 
         private void _btn_kml_classic_Click(object sender, EventArgs e)
         {
@@ -154,6 +175,19 @@ namespace Configuration
                 sw.Close();
             }
 
+        }
+
+        private void xMLToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Stream s;
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.DefaultExt = "xml";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                s = sfd.OpenFile();
+                loglines.WriteXml(s);
+                s.Close();
+            }
         }
     }
 }

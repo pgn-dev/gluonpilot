@@ -339,6 +339,8 @@ void datalogger_task( void *parameters )
 			l.pitch_acc = (int)(sensor_data.pitch_acc * (180.0/3.14159));
 			l.roll = (int)(sensor_data.roll * (180.0/3.14159));
 			//l.control_state = control_state.flight_mode;
+			
+			l.navigation_code_line = navigation_data.current_codeline;
 #endif
 			datalogger_writeline(&l);
 		}

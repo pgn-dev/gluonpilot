@@ -96,10 +96,11 @@ void navigation_load()
 
 void navigation_update()
 {
+	static int i = 0;
 	// Set the "home"-position
 	if (!navigation_data.airborne)
 	{ 
-		if (sensor_data.gps.speed_ms >= 2.0)
+		if (sensor_data.gps.speed_ms >= 0.1 && sensor_data.gps.status == ACTIVE)
 		{
 			navigation_data.airborne = 1;
 			navigation_set_home();
@@ -115,7 +116,7 @@ void navigation_update()
 	switch(current_code->opcode)
 	{
 		case CLIMB:
-			navigation_data.desired_heading_rad = navigation_data.wind_heading;
+			//navigation_data.desired_heading_rad = navigation_data.wind_heading;
 			navigation_data.desired_height_m = current_code->x;
 			//if (sensor_data.pressure_height - 
 			navigation_data.current_codeline++;
@@ -127,8 +128,9 @@ void navigation_update()
 		
 		case FLY_TO_REL:
 		case FLY_TO_ABS:
-			navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - current_code->y,
+			/*navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - current_code->y,
 	                                                         sensor_data.gps.latitude_rad - current_code->x);
+	                                                         */
 	        navigation_data.desired_height_m = current_code->a;
 			navigation_data.current_codeline++;
 			break;
@@ -147,6 +149,11 @@ void navigation_update()
 		//default:
 		
 	}	
+	
+//	if (i++ % 5 == 0)
+//	{
+//		printf("\r\n->%d %f %f %f\r\n", navigation_data.current_codeline, navigation_data.desired_heading_rad, navigation_data.desired_pre_bank, navigation_data.desired_height_m);
+//	}	
 }
 
 	
@@ -229,8 +236,12 @@ void navigation_update_old()
 
 void navigation_do_circle(struct NavigationCode *current_code)
 {
+	static int i = 0;
+	
+	
 	float r = (float)current_code->a; // meter
 	float rad_s = sensor_data.gps.speed_ms / r;   // rad/s for this circle
+#define carrot 5.0
 	float distance_ahead = carrot * sensor_data.gps.speed_ms;
 		
 	// heading towards center of circle
@@ -280,6 +291,12 @@ void navigation_do_circle(struct NavigationCode *current_code)
 		navigation_data.desired_heading_rad += DEG2RAD(360.0);
 		
 	navigation_data.desired_height_m = current_code->b;
+	
+	
+//	if (i++ % 5 == 0)
+//	{
+//		printf("\r\n   |>%f %f %f %f %f %f\r\n", sensor_data.gps.longitude_rad, pointlon, sensor_data.gps.latitude_rad, pointlat, r, distance_ahead);
+//	}
 }	
 
 
