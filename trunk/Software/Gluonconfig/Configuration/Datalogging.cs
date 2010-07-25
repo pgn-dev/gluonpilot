@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Communication;
 using Communication.Frames.Incoming;
 using System.IO;
+using System.Diagnostics;
 
 namespace Configuration
 {
@@ -93,6 +94,21 @@ namespace Configuration
             string time = table.Time / 10000 + ":" + (table.Time / 100) % 100 + ":" + table.Time % 100;
             _lv_datalogtable.Items[table.Index].SubItems[2] = new ListViewItem.ListViewSubItem(_lv_datalogtable.Items[table.Index], date);
             _lv_datalogtable.Items[table.Index].SubItems[3] = new ListViewItem.ListViewSubItem(_lv_datalogtable.Items[table.Index], time);
+
+            try
+            {
+                _lv_datalogtable.Items[table.Index].Tag =
+                    new DateTime((int)table.Date % 100 + 2000,
+                                 (int)(table.Date / 100) % 100,
+                                 (int)table.Date / 10000,
+                                 (int)table.Time / 10000,
+                                 (int)(table.Time / 100) % 100,
+                                 (int)table.Time % 100);
+            }
+            catch (Exception ex) // datetime exception -> no valid date set
+            {
+                _lv_datalogtable.Items[table.Index].Tag = DateTime.Now;
+            }
         }
 
         void ReceiveDatalogLine(DatalogLine line)
@@ -173,8 +189,9 @@ namespace Configuration
                 StreamWriter sw = new StreamWriter(s);
                 sw.Write(Kml.KmlClassicGenerator.BuildKml(loglines));
                 sw.Close();
+                if (MessageBox.Show("Do you want to open the file in Google Earth?", "Open file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                    Process.Start(AppDomain.CurrentDomain.BaseDirectory + "\\" + sfd.FileName);
             }
-
         }
 
         private void xMLToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -187,6 +204,29 @@ namespace Configuration
                 s = sfd.OpenFile();
                 loglines.WriteXml(s);
                 s.Close();
+            }
+        }
+
+        private void _btn_kml_track_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.DefaultExt = "kml";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                DateTime timestamp = DateTime.Now;
+                try
+                {
+                    timestamp = (DateTime)_lv_datalogtable.SelectedItems[0].Tag;
+                }
+                catch (Exception ex)
+                { }
+
+                Stream s = sfd.OpenFile();
+                StreamWriter sw = new StreamWriter(s);
+                sw.Write(Kml.KmlTrackGenerator.BuildKml(loglines, timestamp));
+                sw.Close();
+                if (MessageBox.Show("Do you want to open the file in Google Earth?", "Open file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                    Process.Start(AppDomain.CurrentDomain.BaseDirectory + "\\" + sfd.FileName);
             }
         }
     }

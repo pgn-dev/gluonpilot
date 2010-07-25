@@ -52,6 +52,10 @@ namespace Gluonpilot
         public double ControlMaxPitch;
         public double ControlMaxRoll;
         public int ControlMixing;
+        public double CruisingSpeed;
+        public double WaypointRadius;
+        public bool StabilizationWithAltitudeHold;
+
 
         /*!
          *    Converts to _model to AllConfig communication frame.
@@ -77,6 +81,9 @@ namespace Gluonpilot
             ac.control_max_pitch = _model.ControlMaxPitch;
             ac.control_max_roll = _model.ControlMaxRoll;
             ac.control_mixing = _model.ControlMixing;
+            ac.control_waypoint_radius = _model.WaypointRadius;
+            ac.control_stabilization_with_altitude_hold = _model.StabilizationWithAltitudeHold;
+            ac.control_cruising_speed = _model.CruisingSpeed;
 
             ac.telemetry_basicgps = _model.TelemetryGpsBasic;
             ac.telemetry_gyroaccraw = _model.TelemetryGyroAccRaw;
@@ -148,6 +155,9 @@ namespace Gluonpilot
             _model.ControlMixing = ac.control_mixing;
             _model.ControlMaxPitch = ac.control_max_pitch;
             _model.ControlMaxRoll = ac.control_max_roll;
+            _model.CruisingSpeed = ac.control_cruising_speed;
+            _model.StabilizationWithAltitudeHold = ac.control_stabilization_with_altitude_hold;
+            _model.WaypointRadius = ac.control_waypoint_radius;
 
             _model.GpsInitialBaudrate = ac.gps_initial_baudrate;
             _model.GpsOperationalBaudrate = ac.gps_operational_baudrate;

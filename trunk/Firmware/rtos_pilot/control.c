@@ -147,7 +147,7 @@ void control_task( void *parameters )
 #else
 			if (lastMode != control_state.flight_mode)  // target altitude = altitude when switching from manual to stabilized
 				control_state.desired_height = sensor_data.pressure_height; //home_height + 65.0;
-			control_stabilized(DT, 1); // stabilized mode
+			control_stabilized(DT, config.control.stabilization_with_altitude_hold); // stabilized mode
 #endif
 		} 
 		else

@@ -28,19 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tb_distance = new Configuration.NumericTextBox();
             this.cb_unit = new System.Windows.Forms.ComboBox();
+            this.tb_distance = new Configuration.NumericTextBox();
             this.SuspendLayout();
-            // 
-            // tb_distance
-            // 
-            this.tb_distance.AllowSpace = false;
-            this.tb_distance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tb_distance.Location = new System.Drawing.Point(0, 0);
-            this.tb_distance.Name = "tb_distance";
-            this.tb_distance.Size = new System.Drawing.Size(49, 20);
-            this.tb_distance.TabIndex = 0;
             // 
             // cb_unit
             // 
@@ -57,6 +47,18 @@
             this.cb_unit.TabIndex = 1;
             this.cb_unit.SelectedIndexChanged += new System.EventHandler(this.cb_unit_SelectedIndexChanged);
             this.cb_unit.DropDown += new System.EventHandler(this.cb_unit_DropDown);
+            // 
+            // tb_distance
+            // 
+            this.tb_distance.AllowSpace = false;
+            this.tb_distance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_distance.Location = new System.Drawing.Point(0, 0);
+            this.tb_distance.Name = "tb_distance";
+            this.tb_distance.Size = new System.Drawing.Size(49, 20);
+            this.tb_distance.TabIndex = 0;
+            this.tb_distance.TextChanged += new System.EventHandler(this.tb_distance_TextChanged);
+            this.tb_distance.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_distance_KeyPress);
             // 
             // DistanceTextBox
             // 

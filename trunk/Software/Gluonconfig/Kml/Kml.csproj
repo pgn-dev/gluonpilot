@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="KmlClassicGenerator.cs" />
     <Compile Include="KmlListener.cs" />
+    <Compile Include="KmlTrackGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

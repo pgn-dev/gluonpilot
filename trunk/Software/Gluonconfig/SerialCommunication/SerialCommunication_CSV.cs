@@ -194,6 +194,10 @@ namespace Communication
                         ac.control_max_pitch = int.Parse(lines[59]);
                         ac.control_max_roll = int.Parse(lines[60]);
 
+                        ac.control_waypoint_radius = int.Parse(lines[61]);
+                        ac.control_cruising_speed = int.Parse(lines[62]);
+                        ac.control_stabilization_with_altitude_hold = int.Parse(lines[63]) == 0? false: true;
+
                         AllConfigCommunicationReceived(ac);
                     }
 
@@ -430,11 +434,19 @@ namespace Communication
             _serialPort.WriteLine("\nSC;" +
                 ac.control_mixing.ToString() + ";" + 
                 ac.control_max_pitch.ToString(CultureInfo.InvariantCulture) + ";" +
-                ac.control_max_roll.ToString(CultureInfo.InvariantCulture) + "\n");
+                ac.control_max_roll.ToString(CultureInfo.InvariantCulture) + ";" +
+                ac.control_waypoint_radius.ToString(CultureInfo.InvariantCulture) + ";" +
+                ac.control_cruising_speed.ToString(CultureInfo.InvariantCulture) + ";" +
+                (ac.control_stabilization_with_altitude_hold == false? 0:1).ToString() + "\n");
+
+
             Console.WriteLine("\nSC;" +
                 ac.control_mixing.ToString() + ";" +
                 ac.control_max_pitch.ToString(CultureInfo.InvariantCulture) + ";" +
-                ac.control_max_roll.ToString(CultureInfo.InvariantCulture) + "\n");
+                ac.control_max_roll.ToString(CultureInfo.InvariantCulture) + ";" +
+                ac.control_waypoint_radius.ToString(CultureInfo.InvariantCulture) + ";" +
+                ac.control_cruising_speed.ToString(CultureInfo.InvariantCulture) + ";" +
+                (ac.control_stabilization_with_altitude_hold == false ? 0 : 1).ToString() + "\n");
         }
 
         public override void ReadAllConfig()

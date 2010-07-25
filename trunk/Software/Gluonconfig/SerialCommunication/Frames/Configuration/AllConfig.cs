@@ -20,6 +20,10 @@ namespace Communication.Frames.Configuration
         public double control_max_pitch;
         public double control_aileron_differential;
         public int control_mixing;
+        public bool control_stabilization_with_altitude_hold;
+        public double control_cruising_speed;
+        public double control_waypoint_radius;
+
 
         // gps
         public int gps_initial_baudrate;

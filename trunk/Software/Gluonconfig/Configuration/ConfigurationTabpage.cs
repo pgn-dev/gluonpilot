@@ -94,6 +94,9 @@ namespace Gluonpilot
 
             _nud_control_pitch_max.Value = (int)_model.ControlMaxPitch;
             _nud_control_roll_max.Value = (int)_model.ControlMaxRoll;
+            tb_speed.SpeedMS = _model.CruisingSpeed;
+            _dtb_waypoint_radius.DistanceM = _model.WaypointRadius;
+            cb_altitudehold.Checked = _model.StabilizationWithAltitudeHold;
 
             if (_model.ControlMixing >= 0 && _model.ControlMixing < _cbControlMix.Items.Count)
                 _cbControlMix.SelectedIndex = _model.ControlMixing;
@@ -885,10 +888,6 @@ namespace Gluonpilot
             _model.Heading2RollPidModel = _pid_heading_to_roll.GetModel();
         }
 
-
-
-
-
         private void _llConfigGps_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_Gps");
@@ -924,14 +923,24 @@ namespace Gluonpilot
             // tan(roll) = v^2 / (G * r)
             tb_min_circle_radius.DistanceM =
                 tb_speed.SpeedMS * tb_speed.SpeedMS / Math.Tan((double)_nud_control_roll_max.Value / 180.0 * 3.14) / 9.81;
+
+            _model.CruisingSpeed = tb_speed.SpeedMS;
         }
 
+        private void cb_altitudehold_CheckedChanged(object sender, EventArgs e)
+        {
+            _model.StabilizationWithAltitudeHold = cb_altitudehold.Checked;
+        }
 
+        private void _dtb_waypoint_radius_DistanceChanged(object sender, EventArgs e)
+        {
+            _model.WaypointRadius = _dtb_waypoint_radius.DistanceM;
+        }
 
-
-
-
-
+        private void tb_speed_SpeedChanged(object sender, EventArgs e)
+        {
+            _model.CruisingSpeed = tb_speed.SpeedMS;
+        }
 
        
 

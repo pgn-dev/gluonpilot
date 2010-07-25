@@ -14,6 +14,8 @@ namespace Configuration
     {
         private double current_distance_m;
 
+        public event EventHandler DistanceChanged;
+
         [BrowsableAttribute(true)]
         public Boolean ReadOnly
         {
@@ -70,6 +72,17 @@ namespace Configuration
         private void cb_unit_DropDown(object sender, EventArgs e)
         {
             current_distance_m = DistanceM;
+        }
+
+        private void tb_distance_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+        }
+
+        private void tb_distance_TextChanged(object sender, EventArgs e)
+        {
+            if (DistanceChanged != null)
+                DistanceChanged(this, e); // or whatever args you want
         }
     }
 }

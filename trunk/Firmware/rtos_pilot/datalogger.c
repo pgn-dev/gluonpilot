@@ -282,7 +282,7 @@ void datalogger_task( void *parameters )
 	for( ;; )
 	{	
 #ifndef RAW_50HZ_LOG
-		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 200 / portTICK_RATE_MS ) );   // 5Hz
+		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 250 / portTICK_RATE_MS ) );   // 4Hz
 #else
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 20 / portTICK_RATE_MS ) );   // 50Hz
 #endif		
@@ -299,16 +299,16 @@ void datalogger_task( void *parameters )
 			l.gps_heading = (int)(sensor_data.gps.heading_rad * (180.0/3.14159));
 			l.gps_speed_m_s = sensor_data.gps.speed_ms;
 			l.gps_satellites = (char)sensor_data.gps.satellites_in_view;
-			l.acc_x = sensor_data.acc_x_raw;
-			l.acc_y = sensor_data.acc_y_raw;
-			l.acc_z = sensor_data.acc_z_raw;
+			//l.acc_x = sensor_data.acc_x_raw;
+			//l.acc_y = sensor_data.acc_y_raw;
+			//l.acc_z = sensor_data.acc_z_raw;
 			l.acc_x_g = sensor_data.acc_x;
 			l.acc_y_g = sensor_data.acc_y;
 			l.acc_z_g = sensor_data.acc_z;
 
-			l.gyro_x = sensor_data.gyro_x_raw;
-			l.gyro_y = sensor_data.gyro_y_raw;
-			l.gyro_z = sensor_data.gyro_z_raw;
+			//l.gyro_x = sensor_data.gyro_x_raw;
+			//l.gyro_y = sensor_data.gyro_y_raw;
+			//l.gyro_z = sensor_data.gyro_z_raw;
 			l.p = (int)(sensor_data.p * (180.0/3.14159));
 			l.q = (int)(sensor_data.q * (180.0/3.14159));
 			l.r = (int)(sensor_data.r * (180.0/3.14159));
@@ -316,10 +316,11 @@ void datalogger_task( void *parameters )
 			l.roll = (int)(sensor_data.roll * (180.0/3.14159));
 			l.desired_pitch = (int)(control_state.desired_pitch * (180.0/3.14159));
 			l.desired_roll = (int)(control_state.desired_roll * (180.0/3.14159));
-			l.pitch_acc = (int)(sensor_data.pitch_acc * (180.0/3.14159));
-			l.roll_acc = (int)(sensor_data.roll_acc * (180.0/3.14159));
+			//l.pitch_acc = (int)(sensor_data.pitch_acc * (180.0/3.14159));
+			//l.roll_acc = (int)(sensor_data.roll_acc * (180.0/3.14159));
 			l.control_state = control_state.flight_mode;
 			l.desired_heading = ((int)(navigation_data.desired_heading_rad * 180.0/3.14159));
+			l.navigation_code_line = navigation_data.current_codeline;
 #else
 			// Raw sensor logging at 50Hz
 			l.height_m_5 = (int)(sensor_data.pressure_height*5);
@@ -339,8 +340,6 @@ void datalogger_task( void *parameters )
 			l.pitch_acc = (int)(sensor_data.pitch_acc * (180.0/3.14159));
 			l.roll = (int)(sensor_data.roll * (180.0/3.14159));
 			//l.control_state = control_state.flight_mode;
-			
-			l.navigation_code_line = navigation_data.current_codeline;
 #endif
 			datalogger_writeline(&l);
 		}
