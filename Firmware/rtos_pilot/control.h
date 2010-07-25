@@ -54,6 +54,10 @@ struct ControlConfig
 	struct pid pid_roll2aileron;
     struct pid pid_pitch2elevator;
     struct pid pid_heading2roll;
+    
+    int waypoint_radius_m;
+    int cruising_speed_ms;
+    unsigned int stabilization_with_altitude_hold : 1;
 };	
 
 

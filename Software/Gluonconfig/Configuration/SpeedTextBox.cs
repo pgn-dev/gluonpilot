@@ -14,6 +14,8 @@ namespace Configuration
     {
         private double current_speed_ms;
 
+        public event EventHandler SpeedChanged;
+
         public SpeedTextBox()
         {
             InitializeComponent();
@@ -58,7 +60,13 @@ namespace Configuration
 
         private void tb_speed_KeyPress(object sender, KeyPressEventArgs e)
         {
-            RaiseKeyEvent(e.KeyChar, null);
+            
+        }
+
+        private void tb_speed_TextChanged(object sender, EventArgs e)
+        {
+            if (SpeedChanged != null)
+                SpeedChanged(e, null);
         }
     }
 }

@@ -56,6 +56,7 @@
             this.tb_speed.Size = new System.Drawing.Size(53, 20);
             this.tb_speed.TabIndex = 0;
             this.tb_speed.Text = "0";
+            this.tb_speed.TextChanged += new System.EventHandler(this.tb_speed_TextChanged);
             this.tb_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_speed_KeyPress);
             // 
             // SpeedTextBox

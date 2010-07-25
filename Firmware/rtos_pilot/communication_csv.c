@@ -319,6 +319,11 @@ void communication_input_task( void *parameters )
 					config.control.servo_mix = (buffer[token[1] + 0]) - '0';
 					config.control.max_pitch = atof(&(buffer[token[2]])) / 180.0 * 3.14;
 					config.control.max_roll = atof(&(buffer[token[3]])) / 180.0 * 3.14;
+					
+           	        config.control.waypoint_radius_m = atof(&(buffer[token[4]]));
+         	        config.control.cruising_speed_ms = atof(&(buffer[token[5]]));
+         	        config.control.stabilization_with_altitude_hold = atof(&(buffer[token[6]]));
+
 				}	
 				///////////////////////////////////////////////////////////////
 				//                  SET GPS CONFIGURATION                    //
@@ -392,8 +397,8 @@ void communication_input_task( void *parameters )
 					
 #ifndef RAW_50HZ_LOG
 					printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
-					printf ("HeightBaro;Pitch;PitchAcc;Roll;RollAcc;DesiredPitch;DesiredRoll;DesiredHeading;AccX;AccXG;AccY;AccYG;AccZ;");
-					printf ("AccZG;GyroX;GyroY;GyroZ;P;Q;R;TempC;FlightMode;NavigationLine\r\n");
+					printf ("HeightBaro;Pitch;Roll;DesiredPitch;DesiredRoll;DesiredHeading;AccXG;AccYG;");
+					printf ("AccZG;P;Q;R;TempC;FlightMode;NavigationLine\r\n");
 #else
 					printf ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");//;idg500-vref;FlightMode\r\n");
 #endif
@@ -564,7 +569,12 @@ void communication_input_task( void *parameters )
 						
 						printf(";%d", (int)config.control.use_pwm);
 						
-						printf(";%d;%d;%d", (int)config.control.servo_mix, (int)(config.control.max_pitch/3.14*180.0), (int)(config.control.max_roll/3.14*180.0));
+						printf(";%d;%d;%d;%d;%d;%d", (int)config.control.servo_mix, 
+						                     	     (int)(config.control.max_pitch/3.14*180.0), 
+						                     	     (int)(config.control.max_roll/3.14*180.0),
+						                   	         (int)(config.control.waypoint_radius_m),
+						                 	         (int)(config.control.cruising_speed_ms),
+						                 	         (int)(config.control.stabilization_with_altitude_hold));
 						uart1_puts("\r\n");
 					}	
 					
@@ -606,12 +616,11 @@ void print_logline(struct LogLine *l)
 	// Normal logging
 	printf ("DD;%f;%f;", l->gps_latitude_rad*(180.0/3.14159), l->gps_longitude_rad*(180.0/3.14159));
 	printf ("%d;%d;%d;%d;", l->gps_speed_m_s, l->gps_heading, l->gps_height_m, (int)l->gps_satellites);
-	printf ("%d;%d;%d;", l->height_m, l->pitch, l->pitch_acc);
-	printf ("%d;%d;", l->roll, l->roll_acc);
+	printf ("%d;%d;", l->height_m, l->pitch);
+	printf ("%d;", l->roll);
 	printf ("%d;%d;%d;", l->desired_pitch, l->desired_roll, l->desired_heading);
-	printf ("%u;%f;%u;", l->acc_x, l->acc_x_g, l->acc_y);
-	printf ("%f;%u;%f;", l->acc_y_g, l->acc_z, l->acc_z_g);
-	printf ("%u;%u;%u;", l->gyro_x, l->gyro_y, l->gyro_z);
+	printf ("%f;", l->acc_x_g);
+	printf ("%f;%f;", l->acc_y_g, l->acc_z_g);
 	printf ("%d;%d;%d;", l->p, l->q, l->r);
 	printf ("%d;%d;%d\r\n", (int)l->temperature_c, l->control_state, l->navigation_code_line);
 

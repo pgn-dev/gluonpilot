@@ -128,11 +128,26 @@ void navigation_update()
 		
 		case FLY_TO_REL:
 		case FLY_TO_ABS:
-			/*navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - current_code->y,
+			navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - current_code->y,
 	                                                         sensor_data.gps.latitude_rad - current_code->x);
-	                                                         */
+	                                                         
 	        navigation_data.desired_height_m = current_code->a;
-			navigation_data.current_codeline++;
+
+			if (distance_between_meter(sensor_data.gps.longitude_rad, current_code->y,
+			                           sensor_data.gps.latitude_rad, current_code->x) < config.control.waypoint_radius_m)
+			{
+				double heading_error_rad = navigation_data.desired_heading_rad - sensor_data.gps.heading_rad;
+				
+				if (heading_error_rad >= DEG2RAD(180.0))
+					heading_error_rad -= DEG2RAD(360.0);
+				else if (heading_error_rad <= DEG2RAD(-180.0))
+					heading_error_rad += DEG2RAD(360.0);
+				
+				if (abs(heading_error_rad) > DEG2RAD(90.0)) // we are flying away from the waypoint AND we are close enough
+				{
+					navigation_data.current_codeline++;
+				}	
+			} 
 			break;
 		
 		case CIRCLE_REL:
