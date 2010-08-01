@@ -31,11 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GluonConfig));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this._btn_connect = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this._btn_showlogging = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.config = new System.Windows.Forms.TabPage();
@@ -45,13 +40,17 @@
             this.datalog = new System.Windows.Forms.TabPage();
             this.datalogging = new Configuration.Datalogging();
             this.gcs = new System.Windows.Forms.TabPage();
-            this._tb_logging = new System.Windows.Forms.RichTextBox();
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this._cb_print_timestamp = new System.Windows.Forms.CheckBox();
             this._cb_hide_parsed = new System.Windows.Forms.CheckBox();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this._btn_connect = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this._btn_showlogging = new System.Windows.Forms.ToolStripButton();
+            this._tb_logging = new System.Windows.Forms.TextBox();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -59,6 +58,7 @@
             this.config.SuspendLayout();
             this.Navigation.SuspendLayout();
             this.datalog.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer1
@@ -80,54 +80,6 @@
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
             this.toolStripContainer1.TopToolStripPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             // 
-            // imageList
-            // 
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "cog.png");
-            this.imageList.Images.SetKeyName(1, "wrench.png");
-            this.imageList.Images.SetKeyName(2, "world_edit.png");
-            this.imageList.Images.SetKeyName(3, "folder_table.png");
-            this.imageList.Images.SetKeyName(4, "transmit.png");
-            this.imageList.Images.SetKeyName(5, "map.png");
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._btn_connect,
-            this.toolStripSeparator1,
-            this._btn_showlogging});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(149, 25);
-            this.toolStrip1.TabIndex = 0;
-            // 
-            // _btn_connect
-            // 
-            this._btn_connect.Image = ((System.Drawing.Image)(resources.GetObject("_btn_connect.Image")));
-            this._btn_connect.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._btn_connect.Name = "_btn_connect";
-            this._btn_connect.Size = new System.Drawing.Size(67, 22);
-            this._btn_connect.Text = "Connect";
-            this._btn_connect.Click += new System.EventHandler(this._btn_connect_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // _btn_showlogging
-            // 
-            this._btn_showlogging.Checked = true;
-            this._btn_showlogging.CheckState = System.Windows.Forms.CheckState.Checked;
-            this._btn_showlogging.Image = ((System.Drawing.Image)(resources.GetObject("_btn_showlogging.Image")));
-            this._btn_showlogging.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._btn_showlogging.Name = "_btn_showlogging";
-            this._btn_showlogging.Size = new System.Drawing.Size(64, 22);
-            this._btn_showlogging.Text = "Logging";
-            this._btn_showlogging.Click += new System.EventHandler(this._btn_showlogging_Click);
-            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -143,9 +95,9 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this._tb_logging);
             this.splitContainer1.Panel2.Controls.Add(this._cb_print_timestamp);
             this.splitContainer1.Panel2.Controls.Add(this._cb_hide_parsed);
-            this.splitContainer1.Panel2.Controls.Add(this._tb_logging);
             this.splitContainer1.Size = new System.Drawing.Size(645, 493);
             this.splitContainer1.SplitterDistance = 393;
             this.splitContainer1.TabIndex = 1;
@@ -239,17 +191,16 @@
             this.gcs.Text = "GCS";
             this.gcs.UseVisualStyleBackColor = true;
             // 
-            // _tb_logging
+            // imageList
             // 
-            this._tb_logging.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this._tb_logging.Location = new System.Drawing.Point(12, 26);
-            this._tb_logging.Name = "_tb_logging";
-            this._tb_logging.ReadOnly = true;
-            this._tb_logging.Size = new System.Drawing.Size(621, 58);
-            this._tb_logging.TabIndex = 1;
-            this._tb_logging.Text = "";
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "cog.png");
+            this.imageList.Images.SetKeyName(1, "wrench.png");
+            this.imageList.Images.SetKeyName(2, "world_edit.png");
+            this.imageList.Images.SetKeyName(3, "folder_table.png");
+            this.imageList.Images.SetKeyName(4, "transmit.png");
+            this.imageList.Images.SetKeyName(5, "map.png");
             // 
             // _cb_print_timestamp
             // 
@@ -275,6 +226,52 @@
             this._cb_hide_parsed.Text = "Hide parsed lines";
             this._cb_hide_parsed.UseVisualStyleBackColor = true;
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._btn_connect,
+            this.toolStripSeparator1,
+            this._btn_showlogging});
+            this.toolStrip1.Location = new System.Drawing.Point(3, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(149, 25);
+            this.toolStrip1.TabIndex = 0;
+            // 
+            // _btn_connect
+            // 
+            this._btn_connect.Image = ((System.Drawing.Image)(resources.GetObject("_btn_connect.Image")));
+            this._btn_connect.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._btn_connect.Name = "_btn_connect";
+            this._btn_connect.Size = new System.Drawing.Size(67, 22);
+            this._btn_connect.Text = "Connect";
+            this._btn_connect.Click += new System.EventHandler(this._btn_connect_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // _btn_showlogging
+            // 
+            this._btn_showlogging.Checked = true;
+            this._btn_showlogging.CheckState = System.Windows.Forms.CheckState.Checked;
+            this._btn_showlogging.Image = ((System.Drawing.Image)(resources.GetObject("_btn_showlogging.Image")));
+            this._btn_showlogging.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._btn_showlogging.Name = "_btn_showlogging";
+            this._btn_showlogging.Size = new System.Drawing.Size(64, 22);
+            this._btn_showlogging.Text = "Logging";
+            this._btn_showlogging.Click += new System.EventHandler(this._btn_showlogging_Click);
+            // 
+            // _tb_logging
+            // 
+            this._tb_logging.Location = new System.Drawing.Point(19, 26);
+            this._tb_logging.Multiline = true;
+            this._tb_logging.Name = "_tb_logging";
+            this._tb_logging.ReadOnly = true;
+            this._tb_logging.Size = new System.Drawing.Size(607, 58);
+            this._tb_logging.TabIndex = 6;
+            // 
             // GluonConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -289,8 +286,6 @@
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -299,6 +294,8 @@
             this.config.ResumeLayout(false);
             this.Navigation.ResumeLayout(false);
             this.datalog.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -320,9 +317,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private Configuration.ConfigurationControl configurationControl;
         private Configuration.Datalogging datalogging;
-        private System.Windows.Forms.RichTextBox _tb_logging;
         private System.Windows.Forms.CheckBox _cb_print_timestamp;
         private System.Windows.Forms.CheckBox _cb_hide_parsed;
+        private System.Windows.Forms.TextBox _tb_logging;
 
 
 

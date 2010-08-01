@@ -26,6 +26,8 @@ unsigned char spi_comm_hw(unsigned char outgoing_byte);
 inline void dataflash_disable_spi();
 inline void dataflash_enable_spi();
 
+void dataflash_write_raw(int page, int size, unsigned char *buffer);
+void dataflash_read_raw(int page, int size, unsigned char *buffer);
 
 // These are the pins our dataflash chip is connected to
 #define SCL  PORTGbits.RG6 //SCK
@@ -35,6 +37,14 @@ inline void dataflash_enable_spi();
 
 // This became a variable so we can use different AT45xxx chips
 int MAX_PAGE = 4095;
+int PAGE_SIZE;
+
+int START_LOG_PAGE = 5;
+int	LOG_INDEX_PAGE = 4;
+int	CONFIGURATION_PAGE = 0;
+int	NAVIGATION_PAGE = 2;
+
+#define STATUS_RDY 0b10000000
 
 /**
  *   Initializes the SPI hardware
@@ -57,28 +67,35 @@ void dataflash_open()
 	switch (dataflash_read_Mbit())
 	{
 		case 8:
-			MAX_PAGE = 16383;
-			break;
-		case 7:
-			MAX_PAGE = 8191;
-			break;
-		case 6:
 			MAX_PAGE = 4095;
 			break;
+		case 7:
+			MAX_PAGE = 4095;
+			break;
+		case 6:    // This 16Mbit chip is the default
+			MAX_PAGE = 4095;
+			PAGE_SIZE = 528;
+			START_LOG_PAGE = 5;
+			LOG_INDEX_PAGE = 4;
+			CONFIGURATION_PAGE = 0;  // page 1=reserve
+			NAVIGATION_PAGE = 2;  // page 3=reserve
+			break;
 		case 5:
-			MAX_PAGE = 2047;
-			break;
-		case 4:
-			MAX_PAGE = 1023;
-			break;
-		case 3:
-			MAX_PAGE = 511;
+			START_LOG_PAGE = 9;
+			LOG_INDEX_PAGE = 8;
+			CONFIGURATION_PAGE = 0;  // page 1+2+3=reserve
+			NAVIGATION_PAGE = 4;  // page 6+7=reserve
+
+			MAX_PAGE = 4095;
+			PAGE_SIZE = 264;
 			break;
 		default:
 			MAX_PAGE = 4095;
 			break;
 	}	
 }
+
+
 
 int dataflash_read_Mbit()
 {
@@ -98,6 +115,20 @@ int dataflash_read_Mbit()
 	dataflash_disable_spi();
 	
 	return size;
+}	
+
+
+int dataflash_read_status()
+{
+	dataflash_disable_spi();
+	
+	microcontroller_delay_us(1);
+	
+	dataflash_enable_spi();
+	
+	// Write to buffer 1
+	spi_comm(0xD7);
+	return spi_comm(0x00);
 }	
 
 inline void dataflash_enable_spi()
@@ -171,6 +202,30 @@ unsigned char spi_comm_bitbang(unsigned char outgoing_byte)
  */
 void dataflash_write(int page, int size, unsigned char *buffer)
 {
+	while ((dataflash_read_status()  & STATUS_RDY) == 0)
+		;
+		
+	dataflash_write_raw(page, PAGE_SIZE, buffer);
+	
+	if  (size > PAGE_SIZE)
+	{
+		while ((dataflash_read_status()  & STATUS_RDY) == 0)
+			;
+		dataflash_write_raw(page+1, PAGE_SIZE, (unsigned char*) &(buffer[PAGE_SIZE]));
+	}	
+	/*
+	while (size > PAGE_SIZE)
+	{
+		size -= PAGE_SIZE;
+		buffer += PAGE_SIZE;
+		page += 1;
+		dataflash_write_raw(page, size > PAGE_SIZE ? PAGE_SIZE : size, buffer);
+	}*/	
+}
+
+	
+void dataflash_write_raw(int page, int size, unsigned char *buffer)
+{
 	int add1, add2;
 	int i;
 	add1 = 0;
@@ -193,14 +248,31 @@ void dataflash_write(int page, int size, unsigned char *buffer)
 
 	dataflash_disable_spi();
 	
-	// Write buffer 1 to memory
-	// 3 don't care bits
-	// 12 bits for page
-	add1 = page;
-	add1 >>= 6;
-	add2 = page;
-	add2 <<= 2;
-	
+	if (PAGE_SIZE == 528)
+	{
+		// For a page size of 528 bytes (16Mbit)
+		//     12 bits
+		// xxPPPPPP|PPPPPPxx|xxxxxxxx
+		// Write buffer 1 to memory
+		// 3 don't care bits
+		// 12 bits for page
+		add1 = page;
+		add1 >>= 6;
+		add2 = page;
+		add2 <<= 2;
+	}
+	else if (PAGE_SIZE == 264)
+	{
+		// For a page size of 264 bytes (8Mbit)
+		//      12 bits
+		// xxxPPPPP|PPPPPPPx|xxxxxxxx
+		// Write buffer 1 to memory
+		// 12 bits for page
+		add1 = page;
+		add1 >>= 7;
+		add2 = page;
+		add2 <<= 1;
+	}	
 	
 	
 	microcontroller_delay_us(1);
@@ -217,12 +289,6 @@ void dataflash_write(int page, int size, unsigned char *buffer)
 }	
 
 
-void dataflash_read_config(int size, unsigned char *configbuffer)
-{
-	dataflash_read(0, size, configbuffer);
-}	
-
-
 /*!
  *   This operation will read a page of maximum 524 byte
  *   Basically, I'm just following the datasheet:
@@ -230,28 +296,61 @@ void dataflash_read_config(int size, unsigned char *configbuffer)
  *
  *   Some simple simulations showed that it takes 0.7ms to read a page.
  */
-void dataflash_read(int page, int size, unsigned char *buffer)
+ void dataflash_read(int page, int size, unsigned char *buffer)
+{
+	/*if (size > PAGE_SIZE)
+	{
+		dataflash_read_raw(page, PAGE_SIZE, buffer);
+		while (size > PAGE_SIZE)
+		{
+			size -= PAGE_SIZE;
+			buffer += PAGE_SIZE;
+			page += 1;
+			dataflash_read_raw(page, size > PAGE_SIZE ? PAGE_SIZE : size, buffer);
+		}	
+	} 
+	else*/
+	{
+		dataflash_read_raw(page, size, buffer);		
+	}
+}
+
+
+void dataflash_read_raw(int page, int size, unsigned char *buffer)
 {
 	int add1, add2;
 	int i;
 	
-	// Write buffer 1 to memory
-	// 3 don't care bits
-	// 12 bits for page
-	add1 = page;
-	add1 >>= 6;
-	add2 = page;
-	add2 <<= 2;
+	// For 528 bytes page size: xxPPPPPP | PPPPPPBB | BBBBBBBB
+	// For 264 bytes page size: xxxPPPPP | PPPPPPPB | BBBBBBBB
+	if (PAGE_SIZE == 528)
+	{
+		// Write buffer 1 to memory
+		// 3 don't care bits
+		// 12 bits for page
+		add1 = page;
+		add1 >>= 6;
+		add2 = page;
+		add2 <<= 2;
+	} 
+	else if (PAGE_SIZE == 264)
+	{
+		add1 = page;
+		add1 >>= 7;
+		add2 = page;
+		add2 <<= 1;
+	}
 
 	
 	dataflash_disable_spi();
 	dataflash_enable_spi();
-
+	
 	spi_comm(0xE8); 
 	spi_comm(add1 & 0xFF);  // 3 addr bytes   : 12 bytes: page - 10 bits: starting address
 	spi_comm(add2 & 0xFF);
 	spi_comm(0);
 	
+		
 	spi_comm(0);  // 4 don't care bytes
 	spi_comm(0);
 	spi_comm(0);

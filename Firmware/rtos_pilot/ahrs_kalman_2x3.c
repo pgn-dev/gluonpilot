@@ -23,12 +23,10 @@
 
 #include "sensors.h"
 #include "configuration.h"
+#include "common.h"
 
 
 // Usefull constants
-#define G 9.81
-#define RAD2DEG (180.0/3.14159)
-
 static double pitch_rad = 0.0, roll_rad = 0.0;
 static double pitch_acc = 0.0, roll_acc = 0.0;
 
@@ -113,15 +111,15 @@ void ahrs_filter(double dt)
 	pitch_rad += f1*dt;
 	
 	// pitch = (-90,90]; roll = (-180,180]
-	if (pitch_rad > 3.14159)
-		pitch_rad -= 3.14159*2.0;
-	if (pitch_rad < -3.14159)
-		pitch_rad += 3.14159*2.0;
+	if (pitch_rad > DEG2RAD(180.0))
+		pitch_rad -= DEG2RAD(360.0);
+	if (pitch_rad < DEG2RAD(-180.0))
+		pitch_rad += DEG2RAD(360.0);
 
-	if (roll_rad > 3.14159)
-		roll_rad -= 3.14159*2.0;
-	if (roll_rad < -3.14159)
-		roll_rad += 3.14159*2.0;
+	if (roll_rad > DEG2RAD(180.0))
+		roll_rad -= DEG2RAD(360.0);
+	if (roll_rad < DEG2RAD(-180.0))
+		roll_rad += DEG2RAD(360.0);
 
 	
 	sin_roll = fast_sin(roll_rad);

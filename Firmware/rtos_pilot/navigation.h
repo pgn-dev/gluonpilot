@@ -2,7 +2,7 @@
 #define NAVIGATION_H
 
 
-#define MAX_NAVIGATIONCODES 37
+#define MAX_NAVIGATIONCODES 36
 
 void navigation_burn();
 void navigation_load();
@@ -66,7 +66,7 @@ struct NavigationData
 	float wind_heading;           //!< Wind comes from...
 	
 	float desired_heading_rad;    //!< Last calculated desired heading. In radians. Zero is north.
-	float desired_height_m;
+	float desired_height_above_ground_m;
 	float desired_pre_bank;
 	
 	//float height_error;       

@@ -45,8 +45,8 @@ struct ControlConfig
 	unsigned int use_pwm : 1;
 
 	enum MixTypes servo_mix;	
-	float max_roll;
-	float max_pitch;
+	double max_roll;
+	double max_pitch;
 	
 	int aileron_differential;  //! Since 0.4
 	

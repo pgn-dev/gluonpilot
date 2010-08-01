@@ -72,7 +72,7 @@ namespace Communication.Frames.Incoming
                 s += "EMPTY";
                 break;
             case navigation_command.CLIMB:
-                s += "CLIMB(" + a + "m)";
+                s += "CLIMB(" + x + "m)";
                 break;
 
             case navigation_command.FROM_TO_REL:   // x, y, height
@@ -95,6 +95,9 @@ namespace Communication.Frames.Incoming
                 break;
             case navigation_command.CIRCLE_REL:
                 s += "CIRCLE_RELATIVE(lon: " + y + " m, lat: " + x + ", m radius: " + a + "m, height: " + b + " m)";
+                break;
+            default:
+                s += "UNKNOWN/UNSUPPORTED (" + (int)opcode + " : " +  x + ", " + y + ", " + a + ", " + b + ")";
                 break;
             }
 

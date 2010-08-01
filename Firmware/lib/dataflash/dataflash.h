@@ -7,13 +7,12 @@
 
 //#define MAX_PAGE 4095 
 extern int MAX_PAGE;
+extern int PAGE_SIZE;
 
-#define PAGE_SIZE 528
-
-#define START_LOG_PAGE 5
-#define LOG_INDEX_PAGE 4
-#define CONFIGURATION_PAGE 0  // page 1=reserve
-#define NAVIGATION_PAGE 2
+extern int START_LOG_PAGE;
+extern int LOG_INDEX_PAGE;
+extern int CONFIGURATION_PAGE;
+extern int NAVIGATION_PAGE;
 
 
 /*!

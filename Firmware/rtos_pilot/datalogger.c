@@ -31,9 +31,10 @@
 
 struct LogIndex datalogger_index_table[MAX_INDEX];
 
-unsigned char buffer[PAGE_SIZE];
+unsigned char buffer[528];  // WARNING: won't work with AT45DB321
 
-int current_page = START_LOG_PAGE;
+
+int current_page;
 int current_index = 0;
 
 int disable_logging = 0; // used when reading out data
@@ -56,6 +57,8 @@ void datalogger_init()
 	int i, start_page = START_LOG_PAGE, last_index = -1;
 	unsigned long date2 = 0xFFFFFFFF;
 	unsigned long date;
+	
+	current_page = START_LOG_PAGE;
 	
 	//printf("formatting...");
 	//datalogger_format();
@@ -166,7 +169,7 @@ void datalogger_writeline(struct LogLine *line)
 	{
 		datalogger_write(current_page, sizeof(buffer), buffer);
 		current_page++;
-		if (current_page > MAX_PAGE)
+		if (current_page >= MAX_PAGE)
 			current_page = START_LOG_PAGE;
 		current_line = 0;
 		//printf("write page!\n\r");
@@ -203,7 +206,7 @@ int datalogger_print_next_page(int index, void(*printer)(struct LogLine*))
 	}
 
 	datalogger_read(last_page++, sizeof(buffer), buffer);
-	if (last_page > MAX_PAGE)
+	if (last_page >= MAX_PAGE)
 			last_page = START_LOG_PAGE;
 
 	if (*i != index+1)
@@ -321,6 +324,7 @@ void datalogger_task( void *parameters )
 			l.control_state = control_state.flight_mode;
 			l.desired_heading = ((int)(navigation_data.desired_heading_rad * 180.0/3.14159));
 			l.navigation_code_line = navigation_data.current_codeline;
+			l.desired_height = control_state.desired_height;
 #else
 			// Raw sensor logging at 50Hz
 			l.height_m_5 = (int)(sensor_data.pressure_height*5);

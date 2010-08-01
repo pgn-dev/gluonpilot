@@ -29,6 +29,7 @@ struct LogLine
 	int desired_roll;
 	int desired_pitch;
 	int desired_heading;
+	int desired_height;
 	int pitch;
 	//int pitch_acc;
 	int roll;

@@ -31,6 +31,8 @@ namespace Configuration
             foreach (ListViewItem lvi in _lv_navigation.Items)
             {
                 lvi.Tag = new NavigationInstruction(0, 0, 0, 0, 0, 0);
+                lvi.SubItems.Add(new ListViewItem.ListViewSubItem());
+                lvi.SubItems.Add(new ListViewItem.ListViewSubItem());
             }
 
             Disconnect();
@@ -90,6 +92,7 @@ namespace Configuration
         {
             NavigationInstructionEdit nie = new NavigationInstructionEdit((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag);
             nie.ShowDialog(this);
+
             _lv_navigation.SelectedItems[0].SubItems[1].Text = "* " + 
                 ((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag).ToString();
             dirty_list.Add(((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag).line);

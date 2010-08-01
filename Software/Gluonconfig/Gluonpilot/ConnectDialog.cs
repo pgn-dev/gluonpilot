@@ -29,7 +29,7 @@ namespace Gluonpilot
             foreach (string s in SerialPort.GetPortNames())
             {
                 int i = _cbPorts.Items.Add(s);
-                if (s == "COM25")
+                if (s == Properties.Settings.Default.ComPort)
                     _cbPorts.SelectedIndex = i;
             }
             _cbBaud.SelectedIndex = 6;
@@ -37,6 +37,8 @@ namespace Gluonpilot
 
         private void _btnConnect_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.ComPort = SelectedPort();
+            Properties.Settings.Default.Save();
             this.Close();
         }
     }
