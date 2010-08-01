@@ -46,14 +46,14 @@ int main()
 	
 	uart1_queue_init(115200l);  // default baudrate: 115200
 	
-	printf("Gluonpilot v0.3DVLP [%s %s, config: %d bytes, logline: %d bytes, navigation: %d bytes, double: %d bytes]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(navigation_data.navigation_codes), sizeof(double));
+	printf("Gluonpilot v0.4 ALPHA [%s %s, config: %d bytes, logline: %d bytes, navigation: %d bytes, double: %d bytes]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(navigation_data.navigation_codes), sizeof(double));
 
 	microcontroller_reset_type();  // for debugging
 	led_init();
 	
 	vSemaphoreCreateBinary( xSpiSemaphore );
 	dataflash_open();
-	printf("%d MB flash found\r\n", (int)MAX_PAGE/1986);
+	printf("%d MB flash found\r\n", (int)PAGE_SIZE/264);
 	uart1_puts("Loading configuration...");
 	configuration_load();
 	uart1_puts("done\r\n");
@@ -76,13 +76,18 @@ int main()
 
 	// Create our tasks. 
 	xTaskCreate( control_task,                 ( signed portCHAR * ) "Control",      ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 6, NULL );
+	//uart1_puts("Control task started\r\n");
 	xTaskCreate( sensors_task,                 ( signed portCHAR * ) "Sensors",      ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 5, NULL );
+	//uart1_puts("Sensors task started\r\n");
 	xTaskCreate( sensors_gps_task,             ( signed portCHAR * ) "Gps",          ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 4, NULL );
+	//uart1_puts("Sensors_GPS task started\r\n");
 	xTaskCreate( communication_input_task,     ( signed portCHAR * ) "ConsoleInput", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 3, NULL );
+	//uart1_puts("Communications task started\r\n");
 	xTaskCreate( datalogger_task,              ( signed portCHAR * ) "Dataflash",    ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 2, NULL );
+	//uart1_puts("communication_telemetry task started\r\n");
 	xTaskCreate( communication_telemetry_task, ( signed portCHAR * ) "Telemetry",    ( configMINIMAL_STACK_SIZE * 2 ), NULL, tskIDLE_PRIORITY + 1, NULL );
 
-		
+	//uart1_puts("Starting scheduler\r\n");
 	// Order the scheduler to start scheduling our two tasks.
 	vTaskStartScheduler();
 	

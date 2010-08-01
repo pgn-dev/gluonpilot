@@ -401,7 +401,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-ld.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=--heap=8192 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
+ToolArgsString=--heap=10240 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TraceCmdString=
 DebugOptions=
 [File031]
@@ -414,7 +414,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-ld.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=--heap=8192 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
+ToolArgsString=--heap=10240 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TraceCmdString=
 DebugOptions=
 [TOOL_LOC_STAMPS]

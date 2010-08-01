@@ -24,6 +24,8 @@ namespace Configuration
             this.ni = ni;
             copy_ni = new NavigationInstruction(ni);
 
+            if ((int)ni.opcode > 25)
+                ni.opcode = 0;
             _cb_opcode.SelectedIndex = (int)ni.opcode;
 
             _tb_a.Text = ni.a.ToString();

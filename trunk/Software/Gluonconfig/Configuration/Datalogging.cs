@@ -160,7 +160,8 @@ namespace Configuration
             {
                 loglines.Tables.Clear();
             }
-
+            ofd.DefaultExt = "xml";
+            ofd.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 if (loglines == null)
@@ -183,6 +184,7 @@ namespace Configuration
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.DefaultExt = "kml";
+            sfd.Filter = "KML files (*.kml)|*.kml|All files (*.*)|*.*";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 Stream s = sfd.OpenFile();
@@ -199,6 +201,7 @@ namespace Configuration
             Stream s;
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.DefaultExt = "xml";
+            sfd.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 s = sfd.OpenFile();
@@ -211,6 +214,7 @@ namespace Configuration
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.DefaultExt = "kml";
+            sfd.Filter = "KML files (*.kml)|*.kml|All files (*.*)|*.*";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 DateTime timestamp = DateTime.Now;

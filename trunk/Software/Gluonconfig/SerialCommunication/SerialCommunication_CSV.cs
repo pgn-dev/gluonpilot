@@ -81,11 +81,14 @@ namespace Communication
          */
         private object ReceiveThreadedData(object state)
         {
-            _serialPort.ReadTimeout = 200;
+            _serialPort.ReadTimeout = 1000;
             while (_serialPort.IsOpen)
             {
                 try
                 {
+                    while (_serialPort.BytesToRead < 3)
+                        Thread.Sleep(100);
+
                     string line = _serialPort.ReadLine().Replace("\r", "");
                     string[] lines = line.Split(';');
                     Console.WriteLine(line + "\n\r");
@@ -276,6 +279,13 @@ namespace Communication
                     }
                     else if (lines[0].EndsWith("ND") && lines.Length >= 6)
                     {
+                        lines[1] = lines[1].Replace("nan", "0");
+                        lines[2] = lines[2].Replace("nan", "0");
+                        lines[3] = lines[3].Replace("nan", "0");
+                        lines[4] = lines[4].Replace("nan", "0");
+                        lines[5] = lines[5].Replace("nan", "0");
+                        lines[6] = lines[6].Replace("nan", "0");
+
                         NavigationInstruction ni = 
                             new NavigationInstruction(
                                 int.Parse(lines[1]),

@@ -90,6 +90,9 @@ void control_init()
 		for (i = 0; i < 6; i++)
 			config.control.servo_neutral[i] = servo_out[i];
 	}
+	
+	if (config.control.cruising_speed_ms < 0.5)  // not valid? change to 18 to avoid /0
+		config.control.cruising_speed_ms = 18.0;  
 }
 
 
@@ -128,7 +131,7 @@ void control_task( void *parameters )
 		#define DT 0.010
 #endif
 
-		if (ppm.channel[config.control.channel_ap] < 1333)
+		if (ppm.channel[config.control.channel_ap] < 1300)
 		{
 			control_state.flight_mode = AUTOPILOT;
 			
@@ -137,7 +140,6 @@ void control_task( void *parameters )
 				control_state.desired_height = sensor_data.pressure_height;
 				
 			control_navigate(DT, 1); // stabilized mode as long as navigation isn't available
-			//control_stabilized(DT, 1); // stabilized mode
 		} 
 		else if (ppm.channel[config.control.channel_ap] < 1666)
 		{
@@ -196,7 +198,7 @@ void control_stabilized(double dt, int altitude_hold)
 	// Comment this line if you want pitch stabilization instead of altitude hold
 	if (altitude_hold)
 	{
-		if (abs(control_state.desired_pitch) > (config.control.max_pitch / 5.0)) // elevator stick not in neutral position
+		if (fabs(control_state.desired_pitch) > (config.control.max_pitch / 5.0)) // elevator stick not in neutral position
 		{
 			// Keep RC-input desired pitch
 			control_state.desired_height = sensor_data.pressure_height;  // keep height in case stick goes back to neutral
@@ -230,8 +232,12 @@ void control_navigate(double dt, int altitude_controllable)
 	control_state.desired_roll = navigation_data.desired_pre_bank +
 	                             pid_update_only_p(&config.control.pid_heading2roll, heading_error_rad, dt);	
 	
+	// Not enough GPS satellites? Fly flat and hope to get a new lock :-)
+	if (sensor_data.gps.satellites_in_view < 4)
+		control_state.desired_roll = 0.0;
+		
 	// from paparazzi
-	double speed_depend_nav = sensor_data.gps.speed_ms/20.0;   // cruising airspeed = 20m/s
+	double speed_depend_nav = sensor_data.gps.speed_ms / config.control.cruising_speed_ms;
  	if (speed_depend_nav > 1.5)
  		control_state.desired_roll *= 1.5;
  	else if (speed_depend_nav < 0.66)
@@ -247,7 +253,7 @@ void control_navigate(double dt, int altitude_controllable)
 	{
 		double manual_desired_pitch = (double)((int)ppm.channel[config.control.channel_pitch]
 		                              - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * (config.control.max_pitch);
-	    if (abs(manual_desired_pitch) > (config.control.max_pitch / 5.0)) // elevator stick not in neutral position
+	    if (fabs(manual_desired_pitch) > (config.control.max_pitch / 5.0)) // elevator stick not in neutral position
 	    {
 			control_state.desired_pitch = manual_desired_pitch;
 			control_state.desired_height = sensor_data.pressure_height;  // save current height in case stick goes back to neutral

@@ -322,7 +322,7 @@ void communication_input_task( void *parameters )
 					
            	        config.control.waypoint_radius_m = atof(&(buffer[token[4]]));
          	        config.control.cruising_speed_ms = atof(&(buffer[token[5]]));
-         	        config.control.stabilization_with_altitude_hold = atof(&(buffer[token[6]]));
+         	        config.control.stabilization_with_altitude_hold = atoi(&(buffer[token[6]])) == 0? 0 : 1;
 
 				}	
 				///////////////////////////////////////////////////////////////
@@ -397,7 +397,7 @@ void communication_input_task( void *parameters )
 					
 #ifndef RAW_50HZ_LOG
 					printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
-					printf ("HeightBaro;Pitch;Roll;DesiredPitch;DesiredRoll;DesiredHeading;AccXG;AccYG;");
+					printf ("HeightBaro;Pitch;Roll;DesiredPitch;DesiredRoll;DesiredHeading;DesiredHeight;AccXG;AccYG;");
 					printf ("AccZG;P;Q;R;TempC;FlightMode;NavigationLine\r\n");
 #else
 					printf ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");//;idg500-vref;FlightMode\r\n");
@@ -422,6 +422,7 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'C')    // FC write to flash!
 				{
 					configuration_write();
+					uart1_puts("\r\nBurn OK\r\n");
 				}
 				///////////////////////////////////////////////////////////////
 				//                     LOAD FROM FLASH                       //
@@ -443,6 +444,7 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'N') 
 				{
 					navigation_burn();
+					uart1_puts("\r\nBurn OK\r\n");
 				}	
 				///////////////////////////////////////////////////////////////
 				//                       LOAD NAVIGATION                     //
@@ -470,11 +472,14 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'W' && buffer[token[0] + 1] == 'N') 
 				{
 					int i = atoi(&(buffer[token[1]])) - 1;
-					navigation_data.navigation_codes[i].opcode = atoi(&(buffer[token[2]]));
-					navigation_data.navigation_codes[i].x = atof(&(buffer[token[3]]));
-					navigation_data.navigation_codes[i].y = atof(&(buffer[token[4]]));
-					navigation_data.navigation_codes[i].a = atoi(&(buffer[token[5]]));
-					navigation_data.navigation_codes[i].b = atoi(&(buffer[token[6]]));
+					if (i < MAX_NAVIGATIONCODES)
+					{
+						navigation_data.navigation_codes[i].opcode = atoi(&(buffer[token[2]]));
+						navigation_data.navigation_codes[i].x = atof(&(buffer[token[3]]));
+						navigation_data.navigation_codes[i].y = atof(&(buffer[token[4]]));
+						navigation_data.navigation_codes[i].a = atoi(&(buffer[token[5]]));
+						navigation_data.navigation_codes[i].b = atoi(&(buffer[token[6]]));
+					}
 				}
 				///////////////////////////////////////////////////////////////
 				//                  READ ALL CONFIGURATION                   //
@@ -618,11 +623,11 @@ void print_logline(struct LogLine *l)
 	printf ("%d;%d;%d;%d;", l->gps_speed_m_s, l->gps_heading, l->gps_height_m, (int)l->gps_satellites);
 	printf ("%d;%d;", l->height_m, l->pitch);
 	printf ("%d;", l->roll);
-	printf ("%d;%d;%d;", l->desired_pitch, l->desired_roll, l->desired_heading);
+	printf ("%d;%d;%d;%d;", l->desired_pitch, l->desired_roll, l->desired_heading, l->desired_height);
 	printf ("%f;", l->acc_x_g);
 	printf ("%f;%f;", l->acc_y_g, l->acc_z_g);
 	printf ("%d;%d;%d;", l->p, l->q, l->r);
-	printf ("%d;%d;%d\r\n", (int)l->temperature_c, l->control_state, l->navigation_code_line);
+	printf ("%d;%d;%d\r\n", (int)l->temperature_c, l->control_state, l->navigation_code_line+1);
 
 #else
 	// Raw sensor logging @ 50Hz

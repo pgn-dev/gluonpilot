@@ -11,6 +11,7 @@
 #include <math.h>
  
 #include "dataflash/dataflash.h"
+#include "ppm_in/ppm_in.h"
  
 #include "configuration.h"
 #include "sensors.h"
@@ -31,7 +32,7 @@ float longitude_meter_per_radian = 4107840.76433121;   // = Pi/180*(a / (1-e^2*s
 void navigation_set_home();
 double heading_rad_fromto (double diff_long, double diff_lat);
 float distance_between_meter(float long1, float long2, float lat1, float lat2);
-
+void navigation_do_circle(struct NavigationCode *current_code);
 
 
 
@@ -43,7 +44,7 @@ void navigation_init ()
 	navigation_data.home_longitude_rad = 0.0;
 	navigation_data.home_latitude_rad = 0.0;
 	navigation_data.home_gps_height = 0.0;
-	navigation_data.home_pressure_height = sensor_data.pressure_height;
+	navigation_data.home_pressure_height = sensor_data.pressure_height;  // as opposed to GPS height!!
 
 	navigation_data.desired_heading_rad = 0.0;
 	//navigation_data.distance_next_waypoint = 0.0;
@@ -84,30 +85,43 @@ void navigation_calculate_relative_positions()
 
 void navigation_burn()
 {
-	dataflash_write(NAVIGATION_PAGE, sizeof(navigation_data.navigation_codes), (unsigned char*)&navigation_data.navigation_codes[0]);
+	dataflash_write(NAVIGATION_PAGE, sizeof(navigation_data.navigation_codes), (unsigned char*) & (navigation_data.navigation_codes));
 }
 
 	
 void navigation_load()
 {
-	dataflash_read(NAVIGATION_PAGE, sizeof(navigation_data.navigation_codes), (unsigned char*)&navigation_data.navigation_codes[0]);
+	dataflash_read(NAVIGATION_PAGE, sizeof(navigation_data.navigation_codes), (unsigned char*) & (navigation_data.navigation_codes));
 }	
 
 
 void navigation_update()
 {
-	static int i = 0;
 	// Set the "home"-position
 	if (!navigation_data.airborne)
 	{ 
-		if (sensor_data.gps.speed_ms >= 0.1 && sensor_data.gps.status == ACTIVE)
+		if (sensor_data.gps.speed_ms >= 2 && sensor_data.gps.status == ACTIVE)
 		{
 			navigation_data.airborne = 1;
 			navigation_set_home();
 			navigation_calculate_relative_positions();
 		}
 		else
-			return;
+		{
+			if (sensor_data.gps.status != ACTIVE)
+				navigation_data.home_pressure_height = sensor_data.pressure_height;  // as opposed to GPS height!!
+			
+			// calibrate gyros, FIXME: outer feedback loop would no longer require this
+			if (ppm.channel[config.control.channel_yaw] < 1100 &&   // yaw = left, roll = right while not airborne
+			    ppm.channel[config.control.channel_roll] > 1900)
+			{
+				// Test: use neutral value ad-hoc		
+				config.sensors.gyro_x_neutral = config.sensors.gyro_x_neutral/2 + sensor_data.gyro_x_raw/2;
+				config.sensors.gyro_y_neutral = config.sensors.gyro_y_neutral/2 + sensor_data.gyro_y_raw/2;
+				config.sensors.gyro_z_neutral = config.sensors.gyro_z_neutral/2 + sensor_data.gyro_z_raw/2;			    
+			} 
+		}	
+		return;
 	}
 
 	navigation_data.desired_pre_bank = 0.0;
@@ -116,10 +130,10 @@ void navigation_update()
 	switch(current_code->opcode)
 	{
 		case CLIMB:
-			//navigation_data.desired_heading_rad = navigation_data.wind_heading;
-			navigation_data.desired_height_m = current_code->x;
-			//if (sensor_data.pressure_height - 
-			navigation_data.current_codeline++;
+			navigation_data.desired_heading_rad = navigation_data.wind_heading;
+			navigation_data.desired_height_above_ground_m = current_code->x;
+			if (sensor_data.pressure_height - navigation_data.home_pressure_height > navigation_data.desired_height_above_ground_m)
+				navigation_data.current_codeline++;
 			break;
 		case FROM_TO_REL:
 		case FROM_TO_ABS:
@@ -131,7 +145,7 @@ void navigation_update()
 			navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - current_code->y,
 	                                                         sensor_data.gps.latitude_rad - current_code->x);
 	                                                         
-	        navigation_data.desired_height_m = current_code->a;
+	        navigation_data.desired_height_above_ground_m = current_code->a;
 
 			if (distance_between_meter(sensor_data.gps.longitude_rad, current_code->y,
 			                           sensor_data.gps.latitude_rad, current_code->x) < config.control.waypoint_radius_m)
@@ -143,7 +157,7 @@ void navigation_update()
 				else if (heading_error_rad <= DEG2RAD(-180.0))
 					heading_error_rad += DEG2RAD(360.0);
 				
-				if (abs(heading_error_rad) > DEG2RAD(90.0)) // we are flying away from the waypoint AND we are close enough
+				if (fabs(heading_error_rad) > DEG2RAD(90.0)) // we are flying away from the waypoint AND we are close enough
 				{
 					navigation_data.current_codeline++;
 				}	
@@ -251,9 +265,6 @@ void navigation_update_old()
 
 void navigation_do_circle(struct NavigationCode *current_code)
 {
-	static int i = 0;
-	
-	
 	float r = (float)current_code->a; // meter
 	float rad_s = sensor_data.gps.speed_ms / r;   // rad/s for this circle
 #define carrot 5.0
@@ -305,7 +316,7 @@ void navigation_do_circle(struct NavigationCode *current_code)
 	else if (navigation_data.desired_heading_rad < 0.0)
 		navigation_data.desired_heading_rad += DEG2RAD(360.0);
 		
-	navigation_data.desired_height_m = current_code->b;
+	navigation_data.desired_height_above_ground_m = current_code->b;
 	
 	
 //	if (i++ % 5 == 0)

@@ -169,6 +169,14 @@ void sensors_gps_task( void *parameters )
 		if( xSemaphoreTake( xGpsSemaphore, LONG_TIME ) == pdTRUE )
 		{
 			gps_update_info(&(sensor_data.gps));
+			
+			// Speed is use for calculating accelerations (in the attitude filter)
+			// When the GPS is no longer locked, we don't know the speed -> no reliable attitude
+			// Use pre-configured cruising speed as measured speed
+			if (sensor_data.gps.satellites_in_view < 4 && 
+				sensor_data.gps.speed_ms > 0)
+					sensor_data.gps.speed_ms = config.control.cruising_speed_ms;
+				
 			i++;
 			if (i % 2 == 0)
 				navigation_update();
@@ -176,10 +184,10 @@ void sensors_gps_task( void *parameters )
 			if (i % 6 == 0 || (i+1) % 6 == 0 || (i+2) % 6 == 0)  // this is used for both RMC and GGA, so only update every other tick
 			{
 				if (sensor_data.gps.status == ACTIVE)
-					led2_on();
+					led2_off();
 			}	
 			else
-				led2_off();
+				led2_on();
 
 		}
 	}
