@@ -39,3 +39,8 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconf
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\Kml.dll
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\Kml.pdb
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\obj\Release\Gluonpilot.GluonConfig.resources
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\Gluonpilot.exe.config
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\networklink.kml
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\PredatorE.dae
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\GCS.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Gluonpilot\bin\Release\GCS.pdb

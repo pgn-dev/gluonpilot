@@ -20,8 +20,9 @@ namespace Kml
         private double latitude = 50.850285;
         private double heading = 0.0;
         private double height = 100.0;
+        private double pressure_height_m = 0.0;
 
-        private double start_height = 0.0;
+        private double start_pressure_height_m = 0.0;
         private bool is_started = false;
 
         public KmlListener(SerialCommunication serial)
@@ -30,6 +31,17 @@ namespace Kml
             serial_comm = serial;
             serial.AttitudeCommunicationReceived += new SerialCommunication.ReceiveAttitudeCommunicationFrame(serial_AttitudeCommunicationReceived);
             serial.GpsBasicCommunicationReceived += new SerialCommunication.ReceiveGpsBasicCommunicationFrame(serial_GpsBasicCommunicationReceived);
+            serial.PressureTempCommunicationReceived += new SerialCommunication.ReceivePressureTempCommunicationFrame(serial_PressureTempCommunicationReceived);
+        }
+
+        void serial_PressureTempCommunicationReceived(Communication.Frames.Incoming.PressureTemp info)
+        {
+            if (!is_started)
+            {
+                start_pressure_height_m = info.Height;
+                is_started = true;
+            }
+            pressure_height_m = info.Height - start_pressure_height_m;
         }
 
         void serial_GpsBasicCommunicationReceived(Communication.Frames.Incoming.GpsBasic gpsbasic)
@@ -81,16 +93,16 @@ namespace Kml
                     "   <altitude>50</altitude>" +
                     "  </LookAt>" +
                     "  <Model id=\"model_4\">" +
-                    "    <altitudeMode>absolute</altitudeMode>" + //relativeToGround</altitudeMode>" +
+                    "    <altitudeMode>relativeToGround</altitudeMode>" +
                     "    <Location>" +
                     "      <longitude>" + longitude.ToString(CultureInfo.InvariantCulture) + "</longitude>" +
                     "      <latitude>" + latitude.ToString(CultureInfo.InvariantCulture) + "</latitude>" +
-                    "      <altitude>" + (int)height + "</altitude>" +
+                    "      <altitude>" + (int)pressure_height_m + "</altitude>" +
                     "    </Location>" +
                     "    <Orientation>" +
                     "      <heading>" + (int)heading + "</heading>" +
-                    "      <tilt>" + pitch.ToString(CultureInfo.InvariantCulture) + "</tilt>" +
-                    "      <roll>" + roll.ToString(CultureInfo.InvariantCulture) + "</roll>" +
+                    "      <tilt>" + (-pitch).ToString(CultureInfo.InvariantCulture) + "</tilt>" +
+                    "      <roll>" + (-roll).ToString(CultureInfo.InvariantCulture) + "</roll>" +
                     "    </Orientation>" +
                     "    <Scale>" +
                     "      <x>2</x>" +
@@ -106,9 +118,9 @@ namespace Kml
                     "<Placemark>" +
                     "    <name>Center earth line</name>" +
                     "    <LineString>" +
-                    "      <altitudeMode>absolute</altitudeMode>" + //+relativeToGround</altitudeMode>" +
+                    "      <altitudeMode>relativeToGround</altitudeMode>" +
                     "      <coordinates>" + longitude.ToString(CultureInfo.InvariantCulture) + "," + latitude.ToString(CultureInfo.InvariantCulture) + ",0 " +
-                    "" + longitude.ToString(CultureInfo.InvariantCulture) + "," + latitude.ToString(CultureInfo.InvariantCulture) + "," + (int) height + 
+                    "" + longitude.ToString(CultureInfo.InvariantCulture) + "," + latitude.ToString(CultureInfo.InvariantCulture) + "," + (int) pressure_height_m + 
                     "      </coordinates>" +
                     "    </LineString>" +
                     "</Placemark>" +

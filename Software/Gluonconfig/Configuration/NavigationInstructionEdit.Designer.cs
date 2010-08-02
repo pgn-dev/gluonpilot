@@ -55,6 +55,7 @@
             // 
             // _btn_cancel
             // 
+            this._btn_cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this._btn_cancel.Location = new System.Drawing.Point(12, 233);
             this._btn_cancel.Name = "_btn_cancel";
             this._btn_cancel.Size = new System.Drawing.Size(75, 23);
@@ -181,8 +182,10 @@
             // 
             // NavigationInstructionEdit
             // 
+            this.AcceptButton = this._btn_ok;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this._btn_cancel;
             this.ClientSize = new System.Drawing.Size(292, 268);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this._cb_opcode);

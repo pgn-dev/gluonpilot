@@ -942,7 +942,10 @@ namespace Gluonpilot
             _model.CruisingSpeed = tb_speed.SpeedMS;
         }
 
-       
+        private void _btn_cube_Click(object sender, EventArgs e)
+        {
+            ModuleImu3D.Imu3D.Run(_serial);
+        }
 
     }
 }

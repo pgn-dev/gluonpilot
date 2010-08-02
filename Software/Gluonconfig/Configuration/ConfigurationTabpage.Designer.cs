@@ -294,6 +294,7 @@
             this._tbNavigation = new System.Windows.Forms.TabPage();
             this.navigationListView = new Configuration.NavigationListView();
             this._tbGcs = new System.Windows.Forms.TabPage();
+            this._btn_cube = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this._tpTelemetry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._nud_attitude_telemetry)).BeginInit();
@@ -536,6 +537,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this._btn_cube);
             this.groupBox2.Controls.Add(this._btn_use_current_gyro);
             this.groupBox2.Controls.Add(this._tbGyroZNeutral);
             this.groupBox2.Controls.Add(this._tbGyroYNeutral);
@@ -3111,7 +3113,7 @@
             this._tbNavigation.Controls.Add(this.navigationListView);
             this._tbNavigation.Location = new System.Drawing.Point(4, 22);
             this._tbNavigation.Name = "_tbNavigation";
-            this._tbNavigation.Size = new System.Drawing.Size(590, 271);
+            this._tbNavigation.Size = new System.Drawing.Size(590, 277);
             this._tbNavigation.TabIndex = 8;
             this._tbNavigation.Text = "Navigation";
             this._tbNavigation.UseVisualStyleBackColor = true;
@@ -3127,10 +3129,20 @@
             // 
             this._tbGcs.Location = new System.Drawing.Point(4, 22);
             this._tbGcs.Name = "_tbGcs";
-            this._tbGcs.Size = new System.Drawing.Size(590, 271);
+            this._tbGcs.Size = new System.Drawing.Size(590, 277);
             this._tbGcs.TabIndex = 9;
             this._tbGcs.Text = "GCS";
             this._tbGcs.UseVisualStyleBackColor = true;
+            // 
+            // _btn_cube
+            // 
+            this._btn_cube.Image = ((System.Drawing.Image)(resources.GetObject("_btn_cube.Image")));
+            this._btn_cube.Location = new System.Drawing.Point(503, 11);
+            this._btn_cube.Name = "_btn_cube";
+            this._btn_cube.Size = new System.Drawing.Size(31, 23);
+            this._btn_cube.TabIndex = 39;
+            this._btn_cube.UseVisualStyleBackColor = true;
+            this._btn_cube.Click += new System.EventHandler(this._btn_cube_Click);
             // 
             // ConfigurationTabpage
             // 
@@ -3460,5 +3472,6 @@
         private Configuration.NavigationListView navigationListView;
         private Configuration.DistanceTextBox _dtb_waypoint_radius;
         private System.Windows.Forms.Label label86;
+        private System.Windows.Forms.Button _btn_cube;
     }
 }

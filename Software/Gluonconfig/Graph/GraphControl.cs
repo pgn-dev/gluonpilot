@@ -41,10 +41,13 @@ namespace Graph
 
         public void Stop()
         {
-            _serial.PressureTempCommunicationReceived -= _serial_PressureTempCommunicationReceived;
-            _serial.GyroAccRawCommunicationReceived -= _serial_GyroAccRawCommunicationReceived;
-            _serial.GyroAccProcCommunicationReceived -= _serial_GyroAccProcCommunicationReceived;
-            _serial.AttitudeCommunicationReceived -= _serial_AttitudeCommunicationReceived;
+            if (_serial != null)
+            {
+                _serial.PressureTempCommunicationReceived -= _serial_PressureTempCommunicationReceived;
+                _serial.GyroAccRawCommunicationReceived -= _serial_GyroAccRawCommunicationReceived;
+                _serial.GyroAccProcCommunicationReceived -= _serial_GyroAccProcCommunicationReceived;
+                _serial.AttitudeCommunicationReceived -= _serial_AttitudeCommunicationReceived;
+            }
         }
 
 
@@ -188,10 +191,11 @@ namespace Graph
 
             // Set the Titles
 
-            myPane.Title.Text = "Gluonpilot variables";
-            myPane.XAxis.Title.Text = "Time";
+            myPane.Title.IsVisible = false;//.Text = "Gluonpilot variables";
+            myPane.YAxis.Title.IsVisible = false; //.Text = "Time";
 
             myPane.YAxis.MajorGrid.IsVisible = true;
+            myPane.XAxis.Title.IsVisible = false;
 
             _zed_graph.AxisChange();
         }

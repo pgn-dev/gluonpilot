@@ -61,7 +61,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.btn_collapse);
             this.splitContainer1.Panel2.Controls.Add(this._zed_graph);
             this.splitContainer1.Size = new System.Drawing.Size(640, 372);
-            this.splitContainer1.SplitterDistance = 165;
+            this.splitContainer1.SplitterDistance = 185;
             this.splitContainer1.TabIndex = 1;
             // 
             // label2
@@ -155,9 +155,10 @@
             // 
             this._zed_graph.Dock = System.Windows.Forms.DockStyle.Fill;
             this._zed_graph.EditButtons = System.Windows.Forms.MouseButtons.None;
-            this._zed_graph.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._zed_graph.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this._zed_graph.IsAntiAlias = true;
             this._zed_graph.Location = new System.Drawing.Point(0, 0);
+            this._zed_graph.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this._zed_graph.Name = "_zed_graph";
             this._zed_graph.ScrollGrace = 0;
             this._zed_graph.ScrollMaxX = 0;
@@ -166,7 +167,7 @@
             this._zed_graph.ScrollMinX = 0;
             this._zed_graph.ScrollMinY = 0;
             this._zed_graph.ScrollMinY2 = 0;
-            this._zed_graph.Size = new System.Drawing.Size(471, 372);
+            this._zed_graph.Size = new System.Drawing.Size(451, 372);
             this._zed_graph.TabIndex = 0;
             this._zed_graph.Resize += new System.EventHandler(this._zed_graph_Resize);
             // 

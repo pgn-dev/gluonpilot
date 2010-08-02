@@ -62,6 +62,7 @@ namespace Gluonpilot
                     configurationControl.Disconnect();
                     datalogging.Disconnect();
                     navigationListView1.Disconnect();
+                    _gcsMainPanel.Disconnnect();
 
                     _btn_connect.Checked = false;
 
@@ -77,6 +78,7 @@ namespace Gluonpilot
                     configurationControl.Connect(_serial);
                     datalogging.Connect(_serial);
                     navigationListView1.Connect(_serial);
+                    _gcsMainPanel.Connect(_serial);
 
                     _btn_connect.Checked = true;
 

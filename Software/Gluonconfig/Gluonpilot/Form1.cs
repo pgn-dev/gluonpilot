@@ -108,9 +108,6 @@ namespace Gluonpilot
             Graph.GraphForm gf = new Graph.GraphForm(_serial);
             gf.Activate();
             gf.Show(this.Owner);
-
-            Kml.KmlListener kl = new Kml.KmlListener(_serial);
-            kl.Start();
         }
 
         private void _btnLoadDefault_Click(object sender, EventArgs e)
