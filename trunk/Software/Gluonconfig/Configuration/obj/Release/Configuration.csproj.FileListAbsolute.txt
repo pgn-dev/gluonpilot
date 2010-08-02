@@ -29,3 +29,10 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconf
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\obj\Release\Configuration.Properties.Resources.resources
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Release\Kml.dll
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Release\Kml.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Release\networklink.kml
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Release\PredatorE.dae
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Release\CsGL.Basecode.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Release\csgl.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Release\ModuleImu3D.dll
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Release\CsGL.Basecode.xml
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Configuration\bin\Release\ModuleImu3D.pdb

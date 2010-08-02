@@ -110,6 +110,10 @@
       <Project>{2B1A398D-6E4F-4E71-87CF-7FBA8E4AAFB6}</Project>
       <Name>Configuration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GCS\GCS.csproj">
+      <Project>{08ED0C71-5005-49DD-99A3-62596E6629E6}</Project>
+      <Name>GCS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Graph\Graph.csproj">
       <Project>{860A7C20-C8B7-48AA-BEE3-498F85B48EDA}</Project>
       <Name>Graph</Name>

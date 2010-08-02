@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="csgl, Version=1.4.1.0, Culture=neutral, PublicKeyToken=d8fb3bdb88c36cd4">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ModuleImu3D\csgl.dll</HintPath>
+    </Reference>
+    <Reference Include="CsGL.Basecode, Version=1.0.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ModuleImu3D\CsGL.Basecode.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -142,6 +150,10 @@
     <ProjectReference Include="..\Kml\Kml.csproj">
       <Project>{3F7BDAB7-2F07-4D0B-A517-42E6DE6C70DB}</Project>
       <Name>Kml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModuleImu3D\ModuleImu3D.csproj">
+      <Project>{F9704876-1533-4E3A-A1C6-3FE0132AB487}</Project>
+      <Name>ModuleImu3D</Name>
     </ProjectReference>
     <ProjectReference Include="..\SerialCommunication\Communication.csproj">
       <Project>{D4C21631-D662-4C79-8047-1BB72967B3B1}</Project>

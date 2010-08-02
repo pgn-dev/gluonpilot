@@ -6,3 +6,5 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconf
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Kml\bin\Debug\Communication.pdb
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Kml\obj\Debug\Kml.dll
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Kml\obj\Debug\Kml.pdb
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Kml\bin\Debug\networklink.kml
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Kml\bin\Debug\PredatorE.dae

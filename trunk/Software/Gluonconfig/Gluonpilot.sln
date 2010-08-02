@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleImu3D", "ModuleImu3D\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kml", "Kml\Kml.csproj", "{3F7BDAB7-2F07-4D0B-A517-42E6DE6C70DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCS", "GCS\GCS.csproj", "{08ED0C71-5005-49DD-99A3-62596E6629E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{3F7BDAB7-2F07-4D0B-A517-42E6DE6C70DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F7BDAB7-2F07-4D0B-A517-42E6DE6C70DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F7BDAB7-2F07-4D0B-A517-42E6DE6C70DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08ED0C71-5005-49DD-99A3-62596E6629E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08ED0C71-5005-49DD-99A3-62596E6629E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08ED0C71-5005-49DD-99A3-62596E6629E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08ED0C71-5005-49DD-99A3-62596E6629E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
