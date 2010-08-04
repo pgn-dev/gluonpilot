@@ -67,7 +67,7 @@ namespace GCS
 
         private void _btn_goto_ge_Click(object sender, EventArgs e)
         {
-            Process.Start(Application.StartupPath + "\networklink.kml");
+            Process.Start(Application.StartupPath + "\\networklink.kml");
         }
     }
 }
