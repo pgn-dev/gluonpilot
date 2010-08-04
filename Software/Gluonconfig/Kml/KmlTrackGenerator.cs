@@ -26,6 +26,11 @@ namespace Kml
        {
            int stepsize = 4;
 
+           if (s == null || s.Tables.Count == 0)
+           {
+               throw new Exception("No data available");
+           }
+
            StringBuilder sb = new StringBuilder();
 
            Dictionary<string, int> columns = GenerateColumnLookup(s.Tables[0]);

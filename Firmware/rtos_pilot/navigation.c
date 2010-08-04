@@ -178,89 +178,8 @@ void navigation_update()
 		//default:
 		
 	}	
-	
-//	if (i++ % 5 == 0)
-//	{
-//		printf("\r\n->%d %f %f %f\r\n", navigation_data.current_codeline, navigation_data.desired_heading_rad, navigation_data.desired_pre_bank, navigation_data.desired_height_m);
-//	}	
 }
 
-	
-/*!
- *  Update the navigation state.
- */
-void navigation_update_old()
-{
-	// Set the "home"-position
-	if (!navigation_data.airborne)
-	{ 
-		if (sensor_data.gps.speed_ms >= 2.0)
-		{
-			navigation_data.airborne = 1;
-			navigation_set_home();		
-			// pre-calculate waypoints
-			navigation_calculate_relative_positions();
-		}
-		else
-			return;
-	}
-
-	
-	if (1)   // One waypoint: "home"
-	{
-#define carrot 5.0
-		
-		float r = 70.0; // meter
-		float rad_s = sensor_data.gps.speed_ms / r;   // rad/s for this circle
-		float distance_ahead = carrot * sensor_data.gps.speed_ms;
-			
-		// heading towards center of circle
-		navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - navigation_data.home_longitude_rad,
-		                                                         sensor_data.gps.latitude_rad - navigation_data.home_latitude_rad);
-		float current_alpha = navigation_data.desired_heading_rad - 3.14159;  // 0° = top of circle
-
-		float distance_center = 
-		 	distance_between_meter(sensor_data.gps.longitude_rad, navigation_data.home_longitude_rad,
-		                           sensor_data.gps.latitude_rad, navigation_data.home_latitude_rad);
-		
-		float next_alpha;
-		if (distance_center > r + distance_ahead ||
-		    distance_center < r - distance_ahead)  // too far in or out of the circle?
-		{
-			next_alpha = current_alpha + 3.14159/2.0; // fly to point where you would touch the circle
-		}
-		else
-		{
-			float rad_ahead = rad_s*carrot;
-			/*if (rad_ahead > 3.14159/4.0)	
-				next_alpha = current_alpha + 3.14159/4.0; // go to the position one second ahead
-			if (rad_ahead < 3.14159/16.0)	
-				next_alpha = current_alpha + 3.14159/16.0; // go to the position one second ahead
-			else*/
-				next_alpha = current_alpha + atan(distance_ahead/r);
-		}	
-
-		
-		navigation_data.desired_pre_bank =(distance_center > r + distance_ahead || 
-		                                   distance_center < r + distance_ahead) ? 0 :
-   				                          atan(sensor_data.gps.speed_ms*sensor_data.gps.speed_ms / (9.81*r));
-
-		float next_r = sqrt(r*r + distance_ahead*distance_ahead);
-				
-		// max desired_heading
-		float pointlon = navigation_data.home_longitude_rad + sin(next_alpha) * next_r / longitude_meter_per_radian;
-		float pointlat = navigation_data.home_latitude_rad + cos(next_alpha) * next_r / latitude_meter_per_radian;
-		
-		
-		navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - pointlon,
-			                                                     sensor_data.gps.latitude_rad - pointlat);
-			                                                     
-		if (navigation_data.desired_heading_rad > (3.14159*2.0))
-			navigation_data.desired_heading_rad -= (3.14159*2.0);
-		else if (navigation_data.desired_heading_rad < 0.0)
-			navigation_data.desired_heading_rad += (3.14159*2.0);
-	}
-}
 
 
 void navigation_do_circle(struct NavigationCode *current_code)
@@ -317,12 +236,6 @@ void navigation_do_circle(struct NavigationCode *current_code)
 		navigation_data.desired_heading_rad += DEG2RAD(360.0);
 		
 	navigation_data.desired_height_above_ground_m = current_code->b;
-	
-	
-//	if (i++ % 5 == 0)
-//	{
-//		printf("\r\n   |>%f %f %f %f %f %f\r\n", sensor_data.gps.longitude_rad, pointlon, sensor_data.gps.latitude_rad, pointlat, r, distance_ahead);
-//	}
 }	
 
 

@@ -189,10 +189,18 @@ namespace Configuration
             {
                 Stream s = sfd.OpenFile();
                 StreamWriter sw = new StreamWriter(s);
-                sw.Write(Kml.KmlClassicGenerator.BuildKml(loglines));
+                try
+                {
+                    sw.Write(Kml.KmlClassicGenerator.BuildKml(loglines));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
                 sw.Close();
                 if (MessageBox.Show("Do you want to open the file in Google Earth?", "Open file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-                    Process.Start(AppDomain.CurrentDomain.BaseDirectory + "\\" + sfd.FileName);
+                    Process.Start(sfd.FileName);
             }
         }
 
@@ -227,10 +235,17 @@ namespace Configuration
 
                 Stream s = sfd.OpenFile();
                 StreamWriter sw = new StreamWriter(s);
-                sw.Write(Kml.KmlTrackGenerator.BuildKml(loglines, timestamp));
+                try
+                {
+                    sw.Write(Kml.KmlTrackGenerator.BuildKml(loglines, timestamp));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 sw.Close();
                 if (MessageBox.Show("Do you want to open the file in Google Earth?", "Open file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-                    Process.Start(AppDomain.CurrentDomain.BaseDirectory + "\\" + sfd.FileName);
+                    Process.Start(sfd.FileName);
             }
         }
     }

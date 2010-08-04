@@ -47,11 +47,9 @@
             this.label45 = new System.Windows.Forms.Label();
             this._tpSensors = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this._btn_cube = new System.Windows.Forms.Button();
             this._btn_use_current_gyro = new System.Windows.Forms.Button();
-            this._tbGyroZNeutral = new Configuration.NumericTextBox();
-            this._tbGyroYNeutral = new Configuration.NumericTextBox();
             this.label74 = new System.Windows.Forms.Label();
-            this._tbGyroXNeutral = new Configuration.NumericTextBox();
             this.label73 = new System.Windows.Forms.Label();
             this.label72 = new System.Windows.Forms.Label();
             this._tbSumAcc = new System.Windows.Forms.TextBox();
@@ -75,9 +73,6 @@
             this._tbAccY = new System.Windows.Forms.TextBox();
             this._tbAccX = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this._tbAccZNeutral = new Configuration.NumericTextBox();
-            this._tbAccYNeutral = new Configuration.NumericTextBox();
-            this._tbAccXNeutral = new Configuration.NumericTextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -118,8 +113,6 @@
             this._rb_gps_status_void = new System.Windows.Forms.RadioButton();
             this.label456 = new System.Windows.Forms.Label();
             this.label50 = new System.Windows.Forms.Label();
-            this._tb_initial_baudrate = new Configuration.NumericTextBox();
-            this._tb_operational_baudrate = new Configuration.NumericTextBox();
             this._tpRc = new System.Windows.Forms.TabPage();
             this.label78 = new System.Windows.Forms.Label();
             this._llRc = new System.Windows.Forms.LinkLabel();
@@ -235,21 +228,12 @@
             this.label30 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this._tb_servo6_neutral = new Configuration.NumericTextBox();
-            this._tb_servo5_neutral = new Configuration.NumericTextBox();
-            this._tb_servo4_neutral = new Configuration.NumericTextBox();
-            this._tb_servo3_neutral = new Configuration.NumericTextBox();
-            this._tb_servo2_neutral = new Configuration.NumericTextBox();
-            this._tb_servo1_neutral = new Configuration.NumericTextBox();
             this._tbControl = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this._dtb_waypoint_radius = new Configuration.DistanceTextBox();
             this.label86 = new System.Windows.Forms.Label();
             this.label85 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.tb_min_circle_radius = new Configuration.DistanceTextBox();
             this.label82 = new System.Windows.Forms.Label();
-            this.tb_speed = new Configuration.SpeedTextBox();
             this.label81 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.cb_altitudehold = new System.Windows.Forms.CheckBox();
@@ -269,32 +253,30 @@
             this.label58 = new System.Windows.Forms.Label();
             this._tbPid = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this._pid_altitude_hold = new Configuration.PidControl();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this._pid_heading_to_roll = new Configuration.PidControl();
             this._pid_roll2aileron = new System.Windows.Forms.GroupBox();
-            this._pid_roll_to_aileron = new Configuration.PidControl();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this._tbGyroZNeutral = new Configuration.NumericTextBox();
+            this._tbGyroYNeutral = new Configuration.NumericTextBox();
+            this._tbGyroXNeutral = new Configuration.NumericTextBox();
+            this._tbAccZNeutral = new Configuration.NumericTextBox();
+            this._tbAccYNeutral = new Configuration.NumericTextBox();
+            this._tbAccXNeutral = new Configuration.NumericTextBox();
+            this._tb_initial_baudrate = new Configuration.NumericTextBox();
+            this._tb_operational_baudrate = new Configuration.NumericTextBox();
+            this._tb_servo6_neutral = new Configuration.NumericTextBox();
+            this._tb_servo5_neutral = new Configuration.NumericTextBox();
+            this._tb_servo4_neutral = new Configuration.NumericTextBox();
+            this._tb_servo3_neutral = new Configuration.NumericTextBox();
+            this._tb_servo2_neutral = new Configuration.NumericTextBox();
+            this._tb_servo1_neutral = new Configuration.NumericTextBox();
+            this._dtb_waypoint_radius = new Configuration.DistanceTextBox();
+            this.tb_min_circle_radius = new Configuration.DistanceTextBox();
+            this.tb_speed = new Configuration.SpeedTextBox();
+            this._pid_altitude_hold = new Configuration.PidControl();
+            this._pid_heading_to_roll = new Configuration.PidControl();
+            this._pid_roll_to_aileron = new Configuration.PidControl();
             this._pid_pitch_to_elevator = new Configuration.PidControl();
-            this._tp_datalog = new System.Windows.Forms.TabPage();
-            this._btn_datalog_to_matlab = new System.Windows.Forms.Button();
-            this._pb_datalog = new System.Windows.Forms.ProgressBar();
-            this._btn_datalog_load_xml = new System.Windows.Forms.Button();
-            this._btn_datalog_to_xml = new System.Windows.Forms.Button();
-            this._dgv_datalog = new System.Windows.Forms.DataGridView();
-            this._button_datalog_kml = new System.Windows.Forms.Button();
-            this._btn_readdatalog = new System.Windows.Forms.Button();
-            this._lv_datalogtable = new System.Windows.Forms.ListView();
-            this.columnHeaderIndex = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderPage = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderDate = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderTime = new System.Windows.Forms.ColumnHeader();
-            this._btn_datalog_readtable = new System.Windows.Forms.Button();
-            this._btn_dataflash_format = new System.Windows.Forms.Button();
-            this._tbNavigation = new System.Windows.Forms.TabPage();
-            this.navigationListView = new Configuration.NavigationListView();
-            this._tbGcs = new System.Windows.Forms.TabPage();
-            this._btn_cube = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this._tpTelemetry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._nud_attitude_telemetry)).BeginInit();
@@ -326,9 +308,6 @@
             this.groupBox5.SuspendLayout();
             this._pid_roll2aileron.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this._tp_datalog.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._dgv_datalog)).BeginInit();
-            this._tbNavigation.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -343,9 +322,6 @@
             this.tabControl1.Controls.Add(this._tpServos);
             this.tabControl1.Controls.Add(this._tbControl);
             this.tabControl1.Controls.Add(this._tbPid);
-            this.tabControl1.Controls.Add(this._tp_datalog);
-            this.tabControl1.Controls.Add(this._tbNavigation);
-            this.tabControl1.Controls.Add(this._tbGcs);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -585,6 +561,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "6DOF: accelerometers && gyroscopes";
             // 
+            // _btn_cube
+            // 
+            this._btn_cube.Image = ((System.Drawing.Image)(resources.GetObject("_btn_cube.Image")));
+            this._btn_cube.Location = new System.Drawing.Point(503, 11);
+            this._btn_cube.Name = "_btn_cube";
+            this._btn_cube.Size = new System.Drawing.Size(31, 23);
+            this._btn_cube.TabIndex = 39;
+            this._btn_cube.UseVisualStyleBackColor = true;
+            this._btn_cube.Click += new System.EventHandler(this._btn_cube_Click);
+            // 
             // _btn_use_current_gyro
             // 
             this._btn_use_current_gyro.Location = new System.Drawing.Point(467, 151);
@@ -595,24 +581,6 @@
             this._btn_use_current_gyro.UseVisualStyleBackColor = true;
             this._btn_use_current_gyro.Click += new System.EventHandler(this._btn_use_current_gyro_Click);
             // 
-            // _tbGyroZNeutral
-            // 
-            this._tbGyroZNeutral.AllowSpace = false;
-            this._tbGyroZNeutral.Location = new System.Drawing.Point(394, 153);
-            this._tbGyroZNeutral.Name = "_tbGyroZNeutral";
-            this._tbGyroZNeutral.Size = new System.Drawing.Size(67, 20);
-            this._tbGyroZNeutral.TabIndex = 37;
-            this._tbGyroZNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
-            // 
-            // _tbGyroYNeutral
-            // 
-            this._tbGyroYNeutral.AllowSpace = false;
-            this._tbGyroYNeutral.Location = new System.Drawing.Point(255, 153);
-            this._tbGyroYNeutral.Name = "_tbGyroYNeutral";
-            this._tbGyroYNeutral.Size = new System.Drawing.Size(66, 20);
-            this._tbGyroYNeutral.TabIndex = 36;
-            this._tbGyroYNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
-            // 
             // label74
             // 
             this.label74.AutoSize = true;
@@ -621,15 +589,6 @@
             this.label74.Size = new System.Drawing.Size(60, 13);
             this.label74.TabIndex = 35;
             this.label74.Text = "Processed:";
-            // 
-            // _tbGyroXNeutral
-            // 
-            this._tbGyroXNeutral.AllowSpace = false;
-            this._tbGyroXNeutral.Location = new System.Drawing.Point(122, 153);
-            this._tbGyroXNeutral.Name = "_tbGyroXNeutral";
-            this._tbGyroXNeutral.Size = new System.Drawing.Size(67, 20);
-            this._tbGyroXNeutral.TabIndex = 34;
-            this._tbGyroXNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
             // 
             // label73
             // 
@@ -830,33 +789,6 @@
             this.label13.Size = new System.Drawing.Size(60, 13);
             this.label13.TabIndex = 12;
             this.label13.Text = "Processed:";
-            // 
-            // _tbAccZNeutral
-            // 
-            this._tbAccZNeutral.AllowSpace = false;
-            this._tbAccZNeutral.Location = new System.Drawing.Point(394, 65);
-            this._tbAccZNeutral.Name = "_tbAccZNeutral";
-            this._tbAccZNeutral.Size = new System.Drawing.Size(67, 20);
-            this._tbAccZNeutral.TabIndex = 11;
-            this._tbAccZNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
-            // 
-            // _tbAccYNeutral
-            // 
-            this._tbAccYNeutral.AllowSpace = false;
-            this._tbAccYNeutral.Location = new System.Drawing.Point(255, 65);
-            this._tbAccYNeutral.Name = "_tbAccYNeutral";
-            this._tbAccYNeutral.Size = new System.Drawing.Size(66, 20);
-            this._tbAccYNeutral.TabIndex = 10;
-            this._tbAccYNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
-            // 
-            // _tbAccXNeutral
-            // 
-            this._tbAccXNeutral.AllowSpace = false;
-            this._tbAccXNeutral.Location = new System.Drawing.Point(121, 65);
-            this._tbAccXNeutral.Name = "_tbAccXNeutral";
-            this._tbAccXNeutral.Size = new System.Drawing.Size(67, 20);
-            this._tbAccXNeutral.TabIndex = 9;
-            this._tbAccXNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
             // 
             // label12
             // 
@@ -1249,25 +1181,6 @@
             this.label50.Size = new System.Drawing.Size(92, 13);
             this.label50.TabIndex = 0;
             this.label50.Text = "Start-up baudrate:";
-            // 
-            // _tb_initial_baudrate
-            // 
-            this._tb_initial_baudrate.AllowSpace = false;
-            this._tb_initial_baudrate.Location = new System.Drawing.Point(129, 13);
-            this._tb_initial_baudrate.Name = "_tb_initial_baudrate";
-            this._tb_initial_baudrate.Size = new System.Drawing.Size(100, 20);
-            this._tb_initial_baudrate.TabIndex = 20;
-            this._tb_initial_baudrate.TextChanged += new System.EventHandler(this._tb_initial_baudrate_TextChanged);
-            // 
-            // _tb_operational_baudrate
-            // 
-            this._tb_operational_baudrate.AllowSpace = false;
-            this._tb_operational_baudrate.Enabled = false;
-            this._tb_operational_baudrate.Location = new System.Drawing.Point(129, 39);
-            this._tb_operational_baudrate.Name = "_tb_operational_baudrate";
-            this._tb_operational_baudrate.Size = new System.Drawing.Size(100, 20);
-            this._tb_operational_baudrate.TabIndex = 3;
-            this._tb_operational_baudrate.TextChanged += new System.EventHandler(this._tb_operational_baudrate_TextChanged);
             // 
             // _tpRc
             // 
@@ -2506,66 +2419,10 @@
             this.label26.TabIndex = 0;
             this.label26.Text = "Servo 1";
             // 
-            // _tb_servo6_neutral
-            // 
-            this._tb_servo6_neutral.AllowSpace = false;
-            this._tb_servo6_neutral.Location = new System.Drawing.Point(160, 225);
-            this._tb_servo6_neutral.Name = "_tb_servo6_neutral";
-            this._tb_servo6_neutral.ReadOnly = true;
-            this._tb_servo6_neutral.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo6_neutral.TabIndex = 24;
-            // 
-            // _tb_servo5_neutral
-            // 
-            this._tb_servo5_neutral.AllowSpace = false;
-            this._tb_servo5_neutral.Location = new System.Drawing.Point(160, 196);
-            this._tb_servo5_neutral.Name = "_tb_servo5_neutral";
-            this._tb_servo5_neutral.ReadOnly = true;
-            this._tb_servo5_neutral.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo5_neutral.TabIndex = 20;
-            // 
-            // _tb_servo4_neutral
-            // 
-            this._tb_servo4_neutral.AllowSpace = false;
-            this._tb_servo4_neutral.Location = new System.Drawing.Point(160, 167);
-            this._tb_servo4_neutral.Name = "_tb_servo4_neutral";
-            this._tb_servo4_neutral.ReadOnly = true;
-            this._tb_servo4_neutral.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo4_neutral.TabIndex = 16;
-            // 
-            // _tb_servo3_neutral
-            // 
-            this._tb_servo3_neutral.AllowSpace = false;
-            this._tb_servo3_neutral.Location = new System.Drawing.Point(160, 138);
-            this._tb_servo3_neutral.Name = "_tb_servo3_neutral";
-            this._tb_servo3_neutral.ReadOnly = true;
-            this._tb_servo3_neutral.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo3_neutral.TabIndex = 12;
-            // 
-            // _tb_servo2_neutral
-            // 
-            this._tb_servo2_neutral.AllowSpace = false;
-            this._tb_servo2_neutral.Location = new System.Drawing.Point(160, 109);
-            this._tb_servo2_neutral.Name = "_tb_servo2_neutral";
-            this._tb_servo2_neutral.ReadOnly = true;
-            this._tb_servo2_neutral.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo2_neutral.TabIndex = 8;
-            // 
-            // _tb_servo1_neutral
-            // 
-            this._tb_servo1_neutral.AllowSpace = false;
-            this._tb_servo1_neutral.Location = new System.Drawing.Point(160, 80);
-            this._tb_servo1_neutral.Name = "_tb_servo1_neutral";
-            this._tb_servo1_neutral.ReadOnly = true;
-            this._tb_servo1_neutral.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo1_neutral.TabIndex = 2;
-            // 
             // _tbControl
             // 
             this._tbControl.Controls.Add(this.groupBox7);
-            this._tbControl.Controls.Add(this.tb_min_circle_radius);
             this._tbControl.Controls.Add(this.label82);
-            this._tbControl.Controls.Add(this.tb_speed);
             this._tbControl.Controls.Add(this.label81);
             this._tbControl.Controls.Add(this.groupBox6);
             this._tbControl.Controls.Add(this.label80);
@@ -2582,6 +2439,8 @@
             this._tbControl.Controls.Add(this._lblControlMixInfo);
             this._tbControl.Controls.Add(this._cbControlMix);
             this._tbControl.Controls.Add(this.label58);
+            this._tbControl.Controls.Add(this.tb_min_circle_radius);
+            this._tbControl.Controls.Add(this.tb_speed);
             this._tbControl.Location = new System.Drawing.Point(4, 22);
             this._tbControl.Name = "_tbControl";
             this._tbControl.Size = new System.Drawing.Size(590, 277);
@@ -2601,16 +2460,6 @@
             this.groupBox7.TabIndex = 19;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Navigation";
-            // 
-            // _dtb_waypoint_radius
-            // 
-            this._dtb_waypoint_radius.DistanceM = 0;
-            this._dtb_waypoint_radius.Location = new System.Drawing.Point(102, 44);
-            this._dtb_waypoint_radius.Name = "_dtb_waypoint_radius";
-            this._dtb_waypoint_radius.ReadOnly = false;
-            this._dtb_waypoint_radius.Size = new System.Drawing.Size(99, 21);
-            this._dtb_waypoint_radius.TabIndex = 4;
-            this._dtb_waypoint_radius.DistanceChanged += new System.EventHandler(this._dtb_waypoint_radius_DistanceChanged);
             // 
             // label86
             // 
@@ -2643,16 +2492,6 @@
             this.comboBox1.Size = new System.Drawing.Size(209, 21);
             this.comboBox1.TabIndex = 1;
             // 
-            // tb_min_circle_radius
-            // 
-            this.tb_min_circle_radius.DistanceM = 0;
-            this.tb_min_circle_radius.Enabled = false;
-            this.tb_min_circle_radius.Location = new System.Drawing.Point(426, 81);
-            this.tb_min_circle_radius.Name = "tb_min_circle_radius";
-            this.tb_min_circle_radius.ReadOnly = true;
-            this.tb_min_circle_radius.Size = new System.Drawing.Size(110, 21);
-            this.tb_min_circle_radius.TabIndex = 18;
-            // 
             // label82
             // 
             this.label82.AutoSize = true;
@@ -2661,16 +2500,6 @@
             this.label82.Size = new System.Drawing.Size(107, 13);
             this.label82.TabIndex = 17;
             this.label82.Text = "Minimum circle radius";
-            // 
-            // tb_speed
-            // 
-            this.tb_speed.Location = new System.Drawing.Point(426, 54);
-            this.tb_speed.Name = "tb_speed";
-            this.tb_speed.Size = new System.Drawing.Size(110, 21);
-            this.tb_speed.SpeedMS = 0;
-            this.tb_speed.TabIndex = 16;
-            this.tb_speed.SpeedChanged += new System.EventHandler(this.tb_speed_SpeedChanged);
-            this.tb_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CalculateMinimumRadius);
             // 
             // label81
             // 
@@ -2863,6 +2692,193 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Altitude hold";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this._pid_heading_to_roll);
+            this.groupBox5.Location = new System.Drawing.Point(12, 136);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(277, 123);
+            this.groupBox5.TabIndex = 3;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Heading to roll/yaw";
+            // 
+            // _pid_roll2aileron
+            // 
+            this._pid_roll2aileron.Controls.Add(this._pid_roll_to_aileron);
+            this._pid_roll2aileron.Location = new System.Drawing.Point(295, 15);
+            this._pid_roll2aileron.Name = "_pid_roll2aileron";
+            this._pid_roll2aileron.Size = new System.Drawing.Size(281, 115);
+            this._pid_roll2aileron.TabIndex = 2;
+            this._pid_roll2aileron.TabStop = false;
+            this._pid_roll2aileron.Text = "Roll 2 Aileron";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this._pid_pitch_to_elevator);
+            this.groupBox4.Location = new System.Drawing.Point(12, 15);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(277, 115);
+            this.groupBox4.TabIndex = 1;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Pitch 2 Elevator";
+            // 
+            // _tbGyroZNeutral
+            // 
+            this._tbGyroZNeutral.AllowSpace = false;
+            this._tbGyroZNeutral.Location = new System.Drawing.Point(394, 153);
+            this._tbGyroZNeutral.Name = "_tbGyroZNeutral";
+            this._tbGyroZNeutral.Size = new System.Drawing.Size(67, 20);
+            this._tbGyroZNeutral.TabIndex = 37;
+            this._tbGyroZNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
+            // 
+            // _tbGyroYNeutral
+            // 
+            this._tbGyroYNeutral.AllowSpace = false;
+            this._tbGyroYNeutral.Location = new System.Drawing.Point(255, 153);
+            this._tbGyroYNeutral.Name = "_tbGyroYNeutral";
+            this._tbGyroYNeutral.Size = new System.Drawing.Size(66, 20);
+            this._tbGyroYNeutral.TabIndex = 36;
+            this._tbGyroYNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
+            // 
+            // _tbGyroXNeutral
+            // 
+            this._tbGyroXNeutral.AllowSpace = false;
+            this._tbGyroXNeutral.Location = new System.Drawing.Point(122, 153);
+            this._tbGyroXNeutral.Name = "_tbGyroXNeutral";
+            this._tbGyroXNeutral.Size = new System.Drawing.Size(67, 20);
+            this._tbGyroXNeutral.TabIndex = 34;
+            this._tbGyroXNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
+            // 
+            // _tbAccZNeutral
+            // 
+            this._tbAccZNeutral.AllowSpace = false;
+            this._tbAccZNeutral.Location = new System.Drawing.Point(394, 65);
+            this._tbAccZNeutral.Name = "_tbAccZNeutral";
+            this._tbAccZNeutral.Size = new System.Drawing.Size(67, 20);
+            this._tbAccZNeutral.TabIndex = 11;
+            this._tbAccZNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
+            // 
+            // _tbAccYNeutral
+            // 
+            this._tbAccYNeutral.AllowSpace = false;
+            this._tbAccYNeutral.Location = new System.Drawing.Point(255, 65);
+            this._tbAccYNeutral.Name = "_tbAccYNeutral";
+            this._tbAccYNeutral.Size = new System.Drawing.Size(66, 20);
+            this._tbAccYNeutral.TabIndex = 10;
+            this._tbAccYNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
+            // 
+            // _tbAccXNeutral
+            // 
+            this._tbAccXNeutral.AllowSpace = false;
+            this._tbAccXNeutral.Location = new System.Drawing.Point(121, 65);
+            this._tbAccXNeutral.Name = "_tbAccXNeutral";
+            this._tbAccXNeutral.Size = new System.Drawing.Size(67, 20);
+            this._tbAccXNeutral.TabIndex = 9;
+            this._tbAccXNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
+            // 
+            // _tb_initial_baudrate
+            // 
+            this._tb_initial_baudrate.AllowSpace = false;
+            this._tb_initial_baudrate.Location = new System.Drawing.Point(129, 13);
+            this._tb_initial_baudrate.Name = "_tb_initial_baudrate";
+            this._tb_initial_baudrate.Size = new System.Drawing.Size(100, 20);
+            this._tb_initial_baudrate.TabIndex = 20;
+            this._tb_initial_baudrate.TextChanged += new System.EventHandler(this._tb_initial_baudrate_TextChanged);
+            // 
+            // _tb_operational_baudrate
+            // 
+            this._tb_operational_baudrate.AllowSpace = false;
+            this._tb_operational_baudrate.Enabled = false;
+            this._tb_operational_baudrate.Location = new System.Drawing.Point(129, 39);
+            this._tb_operational_baudrate.Name = "_tb_operational_baudrate";
+            this._tb_operational_baudrate.Size = new System.Drawing.Size(100, 20);
+            this._tb_operational_baudrate.TabIndex = 3;
+            this._tb_operational_baudrate.TextChanged += new System.EventHandler(this._tb_operational_baudrate_TextChanged);
+            // 
+            // _tb_servo6_neutral
+            // 
+            this._tb_servo6_neutral.AllowSpace = false;
+            this._tb_servo6_neutral.Location = new System.Drawing.Point(160, 225);
+            this._tb_servo6_neutral.Name = "_tb_servo6_neutral";
+            this._tb_servo6_neutral.ReadOnly = true;
+            this._tb_servo6_neutral.Size = new System.Drawing.Size(56, 20);
+            this._tb_servo6_neutral.TabIndex = 24;
+            // 
+            // _tb_servo5_neutral
+            // 
+            this._tb_servo5_neutral.AllowSpace = false;
+            this._tb_servo5_neutral.Location = new System.Drawing.Point(160, 196);
+            this._tb_servo5_neutral.Name = "_tb_servo5_neutral";
+            this._tb_servo5_neutral.ReadOnly = true;
+            this._tb_servo5_neutral.Size = new System.Drawing.Size(56, 20);
+            this._tb_servo5_neutral.TabIndex = 20;
+            // 
+            // _tb_servo4_neutral
+            // 
+            this._tb_servo4_neutral.AllowSpace = false;
+            this._tb_servo4_neutral.Location = new System.Drawing.Point(160, 167);
+            this._tb_servo4_neutral.Name = "_tb_servo4_neutral";
+            this._tb_servo4_neutral.ReadOnly = true;
+            this._tb_servo4_neutral.Size = new System.Drawing.Size(56, 20);
+            this._tb_servo4_neutral.TabIndex = 16;
+            // 
+            // _tb_servo3_neutral
+            // 
+            this._tb_servo3_neutral.AllowSpace = false;
+            this._tb_servo3_neutral.Location = new System.Drawing.Point(160, 138);
+            this._tb_servo3_neutral.Name = "_tb_servo3_neutral";
+            this._tb_servo3_neutral.ReadOnly = true;
+            this._tb_servo3_neutral.Size = new System.Drawing.Size(56, 20);
+            this._tb_servo3_neutral.TabIndex = 12;
+            // 
+            // _tb_servo2_neutral
+            // 
+            this._tb_servo2_neutral.AllowSpace = false;
+            this._tb_servo2_neutral.Location = new System.Drawing.Point(160, 109);
+            this._tb_servo2_neutral.Name = "_tb_servo2_neutral";
+            this._tb_servo2_neutral.ReadOnly = true;
+            this._tb_servo2_neutral.Size = new System.Drawing.Size(56, 20);
+            this._tb_servo2_neutral.TabIndex = 8;
+            // 
+            // _tb_servo1_neutral
+            // 
+            this._tb_servo1_neutral.AllowSpace = false;
+            this._tb_servo1_neutral.Location = new System.Drawing.Point(160, 80);
+            this._tb_servo1_neutral.Name = "_tb_servo1_neutral";
+            this._tb_servo1_neutral.ReadOnly = true;
+            this._tb_servo1_neutral.Size = new System.Drawing.Size(56, 20);
+            this._tb_servo1_neutral.TabIndex = 2;
+            // 
+            // _dtb_waypoint_radius
+            // 
+            this._dtb_waypoint_radius.DistanceM = 0;
+            this._dtb_waypoint_radius.Location = new System.Drawing.Point(102, 44);
+            this._dtb_waypoint_radius.Name = "_dtb_waypoint_radius";
+            this._dtb_waypoint_radius.ReadOnly = false;
+            this._dtb_waypoint_radius.Size = new System.Drawing.Size(99, 21);
+            this._dtb_waypoint_radius.TabIndex = 4;
+            this._dtb_waypoint_radius.DistanceChanged += new System.EventHandler(this._dtb_waypoint_radius_DistanceChanged);
+            // 
+            // tb_min_circle_radius
+            // 
+            this.tb_min_circle_radius.DistanceM = 0;
+            this.tb_min_circle_radius.Enabled = false;
+            this.tb_min_circle_radius.Location = new System.Drawing.Point(426, 81);
+            this.tb_min_circle_radius.Name = "tb_min_circle_radius";
+            this.tb_min_circle_radius.ReadOnly = true;
+            this.tb_min_circle_radius.Size = new System.Drawing.Size(110, 21);
+            this.tb_min_circle_radius.TabIndex = 18;
+            // 
+            // tb_speed
+            // 
+            this.tb_speed.Location = new System.Drawing.Point(426, 54);
+            this.tb_speed.Name = "tb_speed";
+            this.tb_speed.Size = new System.Drawing.Size(110, 21);
+            this.tb_speed.SpeedMS = 0;
+            this.tb_speed.TabIndex = 16;
+            this.tb_speed.SpeedChanged += new System.EventHandler(this.tb_speed_SpeedChanged);
+            this.tb_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CalculateMinimumRadius);
+            // 
             // _pid_altitude_hold
             // 
             this._pid_altitude_hold.D = 0;
@@ -2876,16 +2892,6 @@
             this._pid_altitude_hold.P = 0;
             this._pid_altitude_hold.Size = new System.Drawing.Size(296, 87);
             this._pid_altitude_hold.TabIndex = 0;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this._pid_heading_to_roll);
-            this.groupBox5.Location = new System.Drawing.Point(12, 136);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(277, 123);
-            this.groupBox5.TabIndex = 3;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Heading to roll/yaw";
             // 
             // _pid_heading_to_roll
             // 
@@ -2901,16 +2907,6 @@
             this._pid_heading_to_roll.TabIndex = 0;
             this._pid_heading_to_roll.IsChanged += new System.EventHandler(this._pid_heading_to_roll_IsChanged);
             // 
-            // _pid_roll2aileron
-            // 
-            this._pid_roll2aileron.Controls.Add(this._pid_roll_to_aileron);
-            this._pid_roll2aileron.Location = new System.Drawing.Point(295, 15);
-            this._pid_roll2aileron.Name = "_pid_roll2aileron";
-            this._pid_roll2aileron.Size = new System.Drawing.Size(281, 115);
-            this._pid_roll2aileron.TabIndex = 2;
-            this._pid_roll2aileron.TabStop = false;
-            this._pid_roll2aileron.Text = "Roll 2 Aileron";
-            // 
             // _pid_roll_to_aileron
             // 
             this._pid_roll_to_aileron.D = 0;
@@ -2925,16 +2921,6 @@
             this._pid_roll_to_aileron.TabIndex = 0;
             this._pid_roll_to_aileron.IsChanged += new System.EventHandler(this._pid_roll_to_aileron_IsChanged);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this._pid_pitch_to_elevator);
-            this.groupBox4.Location = new System.Drawing.Point(12, 15);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(277, 115);
-            this.groupBox4.TabIndex = 1;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Pitch 2 Elevator";
-            // 
             // _pid_pitch_to_elevator
             // 
             this._pid_pitch_to_elevator.D = 0;
@@ -2948,201 +2934,6 @@
             this._pid_pitch_to_elevator.Size = new System.Drawing.Size(258, 89);
             this._pid_pitch_to_elevator.TabIndex = 0;
             this._pid_pitch_to_elevator.IsChanged += new System.EventHandler(this._pid_pitch_to_elevator_IsChanged);
-            // 
-            // _tp_datalog
-            // 
-            this._tp_datalog.Controls.Add(this._btn_datalog_to_matlab);
-            this._tp_datalog.Controls.Add(this._pb_datalog);
-            this._tp_datalog.Controls.Add(this._btn_datalog_load_xml);
-            this._tp_datalog.Controls.Add(this._btn_datalog_to_xml);
-            this._tp_datalog.Controls.Add(this._dgv_datalog);
-            this._tp_datalog.Controls.Add(this._button_datalog_kml);
-            this._tp_datalog.Controls.Add(this._btn_readdatalog);
-            this._tp_datalog.Controls.Add(this._lv_datalogtable);
-            this._tp_datalog.Controls.Add(this._btn_datalog_readtable);
-            this._tp_datalog.Controls.Add(this._btn_dataflash_format);
-            this._tp_datalog.Location = new System.Drawing.Point(4, 22);
-            this._tp_datalog.Name = "_tp_datalog";
-            this._tp_datalog.Size = new System.Drawing.Size(590, 277);
-            this._tp_datalog.TabIndex = 7;
-            this._tp_datalog.Text = "Datalog";
-            this._tp_datalog.UseVisualStyleBackColor = true;
-            // 
-            // _btn_datalog_to_matlab
-            // 
-            this._btn_datalog_to_matlab.Location = new System.Drawing.Point(461, 3);
-            this._btn_datalog_to_matlab.Name = "_btn_datalog_to_matlab";
-            this._btn_datalog_to_matlab.Size = new System.Drawing.Size(57, 23);
-            this._btn_datalog_to_matlab.TabIndex = 12;
-            this._btn_datalog_to_matlab.Text = "To *.dat";
-            this._btn_datalog_to_matlab.UseVisualStyleBackColor = true;
-            this._btn_datalog_to_matlab.Click += new System.EventHandler(this._btn_datalog_to_matlab_Click);
-            // 
-            // _pb_datalog
-            // 
-            this._pb_datalog.Location = new System.Drawing.Point(224, 8);
-            this._pb_datalog.Maximum = 50;
-            this._pb_datalog.Name = "_pb_datalog";
-            this._pb_datalog.Size = new System.Drawing.Size(87, 14);
-            this._pb_datalog.Step = 1;
-            this._pb_datalog.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this._pb_datalog.TabIndex = 11;
-            // 
-            // _btn_datalog_load_xml
-            // 
-            this._btn_datalog_load_xml.Location = new System.Drawing.Point(317, 3);
-            this._btn_datalog_load_xml.Name = "_btn_datalog_load_xml";
-            this._btn_datalog_load_xml.Size = new System.Drawing.Size(75, 23);
-            this._btn_datalog_load_xml.TabIndex = 10;
-            this._btn_datalog_load_xml.Text = "Load XML";
-            this._btn_datalog_load_xml.UseVisualStyleBackColor = true;
-            this._btn_datalog_load_xml.Click += new System.EventHandler(this._btn_datalog_load_xml_Click);
-            // 
-            // _btn_datalog_to_xml
-            // 
-            this._btn_datalog_to_xml.Location = new System.Drawing.Point(398, 3);
-            this._btn_datalog_to_xml.Name = "_btn_datalog_to_xml";
-            this._btn_datalog_to_xml.Size = new System.Drawing.Size(57, 23);
-            this._btn_datalog_to_xml.TabIndex = 9;
-            this._btn_datalog_to_xml.Text = "To XML";
-            this._btn_datalog_to_xml.UseVisualStyleBackColor = true;
-            this._btn_datalog_to_xml.Click += new System.EventHandler(this._btn_datalog_to_xml_Click);
-            // 
-            // _dgv_datalog
-            // 
-            this._dgv_datalog.AllowUserToAddRows = false;
-            this._dgv_datalog.AllowUserToDeleteRows = false;
-            this._dgv_datalog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this._dgv_datalog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this._dgv_datalog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._dgv_datalog.Location = new System.Drawing.Point(224, 32);
-            this._dgv_datalog.Name = "_dgv_datalog";
-            this._dgv_datalog.ReadOnly = true;
-            this._dgv_datalog.Size = new System.Drawing.Size(363, 242);
-            this._dgv_datalog.TabIndex = 8;
-            // 
-            // _button_datalog_kml
-            // 
-            this._button_datalog_kml.Location = new System.Drawing.Point(524, 3);
-            this._button_datalog_kml.Name = "_button_datalog_kml";
-            this._button_datalog_kml.Size = new System.Drawing.Size(62, 23);
-            this._button_datalog_kml.TabIndex = 7;
-            this._button_datalog_kml.Text = "To KML";
-            this._button_datalog_kml.UseVisualStyleBackColor = true;
-            this._button_datalog_kml.Click += new System.EventHandler(this._button_datalog_kml_Click);
-            // 
-            // _btn_readdatalog
-            // 
-            this._btn_readdatalog.Location = new System.Drawing.Point(196, 148);
-            this._btn_readdatalog.Name = "_btn_readdatalog";
-            this._btn_readdatalog.Size = new System.Drawing.Size(21, 23);
-            this._btn_readdatalog.TabIndex = 3;
-            this._btn_readdatalog.Text = ">";
-            this._btn_readdatalog.UseVisualStyleBackColor = true;
-            this._btn_readdatalog.Click += new System.EventHandler(this._btn_readdatalog_Click);
-            // 
-            // _lv_datalogtable
-            // 
-            this._lv_datalogtable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
-            this._lv_datalogtable.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderIndex,
-            this.columnHeaderPage,
-            this.columnHeaderDate,
-            this.columnHeaderTime});
-            this._lv_datalogtable.FullRowSelect = true;
-            this._lv_datalogtable.GridLines = true;
-            this._lv_datalogtable.HideSelection = false;
-            this._lv_datalogtable.Location = new System.Drawing.Point(7, 66);
-            this._lv_datalogtable.MultiSelect = false;
-            this._lv_datalogtable.Name = "_lv_datalogtable";
-            this._lv_datalogtable.ShowItemToolTips = true;
-            this._lv_datalogtable.Size = new System.Drawing.Size(182, 179);
-            this._lv_datalogtable.TabIndex = 2;
-            this._lv_datalogtable.UseCompatibleStateImageBehavior = false;
-            this._lv_datalogtable.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeaderIndex
-            // 
-            this.columnHeaderIndex.Text = "Index";
-            this.columnHeaderIndex.Width = 22;
-            // 
-            // columnHeaderPage
-            // 
-            this.columnHeaderPage.Text = "Page start";
-            this.columnHeaderPage.Width = 49;
-            // 
-            // columnHeaderDate
-            // 
-            this.columnHeaderDate.Text = "Date";
-            this.columnHeaderDate.Width = 51;
-            // 
-            // columnHeaderTime
-            // 
-            this.columnHeaderTime.Text = "Time";
-            this.columnHeaderTime.Width = 54;
-            // 
-            // _btn_datalog_readtable
-            // 
-            this._btn_datalog_readtable.Image = ((System.Drawing.Image)(resources.GetObject("_btn_datalog_readtable.Image")));
-            this._btn_datalog_readtable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this._btn_datalog_readtable.Location = new System.Drawing.Point(7, 37);
-            this._btn_datalog_readtable.Name = "_btn_datalog_readtable";
-            this._btn_datalog_readtable.Size = new System.Drawing.Size(182, 23);
-            this._btn_datalog_readtable.TabIndex = 1;
-            this._btn_datalog_readtable.Text = "Read datalog index";
-            this._btn_datalog_readtable.UseVisualStyleBackColor = true;
-            this._btn_datalog_readtable.Click += new System.EventHandler(this._btn_datalog_readtable_Click);
-            // 
-            // _btn_dataflash_format
-            // 
-            this._btn_dataflash_format.Image = ((System.Drawing.Image)(resources.GetObject("_btn_dataflash_format.Image")));
-            this._btn_dataflash_format.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this._btn_dataflash_format.Location = new System.Drawing.Point(7, 8);
-            this._btn_dataflash_format.Name = "_btn_dataflash_format";
-            this._btn_dataflash_format.Size = new System.Drawing.Size(182, 23);
-            this._btn_dataflash_format.TabIndex = 0;
-            this._btn_dataflash_format.Text = "Format datalog memory";
-            this._btn_dataflash_format.UseVisualStyleBackColor = true;
-            this._btn_dataflash_format.Click += new System.EventHandler(this._btn_dataflash_format_Click);
-            // 
-            // _tbNavigation
-            // 
-            this._tbNavigation.Controls.Add(this.navigationListView);
-            this._tbNavigation.Location = new System.Drawing.Point(4, 22);
-            this._tbNavigation.Name = "_tbNavigation";
-            this._tbNavigation.Size = new System.Drawing.Size(590, 277);
-            this._tbNavigation.TabIndex = 8;
-            this._tbNavigation.Text = "Navigation";
-            this._tbNavigation.UseVisualStyleBackColor = true;
-            // 
-            // navigationListView
-            // 
-            this.navigationListView.Location = new System.Drawing.Point(3, 3);
-            this.navigationListView.Name = "navigationListView";
-            this.navigationListView.Size = new System.Drawing.Size(355, 265);
-            this.navigationListView.TabIndex = 0;
-            // 
-            // _tbGcs
-            // 
-            this._tbGcs.Location = new System.Drawing.Point(4, 22);
-            this._tbGcs.Name = "_tbGcs";
-            this._tbGcs.Size = new System.Drawing.Size(590, 277);
-            this._tbGcs.TabIndex = 9;
-            this._tbGcs.Text = "GCS";
-            this._tbGcs.UseVisualStyleBackColor = true;
-            // 
-            // _btn_cube
-            // 
-            this._btn_cube.Image = ((System.Drawing.Image)(resources.GetObject("_btn_cube.Image")));
-            this._btn_cube.Location = new System.Drawing.Point(503, 11);
-            this._btn_cube.Name = "_btn_cube";
-            this._btn_cube.Size = new System.Drawing.Size(31, 23);
-            this._btn_cube.TabIndex = 39;
-            this._btn_cube.UseVisualStyleBackColor = true;
-            this._btn_cube.Click += new System.EventHandler(this._btn_cube_Click);
             // 
             // ConfigurationTabpage
             // 
@@ -3198,9 +2989,6 @@
             this.groupBox5.ResumeLayout(false);
             this._pid_roll2aileron.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
-            this._tp_datalog.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this._dgv_datalog)).EndInit();
-            this._tbNavigation.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -3434,21 +3222,6 @@
         private System.Windows.Forms.Label label76;
         private System.Windows.Forms.LinkLabel _llRc;
         private System.Windows.Forms.RadioButton _rb_gps_notfound;
-        private System.Windows.Forms.TabPage _tp_datalog;
-        private System.Windows.Forms.Button _btn_datalog_readtable;
-        private System.Windows.Forms.Button _btn_dataflash_format;
-        private System.Windows.Forms.ListView _lv_datalogtable;
-        private System.Windows.Forms.ColumnHeader columnHeaderDate;
-        private System.Windows.Forms.ColumnHeader columnHeaderTime;
-        private System.Windows.Forms.ColumnHeader columnHeaderIndex;
-        private System.Windows.Forms.ColumnHeader columnHeaderPage;
-        private System.Windows.Forms.Button _btn_readdatalog;
-        private System.Windows.Forms.Button _button_datalog_kml;
-        private System.Windows.Forms.DataGridView _dgv_datalog;
-        private System.Windows.Forms.Button _btn_datalog_to_xml;
-        private System.Windows.Forms.Button _btn_datalog_load_xml;
-        private System.Windows.Forms.ProgressBar _pb_datalog;
-        private System.Windows.Forms.Button _btn_datalog_to_matlab;
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label79;
@@ -3465,11 +3238,8 @@
         private System.Windows.Forms.Label label84;
         private System.Windows.Forms.GroupBox groupBox8;
         private Configuration.PidControl _pid_altitude_hold;
-        private System.Windows.Forms.TabPage _tbGcs;
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TabPage _tbNavigation;
-        private Configuration.NavigationListView navigationListView;
         private Configuration.DistanceTextBox _dtb_waypoint_radius;
         private System.Windows.Forms.Label label86;
         private System.Windows.Forms.Button _btn_cube;
