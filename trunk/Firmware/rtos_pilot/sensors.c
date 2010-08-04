@@ -186,7 +186,7 @@ void sensors_gps_task( void *parameters )
 				if (sensor_data.gps.status == ACTIVE)
 					led2_off();
 			}	
-			else
+			else if (sensor_data.gps.status != EMPTY)
 				led2_on();
 
 		}
