@@ -197,10 +197,12 @@ namespace Communication
                         ac.control_max_pitch = int.Parse(lines[59]);
                         ac.control_max_roll = int.Parse(lines[60]);
 
-                        ac.control_waypoint_radius = int.Parse(lines[61]);
-                        ac.control_cruising_speed = int.Parse(lines[62]);
-                        ac.control_stabilization_with_altitude_hold = int.Parse(lines[63]) == 0? false: true;
-
+                        if (lines.Length > 61)
+                        {
+                            ac.control_waypoint_radius = int.Parse(lines[61]);
+                            ac.control_cruising_speed = int.Parse(lines[62]);
+                            ac.control_stabilization_with_altitude_hold = int.Parse(lines[63]) == 0 ? false : true;
+                        }
                         AllConfigCommunicationReceived(ac);
                     }
 
