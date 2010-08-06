@@ -298,7 +298,7 @@ void control_desired_to_servos(double dt)
 	double desired_yaw_rate  = (double)((int)ppm.channel[config.control.channel_yaw]
 		                            - config.control.channel_neutral[config.control.channel_yaw]) / 500.0 * (DEG2RAD(30.0)); // max 30°/s
 	
-	if (abs(desired_yaw_rate) < DEG2RAD(5.0)) // stick in the middle
+	if (fabs(desired_yaw_rate) < DEG2RAD(5.0)) // stick in the middle
 	{
 		desired_yaw_rate = 0.0;		
 	}
@@ -309,9 +309,11 @@ void control_desired_to_servos(double dt)
 	if (navigation_data.desired_heading_rad < -DEG2RAD(360.0))
 		navigation_data.desired_heading_rad	 += DEG2RAD(360.0);
 	
-	yaw_out = (int) (config.control.pid_heading2roll.d_gain * (navigation_data.desired_heading_rad - sensor_data.yaw) / dt * 630.0);
+	yaw_out = (int) (config.control.pid_heading2roll.d_gain * 
+	                   (desired_yaw_rate - sensor_data.r) /*(navigation_data.desired_heading_rad - sensor_data.yaw) / dt*/ * 630.0);
 
-	
+	yaw_out = MAX(yaw_out, -800);
+	yaw_out = MIN(yaw_out, 800);
 #else
 	elevator_out_radians = pid_update(&config.control.pid_pitch2elevator, 
 	                                         control_state.desired_pitch - sensor_data.pitch, dt);
