@@ -100,10 +100,11 @@ void navigation_update()
 	// Set the "home"-position
 	if (!navigation_data.airborne)
 	{ 
-		if (sensor_data.gps.speed_ms >= 2 && sensor_data.gps.status == ACTIVE)
+		if (sensor_data.gps.speed_ms >= 2 && sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view >= 5)
 		{
 			navigation_data.airborne = 1;
 			navigation_set_home();
+			navigation_data.wind_heading = sensor_data.gps.heading_rad;
 			navigation_calculate_relative_positions();
 		}
 		else
@@ -247,7 +248,6 @@ void navigation_set_home()
 	navigation_data.home_longitude_rad = sensor_data.gps.longitude_rad;
 	navigation_data.home_latitude_rad = sensor_data.gps.latitude_rad;
 	navigation_data.home_gps_height = sensor_data.gps.height_m;
-	navigation_data.wind_heading = sensor_data.gps.heading_rad;
 	
 	cos_latitude = cos(sensor_data.gps.latitude_rad);
 	longitude_meter_per_radian = latitude_meter_per_radian * cos_latitude;  // approx
