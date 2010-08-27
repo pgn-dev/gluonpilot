@@ -140,10 +140,10 @@ void ahrs_filter(double dt)
     /* optimize me: P is symmectric: P[1] = P[2] */
     matrix_2x2_mul(df_dx, P, tmp1);   // A * P = tmp1
     matrix_2x2_mul_transp(P, df_dx, tmp2);  //  P * A' = tmp2
-    tmp2[0] += 0.1 + tmp1[0]; // Q
+    tmp2[0] += 0.1 + tmp1[0];     // Q(1) = 0.1 for roll
     tmp2[1] += tmp1[1];
     //tmp2[2] += tmp1[2];
-    tmp2[3] += 0.1 + tmp1[3];
+    tmp2[3] += 0.03 + tmp1[3];    // Q(2) = 0.02 for pitch, because the accelerometer is undergoing more non-compensated accelerations (at take-off for example)
     P[0] += tmp2[0] * dt;
     P[1] += tmp2[1] * dt;
     //P[2] += tmp2[2] * dt;
@@ -152,12 +152,13 @@ void ahrs_filter(double dt)
     
     ////////////////////////////////
     
-    if (i++ % 2 == 0)
+    if (i++ % 2 == 0 &&    // only apply every other iteration
+        fabs(sensor_data.acc_x) < 1.0)   // only apply when the acceleration along the x-axis is not too large (take-off!)
     {
 	    //dh_dx = [q(i)/G*w_droll                        cos_pitch + q(i)*w_dpitch/G;...
 	    //         -cos_pitch*cos_roll + p(i)*w_droll/G   sin_roll*sin_pitch + (r(i)*u_dpitch - p(i)*w_dpitch)/G;...
 	    //         sin_roll*cos_pitch-p(i)*w_droll/G      cos_roll*sin_pitch + (p(i)*w_dpitch - q(i)*u_dpitch)/G];
-	  	double dh = -sensor_data.vertical_speed;
+	  	double dh = 0.0; //-sensor_data.vertical_speed;
 	  	double u = cos_pitch * sensor_data.gps.speed_ms - sin_pitch * dh;
 		double w = cos_roll * sin_pitch * sensor_data.gps.speed_ms + cos_roll * cos_pitch * dh;
 	
@@ -180,9 +181,11 @@ void ahrs_filter(double dt)
 	   	matrix_3x2_times_2x2(dh_dx_3x2, P, tmp1);  // C * P = tmp1
 	   	matrix_3x2_times_3x2_transp(tmp1, dh_dx_3x2, tmp2);  // tmp1 * C' = tmp2
 	   	//R = diag([0.25 0.25 0.25]);
-	   	tmp2[0] += 25.0;
-	   	tmp2[4] += 25.0;
-	   	tmp2[8] += 30.0;   // our Z-gyro is a lot better quality!
+	   	
+	   	
+	   	tmp2[0] += 40.0;   // x-axis = forward acceleration (not compensated), so less thrustworthy
+	   	tmp2[4] += 30.0;
+	   	tmp2[8] += 35.0;   // z-axis = vertical acceleration (not compensated for the moment, possibly using barometer?)
 	   	
 	   	double d;
 	   	INVERT_3X3(tmp1, d, tmp2); // result = tmp1

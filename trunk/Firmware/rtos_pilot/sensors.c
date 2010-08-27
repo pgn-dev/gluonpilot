@@ -174,7 +174,7 @@ void sensors_gps_task( void *parameters )
 			// When the GPS is no longer locked, we don't know the speed -> no reliable attitude
 			// Use pre-configured cruising speed as measured speed
 			if (sensor_data.gps.satellites_in_view < 4 && 
-				sensor_data.gps.speed_ms > 0)
+				navigation_data.airborne)
 					sensor_data.gps.speed_ms = config.control.cruising_speed_ms;
 				
 			i++;
