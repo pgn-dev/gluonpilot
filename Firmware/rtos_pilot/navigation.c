@@ -168,6 +168,7 @@ void navigation_update()
 		case CIRCLE_REL:
 		case CIRCLE_ABS:
 			navigation_do_circle(current_code);
+			navigation_data.desired_height_above_ground_m = current_code->b;
 			navigation_data.current_codeline++;
 			break;
 		case GOTO:

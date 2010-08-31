@@ -31,28 +31,27 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GluonConfig));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.config = new System.Windows.Forms.TabPage();
+            this.configurationControl = new Configuration.ConfigurationControl();
+            this.Navigation = new System.Windows.Forms.TabPage();
+            this.navigationListView1 = new Configuration.NavigationListView();
+            this.datalog = new System.Windows.Forms.TabPage();
+            this.datalogging = new Configuration.Datalogging();
+            this.gcs = new System.Windows.Forms.TabPage();
+            this._gcsMainPanel = new GCS.GcsMainPanel();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
+            this._tb_logging = new System.Windows.Forms.TextBox();
+            this._cb_print_timestamp = new System.Windows.Forms.CheckBox();
+            this._cb_hide_parsed = new System.Windows.Forms.CheckBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this._btn_connect = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this._btn_showlogging = new System.Windows.Forms.ToolStripButton();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.config = new System.Windows.Forms.TabPage();
-            this.Navigation = new System.Windows.Forms.TabPage();
-            this.datalog = new System.Windows.Forms.TabPage();
-            this.gcs = new System.Windows.Forms.TabPage();
-            this._tb_logging = new System.Windows.Forms.TextBox();
-            this._cb_print_timestamp = new System.Windows.Forms.CheckBox();
-            this._cb_hide_parsed = new System.Windows.Forms.CheckBox();
-            this.configurationControl = new Configuration.ConfigurationControl();
-            this.navigationListView1 = new Configuration.NavigationListView();
-            this.datalogging = new Configuration.Datalogging();
-            this._gcsMainPanel = new GCS.GcsMainPanel();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -61,6 +60,7 @@
             this.Navigation.SuspendLayout();
             this.datalog.SuspendLayout();
             this.gcs.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer1
@@ -81,54 +81,6 @@
             // 
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
             this.toolStripContainer1.TopToolStripPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            // 
-            // imageList
-            // 
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "cog.png");
-            this.imageList.Images.SetKeyName(1, "wrench.png");
-            this.imageList.Images.SetKeyName(2, "world_edit.png");
-            this.imageList.Images.SetKeyName(3, "folder_table.png");
-            this.imageList.Images.SetKeyName(4, "transmit.png");
-            this.imageList.Images.SetKeyName(5, "map.png");
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._btn_connect,
-            this.toolStripSeparator1,
-            this._btn_showlogging});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(149, 25);
-            this.toolStrip1.TabIndex = 0;
-            // 
-            // _btn_connect
-            // 
-            this._btn_connect.Image = ((System.Drawing.Image)(resources.GetObject("_btn_connect.Image")));
-            this._btn_connect.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._btn_connect.Name = "_btn_connect";
-            this._btn_connect.Size = new System.Drawing.Size(67, 22);
-            this._btn_connect.Text = "Connect";
-            this._btn_connect.Click += new System.EventHandler(this._btn_connect_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // _btn_showlogging
-            // 
-            this._btn_showlogging.Checked = true;
-            this._btn_showlogging.CheckState = System.Windows.Forms.CheckState.Checked;
-            this._btn_showlogging.Image = ((System.Drawing.Image)(resources.GetObject("_btn_showlogging.Image")));
-            this._btn_showlogging.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._btn_showlogging.Name = "_btn_showlogging";
-            this._btn_showlogging.Size = new System.Drawing.Size(64, 22);
-            this._btn_showlogging.Text = "Logging";
-            this._btn_showlogging.Click += new System.EventHandler(this._btn_showlogging_Click);
             // 
             // splitContainer1
             // 
@@ -183,6 +135,14 @@
             this.config.Text = "Configuration";
             this.config.UseVisualStyleBackColor = true;
             // 
+            // configurationControl
+            // 
+            this.configurationControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.configurationControl.Location = new System.Drawing.Point(3, 3);
+            this.configurationControl.Name = "configurationControl";
+            this.configurationControl.Size = new System.Drawing.Size(607, 343);
+            this.configurationControl.TabIndex = 0;
+            // 
             // Navigation
             // 
             this.Navigation.Controls.Add(this.navigationListView1);
@@ -194,6 +154,13 @@
             this.Navigation.TabIndex = 1;
             this.Navigation.Text = "Navigation";
             this.Navigation.UseVisualStyleBackColor = true;
+            // 
+            // navigationListView1
+            // 
+            this.navigationListView1.Location = new System.Drawing.Point(3, 3);
+            this.navigationListView1.Name = "navigationListView1";
+            this.navigationListView1.Size = new System.Drawing.Size(385, 326);
+            this.navigationListView1.TabIndex = 0;
             // 
             // datalog
             // 
@@ -207,6 +174,15 @@
             this.datalog.Text = "Datalogging";
             this.datalog.UseVisualStyleBackColor = true;
             // 
+            // datalogging
+            // 
+            this.datalogging.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.datalogging.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.datalogging.Location = new System.Drawing.Point(3, 3);
+            this.datalogging.Name = "datalogging";
+            this.datalogging.Size = new System.Drawing.Size(607, 343);
+            this.datalogging.TabIndex = 0;
+            // 
             // gcs
             // 
             this.gcs.Controls.Add(this._gcsMainPanel);
@@ -215,11 +191,35 @@
             this.gcs.Name = "gcs";
             this.gcs.Size = new System.Drawing.Size(613, 349);
             this.gcs.TabIndex = 3;
-            this.gcs.Text = "GCS";
+            this.gcs.Text = "Dashboard";
             this.gcs.UseVisualStyleBackColor = true;
+            // 
+            // _gcsMainPanel
+            // 
+            this._gcsMainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._gcsMainPanel.Location = new System.Drawing.Point(3, 3);
+            this._gcsMainPanel.Name = "_gcsMainPanel";
+            this._gcsMainPanel.Size = new System.Drawing.Size(607, 343);
+            this._gcsMainPanel.TabIndex = 2;
+            // 
+            // imageList
+            // 
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "cog.png");
+            this.imageList.Images.SetKeyName(1, "wrench.png");
+            this.imageList.Images.SetKeyName(2, "world_edit.png");
+            this.imageList.Images.SetKeyName(3, "folder_table.png");
+            this.imageList.Images.SetKeyName(4, "transmit.png");
+            this.imageList.Images.SetKeyName(5, "map.png");
             // 
             // _tb_logging
             // 
+            this._tb_logging.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this._tb_logging.Location = new System.Drawing.Point(19, 26);
             this._tb_logging.Multiline = true;
             this._tb_logging.Name = "_tb_logging";
@@ -252,39 +252,42 @@
             this._cb_hide_parsed.Text = "Hide parsed lines";
             this._cb_hide_parsed.UseVisualStyleBackColor = true;
             // 
-            // configurationControl
+            // toolStrip1
             // 
-            this.configurationControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.configurationControl.Location = new System.Drawing.Point(3, 3);
-            this.configurationControl.Name = "configurationControl";
-            this.configurationControl.Size = new System.Drawing.Size(607, 343);
-            this.configurationControl.TabIndex = 0;
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._btn_connect,
+            this.toolStripSeparator1,
+            this._btn_showlogging});
+            this.toolStrip1.Location = new System.Drawing.Point(3, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(149, 25);
+            this.toolStrip1.TabIndex = 0;
             // 
-            // navigationListView1
+            // _btn_connect
             // 
-            this.navigationListView1.Location = new System.Drawing.Point(3, 3);
-            this.navigationListView1.Name = "navigationListView1";
-            this.navigationListView1.Size = new System.Drawing.Size(385, 326);
-            this.navigationListView1.TabIndex = 0;
+            this._btn_connect.Image = ((System.Drawing.Image)(resources.GetObject("_btn_connect.Image")));
+            this._btn_connect.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._btn_connect.Name = "_btn_connect";
+            this._btn_connect.Size = new System.Drawing.Size(67, 22);
+            this._btn_connect.Text = "Connect";
+            this._btn_connect.Click += new System.EventHandler(this._btn_connect_Click);
             // 
-            // datalogging
+            // toolStripSeparator1
             // 
-            this.datalogging.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.datalogging.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.datalogging.Location = new System.Drawing.Point(3, 3);
-            this.datalogging.Name = "datalogging";
-            this.datalogging.Size = new System.Drawing.Size(607, 343);
-            this.datalogging.TabIndex = 0;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // _gcsMainPanel
+            // _btn_showlogging
             // 
-            this._gcsMainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this._gcsMainPanel.Location = new System.Drawing.Point(3, 3);
-            this._gcsMainPanel.Name = "_gcsMainPanel";
-            this._gcsMainPanel.Size = new System.Drawing.Size(607, 343);
-            this._gcsMainPanel.TabIndex = 2;
+            this._btn_showlogging.Checked = true;
+            this._btn_showlogging.CheckState = System.Windows.Forms.CheckState.Checked;
+            this._btn_showlogging.Image = ((System.Drawing.Image)(resources.GetObject("_btn_showlogging.Image")));
+            this._btn_showlogging.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._btn_showlogging.Name = "_btn_showlogging";
+            this._btn_showlogging.Size = new System.Drawing.Size(64, 22);
+            this._btn_showlogging.Text = "Logging";
+            this._btn_showlogging.Click += new System.EventHandler(this._btn_showlogging_Click);
             // 
             // GluonConfig
             // 
@@ -300,8 +303,6 @@
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -311,6 +312,8 @@
             this.Navigation.ResumeLayout(false);
             this.datalog.ResumeLayout(false);
             this.gcs.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
