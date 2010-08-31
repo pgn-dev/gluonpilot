@@ -39,19 +39,21 @@
 #include "configuration.h"
 #include "ahrs.h"
 #include "navigation.h"
+#include "common.h"
+
+#define INVERT_X -1.0   // set to -1 if front becomes back
 
 
 //! Contains all usefull (processed) sensor data
 struct SensorData sensor_data;
 
-// Usefull constants
-#define G 9.81
-#define RAD2DEG (180.0/3.14159)
 static const float acc_value_g = 6600.0;
 
 extern xSemaphoreHandle xSpiSemaphore;
 
-#define INVERT_X -1.0   // set to -1 if front becomes back
+void read_raw_sensor_data();
+void scale_raw_sensor_data();
+
 
 /*!
  *   FreeRTOS task that reads all the sensor data and stored it in the
@@ -59,7 +61,6 @@ extern xSemaphoreHandle xSpiSemaphore;
  *
  *   The current execution rate is 100Hz.
  */
- 
 void sensors_task( void *parameters )
 {
 	unsigned int temperature_10 = 200;
@@ -73,7 +74,11 @@ void sensors_task( void *parameters )
 	uart1_puts("Sensors task initializing...");
 	adc_open();	
 	scp1000_init();
+
+	read_raw_sensor_data();
+	scale_raw_sensor_data();
 	ahrs_init();
+	
 	uart1_puts("done\r\n");
 	
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil()	works correctly. */
@@ -107,29 +112,13 @@ void sensors_task( void *parameters )
 		}
 		
 		
-		// read accelerometer data 
-		sensor_data.acc_x_raw = adc_get_channel(6);
-		sensor_data.acc_z_raw = adc_get_channel(1);
-		sensor_data.acc_y_raw = adc_get_channel(0);
-
-		sensor_data.gyro_x_raw = adc_get_channel(4);
-		sensor_data.gyro_y_raw = adc_get_channel(7);
-		sensor_data.gyro_z_raw = adc_get_channel(5);  //*0.6 = 3V max
-
-		sensor_data.idg500_vref = adc_get_channel(3);
+		read_raw_sensor_data();
 				
 		adc_start();  // restart ADC sampling to make sure we have our samples on the next loop iteration.
 
-		// scale to "g" units. We prefer "g" over SI units (m/s^2) because this allows to cancel out the gravity constant as it is "1"
-		sensor_data.acc_x = ((double)(sensor_data.acc_x_raw) - (double)config.sensors.acc_x_neutral) / (-acc_value_g*INVERT_X);
-		sensor_data.acc_y = ((double)(sensor_data.acc_y_raw) - (double)config.sensors.acc_y_neutral) / (-acc_value_g*INVERT_X);
-		sensor_data.acc_z = ((double)(sensor_data.acc_z_raw) - (double)config.sensors.acc_z_neutral) / (-acc_value_g);
-				
-		// scale to rad/sec
-		sensor_data.p = ((double)(sensor_data.gyro_x_raw)-config.sensors.gyro_x_neutral) * (-0.02518315*3.14159/180.0 * INVERT_X);  // 0.02518315f
-		sensor_data.q = ((double)(sensor_data.gyro_y_raw)-config.sensors.gyro_y_neutral) * (-0.02538315*3.14159/180.0 * INVERT_X);
-		sensor_data.r = ((double)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)		
-	
+		scale_raw_sensor_data();
+		
+
 		// x = (Pitch; Roll)'
 #ifdef ENABLE_QUADROCOPTER
 		ahrs_filter(0.005);	
@@ -139,6 +128,41 @@ void sensors_task( void *parameters )
 	}
 }
 
+void read_raw_sensor_data()
+{
+	sensor_data.acc_x_raw = adc_get_channel(6);
+	sensor_data.acc_z_raw = adc_get_channel(1);
+	sensor_data.acc_y_raw = adc_get_channel(0);
+
+	sensor_data.gyro_x_raw = adc_get_channel(4);
+	sensor_data.gyro_y_raw = adc_get_channel(7);
+	sensor_data.gyro_z_raw = adc_get_channel(5);  //*0.6 = 3V max	
+	
+	sensor_data.idg500_vref = adc_get_channel(3);
+}	
+
+
+void scale_raw_sensor_data()
+{
+	// scale to "g" units. We prefer "g" over SI units (m/s^2) because this allows to cancel out the gravity constant as it is "1"
+	sensor_data.acc_x = ((double)(sensor_data.acc_x_raw) - (double)config.sensors.acc_x_neutral) / (-acc_value_g*INVERT_X);
+	sensor_data.acc_y = ((double)(sensor_data.acc_y_raw) - (double)config.sensors.acc_y_neutral) / (-acc_value_g*INVERT_X);
+	sensor_data.acc_z = ((double)(sensor_data.acc_z_raw) - (double)config.sensors.acc_z_neutral) / (-acc_value_g);
+			
+	// scale to rad/sec
+	sensor_data.p = ((double)(sensor_data.gyro_x_raw)-config.sensors.gyro_x_neutral) * (-0.02518315*3.14159/180.0 * INVERT_X);  // 0.02518315f
+	sensor_data.q = ((double)(sensor_data.gyro_y_raw)-config.sensors.gyro_y_neutral) * (-0.02538315*3.14159/180.0 * INVERT_X);
+	sensor_data.r = ((double)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)
+}	
+
+
+
+/*!
+ *   FreeRTOS task that parses the received GPS sentence and calculates the navigation.
+ *
+ *   The inner loop contains a semaphore that is only released when a complete and
+ *   valid NMEA sentence has been received
+ */
 
 //! This semaphore is set in the uart2 interrupt routine when a new GPS message arrives
 xSemaphoreHandle xGpsSemaphore = NULL; 

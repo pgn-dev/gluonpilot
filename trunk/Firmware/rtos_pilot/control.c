@@ -139,7 +139,7 @@ void control_task( void *parameters )
 			if (lastMode != control_state.flight_mode)  // target altitude = altitude when switching from manual to stabilized
 				control_state.desired_height = sensor_data.pressure_height;
 				
-			control_navigate(DT, 1); // stabilized mode as long as navigation isn't available
+			control_navigate(DT, config.control.stabilization_with_altitude_hold); // stabilized mode as long as navigation isn't available
 		} 
 		else if (ppm.channel[config.control.channel_ap] < 1666)
 		{
@@ -248,6 +248,9 @@ void control_navigate(double dt, int altitude_controllable)
 	
 	/* Calculate desired pitch */
   	// altitude hold
+  	
+  	control_state.desired_height = navigation_data.desired_height_above_ground_m + navigation_data.home_pressure_height;
+  	
 	control_state.desired_pitch = (control_state.desired_height - sensor_data.pressure_height) / 20.0 * config.control.max_pitch; 
 	if (altitude_controllable)  // control altitude with pitch transmitter stick?
 	{
