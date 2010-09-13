@@ -30,6 +30,13 @@ namespace GCS
             _serial = serial;
             _btn_ge_server.Enabled = true;
             _graphControl.SetSerial(serial);
+            serial.AttitudeCommunicationReceived += new SerialCommunication.ReceiveAttitudeCommunicationFrame(serial_AttitudeCommunicationReceived);
+        }
+
+        void serial_AttitudeCommunicationReceived(Communication.Frames.Incoming.Attitude attitude)
+        {
+            artificialHorizon.pitch_angle = attitude.PitchDeg;
+            artificialHorizon.roll_angle = attitude.RollDeg;
         }
 
         public void Disconnnect()

@@ -18,12 +18,11 @@ namespace Communication.Frames.Configuration
         // control
         public double control_max_roll;
         public double control_max_pitch;
-        public double control_aileron_differential;
+        public int control_aileron_differential;
         public int control_mixing;
         public bool control_stabilization_with_altitude_hold;
         public double control_cruising_speed;
         public double control_waypoint_radius;
-
 
         // gps
         public int gps_initial_baudrate;
@@ -66,6 +65,15 @@ namespace Communication.Frames.Configuration
         public double pid_heading2roll_imin;
         public double pid_heading2roll_imax;
         public double pid_heading2roll_dmin;
+
+        public double pid_altitude2pitch_p;
+        public double pid_altitude2pitch_i;
+        public double pid_altitude2pitch_d;
+        public double pid_altitude2pitch_imin;
+        public double pid_altitude2pitch_imax;
+        public double pid_altitude2pitch_dmin;
+
+
 
         // servo
         public bool[] servo_reverse = new bool[8];

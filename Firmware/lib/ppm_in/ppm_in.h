@@ -12,6 +12,7 @@ struct ppm_info {
 extern volatile struct ppm_info ppm;
 
 void ppm_in_update_status(float dt);
+void ppm_in_update_status_ticks_50hz();
 
 int ppm_signal_quality();
 

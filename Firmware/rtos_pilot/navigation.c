@@ -33,7 +33,8 @@ void navigation_set_home();
 double heading_rad_fromto (double diff_long, double diff_lat);
 float distance_between_meter(float long1, float long2, float lat1, float lat2);
 void navigation_do_circle(struct NavigationCode *current_code);
-
+double get_variable(enum navigation_variable i);
+int waypoint_reached(struct NavigationCode *current_code);
 
 
 /*!
@@ -100,10 +101,12 @@ void navigation_update()
 	// Set the "home"-position
 	if (!navigation_data.airborne)
 	{ 
-		if (sensor_data.gps.speed_ms >= 2 && sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view >= 5)
+		if (sensor_data.gps.speed_ms >= 3 && sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view >= 5)
 		{
 			navigation_data.airborne = 1;
 			navigation_set_home();
+			navigation_data.last_waypoint_latitude_rad = navigation_data.home_latitude_rad;
+			navigation_data.last_waypoint_longitude_rad = navigation_data.home_longitude_rad;
 			navigation_data.wind_heading = sensor_data.gps.heading_rad;
 			navigation_calculate_relative_positions();
 		}
@@ -125,44 +128,71 @@ void navigation_update()
 		return;
 	}
 
-	navigation_data.desired_pre_bank = 0.0;
 	struct NavigationCode *current_code = & navigation_data.navigation_codes[navigation_data.current_codeline];
 	
+	//navigation_data.desired_pre_bank = 0.0;   // don't keep it here because on a GOTO line, this pre_bank variable is still valid
 	switch(current_code->opcode)
 	{
 		case CLIMB:
+			navigation_data.desired_pre_bank = 0.0;
 			navigation_data.desired_heading_rad = navigation_data.wind_heading;
-			navigation_data.desired_height_above_ground_m = current_code->x;
-			if (sensor_data.pressure_height - navigation_data.home_pressure_height > navigation_data.desired_height_above_ground_m)
+			navigation_data.desired_height_above_ground_m = current_code->x + 1000.0;
+			if (sensor_data.pressure_height - navigation_data.home_pressure_height > current_code->x)
 				navigation_data.current_codeline++;
 			break;
 		case FROM_TO_REL:
 		case FROM_TO_ABS:
-		
+			navigation_data.desired_pre_bank = 0.0;
+			
+			float leg_x = (current_code->x - navigation_data.last_waypoint_latitude_rad) * latitude_meter_per_radian;  // lat
+  			float leg_y = (current_code->y - navigation_data.last_waypoint_longitude_rad) * longitude_meter_per_radian;  // lon
+  			float leg2 = MAX(leg_x * leg_x + leg_y * leg_y, 1.);
+  			float nav_leg_progress = ((sensor_data.gps.latitude_rad - navigation_data.last_waypoint_latitude_rad) * latitude_meter_per_radian * leg_x + 
+  			                          (sensor_data.gps.longitude_rad - navigation_data.last_waypoint_longitude_rad) * longitude_meter_per_radian * leg_y) / leg2;
+  			float nav_leg_length = sqrt(leg2);
+
+			  /** distance of carrot (in meter) */
+			float carrot = 4.0 * sensor_data.gps.speed_ms;
+			
+			nav_leg_progress += MAX(carrot / nav_leg_length, 0.);
+			
+			if (nav_leg_progress >= 1.0)
+			{
+				navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - current_code->y,
+	                                                         sensor_data.gps.latitude_rad - current_code->x);
+			}
+			else
+			{
+				navigation_data.desired_heading_rad = heading_rad_fromto(
+					sensor_data.gps.longitude_rad - ( navigation_data.last_waypoint_longitude_rad + nav_leg_progress * leg_y / longitude_meter_per_radian),
+		            sensor_data.gps.latitude_rad - ( navigation_data.last_waypoint_latitude_rad + nav_leg_progress * leg_x / latitude_meter_per_radian ) );
+			}
+				                                                         
+	        navigation_data.desired_height_above_ground_m = current_code->a;
+			
+			if (waypoint_reached(current_code))
+			{
+				navigation_data.current_codeline++;
+				navigation_data.last_waypoint_latitude_rad = current_code->x;
+				navigation_data.last_waypoint_longitude_rad = current_code->y;
+			}
+			
 			break;
 		
 		case FLY_TO_REL:
 		case FLY_TO_ABS:
+			navigation_data.desired_pre_bank = 0.0;
 			navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - current_code->y,
 	                                                         sensor_data.gps.latitude_rad - current_code->x);
 	                                                         
 	        navigation_data.desired_height_above_ground_m = current_code->a;
-
-			if (distance_between_meter(sensor_data.gps.longitude_rad, current_code->y,
-			                           sensor_data.gps.latitude_rad, current_code->x) < config.control.waypoint_radius_m)
+			
+			if (waypoint_reached(current_code))
 			{
-				double heading_error_rad = navigation_data.desired_heading_rad - sensor_data.gps.heading_rad;
-				
-				if (heading_error_rad >= DEG2RAD(180.0))
-					heading_error_rad -= DEG2RAD(360.0);
-				else if (heading_error_rad <= DEG2RAD(-180.0))
-					heading_error_rad += DEG2RAD(360.0);
-				
-				if (fabs(heading_error_rad) > DEG2RAD(90.0)) // we are flying away from the waypoint AND we are close enough
-				{
-					navigation_data.current_codeline++;
-				}	
-			} 
+				navigation_data.current_codeline++;
+				navigation_data.last_waypoint_latitude_rad = current_code->x;
+				navigation_data.last_waypoint_longitude_rad = current_code->y;
+			}	
 			break;
 		
 		case CIRCLE_REL:
@@ -174,14 +204,71 @@ void navigation_update()
 		case GOTO:
 			navigation_data.current_codeline = current_code->a;
 			break;
+		case UNTIL_GR:
+			if (get_variable(current_code->a) > current_code->x)
+				navigation_data.current_codeline++;
+			else
+				navigation_data.current_codeline--;
+			break;
+		case UNTIL_SM:
+			if (get_variable(current_code->a) < current_code->x)
+				navigation_data.current_codeline++;
+			else
+				navigation_data.current_codeline--;
+			break;
 		case EMPTYCMD:
+			navigation_data.desired_pre_bank = 0.0;
 			navigation_data.current_codeline = 0;
+			// also return home @ 100m height
+			navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad,
+	                                                   		         sensor_data.gps.latitude_rad);
+	        navigation_data.desired_height_above_ground_m = 100.0; 
 			break;
 		//default:
 		
 	}	
 }
 
+
+int waypoint_reached(struct NavigationCode *current_code)
+{
+	if (distance_between_meter(sensor_data.gps.longitude_rad, current_code->y,
+			                   sensor_data.gps.latitude_rad, current_code->x) < config.control.waypoint_radius_m)
+	{
+		double heading_error_rad = navigation_data.desired_heading_rad - sensor_data.gps.heading_rad;
+		
+		if (heading_error_rad >= DEG2RAD(180.0))
+			heading_error_rad -= DEG2RAD(360.0);
+		else if (heading_error_rad <= DEG2RAD(-180.0))
+			heading_error_rad += DEG2RAD(360.0);
+		
+		if (fabs(heading_error_rad) > DEG2RAD(90.0)) // we are flying away from the waypoint AND we are close enough
+		{
+			return 1;
+		}
+	} 
+	return 0;
+}
+	
+
+double get_variable(enum navigation_variable i)
+{
+	switch (i)
+	{
+		case HEIGHT:
+			return sensor_data.pressure_height - navigation_data.home_pressure_height;
+		case SPEED_MS:
+			return sensor_data.gps.speed_ms;
+		case HEADING_DEG:
+			return RAD2DEG(sensor_data.gps.heading_rad);
+		case FLIGHT_TIME_S:
+			return 0.0;
+		case SATELLITES_IN_VIEW:
+			return sensor_data.gps.satellites_in_view;
+		default:
+			return 0.0;
+	}	
+}	
 
 
 void navigation_do_circle(struct NavigationCode *current_code)
@@ -201,6 +288,7 @@ void navigation_do_circle(struct NavigationCode *current_code)
 	                           sensor_data.gps.latitude_rad, current_code->x);
 	
 	float next_alpha;
+	float rad_ahead = rad_s*carrot;
 	if (distance_center > r + distance_ahead ||
 	    distance_center < r - distance_ahead)  // too far in or out of the circle?
 	{
@@ -208,21 +296,20 @@ void navigation_do_circle(struct NavigationCode *current_code)
 	}
 	else
 	{
-		float rad_ahead = rad_s*carrot;
 		/*if (rad_ahead > 3.14159/4.0)	
 			next_alpha = current_alpha + 3.14159/4.0; // go to the position one second ahead
 		if (rad_ahead < 3.14159/16.0)	
 			next_alpha = current_alpha + 3.14159/16.0; // go to the position one second ahead
 		else*/
-			next_alpha = current_alpha + atan(distance_ahead/r);
+			next_alpha = current_alpha + rad_ahead; //atan(distance_ahead/r);   CHANGE
 	}	
 
 	
-	navigation_data.desired_pre_bank =(distance_center > r + distance_ahead || 
-	                                   distance_center < r + distance_ahead) ? 0 :
+	navigation_data.desired_pre_bank = (distance_center > r + distance_ahead*2.0 || 
+	                                   distance_center < r + distance_ahead*2.0) ? 0 :
   				                          atan(sensor_data.gps.speed_ms*sensor_data.gps.speed_ms / (G*r));
 
-	float next_r = sqrt(r*r + distance_ahead*distance_ahead);
+	float next_r = r / cos(rad_ahead); // CHANGE sqrt(r*r + distance_ahead*distance_ahead);
 			
 	// max desired_heading
 	float pointlon = current_code->y + sin(next_alpha) * next_r / longitude_meter_per_radian;

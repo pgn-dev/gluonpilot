@@ -10,6 +10,10 @@ using Communication;
 using System.IO;
 using System.Xml.Serialization;
 
+using ds30Loader;
+using GHelper;
+using System.Diagnostics;
+
 namespace Gluonpilot
 {
     public partial class GluonConfig : Form
@@ -69,11 +73,20 @@ namespace Gluonpilot
                 }
                 else
                 {
-                    ConnectDialog cd = new ConnectDialog();
-                    cd.ShowDialog(this);
-
-                    _serial = new SerialCommunication_CSV();
-                    _serial.Open(cd.SelectedPort(), cd.SelectedBaudrate());
+                    if (_serial != null)
+                    {
+                        string portname = _serial.PortName;
+                        int baudrate = _serial.BaudRate;
+                        _serial = new SerialCommunication_CSV();
+                        _serial.Open(portname, baudrate);
+                    }
+                    else
+                    {
+                        ConnectDialog cd = new ConnectDialog();
+                        cd.ShowDialog(this);
+                        _serial = new SerialCommunication_CSV();
+                        _serial.Open(cd.SelectedPort(), cd.SelectedBaudrate());
+                    }
 
                     configurationControl.Connect(_serial);
                     datalogging.Connect(_serial);
@@ -110,6 +123,105 @@ namespace Gluonpilot
                 _tb_logging.AppendText("[" + DateTime.Now.ToString("hh:mm:ss.ff") + "]  ");
             _tb_logging.AppendText(line + "\r\n");
             _tb_logging.ScrollToCaret();
+        }
+
+        private void _btn_reboot_Click(object sender, EventArgs e)
+        {
+            _serial.SendReboot();
+        }
+
+        private void _btn_firmware_upgrade_Click(object sender, EventArgs e)
+        {
+            // Create port
+            //clsSerialPort objPort = new clsSerialPort(_serial);
+
+            // Get device
+            /*clsDevice objDevice = clsDeviceDb.DeviceGet("dsPIC33FJ256MC710");
+
+            // Configure download settings
+            clsDownloadSettings objDownloadSettings = new clsDownloadSettings();
+            objDownloadSettings.writeProgram = true;
+            objDownloadSettings.baudRate = _serial.BaudRate;
+            objDownloadSettings.portName = _serial.PortName.ToLower();
+
+            // Create hex object
+            FileDialog fd = new OpenFileDialog();
+            fd.ShowDialog();
+
+            clsHex18F objHex = new clsHex18F(fd.FileName);
+
+            objHex.HexFileValidate += new clsHex.HexFileValidateDelegate(
+                Hex_Validate);
+            objHex.HexFileParse += new clsHex.HexFileParseDelegate(Hex_Parse);
+
+            // Download
+            bool bDownloadResult = false;
+            clsds30Loader.Downloading += new
+            clsds30Loader.DownloadingDelegate(ds30L_Downloading);
+            
+            //_serial.SendReboot();
+
+            //_serial.Close();
+            try
+            {
+
+                clsds30Loader.Download(
+                    objDevice,
+                    objHex,
+                    objDownloadSettings,
+                    0,
+                    ref bDownloadResult
+                );
+
+                if (bDownloadResult)
+                    MessageBox.Show("OK");
+                else
+                    MessageBox.Show("Not OK");
+
+
+            }
+            catch (Exception ex)
+            {
+                ;
+            }*/
+
+            if (_serial == null)
+            {
+                ConnectDialog cd = new ConnectDialog();
+                cd.ShowDialog(this);
+                _serial = new SerialCommunication_CSV();
+                _serial.Open(cd.SelectedPort(), cd.SelectedBaudrate());
+            }
+            _serial.Close();
+
+            FileDialog fd = new OpenFileDialog();
+            if (fd.ShowDialog() != DialogResult.OK)
+                return;
+            
+            Process p = System.Diagnostics.Process.Start(Application.StartupPath + "\\ds30loader\\ds30LoaderConsole.exe", " -k=" + _serial.PortName + " -f=\"" + fd.FileName + "\"  -p -d=dsPIC33FJ256MC710 -r=" + _serial.BaudRate + " -q=0a;5a;5a;3b;31;31;32;33;0a -u=115200 -b=1000 -o");
+            p.WaitForExit();
+            if (p.ExitCode != -1)
+                MessageBox.Show("New firmware has been written", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+            {
+                if (MessageBox.Show("There has been an error!", "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
+                    _btn_firmware_upgrade_Click(null, null);
+            }
+
+            _btn_connect_Click(null, null);
+        }
+
+        private void Hex_Parse(object obj, clsHexFileParseEventArgs e)
+        {
+            _tb_logging.AppendText(e.message);
+        }
+        private void Hex_Validate(object obj, clsHexFileValidateEventArgs e)
+        {
+            _tb_logging.AppendText(e.message);
+        }
+        private void ds30L_Downloading(object obj, clsDownloadingEventArgs e)
+        {
+            _tb_logging.AppendText(e.message);
         }
         
     }

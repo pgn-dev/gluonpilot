@@ -114,6 +114,7 @@ void control_task( void *parameters )
 #ifdef ENABLE_QUADROCOPTER
 	vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );
 	servo_turbopwm();
+	int i = 0;
 #endif
 
 	uart1_puts("done\r\n");
@@ -126,12 +127,17 @@ void control_task( void *parameters )
 #ifdef ENABLE_QUADROCOPTER
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 4 / portTICK_RATE_MS ) );    //!> 250Hz
 		#define DT 0.004
+		
+		if (i++ == 5)
+			ppm_in_update_status_ticks_50hz();
 #else
-		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 10 / portTICK_RATE_MS ) );   //!> 100Hz
-		#define DT 0.010
+		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 20 / portTICK_RATE_MS ) );   //!> 50Hz
+		#define DT 0.020
+		
+		ppm_in_update_status_ticks_50hz();
 #endif
 
-		if (ppm.channel[config.control.channel_ap] < 1300)
+		if (!ppm.connection_alive || ppm.channel[config.control.channel_ap] < 1300)
 		{
 			control_state.flight_mode = AUTOPILOT;
 			
@@ -230,7 +236,7 @@ void control_navigate(double dt, int altitude_controllable)
 		
 	
 	control_state.desired_roll = navigation_data.desired_pre_bank +
-	                             pid_update_only_p(&config.control.pid_heading2roll, heading_error_rad, dt);	
+	                             pid_update(&config.control.pid_heading2roll, heading_error_rad, dt);	
 	
 	// Not enough GPS satellites? Fly flat and hope to get a new lock :-)
 	if (sensor_data.gps.satellites_in_view < 4)
@@ -238,12 +244,13 @@ void control_navigate(double dt, int altitude_controllable)
 		
 	// from paparazzi
 	double speed_depend_nav = sensor_data.gps.speed_ms / config.control.cruising_speed_ms;
- 	if (speed_depend_nav > 1.5)
- 		control_state.desired_roll *= 1.5;
- 	else if (speed_depend_nav < 0.66)
- 		control_state.desired_roll *= 0.66;
-	else
+ 	if (speed_depend_nav > 1.3)	{
+ 		control_state.desired_roll *= 1.3;
+ 	} else if (speed_depend_nav < 0.8) { // good idea for takeoff?
+ 		control_state.desired_roll *= 0.8;
+ 	} else
 		control_state.desired_roll *= speed_depend_nav;
+
 	
 	
 	/* Calculate desired pitch */
@@ -251,7 +258,10 @@ void control_navigate(double dt, int altitude_controllable)
   	
   	control_state.desired_height = navigation_data.desired_height_above_ground_m + navigation_data.home_pressure_height;
   	
-	control_state.desired_pitch = (control_state.desired_height - sensor_data.pressure_height) / 20.0 * config.control.max_pitch; 
+	//control_state.desired_pitch = (control_state.desired_height - sensor_data.pressure_height) / 10.0 * config.control.max_pitch; 
+	control_state.desired_pitch = pid_update(&config.control.pid_altitude2pitch, 
+	                                         control_state.desired_height - sensor_data.pressure_height, dt);
+	
 	if (altitude_controllable)  // control altitude with pitch transmitter stick?
 	{
 		double manual_desired_pitch = (double)((int)ppm.channel[config.control.channel_pitch]
@@ -290,12 +300,12 @@ void control_desired_to_servos(double dt)
 
 	double desired_pitch_rate = (control_state.desired_pitch - sensor_data.pitch)*5.0; // move at "error" degrees per second
 	elevator_out_radians = pid_update(&config.control.pid_pitch2elevator, 
-	                                         desired_pitch_rate - sensor_data.q, dt);
+	                                   desired_pitch_rate - sensor_data.q, dt);
 	//elevator_out_radians -= sensor_data.q * config.control.pid_pitch2elevator.d_gain;
 	
 	double desired_roll_rate = (control_state.desired_roll - sensor_data.roll)*5.0; // move at "error" degrees per second
 	aileron_out_radians = pid_update(&config.control.pid_roll2aileron, 
-	                                        desired_roll_rate - sensor_data.p, dt);
+	                                  desired_roll_rate - sensor_data.p, dt);
 	//aileron_out_radians -= (sensor_data.p) * config.control.pid_roll2aileron.d_gain;
 	
 	double desired_yaw_rate  = (double)((int)ppm.channel[config.control.channel_yaw]
@@ -360,20 +370,20 @@ void control_mix_out()
 	int aileron_out_left, aileron_out_right;
 	
 	// aileron differential
-	/*if (aileron_out > 0)
+	if (aileron_out > 0)
 	{
-		aileron_out_right = aileron_out + (aileron_out / 10) * 5;
-		aileron_out_left = aileron_out - (aileron_out / 10) * 5;
+		aileron_out_right = aileron_out + (aileron_out / 10) * config.control.aileron_differential;
+		aileron_out_left = aileron_out - (aileron_out / 10) * config.control.aileron_differential;
 	} 
 	else
 	{
-		aileron_out_right = aileron_out - (aileron_out / 10) * 5;
-		aileron_out_left = aileron_out + (aileron_out / 10) * 5;		
-	}*/
+		aileron_out_right = aileron_out - (aileron_out / 10) * config.control.aileron_differential;
+		aileron_out_left = aileron_out + (aileron_out / 10) * config.control.aileron_differential;		
+	}
 	
 	// no differential
-	aileron_out_right = aileron_out;
-	aileron_out_left = aileron_out;		
+	//aileron_out_right = aileron_out;
+	//aileron_out_left = aileron_out;		
 		
 	
 	switch(config.control.servo_mix)

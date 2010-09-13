@@ -28,7 +28,10 @@ unsigned int sync_pulse;
 volatile struct ppm_info ppm;
 
 float dt_no_valid_frame = 1.0;
-#define connection_lost_after_seconds  0.5
+int ticks_no_valid_frame = 1;
+
+#define CONNECTION_LOST_AFTER_SECONDS_NO_FRAME  0.5
+#define CONNECTION_LOST_AFTER_MS_NO_FRAME  500
 
 unsigned int ppm_in_us_to_raw(unsigned int us);
 
@@ -84,11 +87,27 @@ void ppm_in_update_status(float dt)
 {
 	if (ppm.valid_frame && dt_no_valid_frame > 0)
 		dt_no_valid_frame -= dt;
-	else if (dt_no_valid_frame < connection_lost_after_seconds)
+	else if (dt_no_valid_frame < CONNECTION_LOST_AFTER_SECONDS_NO_FRAME)
 		dt_no_valid_frame += dt;
 	
-	ppm.connection_alive = (dt_no_valid_frame < connection_lost_after_seconds);
+	ppm.connection_alive = (dt_no_valid_frame < CONNECTION_LOST_AFTER_SECONDS_NO_FRAME);
 }	
+
+
+/**
+ *   Integer version of ppm_in_update_status()
+ */
+#define TICKS_FOR_NO_CONNECTION CONNECTION_LOST_AFTER_MS_NO_FRAME/20
+void ppm_in_update_status_ticks_50hz()
+{
+	if (ppm.valid_frame && ticks_no_valid_frame > 0)
+	{
+		ticks_no_valid_frame -= 1;
+	}else if (ticks_no_valid_frame < TICKS_FOR_NO_CONNECTION<<1)
+		ticks_no_valid_frame += 1;
+	
+	ppm.connection_alive = (ticks_no_valid_frame < TICKS_FOR_NO_CONNECTION);
+}
 
 unsigned int ppm_in_us_to_raw(unsigned int us)
 {

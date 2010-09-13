@@ -61,11 +61,13 @@ double pid_update(struct pid *pid, double position, double dt)
 {
 	double tmp;
 	
-	tmp = (position - pid->d_state) * pid->d_gain / dt;   // D-term
+	tmp = (position - pid->d_state) / dt;   // D-term;
 	
 	// to eliminate jittering which wears out servos
-	//if (fabs(tmp) < pid->d_term_min_var)
-	//	tmp = 0.0;
+	if (fabs(tmp) < pid->d_term_min_var)
+		tmp = 0.0;
+	else 
+		tmp *= pid->d_gain;
 	
 	// update d_state for next call.
 	pid->d_state = position;
@@ -84,6 +86,8 @@ double pid_update(struct pid *pid, double position, double dt)
 	tmp += pid->p_gain * position;                        // P-term
 	return tmp;
 }
+
+
 
 
 /*!

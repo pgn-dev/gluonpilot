@@ -80,6 +80,13 @@ unsigned int servo_us_to_raw(unsigned int us)
 	
 	us >>= 2; 
 	
+#ifndef ENABLE_QUADROCOPTER
+	// resolution of 128 values to get rid of jitter on servos
+	// please change this if you want better precision
+	us >>= 3;
+	us <<= 3;
+#endif
+
 	return us;
 }
 

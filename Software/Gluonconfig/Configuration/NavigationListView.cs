@@ -50,6 +50,7 @@ namespace Configuration
                 _btn_read.Enabled = true;
                 _btn_reload.Enabled = true;
                 _btn_save.Enabled = true;
+                _btn_format.Enabled = true;
             }
         }
 
@@ -61,7 +62,7 @@ namespace Configuration
             _btn_read.Enabled = false;
             _btn_reload.Enabled = false;
             _btn_save.Enabled = false;
-
+            _btn_format.Enabled = false;
         }
         
         private void _serial_NavigationInstructionCommunicationReceived(NavigationInstruction ni)
@@ -101,28 +102,77 @@ namespace Configuration
         private void _btn_save_Click(object sender, EventArgs e)
         {
             _pb.Value = 0;
+            int count = 0;
 
+            // only write lines that have been changed
             foreach (ListViewItem lvi in _lv_navigation.Items)
             {
                 if (dirty_list.Contains(((NavigationInstruction)lvi.Tag).line))
                 {
                     serial.SendNavigationInstruction((NavigationInstruction)lvi.Tag);
                     Thread.Sleep(200);
+                    count++;
                 }
                 _pb.Value += 100 / _lv_navigation.Items.Count;
             }
+
+            // if no lines have been saved:
+            if (count == 0)
+            {
+                _pb.Value = 0;
+                DialogResult r = MessageBox.Show("No changed lines found.\r\nLines that have been changed are marked with a *, and only those will be written to the module. \r\n\r\nWould you like to write all the lines to the module?", "Error", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                if (r == DialogResult.Yes)
+                {
+                    foreach (ListViewItem lvi in _lv_navigation.Items)
+                    {
+                        serial.SendNavigationInstruction((NavigationInstruction)lvi.Tag);
+                        Thread.Sleep(200);
+                        _pb.Value += 100 / _lv_navigation.Items.Count;
+                    }
+                }
+            }
+
             _pb.Value = 100;
+
+            serial.SendNavigationRead();
         }
 
         private void _btn_burn_Click(object sender, EventArgs e)
         {
             serial.SendNavigationBurn();
-
         }
 
         private void _btn_reload_Click(object sender, EventArgs e)
         {
             serial.SendNavigationLoad();
+        }
+
+        private void _btn_format_Click(object sender, EventArgs e)
+        {
+            DialogResult r = MessageBox.Show(
+                "All navigation data will be deleted on the module's memory AND flash.", "Are you sure?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+            _pb.Value = 0;
+            if (r == DialogResult.Yes)
+            {
+                foreach (ListViewItem lvi in _lv_navigation.Items)
+                {
+                    ((NavigationInstruction)lvi.Tag).opcode = NavigationInstruction.navigation_command.EMPTY;
+                    ((NavigationInstruction)lvi.Tag).a = 0;
+                    ((NavigationInstruction)lvi.Tag).b = 0;
+                    ((NavigationInstruction)lvi.Tag).x = 0.0;
+                    ((NavigationInstruction)lvi.Tag).y = 0.0;
+                    serial.SendNavigationInstruction((NavigationInstruction)lvi.Tag);
+                    Thread.Sleep(200);
+                    _pb.Value += 100 / _lv_navigation.Items.Count;
+                }
+                _pb.Value = 100;
+
+                // Burn these empty lines
+                serial.SendNavigationBurn();
+
+                // Read the data
+                serial.SendNavigationRead();
+            }
         }
 
     }

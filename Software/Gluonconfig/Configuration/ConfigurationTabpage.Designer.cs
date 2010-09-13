@@ -238,7 +238,7 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.cb_altitudehold = new System.Windows.Forms.CheckBox();
             this.label80 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this._nud_aileron_diff = new System.Windows.Forms.NumericUpDown();
             this.label79 = new System.Windows.Forms.Label();
             this.label64 = new System.Windows.Forms.Label();
             this.label65 = new System.Windows.Forms.Label();
@@ -273,7 +273,7 @@
             this._dtb_waypoint_radius = new Configuration.DistanceTextBox();
             this.tb_min_circle_radius = new Configuration.DistanceTextBox();
             this.tb_speed = new Configuration.SpeedTextBox();
-            this._pid_altitude_hold = new Configuration.PidControl();
+            this._pid_altitude_to_pitch = new Configuration.PidControl();
             this._pid_heading_to_roll = new Configuration.PidControl();
             this._pid_roll_to_aileron = new Configuration.PidControl();
             this._pid_pitch_to_elevator = new Configuration.PidControl();
@@ -300,7 +300,7 @@
             this._tbControl.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._nud_aileron_diff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_pitch_max)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_roll_max)).BeginInit();
             this._tbPid.SuspendLayout();
@@ -2426,7 +2426,7 @@
             this._tbControl.Controls.Add(this.label81);
             this._tbControl.Controls.Add(this.groupBox6);
             this._tbControl.Controls.Add(this.label80);
-            this._tbControl.Controls.Add(this.numericUpDown1);
+            this._tbControl.Controls.Add(this._nud_aileron_diff);
             this._tbControl.Controls.Add(this.label79);
             this._tbControl.Controls.Add(this.label64);
             this._tbControl.Controls.Add(this.label65);
@@ -2515,19 +2515,20 @@
             this.groupBox6.Controls.Add(this.cb_altitudehold);
             this.groupBox6.Location = new System.Drawing.Point(12, 138);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(255, 122);
+            this.groupBox6.Size = new System.Drawing.Size(295, 122);
             this.groupBox6.TabIndex = 14;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Stabilized mode";
+            this.groupBox6.Text = "Altitude control";
             // 
             // cb_altitudehold
             // 
             this.cb_altitudehold.AutoSize = true;
             this.cb_altitudehold.Location = new System.Drawing.Point(8, 19);
             this.cb_altitudehold.Name = "cb_altitudehold";
-            this.cb_altitudehold.Size = new System.Drawing.Size(236, 17);
+            this.cb_altitudehold.Size = new System.Drawing.Size(267, 30);
             this.cb_altitudehold.TabIndex = 0;
-            this.cb_altitudehold.Text = "Altitude hold (instead of pitch hold) with pitch";
+            this.cb_altitudehold.Text = "Stabilized: Elevator stick: (ON) altitude - (OFF) pitch\r\nNavigation: Altitude: (O" +
+                "N) manual  (OFF) waypoint";
             this.cb_altitudehold.UseVisualStyleBackColor = true;
             this.cb_altitudehold.CheckedChanged += new System.EventHandler(this.cb_altitudehold_CheckedChanged);
             // 
@@ -2540,23 +2541,23 @@
             this.label80.TabIndex = 13;
             this.label80.Text = "% (-100..100)";
             // 
-            // numericUpDown1
+            // _nud_aileron_diff
             // 
-            this.numericUpDown1.Increment = new decimal(new int[] {
+            this._nud_aileron_diff.Increment = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDown1.Location = new System.Drawing.Point(104, 106);
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this._nud_aileron_diff.Location = new System.Drawing.Point(104, 106);
+            this._nud_aileron_diff.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.ReadOnly = true;
-            this.numericUpDown1.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDown1.TabIndex = 12;
+            this._nud_aileron_diff.Name = "_nud_aileron_diff";
+            this._nud_aileron_diff.Size = new System.Drawing.Size(47, 20);
+            this._nud_aileron_diff.TabIndex = 12;
+            this._nud_aileron_diff.ValueChanged += new System.EventHandler(this._nud_aileron_diff_ValueChanged);
             // 
             // label79
             // 
@@ -2684,13 +2685,13 @@
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this._pid_altitude_hold);
+            this.groupBox8.Controls.Add(this._pid_altitude_to_pitch);
             this.groupBox8.Location = new System.Drawing.Point(295, 136);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(281, 123);
             this.groupBox8.TabIndex = 4;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Altitude hold";
+            this.groupBox8.Text = "Altitude error -> Pitch";
             // 
             // groupBox5
             // 
@@ -2700,7 +2701,7 @@
             this.groupBox5.Size = new System.Drawing.Size(277, 123);
             this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Heading to roll/yaw";
+            this.groupBox5.Text = "Heading error -> roll/yaw";
             // 
             // _pid_roll2aileron
             // 
@@ -2710,7 +2711,7 @@
             this._pid_roll2aileron.Size = new System.Drawing.Size(281, 115);
             this._pid_roll2aileron.TabIndex = 2;
             this._pid_roll2aileron.TabStop = false;
-            this._pid_roll2aileron.Text = "Roll 2 Aileron";
+            this._pid_roll2aileron.Text = "Roll error -> Aileron";
             // 
             // groupBox4
             // 
@@ -2720,7 +2721,7 @@
             this.groupBox4.Size = new System.Drawing.Size(277, 115);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Pitch 2 Elevator";
+            this.groupBox4.Text = "Pitch error -> Elevator";
             // 
             // _tbGyroZNeutral
             // 
@@ -2879,19 +2880,19 @@
             this.tb_speed.SpeedChanged += new System.EventHandler(this.tb_speed_SpeedChanged);
             this.tb_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CalculateMinimumRadius);
             // 
-            // _pid_altitude_hold
+            // _pid_altitude_to_pitch
             // 
-            this._pid_altitude_hold.D = 0;
-            this._pid_altitude_hold.Dmin = 0;
-            this._pid_altitude_hold.Enabled = false;
-            this._pid_altitude_hold.I = 0;
-            this._pid_altitude_hold.Imax = 9999;
-            this._pid_altitude_hold.Imin = -9999;
-            this._pid_altitude_hold.Location = new System.Drawing.Point(6, 19);
-            this._pid_altitude_hold.Name = "_pid_altitude_hold";
-            this._pid_altitude_hold.P = 0;
-            this._pid_altitude_hold.Size = new System.Drawing.Size(296, 87);
-            this._pid_altitude_hold.TabIndex = 0;
+            this._pid_altitude_to_pitch.D = 0;
+            this._pid_altitude_to_pitch.Dmin = 0;
+            this._pid_altitude_to_pitch.I = 0;
+            this._pid_altitude_to_pitch.Imax = 9999;
+            this._pid_altitude_to_pitch.Imin = -9999;
+            this._pid_altitude_to_pitch.Location = new System.Drawing.Point(6, 19);
+            this._pid_altitude_to_pitch.Name = "_pid_altitude_to_pitch";
+            this._pid_altitude_to_pitch.P = 0;
+            this._pid_altitude_to_pitch.Size = new System.Drawing.Size(296, 87);
+            this._pid_altitude_to_pitch.TabIndex = 0;
+            this._pid_altitude_to_pitch.IsChanged += new System.EventHandler(this._pid_altitude_to_pitch_IsChanged);
             // 
             // _pid_heading_to_roll
             // 
@@ -2981,7 +2982,7 @@
             this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._nud_aileron_diff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_pitch_max)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_roll_max)).EndInit();
             this._tbPid.ResumeLayout(false);
@@ -3223,7 +3224,7 @@
         private System.Windows.Forms.LinkLabel _llRc;
         private System.Windows.Forms.RadioButton _rb_gps_notfound;
         private System.Windows.Forms.Label label78;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown _nud_aileron_diff;
         private System.Windows.Forms.Label label79;
         private System.Windows.Forms.Label label80;
         private System.Windows.Forms.GroupBox groupBox6;
@@ -3237,7 +3238,7 @@
         private System.Windows.Forms.NumericUpDown _nud_attitude_telemetry;
         private System.Windows.Forms.Label label84;
         private System.Windows.Forms.GroupBox groupBox8;
-        private Configuration.PidControl _pid_altitude_hold;
+        private Configuration.PidControl _pid_altitude_to_pitch;
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.ComboBox comboBox1;
         private Configuration.DistanceTextBox _dtb_waypoint_radius;

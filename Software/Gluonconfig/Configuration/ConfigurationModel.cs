@@ -13,6 +13,7 @@ namespace Gluonpilot
         public PidModel Roll2AileronPidModel = new PidModel();
         public PidModel Pitch2ElevatorPidModel = new PidModel();
         public PidModel Heading2RollPidModel = new PidModel();
+        public PidModel Altitude2PitchPidModel = new PidModel();
     
         public bool ReverseServo1;
         public bool ReverseServo2;
@@ -52,6 +53,7 @@ namespace Gluonpilot
         public double ControlMaxPitch;
         public double ControlMaxRoll;
         public int ControlMixing;
+        public int ControlAileronDiff;
         public double CruisingSpeed;
         public double WaypointRadius;
         public bool StabilizationWithAltitudeHold;
@@ -84,6 +86,7 @@ namespace Gluonpilot
             ac.control_waypoint_radius = _model.WaypointRadius;
             ac.control_stabilization_with_altitude_hold = _model.StabilizationWithAltitudeHold;
             ac.control_cruising_speed = _model.CruisingSpeed;
+            ac.control_aileron_differential = _model.ControlAileronDiff;
 
             ac.telemetry_basicgps = _model.TelemetryGpsBasic;
             ac.telemetry_gyroaccraw = _model.TelemetryGyroAccRaw;
@@ -114,6 +117,14 @@ namespace Gluonpilot
             ac.pid_heading2roll_imin = _model.Heading2RollPidModel.IMin;
             ac.pid_heading2roll_imax = _model.Heading2RollPidModel.IMax;
             ac.pid_heading2roll_dmin = _model.Heading2RollPidModel.DMin;
+
+            ac.pid_altitude2pitch_p = _model.Altitude2PitchPidModel.P;
+            ac.pid_altitude2pitch_i = _model.Altitude2PitchPidModel.I;
+            ac.pid_altitude2pitch_d = _model.Altitude2PitchPidModel.D;
+            ac.pid_altitude2pitch_imin = _model.Altitude2PitchPidModel.IMin;
+            ac.pid_altitude2pitch_imax = _model.Altitude2PitchPidModel.IMax;
+            ac.pid_altitude2pitch_dmin = _model.Altitude2PitchPidModel.DMin;
+
 
             ac.servo_reverse[0] = _model.ReverseServo1;
             ac.servo_reverse[1] = _model.ReverseServo2;
@@ -155,6 +166,8 @@ namespace Gluonpilot
             _model.ControlMixing = ac.control_mixing;
             _model.ControlMaxPitch = ac.control_max_pitch;
             _model.ControlMaxRoll = ac.control_max_roll;
+            _model.ControlAileronDiff = ac.control_aileron_differential;
+
             _model.CruisingSpeed = ac.control_cruising_speed;
             _model.StabilizationWithAltitudeHold = ac.control_stabilization_with_altitude_hold;
             _model.WaypointRadius = ac.control_waypoint_radius;
@@ -180,6 +193,12 @@ namespace Gluonpilot
                                                          ac.pid_heading2roll_imin,
                                                          ac.pid_heading2roll_imax,
                                                          ac.pid_heading2roll_dmin);
+            _model.Altitude2PitchPidModel = new PidModel(ac.pid_altitude2pitch_p,
+                                                         ac.pid_altitude2pitch_i,
+                                                         ac.pid_altitude2pitch_d,
+                                                         ac.pid_altitude2pitch_imin,
+                                                         ac.pid_altitude2pitch_imax,
+                                                         ac.pid_altitude2pitch_dmin);
             _model.ReverseServo1 = ac.servo_reverse[0];
             _model.ReverseServo2 = ac.servo_reverse[1];
             _model.ReverseServo3 = ac.servo_reverse[2];

@@ -105,5 +105,7 @@ namespace Communication
         public abstract void SendNavigationRead();
 
         public abstract void SendNavigationLoad();
+
+        public abstract void SendReboot();
     }
 }
