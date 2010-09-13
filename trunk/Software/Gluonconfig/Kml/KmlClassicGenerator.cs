@@ -94,8 +94,10 @@ namespace Kml
                     if (startheight == -11111)
                         startheight = (int)double.Parse(dr["HeightBaro"].ToString(), System.Globalization.CultureInfo.InvariantCulture);
 
-                    if (Math.Abs(double.Parse(dr["Longitude"].ToString(), System.Globalization.CultureInfo.InvariantCulture)) <= 360.0 &&
-                        Math.Abs(double.Parse(dr["Latitude"].ToString(), System.Globalization.CultureInfo.InvariantCulture)) <= 360.0)
+                    double lon = Math.Abs(double.Parse(dr["Longitude"].ToString(), System.Globalization.CultureInfo.InvariantCulture));
+                    double lat = Math.Abs(double.Parse(dr["Latitude"].ToString(), System.Globalization.CultureInfo.InvariantCulture));
+                    if (lon <= 360.0 && lon > 0.001 &&
+                        lat <= 360.0 && lat > 0.001)
                         sb.Append(dr["Longitude"] + "," + dr["Latitude"] + "," + (double.Parse(dr["HeightBaro"].ToString(), System.Globalization.CultureInfo.InvariantCulture) - startheight).ToString(System.Globalization.CultureInfo.InvariantCulture) + "\r\n");
                 }
                 catch (Exception ex)

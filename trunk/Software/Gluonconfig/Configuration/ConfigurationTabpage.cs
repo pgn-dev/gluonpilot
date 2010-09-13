@@ -81,6 +81,7 @@ namespace Gluonpilot
             _pid_pitch_to_elevator.SetModel(_model.Pitch2ElevatorPidModel);
             _pid_roll_to_aileron.SetModel(_model.Roll2AileronPidModel);
             _pid_heading_to_roll.SetModel(_model.Heading2RollPidModel);
+            _pid_altitude_to_pitch.SetModel(_model.Altitude2PitchPidModel);
 
             _cb_reverse_servo1.Checked = _model.ReverseServo1;
             _cb_reverse_servo2.Checked = _model.ReverseServo2;
@@ -94,6 +95,8 @@ namespace Gluonpilot
 
             _nud_control_pitch_max.Value = (int)_model.ControlMaxPitch;
             _nud_control_roll_max.Value = (int)_model.ControlMaxRoll;
+            _nud_aileron_diff.Value = _model.ControlAileronDiff;
+
             tb_speed.SpeedMS = _model.CruisingSpeed;
             _dtb_waypoint_radius.DistanceM = _model.WaypointRadius;
             cb_altitudehold.Checked = _model.StabilizationWithAltitudeHold;
@@ -522,7 +525,7 @@ namespace Gluonpilot
 
 #endregion
 
-
+#region Control tab page
         private void _cbControlMix_SelectedIndexChanged(object sender, EventArgs e)
         {
             _model.ControlMixing = _cbControlMix.SelectedIndex;
@@ -544,22 +547,9 @@ namespace Gluonpilot
             _model.Heading2RollPidModel = _pid_heading_to_roll.GetModel();
         }
 
-        private void _llConfigGps_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void _pid_altitude_to_pitch_IsChanged(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_Gps");
-        }
-
-        private void _rbPpm_CheckedChanged(object sender, EventArgs e)
-        {
-            if (_rbPpm.Checked)
-                _model.RcTransmitterFromPpm = 1;
-            else
-                _model.RcTransmitterFromPpm = 0;
-        }
-
-        private void _llServos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_Servos");
+            _model.Altitude2PitchPidModel = _pid_altitude_to_pitch.GetModel();
         }
 
         private void _nud_control_roll_max_ValueChanged(object sender, EventArgs e)
@@ -597,11 +587,39 @@ namespace Gluonpilot
         {
             _model.CruisingSpeed = tb_speed.SpeedMS;
         }
+        
+        private void _nud_aileron_diff_ValueChanged(object sender, EventArgs e)
+        {
+            _model.ControlAileronDiff = (int)_nud_aileron_diff.Value;
+        }
+#endregion
+
+        private void _llConfigGps_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_Gps");
+        }
+
+        private void _rbPpm_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_rbPpm.Checked)
+                _model.RcTransmitterFromPpm = 1;
+            else
+                _model.RcTransmitterFromPpm = 0;
+        }
+
+        private void _llServos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_Servos");
+        }
+
+        
 
         private void _btn_cube_Click(object sender, EventArgs e)
         {
             ModuleImu3D.Imu3D.Run(_serial);
         }
+
+
 
     }
 }

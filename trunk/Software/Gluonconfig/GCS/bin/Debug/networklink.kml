@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://earth.google.com/kml/2.2">
    <NetworkLink>
-      <name>GPS test</name>
-      <open>1</open>
+      <name>Gluonpilot streaming </name>
+      <open>0</open>
       <refreshVisibility>1</refreshVisibility>
       <flyToView>0</flyToView>
       <Link>

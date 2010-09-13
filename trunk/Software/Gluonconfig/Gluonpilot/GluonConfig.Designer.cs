@@ -34,13 +34,9 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.config = new System.Windows.Forms.TabPage();
-            this.configurationControl = new Configuration.ConfigurationControl();
             this.Navigation = new System.Windows.Forms.TabPage();
-            this.navigationListView1 = new Configuration.NavigationListView();
             this.datalog = new System.Windows.Forms.TabPage();
-            this.datalogging = new Configuration.Datalogging();
             this.gcs = new System.Windows.Forms.TabPage();
-            this._gcsMainPanel = new GCS.GcsMainPanel();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this._tb_logging = new System.Windows.Forms.TextBox();
             this._cb_print_timestamp = new System.Windows.Forms.CheckBox();
@@ -49,6 +45,14 @@
             this._btn_connect = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this._btn_showlogging = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this._btn_reboot = new System.Windows.Forms.ToolStripButton();
+            this.configurationControl = new Configuration.ConfigurationControl();
+            this.navigationListView1 = new Configuration.NavigationListView();
+            this.datalogging = new Configuration.Datalogging();
+            this._gcsMainPanel = new GCS.GcsMainPanel();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this._btn_firmware_upgrade = new System.Windows.Forms.ToolStripButton();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -135,14 +139,6 @@
             this.config.Text = "Configuration";
             this.config.UseVisualStyleBackColor = true;
             // 
-            // configurationControl
-            // 
-            this.configurationControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.configurationControl.Location = new System.Drawing.Point(3, 3);
-            this.configurationControl.Name = "configurationControl";
-            this.configurationControl.Size = new System.Drawing.Size(607, 343);
-            this.configurationControl.TabIndex = 0;
-            // 
             // Navigation
             // 
             this.Navigation.Controls.Add(this.navigationListView1);
@@ -154,13 +150,6 @@
             this.Navigation.TabIndex = 1;
             this.Navigation.Text = "Navigation";
             this.Navigation.UseVisualStyleBackColor = true;
-            // 
-            // navigationListView1
-            // 
-            this.navigationListView1.Location = new System.Drawing.Point(3, 3);
-            this.navigationListView1.Name = "navigationListView1";
-            this.navigationListView1.Size = new System.Drawing.Size(385, 326);
-            this.navigationListView1.TabIndex = 0;
             // 
             // datalog
             // 
@@ -174,15 +163,6 @@
             this.datalog.Text = "Datalogging";
             this.datalog.UseVisualStyleBackColor = true;
             // 
-            // datalogging
-            // 
-            this.datalogging.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.datalogging.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.datalogging.Location = new System.Drawing.Point(3, 3);
-            this.datalogging.Name = "datalogging";
-            this.datalogging.Size = new System.Drawing.Size(607, 343);
-            this.datalogging.TabIndex = 0;
-            // 
             // gcs
             // 
             this.gcs.Controls.Add(this._gcsMainPanel);
@@ -193,16 +173,6 @@
             this.gcs.TabIndex = 3;
             this.gcs.Text = "Dashboard";
             this.gcs.UseVisualStyleBackColor = true;
-            // 
-            // _gcsMainPanel
-            // 
-            this._gcsMainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this._gcsMainPanel.Location = new System.Drawing.Point(3, 3);
-            this._gcsMainPanel.Name = "_gcsMainPanel";
-            this._gcsMainPanel.Size = new System.Drawing.Size(607, 343);
-            this._gcsMainPanel.TabIndex = 2;
             // 
             // imageList
             // 
@@ -258,10 +228,14 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._btn_connect,
             this.toolStripSeparator1,
-            this._btn_showlogging});
+            this._btn_showlogging,
+            this.toolStripSeparator2,
+            this._btn_reboot,
+            this.toolStripSeparator3,
+            this._btn_firmware_upgrade});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(149, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(405, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // _btn_connect
@@ -288,6 +262,68 @@
             this._btn_showlogging.Size = new System.Drawing.Size(64, 22);
             this._btn_showlogging.Text = "Logging";
             this._btn_showlogging.Click += new System.EventHandler(this._btn_showlogging_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // _btn_reboot
+            // 
+            this._btn_reboot.Image = ((System.Drawing.Image)(resources.GetObject("_btn_reboot.Image")));
+            this._btn_reboot.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._btn_reboot.Name = "_btn_reboot";
+            this._btn_reboot.Size = new System.Drawing.Size(99, 22);
+            this._btn_reboot.Text = "Reboot module";
+            this._btn_reboot.Click += new System.EventHandler(this._btn_reboot_Click);
+            // 
+            // configurationControl
+            // 
+            this.configurationControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.configurationControl.Location = new System.Drawing.Point(3, 3);
+            this.configurationControl.Name = "configurationControl";
+            this.configurationControl.Size = new System.Drawing.Size(607, 343);
+            this.configurationControl.TabIndex = 0;
+            // 
+            // navigationListView1
+            // 
+            this.navigationListView1.Location = new System.Drawing.Point(3, 3);
+            this.navigationListView1.Name = "navigationListView1";
+            this.navigationListView1.Size = new System.Drawing.Size(385, 326);
+            this.navigationListView1.TabIndex = 0;
+            // 
+            // datalogging
+            // 
+            this.datalogging.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.datalogging.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.datalogging.Location = new System.Drawing.Point(3, 3);
+            this.datalogging.Name = "datalogging";
+            this.datalogging.Size = new System.Drawing.Size(607, 343);
+            this.datalogging.TabIndex = 0;
+            // 
+            // _gcsMainPanel
+            // 
+            this._gcsMainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._gcsMainPanel.Location = new System.Drawing.Point(3, 3);
+            this._gcsMainPanel.Name = "_gcsMainPanel";
+            this._gcsMainPanel.Size = new System.Drawing.Size(607, 343);
+            this._gcsMainPanel.TabIndex = 2;
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // _btn_firmware_upgrade
+            // 
+            this._btn_firmware_upgrade.Image = ((System.Drawing.Image)(resources.GetObject("_btn_firmware_upgrade.Image")));
+            this._btn_firmware_upgrade.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._btn_firmware_upgrade.Name = "_btn_firmware_upgrade";
+            this._btn_firmware_upgrade.Size = new System.Drawing.Size(114, 22);
+            this._btn_firmware_upgrade.Text = "Firmware upgrade";
+            this._btn_firmware_upgrade.Click += new System.EventHandler(this._btn_firmware_upgrade_Click);
             // 
             // GluonConfig
             // 
@@ -339,6 +375,10 @@
         private System.Windows.Forms.CheckBox _cb_hide_parsed;
         private System.Windows.Forms.TextBox _tb_logging;
         private GCS.GcsMainPanel _gcsMainPanel;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton _btn_reboot;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton _btn_firmware_upgrade;
 
 
 

@@ -175,7 +175,14 @@ namespace Communication
                         ac.pid_heading2roll_imax = double.Parse(lines[36], System.Globalization.CultureInfo.InvariantCulture);
                         ac.pid_heading2roll_dmin = double.Parse(lines[37], System.Globalization.CultureInfo.InvariantCulture);
 
-                        int r = int.Parse(lines[38]);
+                        ac.pid_altitude2pitch_p = double.Parse(lines[38], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_altitude2pitch_d = double.Parse(lines[39], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_altitude2pitch_i = double.Parse(lines[40], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_altitude2pitch_imin = double.Parse(lines[41], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_altitude2pitch_imax = double.Parse(lines[42], System.Globalization.CultureInfo.InvariantCulture);
+                        ac.pid_altitude2pitch_dmin = double.Parse(lines[43], System.Globalization.CultureInfo.InvariantCulture);
+
+                        int r = int.Parse(lines[44]);
                         byte r2 = (byte)r;
                         ac.servo_reverse[0] = (r & 1) != 0;
                         ac.servo_reverse[1] = (r & 2) != 0;
@@ -186,22 +193,23 @@ namespace Communication
 
                         for (int i = 0; i < 6; i++)
                         {
-                            ac.servo_min[i] = int.Parse(lines[39 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
-                            ac.servo_max[i] = int.Parse(lines[40 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
-                            ac.servo_neutral[i] = int.Parse(lines[41 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
+                            ac.servo_min[i] = int.Parse(lines[45 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
+                            ac.servo_max[i] = int.Parse(lines[46 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
+                            ac.servo_neutral[i] = int.Parse(lines[47 + i * 3], System.Globalization.CultureInfo.InvariantCulture);
                         }
 
-                        ac.rc_ppm = 1 - int.Parse(lines[57]);
+                        ac.rc_ppm = 1 - int.Parse(lines[63]);
 
-                        ac.control_mixing = int.Parse(lines[58]);
-                        ac.control_max_pitch = int.Parse(lines[59]);
-                        ac.control_max_roll = int.Parse(lines[60]);
+                        ac.control_mixing = int.Parse(lines[64]);
+                        ac.control_max_pitch = int.Parse(lines[65]);
+                        ac.control_max_roll = int.Parse(lines[66]);
 
-                        if (lines.Length > 61)
+                        if (lines.Length > 67)
                         {
-                            ac.control_waypoint_radius = int.Parse(lines[61]);
-                            ac.control_cruising_speed = int.Parse(lines[62]);
-                            ac.control_stabilization_with_altitude_hold = int.Parse(lines[63]) == 0 ? false : true;
+                            ac.control_waypoint_radius = int.Parse(lines[67]);
+                            ac.control_cruising_speed = int.Parse(lines[68]);
+                            ac.control_stabilization_with_altitude_hold = int.Parse(lines[69]) == 0 ? false : true;
+                            ac.control_aileron_differential = int.Parse(lines[70]);
                         }
                         AllConfigCommunicationReceived(ac);
                     }
@@ -426,6 +434,23 @@ namespace Communication
 
             Thread.Sleep(200);
 
+            _serialPort.WriteLine("\nPA;" +
+                ac.pid_altitude2pitch_p.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
+                ac.pid_altitude2pitch_i.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
+                ac.pid_altitude2pitch_d.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
+                ac.pid_altitude2pitch_imin.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
+                ac.pid_altitude2pitch_imax.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
+                ac.pid_altitude2pitch_dmin.ToString(System.Globalization.CultureInfo.InvariantCulture) + "\n\n");
+            Console.WriteLine("\nPA;" +
+                ac.pid_altitude2pitch_p.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
+                ac.pid_altitude2pitch_i.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
+                ac.pid_altitude2pitch_d.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
+                ac.pid_altitude2pitch_imin.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
+                ac.pid_altitude2pitch_imax.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";" +
+                ac.pid_altitude2pitch_dmin.ToString(System.Globalization.CultureInfo.InvariantCulture) + "\n");
+
+            Thread.Sleep(200);
+
             int s = 0;
             if (ac.servo_reverse[0])
                 s += 1;
@@ -447,6 +472,7 @@ namespace Communication
                 ac.control_mixing.ToString() + ";" + 
                 ac.control_max_pitch.ToString(CultureInfo.InvariantCulture) + ";" +
                 ac.control_max_roll.ToString(CultureInfo.InvariantCulture) + ";" +
+                ac.control_aileron_differential.ToString() + ";" +
                 ac.control_waypoint_radius.ToString(CultureInfo.InvariantCulture) + ";" +
                 ac.control_cruising_speed.ToString(CultureInfo.InvariantCulture) + ";" +
                 (ac.control_stabilization_with_altitude_hold == false? 0:1).ToString() + "\n");
@@ -520,6 +546,11 @@ namespace Communication
         public override void SendNavigationLoad()
         {
             _serialPort.WriteLine("\nLN;\n");
+        }
+
+        public override void SendReboot()
+        {
+            _serialPort.WriteLine("\nZZ;1123\n");
         }
     }
 }

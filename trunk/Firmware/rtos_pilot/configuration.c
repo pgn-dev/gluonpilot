@@ -82,7 +82,7 @@ void configuration_default()
 	}
 	
 	config.control.servo_mix = AILERON;
-	config.control.aileron_differential = 0.0;
+	config.control.aileron_differential = 0;
 	config.control.cruising_speed_ms = 18;
 	config.control.max_pitch = 30.0/180.0*3.14;
 	config.control.max_roll = 30.0/180.0*3.14;
@@ -93,6 +93,7 @@ void configuration_default()
 	pid_init(&config.control.pid_heading2roll, 0.0, 0.8, 0.0, -1.0, 1.0, 0.0);
 	pid_init(&config.control.pid_pitch2elevator , 0.0, 0.75, 0.0, -1.0, 1.0, 0.0);
 	pid_init(&config.control.pid_roll2aileron, 0.0, 0.4, 0.0, -1.0, 1.0, 0.0);
+	pid_init(&config.control.pid_altitude2pitch, 0.0, 0.4, 0.0, -1.0, 1.0, 0.0);
 	
 	config.control.waypoint_radius_m = 25;
 	

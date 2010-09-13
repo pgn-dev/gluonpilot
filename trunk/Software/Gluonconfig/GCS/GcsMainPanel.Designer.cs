@@ -30,10 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GcsMainPanel));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this._graphControl = new Graph.GraphControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this._btn_ge_server = new System.Windows.Forms.ToolStripButton();
             this._btn_goto_ge = new System.Windows.Forms.ToolStripButton();
-            this._graphControl = new Graph.GraphControl();
+            this.artificialHorizon = new ArtificialHorizon.ArtificialHorizon();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -45,6 +46,7 @@
             // 
             // toolStripContainer1.ContentPanel
             // 
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.artificialHorizon);
             this.toolStripContainer1.ContentPanel.Controls.Add(this._graphControl);
             this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(530, 366);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -58,6 +60,16 @@
             // 
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
             // 
+            // _graphControl
+            // 
+            this._graphControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._graphControl.Location = new System.Drawing.Point(3, 167);
+            this._graphControl.Name = "_graphControl";
+            this._graphControl.Size = new System.Drawing.Size(524, 196);
+            this._graphControl.TabIndex = 0;
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
@@ -66,7 +78,7 @@
             this._btn_goto_ge});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(245, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(214, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // _btn_ge_server
@@ -88,15 +100,16 @@
             this._btn_goto_ge.Text = "Open";
             this._btn_goto_ge.Click += new System.EventHandler(this._btn_goto_ge_Click);
             // 
-            // _graphControl
+            // artificialHorizon
             // 
-            this._graphControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this._graphControl.Location = new System.Drawing.Point(3, 103);
-            this._graphControl.Name = "_graphControl";
-            this._graphControl.Size = new System.Drawing.Size(524, 260);
-            this._graphControl.TabIndex = 0;
+            this.artificialHorizon.AutoScroll = true;
+            this.artificialHorizon.ForeColor = System.Drawing.SystemColors.Control;
+            this.artificialHorizon.Location = new System.Drawing.Point(185, 13);
+            this.artificialHorizon.Name = "artificialHorizon";
+            this.artificialHorizon.pitch_angle = 0;
+            this.artificialHorizon.roll_angle = 0;
+            this.artificialHorizon.Size = new System.Drawing.Size(160, 148);
+            this.artificialHorizon.TabIndex = 1;
             // 
             // GcsMainPanel
             // 
@@ -123,5 +136,6 @@
         private System.Windows.Forms.ToolStripButton _btn_ge_server;
         private System.Windows.Forms.ToolStripButton _btn_goto_ge;
         private Graph.GraphControl _graphControl;
+        private ArtificialHorizon.ArtificialHorizon artificialHorizon;
     }
 }

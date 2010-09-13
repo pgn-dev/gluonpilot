@@ -19,6 +19,13 @@ void navigation_update();
 	FROM_TO               //!< Fly on a straight line from the previous waypoint to the next one
 };*/
 
+enum navigation_variable {
+	HEIGHT = 1,
+	SPEED_MS = 2,
+	HEADING_DEG = 3,
+	FLIGHT_TIME_S = 4,
+	SATELLITES_IN_VIEW = 5
+};	
 
 enum navigation_command {
 	EMPTYCMD=0,
@@ -34,10 +41,10 @@ enum navigation_command {
 	IF_SM=10,     // x < c goto n
 	IF_GR=11,     // x > c goto n
 	IF_NE=12,     // x > c goto n
-	WHILE_EQ=13,
-	WHILE_NE=14,
-	WHILE_GR=15,
-	WHILE_SM=16
+	UNTIL_EQ=13,
+	UNTIL_NE=14,
+	UNTIL_GR=15,
+	UNTIL_SM=16
 };
 
 
@@ -61,6 +68,9 @@ struct NavigationData
 	float home_latitude_rad;      //!< Home position, radians.
 	float home_gps_height;        //!< Height of home.
 	float home_pressure_height;
+	
+	float last_waypoint_latitude_rad;
+	float last_waypoint_longitude_rad;
 	
 	char airborne;                //!< Is 0 when the plane didn't take off yet.	
 	float wind_heading;           //!< Wind comes from...

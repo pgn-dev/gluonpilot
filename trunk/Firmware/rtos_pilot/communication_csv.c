@@ -229,7 +229,7 @@ extern xQueueHandle xRxedChars;
 void communication_input_task( void *parameters )
 {
 	static int   buffer_position;
-	static int   token[7] = {0,0,0,0,0,0,0};
+	static int   token[8] = {0,0,0,0,0,0,0};
 	static int   current_token;
 	
 	char tmp;
@@ -319,10 +319,11 @@ void communication_input_task( void *parameters )
 					config.control.servo_mix = (buffer[token[1] + 0]) - '0';
 					config.control.max_pitch = atof(&(buffer[token[2]])) / 180.0 * 3.14;
 					config.control.max_roll = atof(&(buffer[token[3]])) / 180.0 * 3.14;
+					config.control.aileron_differential = atoi(&(buffer[token[4]])) / 10;
 					
-           	        config.control.waypoint_radius_m = atof(&(buffer[token[4]]));
-         	        config.control.cruising_speed_ms = atof(&(buffer[token[5]]));
-         	        config.control.stabilization_with_altitude_hold = atoi(&(buffer[token[6]])) == 0? 0 : 1;
+           	        config.control.waypoint_radius_m = atof(&(buffer[token[5]]));
+         	        config.control.cruising_speed_ms = atof(&(buffer[token[6]]));
+         	        config.control.stabilization_with_altitude_hold = atoi(&(buffer[token[7]])) == 0? 0 : 1;
 
 				}	
 				///////////////////////////////////////////////////////////////
@@ -373,6 +374,18 @@ void communication_input_task( void *parameters )
 					config.control.pid_heading2roll.d_term_min_var = (float)atof(&(buffer[token[6]]));
 				}
 				///////////////////////////////////////////////////////////////
+				//                  SET PID ALTITUDE 2 PITCH                 //
+				///////////////////////////////////////////////////////////////				
+				else if (buffer[token[0]] == 'P' && buffer[token[0] + 1] == 'A')    // Set PID
+				{
+					config.control.pid_altitude2pitch.p_gain = (float)atof(&(buffer[token[1]]));
+					config.control.pid_altitude2pitch.i_gain = (float)atof(&(buffer[token[2]]));
+					config.control.pid_altitude2pitch.d_gain = (float)atof(&(buffer[token[3]]));
+					config.control.pid_altitude2pitch.i_min = (float)atof(&(buffer[token[4]]));
+					config.control.pid_altitude2pitch.i_max = (float)atof(&(buffer[token[5]]));
+					config.control.pid_altitude2pitch.d_term_min_var = (float)atof(&(buffer[token[6]]));
+				}
+				///////////////////////////////////////////////////////////////
 				//                      FORMAT DATALOG                       //
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'F')   
@@ -387,7 +400,21 @@ void communication_input_task( void *parameters )
 					int i;
 					for (i = 0; i < MAX_INDEX; i++)
 						printf("DT;%d;%d;%ld;%ld\r\n", i, datalogger_index_table[i].page_num, datalogger_index_table[i].date, datalogger_index_table[i].time);
-				}	
+				}
+				///////////////////////////////////////////////////////////////
+				//                           RESET                           //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'Z' && buffer[token[0] + 1] == 'Z')    
+				{
+					if (atoi(&(buffer[token[1]])) == 1123)  // double check
+					{
+						printf("\r\nReboot command received...\r\n");
+						portTickType xLastWakeTime;
+     					xLastWakeTime = xTaskGetTickCount();
+						vTaskDelayUntil( &xLastWakeTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );  // 1s
+						asm("reset");
+					}	
+				}				
 				///////////////////////////////////////////////////////////////
 				//                       DATALOG READ                        //
 				///////////////////////////////////////////////////////////////
@@ -550,15 +577,20 @@ void communication_input_task( void *parameters )
 						                    config.control.pid_roll2aileron.i_min,
 						                    config.control.pid_roll2aileron.i_max,
 						                    config.control.pid_roll2aileron.d_term_min_var);
-						printf("%f;%f;%f;%f;%f;%f", config.control.pid_heading2roll.p_gain,
+						printf("%f;%f;%f;%f;%f;%f;", config.control.pid_heading2roll.p_gain,
 						                    config.control.pid_heading2roll.d_gain,
 						                    config.control.pid_heading2roll.i_gain,
 						                    config.control.pid_heading2roll.i_min,
 						                    config.control.pid_heading2roll.i_max,
 						                    config.control.pid_heading2roll.d_term_min_var);
+						printf("%f;%f;%f;%f;%f;%f;", config.control.pid_altitude2pitch.p_gain,
+						                    config.control.pid_altitude2pitch.d_gain,
+						                    config.control.pid_altitude2pitch.i_gain,
+						                    config.control.pid_altitude2pitch.i_min,
+						                    config.control.pid_altitude2pitch.i_max,
+						                    config.control.pid_altitude2pitch.d_term_min_var);
 
 						// servo_reverse
-						uart1_putc(';');
 						print_unsigned_integer(((int)config.control.reverse_servo1) +
 						                       ((int)config.control.reverse_servo2<<1) +
 						                       ((int)config.control.reverse_servo3<<2) +
@@ -580,6 +612,7 @@ void communication_input_task( void *parameters )
 						                   	         (int)(config.control.waypoint_radius_m),
 						                 	         (int)(config.control.cruising_speed_ms),
 						                 	         (int)(config.control.stabilization_with_altitude_hold));
+						printf(";%d", config.control.aileron_differential*10);
 						uart1_puts("\r\n");
 					}	
 					
@@ -598,8 +631,9 @@ void communication_input_task( void *parameters )
             	token[4] = 0;
             	token[5] = 0;
             	token[6] = 0;
+            	token[7] = 0;
             }
-            else if (tmp == ';' && current_token < 6 && buffer_position < BUFFERSIZE)
+            else if (tmp == ';' && current_token < 7 && buffer_position < BUFFERSIZE)
             {
 	            buffer[buffer_position++] = tmp;
 	            token[++current_token] = buffer_position;

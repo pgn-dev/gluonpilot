@@ -21,6 +21,15 @@ namespace Configuration
             InitializeComponent();
 
             cb_unit.SelectedIndex = 0;
+
+
+            /*if (Properties.Settings.Default.SpeedUnit == "m/s")
+                cb_unit.SelectedIndex = 0;
+            else if (Properties.Settings.Default.SpeedUnit == "km/h")
+                cb_unit.SelectedIndex = 1;
+            else
+                cb_unit.SelectedIndex = 2;
+            Properties.Settings.Default.Save();*/
         }
 
         [BrowsableAttribute(true)]
@@ -46,11 +55,22 @@ namespace Configuration
         private void cb_unit_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cb_unit.SelectedIndex == 0) // m/s
+            {
+                //Properties.Settings.Default.SpeedUnit = 0;
                 tb_speed.Text = current_speed_ms.ToString(CultureInfo.InvariantCulture);
+            }
             else if (cb_unit.SelectedIndex == 1) // km/h
+            {
+                //Properties.Settings.Default.SpeedUnit = 1;
                 tb_speed.Text = (current_speed_ms * 3.6).ToString(CultureInfo.InvariantCulture);
+            }
             else // mph
+            {
+                //Properties.Settings.Default.SpeedUnit = 2;
                 tb_speed.Text = (current_speed_ms * (3.6 * 0.621371192)).ToString(CultureInfo.InvariantCulture);
+            }
+
+            //Properties.Settings.Default.Save();
         }
 
         private void cb_unit_DropDown(object sender, EventArgs e)

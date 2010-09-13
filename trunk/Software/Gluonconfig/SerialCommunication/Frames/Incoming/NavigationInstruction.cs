@@ -26,10 +26,10 @@ namespace Communication.Frames.Incoming
             IF_SM = 10,     // x < c goto n
             IF_GR = 11,     // x > c goto n
             IF_NE = 12,     // x > c goto n
-            WHILE_EQ = 13,
-            WHILE_NE = 14,
-            WHILE_GR = 15,
-            WHILE_SM = 16
+            UNTIL_EQ = 13,
+            UNTIL_NE = 14,
+            UNTIL_GR = 15,
+            UNTIL_SM = 16
         };
 
         public navigation_command opcode;
@@ -96,12 +96,27 @@ namespace Communication.Frames.Incoming
             case navigation_command.CIRCLE_REL:
                 s += "CIRCLE_RELATIVE(lon: " + y + " m, lat: " + x + ", m radius: " + a + "m, height: " + b + " m)";
                 break;
+            case navigation_command.UNTIL_SM:
+                s += "UNTIL(" + GetVariableText(a) + " < " + x + ")";
+                break;
             default:
                 s += "UNKNOWN/UNSUPPORTED (" + (int)opcode + " : " +  x + ", " + y + ", " + a + ", " + b + ")";
                 break;
             }
 
             return s;
+        }
+
+        public string GetVariableText(int a)
+        {
+            if (a == 1)
+                return "Height (m)";
+            else if (a == 2)
+                return "Speed (m/s)";
+            else if (a == 3)
+                return "Heading (deg)";
+            else
+                return "?";
         }
     }
 }

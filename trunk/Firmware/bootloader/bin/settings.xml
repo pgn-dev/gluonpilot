@@ -2,8 +2,8 @@
 <ds30LoaderSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CheckVerStart>false</CheckVerStart>
   <WindowOnTop>false</WindowOnTop>
-  <WindowWidth>747</WindowWidth>
-  <WindowHeight>548</WindowHeight>
+  <WindowWidth>160</WindowWidth>
+  <WindowHeight>29</WindowHeight>
   <Filename>C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\hex\rtos_pilot.hex</Filename>
   <DefaultStartSettings>
     <AdvancedMode>false</AdvancedMode>
