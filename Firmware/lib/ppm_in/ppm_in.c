@@ -15,7 +15,7 @@
 #include "ppm_in/ppm_in.h"
 
 
-static unsigned int NUM_CHANNELS = 8;
+static unsigned int NUM_CHANNELS = 7; //0..7 = 8
 
 //! The maximum allowed servo pulse, in timer ticks.
 unsigned int servo_pulse_max; 

@@ -23,13 +23,14 @@ namespace GCS
         {
             InitializeComponent();
             Disconnnect();
+            artificialHorizon.BackColor = toolStripContainer1.ContentPanel.BackColor;
         }
 
         public void Connect(SerialCommunication serial)
         {
             _serial = serial;
             _btn_ge_server.Enabled = true;
-            _graphControl.SetSerial(serial);
+            //_graphControl.SetSerial(serial);
             serial.AttitudeCommunicationReceived += new SerialCommunication.ReceiveAttitudeCommunicationFrame(serial_AttitudeCommunicationReceived);
         }
 
@@ -44,7 +45,7 @@ namespace GCS
             _serial = null;
             _btn_ge_server.Enabled = false;
             _btn_goto_ge.Enabled = false;
-            _graphControl.Stop();
+            //_graphControl.Stop();
         }
 
         private void _btn_ge_server_Click(object sender, EventArgs e)
