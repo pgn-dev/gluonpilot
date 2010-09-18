@@ -35,7 +35,11 @@ inline double fast_sin(double x);
 inline double fast_cos(double x);
 
 static double pitch_rad = 0.0, roll_rad = 0.0;
-	
+double pitch_rad_sum_error = 0.0;
+double roll_rad_sum_error = 0.0;
+double p_bias = 0.0;
+double q_bias = 0.0;
+
 void ahrs_init()
 {
 	double x;
@@ -97,6 +101,9 @@ void ahrs_filter(double dt)
     cos_pitch = cos(pitch_rad);
     tan_pitch = tan(pitch_rad);*/
     
+    // correction from outer loop
+	sensor_data.p -= p_bias;
+	sensor_data.q -= q_bias;
 
 	roll_rad += dt * (sensor_data.p + (sensor_data.q*sin_roll + sensor_data.r*cos_roll) * tan_pitch);
 	pitch_rad += dt * (sensor_data.q*cos_roll - sensor_data.r*sin_roll);
@@ -149,14 +156,23 @@ void ahrs_filter(double dt)
 	    //dh_dx = [q(i)/G*w_droll                        cos_pitch + q(i)*w_dpitch/G;...
 	    //         -cos_pitch*cos_roll + p(i)*w_droll/G   sin_roll*sin_pitch + (r(i)*u_dpitch - p(i)*w_dpitch)/G;...
 	    //         sin_roll*cos_pitch-p(i)*w_droll/G      cos_roll*sin_pitch + (p(i)*w_dpitch - q(i)*u_dpitch)/G];
-	  	double dh = 0.0; //-sensor_data.vertical_speed;
+	  	
+	  	/*double dh = -sensor_data.vertical_speed;
 	  	double u = cos_pitch * sensor_data.gps.speed_ms - sin_pitch * dh;
 		double w = cos_roll * sin_pitch * sensor_data.gps.speed_ms + cos_roll * cos_pitch * dh;
 	
 	    double w_droll = -sin_roll * (sin_pitch * sensor_data.gps.speed_ms + cos_pitch * dh);
 	    double u_dpitch = -sin_pitch * sensor_data.gps.speed_ms - cos_pitch * dh;
-	    double w_dpitch = cos_roll * (cos_pitch * sensor_data.gps.speed_ms - sin_pitch * dh);
-	            
+	    double w_dpitch = cos_roll * (cos_pitch * sensor_data.gps.speed_ms - sin_pitch * dh);*/
+	    /* Without dh: */
+	  	double u = cos_pitch * sensor_data.gps.speed_ms;
+		double w = cos_roll * sin_pitch * sensor_data.gps.speed_ms;
+	
+	    double w_droll = -sin_roll * (sin_pitch * sensor_data.gps.speed_ms);
+	    double u_dpitch = -sin_pitch * sensor_data.gps.speed_ms;
+	    double w_dpitch = cos_roll * (cos_pitch * sensor_data.gps.speed_ms);
+
+
 	    dh_dx_3x2[0] = sensor_data.q/G*w_droll;
 	    dh_dx_3x2[1] = cos_pitch + sensor_data.q*w_dpitch/G;
 	    dh_dx_3x2[2] = -cos_pitch*cos_roll + sensor_data.p*w_droll/G;
@@ -216,10 +232,25 @@ void ahrs_filter(double dt)
 		tmp2[0] = L[0] * tmp1[0] + L[1] * tmp1[1] +  L[2] * tmp1[2];  // roll "error"
 		tmp2[1] = L[3] * tmp1[0] + L[4] * tmp1[1] +  L[5] * tmp1[2];  // pitch "error"
 		
-	    roll_rad = roll_rad + L[0] * tmp1[0] + L[1] * tmp1[1] +  L[2] * tmp1[2];
-	    pitch_rad = pitch_rad + L[3] * tmp1[0] + L[4] * tmp1[1] +  L[5] * tmp1[2];
+	    roll_rad = roll_rad + tmp2[0];
+	    pitch_rad = pitch_rad + tmp2[1];
+	    
+	    if (fabs(roll_rad) < DEG2RAD(45) && fabs(pitch_rad) < DEG2RAD(45))
+	    {
+		    roll_rad_sum_error += tmp2[0];
+			pitch_rad_sum_error += tmp2[1];
+		}
     }
-    
+	else if (i % 50 == 0) // outer loop at 1Hz
+	{
+		// change bias with a max of 0.2°/s per second
+		p_bias -= BIND(roll_rad_sum_error/20.0, DEG2RAD(-0.1), DEG2RAD(0.1));
+		q_bias -= BIND(pitch_rad_sum_error/20.0, DEG2RAD(-0.1), DEG2RAD(0.1));
+		roll_rad_sum_error = 0.0;
+		pitch_rad_sum_error = 0.0;
+	}	
+	
+   
     int p = (int)pitch_rad;   
     
     if (p == -1 && (int)roll_rad == -1)   // we have a NaN -> ALERT
