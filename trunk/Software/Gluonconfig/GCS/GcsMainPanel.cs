@@ -23,7 +23,7 @@ namespace GCS
         {
             InitializeComponent();
             Disconnnect();
-            artificialHorizon.BackColor = toolStripContainer1.ContentPanel.BackColor;
+            //artificialHorizon.BackColor = toolStripContainer1.ContentPanel.BackColor;
         }
 
         public void Connect(SerialCommunication serial)
@@ -36,8 +36,8 @@ namespace GCS
 
         void serial_AttitudeCommunicationReceived(Communication.Frames.Incoming.Attitude attitude)
         {
-            artificialHorizon.pitch_angle = attitude.PitchDeg;
-            artificialHorizon.roll_angle = attitude.RollDeg;
+            //artificialHorizon.pitch_angle = attitude.PitchDeg;
+            //artificialHorizon.roll_angle = attitude.RollDeg;
         }
 
         public void Disconnnect()

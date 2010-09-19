@@ -24,3 +24,16 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconf
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Graph\obj\Debug\Graph.csproj.GenerateResource.Cache
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Graph\obj\Debug\Graph.dll
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\Graph\obj\Debug\Graph.pdb
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\Graph\bin\Debug\Graph.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\Graph\bin\Debug\Graph.pdb
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\Graph\bin\Debug\Communication.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\Graph\bin\Debug\ZedGraph.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\Graph\bin\Debug\SmartThreadPool.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\Graph\bin\Debug\Communication.pdb
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\Graph\obj\Debug\ResolveAssemblyReference.cache
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\Graph\obj\Debug\Graph.GraphForm.resources
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\Graph\obj\Debug\Graph.GraphControl.resources
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\Graph\obj\Debug\Graph.Properties.Resources.resources
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\Graph\obj\Debug\Graph.csproj.GenerateResource.Cache
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\Graph\obj\Debug\Graph.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\Graph\obj\Debug\Graph.pdb

@@ -10,3 +10,9 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconf
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\SerialCommunication\obj\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\SerialCommunication\obj\Debug\Communication.dll
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\SerialCommunication\obj\Debug\Communication.pdb
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\SerialCommunication\bin\Debug\Communication.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\SerialCommunication\bin\Debug\Communication.pdb
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\SerialCommunication\bin\Debug\SmartThreadPool.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\SerialCommunication\obj\Debug\ResolveAssemblyReference.cache
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\SerialCommunication\obj\Debug\Communication.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\SerialCommunication\obj\Debug\Communication.pdb

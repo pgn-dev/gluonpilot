@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GcsMainPanel));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.artificialHorizon = new ArtificialHorizon.ArtificialHorizon();
+            //this.artificialHorizon = new ArtificialHorizon.ArtificialHorizon();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this._btn_ge_server = new System.Windows.Forms.ToolStripButton();
             this._btn_goto_ge = new System.Windows.Forms.ToolStripButton();
@@ -50,7 +50,7 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.tabControl1);
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.artificialHorizon);
+            //this.toolStripContainer1.ContentPanel.Controls.Add(this.artificialHorizon);
             this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(530, 366);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
@@ -65,7 +65,7 @@
             // 
             // artificialHorizon
             // 
-            this.artificialHorizon.AutoScroll = true;
+            /*this.artificialHorizon.AutoScroll = true;
             this.artificialHorizon.BackColor = System.Drawing.SystemColors.Info;
             this.artificialHorizon.ForeColor = System.Drawing.SystemColors.Control;
             this.artificialHorizon.Location = new System.Drawing.Point(185, 13);
@@ -73,7 +73,7 @@
             this.artificialHorizon.pitch_angle = 0;
             this.artificialHorizon.roll_angle = 0;
             this.artificialHorizon.Size = new System.Drawing.Size(160, 148);
-            this.artificialHorizon.TabIndex = 1;
+            this.artificialHorizon.TabIndex = 1;*/
             // 
             // toolStrip1
             // 
@@ -163,7 +163,7 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton _btn_ge_server;
         private System.Windows.Forms.ToolStripButton _btn_goto_ge;
-        private ArtificialHorizon.ArtificialHorizon artificialHorizon;
+        //private ArtificialHorizon.ArtificialHorizon artificialHorizon;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;

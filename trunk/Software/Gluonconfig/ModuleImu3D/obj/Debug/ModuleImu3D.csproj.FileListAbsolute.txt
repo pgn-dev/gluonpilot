@@ -20,3 +20,14 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconf
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\obj\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\obj\Debug\ModuleImu3D.dll
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Software\Gluonconfig\ModuleImu3D\obj\Debug\ModuleImu3D.pdb
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\ModuleImu3D.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\ModuleImu3D.pdb
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\Communication.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\CsGL.Basecode.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\csgl.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\SmartThreadPool.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\Communication.pdb
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\ModuleImu3D\bin\Debug\CsGL.Basecode.xml
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\ModuleImu3D\obj\Debug\ResolveAssemblyReference.cache
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\ModuleImu3D\obj\Debug\ModuleImu3D.dll
+D:\Documents and Settings\Tom\My Documents\Gluonpilot\Software\Gluonconfig\ModuleImu3D\obj\Debug\ModuleImu3D.pdb

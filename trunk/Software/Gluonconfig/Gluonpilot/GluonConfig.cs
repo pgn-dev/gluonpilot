@@ -9,9 +9,6 @@ using System.Windows.Forms;
 using Communication;
 using System.IO;
 using System.Xml.Serialization;
-
-using ds30Loader;
-using GHelper;
 using System.Diagnostics;
 
 namespace Gluonpilot
@@ -210,19 +207,5 @@ namespace Gluonpilot
 
             _btn_connect_Click(null, null);
         }
-
-        private void Hex_Parse(object obj, clsHexFileParseEventArgs e)
-        {
-            _tb_logging.AppendText(e.message);
-        }
-        private void Hex_Validate(object obj, clsHexFileValidateEventArgs e)
-        {
-            _tb_logging.AppendText(e.message);
-        }
-        private void ds30L_Downloading(object obj, clsDownloadingEventArgs e)
-        {
-            _tb_logging.AppendText(e.message);
-        }
-        
     }
 }
