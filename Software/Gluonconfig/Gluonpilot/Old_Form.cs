@@ -15,11 +15,11 @@ using System.Xml.Serialization;
 
 namespace Gluonpilot
 {
-    public partial class Form1 : Form
+    public partial class Old_Form : Form
     {
         private SerialCommunication_CSV _serial;
 
-        public Form1()
+        public Old_Form()
         {
             InitializeComponent();
             

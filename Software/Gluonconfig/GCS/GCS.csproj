@@ -37,7 +37,7 @@
   <ItemGroup>
     <Reference Include="ArtificialHorizon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Visual Studio 2005\Projects\ArtificialHorizon\ArtificialHorizon\bin\Release\ArtificialHorizon.dll</HintPath>
+      <HintPath>.\ArtificialHorizon.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
