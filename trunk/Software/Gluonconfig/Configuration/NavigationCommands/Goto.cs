@@ -24,14 +24,14 @@ namespace Configuration.NavigationCommands
 
         public NavigationInstruction GetNavigationInstruction()
         {
-            ni.line = _ntb_linenr.IntValue;
+            ni.a = _ntb_linenr.IntValue - 1;
             return ni;
         }
 
         public void SetNavigationInstruction(NavigationInstruction ni)
         {
             this.ni = ni;
-            _ntb_linenr.IntValue = ni.line;
+            _ntb_linenr.IntValue = ni.a + 1;
         }
 
         #endregion
