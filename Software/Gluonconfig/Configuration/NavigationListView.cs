@@ -37,6 +37,7 @@ namespace Configuration
             }
 
             Disconnect();
+            _gb_edit.Enabled = false;
         }
 
 
@@ -157,31 +158,47 @@ namespace Configuration
 
         private void _cb_opcode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            flowLayoutPanel.Controls.Clear();
+            _gb_edit.Enabled = true;
+
             NavigationInstruction ni = (NavigationInstruction)(NavigationInstruction)_lv_navigation.SelectedItems[0].Tag;
 
             ni.opcode = (NavigationInstruction.navigation_command)_cb_opcode.SelectedIndex;
 
+            // already a navigationcommand on the panel? delete it so we can add a new one.
+            if (tableLayoutPanel.Controls.Count > 1)
+                tableLayoutPanel.Controls.RemoveAt(1);
+
+            Control c;
+
             if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.CIRCLE_REL)
-                flowLayoutPanel.Controls.Add(new NavigationCommands.CircleRel(ni));
+                c = new NavigationCommands.CircleRel(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.FLY_TO_REL)
-                flowLayoutPanel.Controls.Add(new NavigationCommands.FlyToRel(ni));
+                c = new NavigationCommands.FlyToRel(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.CIRCLE_ABS)
-                flowLayoutPanel.Controls.Add(new NavigationCommands.CircleAbs(ni));
+                c = new NavigationCommands.CircleAbs(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.FLY_TO_ABS)
-                flowLayoutPanel.Controls.Add(new NavigationCommands.FlyToAbs(ni));
+                c = new NavigationCommands.FlyToAbs(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.FROM_TO_REL)
-                flowLayoutPanel.Controls.Add(new NavigationCommands.FromToRel(ni));
+                c = new NavigationCommands.FromToRel(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.GOTO)
-                flowLayoutPanel.Controls.Add(new NavigationCommands.Goto(ni));
+                c = new NavigationCommands.Goto(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.FROM_TO_ABS)
-                flowLayoutPanel.Controls.Add(new NavigationCommands.FromToAbs(ni));
+                c = new NavigationCommands.FromToAbs(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.CLIMB)
-                flowLayoutPanel.Controls.Add(new NavigationCommands.Climb(ni));
-            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.EMPTY)
-                flowLayoutPanel.Controls.Add(new NavigationCommands.Empty(ni));
+                c = new NavigationCommands.Climb(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.UNTIL_GR)
-                flowLayoutPanel.Controls.Add(new NavigationCommands.UntilGr(ni));
+                c = new NavigationCommands.UntilGr(ni);
+            else// if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.EMPTY)
+                c = new NavigationCommands.Empty(ni);
+
+            // add our edit-control
+            tableLayoutPanel.Controls.Add(c);
+            tableLayoutPanel.SetCellPosition(c, new TableLayoutPanelCellPosition(0, 0));
+
+            // Do some lay-outin'
+            c.Anchor = AnchorStyles.None;
+            tableLayoutPanel.RowStyles[0].Height = c.Height;
+            tableLayoutPanel.Height = _btn_set.Height + c.Height + 30;
         }
 
         private void _lv_navigation_SelectedIndexChanged(object sender, EventArgs e)
@@ -192,7 +209,7 @@ namespace Configuration
 
         private void _btn_set_Click(object sender, EventArgs e)
         {
-            _lv_navigation.SelectedItems[0].Tag = ((INavigationCommandViewer)flowLayoutPanel.Controls[0]).GetNavigationInstruction();
+            _lv_navigation.SelectedItems[0].Tag = ((INavigationCommandViewer)tableLayoutPanel.GetControlFromPosition(0, 0)).GetNavigationInstruction();
 
             _lv_navigation.SelectedItems[0].SubItems[1].Text = "* " + 
                 ((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag).ToString();
