@@ -1,6 +1,0 @@
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\SerialCommunication\bin\Debug\SerialCommunication.dll
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\SerialCommunication\bin\Debug\SerialCommunication.pdb
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\SerialCommunication\bin\Debug\SmartThreadPool.dll
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\SerialCommunication\obj\Debug\ResolveAssemblyReference.cache
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\SerialCommunication\obj\Debug\SerialCommunication.dll
-C:\Documents and Settings\Eigenaar\Mijn documenten\Visual Studio 2008\Projects\Gluonpilot\SerialCommunication\obj\Debug\SerialCommunication.pdb
