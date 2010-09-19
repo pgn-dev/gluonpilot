@@ -12,6 +12,7 @@ using Communication.Frames.Incoming;
 using Configuration;
 using System.IO;
 using System.Threading;
+using Configuration.NavigationCommands;
 
 
 namespace Configuration
@@ -91,12 +92,18 @@ namespace Configuration
 
         private void _lv_navigation_ItemActivate(object sender, EventArgs e)
         {
-            NavigationInstructionEdit nie = new NavigationInstructionEdit((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag);
-            nie.ShowDialog(this);
+            //NavigationInstructionEdit nie = new NavigationInstructionEdit((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag);
+            //nie.ShowDialog(this);
+
+            NavigationCommands.NavigationCommandEditor nce = new Configuration.NavigationCommands.NavigationCommandEditor((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag);
+            nce.ShowDialog(this);
+            _lv_navigation.SelectedItems[0].Tag = nce.GetNavigationInstruction();
+
 
             _lv_navigation.SelectedItems[0].SubItems[1].Text = "* " + 
                 ((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag).ToString();
             dirty_list.Add(((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag).line);
+
         }
 
         private void _btn_save_Click(object sender, EventArgs e)
@@ -147,6 +154,51 @@ namespace Configuration
             serial.SendNavigationLoad();
         }
 
+
+        private void _cb_opcode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            flowLayoutPanel.Controls.Clear();
+            NavigationInstruction ni = (NavigationInstruction)(NavigationInstruction)_lv_navigation.SelectedItems[0].Tag;
+
+            ni.opcode = (NavigationInstruction.navigation_command)_cb_opcode.SelectedIndex;
+
+            if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.CIRCLE_REL)
+                flowLayoutPanel.Controls.Add(new NavigationCommands.CircleRel(ni));
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.FLY_TO_REL)
+                flowLayoutPanel.Controls.Add(new NavigationCommands.FlyToRel(ni));
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.CIRCLE_ABS)
+                flowLayoutPanel.Controls.Add(new NavigationCommands.CircleAbs(ni));
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.FLY_TO_ABS)
+                flowLayoutPanel.Controls.Add(new NavigationCommands.FlyToAbs(ni));
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.FROM_TO_REL)
+                flowLayoutPanel.Controls.Add(new NavigationCommands.FromToRel(ni));
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.GOTO)
+                flowLayoutPanel.Controls.Add(new NavigationCommands.Goto(ni));
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.FROM_TO_ABS)
+                flowLayoutPanel.Controls.Add(new NavigationCommands.FromToAbs(ni));
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.CLIMB)
+                flowLayoutPanel.Controls.Add(new NavigationCommands.Climb(ni));
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.EMPTY)
+                flowLayoutPanel.Controls.Add(new NavigationCommands.Empty(ni));
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.UNTIL_GR)
+                flowLayoutPanel.Controls.Add(new NavigationCommands.UntilGr(ni));
+        }
+
+        private void _lv_navigation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_lv_navigation.SelectedItems.Count > 0)
+                _cb_opcode.SelectedIndex = (int)((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag).opcode;
+        }
+
+        private void _btn_set_Click(object sender, EventArgs e)
+        {
+            _lv_navigation.SelectedItems[0].Tag = ((INavigationCommandViewer)flowLayoutPanel.Controls[0]).GetNavigationInstruction();
+
+            _lv_navigation.SelectedItems[0].SubItems[1].Text = "* " + 
+                ((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag).ToString();
+            dirty_list.Add(((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag).line);
+        }
+
         private void _btn_format_Click(object sender, EventArgs e)
         {
             DialogResult r = MessageBox.Show(
@@ -174,6 +226,5 @@ namespace Configuration
                 serial.SendNavigationRead();
             }
         }
-
     }
 }

@@ -69,6 +69,12 @@
       <DependentUpon>ConfigurationTabpage.cs</DependentUpon>
     </Compile>
     <Compile Include="ConfigurationModel.cs" />
+    <Compile Include="CoordinateEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CoordinateEdit.Designer.cs">
+      <DependentUpon>CoordinateEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Datalogging.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -80,6 +86,73 @@
     </Compile>
     <Compile Include="DistanceTextBox.Designer.cs">
       <DependentUpon>DistanceTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\CircleAbs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\CircleAbs.Designer.cs">
+      <DependentUpon>CircleAbs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\CircleRel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\CircleRel.Designer.cs">
+      <DependentUpon>CircleRel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\Climb.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\Climb.Designer.cs">
+      <DependentUpon>Climb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\Empty.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\Empty.Designer.cs">
+      <DependentUpon>Empty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\FlyToAbs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\FlyToAbs.Designer.cs">
+      <DependentUpon>FlyToAbs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\FlyToRel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\FlyToRel.Designer.cs">
+      <DependentUpon>FlyToRel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\FromToAbs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\FromToAbs.Designer.cs">
+      <DependentUpon>FromToAbs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\FromToRel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\FromToRel.Designer.cs">
+      <DependentUpon>FromToRel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\Goto.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\Goto.Designer.cs">
+      <DependentUpon>Goto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\INavigationCommandViewer.cs" />
+    <Compile Include="NavigationCommands\NavigationCommandEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\NavigationCommandEditor.Designer.cs">
+      <DependentUpon>NavigationCommandEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\UntilGr.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\UntilGr.Designer.cs">
+      <DependentUpon>UntilGr.cs</DependentUpon>
     </Compile>
     <Compile Include="NavigationInstructionEdit.cs">
       <SubType>Form</SubType>
@@ -123,11 +196,47 @@
     <EmbeddedResource Include="ConfigurationTabpage.resx">
       <DependentUpon>ConfigurationTabpage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CoordinateEdit.resx">
+      <DependentUpon>CoordinateEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Datalogging.resx">
       <DependentUpon>Datalogging.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DistanceTextBox.resx">
       <DependentUpon>DistanceTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\CircleAbs.resx">
+      <DependentUpon>CircleAbs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\CircleRel.resx">
+      <DependentUpon>CircleRel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\Climb.resx">
+      <DependentUpon>Climb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\Empty.resx">
+      <DependentUpon>Empty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\FlyToAbs.resx">
+      <DependentUpon>FlyToAbs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\FlyToRel.resx">
+      <DependentUpon>FlyToRel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\FromToAbs.resx">
+      <DependentUpon>FromToAbs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\FromToRel.resx">
+      <DependentUpon>FromToRel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\Goto.resx">
+      <DependentUpon>Goto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\NavigationCommandEditor.resx">
+      <DependentUpon>NavigationCommandEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\UntilGr.resx">
+      <DependentUpon>UntilGr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NavigationInstructionEdit.resx">
       <DependentUpon>NavigationInstructionEdit.cs</DependentUpon>

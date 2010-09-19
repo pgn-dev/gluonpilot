@@ -66,6 +66,10 @@ namespace Configuration
                     return x;
                 }
             }
+            set
+            {
+                this.Text = value.ToString();
+            }
         }
 
         public decimal DecimalValue
@@ -73,6 +77,10 @@ namespace Configuration
             get
             {
                 return Decimal.Parse(this.Text);
+            }
+            set
+            {
+                this.Text = value.ToString(System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
             }
         }
 
@@ -83,6 +91,10 @@ namespace Configuration
                 double d = 0;
                 Double.TryParse(this.Text, NumberStyles.Any ,System.Globalization.CultureInfo.InvariantCulture.NumberFormat, out d);
                 return d;
+            }
+            set
+            {
+                this.Text = value.ToString(System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
             }
         }
 

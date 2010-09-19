@@ -151,6 +151,14 @@
             this.Navigation.Text = "Navigation";
             this.Navigation.UseVisualStyleBackColor = true;
             // 
+            // navigationListView1
+            // 
+            this.navigationListView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.navigationListView1.Location = new System.Drawing.Point(3, 3);
+            this.navigationListView1.Name = "navigationListView1";
+            this.navigationListView1.Size = new System.Drawing.Size(607, 343);
+            this.navigationListView1.TabIndex = 0;
+            // 
             // datalog
             // 
             this.datalog.Controls.Add(this.datalogging);
