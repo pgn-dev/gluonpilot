@@ -18,11 +18,7 @@ namespace Configuration.NavigationCommands
         public CircleRel(NavigationInstruction ni)
         {
             InitializeComponent();
-            this.ni = ni;
-            distanceTextBoxNorth.DistanceM = ni.x;
-            distanceTextBoxEast.DistanceM = ni.y;
-            distanceTextBoxRadius.DistanceM = ni.a;
-            distanceTextBoxHeight.DistanceM = ni.b;
+            SetNavigationInstruction(ni);
         }
 
         public NavigationInstruction GetNavigationInstruction()
@@ -40,7 +36,11 @@ namespace Configuration.NavigationCommands
 
         public void SetNavigationInstruction(NavigationInstruction ni)
         {
-            throw new NotImplementedException();
+            this.ni = ni;
+            distanceTextBoxNorth.DistanceM = ni.x;
+            distanceTextBoxEast.DistanceM = ni.y;
+            distanceTextBoxRadius.DistanceM = ni.a;
+            distanceTextBoxHeight.DistanceM = ni.b;
         }
     }
 }

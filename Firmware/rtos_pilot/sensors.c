@@ -107,6 +107,10 @@ void sensors_task( void *parameters )
 			if (height > -30000.0 && height < 30000.0)   // sometimes we get bad readings ~ -31000
 				sensor_data.pressure_height = height;
 			sensor_data.vertical_speed = sensor_data.vertical_speed * 0.5 + (sensor_data.pressure_height - last_height)/dt_since_last_height * 0.5;
+			
+			if (fabs(sensor_data.vertical_speed) > MAX(5.0, sensor_data.gps.speed_ms))  // validity check
+				sensor_data.vertical_speed = 0.0;
+				
 			last_height = sensor_data.pressure_height;
 			dt_since_last_height = 0.0;
 		}
@@ -207,7 +211,7 @@ void sensors_gps_task( void *parameters )
 			
 			if (i % 6 == 0 || (i+1) % 6 == 0 || (i+2) % 6 == 0)  // this is used for both RMC and GGA, so only update every other tick
 			{
-				if (sensor_data.gps.status == ACTIVE)
+				if (sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view > 5)
 					led2_off();
 			}	
 			else if (sensor_data.gps.status != EMPTY)

@@ -17,16 +17,13 @@ namespace Configuration.NavigationCommands
         public FlyToRel(NavigationInstruction ni)
         {
             InitializeComponent();
-            this.ni = ni;
-            distanceTextBoxNorth.DistanceM = ni.x;
-            distanceTextBoxEast.DistanceM = ni.y;
-            distanceTextBoxHeight.DistanceM = ni.a;
+            SetNavigationInstruction(ni);
         }
 
         public NavigationInstruction GetNavigationInstruction()
         {
             double x, y;
-            int a, b;
+            int a;
             x = distanceTextBoxEast.DistanceM;
             y = distanceTextBoxNorth.DistanceM;
             a = (int)distanceTextBoxHeight.DistanceM;
@@ -37,7 +34,10 @@ namespace Configuration.NavigationCommands
 
         public void SetNavigationInstruction(NavigationInstruction ni)
         {
-            throw new NotImplementedException();
+            this.ni = ni;
+            distanceTextBoxNorth.DistanceM = ni.x;
+            distanceTextBoxEast.DistanceM = ni.y;
+            distanceTextBoxHeight.DistanceM = ni.a;
         }
     }
 }

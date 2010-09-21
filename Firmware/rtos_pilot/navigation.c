@@ -216,6 +216,18 @@ void navigation_update()
 			else
 				navigation_data.current_codeline--;
 			break;
+		case IF_GR:
+			if (get_variable(current_code->a) > current_code->x)
+				navigation_data.current_codeline++;
+			else
+				navigation_data.current_codeline += 2;
+			break;
+		case IF_SM:
+			if (get_variable(current_code->a) < current_code->x)
+				navigation_data.current_codeline++;
+			else
+				navigation_data.current_codeline += 2;
+			break;
 		case EMPTYCMD:
 			navigation_data.desired_pre_bank = 0.0;
 			navigation_data.current_codeline = 0;
@@ -265,6 +277,9 @@ double get_variable(enum navigation_variable i)
 			return 0.0;
 		case SATELLITES_IN_VIEW:
 			return sensor_data.gps.satellites_in_view;
+		case HOME_DISTANCE:
+			return distance_between_meter(sensor_data.gps.longitude_rad, navigation_data.home_longitude_rad,
+			                   sensor_data.gps.latitude_rad, navigation_data.home_latitude_rad);
 		default:
 			return 0.0;
 	}	

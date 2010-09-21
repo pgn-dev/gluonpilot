@@ -52,7 +52,7 @@ void ahrs_init()
 	
 	// initialize our attitude with the current accelerometer's data
 	pitch_rad = gravity_to_pitch(sensor_data.acc_x, sensor_data.acc_z);
-	roll_rad = gravity_to_pitch(sensor_data.acc_y, sensor_data.acc_z);
+	roll_rad = gravity_to_roll(sensor_data.acc_y, sensor_data.acc_z);
 }	
 
 #define normalize(pitch, roll)              \
@@ -164,6 +164,7 @@ void ahrs_filter(double dt)
 	    double w_droll = -sin_roll * (sin_pitch * sensor_data.gps.speed_ms + cos_pitch * dh);
 	    double u_dpitch = -sin_pitch * sensor_data.gps.speed_ms - cos_pitch * dh;
 	    double w_dpitch = cos_roll * (cos_pitch * sensor_data.gps.speed_ms - sin_pitch * dh);*/
+	    
 	    /* Without dh: */
 	  	double u = cos_pitch * sensor_data.gps.speed_ms;
 		double w = cos_roll * sin_pitch * sensor_data.gps.speed_ms;
@@ -171,6 +172,7 @@ void ahrs_filter(double dt)
 	    double w_droll = -sin_roll * (sin_pitch * sensor_data.gps.speed_ms);
 	    double u_dpitch = -sin_pitch * sensor_data.gps.speed_ms;
 	    double w_dpitch = cos_roll * (cos_pitch * sensor_data.gps.speed_ms);
+	    //double w_droll = 0.0; double u_dpitch = 0.0; double w_dpitch = 0.0;
 
 
 	    dh_dx_3x2[0] = sensor_data.q/G*w_droll;
