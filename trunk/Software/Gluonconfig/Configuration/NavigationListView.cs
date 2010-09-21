@@ -13,6 +13,7 @@ using Configuration;
 using System.IO;
 using System.Threading;
 using Configuration.NavigationCommands;
+using System.Diagnostics;
 
 
 namespace Configuration
@@ -38,6 +39,7 @@ namespace Configuration
 
             Disconnect();
             _gb_edit.Enabled = false;
+            _btn_to_kml.Enabled = false;
         }
 
 
@@ -82,12 +84,17 @@ namespace Configuration
                 _lv_navigation.Items[ni.line - 1].SubItems.Add(new ListViewItem.ListViewSubItem());
             }
             _lv_navigation.Items[ni.line - 1].SubItems[1].Text = ni.ToString();
+
+            _btn_to_kml.Enabled = true;
         }
 
 
         private void _btn_read_Click(object sender, EventArgs e)
         {
             dirty_list.Clear();
+            foreach (ListViewItem i in _lv_navigation.Items)  // provide some visual feedback
+                i.SubItems[1].Text = "?";
+
             serial.SendNavigationRead();
         }
 
@@ -204,7 +211,10 @@ namespace Configuration
         private void _lv_navigation_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_lv_navigation.SelectedItems.Count > 0)
+            {
                 _cb_opcode.SelectedIndex = (int)((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag).opcode;
+                _cb_opcode_SelectedIndexChanged(null, null); // in case it is the same as current selected index
+            }
         }
 
         private void _btn_set_Click(object sender, EventArgs e)
@@ -241,6 +251,106 @@ namespace Configuration
 
                 // Read the data
                 serial.SendNavigationRead();
+            }
+        }
+
+        private void _btn_to_kml_Click(object sender, EventArgs e)
+        {
+            StringBuilder placemarks = new StringBuilder();
+            StringBuilder path = new StringBuilder();
+            double lat_home_rad;
+            double lon_home_rad;
+
+            AskHome ah = new AskHome();
+            if (ah.ShowDialog() != DialogResult.OK)
+                return;
+            lat_home_rad = ah.GetLatitudeRad();
+            lon_home_rad = ah.GetLongitudeRad();
+
+
+            double latitude_meter_per_radian = 6363057.32484;
+            double longitude_meter_per_radian = latitude_meter_per_radian * Math.Cos(lat_home_rad);
+
+            path.Append(
+               (lon_home_rad / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) +
+               "," + (lat_home_rad / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) + ",0");
+
+            placemarks.Append("<Placemark><name>Home</name><styleUrl>#homePlacemark</styleUrl>" +
+                    "<Point><altitudeMode>relativeToGround</altitudeMode><coordinates>" +
+                    path.ToString() + "</coordinates></Point></Placemark>");
+
+            foreach (ListViewItem lvi in _lv_navigation.Items)
+            {
+                NavigationInstruction ni = (NavigationInstruction)lvi.Tag;
+                if (ni.opcode == NavigationInstruction.navigation_command.FLY_TO_ABS ||
+                    ni.opcode == NavigationInstruction.navigation_command.FROM_TO_ABS ||
+                    ni.opcode == NavigationInstruction.navigation_command.CIRCLE_ABS)
+                {
+                    string coord = 
+                        (ni.y / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) +
+                        "," + (ni.x / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + ni.a;
+                    placemarks.Append("<Placemark><name>" + ni.line + "</name><styleUrl>#squarePlacemark</styleUrl>" +
+                        "<description>" + ni.ToString() + "</description>" +
+                        "<Point><altitudeMode>relativeToGround</altitudeMode><coordinates>" +
+                        coord + "</coordinates></Point></Placemark>");
+                    path.Append("\r\n" + coord);
+                }
+                else if (ni.opcode == NavigationInstruction.navigation_command.FLY_TO_REL ||
+                    ni.opcode == NavigationInstruction.navigation_command.FROM_TO_REL ||
+                    ni.opcode == NavigationInstruction.navigation_command.CIRCLE_REL)
+                {
+                    string coord =
+                        ((ni.y / longitude_meter_per_radian + lon_home_rad) / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," +
+                        ((ni.x / latitude_meter_per_radian + lat_home_rad) / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + ni.a;
+
+                    placemarks.Append("<Placemark><name>" + ni.line + "</name><styleUrl>#squarePlacemark</styleUrl>" +
+                    "<description>" + ni.ToString() + "</description>" +
+                    "<Point><altitudeMode>relativeToGround</altitudeMode><coordinates>" +                        
+                    coord + "</coordinates></Point></Placemark>");
+                    path.Append("\r\n" + coord);
+                }
+            }
+
+            StringBuilder kml = new StringBuilder();
+            kml.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><name>Navigation</name>");
+
+            kml.Append("<Style id=\"homePlacemark\"><IconStyle>" +
+                "<Icon><href>http://maps.google.com/mapfiles/kml/shapes/ranger_station.png</href></Icon>" +
+                "</IconStyle></Style>");
+            kml.Append("<Style id=\"squarePlacemark\"><IconStyle>" +
+                "<Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_square.png</href></Icon>" +
+                "</IconStyle></Style>");
+            kml.Append("<Style id=\"roundPlacemark\"><IconStyle>" +
+                "<Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon>" +
+                "</IconStyle></Style>");
+
+
+            kml.Append("<Folder><name>Waypoints</name>");
+            kml.Append(placemarks);
+            kml.Append("</Folder>");
+            kml.Append("<Placemark><name>Flightpath</name><LineString><altitudeMode>relativeToGround</altitudeMode>" +
+                       "<coordinates>" + path.ToString() + "</coordinates></LineString></Placemark>");
+            kml.Append("</Document></kml>");
+
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.DefaultExt = "kml";
+            sfd.Filter = "KML files (*.kml)|*.kml|All files (*.*)|*.*";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                Stream s = sfd.OpenFile();
+                StreamWriter sw = new StreamWriter(s);
+                try
+                {
+                    sw.Write(kml.ToString());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                sw.Close();
+                if (MessageBox.Show("Do you want to open the file in Google Earth?", "Open file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                    Process.Start(sfd.FileName);
             }
         }
     }

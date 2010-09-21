@@ -24,7 +24,8 @@ enum navigation_variable {
 	SPEED_MS = 2,
 	HEADING_DEG = 3,
 	FLIGHT_TIME_S = 4,
-	SATELLITES_IN_VIEW = 5
+	SATELLITES_IN_VIEW = 5,
+	HOME_DISTANCE = 6
 };	
 
 enum navigation_command {

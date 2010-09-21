@@ -17,11 +17,7 @@ namespace Configuration.NavigationCommands
         public CircleAbs(NavigationInstruction ni)
         {
             InitializeComponent();
-
-            this.ni = ni;
-            _ce.SetCoordinateRad(ni.x, ni.y);
-            _dtb_radius.DistanceM = ni.a;
-            _dtb_height.DistanceM = ni.b;
+            SetNavigationInstruction(ni);
         }
 
         #region INavigationCommandViewer Members
@@ -37,7 +33,10 @@ namespace Configuration.NavigationCommands
 
         public void SetNavigationInstruction(NavigationInstruction ni)
         {
-            this.ni = new NavigationInstruction(ni);
+            this.ni = ni;
+            _ce.SetCoordinateRad(ni.x, ni.y);
+            _dtb_radius.DistanceM = ni.a;
+            _dtb_height.DistanceM = ni.b;
         }
 
         #endregion

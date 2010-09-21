@@ -54,19 +54,39 @@ namespace Configuration
         {
             InitializeComponent();
             tb_distance.Text = "0";
-            cb_unit.SelectedIndex = 0;
+            if (Properties.Settings.Default.DistanceUnit == "m")
+                cb_unit.SelectedIndex = 0;
+            else if (Properties.Settings.Default.DistanceUnit == "km")
+                cb_unit.SelectedIndex = 1;
+            else if (Properties.Settings.Default.DistanceUnit == "ft")
+                cb_unit.SelectedIndex = 2;
+            else //if (Properties.Settings.Default.DistanceUnit == "mi")
+                cb_unit.SelectedIndex = 3;
         }
 
         private void cb_unit_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cb_unit.SelectedIndex == 0) // m
+            {
                 tb_distance.Text = current_distance_m.ToString(CultureInfo.InvariantCulture);
+                Properties.Settings.Default.DistanceUnit = "m";
+            }
             else if (cb_unit.SelectedIndex == 1) // km
+            {
                 tb_distance.Text = (current_distance_m / 1000.0).ToString(CultureInfo.InvariantCulture);
+                Properties.Settings.Default.DistanceUnit = "km";
+            }
             else if (cb_unit.SelectedIndex == 2) // ft
+            {
                 tb_distance.Text = (current_distance_m / 3.2808399).ToString(CultureInfo.InvariantCulture);
+                Properties.Settings.Default.DistanceUnit = "ft";
+            }
             else // mile
+            {
                 tb_distance.Text = (current_distance_m * 0.000621371192).ToString(CultureInfo.InvariantCulture);
+                Properties.Settings.Default.DistanceUnit = "mi";
+            }
+            Properties.Settings.Default.Save();
         }
 
         private void cb_unit_DropDown(object sender, EventArgs e)

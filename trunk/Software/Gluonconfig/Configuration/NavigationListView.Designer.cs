@@ -78,6 +78,8 @@
             this._btn_reload = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this._btn_format = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this._btn_to_kml = new System.Windows.Forms.ToolStripButton();
             this._cb_opcode = new System.Windows.Forms.ComboBox();
             this._btn_set = new System.Windows.Forms.Button();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -205,7 +207,9 @@
             this._btn_burn,
             this._btn_reload,
             this.toolStripSeparator2,
-            this._btn_format});
+            this._btn_format,
+            this.toolStripSeparator3,
+            this._btn_to_kml});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(604, 25);
@@ -277,6 +281,20 @@
             this._btn_format.Text = "Format";
             this._btn_format.Click += new System.EventHandler(this._btn_format_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // _btn_to_kml
+            // 
+            this._btn_to_kml.Image = ((System.Drawing.Image)(resources.GetObject("_btn_to_kml.Image")));
+            this._btn_to_kml.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._btn_to_kml.Name = "_btn_to_kml";
+            this._btn_to_kml.Size = new System.Drawing.Size(61, 22);
+            this._btn_to_kml.Text = "To KML";
+            this._btn_to_kml.Click += new System.EventHandler(this._btn_to_kml_Click);
+            // 
             // _cb_opcode
             // 
             this._cb_opcode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -331,6 +349,8 @@
             // 
             // _gb_edit
             // 
+            this._gb_edit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this._gb_edit.AutoSize = true;
             this._gb_edit.Controls.Add(this._cb_opcode);
             this._gb_edit.Controls.Add(this.tableLayoutPanel);
@@ -378,6 +398,8 @@
         private System.Windows.Forms.ToolStripButton _btn_format;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private System.Windows.Forms.GroupBox _gb_edit;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton _btn_to_kml;
 
 
     }
