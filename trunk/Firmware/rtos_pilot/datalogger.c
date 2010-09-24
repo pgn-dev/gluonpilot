@@ -211,7 +211,7 @@ int datalogger_print_next_page(int index, void(*printer)(struct LogLine*))
 
 	if (*i != index+1)
 	{
-		printf ("%d != %d\r\n", *i, index+1);
+		//printf ("%d != %d\r\n", *i, index+1);
 		return 0;
 	}	
 
