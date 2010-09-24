@@ -157,8 +157,8 @@ void ahrs_filter(double dt)
 	    //         -cos_pitch*cos_roll + p(i)*w_droll/G   sin_roll*sin_pitch + (r(i)*u_dpitch - p(i)*w_dpitch)/G;...
 	    //         sin_roll*cos_pitch-p(i)*w_droll/G      cos_roll*sin_pitch + (p(i)*w_dpitch - q(i)*u_dpitch)/G];
 	  	
-	  	/*double dh = -sensor_data.vertical_speed;
-	  	double u = cos_pitch * sensor_data.gps.speed_ms - sin_pitch * dh;
+	  	double dh = -sensor_data.vertical_speed;
+	  	/*double u = cos_pitch * sensor_data.gps.speed_ms - sin_pitch * dh;
 		double w = cos_roll * sin_pitch * sensor_data.gps.speed_ms + cos_roll * cos_pitch * dh;
 	
 	    double w_droll = -sin_roll * (sin_pitch * sensor_data.gps.speed_ms + cos_pitch * dh);
@@ -166,13 +166,13 @@ void ahrs_filter(double dt)
 	    double w_dpitch = cos_roll * (cos_pitch * sensor_data.gps.speed_ms - sin_pitch * dh);*/
 	    
 	    /* Without dh: */
-	  	double u = cos_pitch * sensor_data.gps.speed_ms;
-		double w = cos_roll * sin_pitch * sensor_data.gps.speed_ms;
+	  	double u = sqrt(sensor_data.gps.speed_ms*sensor_data.gps.speed_ms + dh*dh);
+		double w = dh*cos_pitch*cos_roll; //cos_roll * sin_pitch * sensor_data.gps.speed_ms;
 	
-	    double w_droll = -sin_roll * (sin_pitch * sensor_data.gps.speed_ms);
-	    double u_dpitch = -sin_pitch * sensor_data.gps.speed_ms;
-	    double w_dpitch = cos_roll * (cos_pitch * sensor_data.gps.speed_ms);
-	    //double w_droll = 0.0; double u_dpitch = 0.0; double w_dpitch = 0.0;
+	    //double w_droll = -sin_roll * (sin_pitch * sensor_data.gps.speed_ms);
+	    //double u_dpitch = -sin_pitch * sensor_data.gps.speed_ms;
+	    //double w_dpitch = cos_roll * (cos_pitch * sensor_data.gps.speed_ms);
+	    double w_droll = 0.0; double u_dpitch = 0.0; double w_dpitch = 0.0;
 
 
 	    dh_dx_3x2[0] = sensor_data.q/G*w_droll;

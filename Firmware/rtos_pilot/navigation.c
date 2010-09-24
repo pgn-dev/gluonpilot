@@ -56,6 +56,20 @@ void navigation_init ()
 	navigation_data.last_code = 0;
 	
 	navigation_load();
+	
+	// Testing:
+	/*sensor_data.gps.latitude_rad = DEG2RAD(50.852200);
+	sensor_data.gps.longitude_rad = DEG2RAD(3.670674);
+	navigation_set_home();
+
+	sensor_data.gps.latitude_rad = DEG2RAD(50.853371);
+	sensor_data.gps.longitude_rad = DEG2RAD(3.671246);
+	sensor_data.gps.speed_ms = 19;
+	
+	navigation_data.navigation_codes[1].x =  navigation_data.home_latitude_rad;
+	navigation_data.navigation_codes[1].y = navigation_data.home_longitude_rad;
+	
+	navigation_do_circle(& navigation_data.navigation_codes[1]);*/
 }
 
 
@@ -290,41 +304,41 @@ void navigation_do_circle(struct NavigationCode *current_code)
 {
 	float r = (float)current_code->a; // meter
 	float rad_s = sensor_data.gps.speed_ms / r;   // rad/s for this circle
-#define carrot 5.0
+#define carrot 4.0
 	float distance_ahead = carrot * sensor_data.gps.speed_ms;
-		
+	float abs_r = fabs(r);
+
 	// heading towards center of circle
-	navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - current_code->y,
-	                                                         sensor_data.gps.latitude_rad - current_code->x);
-	float current_alpha = navigation_data.desired_heading_rad - DEG2RAD(180.0);  // 0° = top of circle
+	float current_alpha = heading_rad_fromto(current_code->y - sensor_data.gps.longitude_rad,
+	                                         current_code->x - sensor_data.gps.latitude_rad);  // 0° = top of circle
 
 	float distance_center = 
 	 	distance_between_meter(sensor_data.gps.longitude_rad, current_code->y,
 	                           sensor_data.gps.latitude_rad, current_code->x);
-	
 	float next_alpha;
 	float rad_ahead = rad_s*carrot;
-	if (distance_center > r + distance_ahead ||
-	    distance_center < r - distance_ahead)  // too far in or out of the circle?
-	{
-		next_alpha = current_alpha + DEG2RAD(90.0); // fly to point where you would touch the circle
-	}
-	else
-	{
+	
+	//if (distance_center > abs_r + distance_ahead ||
+	//    distance_center < abs_r - distance_ahead)  // too far in or out of the circle?
+	//{
+	//	next_alpha = current_alpha + DEG2RAD(90.0); // fly to point where you would touch the circle
+	//}
+	//else
+	//{
 		/*if (rad_ahead > 3.14159/4.0)	
 			next_alpha = current_alpha + 3.14159/4.0; // go to the position one second ahead
 		if (rad_ahead < 3.14159/16.0)	
 			next_alpha = current_alpha + 3.14159/16.0; // go to the position one second ahead
 		else*/
 			next_alpha = current_alpha + rad_ahead; //atan(distance_ahead/r);   CHANGE
-	}	
+	//}	
 
 	
-	navigation_data.desired_pre_bank = (distance_center > r + distance_ahead*2.0 || 
-	                                   distance_center < r + distance_ahead*2.0) ? 0 :
+	navigation_data.desired_pre_bank = (distance_center > abs_r + distance_ahead*2.0 || 
+	                                   distance_center < abs_r - distance_ahead) ? 0 :
   				                          atan(sensor_data.gps.speed_ms*sensor_data.gps.speed_ms / (G*r));
 
-	float next_r = r / cos(rad_ahead); // CHANGE sqrt(r*r + distance_ahead*distance_ahead);
+	float next_r = abs_r / cos(rad_ahead); // CHANGE sqrt(r*r + distance_ahead*distance_ahead);
 			
 	// max desired_heading
 	float pointlon = current_code->y + sin(next_alpha) * next_r / longitude_meter_per_radian;
@@ -340,6 +354,10 @@ void navigation_do_circle(struct NavigationCode *current_code)
 		navigation_data.desired_heading_rad += DEG2RAD(360.0);
 		
 	navigation_data.desired_height_above_ground_m = current_code->b;
+	
+	/*printf("-> %f | %f", distance_center, current_alpha);
+	printf("(%f) %f\r\n", navigation_data.desired_pre_bank/3.14159*180.0, navigation_data.desired_heading_rad/3.14159*180.0);
+	printf("(%f, %f) @ %d\r\n", RAD2DEG(current_code->x), RAD2DEG(current_code->y), current_code->a);*/
 }	
 
 
@@ -397,5 +415,6 @@ float distance_between_meter(float long1, float long2, float lat1, float lat2)
 	/* simple: */
 	float difflong = (long1 - long2) * longitude_meter_per_radian;
 	float difflat = (lat1 - lat2) * latitude_meter_per_radian;
+
 	return sqrt(difflong*difflong + difflat*difflat);
 }
