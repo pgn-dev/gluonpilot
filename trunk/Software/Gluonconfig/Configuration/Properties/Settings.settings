@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Configuration.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="home_latitude" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="home_longitude" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SpeedUnit" Type="System.String" Scope="User">
+      <Value Profile="(Default)">km/h</Value>
+    </Setting>
+    <Setting Name="DistanceUnit" Type="System.String" Scope="User">
+      <Value Profile="(Default)">m</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
