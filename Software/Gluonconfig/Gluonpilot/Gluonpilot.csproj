@@ -62,12 +62,6 @@
     <Compile Include="ConnectDialog.Designer.cs">
       <DependentUpon>ConnectDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Old_Form.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Old_Form.Designer.cs">
-      <DependentUpon>Old_Form.cs</DependentUpon>
-    </Compile>
     <Compile Include="GluonConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,9 +72,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ConnectDialog.resx">
       <DependentUpon>ConnectDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Old_Form.resx">
-      <DependentUpon>Old_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GluonConfig.resx">
       <DependentUpon>GluonConfig.cs</DependentUpon>
