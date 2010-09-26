@@ -213,6 +213,11 @@ void communication_telemetry_task( void *parameters )
 		}
 		else if (counters.stream_GpsBasic > config.telemetry.stream_GpsBasic)
 			counters.stream_GpsBasic = 0;
+			
+		///////////////////////////////////////////////////////////////
+		//                          CONTROL                          //
+		///////////////////////////////////////////////////////////////
+		printf("TC;CONTROL_STATUS;LINE;CARROTX;CARROTY;CARROTH");
 	}
 }
 

@@ -41,7 +41,10 @@
             this._cb_variables.Items.AddRange(new object[] {
             "Height [m]",
             "Speed [m/s]",
-            "Heading [deg]"});
+            "Heading [deg]",
+            "Unsupported (Flight time [sec])",
+            "Satellites in view",
+            "Home distance [m]"});
             this._cb_variables.Location = new System.Drawing.Point(0, 0);
             this._cb_variables.Name = "_cb_variables";
             this._cb_variables.Size = new System.Drawing.Size(121, 21);

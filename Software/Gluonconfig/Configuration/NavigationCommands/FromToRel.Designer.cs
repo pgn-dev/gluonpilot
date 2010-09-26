@@ -68,11 +68,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1, 32);
+            this.label5.Location = new System.Drawing.Point(1, 31);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 13);
+            this.label5.Size = new System.Drawing.Size(52, 13);
             this.label5.TabIndex = 14;
-            this.label5.Text = "Circle center";
+            this.label5.Text = "Waypoint";
             // 
             // _dtb_east
             // 
@@ -95,7 +95,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(178, 32);
+            this.label2.Location = new System.Drawing.Point(178, 31);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 11;
@@ -106,9 +106,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(1, 3);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 13);
+            this.label3.Size = new System.Drawing.Size(52, 13);
             this.label3.TabIndex = 10;
-            this.label3.Text = "Circle center";
+            this.label3.Text = "Waypoint";
             // 
             // FromToRel
             // 
