@@ -293,7 +293,7 @@ double get_variable(enum navigation_variable i)
 			return sensor_data.gps.satellites_in_view;
 		case HOME_DISTANCE:
 			return distance_between_meter(sensor_data.gps.longitude_rad, navigation_data.home_longitude_rad,
-			                   sensor_data.gps.latitude_rad, navigation_data.home_latitude_rad);
+			                              sensor_data.gps.latitude_rad, navigation_data.home_latitude_rad);
 		default:
 			return 0.0;
 	}	

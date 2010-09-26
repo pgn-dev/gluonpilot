@@ -160,6 +160,12 @@
     <Compile Include="NavigationCommands\UntilGr.Designer.cs">
       <DependentUpon>UntilGr.cs</DependentUpon>
     </Compile>
+    <Compile Include="NavigationCommands\UntilSm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\UntilSm.Designer.cs">
+      <DependentUpon>UntilSm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NavigationInstructionEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -251,6 +257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\UntilGr.resx">
       <DependentUpon>UntilGr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\UntilSm.resx">
+      <DependentUpon>UntilSm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NavigationInstructionEdit.resx">
       <DependentUpon>NavigationInstructionEdit.cs</DependentUpon>

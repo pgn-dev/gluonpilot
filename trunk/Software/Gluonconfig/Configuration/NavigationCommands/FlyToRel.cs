@@ -24,8 +24,8 @@ namespace Configuration.NavigationCommands
         {
             double x, y;
             int a;
-            x = distanceTextBoxEast.DistanceM;
-            y = distanceTextBoxNorth.DistanceM;
+            y = distanceTextBoxEast.DistanceM;
+            x = distanceTextBoxNorth.DistanceM;
             a = (int)distanceTextBoxHeight.DistanceM;
             return new NavigationInstruction(
                 ni.line, NavigationInstruction.navigation_command.FLY_TO_REL,

@@ -34,6 +34,11 @@ namespace Communication.Frames.Incoming
 
         public navigation_command opcode;
 
+        public NavigationInstruction()
+        {
+            this.opcode = navigation_command.EMPTY;
+        }
+
         public NavigationInstruction(int line, navigation_command opcode, double x, double y, int a, int b)
         {
             this.line = line;
@@ -76,25 +81,25 @@ namespace Communication.Frames.Incoming
                 break;
 
             case navigation_command.FROM_TO_REL:   // x, y, height
-                s += "FROM_TO_RELATIVE(lon: " + y + " m, lat: " + x + " m, height: " + a + " m)";
+                s += "FROM_TO_RELATIVE(lat: " + x + "m, lon: " + y + "m, height: " + a + "m)";
                 break;
             case navigation_command.FROM_TO_ABS:
-                s += "FROM_TO_ABSOLUTE(lon: " + RAD2DEG(y).ToString("F5") + "°, lat: " + RAD2DEG(x).ToString("F5") + "°, height: " + a + " m)";
+                s += "FROM_TO_ABSOLUTE(lat: " + RAD2DEG(x).ToString("F5") + "°, lon: " + RAD2DEG(y).ToString("F5") + "°, height: " + a + "m)";
                 break;
             case navigation_command.FLY_TO_REL:
-                s += "FLY_TO_RELATIVE(lon: " + y + " m, lat: " + x + " m, height: " + a + " m)";
+                s += "FLY_TO_RELATIVE(lat: " + x + "m, lon: " + y + "m, height: " + a + "m)";
                 break;
             case navigation_command.FLY_TO_ABS:    // x, y, height
-                s += "FLY_TO_ABSOLUTE(lon: " + RAD2DEG(y).ToString("F5") + "°, lat: " + RAD2DEG(x).ToString("F5") + "°, height: " + a + " m)";
+                s += "FLY_TO_ABSOLUTE(lat: " + RAD2DEG(x).ToString("F5") + "°, lon: " + RAD2DEG(y).ToString("F5") + "°, height: " + a + "m)";
                 break;
             case navigation_command.GOTO:	   // line number
                 s += "GOTO(" + (a+1) + ")";
                 break;
             case navigation_command.CIRCLE_ABS:    // x, y, radius, height <-- should be inside a while  12 B
-                s += "CIRCLE_ABSOLUTE(lon: " + RAD2DEG(y).ToString("F5") + "°, lat: " + RAD2DEG(x).ToString("F5") + "°, radius: " + a + "m, height: " + b + " m)";
+                s += "CIRCLE_ABSOLUTE(lat: " + RAD2DEG(x).ToString("F5") + "°, lon: " + RAD2DEG(y).ToString("F5") + "°, radius: " + a + "m, height: " + b + "m)";
                 break;
             case navigation_command.CIRCLE_REL:
-                s += "CIRCLE_RELATIVE(lon: " + y + " m, lat: " + x + ", m radius: " + a + "m, height: " + b + " m)";
+                s += "CIRCLE_RELATIVE(lat: " + x + "m, lon: " + y + "m, radius: " + a + "m, height: " + b + " m)";
                 break;
             case navigation_command.UNTIL_SM:
                 s += "UNTIL(" + GetVariableText(a) + " < " + x + ")";
@@ -118,6 +123,12 @@ namespace Communication.Frames.Incoming
                 return "Speed (m/s)";
             else if (a == 3)
                 return "Heading (deg)";
+            else if (a == 4)
+                return "Flight time (s)";
+            else if (a == 5)
+                return "Satellites in view";
+            else if (a == 6)
+                return "Home distance (m)";
             else
                 return "?";
         }

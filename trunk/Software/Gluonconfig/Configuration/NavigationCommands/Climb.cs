@@ -31,7 +31,7 @@ namespace Configuration.NavigationCommands
         public void SetNavigationInstruction(NavigationInstruction ni)
         {
             this.ni = ni;
-            _dtb_height.DistanceM = ni.a;
+            _dtb_height.DistanceM = ni.x;
         }
 
         #endregion

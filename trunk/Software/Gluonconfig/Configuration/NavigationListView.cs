@@ -14,6 +14,7 @@ using System.IO;
 using System.Threading;
 using Configuration.NavigationCommands;
 using System.Diagnostics;
+using System.Xml.Serialization;
 
 
 namespace Configuration
@@ -39,7 +40,7 @@ namespace Configuration
 
             Disconnect();
             _gb_edit.Enabled = false;
-            _btn_to_kml.Enabled = false;
+            _btn_to_kml.Enabled = true;
         }
 
 
@@ -84,8 +85,6 @@ namespace Configuration
                 _lv_navigation.Items[ni.line - 1].SubItems.Add(new ListViewItem.ListViewSubItem());
             }
             _lv_navigation.Items[ni.line - 1].SubItems[1].Text = ni.ToString();
-
-            _btn_to_kml.Enabled = true;
         }
 
 
@@ -175,8 +174,8 @@ namespace Configuration
             if (tableLayoutPanel.Controls.Count > 1)
                 tableLayoutPanel.Controls.RemoveAt(1);
 
+            // Add the correct usercontrol
             Control c;
-
             if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.CIRCLE_REL)
                 c = new NavigationCommands.CircleRel(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.FLY_TO_REL)
@@ -195,6 +194,8 @@ namespace Configuration
                 c = new NavigationCommands.Climb(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.UNTIL_GR)
                 c = new NavigationCommands.UntilGr(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.UNTIL_SM)
+                c = new NavigationCommands.UntilSm(ni);
             else// if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.EMPTY)
                 c = new NavigationCommands.Empty(ni);
 
@@ -352,6 +353,61 @@ namespace Configuration
                 if (MessageBox.Show("Do you want to open the file in Google Earth?", "Open file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                     Process.Start(sfd.FileName);
             }
+        }
+
+        private void _btn_save_to_file_Click(object sender, EventArgs e)
+        {
+            /* Copy listview to array */
+            NavigationInstruction[] list = new NavigationInstruction[_lv_navigation.Items.Count];
+            int i = 0;
+            foreach (ListViewItem lvi in _lv_navigation.Items)
+            {
+                list[i] = (NavigationInstruction)lvi.Tag;
+                i++;
+            }
+
+            System.Windows.Forms.SaveFileDialog file = new System.Windows.Forms.SaveFileDialog();
+            file.DefaultExt = "gnf";
+            file.Filter = "Gluon navigation file (*.gnf)|*.gnf|All files (*.*)|*.*";
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                Stream stream = file.OpenFile();
+                //BinaryFormatter bformatter = new BinaryFormatter();
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(NavigationInstruction[]));
+
+                Console.WriteLine("Writing model information");
+                xmlSerializer.Serialize(stream, list);
+                stream.Close();
+            }
+        }
+
+        private void _btn_open_file_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog file = new System.Windows.Forms.OpenFileDialog();
+            file.DefaultExt = "gnf";
+            file.Filter = "Gluon navigation file (*.gnf)|*.gnf|All files (*.*)|*.*";
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                Stream stream = File.OpenRead(file.FileName);
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(NavigationInstruction[]));
+
+                Console.WriteLine("Reading model information");
+
+                NavigationInstruction[] list = (NavigationInstruction[])xmlSerializer.Deserialize(stream);
+                int i = 0;
+                dirty_list.Clear();
+                foreach (ListViewItem lvi in _lv_navigation.Items)
+                {
+                    lvi.Tag = list[i];
+                    lvi.SubItems[1].Text = "* " + list[i].ToString();
+                    dirty_list.Add(i);
+                    i++;
+                }
+                stream.Close();
+            }
+            
+            // update edit control
+            _lv_navigation_SelectedIndexChanged(null, null);
         }
     }
 }
