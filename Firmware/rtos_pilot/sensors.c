@@ -176,21 +176,33 @@ xSemaphoreHandle xGpsSemaphore = NULL;
 void sensors_gps_task( void *parameters )
 {
 	int i = 0;
-	uart1_puts("Gps task initializing...");
-	sensor_data.gps.status = EMPTY;	
-	uart1_puts("done\r\n");
+	portTickType xLastExecutionTime = xTaskGetTickCount();
 	
+	uart1_puts("Gps & Navigation task initializing...\r\n");
+	sensor_data.gps.status = EMPTY;	
+	
+	gps_open_port(&(config.gps));
+		
+	// Wait for GPS output. On some old EB85 devices, this can take over 2sec
+	for (i = 10; i <= 1000; i *= 2)
+	{
+		if (! gps_valid_frames_receiving())
+			vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) i / portTICK_RATE_MS ) );
+	}		
+
+	
+	gps_config_output();  // configure sentences and switch to 115200 baud
+
 	navigation_init ();
 	
-	portTickType xLastExecutionTime = xTaskGetTickCount();; 
-	vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );   // 1s
+	vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );   // 0.5s
 	
+	uart1_puts("Gps & Navigation task initialized\r\n");
 	if (sensor_data.gps.status == EMPTY)
-		led2_off();
+		led2_off();	
 	else if (sensor_data.gps.status == VOID)
-		led2_on();	
+		led2_on();
 	
-
 	for( ;; )
 	{
 		/* Wait until it is time for the next cycle. */
