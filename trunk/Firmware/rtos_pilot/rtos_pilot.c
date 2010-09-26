@@ -46,19 +46,23 @@ int main()
 	
 	uart1_queue_init(115200l);  // default baudrate: 115200
 	
-	printf("Gluonpilot v0.4 ALPHA [%s %s, config: %d bytes, logline: %d bytes, navigation: %d bytes, double: %d bytes]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(navigation_data.navigation_codes), sizeof(double));
+	printf("Gluonpilot v0.5 ALPHA [%s %s, config: %d bytes, logline: %d bytes, navigation: %d bytes, double: %d bytes]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(navigation_data.navigation_codes), sizeof(double));
 
 	microcontroller_reset_type();  // for debugging
 	led_init();
 	
+	// create semaphores needed for FreeRTOS synchronization (better to do it know, they are changed in interrupts of uart2 and ppm)
 	vSemaphoreCreateBinary( xSpiSemaphore );
+	vSemaphoreCreateBinary( xGpsSemaphore );
+	
 	dataflash_open();
 	printf("%d MB flash found\r\n", (int)PAGE_SIZE/264);
 	uart1_puts("Loading configuration...");
 	configuration_load();
 	uart1_puts("done\r\n");
 	
-	// pwm_in/ppm_in task: in ppm_in/pwm_in.c
+	// Open RC receiver input: pwm_in/ppm_in task: in ppm_in/pwm_in.c
+	// This is too low level to do it in the control task
 	if (config.control.use_pwm)
 		pwm_in_open(); 
 	else
@@ -68,18 +72,13 @@ int main()
 		uart1_puts(" done\r\n");
 	}	
 	
-	// Gps task: in sensors.c
-	uart1_puts("Opening GPS...");
-	vSemaphoreCreateBinary( xGpsSemaphore );
-	gps_init(&(config.gps));
-	uart1_puts("done\r\n");
 
 	// Create our tasks. 
 	xTaskCreate( control_task,                 ( signed portCHAR * ) "Control",      ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 6, NULL );
 	//uart1_puts("Control task started\r\n");
 	xTaskCreate( sensors_task,                 ( signed portCHAR * ) "Sensors",      ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 5, NULL );
 	//uart1_puts("Sensors task started\r\n");
-	xTaskCreate( sensors_gps_task,             ( signed portCHAR * ) "Gps",          ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 4, NULL );
+	xTaskCreate( sensors_gps_task,             ( signed portCHAR * ) "GpsNavi",          ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 4, NULL );
 	//uart1_puts("Sensors_GPS task started\r\n");
 	xTaskCreate( communication_input_task,     ( signed portCHAR * ) "ConsoleInput", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 3, NULL );
 	//uart1_puts("Communications task started\r\n");

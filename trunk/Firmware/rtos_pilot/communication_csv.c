@@ -217,7 +217,7 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		//                          CONTROL                          //
 		///////////////////////////////////////////////////////////////
-		printf("TC;CONTROL_STATUS;LINE;CARROTX;CARROTY;CARROTH");
+		//printf("TC;CONTROL_STATUS;LINE;CARROTX;CARROTY;CARROTH");
 	}
 }
 

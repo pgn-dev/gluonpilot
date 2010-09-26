@@ -35,6 +35,11 @@ char gps_update_info(struct gps_info *gpsinfo);
 
 void gps_wait_for_lock();
 
+void gps_config_output();
+
+void gps_open_port(struct GpsConfig *gpsconfig);
+
+int gps_valid_frames_receiving();
 
 
 #endif // GPS_H

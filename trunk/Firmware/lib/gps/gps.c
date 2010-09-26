@@ -50,26 +50,9 @@ volatile unsigned int state = 0;
 volatile unsigned int checksum = 0;
 
 
-
 void gps_init(struct GpsConfig *gpsconfig)
 {
-	//uart2_open(4800l);    // For Locosys module
-	//uart2_open(38400l);    // For Old EB-85
-	//uart2_open(38400l);    // For San Jose EB-85
-	
-	uart2_open(gpsconfig->initial_baudrate);
-
-	
-	/*while (! uart2_dataready())
-	{
-		uart1_putc('.');
-		microcontroller_delay_ms(50);
-	}*/
-
-	IFS1bits.U2RXIF = 0;	// Clear the Recieve Interrupt Flag
-	IEC1bits.U2RXIE = 1;
-	
-	
+	gps_open_port(gpsconfig);
 		
 	// Wait for GPS output. On some old EB85 devices, this can take over 2sec
 	if (rmc_sentence_number == -1 && nmea_buffer_RMC_counter == 0)
@@ -96,21 +79,46 @@ void gps_init(struct GpsConfig *gpsconfig)
 
 	// First we configure which sentences we want. If the unit outputs all sentences at 5Hz by default, then 38400 will be too slow 
 	// and the unit won't allow us to change the baudrate.
+	gps_config_output();
+}
+
+
+// Valid frames received/receiving if RMC counter >= 0
+int gps_valid_frames_receiving()
+{
+	return rmc_sentence_number != -1 || nmea_buffer_RMC_counter != 0;
+}	
+
+
+// Open the GPS uart port and start receiving messages
+void gps_open_port(struct GpsConfig *gpsconfig)
+{
+	//uart2_open(4800l);    // For Locosys module
+	//uart2_open(38400l);    // For Old EB-85
+	//uart2_open(38400l);    // For San Jose EB-85
 	
-	// only RMC and GGA
-	// RMC & GGA
-	//uart1_puts("$PMTK314...");
-    uart2_puts("$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28\r\n");  // this can take a while if no GPS is connected
-	microcontroller_delay_ms(10);
-	
+	uart2_open(gpsconfig->initial_baudrate);
+
+
+	IFS1bits.U2RXIF = 0;	// Clear the Recieve Interrupt Flag
+	IEC1bits.U2RXIE = 1;
+}	
+
+
+// Configs the GPS using MTK sentences to use RMC & GGA sentences at 5Hz, and switch to 115200 baud
+void gps_config_output()
+{
 	// Change to 115200 baud
-	//uart1_puts("$PMTK251...");
 	uart2_puts("$PMTK251,115200*1F\r\n");  // this can take a while if no GPS is connected
 	microcontroller_delay_ms(10);
 	uart2_open(115200l);
 	
+	// only RMC and GGA
+	// RMC & GGA
+	uart2_puts("$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28\r\n");  // this can take a while if no GPS is connected
+	microcontroller_delay_ms(10);	
+
 	// 5Hz mode
-	//uart1_puts("$PMTK220...");
 	microcontroller_delay_ms(10);
 	uart2_puts("$PMTK220,200*2C\r\n");
 }

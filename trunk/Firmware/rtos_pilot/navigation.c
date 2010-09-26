@@ -1,7 +1,6 @@
 /*! 
  *  Calculates the desired pitch and roll for navigation
  *
- *
  *  @file     navigation.c
  *  @author   Tom Pycke
  *  @date     28-apr-2010
