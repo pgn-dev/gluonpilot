@@ -15,6 +15,7 @@ using System.Threading;
 using Configuration.NavigationCommands;
 using System.Diagnostics;
 using System.Xml.Serialization;
+using Kml;
 
 
 namespace Configuration
@@ -255,6 +256,19 @@ namespace Configuration
             }
         }
 
+
+        private List<NavigationInstruction> GetNavigationList()
+        {
+            List<NavigationInstruction> l_n = new List<NavigationInstruction>();
+
+            foreach (ListViewItem lvi in _lv_navigation.Items)
+            {
+                ((NavigationInstruction)lvi.Tag).line = lvi.Index + 1;
+                l_n.Add((NavigationInstruction)lvi.Tag);
+            }
+            return l_n;
+        }
+
         private void _btn_to_kml_Click(object sender, EventArgs e)
         {
             StringBuilder placemarks = new StringBuilder();
@@ -262,78 +276,17 @@ namespace Configuration
             double lat_home_rad;
             double lon_home_rad;
 
+            // we need a home position in case the navigation uses relative coordinates
             AskHome ah = new AskHome();
             if (ah.ShowDialog() != DialogResult.OK)
                 return;
             lat_home_rad = ah.GetLatitudeRad();
             lon_home_rad = ah.GetLongitudeRad();
 
+            // generate the KML
+            string kml = KmlNavigation.BuildKml(GetNavigationList(), lat_home_rad, lon_home_rad);
 
-            double latitude_meter_per_radian = 6363057.32484;
-            double longitude_meter_per_radian = latitude_meter_per_radian * Math.Cos(lat_home_rad);
-
-            path.Append(
-               (lon_home_rad / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) +
-               "," + (lat_home_rad / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) + ",0");
-
-            placemarks.Append("<Placemark><name>Home</name><styleUrl>#homePlacemark</styleUrl>" +
-                    "<Point><altitudeMode>relativeToGround</altitudeMode><coordinates>" +
-                    path.ToString() + "</coordinates></Point></Placemark>");
-
-            foreach (ListViewItem lvi in _lv_navigation.Items)
-            {
-                NavigationInstruction ni = (NavigationInstruction)lvi.Tag;
-                if (ni.opcode == NavigationInstruction.navigation_command.FLY_TO_ABS ||
-                    ni.opcode == NavigationInstruction.navigation_command.FROM_TO_ABS ||
-                    ni.opcode == NavigationInstruction.navigation_command.CIRCLE_ABS)
-                {
-                    string coord = 
-                        (ni.y / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) +
-                        "," + (ni.x / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + ni.a;
-                    placemarks.Append("<Placemark><name>" + ni.line + "</name><styleUrl>#squarePlacemark</styleUrl>" +
-                        "<description>" + ni.ToString() + "</description>" +
-                        "<Point><altitudeMode>relativeToGround</altitudeMode><coordinates>" +
-                        coord + "</coordinates></Point></Placemark>");
-                    path.Append("\r\n" + coord);
-                }
-                else if (ni.opcode == NavigationInstruction.navigation_command.FLY_TO_REL ||
-                    ni.opcode == NavigationInstruction.navigation_command.FROM_TO_REL ||
-                    ni.opcode == NavigationInstruction.navigation_command.CIRCLE_REL)
-                {
-                    string coord =
-                        ((ni.y / longitude_meter_per_radian + lon_home_rad) / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," +
-                        ((ni.x / latitude_meter_per_radian + lat_home_rad) / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + ni.a;
-
-                    placemarks.Append("<Placemark><name>" + ni.line + "</name><styleUrl>#squarePlacemark</styleUrl>" +
-                    "<description>" + ni.ToString() + "</description>" +
-                    "<Point><altitudeMode>relativeToGround</altitudeMode><coordinates>" +                        
-                    coord + "</coordinates></Point></Placemark>");
-                    path.Append("\r\n" + coord);
-                }
-            }
-
-            StringBuilder kml = new StringBuilder();
-            kml.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><name>Navigation</name>");
-
-            kml.Append("<Style id=\"homePlacemark\"><IconStyle>" +
-                "<Icon><href>http://maps.google.com/mapfiles/kml/shapes/ranger_station.png</href></Icon>" +
-                "</IconStyle></Style>");
-            kml.Append("<Style id=\"squarePlacemark\"><IconStyle>" +
-                "<Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_square.png</href></Icon>" +
-                "</IconStyle></Style>");
-            kml.Append("<Style id=\"roundPlacemark\"><IconStyle>" +
-                "<Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon>" +
-                "</IconStyle></Style>");
-
-
-            kml.Append("<Folder><name>Waypoints</name>");
-            kml.Append(placemarks);
-            kml.Append("</Folder>");
-            kml.Append("<Placemark><name>Flightpath</name><LineString><altitudeMode>relativeToGround</altitudeMode>" +
-                       "<coordinates>" + path.ToString() + "</coordinates></LineString></Placemark>");
-            kml.Append("</Document></kml>");
-
-
+            // save to file
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.DefaultExt = "kml";
             sfd.Filter = "KML files (*.kml)|*.kml|All files (*.*)|*.*";
@@ -358,13 +311,7 @@ namespace Configuration
         private void _btn_save_to_file_Click(object sender, EventArgs e)
         {
             /* Copy listview to array */
-            NavigationInstruction[] list = new NavigationInstruction[_lv_navigation.Items.Count];
-            int i = 0;
-            foreach (ListViewItem lvi in _lv_navigation.Items)
-            {
-                list[i] = (NavigationInstruction)lvi.Tag;
-                i++;
-            }
+            NavigationInstruction[] list = GetNavigationList().ToArray();
 
             System.Windows.Forms.SaveFileDialog file = new System.Windows.Forms.SaveFileDialog();
             file.DefaultExt = "gnf";
