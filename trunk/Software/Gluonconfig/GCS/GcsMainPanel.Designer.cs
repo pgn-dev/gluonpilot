@@ -43,11 +43,16 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this._btn_ge_server = new System.Windows.Forms.ToolStripButton();
             this._btn_goto_ge = new System.Windows.Forms.ToolStripButton();
+            this._stb_speed = new Configuration.SpeedTextBox();
+            this._dtb_altitude = new Configuration.DistanceTextBox();
+            this._tb_gps_sattellites = new System.Windows.Forms.TextBox();
+            this._zgc_speed = new ZedGraph.ZedGraphControl();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,6 +61,9 @@
             // 
             // toolStripContainer1.ContentPanel
             // 
+            this.toolStripContainer1.ContentPanel.Controls.Add(this._tb_gps_sattellites);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this._dtb_altitude);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this._stb_speed);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.label4);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.label3);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.label2);
@@ -79,18 +87,18 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(379, 60);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 13);
+            this.label4.Size = new System.Drawing.Size(77, 13);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Speed:";
+            this.label4.Text = "Ground speed:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(379, 35);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
+            this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 7;
-            this.label3.Text = "Height:";
+            this.label3.Text = "Altitude:";
             // 
             // label2
             // 
@@ -167,6 +175,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this._zgc_speed);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -205,6 +214,49 @@
             this._btn_goto_ge.Text = "Open";
             this._btn_goto_ge.Click += new System.EventHandler(this._btn_goto_ge_Click);
             // 
+            // _stb_speed
+            // 
+            this._stb_speed.Location = new System.Drawing.Point(457, 58);
+            this._stb_speed.Name = "_stb_speed";
+            this._stb_speed.Size = new System.Drawing.Size(110, 21);
+            this._stb_speed.SpeedMS = 0;
+            this._stb_speed.TabIndex = 9;
+            // 
+            // _dtb_altitude
+            // 
+            this._dtb_altitude.DistanceM = 0;
+            this._dtb_altitude.Location = new System.Drawing.Point(457, 32);
+            this._dtb_altitude.Name = "_dtb_altitude";
+            this._dtb_altitude.ReadOnly = false;
+            this._dtb_altitude.Size = new System.Drawing.Size(110, 21);
+            this._dtb_altitude.TabIndex = 10;
+            // 
+            // _tb_gps_sattellites
+            // 
+            this._tb_gps_sattellites.Location = new System.Drawing.Point(457, 85);
+            this._tb_gps_sattellites.Name = "_tb_gps_sattellites";
+            this._tb_gps_sattellites.Size = new System.Drawing.Size(34, 20);
+            this._tb_gps_sattellites.TabIndex = 11;
+            // 
+            // _zgc_speed
+            // 
+            this._zgc_speed.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._zgc_speed.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._zgc_speed.Location = new System.Drawing.Point(3, 5);
+            this._zgc_speed.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this._zgc_speed.Name = "_zgc_speed";
+            this._zgc_speed.ScrollGrace = 0;
+            this._zgc_speed.ScrollMaxX = 0;
+            this._zgc_speed.ScrollMaxY = 0;
+            this._zgc_speed.ScrollMaxY2 = 0;
+            this._zgc_speed.ScrollMinX = 0;
+            this._zgc_speed.ScrollMinY = 0;
+            this._zgc_speed.ScrollMinY2 = 0;
+            this._zgc_speed.Size = new System.Drawing.Size(578, 131);
+            this._zgc_speed.TabIndex = 1;
+            // 
             // GcsMainPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -220,6 +272,7 @@
             this.toolStripContainer1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -242,5 +295,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private Configuration.SpeedTextBox _stb_speed;
+        private Configuration.DistanceTextBox _dtb_altitude;
+        private System.Windows.Forms.TextBox _tb_gps_sattellites;
+        private ZedGraph.ZedGraphControl _zgc_speed;
     }
 }
