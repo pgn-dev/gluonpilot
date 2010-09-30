@@ -21,6 +21,7 @@ namespace GCS
 
         private SerialCommunication _serial;
         private LineItem _heightLine;
+        private LineItem _speedLine;
         private DateTime _beginDateTime;
         private int _timewindow = 180;
 
@@ -38,6 +39,17 @@ namespace GCS
             _zgc_height.GraphPane.IsFontsScaled = false;
             _zgc_height.GraphPane.YAxis.Title.Text = "Height [m]";
             _zgc_height.GraphPane.XAxis.IsVisible = false;
+
+            _speedLine = _zgc_height.GraphPane.AddCurve("Speed [km/h]", new PointPairList(), Color.Blue, SymbolType.None);
+            _zgc_speed.GraphPane.Title.IsVisible = false;
+            _zgc_speed.GraphPane.YAxis.MajorGrid.IsVisible = true;
+            _zgc_speed.GraphPane.XAxis.Title.IsVisible = false;
+            _zgc_speed.AxisChange();
+            _zgc_speed.GraphPane.Legend.IsVisible = false;
+            _zgc_speed.GraphPane.IsFontsScaled = false;
+            _zgc_speed.GraphPane.YAxis.Title.Text = "Height [m]";
+            _zgc_speed.GraphPane.XAxis.IsVisible = false;
+
             _beginDateTime = DateTime.Now;
         }
 
@@ -48,7 +60,22 @@ namespace GCS
             //_graphControl.SetSerial(serial);
             serial.AttitudeCommunicationReceived += new SerialCommunication.ReceiveAttitudeCommunicationFrame(serial_AttitudeCommunicationReceived);
             serial.PressureTempCommunicationReceived += new SerialCommunication.ReceivePressureTempCommunicationFrame(serial_PressureTempCommunicationReceived);
+            serial.GpsBasicCommunicationReceived += new SerialCommunication.ReceiveGpsBasicCommunicationFrame(serial_GpsBasicCommunicationReceived);
         }
+
+        void serial_GpsBasicCommunicationReceived(GpsBasic gpsbasic)
+        {
+            this.BeginInvoke(new D_UpdateGpsBasic(UpdateGpsBasic), new object[] { gpsbasic });
+        }
+        private delegate void D_UpdateGpsBasic(GpsBasic gb);
+        private void UpdateGpsBasic(GpsBasic gb)
+        {
+            _stb_speed.SpeedMS = gb.Speed_ms;
+            _tb_gps_sattellites.Text = gb.NumberOfSatellites.ToString();
+        }
+
+
+
 
         void serial_PressureTempCommunicationReceived(PressureTemp info)
         {   

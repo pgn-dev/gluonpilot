@@ -22,9 +22,9 @@ namespace Kml
                (lon_home_rad / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) +
                "," + (lat_home_rad / 3.14159 * 180.0).ToString(System.Globalization.CultureInfo.InvariantCulture) + ",0");
 
-            placemarks.Append("<Placemark><name>Home</name><styleUrl>#homePlacemark</styleUrl>" +
-                    "<Point><altitudeMode>relativeToGround</altitudeMode><coordinates>" +
-                    path.ToString() + "</coordinates></Point></Placemark>");
+            placemarks.Append("<Placemark><name>Home</name><styleUrl>#homePlacemark</styleUrl>\n\r" +
+                    "<Point><altitudeMode>relativeToGround</altitudeMode>\n\r<coordinates>" +
+                    path.ToString() + "</coordinates>\n\r</Point></Placemark>");
 
             foreach (NavigationInstruction ni in list)
             {
@@ -35,10 +35,10 @@ namespace Kml
                     int altitude = ni.opcode == NavigationInstruction.navigation_command.CIRCLE_ABS ? ni.b : ni.a;
                     string coord = String.Format(CultureInfo.InvariantCulture, "{0},{1},{2}", Rad2Deg(ni.y), Rad2Deg(ni.x), altitude);
 
-                    placemarks.Append("<Placemark><name>" + ni.line + "</name><styleUrl>#squarePlacemark</styleUrl>" +
-                                      "<description>" + ni.ToString() + "</description>" +
-                                      "<Point><extrude>1</extrude><altitudeMode>relativeToGround</altitudeMode><coordinates>" +
-                                      coord + "</coordinates></Point></Placemark>");
+                    placemarks.Append("\n\r<Placemark><name>" + ni.line + "</name><styleUrl>#squarePlacemark</styleUrl>\n\r" +
+                                      "<description>" + ni.ToString() + "</description>\n\r" +
+                                      "<Point><extrude>1</extrude><altitudeMode>relativeToGround</altitudeMode>\n\r<coordinates>" +
+                                      coord + "</coordinates>\n\r</Point></Placemark>");
 
                     // add circle coordinates if needed
                     if (ni.opcode == NavigationInstruction.navigation_command.CIRCLE_ABS)
@@ -55,10 +55,10 @@ namespace Kml
                     double lon_rad = ni.y / longitude_meter_per_radian + lon_home_rad;
                     string coord = String.Format(CultureInfo.InvariantCulture, "\r\n{0},{1},{2}", Rad2Deg(lon_rad), Rad2Deg(lat_rad), altitude);
 
-                    placemarks.Append("<Placemark><name>" + ni.line + "</name><styleUrl>#squarePlacemark</styleUrl>" +
-                                      "<description>" + ni.ToString() + "</description>" +
-                                      "<Point><extrude>1</extrude><altitudeMode>relativeToGround</altitudeMode><coordinates>" +
-                                      coord + "</coordinates></Point></Placemark>");
+                    placemarks.Append("\n\r<Placemark><name>" + ni.line + "</name><styleUrl>#squarePlacemark</styleUrl>\n\r" +
+                                      "<description>" + ni.ToString() + "</description>\n\r" +
+                                      "<Point><extrude>1</extrude><altitudeMode>relativeToGround</altitudeMode>\n\r<coordinates>" +
+                                      coord + "</coordinates>\n\r</Point></Placemark>\n\r");
 
                     if (ni.opcode == NavigationInstruction.navigation_command.CIRCLE_REL)
                         path.Append("\r\n" + coord + "\r\n" + BuildCircleCoordinates(lat_rad, lon_rad, ni.a, altitude));
@@ -79,7 +79,7 @@ namespace Kml
             kml.Append("<Style id=\"roundPlacemark\"><IconStyle>" +
                 "<Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon>" +
                 "</IconStyle></Style>");
-            kml.Append("<Style id=\"path\"><LineStyle><color>ff0000ff</color><width>2</width></LineStyle></Style>");
+            kml.Append("<Style id=\"path\"><LineStyle><color>ffff0000</color><width>3</width></LineStyle></Style>");
 
 
             kml.Append("<Folder><name>Waypoints</name>");
