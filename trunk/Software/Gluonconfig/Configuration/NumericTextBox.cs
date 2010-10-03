@@ -76,7 +76,9 @@ namespace Configuration
         {
             get
             {
-                return Decimal.Parse(this.Text);
+                Decimal d = 0;
+                Decimal.TryParse(this.Text, out d);
+                return d;
             }
             set
             {

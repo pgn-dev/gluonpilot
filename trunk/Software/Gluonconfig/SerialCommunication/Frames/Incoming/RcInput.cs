@@ -11,7 +11,7 @@ namespace Communication.Frames.Incoming
 
         public int GetPwm(int i)
         {
-            if (i >= _pwm.Length)
+            if (i > _pwm.Length)
                 return 1500;
             else
                 return _pwm[i-1];

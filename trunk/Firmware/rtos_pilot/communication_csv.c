@@ -659,7 +659,7 @@ void print_logline(struct LogLine *l)
 #ifndef RAW_50HZ_LOG
 	// Normal logging
 	printf ("DD;%f;%f;", l->gps_latitude_rad*(180.0/3.14159), l->gps_longitude_rad*(180.0/3.14159));
-	printf ("%d;%d;%d;%d;", l->gps_speed_m_s, l->gps_heading, l->gps_height_m, (int)l->gps_satellites);
+	printf ("%f;%d;%d;%d;", ((float)l->gps_speed_m_s)/100.0, l->gps_heading, l->gps_height_m, (int)l->gps_satellites);
 	printf ("%d;%d;", l->height_m, l->pitch);
 	printf ("%d;", l->roll);
 	printf ("%d;%d;%d;%d;", l->desired_pitch, l->desired_roll, l->desired_heading, l->desired_height);

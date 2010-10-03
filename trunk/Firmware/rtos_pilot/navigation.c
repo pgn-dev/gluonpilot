@@ -229,6 +229,18 @@ void navigation_update()
 			else
 				navigation_data.current_codeline--;
 			break;
+		case UNTIL_EQ:
+			if (fabs(get_variable(current_code->a) - current_code->x) < 1e-6)
+				navigation_data.current_codeline++;
+			else
+				navigation_data.current_codeline--;
+			break;
+		case UNTIL_NE:
+			if (fabs(get_variable(current_code->a) - current_code->x) > 1e-6)
+				navigation_data.current_codeline++;
+			else
+				navigation_data.current_codeline--;
+			break;
 		case IF_GR:
 			if (get_variable(current_code->a) > current_code->x)
 				navigation_data.current_codeline++;
@@ -237,6 +249,18 @@ void navigation_update()
 			break;
 		case IF_SM:
 			if (get_variable(current_code->a) < current_code->x)
+				navigation_data.current_codeline++;
+			else
+				navigation_data.current_codeline += 2;
+			break;
+		case IF_EQ:
+			if (fabs(get_variable(current_code->a) - current_code->x) < 1e-6)
+				navigation_data.current_codeline++;
+			else
+				navigation_data.current_codeline += 2;
+			break;
+		case IF_NE:
+			if (fabs(get_variable(current_code->a) - current_code->x) > 1e-6)
 				navigation_data.current_codeline++;
 			else
 				navigation_data.current_codeline += 2;
@@ -293,6 +317,24 @@ double get_variable(enum navigation_variable i)
 		case HOME_DISTANCE:
 			return distance_between_meter(sensor_data.gps.longitude_rad, navigation_data.home_longitude_rad,
 			                              sensor_data.gps.latitude_rad, navigation_data.home_latitude_rad);
+		case PPM_LINK_ALIVE:
+			return ppm.connection_alive ? 1.0 : 0.0;
+		case CHANNEL_1:
+			return (double)ppm.channel[0];
+		case CHANNEL_2:
+			return (double)ppm.channel[1];
+		case CHANNEL_3:
+			return (double)ppm.channel[2];
+		case CHANNEL_4:
+			return (double)ppm.channel[3];
+		case CHANNEL_5:
+			return (double)ppm.channel[4];
+		case CHANNEL_6:
+			return (double)ppm.channel[5];
+		case CHANNEL_7:
+			return (double)ppm.channel[6];
+		case CHANNEL_8:
+			return (double)ppm.channel[7];
 		default:
 			return 0.0;
 	}	
