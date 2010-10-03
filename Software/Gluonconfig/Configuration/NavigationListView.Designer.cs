@@ -70,6 +70,9 @@
             this.Nr = new System.Windows.Forms.ColumnHeader();
             this.Instruction = new System.Windows.Forms.ColumnHeader();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this._btn_open_file = new System.Windows.Forms.ToolStripButton();
+            this._btn_save_to_file = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this._btn_read = new System.Windows.Forms.ToolStripButton();
             this._btn_save = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -84,9 +87,6 @@
             this._btn_set = new System.Windows.Forms.Button();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this._gb_edit = new System.Windows.Forms.GroupBox();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this._btn_open_file = new System.Windows.Forms.ToolStripButton();
-            this._btn_save_to_file = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             this._gb_edit.SuspendLayout();
@@ -222,6 +222,29 @@
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // _btn_open_file
+            // 
+            this._btn_open_file.Image = ((System.Drawing.Image)(resources.GetObject("_btn_open_file.Image")));
+            this._btn_open_file.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._btn_open_file.Name = "_btn_open_file";
+            this._btn_open_file.Size = new System.Drawing.Size(53, 22);
+            this._btn_open_file.Text = "Open";
+            this._btn_open_file.Click += new System.EventHandler(this._btn_open_file_Click);
+            // 
+            // _btn_save_to_file
+            // 
+            this._btn_save_to_file.Image = ((System.Drawing.Image)(resources.GetObject("_btn_save_to_file.Image")));
+            this._btn_save_to_file.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._btn_save_to_file.Name = "_btn_save_to_file";
+            this._btn_save_to_file.Size = new System.Drawing.Size(51, 22);
+            this._btn_save_to_file.Text = "Save";
+            this._btn_save_to_file.Click += new System.EventHandler(this._btn_save_to_file_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
             // _btn_read
             // 
             this._btn_read.Image = ((System.Drawing.Image)(resources.GetObject("_btn_read.Image")));
@@ -315,12 +338,12 @@
             "GOTO",
             "CIRCLE_ABS",
             "CIRCLE_REL",
-            "Unsupported (IF_EQ)",
-            "Unsupported (IF_SM)",
-            "Unsupported (IF_GR)",
-            "Unsupported (IF_NE)",
-            "Unsupported (WHILE_EQ)",
-            "Unsupported (WHILE_NE)",
+            "IF_EQ",
+            "IF_SM",
+            "IF_GR",
+            "IF_NE",
+            "UNTIL(var = x)",
+            "UNTIL(var <> x)",
             "UNTIL(var > x)",
             "UNTIL(var < x)"});
             this._cb_opcode.Location = new System.Drawing.Point(30, 19);
@@ -366,29 +389,6 @@
             this._gb_edit.TabIndex = 9;
             this._gb_edit.TabStop = false;
             this._gb_edit.Text = "Edit";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // _btn_open_file
-            // 
-            this._btn_open_file.Image = ((System.Drawing.Image)(resources.GetObject("_btn_open_file.Image")));
-            this._btn_open_file.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._btn_open_file.Name = "_btn_open_file";
-            this._btn_open_file.Size = new System.Drawing.Size(53, 22);
-            this._btn_open_file.Text = "Open";
-            this._btn_open_file.Click += new System.EventHandler(this._btn_open_file_Click);
-            // 
-            // _btn_save_to_file
-            // 
-            this._btn_save_to_file.Image = ((System.Drawing.Image)(resources.GetObject("_btn_save_to_file.Image")));
-            this._btn_save_to_file.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._btn_save_to_file.Name = "_btn_save_to_file";
-            this._btn_save_to_file.Size = new System.Drawing.Size(51, 22);
-            this._btn_save_to_file.Text = "Save";
-            this._btn_save_to_file.Click += new System.EventHandler(this._btn_save_to_file_Click);
             // 
             // NavigationListView
             // 

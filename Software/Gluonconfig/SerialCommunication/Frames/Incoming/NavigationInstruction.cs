@@ -129,6 +129,25 @@ namespace Communication.Frames.Incoming
                 return "Satellites in view";
             else if (a == 6)
                 return "Home distance (m)";
+            else if (a == 7)
+                return "PPM link alive";
+            else if (a == 8)
+                return "Channel 1";
+            else if (a == 9)
+                return "Channel 2";
+            else if (a == 10)
+                return "Channel 3";
+            else if (a == 11)
+                return "Channel 4";
+            else if (a == 12)
+                return "Channel 5";
+            else if (a == 13)
+                return "Channel 6";
+            else if (a == 14)
+                return "Channel 7";
+            else if (a == 15)
+                return "Channel 8";
+
             else
                 return "?";
         }

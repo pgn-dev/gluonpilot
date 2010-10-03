@@ -75,6 +75,7 @@ void ppm_in_open()
 	ppm.channel[4] = 0;
 	ppm.channel[5] = 0;
 	ppm.channel[6] = 0;
+	ppm.channel[7] = 0;
 	
 	ppm_in_guess_num_channels();
 	//while (ppm.channel[0] == 0 || !ppm.valid_frame) // wait for valid frame

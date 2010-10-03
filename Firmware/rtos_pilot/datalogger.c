@@ -300,7 +300,7 @@ void datalogger_task( void *parameters )
 			l.gps_longitude_rad = sensor_data.gps.longitude_rad;
 			l.gps_height_m = sensor_data.gps.height_m;
 			l.gps_heading = (int)(sensor_data.gps.heading_rad * (180.0/3.14159));
-			l.gps_speed_m_s = sensor_data.gps.speed_ms;
+			l.gps_speed_m_s = (int)(sensor_data.gps.speed_ms*100.0);
 			l.gps_satellites = (char)sensor_data.gps.satellites_in_view;
 			//l.acc_x = sensor_data.acc_x_raw;
 			//l.acc_y = sensor_data.acc_y_raw;

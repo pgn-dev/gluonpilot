@@ -32,7 +32,8 @@ namespace Configuration.NavigationCommands
         public void SetNavigationInstruction(NavigationInstruction ni)
         {
             this.ni = ni;
-            _cb_variables.SelectedIndex = ni.a - 1;
+            if (ni.a < _cb_variables.Items.Count)
+                _cb_variables.SelectedIndex = ni.a - 1;
             _ntb.DoubleValue = ni.x;
         }
 

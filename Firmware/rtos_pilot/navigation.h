@@ -25,7 +25,16 @@ enum navigation_variable {
 	HEADING_DEG = 3,
 	FLIGHT_TIME_S = 4,
 	SATELLITES_IN_VIEW = 5,
-	HOME_DISTANCE = 6
+	HOME_DISTANCE = 6,
+	PPM_LINK_ALIVE = 7,
+	CHANNEL_1 = 8,
+	CHANNEL_2 = 9,
+	CHANNEL_3 = 10,
+	CHANNEL_4 = 11,
+	CHANNEL_5 = 12,
+	CHANNEL_6 = 13,
+	CHANNEL_7 = 14,
+	CHANNEL_8 = 15
 };	
 
 enum navigation_command {

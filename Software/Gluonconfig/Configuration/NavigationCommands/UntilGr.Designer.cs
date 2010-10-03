@@ -31,7 +31,6 @@
             this._cb_variables = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this._ntb = new Configuration.NumericTextBox();
-            this._lbl_unit = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
@@ -44,7 +43,16 @@
             "Heading [deg]",
             "Unsupported (Flight time [sec])",
             "Satellites in view",
-            "Home distance [m]"});
+            "Home distance [m]",
+            "PPM alive [1 or 0]",
+            "Channel 1 [us]",
+            "Channel 2 [us]",
+            "Channel 3 [us]",
+            "Channel 4 [us]",
+            "Channel 5 [us]",
+            "Channel 6 [us]",
+            "Channel 7 [us]",
+            "Channel 8 [us]"});
             this._cb_variables.Location = new System.Drawing.Point(0, 0);
             this._cb_variables.Name = "_cb_variables";
             this._cb_variables.Size = new System.Drawing.Size(121, 21);
@@ -77,15 +85,6 @@
             this._ntb.TabIndex = 2;
             this._ntb.Text = "0";
             // 
-            // _lbl_unit
-            // 
-            this._lbl_unit.AutoSize = true;
-            this._lbl_unit.Location = new System.Drawing.Point(125, 30);
-            this._lbl_unit.Name = "_lbl_unit";
-            this._lbl_unit.Size = new System.Drawing.Size(15, 13);
-            this._lbl_unit.TabIndex = 3;
-            this._lbl_unit.Text = "m";
-            // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
@@ -98,7 +97,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this._lbl_unit);
             this.Controls.Add(this._ntb);
             this.Controls.Add(this.label1);
             this.Controls.Add(this._cb_variables);
@@ -114,7 +112,6 @@
         private System.Windows.Forms.ComboBox _cb_variables;
         private System.Windows.Forms.Label label1;
         private NumericTextBox _ntb;
-        private System.Windows.Forms.Label _lbl_unit;
         private System.Windows.Forms.ComboBox comboBox1;
     }
 }
