@@ -195,7 +195,7 @@ void sensors_gps_task( void *parameters )
 
 	navigation_init ();
 	
-	vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );   // 0.5s
+	vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 3000 / portTICK_RATE_MS ) );   // 3s
 	
 	uart1_puts("Gps & Navigation task initialized\r\n");
 	if (sensor_data.gps.status == EMPTY)
@@ -208,7 +208,7 @@ void sensors_gps_task( void *parameters )
 		/* Wait until it is time for the next cycle. */
 		if( xSemaphoreTake( xGpsSemaphore, LONG_TIME ) == pdTRUE )
 		{
-			gps_update_info(&(sensor_data.gps));
+			gps_update_info(&(sensor_data.gps)); // 5Hz (needed?)
 			
 			// Speed is use for calculating accelerations (in the attitude filter)
 			// When the GPS is no longer locked, we don't know the speed -> no reliable attitude

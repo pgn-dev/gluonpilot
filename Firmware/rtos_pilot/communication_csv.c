@@ -66,6 +66,7 @@ void communication_telemetry_task( void *parameters )
 	counters.stream_GyroAccProc = 0;
 	counters.stream_PressureTemp = 0;
 	counters.stream_GpsBasic = 0;
+	counters.stream_Control = 0;
 	
 	uart1_puts("done\r\n");
 	
@@ -81,6 +82,7 @@ void communication_telemetry_task( void *parameters )
 		counters.stream_PressureTemp++;
 		counters.stream_GpsBasic++;
 		counters.stream_Attitude++;
+		counters.stream_Control++;
 		
 		if (c++ % 10 == 0)  // this counter will never be used at 20Hz
 			led1_on();
@@ -217,7 +219,17 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		//                          CONTROL                          //
 		///////////////////////////////////////////////////////////////
-		//printf("TC;CONTROL_STATUS;LINE;CARROTX;CARROTY;CARROTH");
+		//printf("TC;CONTROL_STATUS;LINE;HEIGHT(;CARROTX;CARROTY;CARROTH)");
+		if (counters.stream_Control == config.telemetry.stream_Control)
+		{
+			uart1_puts("TC;");
+			printf("%d;", (int)control_state.flight_mode);
+			printf("%d;%d", navigation_data.current_codeline, (int)(sensor_data.pressure_height - navigation_data.home_pressure_height));
+			uart1_puts("\r\n");
+			counters.stream_Control = 0;
+		}
+		else if (counters.stream_Control > config.telemetry.stream_Control)
+			counters.stream_Control = 0;
 	}
 }
 
@@ -265,6 +277,7 @@ void communication_input_task( void *parameters )
 					config.telemetry.stream_PPM = atoi(&(buffer[token[4]]));
 					config.telemetry.stream_PressureTemp = atoi(&(buffer[token[5]]));
 					config.telemetry.stream_Attitude = atoi(&(buffer[token[6]]));
+					config.telemetry.stream_Control = atoi(&(buffer[token[7]]));
 				}
 				///////////////////////////////////////////////////////////////
 				//                    SET ACCELEROMETER                      //
@@ -611,13 +624,13 @@ void communication_input_task( void *parameters )
 						
 						printf(";%d", (int)config.control.use_pwm);
 						
-						printf(";%d;%d;%d;%d;%d;%d", (int)config.control.servo_mix, 
+						printf(";%d;%d;%d;%d;%d", (int)config.control.servo_mix, 
 						                     	     (int)(config.control.max_pitch/3.14*180.0), 
 						                     	     (int)(config.control.max_roll/3.14*180.0),
 						                   	         (int)(config.control.waypoint_radius_m),
-						                 	         (int)(config.control.cruising_speed_ms),
-						                 	         (int)(config.control.stabilization_with_altitude_hold));
-						printf(";%d", config.control.aileron_differential*10);
+						                 	         (int)(config.control.cruising_speed_ms));
+						printf(";%d;%d;%d", (int)(config.control.stabilization_with_altitude_hold), 
+						                    config.control.aileron_differential*10, config.telemetry.stream_Control);
 						uart1_puts("\r\n");
 					}	
 					

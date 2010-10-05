@@ -15,6 +15,7 @@ namespace Gluonpilot
 {
     public partial class GluonConfig : Form
     {
+        private DateTime connected;
         private int logging_height;
         private SerialCommunication_CSV _serial;
         
@@ -22,6 +23,7 @@ namespace Gluonpilot
         {
             InitializeComponent();
             logging_height = splitContainer1.Panel2.Height;
+            timer.Start();
         }
 
 
@@ -70,6 +72,7 @@ namespace Gluonpilot
                 }
                 else
                 {
+                    connected = DateTime.Now;
                     if (_serial != null)
                     {
                         string portname = _serial.PortName;
@@ -206,6 +209,16 @@ namespace Gluonpilot
             }
 
             _btn_connect_Click(null, null);
+        }
+
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (_serial != null && _serial.IsOpen)
+            {
+                _tssl_downloadspeed.Text = _serial.ThroughputKbS() + " B/s";
+                _tssl_time.Text = (DateTime.Now - connected).Minutes + ":" + (DateTime.Now - connected).Seconds;
+            }
         }
     }
 }
