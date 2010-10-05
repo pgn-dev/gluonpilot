@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Frames\Configuration\AllConfig.cs" />
     <Compile Include="Frames\Incoming\Attitude.cs" />
+    <Compile Include="Frames\Incoming\ControlInfo.cs" />
     <Compile Include="Frames\Incoming\DatalogLine.cs" />
     <Compile Include="Frames\Incoming\DatalogTable.cs" />
     <Compile Include="Frames\Incoming\GpsBasic.cs" />

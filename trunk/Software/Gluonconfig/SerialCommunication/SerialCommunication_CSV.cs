@@ -23,6 +23,8 @@ namespace Communication
     public class SerialCommunication_CSV : SerialCommunication
     {
         private SmartThreadPool _smartThreadPool = new SmartThreadPool();
+        private int bytes_read = 0;
+        private DateTime last_throughput_calculation;
 
         // General: all lines received will be broadcasted by this event
         public override event ReceiveCommunication CommunicationReceived;
@@ -45,13 +47,31 @@ namespace Communication
         public override event ReceiveDatalogLineCommunicationFrame DatalogLineCommunicationReceived;
         // Navigation
         public override event ReceiveNavigationInstructionCommunicationFrame NavigationInstructionCommunicationReceived;
+        // ControlInfo
+        public override event ReceiveControlInfoCommunicationFrame ControlInfoCommunicationReceived;
 
         private string[] DatalogHeader;
 
         public SerialCommunication_CSV()
         {
             _serialPort = new SerialPort();
+            last_throughput_calculation = DateTime.Now;
         }
+
+        public double ThroughputKbS()
+        {
+            double s;
+
+            lock (this)
+            {
+                s = bytes_read;
+                bytes_read = 0;
+            }
+            s /= (double)(DateTime.Now - last_throughput_calculation).Seconds;
+            last_throughput_calculation = DateTime.Now;
+            return s;
+        }
+
 
         /*!
          *    Opens the COM port and creates a thread that will 
@@ -86,10 +106,18 @@ namespace Communication
             {
                 try
                 {
-                    while (_serialPort.BytesToRead < 3)
+                    while (_serialPort == null || !_serialPort.IsOpen || _serialPort.BytesToRead < 3)
                         Thread.Sleep(100);
 
-                    string line = _serialPort.ReadLine().Replace("\r", "");
+                    string line = _serialPort.ReadLine();
+
+                    lock (this)
+                    {
+                        bytes_read += line.Length + 1;
+                    }
+
+                    line = line.Replace("\r", "");
+
                     string[] lines = line.Split(';');
                     Console.WriteLine(line + "\n\r");
                     // TR: Gyro & Acc raw
@@ -204,13 +232,18 @@ namespace Communication
                         ac.control_max_pitch = int.Parse(lines[65]);
                         ac.control_max_roll = int.Parse(lines[66]);
 
+                        // for backwards compatibility
                         if (lines.Length > 67)
-                        {
                             ac.control_waypoint_radius = int.Parse(lines[67]);
+                        if (lines.Length > 68)
                             ac.control_cruising_speed = int.Parse(lines[68]);
+                        if (lines.Length > 69)
                             ac.control_stabilization_with_altitude_hold = int.Parse(lines[69]) == 0 ? false : true;
+                        if (lines.Length > 70)
                             ac.control_aileron_differential = int.Parse(lines[70]);
-                        }
+                        if (lines.Length > 71)
+                            ac.telemetry_control = int.Parse(lines[71]);
+
                         AllConfigCommunicationReceived(ac);
                     }
 
@@ -287,6 +320,7 @@ namespace Communication
                         if (DatalogLineCommunicationReceived != null)
                             DatalogLineCommunicationReceived(dl);
                     }
+                    // ND: Navigation data (Navigation instruction)
                     else if (lines[0].EndsWith("ND") && lines.Length >= 6)
                     {
                         lines[1] = lines[1].Replace("nan", "0");
@@ -306,6 +340,18 @@ namespace Communication
                                 int.Parse(lines[6]) );
                         if (NavigationInstructionCommunicationReceived != null)
                             NavigationInstructionCommunicationReceived(ni);
+                    }
+                    // Telemetry control
+                    else if (lines[0].EndsWith("TC") && lines.Length >= 3)
+                    {
+                        ControlInfo ci =
+                            new ControlInfo();
+                        ci.FlightMode = (ControlInfo.FlightModes)int.Parse(lines[1]);
+                        ci.CurrentNavigationLine = int.Parse(lines[2]);
+                        ci.HeightAboveStartGround = int.Parse(lines[3]);
+
+                        if (ControlInfoCommunicationReceived != null)
+                            ControlInfoCommunicationReceived(ci);
                     }
                     else
                     {
@@ -341,14 +387,16 @@ namespace Communication
                 ac.telemetry_gyroaccproc.ToString() + ";" + 
                 ac.telemetry_ppm.ToString() + ";" +
                 ac.telemetry_pressuretemp.ToString() + ";" +
-                ac.telemetry_attitude.ToString() + "\n");
+                ac.telemetry_attitude.ToString() + ";" +
+                ac.telemetry_control.ToString() + "\n");
             Console.WriteLine("\nST;" +
                 ac.telemetry_basicgps.ToString() + ";" +
                 ac.telemetry_gyroaccraw.ToString() + ";" +
                 ac.telemetry_gyroaccproc.ToString() + ";" +
                 ac.telemetry_ppm.ToString() + ";" +
                 ac.telemetry_pressuretemp.ToString() + ";" +
-                ac.telemetry_attitude.ToString() + "\n");
+                ac.telemetry_attitude.ToString() + ";" +
+                ac.telemetry_control.ToString() + "\n");
 
             Thread.Sleep(200);
             

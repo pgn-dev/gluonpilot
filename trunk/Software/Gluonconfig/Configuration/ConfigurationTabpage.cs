@@ -74,6 +74,7 @@ namespace Gluonpilot
             _nud_ppm_telemetry.Value = _model.TelemetryPpm;
             _nud_pressuretemp_telemetry.Value = _model.TelemetryPressureTemp;
             _nud_attitude_telemetry.Value = _model.TelemetryAttitude;
+            _nud_control_telemetry.Value = _model.TelemetryControl;
 
             _tb_initial_baudrate.Text = _model.GpsInitialBaudrate.ToString();
             _tb_operational_baudrate.Text = _model.GpsOperationalBaudrate.ToString();
@@ -456,6 +457,11 @@ namespace Gluonpilot
         {
             System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_telemetry");
         }
+
+        private void _nud_control_telemetry_ValueChanged(object sender, EventArgs e)
+        {
+            _model.TelemetryControl = (int)_nud_control_telemetry.Value;
+        }
 #endregion
 
 #region Servos tab page
@@ -618,6 +624,7 @@ namespace Gluonpilot
         {
             ModuleImu3D.Imu3D.Run(_serial);
         }
+
 
 
 

@@ -40,14 +40,14 @@ namespace GCS
             _zgc_height.GraphPane.YAxis.Title.Text = "Height [m]";
             _zgc_height.GraphPane.XAxis.IsVisible = false;
 
-            _speedLine = _zgc_height.GraphPane.AddCurve("Speed [km/h]", new PointPairList(), Color.Blue, SymbolType.None);
+            _speedLine = _zgc_speed.GraphPane.AddCurve("Speed", new PointPairList(), Color.Blue, SymbolType.None);
             _zgc_speed.GraphPane.Title.IsVisible = false;
             _zgc_speed.GraphPane.YAxis.MajorGrid.IsVisible = true;
             _zgc_speed.GraphPane.XAxis.Title.IsVisible = false;
             _zgc_speed.AxisChange();
             _zgc_speed.GraphPane.Legend.IsVisible = false;
             _zgc_speed.GraphPane.IsFontsScaled = false;
-            _zgc_speed.GraphPane.YAxis.Title.Text = "Height [m]";
+            _zgc_speed.GraphPane.YAxis.Title.Text = "Speed [km/h]";
             _zgc_speed.GraphPane.XAxis.IsVisible = false;
 
             _beginDateTime = DateTime.Now;
@@ -61,7 +61,48 @@ namespace GCS
             serial.AttitudeCommunicationReceived += new SerialCommunication.ReceiveAttitudeCommunicationFrame(serial_AttitudeCommunicationReceived);
             serial.PressureTempCommunicationReceived += new SerialCommunication.ReceivePressureTempCommunicationFrame(serial_PressureTempCommunicationReceived);
             serial.GpsBasicCommunicationReceived += new SerialCommunication.ReceiveGpsBasicCommunicationFrame(serial_GpsBasicCommunicationReceived);
+            serial.ControlInfoCommunicationReceived += new SerialCommunication.ReceiveControlInfoCommunicationFrame(serial_ControlInfoCommunicationReceived);
         }
+
+        void serial_ControlInfoCommunicationReceived(ControlInfo ci)
+        {
+            this.BeginInvoke(new D_ControlInfo(ContrlInfo), new object[] { ci });
+        }
+        private delegate void D_ControlInfo(ControlInfo ci);
+        private void ContrlInfo(ControlInfo ci)
+        {
+            if (ci.FlightMode == ControlInfo.FlightModes.MANUAL)
+            {
+                _lbl_control_mode.Text = "Manual";
+                _lbl_control_mode.BackColor = Color.Red;
+            }
+            else if (ci.FlightMode == ControlInfo.FlightModes.AUTOPILOT)
+            {
+                _lbl_control_mode.Text = "Autopilot";
+                _lbl_control_mode.BackColor = Color.Green;
+            }
+            else if (ci.FlightMode == ControlInfo.FlightModes.STABILIZED)
+            {
+                _lbl_control_mode.Text = "Stabilization";
+                _lbl_control_mode.BackColor = Color.Yellow;
+            }
+
+            double time = (DateTime.Now - _beginDateTime).TotalSeconds;
+            _heightLine.AddPoint(new PointPair(time, ci.HeightAboveStartGround));
+            Scale xScale = _zgc_height.GraphPane.XAxis.Scale;
+            if (time > xScale.Max - xScale.MajorStep)
+            {
+                xScale.Max = time + xScale.MajorStep;
+                xScale.Min = xScale.Max - _timewindow;
+            }
+
+            _zgc_height.AxisChange();
+            _zgc_height.Invalidate(true);
+
+            _dtb_altitude.DistanceM = ci.HeightAboveStartGround;
+            _tb_navigationline.Text = ci.CurrentNavigationLine.ToString();
+        }
+
 
         void serial_GpsBasicCommunicationReceived(GpsBasic gpsbasic)
         {
@@ -72,6 +113,18 @@ namespace GCS
         {
             _stb_speed.SpeedMS = gb.Speed_ms;
             _tb_gps_sattellites.Text = gb.NumberOfSatellites.ToString();
+
+            double time = (DateTime.Now - _beginDateTime).TotalSeconds;
+            _speedLine.AddPoint(new PointPair(time, gb.Speed_ms*3.6));
+            Scale xScale = _zgc_speed.GraphPane.XAxis.Scale;
+            if (time > xScale.Max - xScale.MajorStep)
+            {
+                xScale.Max = time + xScale.MajorStep;
+                xScale.Min = xScale.Max - _timewindow;
+            }
+
+            _zgc_speed.AxisChange();
+            _zgc_speed.Invalidate(true);
         }
 
 
@@ -84,17 +137,7 @@ namespace GCS
         private delegate void D_UpdateScp1000(PressureTemp info);
         private void UpdateScp1000(PressureTemp info)
         {
-            double time = (DateTime.Now - _beginDateTime).TotalSeconds;
-            _heightLine.AddPoint(new PointPair(time, info.Height));
-            Scale xScale = _zgc_height.GraphPane.XAxis.Scale;
-            if (time > xScale.Max - xScale.MajorStep)
-            {
-                xScale.Max = time + xScale.MajorStep;
-                xScale.Min = xScale.Max - _timewindow;
-            }
-
-            _zgc_height.AxisChange();
-            _zgc_height.Invalidate(true);
+            
         }
 
         void serial_AttitudeCommunicationReceived(Communication.Frames.Incoming.Attitude attitude)

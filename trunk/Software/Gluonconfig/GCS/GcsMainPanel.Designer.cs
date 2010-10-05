@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GcsMainPanel));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this._tb_gps_sattellites = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,13 +41,15 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this._zgc_height = new ZedGraph.ZedGraphControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this._zgc_speed = new ZedGraph.ZedGraphControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this._btn_ge_server = new System.Windows.Forms.ToolStripButton();
             this._btn_goto_ge = new System.Windows.Forms.ToolStripButton();
-            this._stb_speed = new Configuration.SpeedTextBox();
+            this._lbl_control_mode = new System.Windows.Forms.Label();
             this._dtb_altitude = new Configuration.DistanceTextBox();
-            this._tb_gps_sattellites = new System.Windows.Forms.TextBox();
-            this._zgc_speed = new ZedGraph.ZedGraphControl();
+            this._stb_speed = new Configuration.SpeedTextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this._tb_navigationline = new System.Windows.Forms.TextBox();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -61,6 +64,9 @@
             // 
             // toolStripContainer1.ContentPanel
             // 
+            this.toolStripContainer1.ContentPanel.Controls.Add(this._tb_navigationline);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.label5);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this._lbl_control_mode);
             this.toolStripContainer1.ContentPanel.Controls.Add(this._tb_gps_sattellites);
             this.toolStripContainer1.ContentPanel.Controls.Add(this._dtb_altitude);
             this.toolStripContainer1.ContentPanel.Controls.Add(this._stb_speed);
@@ -81,6 +87,13 @@
             // toolStripContainer1.TopToolStripPanel
             // 
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            // 
+            // _tb_gps_sattellites
+            // 
+            this._tb_gps_sattellites.Location = new System.Drawing.Point(457, 85);
+            this._tb_gps_sattellites.Name = "_tb_gps_sattellites";
+            this._tb_gps_sattellites.Size = new System.Drawing.Size(34, 20);
+            this._tb_gps_sattellites.TabIndex = 11;
             // 
             // label4
             // 
@@ -184,6 +197,25 @@
             this.tabPage2.Text = "Speed";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // _zgc_speed
+            // 
+            this._zgc_speed.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._zgc_speed.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._zgc_speed.Location = new System.Drawing.Point(3, 5);
+            this._zgc_speed.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this._zgc_speed.Name = "_zgc_speed";
+            this._zgc_speed.ScrollGrace = 0;
+            this._zgc_speed.ScrollMaxX = 0;
+            this._zgc_speed.ScrollMaxY = 0;
+            this._zgc_speed.ScrollMaxY2 = 0;
+            this._zgc_speed.ScrollMinX = 0;
+            this._zgc_speed.ScrollMinY = 0;
+            this._zgc_speed.ScrollMinY2 = 0;
+            this._zgc_speed.Size = new System.Drawing.Size(578, 131);
+            this._zgc_speed.TabIndex = 1;
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
@@ -214,13 +246,14 @@
             this._btn_goto_ge.Text = "Open";
             this._btn_goto_ge.Click += new System.EventHandler(this._btn_goto_ge_Click);
             // 
-            // _stb_speed
+            // _lbl_control_mode
             // 
-            this._stb_speed.Location = new System.Drawing.Point(457, 58);
-            this._stb_speed.Name = "_stb_speed";
-            this._stb_speed.Size = new System.Drawing.Size(110, 21);
-            this._stb_speed.SpeedMS = 0;
-            this._stb_speed.TabIndex = 9;
+            this._lbl_control_mode.AutoSize = true;
+            this._lbl_control_mode.Location = new System.Drawing.Point(458, 11);
+            this._lbl_control_mode.Name = "_lbl_control_mode";
+            this._lbl_control_mode.Size = new System.Drawing.Size(53, 13);
+            this._lbl_control_mode.TabIndex = 12;
+            this._lbl_control_mode.Text = "Unknown";
             // 
             // _dtb_altitude
             // 
@@ -231,31 +264,29 @@
             this._dtb_altitude.Size = new System.Drawing.Size(110, 21);
             this._dtb_altitude.TabIndex = 10;
             // 
-            // _tb_gps_sattellites
+            // _stb_speed
             // 
-            this._tb_gps_sattellites.Location = new System.Drawing.Point(457, 85);
-            this._tb_gps_sattellites.Name = "_tb_gps_sattellites";
-            this._tb_gps_sattellites.Size = new System.Drawing.Size(34, 20);
-            this._tb_gps_sattellites.TabIndex = 11;
+            this._stb_speed.Location = new System.Drawing.Point(457, 58);
+            this._stb_speed.Name = "_stb_speed";
+            this._stb_speed.Size = new System.Drawing.Size(110, 21);
+            this._stb_speed.SpeedMS = 0;
+            this._stb_speed.TabIndex = 9;
             // 
-            // _zgc_speed
+            // label5
             // 
-            this._zgc_speed.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this._zgc_speed.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this._zgc_speed.Location = new System.Drawing.Point(3, 5);
-            this._zgc_speed.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this._zgc_speed.Name = "_zgc_speed";
-            this._zgc_speed.ScrollGrace = 0;
-            this._zgc_speed.ScrollMaxX = 0;
-            this._zgc_speed.ScrollMaxY = 0;
-            this._zgc_speed.ScrollMaxY2 = 0;
-            this._zgc_speed.ScrollMinX = 0;
-            this._zgc_speed.ScrollMinY = 0;
-            this._zgc_speed.ScrollMinY2 = 0;
-            this._zgc_speed.Size = new System.Drawing.Size(578, 131);
-            this._zgc_speed.TabIndex = 1;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(379, 115);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(80, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Navigation line:";
+            // 
+            // _tb_navigationline
+            // 
+            this._tb_navigationline.Location = new System.Drawing.Point(457, 112);
+            this._tb_navigationline.Name = "_tb_navigationline";
+            this._tb_navigationline.Size = new System.Drawing.Size(34, 20);
+            this._tb_navigationline.TabIndex = 14;
             // 
             // GcsMainPanel
             // 
@@ -299,5 +330,8 @@
         private Configuration.DistanceTextBox _dtb_altitude;
         private System.Windows.Forms.TextBox _tb_gps_sattellites;
         private ZedGraph.ZedGraphControl _zgc_speed;
+        private System.Windows.Forms.Label _lbl_control_mode;
+        private System.Windows.Forms.TextBox _tb_navigationline;
+        private System.Windows.Forms.Label label5;
     }
 }

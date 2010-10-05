@@ -69,6 +69,8 @@ void navigation_init ()
 	navigation_data.navigation_codes[1].y = navigation_data.home_longitude_rad;
 	
 	navigation_do_circle(& navigation_data.navigation_codes[1]);*/
+	
+
 }
 
 
@@ -224,6 +226,7 @@ void navigation_update()
 				navigation_data.current_codeline--;
 			break;
 		case UNTIL_SM:
+			//printf("-> %f < %f => %d\n\r", get_variable(current_code->a), current_code->x, (int)(get_variable(current_code->a) < current_code->x));
 			if (get_variable(current_code->a) < current_code->x)
 				navigation_data.current_codeline++;
 			else
