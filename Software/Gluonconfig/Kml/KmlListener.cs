@@ -22,8 +22,6 @@ namespace Kml
         private double height = 100.0;
         private double pressure_height_m = 0.0;
 
-        private double start_pressure_height_m = 0.0;
-        private bool is_started = false;
 
         public KmlListener(SerialCommunication serial)
         {
@@ -32,16 +30,22 @@ namespace Kml
             serial.AttitudeCommunicationReceived += new SerialCommunication.ReceiveAttitudeCommunicationFrame(serial_AttitudeCommunicationReceived);
             serial.GpsBasicCommunicationReceived += new SerialCommunication.ReceiveGpsBasicCommunicationFrame(serial_GpsBasicCommunicationReceived);
             serial.PressureTempCommunicationReceived += new SerialCommunication.ReceivePressureTempCommunicationFrame(serial_PressureTempCommunicationReceived);
+            serial.ControlInfoCommunicationReceived += new SerialCommunication.ReceiveControlInfoCommunicationFrame(serial_ControlInfoCommunicationReceived);
+        }
+
+        void serial_ControlInfoCommunicationReceived(Communication.Frames.Incoming.ControlInfo ci)
+        {
+            pressure_height_m = ci.HeightAboveStartGround;
         }
 
         void serial_PressureTempCommunicationReceived(Communication.Frames.Incoming.PressureTemp info)
         {
-            if (!is_started)
+            /*if (!is_started)
             {
                 start_pressure_height_m = info.Height;
                 is_started = true;
             }
-            pressure_height_m = info.Height - start_pressure_height_m;
+            pressure_height_m = info.Height - start_pressure_height_m;*/
         }
 
         void serial_GpsBasicCommunicationReceived(Communication.Frames.Incoming.GpsBasic gpsbasic)
