@@ -143,7 +143,7 @@ namespace GCS
         void serial_AttitudeCommunicationReceived(Communication.Frames.Incoming.Attitude attitude)
         {
             artificialHorizon.pitch_angle = attitude.PitchDeg;
-            artificialHorizon.roll_angle = attitude.RollDeg;
+            artificialHorizon.roll_angle = -attitude.RollDeg;
         }
 
         public void Disconnnect()
