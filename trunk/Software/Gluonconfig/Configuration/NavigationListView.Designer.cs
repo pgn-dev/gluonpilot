@@ -181,7 +181,6 @@
             listViewItem36,
             listViewItem37});
             this._lv_navigation.Location = new System.Drawing.Point(0, 28);
-            this._lv_navigation.MultiSelect = false;
             this._lv_navigation.Name = "_lv_navigation";
             this._lv_navigation.Size = new System.Drawing.Size(372, 255);
             this._lv_navigation.TabIndex = 1;
@@ -189,6 +188,7 @@
             this._lv_navigation.View = System.Windows.Forms.View.Details;
             this._lv_navigation.ItemActivate += new System.EventHandler(this._lv_navigation_ItemActivate);
             this._lv_navigation.SelectedIndexChanged += new System.EventHandler(this._lv_navigation_SelectedIndexChanged);
+            this._lv_navigation.KeyDown += new System.Windows.Forms.KeyEventHandler(this._lv_navigation_KeyDown);
             // 
             // Nr
             // 

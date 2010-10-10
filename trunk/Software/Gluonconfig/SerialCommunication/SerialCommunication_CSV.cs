@@ -67,6 +67,9 @@ namespace Communication
                 s = bytes_read;
                 bytes_read = 0;
             }
+            if (DateTime.Now == last_throughput_calculation)
+                return 0;
+
             s /= (double)(DateTime.Now - last_throughput_calculation).Seconds;
             last_throughput_calculation = DateTime.Now;
             return s;

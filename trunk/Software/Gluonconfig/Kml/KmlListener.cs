@@ -109,9 +109,9 @@ namespace Kml
                     "      <roll>" + (-roll).ToString(CultureInfo.InvariantCulture) + "</roll>" +
                     "    </Orientation>" +
                     "    <Scale>" +
-                    "      <x>2</x>" +
-                    "      <y>2</y>" +
-                    "      <z>2</z>" +
+                    "      <x>6</x>" +
+                    "      <y>6</y>" +
+                    "      <z>6</z>" +
                     "    </Scale>" +
                     "    <Link>" +
                     "      <href>" + System.Windows.Forms.Application.StartupPath /* C:\\Documents and Settings\\Eigenaar\\Mijn documenten\\MAV\\googleearth */ + "\\PredatorE.dae</href>" +

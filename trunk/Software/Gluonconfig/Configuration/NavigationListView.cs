@@ -356,5 +356,19 @@ namespace Configuration
             // update edit control
             _lv_navigation_SelectedIndexChanged(null, null);
         }
+
+
+        private void _lv_navigation_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.C && e.Control)
+            {
+                string s = "";
+                foreach (ListViewItem i in _lv_navigation.SelectedItems)
+                {
+                    s += ((NavigationInstruction)i.Tag).ToString() + "\n";
+                }
+                Clipboard.SetText(s);
+            }
+        }
     }
 }
