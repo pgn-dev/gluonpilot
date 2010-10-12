@@ -46,7 +46,7 @@ int main()
 	
 	uart1_queue_init(115200l);  // default baudrate: 115200
 	
-	printf("Gluonpilot v0.5 ALPHA [%s %s, config: %d bytes, logline: %d bytes, navigation: %d bytes, double: %d bytes]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(navigation_data.navigation_codes), sizeof(double));
+	printf("Gluonpilot v0.5 [%s %s, config: %d bytes, logline: %d bytes, navigation: %d bytes, double: %d bytes]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(navigation_data.navigation_codes), sizeof(double));
 
 	microcontroller_reset_type();  // for debugging
 	led_init();

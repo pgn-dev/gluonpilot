@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GcsMainPanel));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this._tb_navigationline = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this._lbl_control_mode = new System.Windows.Forms.Label();
             this._tb_gps_sattellites = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,11 +48,10 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this._btn_ge_server = new System.Windows.Forms.ToolStripButton();
             this._btn_goto_ge = new System.Windows.Forms.ToolStripButton();
-            this._lbl_control_mode = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this._graphControl = new Graph.GraphControl();
             this._dtb_altitude = new Configuration.DistanceTextBox();
             this._stb_speed = new Configuration.SpeedTextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this._tb_navigationline = new System.Windows.Forms.TextBox();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -57,6 +59,7 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer1
@@ -88,9 +91,34 @@
             // 
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
             // 
+            // _tb_navigationline
+            // 
+            this._tb_navigationline.Location = new System.Drawing.Point(93, 109);
+            this._tb_navigationline.Name = "_tb_navigationline";
+            this._tb_navigationline.Size = new System.Drawing.Size(34, 20);
+            this._tb_navigationline.TabIndex = 14;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 112);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(80, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Navigation line:";
+            // 
+            // _lbl_control_mode
+            // 
+            this._lbl_control_mode.Location = new System.Drawing.Point(94, 8);
+            this._lbl_control_mode.Name = "_lbl_control_mode";
+            this._lbl_control_mode.Size = new System.Drawing.Size(109, 13);
+            this._lbl_control_mode.TabIndex = 12;
+            this._lbl_control_mode.Text = "Unknown";
+            this._lbl_control_mode.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // _tb_gps_sattellites
             // 
-            this._tb_gps_sattellites.Location = new System.Drawing.Point(457, 85);
+            this._tb_gps_sattellites.Location = new System.Drawing.Point(93, 82);
             this._tb_gps_sattellites.Name = "_tb_gps_sattellites";
             this._tb_gps_sattellites.Size = new System.Drawing.Size(34, 20);
             this._tb_gps_sattellites.TabIndex = 11;
@@ -98,7 +126,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(379, 60);
+            this.label4.Location = new System.Drawing.Point(15, 57);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 13);
             this.label4.TabIndex = 8;
@@ -107,7 +135,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(379, 35);
+            this.label3.Location = new System.Drawing.Point(15, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 7;
@@ -116,7 +144,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(379, 88);
+            this.label2.Location = new System.Drawing.Point(15, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 13);
             this.label2.TabIndex = 6;
@@ -125,7 +153,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(379, 10);
+            this.label1.Location = new System.Drawing.Point(15, 7);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 5;
@@ -133,7 +161,6 @@
             // 
             // artificialHorizon
             // 
-            this.artificialHorizon.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.artificialHorizon.AutoScroll = true;
             this.artificialHorizon.Location = new System.Drawing.Point(225, 7);
             this.artificialHorizon.Name = "artificialHorizon";
@@ -149,6 +176,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(3, 151);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
@@ -246,19 +274,31 @@
             this._btn_goto_ge.Text = "Open";
             this._btn_goto_ge.Click += new System.EventHandler(this._btn_goto_ge_Click);
             // 
-            // _lbl_control_mode
+            // tabPage3
             // 
-            this._lbl_control_mode.AutoSize = true;
-            this._lbl_control_mode.Location = new System.Drawing.Point(458, 11);
-            this._lbl_control_mode.Name = "_lbl_control_mode";
-            this._lbl_control_mode.Size = new System.Drawing.Size(53, 13);
-            this._lbl_control_mode.TabIndex = 12;
-            this._lbl_control_mode.Text = "Unknown";
+            this.tabPage3.Controls.Add(this._graphControl);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(585, 140);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Custom...";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // _graphControl
+            // 
+            this._graphControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._graphControl.Location = new System.Drawing.Point(2, 2);
+            this._graphControl.Name = "_graphControl";
+            this._graphControl.Size = new System.Drawing.Size(580, 135);
+            this._graphControl.TabIndex = 0;
             // 
             // _dtb_altitude
             // 
             this._dtb_altitude.DistanceM = 0;
-            this._dtb_altitude.Location = new System.Drawing.Point(457, 32);
+            this._dtb_altitude.Location = new System.Drawing.Point(93, 29);
             this._dtb_altitude.Name = "_dtb_altitude";
             this._dtb_altitude.ReadOnly = false;
             this._dtb_altitude.Size = new System.Drawing.Size(110, 21);
@@ -266,27 +306,11 @@
             // 
             // _stb_speed
             // 
-            this._stb_speed.Location = new System.Drawing.Point(457, 58);
+            this._stb_speed.Location = new System.Drawing.Point(93, 55);
             this._stb_speed.Name = "_stb_speed";
             this._stb_speed.Size = new System.Drawing.Size(110, 21);
             this._stb_speed.SpeedMS = 0;
             this._stb_speed.TabIndex = 9;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(379, 115);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 13);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Navigation line:";
-            // 
-            // _tb_navigationline
-            // 
-            this._tb_navigationline.Location = new System.Drawing.Point(457, 112);
-            this._tb_navigationline.Name = "_tb_navigationline";
-            this._tb_navigationline.Size = new System.Drawing.Size(34, 20);
-            this._tb_navigationline.TabIndex = 14;
             // 
             // GcsMainPanel
             // 
@@ -306,6 +330,7 @@
             this.tabPage2.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -333,5 +358,7 @@
         private System.Windows.Forms.Label _lbl_control_mode;
         private System.Windows.Forms.TextBox _tb_navigationline;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TabPage tabPage3;
+        private Graph.GraphControl _graphControl;
     }
 }

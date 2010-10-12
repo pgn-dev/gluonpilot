@@ -100,8 +100,6 @@
             this._dgv_datalog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this._dgv_datalog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this._dgv_datalog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._dgv_datalog.Location = new System.Drawing.Point(274, 13);
             this._dgv_datalog.Name = "_dgv_datalog";
             this._dgv_datalog.ReadOnly = true;
@@ -166,7 +164,7 @@
             this._pb});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(496, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(465, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // _btn_read
@@ -221,7 +219,7 @@
             this._btn_kml_track});
             this.xMLToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("xMLToolStripMenuItem.Image")));
             this.xMLToolStripMenuItem.Name = "xMLToolStripMenuItem";
-            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.xMLToolStripMenuItem.Text = "KML";
             this.xMLToolStripMenuItem.Click += new System.EventHandler(this.xMLToolStripMenuItem_Click);
             // 
@@ -230,7 +228,7 @@
             this._btn_kml_classic.Image = ((System.Drawing.Image)(resources.GetObject("_btn_kml_classic.Image")));
             this._btn_kml_classic.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this._btn_kml_classic.Name = "_btn_kml_classic";
-            this._btn_kml_classic.Size = new System.Drawing.Size(256, 126);
+            this._btn_kml_classic.Size = new System.Drawing.Size(221, 126);
             this._btn_kml_classic.Text = "Classic";
             this._btn_kml_classic.Click += new System.EventHandler(this._btn_kml_classic_Click);
             // 
@@ -239,7 +237,7 @@
             this._btn_kml_track.Image = ((System.Drawing.Image)(resources.GetObject("_btn_kml_track.Image")));
             this._btn_kml_track.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this._btn_kml_track.Name = "_btn_kml_track";
-            this._btn_kml_track.Size = new System.Drawing.Size(256, 126);
+            this._btn_kml_track.Size = new System.Drawing.Size(221, 126);
             this._btn_kml_track.Text = "Track";
             this._btn_kml_track.Click += new System.EventHandler(this._btn_kml_track_Click);
             // 
@@ -247,7 +245,7 @@
             // 
             this.xMLToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("xMLToolStripMenuItem1.Image")));
             this.xMLToolStripMenuItem1.Name = "xMLToolStripMenuItem1";
-            this.xMLToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.xMLToolStripMenuItem1.Size = new System.Drawing.Size(104, 22);
             this.xMLToolStripMenuItem1.Text = "XML";
             this.xMLToolStripMenuItem1.Click += new System.EventHandler(this.xMLToolStripMenuItem1_Click);
             // 

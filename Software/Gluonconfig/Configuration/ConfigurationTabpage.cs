@@ -201,6 +201,7 @@ namespace Gluonpilot
         private delegate void D_ReceiveAllConfig(AllConfig ac);
         private void AllConfig(AllConfig ac)
         {
+            _model = new ConfigurationModel();
             _model.SetFromAllConfig(ac);
             ReadModel();
         }
@@ -576,7 +577,7 @@ namespace Gluonpilot
             tb_min_circle_radius.DistanceM =
                 tb_speed.SpeedMS * tb_speed.SpeedMS / Math.Tan((double)_nud_control_roll_max.Value / 180.0 * 3.14) / 9.81;
 
-            _model.CruisingSpeed = tb_speed.SpeedMS;
+            //_model.CruisingSpeed = tb_speed.SpeedMS;
         }
 
         private void cb_altitudehold_CheckedChanged(object sender, EventArgs e)

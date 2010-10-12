@@ -83,19 +83,19 @@ void configuration_default()
 	
 	config.control.servo_mix = AILERON;
 	config.control.aileron_differential = 0;
-	config.control.cruising_speed_ms = 18;
-	config.control.max_pitch = 30.0/180.0*3.14;
+	config.control.cruising_speed_ms = 15;
+	config.control.max_pitch = 15.0/180.0*3.14;
 	config.control.max_roll = 30.0/180.0*3.14;
 	config.control.servo_mix = AILERON;
 	
 	config.control.stabilization_with_altitude_hold = 1;
 
-	pid_init(&config.control.pid_heading2roll, 0.0, 0.8, 0.0, -1.0, 1.0, 0.0);
-	pid_init(&config.control.pid_pitch2elevator , 0.0, 0.75, 0.0, -1.0, 1.0, 0.0);
-	pid_init(&config.control.pid_roll2aileron, 0.0, 0.4, 0.0, -1.0, 1.0, 0.0);
-	pid_init(&config.control.pid_altitude2pitch, 0.0, 0.4, 0.0, -1.0, 1.0, 0.0);
+	pid_init(&config.control.pid_heading2roll, 0.0, 0.7, 0.0, -1.0, 1.0, 0.0);
+	pid_init(&config.control.pid_pitch2elevator , 0.0, 0.7, 0.0, -1.0, 1.0, 0.0);
+	pid_init(&config.control.pid_roll2aileron, 0.0, 0.5, 0.0, -1.0, 1.0, 0.0);
+	pid_init(&config.control.pid_altitude2pitch, 0.0, 0.03, 0.0, -1.0, 1.0, 0.0);
 	
-	config.control.waypoint_radius_m = 25;
+	config.control.waypoint_radius_m = 30;
 	
 	
 	config.gps.operational_baudrate = 115200l;
@@ -117,4 +117,5 @@ void configuration_default()
 	config.telemetry.stream_PPM = 35;
 	config.telemetry.stream_PressureTemp = 30;
 	config.telemetry.stream_Attitude = 5;
+	config.telemetry.stream_Control = 20;
 }
