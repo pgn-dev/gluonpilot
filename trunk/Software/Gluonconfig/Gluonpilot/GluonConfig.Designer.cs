@@ -38,6 +38,11 @@
             this.datalog = new System.Windows.Forms.TabPage();
             this.gcs = new System.Windows.Forms.TabPage();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
+            this._statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this._tssl_time = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this._tssl_downloadspeed = new System.Windows.Forms.ToolStripStatusLabel();
             this._tb_logging = new System.Windows.Forms.TextBox();
             this._cb_print_timestamp = new System.Windows.Forms.CheckBox();
             this._cb_hide_parsed = new System.Windows.Forms.CheckBox();
@@ -49,11 +54,6 @@
             this._btn_reboot = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this._btn_firmware_upgrade = new System.Windows.Forms.ToolStripButton();
-            this._statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this._tssl_time = new System.Windows.Forms.ToolStripStatusLabel();
-            this._tssl_downloadspeed = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.configurationControl = new Configuration.ConfigurationControl();
             this.navigationListView1 = new Configuration.NavigationListView();
@@ -70,8 +70,8 @@
             this.Navigation.SuspendLayout();
             this.datalog.SuspendLayout();
             this.gcs.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this._statusStrip.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer1
@@ -193,6 +193,48 @@
             this.imageList.Images.SetKeyName(4, "transmit.png");
             this.imageList.Images.SetKeyName(5, "map.png");
             // 
+            // _statusStrip
+            // 
+            this._statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this._tssl_time,
+            this.toolStripStatusLabel2,
+            this._tssl_downloadspeed});
+            this._statusStrip.Location = new System.Drawing.Point(0, 74);
+            this._statusStrip.Name = "_statusStrip";
+            this._statusStrip.Size = new System.Drawing.Size(645, 22);
+            this._statusStrip.TabIndex = 7;
+            this._statusStrip.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(86, 17);
+            this.toolStripStatusLabel1.Text = "Time connected:";
+            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // _tssl_time
+            // 
+            this._tssl_time.Name = "_tssl_time";
+            this._tssl_time.Size = new System.Drawing.Size(404, 17);
+            this._tssl_time.Spring = true;
+            this._tssl_time.Text = "00:00:00";
+            this._tssl_time.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(90, 17);
+            this.toolStripStatusLabel2.Text = "Download speed:";
+            // 
+            // _tssl_downloadspeed
+            // 
+            this._tssl_downloadspeed.AutoSize = false;
+            this._tssl_downloadspeed.Name = "_tssl_downloadspeed";
+            this._tssl_downloadspeed.Size = new System.Drawing.Size(50, 17);
+            this._tssl_downloadspeed.Text = "0 kB/s";
+            this._tssl_downloadspeed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // _tb_logging
             // 
             this._tb_logging.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -299,48 +341,6 @@
             this._btn_firmware_upgrade.Text = "Firmware upgrade";
             this._btn_firmware_upgrade.Click += new System.EventHandler(this._btn_firmware_upgrade_Click);
             // 
-            // _statusStrip
-            // 
-            this._statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this._tssl_time,
-            this.toolStripStatusLabel2,
-            this._tssl_downloadspeed});
-            this._statusStrip.Location = new System.Drawing.Point(0, 74);
-            this._statusStrip.Name = "_statusStrip";
-            this._statusStrip.Size = new System.Drawing.Size(645, 22);
-            this._statusStrip.TabIndex = 7;
-            this._statusStrip.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(86, 17);
-            this.toolStripStatusLabel1.Text = "Time connected:";
-            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(90, 17);
-            this.toolStripStatusLabel2.Text = "Download speed:";
-            // 
-            // _tssl_time
-            // 
-            this._tssl_time.Name = "_tssl_time";
-            this._tssl_time.Size = new System.Drawing.Size(404, 17);
-            this._tssl_time.Spring = true;
-            this._tssl_time.Text = "00:00:00";
-            this._tssl_time.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // _tssl_downloadspeed
-            // 
-            this._tssl_downloadspeed.AutoSize = false;
-            this._tssl_downloadspeed.Name = "_tssl_downloadspeed";
-            this._tssl_downloadspeed.Size = new System.Drawing.Size(50, 17);
-            this._tssl_downloadspeed.Text = "0 kB/s";
-            this._tssl_downloadspeed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // timer
             // 
             this.timer.Interval = 1000;
@@ -388,7 +388,7 @@
             this.ClientSize = new System.Drawing.Size(645, 518);
             this.Controls.Add(this.toolStripContainer1);
             this.Name = "GluonConfig";
-            this.Text = "GluonConfig";
+            this.Text = "GluonConfig v0.5";
             this.Resize += new System.EventHandler(this.GluonConfig_Resize);
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
@@ -404,10 +404,10 @@
             this.Navigation.ResumeLayout(false);
             this.datalog.ResumeLayout(false);
             this.gcs.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }

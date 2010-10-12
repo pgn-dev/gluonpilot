@@ -56,6 +56,7 @@ namespace Gluonpilot
         public int ControlMixing;
         public int ControlAileronDiff;
         public double CruisingSpeed;
+        public double dummy;
         public double WaypointRadius;
         public bool StabilizationWithAltitudeHold;
 
