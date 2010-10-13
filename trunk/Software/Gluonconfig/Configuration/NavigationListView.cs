@@ -197,6 +197,10 @@ namespace Configuration
                 c = new NavigationCommands.UntilGr(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.UNTIL_SM)
                 c = new NavigationCommands.UntilSm(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.UNTIL_EQ)
+                c = new NavigationCommands.UntilEq(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.UNTIL_NE)
+                c = new NavigationCommands.UntilNe(ni);
             else// if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.EMPTY)
                 c = new NavigationCommands.Empty(ni);
 
@@ -357,17 +361,18 @@ namespace Configuration
             _lv_navigation_SelectedIndexChanged(null, null);
         }
 
-
         private void _lv_navigation_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.C && e.Control)
+            if (e.KeyData == (Keys.C | Keys.Control))
             {
-                string s = "";
-                foreach (ListViewItem i in _lv_navigation.SelectedItems)
+                StringBuilder buffer = new StringBuilder();
+                for (int i = 0; i < _lv_navigation.SelectedItems.Count; i++)
                 {
-                    s += ((NavigationInstruction)i.Tag).ToString() + "\n";
+                    buffer.Append(((NavigationInstruction)_lv_navigation.SelectedItems[i].Tag).ToString());
+                    buffer.Append("\n");
                 }
-                Clipboard.SetText(s);
+
+                Clipboard.SetText(buffer.ToString());  
             }
         }
     }

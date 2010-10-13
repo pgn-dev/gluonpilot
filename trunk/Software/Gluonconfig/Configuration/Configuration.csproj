@@ -154,11 +154,23 @@
     <Compile Include="NavigationCommands\NavigationCommandEditor.Designer.cs">
       <DependentUpon>NavigationCommandEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="NavigationCommands\UntilEq.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\UntilEq.Designer.cs">
+      <DependentUpon>UntilEq.cs</DependentUpon>
+    </Compile>
     <Compile Include="NavigationCommands\UntilGr.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="NavigationCommands\UntilGr.Designer.cs">
       <DependentUpon>UntilGr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\UntilNe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\UntilNe.Designer.cs">
+      <DependentUpon>UntilNe.cs</DependentUpon>
     </Compile>
     <Compile Include="NavigationCommands\UntilSm.cs">
       <SubType>UserControl</SubType>
@@ -255,8 +267,14 @@
     <EmbeddedResource Include="NavigationCommands\NavigationCommandEditor.resx">
       <DependentUpon>NavigationCommandEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\UntilEq.resx">
+      <DependentUpon>UntilEq.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\UntilGr.resx">
       <DependentUpon>UntilGr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\UntilNe.resx">
+      <DependentUpon>UntilNe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\UntilSm.resx">
       <DependentUpon>UntilSm.cs</DependentUpon>
