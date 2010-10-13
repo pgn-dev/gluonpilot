@@ -113,6 +113,18 @@ namespace Communication.Frames.Incoming
             case navigation_command.UNTIL_EQ:
                 s += "UNTIL(" + GetVariableText(a) + " = " + x + ")";
                 break;
+            case navigation_command.IF_SM:
+                s += "IF(" + GetVariableText(a) + " < " + x + ")";
+                break;
+            case navigation_command.IF_GR:
+                s += "IF(" + GetVariableText(a) + " > " + x + ")";
+                break;
+            case navigation_command.IF_NE:
+                s += "IF(" + GetVariableText(a) + " <> " + x + ")";
+                break;
+            case navigation_command.IF_EQ:
+                s += "IF(" + GetVariableText(a) + " = " + x + ")";
+                break;
             default:
                 s += "UNKNOWN/UNSUPPORTED (" + (int)opcode + " : " +  x + ", " + y + ", " + a + ", " + b + ")";
                 break;
