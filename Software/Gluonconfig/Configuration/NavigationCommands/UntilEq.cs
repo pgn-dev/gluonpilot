@@ -8,14 +8,12 @@ using System.Text;
 using System.Windows.Forms;
 using Communication.Frames.Incoming;
 
-
 namespace Configuration.NavigationCommands
 {
-    public partial class UntilSm : UserControl, INavigationCommandViewer
+    public partial class UntilEq : UserControl, INavigationCommandViewer
     {
         private NavigationInstruction ni;
-
-        public UntilSm(NavigationInstruction ni)
+        public UntilEq(NavigationInstruction ni)
         {
             InitializeComponent();
             SetNavigationInstruction(ni);
