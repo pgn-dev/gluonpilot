@@ -111,6 +111,30 @@
     <Compile Include="NavigationCommands\Climb.Designer.cs">
       <DependentUpon>Climb.cs</DependentUpon>
     </Compile>
+    <Compile Include="NavigationCommands\IfSm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\IfSm.Designer.cs">
+      <DependentUpon>IfSm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\IfNe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\IfNe.Designer.cs">
+      <DependentUpon>IfNe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\IfGr.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\IfGr.Designer.cs">
+      <DependentUpon>IfGr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\IfEq.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\IfEq.Designer.cs">
+      <DependentUpon>IfEq.cs</DependentUpon>
+    </Compile>
     <Compile Include="NavigationCommands\Empty.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -245,6 +269,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\Climb.resx">
       <DependentUpon>Climb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\IfSm.resx">
+      <DependentUpon>IfSm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\IfNe.resx">
+      <DependentUpon>IfNe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\IfGr.resx">
+      <DependentUpon>IfGr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\IfEq.resx">
+      <DependentUpon>IfEq.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\Empty.resx">
       <DependentUpon>Empty.cs</DependentUpon>

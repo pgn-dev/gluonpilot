@@ -201,7 +201,15 @@ namespace Configuration
                 c = new NavigationCommands.UntilEq(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.UNTIL_NE)
                 c = new NavigationCommands.UntilNe(ni);
-            else// if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.EMPTY)
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.IF_GR)
+                c = new NavigationCommands.IfGr(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.IF_SM)
+                c = new NavigationCommands.IfSm(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.IF_EQ)
+                c = new NavigationCommands.IfEq(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.IF_NE)
+                c = new NavigationCommands.IfNe(ni);
+            else //if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.EMPTY)
                 c = new NavigationCommands.Empty(ni);
 
             // add our edit-control
