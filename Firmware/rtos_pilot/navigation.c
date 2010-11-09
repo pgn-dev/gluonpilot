@@ -129,16 +129,6 @@ void navigation_update()
 		{
 			if (sensor_data.gps.status != ACTIVE)
 				navigation_data.home_pressure_height = sensor_data.pressure_height;  // as opposed to GPS height!!
-			
-			// calibrate gyros, FIXME: outer feedback loop would no longer require this
-			if (ppm.channel[config.control.channel_yaw] < 1100 &&   // yaw = left, roll = right while not airborne
-			    ppm.channel[config.control.channel_roll] > 1900)
-			{
-				// Test: use neutral value ad-hoc		
-				config.sensors.gyro_x_neutral = config.sensors.gyro_x_neutral/2 + sensor_data.gyro_x_raw/2;
-				config.sensors.gyro_y_neutral = config.sensors.gyro_y_neutral/2 + sensor_data.gyro_y_raw/2;
-				config.sensors.gyro_z_neutral = config.sensors.gyro_z_neutral/2 + sensor_data.gyro_z_raw/2;			    
-			} 
 		}	
 		return;
 	}

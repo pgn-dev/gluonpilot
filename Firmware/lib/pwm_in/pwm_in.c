@@ -26,6 +26,22 @@ extern unsigned int servo_pulse_min;
 
 extern unsigned int ppm_in_us_to_raw(unsigned int us);
 
+
+// Wait for RC-receiver to boot and give PWM pulses
+void pwm_in_wait_for()
+{
+	int i;
+	for (i = 0; i < 10; i++)
+	{
+		uart1_putc('.');
+		if (! (ppm.channel[0] > 900 && ppm.channel[0] < 2100)) // valid signal
+			microcontroller_delay_ms(25);  // wait for RC-receiver to boot (long enough?)
+		else
+			break;
+	}
+	microcontroller_delay_ms(20);  // wait for whole frame to finish (worst case)
+}	
+
 void pwm_in_open()
 {
 	INTCON2bits.ALTIVT = 0;	
