@@ -36,8 +36,8 @@ int main()
 	microcontroller_delay_ms(10);
 	
 	printf("\r\nInitializing GPS...");
-	gps_init(&config);
-	//uart2_open(config.initial_baudrate);
+	//gps_init(&config);
+	uart2_open(config.initial_baudrate);
 	
 	printf("done\n\r");
 	

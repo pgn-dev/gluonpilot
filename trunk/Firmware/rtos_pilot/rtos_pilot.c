@@ -46,7 +46,7 @@ int main()
 	
 	uart1_queue_init(115200l);  // default baudrate: 115200
 	
-	printf("Gluonpilot v0.5 [%s %s, config: %dB, logline: %dB, navigation: %dB, double: %dB]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(navigation_data.navigation_codes), sizeof(double));
+	printf("Gluonpilot v0.5.1 [%s %s, config: %dB, logline: %dB, navigation: %dB, double: %dB]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(navigation_data.navigation_codes), sizeof(double));
 
 	microcontroller_reset_type();  // for debugging
 	led_init();
@@ -64,7 +64,15 @@ int main()
 	// Open RC receiver input: pwm_in/ppm_in task: in ppm_in/pwm_in.c
 	// This is too low level to do it in the control task
 	if (config.control.use_pwm)
+	{
 		pwm_in_open(); 
+		uart1_puts("Waiting for pwm");
+		pwm_in_wait_for();
+		if (! (ppm.channel[0] > 900 && ppm.channel[0] < 2100))
+			uart1_puts("not found!\r\n");
+		else
+			uart1_puts("done\r\n");
+	} 
 	else
 	{
 		uart1_puts("Opening ppm...");

@@ -71,7 +71,11 @@ void control_init()
 	if (1/*config.control.manual_trim*/)
 	{	
 		for (i = 0; i < 6; i++)
+		{
 			config.control.servo_neutral[i] = 1500;
+			config.control.servo_max[i] = 2000;
+			config.control.servo_min[i] = 1000;
+		}	
 			
 		// The current position of the sticks on the RC-transmitter are 
 		// saved as the neutral values
@@ -370,7 +374,7 @@ void control_mix_out()
 	int aileron_out_left, aileron_out_right;
 	
 	// aileron differential
-	if (aileron_out > 0)
+	/*if (aileron_out > 0)
 	{
 		aileron_out_right = aileron_out + (aileron_out / 10) * config.control.aileron_differential;
 		aileron_out_left = aileron_out - (aileron_out / 10) * config.control.aileron_differential;
@@ -380,10 +384,10 @@ void control_mix_out()
 		aileron_out_right = aileron_out - (aileron_out / 10) * config.control.aileron_differential;
 		aileron_out_left = aileron_out + (aileron_out / 10) * config.control.aileron_differential;		
 	}
-	
+	*/
 	// no differential
-	//aileron_out_right = aileron_out;
-	//aileron_out_left = aileron_out;		
+	aileron_out_right = aileron_out;
+	aileron_out_left = aileron_out;		
 		
 	
 	switch(config.control.servo_mix)
