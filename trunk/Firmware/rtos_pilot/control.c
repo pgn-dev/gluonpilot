@@ -80,7 +80,8 @@ void control_init()
 		// The current position of the sticks on the RC-transmitter are 
 		// saved as the neutral values
 		for (i = 0; i < 8; i++)
-			config.control.channel_neutral[i] = ppm.channel[i];
+			if (ppm.channel[i] > 800 && ppm.channel[i] < 2200)  // only take valid values
+				config.control.channel_neutral[i] = ppm.channel[i];
 		
 		// This procedure calculates the servo's neutral settings using the RC-transmitter's input
 		elevator_out = config.control.channel_neutral[config.control.channel_pitch] - 1500;
