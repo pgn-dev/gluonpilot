@@ -135,7 +135,6 @@ void navigation_update()
 
 	struct NavigationCode *current_code = & navigation_data.navigation_codes[navigation_data.current_codeline];
 	
-	//navigation_data.desired_pre_bank = 0.0;   // don't keep it here because on a GOTO line, this pre_bank variable is still valid
 	switch(current_code->opcode)
 	{
 		case CLIMB:

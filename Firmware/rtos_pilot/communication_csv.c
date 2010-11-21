@@ -517,6 +517,12 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'W' && buffer[token[0] + 1] == 'N') 
 				{
 					int i = atoi(&(buffer[token[1]])) - 1;
+					
+#ifdef LIMITED
+	if (i == 0)
+		uart1_puts("Not allowed in Limited Edition!\r\n");
+#endif
+
 					if (i < MAX_NAVIGATIONCODES)
 					{
 						navigation_data.navigation_codes[i].opcode = atoi(&(buffer[token[2]]));

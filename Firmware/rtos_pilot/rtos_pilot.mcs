@@ -11,7 +11,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File001]
@@ -24,7 +24,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File002]
@@ -37,7 +37,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File003]
@@ -50,7 +50,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File004]
@@ -63,7 +63,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File005]
@@ -76,7 +76,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File006]
@@ -89,7 +89,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File007]
@@ -102,7 +102,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File008]
@@ -115,7 +115,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File009]
@@ -128,7 +128,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File010]
@@ -141,7 +141,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File011]
@@ -154,7 +154,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File012]
@@ -167,7 +167,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File013]
@@ -193,7 +193,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File015]
@@ -206,7 +206,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File016]
@@ -217,9 +217,9 @@ LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
 LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
+SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c|..\lib\max7456\MAX7456.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File017]
@@ -232,7 +232,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File018]
@@ -245,7 +245,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File019]
@@ -258,7 +258,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File020]
@@ -271,7 +271,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File021]
@@ -284,7 +284,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File022]
@@ -297,7 +297,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File023]
@@ -310,7 +310,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File024]
@@ -323,7 +323,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File025]
@@ -336,7 +336,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File026]
@@ -349,7 +349,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File027]
@@ -362,7 +362,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File028]
@@ -375,7 +375,7 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File029]
@@ -388,10 +388,23 @@ LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
 SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
-ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -Os
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
 TraceCmdString=
 DebugOptions=
 [File030]
+Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\tmp\MAX7456.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c|..\lib\max7456\MAX7456.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall -DMPLAB_DSPIC_PORT -DLIMITED -mlarge-data -Os
+TraceCmdString=
+DebugOptions=
+[File031]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\hex\rtos_pilot.cof
 Folder=Output
 DeviceName=dsPIC33FJ256MC710
@@ -399,12 +412,12 @@ LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
 LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-ld.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
+SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c|..\lib\max7456\MAX7456.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
 ToolArgsString=--heap=10240 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TraceCmdString=
 DebugOptions=
-[File031]
+[File032]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\hex\rtos_pilot.hex
 Folder=Output
 DeviceName=dsPIC33FJ256MC710
@@ -412,7 +425,7 @@ LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
 LanguageToolLocation=C:\Program Files\Microchip\MPLAB C30\bin\pic30-ld.exe
 PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../lib/FreeRTOS;../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
-SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c||<obj>||<lib>||<lkr>||
+SOLK=<src>|..\lib\adc\adc.c|..\lib\button\button.c|..\lib\dataflash\dataflash.c|..\lib\gps\gps.c|..\lib\microcontroller\microcontroller.c|..\lib\scp1000\scp1000.c|..\lib\servo\servo.c|..\lib\uart1_queue\uart1_queue.c|..\lib\uart2\uart2.c|..\lib\FreeRTOS\croutine.c|..\lib\FreeRTOS\heap_1.c|..\lib\FreeRTOS\list.c|..\lib\FreeRTOS\port.c|..\lib\FreeRTOS\portasm_dsPIC.S|..\lib\FreeRTOS\queue.c|..\lib\FreeRTOS\tasks.c|rtos_pilot.c|sensors.c|configuration.c|..\lib\ppm_in\ppm_in.c|control.c|..\lib\led\led.c|communication_csv.c|..\lib\pwm_in\pwm_in.c|datalogger.c|..\lib\matrix\matrix.c|..\lib\pid\pid.c|..\lib\quaternion\quaternion.c|navigation.c|ahrs_kalman_2x3.c|..\lib\max7456\MAX7456.c||<obj>||<lib>||<lkr>||
 SuiteArgsString=
 ToolArgsString=--heap=10240 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TraceCmdString=

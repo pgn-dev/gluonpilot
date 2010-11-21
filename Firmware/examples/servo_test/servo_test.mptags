@@ -6,49 +6,58 @@
 !_TAG_PROGRAM_VERSION	5.5.4	//
 !_TAG_REVISION_NAME	MCHPTags	//
 !_TAG_REVISION_VERSION	6.0.1	//
-FCY::PLL*FOSC/2	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	15;"	d	line:15
-FNOSC_PRIPLL	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	7;"	v	line:7
-FOSC::4000000	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	13;"	d	line:13
-FWDTEN_OFF	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	10;"	v	line:10
-PLL::80/4	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	14;"	d	line:14
-POSCMD_XT	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	8;"	v	line:8
-RCONbits_backup	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	4;"	v	line:4
-_AddressError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	77;"	f	line:77	signature:(void)
-_MathError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	92;"	f	line:92	signature:(void)
-_OscillatorFail	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	69;"	f	line:69	signature:(void)
-_StackError	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	85;"	f	line:85	signature:(void)
-_trapISR::__attribute__((interrupt,no_au	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	67;"	d	line:67	file:
-i	C:\pic\IMUboard\examples\servo_test\servo_test.c	10;"	l	line:10
-i	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	38;"	l	line:38
-i	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	50;"	l	line:50
-main	C:\pic\IMUboard\examples\servo_test\servo_test.c	8;"	f	line:8
-microcontroller_after_reboot	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	56;"	f	line:56
-microcontroller_after_reboot	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	21;"	p	line:21	signature:()
-microcontroller_delay_ms	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	36;"	f	line:36	signature:(unsigned long ms)
-microcontroller_delay_ms	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	20;"	p	line:20	signature:(unsigned long ms)
-microcontroller_delay_us	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	48;"	f	line:48	signature:(unsigned long us)
-microcontroller_delay_us	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	19;"	p	line:19	signature:(unsigned long us)
-microcontroller_init	C:\pic\IMUboard\lib\microcontroller\microcontroller.c	15;"	f	line:15
-microcontroller_init	C:\pic\IMUboard\lib\microcontroller\microcontroller.h	17;"	p	line:17	signature:()
-raw	C:\pic\IMUboard\lib\servo\servo.c	65;"	l	line:65
-servo_all_neutral	C:\pic\IMUboard\lib\servo\servo.c	39;"	f	line:39
-servo_all_neutral	C:\pic\IMUboard\lib\servo\servo.h	10;"	p	line:10	signature:()
-servo_init	C:\pic\IMUboard\lib\servo\servo.c	10;"	f	line:10
-servo_init	C:\pic\IMUboard\lib\servo\servo.h	4;"	p	line:4	signature:()
-servo_raw_1ms::625	C:\pic\IMUboard\lib\servo\servo.c	6;"	d	line:6	file:
-servo_raw_2ms::1250	C:\pic\IMUboard\lib\servo\servo.c	7;"	d	line:7	file:
-servo_set_ms	C:\pic\IMUboard\lib\servo\servo.c	90;"	f	line:90	signature:(int servo, float ms)
-servo_set_ms	C:\pic\IMUboard\lib\servo\servo.h	8;"	p	line:8	signature:(int servo, float ms)
-servo_set_us	C:\pic\IMUboard\lib\servo\servo.c	63;"	f	line:63	signature:(int servo, unsigned int us)
-servo_set_us	C:\pic\IMUboard\lib\servo\servo.h	6;"	p	line:6	signature:(int servo, unsigned int us)
-servo_us_to_raw	C:\pic\IMUboard\lib\servo\servo.c	49;"	f	line:49	signature:(unsigned int us)
-uart1_dataready	C:\pic\IMUboard\lib\uart1\uart1.c	60;"	f	line:60
-uart1_dataready	C:\pic\IMUboard\lib\uart1\uart1.h	3;"	p	line:3	signature:()
-uart1_getc	C:\pic\IMUboard\lib\uart1\uart1.c	81;"	f	line:81
-uart1_getc	C:\pic\IMUboard\lib\uart1\uart1.h	4;"	p	line:4	signature:()
-uart1_open	C:\pic\IMUboard\lib\uart1\uart1.c	12;"	f	line:12	signature:(long baud)
-uart1_open	C:\pic\IMUboard\lib\uart1\uart1.h	2;"	p	line:2	signature:(long baud)
-uart1_putc	C:\pic\IMUboard\lib\uart1\uart1.c	76;"	f	line:76	signature:(char c)
-uart1_putc	C:\pic\IMUboard\lib\uart1\uart1.h	6;"	p	line:6	signature:(char c)
-uart1_puts	C:\pic\IMUboard\lib\uart1\uart1.c	66;"	f	line:66	signature:(char *str)
-uart1_puts	C:\pic\IMUboard\lib\uart1\uart1.h	5;"	p	line:5	signature:(char *str)
+FCY::PLL*FOSC/2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	15;"	d	line:15
+FNOSC_PRIPLL	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	8;"	v	line:8
+FOSC::4000000	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	13;"	d	line:13
+INTERRUPT_PROTECT::(x){	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	30;"	d	line:30
+PLL::80/4	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	14;"	d	line:14
+POSCMD_XT	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	9;"	v	line:9
+RCONbits_backup	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	5;"	v	line:5
+SERVO_H	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.h	2;"	d	line:2
+_AddressError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	128;"	f	line:128	signature:(void)
+_AltAddressError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	162;"	f	line:162	signature:(void)
+_AltMathError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	178;"	f	line:178	signature:(void)
+_AltOscillatorFail	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	155;"	f	line:155	signature:(void)
+_AltStackError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	170;"	f	line:170	signature:(void)
+_MathError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	144;"	f	line:144	signature:(void)
+_OscillatorFail	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	121;"	f	line:121	signature:(void)
+_StackError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	136;"	f	line:136	signature:(void)
+_trapISR::__attribute__((interrupt,no_au	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	119;"	d	line:119	file:
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\servo_test\servo_test.c	13;"	l	line:13
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	41;"	l	line:41
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	53;"	l	line:53
+main	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\servo_test\servo_test.c	11;"	f	line:11
+microcontroller_after_reboot	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	108;"	f	line:108
+microcontroller_after_reboot	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	21;"	p	line:21	signature:()
+microcontroller_delay_ms	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	38;"	f	line:38	signature:(unsigned long ms)
+microcontroller_delay_ms	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	20;"	p	line:20	signature:(unsigned long ms)
+microcontroller_delay_us	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	51;"	f	line:51	signature:(unsigned long us)
+microcontroller_delay_us	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	19;"	p	line:19	signature:(unsigned long us)
+microcontroller_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	15;"	f	line:15
+microcontroller_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	17;"	p	line:17	signature:()
+microcontroller_reset_type	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	59;"	f	line:59
+microcontroller_reset_type	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	22;"	p	line:22	signature:()
+raw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	96;"	l	line:96
+servo_all_neutral	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	57;"	f	line:57
+servo_all_neutral	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.h	11;"	p	line:11	signature:()
+servo_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	22;"	f	line:22
+servo_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.h	5;"	p	line:5	signature:()
+servo_raw_1ms::625	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	13;"	d	line:13	file:
+servo_raw_2ms::1250	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	14;"	d	line:14	file:
+servo_set_ms	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	130;"	f	line:130	signature:(int servo, float ms)
+servo_set_ms	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.h	9;"	p	line:9	signature:(int servo, float ms)
+servo_set_us	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	94;"	f	line:94	signature:(int servo, unsigned int us)
+servo_set_us	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.h	7;"	p	line:7	signature:(int servo, unsigned int us)
+servo_turbopwm	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	16;"	f	line:16
+servo_turbopwm	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.h	13;"	p	line:13	signature:()
+servo_us_to_raw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	73;"	f	line:73	signature:(unsigned int us)
+uart1_dataready	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	60;"	f	line:60
+uart1_dataready	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	3;"	p	line:3	signature:()
+uart1_getc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	81;"	f	line:81
+uart1_getc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	4;"	p	line:4	signature:()
+uart1_open	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	12;"	f	line:12	signature:(long baud)
+uart1_open	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	2;"	p	line:2	signature:(long baud)
+uart1_putc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	76;"	f	line:76	signature:(char c)
+uart1_putc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	6;"	p	line:6	signature:(char c)
+uart1_puts	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.c	66;"	f	line:66	signature:(char *str)
+uart1_puts	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1\uart1.h	5;"	p	line:5	signature:(char *str)

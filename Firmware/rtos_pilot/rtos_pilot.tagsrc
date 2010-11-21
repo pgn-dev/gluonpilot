@@ -28,6 +28,7 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\p
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\quaternion\quaternion.c
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\MAX7456.c
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.h
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\button\button.h
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.h
@@ -62,3 +63,4 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\quate
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\matrix\matrix.h
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\common.h
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\MAX7456.h
