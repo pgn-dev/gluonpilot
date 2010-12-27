@@ -17,6 +17,7 @@
 #include "navigation.h"
 #include "common.h"
 
+#define NAVIGATION_HZ 5  // 5 Hz
 
 struct NavigationData navigation_data;
 
@@ -35,6 +36,7 @@ void navigation_do_circle(struct NavigationCode *current_code);
 double get_variable(enum navigation_variable i);
 int waypoint_reached(struct NavigationCode *current_code);
 
+unsigned int ticks_counter = 0;
 
 /*!
  *  Initializes the navigation.
@@ -53,6 +55,8 @@ void navigation_init ()
 	
 	navigation_data.current_codeline = 0;
 	navigation_data.last_code = 0;
+	
+	navigation_data.time_airborne_s = 0;
 	
 	navigation_load();
 	
@@ -113,11 +117,19 @@ void navigation_load()
 
 void navigation_update()
 {
+	ticks_counter++;
+	if (ticks_counter == NAVIGATION_HZ)
+	{
+		ticks_counter = 0;
+		navigation_data.time_airborne_s++;
+	}	
+	
 	// Set the "home"-position
 	if (!navigation_data.airborne)
 	{ 
 		if (sensor_data.gps.speed_ms >= 3 && sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view >= 5)
 		{
+			navigation_data.time_airborne_s = 0.0;  // reset this to know the real time airborne
 			navigation_data.airborne = 1;
 			navigation_set_home();
 			navigation_data.last_waypoint_latitude_rad = navigation_data.home_latitude_rad;
@@ -128,10 +140,14 @@ void navigation_update()
 		else
 		{
 			if (sensor_data.gps.status != ACTIVE)
+			{
 				navigation_data.home_pressure_height = sensor_data.pressure_height;  // as opposed to GPS height!!
+			}
+			navigation_set_home(); // set temporary home, not airborne
 		}	
 		return;
 	}
+	
 
 	struct NavigationCode *current_code = & navigation_data.navigation_codes[navigation_data.current_codeline];
 	
@@ -162,12 +178,12 @@ void navigation_update()
 			
 			if (nav_leg_progress >= 1.0)
 			{
-				navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - current_code->y,
+				navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad - current_code->y,
 	                                                         sensor_data.gps.latitude_rad - current_code->x);
 			}
 			else
 			{
-				navigation_data.desired_heading_rad = heading_rad_fromto(
+				navigation_data.desired_heading_rad = navigation_heading_rad_fromto(
 					sensor_data.gps.longitude_rad - ( navigation_data.last_waypoint_longitude_rad + nav_leg_progress * leg_y / longitude_meter_per_radian),
 		            sensor_data.gps.latitude_rad - ( navigation_data.last_waypoint_latitude_rad + nav_leg_progress * leg_x / latitude_meter_per_radian ) );
 			}
@@ -186,7 +202,7 @@ void navigation_update()
 		case FLY_TO_REL:
 		case FLY_TO_ABS:
 			navigation_data.desired_pre_bank = 0.0;
-			navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - current_code->y,
+			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad - current_code->y,
 	                                                         sensor_data.gps.latitude_rad - current_code->x);
 	                                                         
 	        navigation_data.desired_height_above_ground_m = current_code->a;
@@ -261,7 +277,7 @@ void navigation_update()
 			navigation_data.desired_pre_bank = 0.0;
 			navigation_data.current_codeline = 0;
 			// also return home @ 100m height
-			navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad,
+			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
 	                                                   		         sensor_data.gps.latitude_rad);
 	        navigation_data.desired_height_above_ground_m = 100.0; 
 			break;
@@ -273,8 +289,8 @@ void navigation_update()
 
 int waypoint_reached(struct NavigationCode *current_code)
 {
-	if (distance_between_meter(sensor_data.gps.longitude_rad, current_code->y,
-			                   sensor_data.gps.latitude_rad, current_code->x) < config.control.waypoint_radius_m)
+	if (navigation_distance_between_meter(sensor_data.gps.longitude_rad, current_code->y,
+			                              sensor_data.gps.latitude_rad, current_code->x) < config.control.waypoint_radius_m)
 	{
 		double heading_error_rad = navigation_data.desired_heading_rad - sensor_data.gps.heading_rad;
 		
@@ -307,8 +323,8 @@ double get_variable(enum navigation_variable i)
 		case SATELLITES_IN_VIEW:
 			return sensor_data.gps.satellites_in_view;
 		case HOME_DISTANCE:
-			return distance_between_meter(sensor_data.gps.longitude_rad, navigation_data.home_longitude_rad,
-			                              sensor_data.gps.latitude_rad, navigation_data.home_latitude_rad);
+			return navigation_distance_between_meter(sensor_data.gps.longitude_rad, navigation_data.home_longitude_rad,
+			                                         sensor_data.gps.latitude_rad, navigation_data.home_latitude_rad);
 		case PPM_LINK_ALIVE:
 			return ppm.connection_alive ? 1.0 : 0.0;
 		case CHANNEL_1:
@@ -342,12 +358,12 @@ void navigation_do_circle(struct NavigationCode *current_code)
 	float abs_r = fabs(r);
 
 	// heading towards center of circle
-	float current_alpha = heading_rad_fromto(current_code->y - sensor_data.gps.longitude_rad,
-	                                         current_code->x - sensor_data.gps.latitude_rad);  // 0° = top of circle
+	float current_alpha = navigation_heading_rad_fromto(current_code->y - sensor_data.gps.longitude_rad,
+	                                                    current_code->x - sensor_data.gps.latitude_rad);  // 0° = top of circle
 
 	float distance_center = 
-	 	distance_between_meter(sensor_data.gps.longitude_rad, current_code->y,
-	                           sensor_data.gps.latitude_rad, current_code->x);
+	 	navigation_distance_between_meter(sensor_data.gps.longitude_rad, current_code->y,
+	                                      sensor_data.gps.latitude_rad, current_code->x);
 	float next_alpha;
 	float rad_ahead = rad_s*carrot;
 	
@@ -378,8 +394,8 @@ void navigation_do_circle(struct NavigationCode *current_code)
 	float pointlat = current_code->x + cos(next_alpha) * next_r / latitude_meter_per_radian;
 	
 	
-	navigation_data.desired_heading_rad = heading_rad_fromto(sensor_data.gps.longitude_rad - pointlon,
-		                                                     sensor_data.gps.latitude_rad - pointlat);
+	navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad - pointlon,
+		                                                                sensor_data.gps.latitude_rad - pointlat);
 		                                                     
 	if (navigation_data.desired_heading_rad > DEG2RAD(360.0))
 		navigation_data.desired_heading_rad -= DEG2RAD(360.0);
@@ -414,7 +430,7 @@ void navigation_set_home()
  *  @param diff_long Origin longitude - destination longitude.
  *  @param diff_lat Origin latitude - destination latitude.
  */
-double heading_rad_fromto (double diff_long, double diff_lat)
+double navigation_heading_rad_fromto (double diff_long, double diff_lat)
 {
 	//diff_lat *= cos_latitude;   // Local, flat earth approximation!
 	diff_long *= cos_latitude;   // Local, flat earth approximation!
@@ -435,7 +451,7 @@ double heading_rad_fromto (double diff_long, double diff_lat)
  *  Calculates the distance between 2 waypoints.
  *  Won't give good results if the waypoints are several 100 kms apart.
  */
-float distance_between_meter(float long1, float long2, float lat1, float lat2)
+float navigation_distance_between_meter(float long1, float long2, float lat1, float lat2)
 {
 	/* Haversine */
 	//return acosf(sinf(lat1)*sinf(lat2) + cosf(lat1)*cosf(lat2)*cosf(long2-long1)) * 6371.0

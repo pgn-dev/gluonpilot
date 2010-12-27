@@ -5,9 +5,9 @@
 
 
 // Define Message Buffer Length for ECAN1/ECAN2
-#define  MAX_CHNUM	 			8		// Highest Analog input number in Channel Scan
+#define  MAX_CHNUM	 			9		// Highest Analog input number in Channel Scan
 #define  SAMP_BUFF_SIZE	 		8		// Size of the input buffer per analog input
-#define  NUM_CHS2SCAN			7		// Number of channels enabled for channel scan
+#define  NUM_CHS2SCAN			8		// Number of channels enabled for channel scan
 
 // Number of locations for ADC buffer = 14 (AN0 to AN13) x 8 = 112 words
 // Align the buffer to 128 words or 256 bytes. This is needed for peripheral indirect mode
@@ -57,7 +57,7 @@ void adc_open()
 	AD1CSSLbits.CSS5 = 1;
 	AD1CSSLbits.CSS6 = 1;
 	AD1CSSLbits.CSS7 = 1;
-
+	AD1CSSLbits.CSS8 = 1;
  
  	//AD1PCFGH/AD1PCFGL: Port Configuration Register
 	AD1PCFGL=0xFFFF;
@@ -69,6 +69,7 @@ void adc_open()
 	AD1PCFGLbits.PCFG5 = 0;
 	AD1PCFGLbits.PCFG6 = 0;
 	AD1PCFGLbits.PCFG7 = 0;
+	AD1PCFGLbits.PCFG8 = 0;
 	
 	IFS0bits.AD1IF   = 0;		// Clear the A/D interrupt flag bit
 	IEC0bits.AD1IE   = 0;		// Do Not Enable A/D interrupt 
@@ -164,6 +165,14 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void)
 
 unsigned int adc_get_channel(int i)
 {
+	int j;
+	if (i == 8)
+	{
+		printf("\r\n");
+		for(j = 0; j < 8; j++)
+			printf(" %u|%u ", BufferA[i][j], BufferB[i][j]);
+		printf("\r\n");
+	}	
 	return ProcessADCSamples(&BufferA[i][0]) / 2 + ProcessADCSamples(&BufferB[i][0]) / 2; 
 
 	//return (BufferB[i][0]/2 + BufferA[i][0]/2);

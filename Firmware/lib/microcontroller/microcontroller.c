@@ -29,6 +29,7 @@ void microcontroller_init()
 	RCONbits_backup = RCONbits;
 	RCON = 0;  // we have to do this to make sure we can read RCON correctly on a (next) reset
 }
+	
 
 
 /*!

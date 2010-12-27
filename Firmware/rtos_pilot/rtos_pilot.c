@@ -35,6 +35,7 @@
 #include "configuration.h"
 #include "datalogger.h"
 #include "navigation.h"
+#include "osd.h"
 
 extern xSemaphoreHandle xGpsSemaphore;
 extern xSemaphoreHandle xSpiSemaphore;
@@ -46,7 +47,6 @@ static char version[] = "0.5.1";
 
 int main()
 {
-	char x;
 	microcontroller_init();
 	
 	uart1_queue_init(115200l);  // default baudrate: 115200
@@ -65,100 +65,20 @@ int main()
 	// create semaphores needed for FreeRTOS synchronization (better to do it know, they are changed in interrupts of uart2 and ppm)
 	vSemaphoreCreateBinary( xSpiSemaphore );
 	vSemaphoreCreateBinary( xGpsSemaphore );
+
+	configuration_determine_hardware_version();
+	if (HARDWARE_VERSION == V01N)
+		printf("Found hardware version v0.1n\r\n");
+	else
+		printf("Found hardware version v0.1j or earlier\r\n");
 	
 	dataflash_open();
 	printf("%d MB flash found\r\n", (int)PAGE_SIZE/264);
 	uart1_puts("Loading configuration...");
 	configuration_load();
 	uart1_puts("done\r\n");
-	
-	
-	/*
-	OSD
-	*/
-	uart1_puts("Opening SPI\r\n");
-	
-	// Open hardware SPI, as fast as possible, don't use hardware SS2
-	init_MAX7456();
 
-	microcontroller_delay_ms(1000);
-	uart1_puts("Setting up SPI\r\n");
-	spiWriteReg(0, 0b01001000);  // PAL 0b01111000
 	
-	printf("%d\r\n", spiReadReg(0xA0));
-	
-	uart1_puts("1\r\n");
-	microcontroller_delay_ms(1);
-	
-	x = spiReadReg(0xEC);
-	uart1_puts("2\r\n");	
-	microcontroller_delay_ms(1);
-	x &= 0xEF;
-	spiWriteReg(0x6C, x);
-	uart1_puts("3\r\n");
-	microcontroller_delay_ms(1);
-	
-	spiWriteReg(0x04, 0x00);
-	x = 21;
-	
-	spiWriteReg(0x05,0x01);//DMAH
-	
-	spiWriteReg(0x06,x);//DMAL
-	spiWriteReg(0x07,0x11);  // G
-	
-	spiWriteReg(0x06,x+1);//DMAL
-	spiWriteReg(0x07,0x30);  // l
-	
-	spiWriteReg(0x06,x+2);//DMAL
-	spiWriteReg(0x07,0x39);  // u
-	
-	spiWriteReg(0x06,x+3);//DMAL
-	spiWriteReg(0x07,0x33);  // o
-	
-	spiWriteReg(0x06,x+4);//DMAL
-	spiWriteReg(0x07,0x32);  // n 
-	
-	spiWriteReg(0x06,x+5);//DMAL
-	spiWriteReg(0x07,0x34);  // p
-	
-	spiWriteReg(0x06,x+6);//DMAL
-	spiWriteReg(0x07,0x2D);  // i
-	
-	spiWriteReg(0x06,x+7);//DMAL
-	spiWriteReg(0x07,0x30);  // l
-
-	spiWriteReg(0x06,x+8);//DMAL
-	spiWriteReg(0x07,0x33);  // o
-
-	spiWriteReg(0x06,x+9);//DMAL
-	spiWriteReg(0x07,0x38);  // t
-	
-	spiWriteReg(0x06,x+10);//DMAL
-	spiWriteReg(0x07,0x00);  // " "
-	
-	
-	spiWriteReg(0x06,x+11);//DMAL
-	spiWriteReg(0x07,0xC8);  // v
-	spiWriteReg(0x06,x+12);//DMAL
-	spiWriteReg(0x07,0xC9);  // v
-
-	MAX7456_loadchars();
-	
-	printf("ok\r\n");
-	
-	uart1_puts("Looping up SPI\r\n");
-	while (1)
-	{
-		spiWriteReg(0, 0b01001000);  // PAL 0b01111000
-		microcontroller_delay_ms(1000);
-		printf("%d\r\n", (int)spiReadReg(0x80+128));
-		spiWriteReg(0, 0b01000000);  // PAL 0b01111000
-		microcontroller_delay_ms(1000);
-		
-		printf("%d\r\n", (int)spiReadReg(0x80+128));
-	}	
-
-
 	
 	// Open RC receiver input: pwm_in/ppm_in task: in ppm_in/pwm_in.c
 	// This is too low level to do it in the control task
@@ -181,17 +101,19 @@ int main()
 	
 
 	// Create our tasks. 
-	xTaskCreate( control_task,                 ( signed portCHAR * ) "Control",      ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 6, NULL );
+	xTaskCreate( control_task,                 ( signed portCHAR * ) "Control",      ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 7, NULL );
 	//uart1_puts("Control task started\r\n");
-	xTaskCreate( sensors_task,                 ( signed portCHAR * ) "Sensors",      ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 5, NULL );
+	xTaskCreate( sensors_task,                 ( signed portCHAR * ) "Sensors",      ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 6, NULL );
 	//uart1_puts("Sensors task started\r\n");
-	xTaskCreate( sensors_gps_task,             ( signed portCHAR * ) "GpsNavi",          ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 4, NULL );
+	xTaskCreate( sensors_gps_task,             ( signed portCHAR * ) "GpsNavi",          ( configMINIMAL_STACK_SIZE * 4 ), NULL, tskIDLE_PRIORITY + 5, NULL );
 	//uart1_puts("Sensors_GPS task started\r\n");
-	xTaskCreate( communication_input_task,     ( signed portCHAR * ) "ConsoleInput", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 3, NULL );
+	xTaskCreate( communication_input_task,     ( signed portCHAR * ) "ConsoleInput", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 4, NULL );
 	//uart1_puts("Communications task started\r\n");
-	xTaskCreate( datalogger_task,              ( signed portCHAR * ) "Dataflash",    ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 2, NULL );
+	xTaskCreate( datalogger_task,              ( signed portCHAR * ) "Dataflash",    ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 3, NULL );
 	//uart1_puts("communication_telemetry task started\r\n");
-	xTaskCreate( communication_telemetry_task, ( signed portCHAR * ) "Telemetry",    ( configMINIMAL_STACK_SIZE * 2 ), NULL, tskIDLE_PRIORITY + 1, NULL );
+	xTaskCreate( communication_telemetry_task, ( signed portCHAR * ) "Telemetry",    ( configMINIMAL_STACK_SIZE * 2 ), NULL, tskIDLE_PRIORITY + 2, NULL );
+	
+	xTaskCreate( osd_task, ( signed portCHAR * ) "OSD",    ( configMINIMAL_STACK_SIZE * 1 ), NULL, tskIDLE_PRIORITY + 1, NULL );
 
 	//uart1_puts("Starting scheduler\r\n");
 	// Order the scheduler to start scheduling our two tasks.
