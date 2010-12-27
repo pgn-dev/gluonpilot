@@ -7,6 +7,8 @@
 void navigation_burn();
 void navigation_load();
 void navigation_update();
+double navigation_heading_rad_fromto (double diff_long, double diff_lat); // used in OSD-code
+float navigation_distance_between_meter(float long1, float long2, float lat1, float lat2);
 
 /*!
  *  The different waypoint types.
@@ -79,6 +81,9 @@ struct NavigationData
 	float home_gps_height;        //!< Height of home.
 	float home_pressure_height;
 	
+	float home_distance;          //<! Use for OSD
+	float home_heading;           //<! Use for OSD
+	
 	float last_waypoint_latitude_rad;
 	float last_waypoint_longitude_rad;
 	
@@ -96,6 +101,8 @@ struct NavigationData
 	struct NavigationCode navigation_codes[MAX_NAVIGATIONCODES];
 	int current_codeline;       //!< Index in the waypoint array pointing to the current waypoint.
 	int last_code;
+	
+	unsigned int time_airborne_s;
 };
 
 extern struct NavigationData navigation_data;

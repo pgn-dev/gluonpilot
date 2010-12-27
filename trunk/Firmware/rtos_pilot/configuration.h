@@ -17,10 +17,17 @@ struct Configuration
 
 extern struct Configuration config;
 
+#define V01J 1
+#define V01N 2
+extern int HARDWARE_VERSION;
+
+
 void configuration_default();
 
 void configuration_load();
 
 void configuration_write();
+
+void configuration_determine_hardware_version();
 
 #endif // CONFIGURATION_H

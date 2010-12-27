@@ -104,7 +104,7 @@ void ppm_in_update_status_ticks_50hz()
 	if (ppm.valid_frame && ticks_no_valid_frame > 0)
 	{
 		ticks_no_valid_frame -= 1;
-	}else if (ticks_no_valid_frame < TICKS_FOR_NO_CONNECTION<<1)
+	} else if (!ppm.valid_frame && ticks_no_valid_frame < TICKS_FOR_NO_CONNECTION)
 		ticks_no_valid_frame += 1;
 	
 	ppm.connection_alive = (ticks_no_valid_frame < TICKS_FOR_NO_CONNECTION);
@@ -124,7 +124,7 @@ unsigned int ppm_in_us_to_raw(unsigned int us)
 
 int ppm_signal_quality()
 {
-	return (int)(dt_no_valid_frame * 20.0);
+	return ticks_no_valid_frame; //(int)(dt_no_valid_frame * 20.0);
 }
 	
 

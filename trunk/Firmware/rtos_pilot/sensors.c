@@ -54,6 +54,7 @@ extern xSemaphoreHandle xSpiSemaphore;
 void read_raw_sensor_data();
 void scale_raw_sensor_data();
 
+float scale_z_gyro = 0.0;
 
 /*!
  *   FreeRTOS task that reads all the sensor data and stored it in the
@@ -79,6 +80,11 @@ void sensors_task( void *parameters )
 	scale_raw_sensor_data();
 	ahrs_init();
 	
+	if (HARDWARE_VERSION == V01N) // IDZ-500 gyroscope
+		scale_z_gyro = (-0.02538315*3.14159/180.0)*2.0;
+	else // ADXRS-613 gyroscope
+		scale_z_gyro = (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)
+		
 	uart1_puts("done\r\n");
 	
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil()	works correctly. */
@@ -93,7 +99,7 @@ void sensors_task( void *parameters )
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 20 / portTICK_RATE_MS ) );   // 50Hz
 		dt_since_last_height += 0.02;
 #endif
-		if (scp1000_dataready())
+		if (scp1000_dataready())   // New reading from the pressure sensor -> calculate vertical speed
 		{
 			// this should be at 9Hz ->0.11s
 			if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 0 ))  // Spi1 is shared with SCP1000 and Dataflash
@@ -156,7 +162,7 @@ void scale_raw_sensor_data()
 	// scale to rad/sec
 	sensor_data.p = ((double)(sensor_data.gyro_x_raw)-config.sensors.gyro_x_neutral) * (-0.02518315*3.14159/180.0 * INVERT_X);  // 0.02518315f
 	sensor_data.q = ((double)(sensor_data.gyro_y_raw)-config.sensors.gyro_y_neutral) * (-0.02538315*3.14159/180.0 * INVERT_X);
-	sensor_data.r = ((double)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)
+	sensor_data.r = ((double)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * scale_z_gyro;
 }	
 
 

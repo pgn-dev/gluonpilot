@@ -72,7 +72,7 @@
 //
 // MAX7456 DM_ADDRL register
 #define DM_ADDRL_WRITE            0x06
-#define DM_ADDRL_READ             0x87
+#define DM_ADDRL_READ             0x86
 //
 // MAX7456 DM_CODE_IN register
 #define DM_CODE_IN_WRITE          0x07
@@ -118,12 +118,13 @@
 
 
 
-void init_MAX7456();
+void max7456_init();
 void spiWriteReg(const unsigned char regAddr, const unsigned char regData);
 unsigned char spiReadReg (const unsigned char regAddr);
 void spiWriteCM();
 void spiWriteFM();
 
+int max756_read_status();
 
 
 #endif

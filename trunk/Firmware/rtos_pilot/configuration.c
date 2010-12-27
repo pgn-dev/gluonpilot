@@ -9,7 +9,8 @@
  *  @since    0.1
  */
  
- 
+
+#include "microcontroller/microcontroller.h"
 #include "dataflash/dataflash.h"
 #include "gps/gps.h"
 #include "sensors.h"
@@ -18,6 +19,9 @@
 
 //! Memory allocation for the configuration data.
 struct Configuration config;
+
+//! Contains the hardware version (defined in configuration.h)
+int HARDWARE_VERSION;
 
 
 /*!
@@ -28,6 +32,34 @@ void configuration_load()
 {
 	dataflash_read(CONFIGURATION_PAGE, sizeof(struct Configuration), (unsigned char*)&config);
 }
+
+
+void configuration_determine_hardware_version()
+{
+	// output
+	TRISGbits.TRISG14 = 0;
+	// input
+	TRISGbits.TRISG12 = 1;
+	
+	// are they connected? --> v0.1n or newer
+	PORTGbits.RG14 = 1;
+	microcontroller_delay_ms(1);
+	if (PORTGbits.RG12 == 1)
+	{
+		PORTGbits.RG14 = 0;
+		microcontroller_delay_ms(1);
+		if (PORTGbits.RG12 == 0)
+		{
+			HARDWARE_VERSION = V01N;
+		}	
+		else
+			HARDWARE_VERSION = V01J;
+	} 
+	else
+	{
+		HARDWARE_VERSION = V01J;
+	}	
+}	
 
 
 /*!
