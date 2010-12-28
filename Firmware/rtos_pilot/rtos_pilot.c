@@ -40,9 +40,6 @@
 extern xSemaphoreHandle xGpsSemaphore;
 extern xSemaphoreHandle xSpiSemaphore;
 
-#include <spi.h>
-#include "MAX7456/MAX7456.h"
-
 static char version[] = "0.5.1";
 
 int main()
@@ -59,26 +56,27 @@ int main()
 	printf(" [%s %s, config: %dB, logline: %dB, navigation: %dB, double: %dB]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(navigation_data.navigation_codes), sizeof(double));
 	uart1_puts("\r\n");
 	
-	microcontroller_reset_type();  // for debugging
+	microcontroller_reset_type();  // printf out reason of reset; for debugging
 	led_init();
 	
-	// create semaphores needed for FreeRTOS synchronization (better to do it know, they are changed in interrupts of uart2 and ppm)
+	// Create semaphores needed for FreeRTOS synchronization (better to do it know, they are changed in interrupts of uart2 and ppm)
 	vSemaphoreCreateBinary( xSpiSemaphore );
 	vSemaphoreCreateBinary( xGpsSemaphore );
 
+	// What hardware version are we using?
 	configuration_determine_hardware_version();
 	if (HARDWARE_VERSION == V01N)
 		printf("Found hardware version v0.1n\r\n");
 	else
 		printf("Found hardware version v0.1j or earlier\r\n");
 	
+	// Open flash & load configuration
 	dataflash_open();
 	printf("%d MB flash found\r\n", (int)PAGE_SIZE/264);
 	uart1_puts("Loading configuration...");
 	configuration_load();
 	uart1_puts("done\r\n");
 
-	
 	
 	// Open RC receiver input: pwm_in/ppm_in task: in ppm_in/pwm_in.c
 	// This is too low level to do it in the control task
@@ -102,20 +100,13 @@ int main()
 
 	// Create our tasks. 
 	xTaskCreate( control_task,                 ( signed portCHAR * ) "Control",      ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 7, NULL );
-	//uart1_puts("Control task started\r\n");
 	xTaskCreate( sensors_task,                 ( signed portCHAR * ) "Sensors",      ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 6, NULL );
-	//uart1_puts("Sensors task started\r\n");
-	xTaskCreate( sensors_gps_task,             ( signed portCHAR * ) "GpsNavi",          ( configMINIMAL_STACK_SIZE * 4 ), NULL, tskIDLE_PRIORITY + 5, NULL );
-	//uart1_puts("Sensors_GPS task started\r\n");
+	xTaskCreate( sensors_gps_task,             ( signed portCHAR * ) "GpsNavi",      ( configMINIMAL_STACK_SIZE * 4 ), NULL, tskIDLE_PRIORITY + 5, NULL );
 	xTaskCreate( communication_input_task,     ( signed portCHAR * ) "ConsoleInput", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 4, NULL );
-	//uart1_puts("Communications task started\r\n");
 	xTaskCreate( datalogger_task,              ( signed portCHAR * ) "Dataflash",    ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 3, NULL );
-	//uart1_puts("communication_telemetry task started\r\n");
 	xTaskCreate( communication_telemetry_task, ( signed portCHAR * ) "Telemetry",    ( configMINIMAL_STACK_SIZE * 2 ), NULL, tskIDLE_PRIORITY + 2, NULL );
-	
-	xTaskCreate( osd_task, ( signed portCHAR * ) "OSD",    ( configMINIMAL_STACK_SIZE * 1 ), NULL, tskIDLE_PRIORITY + 1, NULL );
+	xTaskCreate( osd_task,                     ( signed portCHAR * ) "OSD",          ( configMINIMAL_STACK_SIZE * 1 ), NULL, tskIDLE_PRIORITY + 1, NULL );
 
-	//uart1_puts("Starting scheduler\r\n");
 	// Order the scheduler to start scheduling our two tasks.
 	vTaskStartScheduler();
 	

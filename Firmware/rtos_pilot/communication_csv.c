@@ -88,6 +88,16 @@ void communication_telemetry_task( void *parameters )
 			led1_on();
 		else
 			led1_off();
+		
+		if (c % 6000 == 0) // reset Xbee every 5 minutes to prevent a lock-up (duty cycle)
+		{
+			//uart1_puts("\r\nResetting XBEE...\r\n") ;
+			vTaskDelay( ( ( portTickType ) 1001 / portTICK_RATE_MS ) ); // guard time wait 1000ms
+			uart1_puts("+++");
+			vTaskDelay( ( ( portTickType ) 1001 / portTICK_RATE_MS ) ); // guard time wait 1000ms
+			uart1_puts("ATFR\r\n") ;
+			vTaskDelay( ( ( portTickType ) 10 / portTICK_RATE_MS ) ); // wait 10ms
+		}	
 				
 		///////////////////////////////////////////////////////////////
 		//               GYRO AND ACCELEROMETER RAW                  //

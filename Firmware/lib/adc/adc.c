@@ -165,14 +165,6 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void)
 
 unsigned int adc_get_channel(int i)
 {
-	int j;
-	if (i == 8)
-	{
-		printf("\r\n");
-		for(j = 0; j < 8; j++)
-			printf(" %u|%u ", BufferA[i][j], BufferB[i][j]);
-		printf("\r\n");
-	}	
 	return ProcessADCSamples(&BufferA[i][0]) / 2 + ProcessADCSamples(&BufferB[i][0]) / 2; 
 
 	//return (BufferB[i][0]/2 + BufferA[i][0]/2);
