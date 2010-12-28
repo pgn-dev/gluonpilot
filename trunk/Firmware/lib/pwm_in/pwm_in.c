@@ -31,16 +31,17 @@ extern unsigned int ppm_in_us_to_raw(unsigned int us);
 void pwm_in_wait_for()
 {
 	int i;
-	for (i = 0; i < 10; i++)
+	for (i = 0; i < 20; i++)
 	{
 		uart1_putc('.');
-		if (! (ppm.channel[0] > 900 && ppm.channel[0] < 2100)) // valid signal
+		if (! (ppm.channel[4] > 900 && ppm.channel[4] < 2100)) // valid signal
 			microcontroller_delay_ms(25);  // wait for RC-receiver to boot (long enough?)
 		else
 			break;
 	}
-	microcontroller_delay_ms(20);  // wait for whole frame to finish (worst case)
+	microcontroller_delay_ms(40);  // wait for whole frame to finish (worst case)
 }	
+
 
 void pwm_in_open()
 {
