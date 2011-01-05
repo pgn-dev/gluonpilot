@@ -31,10 +31,15 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GcsMainPanel));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.label7 = new System.Windows.Forms.Label();
+            this._tb_battvoltage = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this._tb_navigationline = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this._lbl_control_mode = new System.Windows.Forms.Label();
             this._tb_gps_sattellites = new System.Windows.Forms.TextBox();
+            this._dtb_altitude = new Configuration.DistanceTextBox();
+            this._stb_speed = new Configuration.SpeedTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,21 +50,19 @@
             this._zgc_height = new ZedGraph.ZedGraphControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this._zgc_speed = new ZedGraph.ZedGraphControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this._graphControl = new Graph.GraphControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this._btn_ge_server = new System.Windows.Forms.ToolStripButton();
             this._btn_goto_ge = new System.Windows.Forms.ToolStripButton();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this._graphControl = new Graph.GraphControl();
-            this._dtb_altitude = new Configuration.DistanceTextBox();
-            this._stb_speed = new Configuration.SpeedTextBox();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer1
@@ -67,6 +70,9 @@
             // 
             // toolStripContainer1.ContentPanel
             // 
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.label7);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this._tb_battvoltage);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.label6);
             this.toolStripContainer1.ContentPanel.Controls.Add(this._tb_navigationline);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.label5);
             this.toolStripContainer1.ContentPanel.Controls.Add(this._lbl_control_mode);
@@ -90,6 +96,33 @@
             // toolStripContainer1.TopToolStripPanel
             // 
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(513, 7);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(14, 13);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "V";
+            // 
+            // _tb_battvoltage
+            // 
+            this._tb_battvoltage.Location = new System.Drawing.Point(473, 4);
+            this._tb_battvoltage.Name = "_tb_battvoltage";
+            this._tb_battvoltage.ReadOnly = true;
+            this._tb_battvoltage.Size = new System.Drawing.Size(34, 20);
+            this._tb_battvoltage.TabIndex = 16;
+            this._tb_battvoltage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(386, 8);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(81, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Battery voltage:";
             // 
             // _tb_navigationline
             // 
@@ -122,6 +155,23 @@
             this._tb_gps_sattellites.Name = "_tb_gps_sattellites";
             this._tb_gps_sattellites.Size = new System.Drawing.Size(34, 20);
             this._tb_gps_sattellites.TabIndex = 11;
+            // 
+            // _dtb_altitude
+            // 
+            this._dtb_altitude.DistanceM = 0;
+            this._dtb_altitude.Location = new System.Drawing.Point(93, 29);
+            this._dtb_altitude.Name = "_dtb_altitude";
+            this._dtb_altitude.ReadOnly = false;
+            this._dtb_altitude.Size = new System.Drawing.Size(110, 21);
+            this._dtb_altitude.TabIndex = 10;
+            // 
+            // _stb_speed
+            // 
+            this._stb_speed.Location = new System.Drawing.Point(93, 55);
+            this._stb_speed.Name = "_stb_speed";
+            this._stb_speed.Size = new System.Drawing.Size(110, 21);
+            this._stb_speed.SpeedMS = 0;
+            this._stb_speed.TabIndex = 9;
             // 
             // label4
             // 
@@ -244,6 +294,27 @@
             this._zgc_speed.Size = new System.Drawing.Size(578, 131);
             this._zgc_speed.TabIndex = 1;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this._graphControl);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(585, 140);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Custom...";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // _graphControl
+            // 
+            this._graphControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._graphControl.Location = new System.Drawing.Point(2, 2);
+            this._graphControl.Name = "_graphControl";
+            this._graphControl.Size = new System.Drawing.Size(580, 135);
+            this._graphControl.TabIndex = 0;
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
@@ -274,44 +345,6 @@
             this._btn_goto_ge.Text = "Open";
             this._btn_goto_ge.Click += new System.EventHandler(this._btn_goto_ge_Click);
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this._graphControl);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(585, 140);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Custom...";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // _graphControl
-            // 
-            this._graphControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this._graphControl.Location = new System.Drawing.Point(2, 2);
-            this._graphControl.Name = "_graphControl";
-            this._graphControl.Size = new System.Drawing.Size(580, 135);
-            this._graphControl.TabIndex = 0;
-            // 
-            // _dtb_altitude
-            // 
-            this._dtb_altitude.DistanceM = 0;
-            this._dtb_altitude.Location = new System.Drawing.Point(93, 29);
-            this._dtb_altitude.Name = "_dtb_altitude";
-            this._dtb_altitude.ReadOnly = false;
-            this._dtb_altitude.Size = new System.Drawing.Size(110, 21);
-            this._dtb_altitude.TabIndex = 10;
-            // 
-            // _stb_speed
-            // 
-            this._stb_speed.Location = new System.Drawing.Point(93, 55);
-            this._stb_speed.Name = "_stb_speed";
-            this._stb_speed.Size = new System.Drawing.Size(110, 21);
-            this._stb_speed.SpeedMS = 0;
-            this._stb_speed.TabIndex = 9;
-            // 
             // GcsMainPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -328,9 +361,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -360,5 +393,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TabPage tabPage3;
         private Graph.GraphControl _graphControl;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox _tb_battvoltage;
     }
 }

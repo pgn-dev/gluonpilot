@@ -235,6 +235,8 @@ void communication_telemetry_task( void *parameters )
 			uart1_puts("TC;");
 			printf("%d;", (int)control_state.flight_mode);
 			printf("%d;%d", navigation_data.current_codeline, (int)(sensor_data.pressure_height - navigation_data.home_pressure_height));
+			unsigned int x = adc_get_channel(8);
+			printf(";%u", (unsigned int)((float)x * (3.3 * 5.1 / 6550.0)));
 			uart1_puts("\r\n");
 			counters.stream_Control = 0;
 		}
