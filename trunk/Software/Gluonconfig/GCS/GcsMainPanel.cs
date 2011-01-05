@@ -102,6 +102,8 @@ namespace GCS
 
             _dtb_altitude.DistanceM = ci.HeightAboveStartGround;
             _tb_navigationline.Text = ci.CurrentNavigationLine.ToString();
+
+            _tb_battvoltage.Text = ci.BattVoltage.ToString();
         }
 
 

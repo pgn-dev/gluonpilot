@@ -19,6 +19,16 @@ void initDma0(void);
 
 void adc_open()
 {
+	TRISBbits.TRISB0 = 1; // input
+	TRISBbits.TRISB1 = 1; // input
+	TRISBbits.TRISB2 = 1; // input
+	TRISBbits.TRISB3 = 1; // input
+	TRISBbits.TRISB4 = 1; // input
+	TRISBbits.TRISB5 = 1; // input
+	TRISBbits.TRISB6 = 1; // input
+	TRISBbits.TRISB7 = 1; // input
+	TRISBbits.TRISB8 = 1; // input
+	
 	AD1CON1bits.FORM   = 0b10;	// Data Output Format: Fractional
 	AD1CON1bits.SSRC   = 0b111;	// Sample Clock Source: internal timer (auto-convert)
 	AD1CON1bits.ASAM   = 1;		// ADC Sample Control: Sampling begins immediately after conversion
@@ -166,7 +176,4 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void)
 unsigned int adc_get_channel(int i)
 {
 	return ProcessADCSamples(&BufferA[i][0]) / 2 + ProcessADCSamples(&BufferB[i][0]) / 2; 
-
-	//return (BufferB[i][0]/2 + BufferA[i][0]/2);
-	//return BufferA[i][1];
 }

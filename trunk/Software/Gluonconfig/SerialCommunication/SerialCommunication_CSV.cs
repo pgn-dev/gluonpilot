@@ -352,6 +352,8 @@ namespace Communication
                         ci.FlightMode = (ControlInfo.FlightModes)int.Parse(lines[1]);
                         ci.CurrentNavigationLine = int.Parse(lines[2]);
                         ci.HeightAboveStartGround = int.Parse(lines[3]);
+                        if (lines.Length == 5)
+                            ci.BattVoltage = double.Parse(lines[4]) / 10.0;
 
                         if (ControlInfoCommunicationReceived != null)
                             ControlInfoCommunicationReceived(ci);

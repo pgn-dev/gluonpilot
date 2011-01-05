@@ -14,5 +14,6 @@ namespace Communication.Frames.Incoming
         public FlightModes FlightMode;
         public double HeightAboveStartGround;
         public int CurrentNavigationLine;
+        public double BattVoltage;
     }
 }
