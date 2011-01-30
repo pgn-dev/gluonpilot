@@ -18,6 +18,8 @@ namespace Configuration.NavigationCommands
         public IfSm(NavigationInstruction ni)
         {
             InitializeComponent();
+            foreach (string s in Common.Variables)
+                _cb_variables.Items.Add(s);
             SetNavigationInstruction(ni);
         }
 

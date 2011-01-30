@@ -32,11 +32,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GluonConfig));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this._tc_main = new System.Windows.Forms.TabControl();
             this.config = new System.Windows.Forms.TabPage();
+            this.configurationControl = new Configuration.ConfigurationControl();
             this.Navigation = new System.Windows.Forms.TabPage();
+            this.navigationListView1 = new Configuration.NavigationListView();
             this.datalog = new System.Windows.Forms.TabPage();
+            this.datalogging = new Configuration.Datalogging();
             this.gcs = new System.Windows.Forms.TabPage();
+            this._gcsMainPanel = new GCS.GcsMainPanel();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -55,17 +59,13 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this._btn_firmware_upgrade = new System.Windows.Forms.ToolStripButton();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.configurationControl = new Configuration.ConfigurationControl();
-            this.navigationListView1 = new Configuration.NavigationListView();
-            this.datalogging = new Configuration.Datalogging();
-            this._gcsMainPanel = new GCS.GcsMainPanel();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this._tc_main.SuspendLayout();
             this.config.SuspendLayout();
             this.Navigation.SuspendLayout();
             this.datalog.SuspendLayout();
@@ -103,7 +103,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.tabControl1);
+            this.splitContainer1.Panel1.Controls.Add(this._tc_main);
             this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             // 
             // splitContainer1.Panel2
@@ -117,23 +117,23 @@
             this.splitContainer1.TabIndex = 1;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
-            // tabControl1
+            // _tc_main
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this._tc_main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.config);
-            this.tabControl1.Controls.Add(this.Navigation);
-            this.tabControl1.Controls.Add(this.datalog);
-            this.tabControl1.Controls.Add(this.gcs);
-            this.tabControl1.ImageList = this.imageList;
-            this.tabControl1.ItemSize = new System.Drawing.Size(100, 25);
-            this.tabControl1.Location = new System.Drawing.Point(12, 8);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(621, 382);
-            this.tabControl1.TabIndex = 0;
+            this._tc_main.Controls.Add(this.config);
+            this._tc_main.Controls.Add(this.Navigation);
+            this._tc_main.Controls.Add(this.datalog);
+            this._tc_main.Controls.Add(this.gcs);
+            this._tc_main.ImageList = this.imageList;
+            this._tc_main.ItemSize = new System.Drawing.Size(100, 25);
+            this._tc_main.Location = new System.Drawing.Point(12, 8);
+            this._tc_main.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this._tc_main.Name = "_tc_main";
+            this._tc_main.SelectedIndex = 0;
+            this._tc_main.Size = new System.Drawing.Size(621, 382);
+            this._tc_main.TabIndex = 0;
             // 
             // config
             // 
@@ -147,6 +147,14 @@
             this.config.Text = "Configuration";
             this.config.UseVisualStyleBackColor = true;
             // 
+            // configurationControl
+            // 
+            this.configurationControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.configurationControl.Location = new System.Drawing.Point(3, 3);
+            this.configurationControl.Name = "configurationControl";
+            this.configurationControl.Size = new System.Drawing.Size(607, 343);
+            this.configurationControl.TabIndex = 0;
+            // 
             // Navigation
             // 
             this.Navigation.Controls.Add(this.navigationListView1);
@@ -158,6 +166,14 @@
             this.Navigation.TabIndex = 1;
             this.Navigation.Text = "Navigation";
             this.Navigation.UseVisualStyleBackColor = true;
+            // 
+            // navigationListView1
+            // 
+            this.navigationListView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.navigationListView1.Location = new System.Drawing.Point(3, 3);
+            this.navigationListView1.Name = "navigationListView1";
+            this.navigationListView1.Size = new System.Drawing.Size(607, 343);
+            this.navigationListView1.TabIndex = 0;
             // 
             // datalog
             // 
@@ -171,6 +187,15 @@
             this.datalog.Text = "Datalogging";
             this.datalog.UseVisualStyleBackColor = true;
             // 
+            // datalogging
+            // 
+            this.datalogging.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.datalogging.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.datalogging.Location = new System.Drawing.Point(3, 3);
+            this.datalogging.Name = "datalogging";
+            this.datalogging.Size = new System.Drawing.Size(607, 343);
+            this.datalogging.TabIndex = 0;
+            // 
             // gcs
             // 
             this.gcs.Controls.Add(this._gcsMainPanel);
@@ -181,6 +206,16 @@
             this.gcs.TabIndex = 3;
             this.gcs.Text = "Dashboard";
             this.gcs.UseVisualStyleBackColor = true;
+            // 
+            // _gcsMainPanel
+            // 
+            this._gcsMainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._gcsMainPanel.Location = new System.Drawing.Point(3, 3);
+            this._gcsMainPanel.Name = "_gcsMainPanel";
+            this._gcsMainPanel.Size = new System.Drawing.Size(607, 343);
+            this._gcsMainPanel.TabIndex = 2;
             // 
             // imageList
             // 
@@ -346,41 +381,6 @@
             this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // configurationControl
-            // 
-            this.configurationControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.configurationControl.Location = new System.Drawing.Point(3, 3);
-            this.configurationControl.Name = "configurationControl";
-            this.configurationControl.Size = new System.Drawing.Size(607, 343);
-            this.configurationControl.TabIndex = 0;
-            // 
-            // navigationListView1
-            // 
-            this.navigationListView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigationListView1.Location = new System.Drawing.Point(3, 3);
-            this.navigationListView1.Name = "navigationListView1";
-            this.navigationListView1.Size = new System.Drawing.Size(607, 343);
-            this.navigationListView1.TabIndex = 0;
-            // 
-            // datalogging
-            // 
-            this.datalogging.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.datalogging.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.datalogging.Location = new System.Drawing.Point(3, 3);
-            this.datalogging.Name = "datalogging";
-            this.datalogging.Size = new System.Drawing.Size(607, 343);
-            this.datalogging.TabIndex = 0;
-            // 
-            // _gcsMainPanel
-            // 
-            this._gcsMainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this._gcsMainPanel.Location = new System.Drawing.Point(3, 3);
-            this._gcsMainPanel.Name = "_gcsMainPanel";
-            this._gcsMainPanel.Size = new System.Drawing.Size(607, 343);
-            this._gcsMainPanel.TabIndex = 2;
-            // 
             // GluonConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -388,7 +388,7 @@
             this.ClientSize = new System.Drawing.Size(645, 518);
             this.Controls.Add(this.toolStripContainer1);
             this.Name = "GluonConfig";
-            this.Text = "GluonConfig v0.5";
+            this.Text = "GluonConfig v0.5.2";
             this.Resize += new System.EventHandler(this.GluonConfig_Resize);
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
@@ -399,7 +399,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
+            this._tc_main.ResumeLayout(false);
             this.config.ResumeLayout(false);
             this.Navigation.ResumeLayout(false);
             this.datalog.ResumeLayout(false);
@@ -417,7 +417,7 @@
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton _btn_connect;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl _tc_main;
         private System.Windows.Forms.TabPage config;
         private System.Windows.Forms.TabPage Navigation;
         private System.Windows.Forms.TabPage datalog;

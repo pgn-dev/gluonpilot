@@ -24,6 +24,7 @@ namespace Communication
     {
         private SmartThreadPool _smartThreadPool = new SmartThreadPool();
         private int bytes_read = 0;
+        private double download_speed_kb_s;
         private DateTime last_throughput_calculation;
 
         // General: all lines received will be broadcasted by this event
@@ -67,12 +68,14 @@ namespace Communication
                 s = bytes_read;
                 bytes_read = 0;
             }
-            if (DateTime.Now == last_throughput_calculation)
-                return 0;
 
-            s /= (double)(DateTime.Now - last_throughput_calculation).Seconds;
+            if ((double)(DateTime.Now - last_throughput_calculation).Seconds > 1e-6)
+            {
+                s /= (double)(DateTime.Now - last_throughput_calculation).Seconds;
+                download_speed_kb_s = s;
+            } 
             last_throughput_calculation = DateTime.Now;
-            return s;
+            return download_speed_kb_s;
         }
 
 
@@ -543,6 +546,19 @@ namespace Communication
         public override void ReadAllConfig()
         {
             _serialPort.WriteLine("\nRC;A\n");
+        }
+
+        public override void SendWriteTelemetry(int basicgps, int gyroaccraw, int gyroaccproc, int ppm, int pressuretemp, int attitude, int control)
+        {
+            _serialPort.WriteLine("\nST;" +
+                basicgps + ";" +
+                gyroaccraw + ";" +
+                gyroaccproc + ";" +
+                ppm + ";" +
+                pressuretemp + ";" +
+                attitude + ";" +
+                control + "\n");
+            Thread.Sleep(200);
         }
 
         public override void SendFlashConfiguration()

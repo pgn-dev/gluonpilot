@@ -31,7 +31,7 @@ extern unsigned int ppm_in_us_to_raw(unsigned int us);
 void pwm_in_wait_for()
 {
 	int i;
-	for (i = 0; i < 20; i++)
+	for (i = 0; i < 40; i++) // 25ms * 40 = 1 second, which is how long it can take for a 2.4GHz receiver to come online
 	{
 		uart1_putc('.');
 		if (! (ppm.channel[4] > 900 && ppm.channel[4] < 2100)) // valid signal
@@ -56,6 +56,14 @@ void pwm_in_open()
 	TRISD |= 0b1111100000000;   // IC4 = RD11 = in
 
 	// Interrupt capture:
+	_IC6IF = 0;             // Clear interrupt flag
+	_IC6IE = 1;             // Enable interrupts
+	IC6CON = 1;             // start module
+	IC6CONbits.ICTMR = 0;   // TMR3
+	//IC6CONbits.ICI = 0b11;  // Interrupt on every 4th capture event
+	IC6CONbits.ICM = 0b001; // Capture every edge 
+	_IC6IP = 5;
+
 	_IC5IF = 0;             // Clear interrupt flag
 	_IC5IE = 1;             // Enable interrupts
 	IC5CON = 1;             // start module
@@ -101,17 +109,29 @@ void pwm_in_open()
 }
 
 
+unsigned int pwm_in_raw_to_us(unsigned int raw)
+{
+	//raw <<= 2;    // * 4, to prevent losing bits while /8 
+	// scale from 625 to 1000
+	raw *= 8;
+	raw /= 5;
+	//raw >>= 2; 
+	
+	return raw;
+}
+
+
 // shadow: fast context save DONT USE IT HERE!!!
 // no_auto_psv: code does not access string literals or const vars
-void __attribute__((__interrupt__)) _IC4Interrupt(void)
+void __attribute__((__interrupt__)) _IC6Interrupt(void)
 {
 	static volatile unsigned int raw_in, 
 	                    last_raw_in = 0,
 	                    in;
 	
-	_IC4IF = 0;		
-	raw_in = IC4BUF;
-	if (PORTDbits.RD11 == 0)
+	_IC6IF = 0;		
+	raw_in = IC6BUF;
+	if (PORTDbits.RD12 == 0)
 	{	
 		if (last_raw_in < raw_in)
 			in = raw_in - last_raw_in;
@@ -120,7 +140,7 @@ void __attribute__((__interrupt__)) _IC4Interrupt(void)
 		
 		if (in < servo_pulse_max && in > servo_pulse_min)// && !invalid_pulse)
 		{
-			ppm.channel[0] = ppm_in_raw_to_us(in);
+			ppm.channel[5] = pwm_in_raw_to_us(in);
 			ppm.valid_frame = 1;
 		}
 		else
@@ -131,6 +151,7 @@ void __attribute__((__interrupt__)) _IC4Interrupt(void)
 	else
 		last_raw_in = raw_in;
 }
+
 
 void __attribute__((__interrupt__)) _IC5Interrupt(void)
 {
@@ -149,7 +170,7 @@ void __attribute__((__interrupt__)) _IC5Interrupt(void)
 		
 		if (in < servo_pulse_max && in > servo_pulse_min)// && !invalid_pulse)
 		{
-			ppm.channel[4] = ppm_in_raw_to_us(in);
+			ppm.channel[4] = pwm_in_raw_to_us(in);
 			ppm.valid_frame = 1;
 		}
 		else
@@ -160,6 +181,37 @@ void __attribute__((__interrupt__)) _IC5Interrupt(void)
 	else
 		last_raw_in = raw_in;
 }
+
+
+void __attribute__((__interrupt__)) _IC4Interrupt(void)
+{
+	static volatile unsigned int raw_in, 
+	                    last_raw_in = 0,
+	                    in;
+	
+	_IC4IF = 0;		
+	raw_in = IC4BUF;
+	if (PORTDbits.RD11 == 0)
+	{	
+		if (last_raw_in < raw_in)
+			in = raw_in - last_raw_in;
+		else
+			in = 0xFFFF - last_raw_in + raw_in;  // 16 bit counter
+		
+		if (in < servo_pulse_max && in > servo_pulse_min)// && !invalid_pulse)
+		{
+			ppm.channel[0] = pwm_in_raw_to_us(in);
+			ppm.valid_frame = 1;
+		}
+		else
+		{
+			ppm.valid_frame = 0;
+		}
+	}
+	else
+		last_raw_in = raw_in;
+}
+
 
 void __attribute__((__interrupt__)) _IC3Interrupt(void)
 {
@@ -178,7 +230,7 @@ void __attribute__((__interrupt__)) _IC3Interrupt(void)
 		
 		if (in < servo_pulse_max && in > servo_pulse_min)// && !invalid_pulse)
 		{
-			ppm.channel[3] = ppm_in_raw_to_us(in);
+			ppm.channel[3] = pwm_in_raw_to_us(in);
 			ppm.valid_frame = 1;
 		}
 		else
@@ -208,7 +260,7 @@ void __attribute__((__interrupt__)) _IC2Interrupt(void)
 		
 		if (in < servo_pulse_max && in > servo_pulse_min)// && !invalid_pulse)
 		{
-			ppm.channel[2] = ppm_in_raw_to_us(in);
+			ppm.channel[2] = pwm_in_raw_to_us(in);
 			ppm.valid_frame = 1;
 		}
 		else
@@ -239,7 +291,7 @@ void __attribute__((__interrupt__)) _IC1Interrupt(void)
 		
 		if (in < servo_pulse_max && in > servo_pulse_min)// && !invalid_pulse)
 		{
-			ppm.channel[1] = ppm_in_raw_to_us(in);
+			ppm.channel[1] = pwm_in_raw_to_us(in);
 			ppm.valid_frame = 1;
 		}
 		else

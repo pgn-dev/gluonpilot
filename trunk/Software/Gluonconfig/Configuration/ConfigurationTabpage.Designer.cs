@@ -31,6 +31,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigurationTabpage));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this._tpTelemetry = new System.Windows.Forms.TabPage();
+            this._btn_telemetry_inflight = new System.Windows.Forms.Button();
+            this._btn_telemetry_configuration = new System.Windows.Forms.Button();
+            this._lbl_control_hz = new System.Windows.Forms.Label();
+            this._lbl_rc_hz = new System.Windows.Forms.Label();
+            this._lbl_imuprocessed_hz = new System.Windows.Forms.Label();
+            this._lbl_imu_raw_hz = new System.Windows.Forms.Label();
+            this._lbl_pressure_hz = new System.Windows.Forms.Label();
+            this._lbl_basicgps_hz = new System.Windows.Forms.Label();
+            this._lbl_attitude_hz = new System.Windows.Forms.Label();
+            this._nud_control_telemetry = new System.Windows.Forms.NumericUpDown();
+            this.label87 = new System.Windows.Forms.Label();
             this._nud_attitude_telemetry = new System.Windows.Forms.NumericUpDown();
             this.label84 = new System.Windows.Forms.Label();
             this._nud_gyroaccproc_telemetry = new System.Windows.Forms.NumericUpDown();
@@ -256,8 +267,7 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this._pid_roll2aileron = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label87 = new System.Windows.Forms.Label();
-            this._nud_control_telemetry = new System.Windows.Forms.NumericUpDown();
+            this.label88 = new System.Windows.Forms.Label();
             this._tbGyroZNeutral = new Configuration.NumericTextBox();
             this._tbGyroYNeutral = new Configuration.NumericTextBox();
             this._tbGyroXNeutral = new Configuration.NumericTextBox();
@@ -281,6 +291,7 @@
             this._pid_pitch_to_elevator = new Configuration.PidControl();
             this.tabControl1.SuspendLayout();
             this._tpTelemetry.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._nud_control_telemetry)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_attitude_telemetry)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gyroaccproc_telemetry)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gpsbasic_telemetry)).BeginInit();
@@ -310,7 +321,6 @@
             this.groupBox5.SuspendLayout();
             this._pid_roll2aileron.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._nud_control_telemetry)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -333,6 +343,15 @@
             // 
             // _tpTelemetry
             // 
+            this._tpTelemetry.Controls.Add(this._btn_telemetry_inflight);
+            this._tpTelemetry.Controls.Add(this._btn_telemetry_configuration);
+            this._tpTelemetry.Controls.Add(this._lbl_control_hz);
+            this._tpTelemetry.Controls.Add(this._lbl_rc_hz);
+            this._tpTelemetry.Controls.Add(this._lbl_imuprocessed_hz);
+            this._tpTelemetry.Controls.Add(this._lbl_imu_raw_hz);
+            this._tpTelemetry.Controls.Add(this._lbl_pressure_hz);
+            this._tpTelemetry.Controls.Add(this._lbl_basicgps_hz);
+            this._tpTelemetry.Controls.Add(this._lbl_attitude_hz);
             this._tpTelemetry.Controls.Add(this._nud_control_telemetry);
             this._tpTelemetry.Controls.Add(this.label87);
             this._tpTelemetry.Controls.Add(this._nud_attitude_telemetry);
@@ -356,9 +375,105 @@
             this._tpTelemetry.Text = "Telemetry";
             this._tpTelemetry.UseVisualStyleBackColor = true;
             // 
+            // _btn_telemetry_inflight
+            // 
+            this._btn_telemetry_inflight.Location = new System.Drawing.Point(396, 8);
+            this._btn_telemetry_inflight.Name = "_btn_telemetry_inflight";
+            this._btn_telemetry_inflight.Size = new System.Drawing.Size(149, 37);
+            this._btn_telemetry_inflight.TabIndex = 24;
+            this._btn_telemetry_inflight.Text = "Set for in-flight\r\n(wireless XBee connection)\r\n";
+            this._btn_telemetry_inflight.UseVisualStyleBackColor = true;
+            this._btn_telemetry_inflight.Click += new System.EventHandler(this._btn_telemetry_inflight_Click);
+            // 
+            // _btn_telemetry_configuration
+            // 
+            this._btn_telemetry_configuration.Location = new System.Drawing.Point(255, 8);
+            this._btn_telemetry_configuration.Name = "_btn_telemetry_configuration";
+            this._btn_telemetry_configuration.Size = new System.Drawing.Size(135, 37);
+            this._btn_telemetry_configuration.TabIndex = 23;
+            this._btn_telemetry_configuration.Text = "Set for configuration\r\n(serial FTDI connection)\r\n";
+            this._btn_telemetry_configuration.UseVisualStyleBackColor = true;
+            this._btn_telemetry_configuration.Click += new System.EventHandler(this._btn_telemetry_configuration_Click);
+            // 
+            // _lbl_control_hz
+            // 
+            this._lbl_control_hz.AutoSize = true;
+            this._lbl_control_hz.Location = new System.Drawing.Point(239, 214);
+            this._lbl_control_hz.Name = "_lbl_control_hz";
+            this._lbl_control_hz.Size = new System.Drawing.Size(0, 13);
+            this._lbl_control_hz.TabIndex = 22;
+            // 
+            // _lbl_rc_hz
+            // 
+            this._lbl_rc_hz.AutoSize = true;
+            this._lbl_rc_hz.Location = new System.Drawing.Point(239, 187);
+            this._lbl_rc_hz.Name = "_lbl_rc_hz";
+            this._lbl_rc_hz.Size = new System.Drawing.Size(10, 13);
+            this._lbl_rc_hz.TabIndex = 21;
+            this._lbl_rc_hz.Text = " ";
+            // 
+            // _lbl_imuprocessed_hz
+            // 
+            this._lbl_imuprocessed_hz.AutoSize = true;
+            this._lbl_imuprocessed_hz.Location = new System.Drawing.Point(239, 161);
+            this._lbl_imuprocessed_hz.Name = "_lbl_imuprocessed_hz";
+            this._lbl_imuprocessed_hz.Size = new System.Drawing.Size(10, 13);
+            this._lbl_imuprocessed_hz.TabIndex = 20;
+            this._lbl_imuprocessed_hz.Text = " ";
+            // 
+            // _lbl_imu_raw_hz
+            // 
+            this._lbl_imu_raw_hz.AutoSize = true;
+            this._lbl_imu_raw_hz.Location = new System.Drawing.Point(239, 135);
+            this._lbl_imu_raw_hz.Name = "_lbl_imu_raw_hz";
+            this._lbl_imu_raw_hz.Size = new System.Drawing.Size(10, 13);
+            this._lbl_imu_raw_hz.TabIndex = 19;
+            this._lbl_imu_raw_hz.Text = " ";
+            // 
+            // _lbl_pressure_hz
+            // 
+            this._lbl_pressure_hz.AutoSize = true;
+            this._lbl_pressure_hz.Location = new System.Drawing.Point(239, 109);
+            this._lbl_pressure_hz.Name = "_lbl_pressure_hz";
+            this._lbl_pressure_hz.Size = new System.Drawing.Size(0, 13);
+            this._lbl_pressure_hz.TabIndex = 18;
+            // 
+            // _lbl_basicgps_hz
+            // 
+            this._lbl_basicgps_hz.AutoSize = true;
+            this._lbl_basicgps_hz.Location = new System.Drawing.Point(239, 83);
+            this._lbl_basicgps_hz.Name = "_lbl_basicgps_hz";
+            this._lbl_basicgps_hz.Size = new System.Drawing.Size(0, 13);
+            this._lbl_basicgps_hz.TabIndex = 17;
+            // 
+            // _lbl_attitude_hz
+            // 
+            this._lbl_attitude_hz.AutoSize = true;
+            this._lbl_attitude_hz.Location = new System.Drawing.Point(239, 57);
+            this._lbl_attitude_hz.Name = "_lbl_attitude_hz";
+            this._lbl_attitude_hz.Size = new System.Drawing.Size(0, 13);
+            this._lbl_attitude_hz.TabIndex = 16;
+            // 
+            // _nud_control_telemetry
+            // 
+            this._nud_control_telemetry.Location = new System.Drawing.Point(174, 212);
+            this._nud_control_telemetry.Name = "_nud_control_telemetry";
+            this._nud_control_telemetry.Size = new System.Drawing.Size(59, 20);
+            this._nud_control_telemetry.TabIndex = 15;
+            this._nud_control_telemetry.ValueChanged += new System.EventHandler(this._nud_control_telemetry_ValueChanged);
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Location = new System.Drawing.Point(17, 214);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(94, 13);
+            this.label87.TabIndex = 14;
+            this.label87.Text = "Control information";
+            // 
             // _nud_attitude_telemetry
             // 
-            this._nud_attitude_telemetry.Location = new System.Drawing.Point(212, 55);
+            this._nud_attitude_telemetry.Location = new System.Drawing.Point(174, 55);
             this._nud_attitude_telemetry.Name = "_nud_attitude_telemetry";
             this._nud_attitude_telemetry.Size = new System.Drawing.Size(59, 20);
             this._nud_attitude_telemetry.TabIndex = 13;
@@ -375,7 +490,7 @@
             // 
             // _nud_gyroaccproc_telemetry
             // 
-            this._nud_gyroaccproc_telemetry.Location = new System.Drawing.Point(212, 159);
+            this._nud_gyroaccproc_telemetry.Location = new System.Drawing.Point(174, 159);
             this._nud_gyroaccproc_telemetry.Maximum = new decimal(new int[] {
             255,
             0,
@@ -391,9 +506,9 @@
             this.label59.AutoSize = true;
             this.label59.Location = new System.Drawing.Point(17, 161);
             this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(189, 13);
+            this.label59.Size = new System.Drawing.Size(151, 13);
             this.label59.TabIndex = 10;
-            this.label59.Text = "Gyroscope && accelerometer processed";
+            this.label59.Text = "IMU processed sensors output";
             // 
             // linkLabel2
             // 
@@ -408,17 +523,16 @@
             // 
             // label49
             // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(6, 12);
+            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.Location = new System.Drawing.Point(17, 12);
             this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(288, 26);
+            this.label49.Size = new System.Drawing.Size(232, 26);
             this.label49.TabIndex = 8;
-            this.label49.Text = "Use 0 to disable telemetry. \r\nAny other value x will be interpreted as every x/20" +
-                " seconds.";
+            this.label49.Text = "Output telemetry every \"x/20\" seconds.\r\nSet to \"0\" to disable.";
             // 
             // _nud_gpsbasic_telemetry
             // 
-            this._nud_gpsbasic_telemetry.Location = new System.Drawing.Point(212, 81);
+            this._nud_gpsbasic_telemetry.Location = new System.Drawing.Point(174, 81);
             this._nud_gpsbasic_telemetry.Maximum = new decimal(new int[] {
             255,
             0,
@@ -431,7 +545,7 @@
             // 
             // _nud_pressuretemp_telemetry
             // 
-            this._nud_pressuretemp_telemetry.Location = new System.Drawing.Point(212, 107);
+            this._nud_pressuretemp_telemetry.Location = new System.Drawing.Point(174, 107);
             this._nud_pressuretemp_telemetry.Maximum = new decimal(new int[] {
             255,
             0,
@@ -444,7 +558,7 @@
             // 
             // _nud_ppm_telemetry
             // 
-            this._nud_ppm_telemetry.Location = new System.Drawing.Point(212, 185);
+            this._nud_ppm_telemetry.Location = new System.Drawing.Point(174, 185);
             this._nud_ppm_telemetry.Maximum = new decimal(new int[] {
             255,
             0,
@@ -457,7 +571,7 @@
             // 
             // _nud_gyroaccraw_telemetry
             // 
-            this._nud_gyroaccraw_telemetry.Location = new System.Drawing.Point(212, 133);
+            this._nud_gyroaccraw_telemetry.Location = new System.Drawing.Point(174, 133);
             this._nud_gyroaccraw_telemetry.Maximum = new decimal(new int[] {
             255,
             0,
@@ -500,9 +614,9 @@
             this.label45.AutoSize = true;
             this.label45.Location = new System.Drawing.Point(17, 135);
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(170, 13);
+            this.label45.Size = new System.Drawing.Size(119, 13);
             this.label45.TabIndex = 0;
-            this.label45.Text = "Gyroscope && accelerometer output";
+            this.label45.Text = "IMU raw sensors output";
             // 
             // _tpSensors
             // 
@@ -1232,6 +1346,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label88);
             this.groupBox3.Controls.Add(this.label77);
             this.groupBox3.Controls.Add(this.label76);
             this.groupBox3.Controls.Add(this.label24);
@@ -2728,22 +2843,14 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Pitch error -> Elevator";
             // 
-            // label87
+            // label88
             // 
-            this.label87.AutoSize = true;
-            this.label87.Location = new System.Drawing.Point(17, 214);
-            this.label87.Name = "label87";
-            this.label87.Size = new System.Drawing.Size(94, 13);
-            this.label87.TabIndex = 14;
-            this.label87.Text = "Control information";
-            // 
-            // _nud_control_telemetry
-            // 
-            this._nud_control_telemetry.Location = new System.Drawing.Point(212, 212);
-            this._nud_control_telemetry.Name = "_nud_control_telemetry";
-            this._nud_control_telemetry.Size = new System.Drawing.Size(59, 20);
-            this._nud_control_telemetry.TabIndex = 15;
-            this._nud_control_telemetry.ValueChanged += new System.EventHandler(this._nud_control_telemetry_ValueChanged);
+            this.label88.AutoSize = true;
+            this.label88.Location = new System.Drawing.Point(412, 183);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(46, 13);
+            this.label88.TabIndex = 37;
+            this.label88.Text = "Optional";
             // 
             // _tbGyroZNeutral
             // 
@@ -3081,6 +3188,7 @@
             this.tabControl1.ResumeLayout(false);
             this._tpTelemetry.ResumeLayout(false);
             this._tpTelemetry.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._nud_control_telemetry)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_attitude_telemetry)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gyroaccproc_telemetry)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gpsbasic_telemetry)).EndInit();
@@ -3124,7 +3232,6 @@
             this.groupBox5.ResumeLayout(false);
             this._pid_roll2aileron.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this._nud_control_telemetry)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3381,5 +3488,15 @@
         private System.Windows.Forms.Button _btn_cube;
         private System.Windows.Forms.NumericUpDown _nud_control_telemetry;
         private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.Label _lbl_attitude_hz;
+        private System.Windows.Forms.Label _lbl_basicgps_hz;
+        private System.Windows.Forms.Label _lbl_pressure_hz;
+        private System.Windows.Forms.Label _lbl_imu_raw_hz;
+        private System.Windows.Forms.Label _lbl_rc_hz;
+        private System.Windows.Forms.Label _lbl_imuprocessed_hz;
+        private System.Windows.Forms.Label _lbl_control_hz;
+        private System.Windows.Forms.Button _btn_telemetry_configuration;
+        private System.Windows.Forms.Button _btn_telemetry_inflight;
+        private System.Windows.Forms.Label label88;
     }
 }

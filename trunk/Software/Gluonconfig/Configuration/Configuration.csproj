@@ -111,6 +111,7 @@
     <Compile Include="NavigationCommands\Climb.Designer.cs">
       <DependentUpon>Climb.cs</DependentUpon>
     </Compile>
+    <Compile Include="NavigationCommands\Common.cs" />
     <Compile Include="NavigationCommands\IfSm.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -65,8 +65,6 @@ void control_init()
 {
 	int i;
 	
-	//ppm_in_open(); MOVED TO MAIN
-	
 	// Manual trim mode: the servo's neutral settings are defined by the RC-transmitters trim settings. See wiki.
 	if (1/*config.control.manual_trim*/)
 	{	
@@ -76,7 +74,7 @@ void control_init()
 			config.control.servo_max[i] = 2000;
 			config.control.servo_min[i] = 1000;
 		}	
-			
+		
 		// The current position of the sticks on the RC-transmitter are 
 		// saved as the neutral values
 		for (i = 0; i < 8; i++)

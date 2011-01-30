@@ -19,6 +19,7 @@ struct SensorData
 	double temperature;
 	double pressure_height;
 	int temperature_10;
+	unsigned int battery_voltage_10;
 	
 	struct gps_info gps;
 };

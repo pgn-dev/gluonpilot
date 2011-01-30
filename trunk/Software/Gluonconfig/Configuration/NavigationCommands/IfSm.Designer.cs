@@ -53,27 +53,10 @@
             // _cb_variables
             // 
             this._cb_variables.FormattingEnabled = true;
-            this._cb_variables.Items.AddRange(new object[] {
-            "Height [m]",
-            "Speed [m/s]",
-            "Heading [deg]",
-            "Unsupported (Flight time [sec])",
-            "Satellites in view",
-            "Home distance [m]",
-            "PPM alive [1 or 0]",
-            "Channel 1 [us]",
-            "Channel 2 [us]",
-            "Channel 3 [us]",
-            "Channel 4 [us]",
-            "Channel 5 [us]",
-            "Channel 6 [us]",
-            "Channel 7 [us]",
-            "Channel 8 [us]"});
             this._cb_variables.Location = new System.Drawing.Point(0, 0);
             this._cb_variables.Name = "_cb_variables";
             this._cb_variables.Size = new System.Drawing.Size(121, 21);
             this._cb_variables.TabIndex = 5;
-            this._cb_variables.Text = "Height [m]";
             // 
             // comboBox1
             // 
@@ -93,7 +76,7 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "<";
             // 
-            // UntilSm
+            // IfSm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -101,7 +84,7 @@
             this.Controls.Add(this._cb_variables);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
-            this.Name = "UntilSm";
+            this.Name = "IfSm";
             this.Size = new System.Drawing.Size(150, 49);
             this.ResumeLayout(false);
             this.PerformLayout();

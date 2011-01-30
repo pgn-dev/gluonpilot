@@ -226,8 +226,11 @@ namespace Configuration
         {
             if (_lv_navigation.SelectedItems.Count > 0)
             {
-                _cb_opcode.SelectedIndex = (int)((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag).opcode;
-                _cb_opcode_SelectedIndexChanged(null, null); // in case it is the same as current selected index
+                if ((int)((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag).opcode <= _cb_opcode.Items.Count)
+                {
+                    _cb_opcode.SelectedIndex = (int)((NavigationInstruction)_lv_navigation.SelectedItems[0].Tag).opcode;
+                    _cb_opcode_SelectedIndexChanged(null, null); // in case it is the same as current selected index
+                }
             }
         }
 

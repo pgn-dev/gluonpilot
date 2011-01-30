@@ -165,7 +165,8 @@ namespace Communication.Frames.Incoming
                 return "Channel 7";
             else if (a == 15)
                 return "Channel 8";
-
+            else if (a == 16)
+                return "Battery voltage (V)";
             else
                 return "?";
         }

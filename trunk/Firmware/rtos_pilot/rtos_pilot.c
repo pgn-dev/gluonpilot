@@ -40,7 +40,7 @@
 extern xSemaphoreHandle xGpsSemaphore;
 extern xSemaphoreHandle xSpiSemaphore;
 
-static char version[] = "0.5.1";
+static char version[] = "0.5.2";
 
 int main()
 {
@@ -53,8 +53,7 @@ int main()
 	uart1_puts("Limited version");
 #endif
 	
-	printf(" [%s %s, config: %dB, logline: %dB, navigation: %dB, double: %dB]\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(navigation_data.navigation_codes), sizeof(double));
-	uart1_puts("\r\n");
+	printf(" [%s %s, config: %dB, logline: %dB, navigation: %dB, double: %dB]\r\n\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(navigation_data.navigation_codes), sizeof(double));
 	
 	microcontroller_reset_type();  // printf out reason of reset; for debugging
 	led_init();
