@@ -24,6 +24,7 @@ namespace Gluonpilot
             InitializeComponent();
             logging_height = splitContainer1.Panel2.Height;
             timer.Start();
+            _tc_main.SelectedTab = _tc_main.TabPages["gcs"];
         }
 
 
@@ -133,6 +134,9 @@ namespace Gluonpilot
         private void _btn_firmware_upgrade_Click(object sender, EventArgs e)
         {
             bool connected = _btn_connect.Checked;
+
+            if (MessageBox.Show(this, "Upgrading the firmware may enable features\r\nwhich are not legal in your country.\r\nYou are fully responsibel for your flights.\r\nAre you sure you wish to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
+                return;
 
             if (_serial == null)   // Ask COM port & baudrate if not known yet
             {

@@ -17,6 +17,8 @@ namespace Configuration.NavigationCommands
         public IfEq(NavigationInstruction ni)
         {
             InitializeComponent();
+            foreach (string s in Common.Variables)
+                _cb_variables.Items.Add(s);
             SetNavigationInstruction(ni);
         }
 

@@ -67,6 +67,7 @@ void sensors_task( void *parameters )
 	unsigned int temperature_10 = 200;
 	float last_height = 0.0;
 	double dt_since_last_height = 0.0;
+	int low_update_counter = 0;
 
 		
 	/* Used to wake the task at the correct frequency. */
@@ -95,9 +96,11 @@ void sensors_task( void *parameters )
 #ifdef ENABLE_QUADROCOPTER
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 4 / portTICK_RATE_MS ) );   // 250Hz
 		dt_since_last_height += 0.004;
+		low_update_counter += 1;
 #else
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 20 / portTICK_RATE_MS ) );   // 50Hz
 		dt_since_last_height += 0.02;
+		low_update_counter += 5;
 #endif
 		if (scp1000_dataready())   // New reading from the pressure sensor -> calculate vertical speed
 		{
@@ -127,6 +130,11 @@ void sensors_task( void *parameters )
 		adc_start();  // restart ADC sampling to make sure we have our samples on the next loop iteration.
 
 		scale_raw_sensor_data();
+		
+		if (low_update_counter % 250 == 0)
+		{
+			sensor_data.battery_voltage_10 = ((float)adc_get_channel(8) * (3.3 * 5.1 / 6550.0));
+		}	
 		
 
 		// x = (Pitch; Roll)'

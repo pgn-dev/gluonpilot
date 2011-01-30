@@ -36,7 +36,8 @@ enum navigation_variable {
 	CHANNEL_5 = 12,
 	CHANNEL_6 = 13,
 	CHANNEL_7 = 14,
-	CHANNEL_8 = 15
+	CHANNEL_8 = 15,
+	BATT_V = 16
 };	
 
 enum navigation_command {

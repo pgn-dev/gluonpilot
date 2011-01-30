@@ -319,7 +319,7 @@ double get_variable(enum navigation_variable i)
 		case HEADING_DEG:
 			return RAD2DEG(sensor_data.gps.heading_rad);
 		case FLIGHT_TIME_S:
-			return 0.0;
+			return (double)navigation_data.time_airborne_s;
 		case SATELLITES_IN_VIEW:
 			return sensor_data.gps.satellites_in_view;
 		case HOME_DISTANCE:
@@ -343,6 +343,8 @@ double get_variable(enum navigation_variable i)
 			return (double)ppm.channel[6];
 		case CHANNEL_8:
 			return (double)ppm.channel[7];
+		case BATT_V:
+			return (double)(sensor_data.battery_voltage_10)/10.0;
 		default:
 			return 0.0;
 	}	

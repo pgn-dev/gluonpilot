@@ -207,8 +207,6 @@ double gravity_to_pitch2(double a_x, double a_z)
 #define AH_LINE_START 5
 void osd_print_artificial_horizon()
 {
-	sensor_data.roll = gravity_to_roll2(sensor_data.acc_y, sensor_data.acc_z);
-	sensor_data.pitch = gravity_to_pitch2(sensor_data.acc_x, sensor_data.acc_z);
 	int pitch_increment = (int)(sensor_data.pitch*(180.0/3.14/22.0*7.0));   // > 22° = out of screen
 	// hor: 7..14..21    ver: 3.3 .. 7.1 (15 stappen) -> 1..8..15
 	//// optimize me: precalculated tanf
@@ -473,9 +471,13 @@ void osd_print_home_info()
 	osd_write_char(0x8A);	
 	
 	// voltage
-	unsigned int raw = adc_get_channel(8);
-	//printf("\r\n %u \r\n", raw);
-	int volt10 = (int)((float)raw * (3.3 * 5.1 / 6550.0));
+	int volt10 = sensor_data.battery_voltage_10;
+	if (volt10 >= 100)
+	{
+		osd_set_position (COMPASS_LINE+1, 1);
+		osd_write_char(number[1]);
+		volt10 = volt10 % 100;
+	}	
 	osd_set_position (COMPASS_LINE+1, 2);
 	osd_write_char(number[volt10/10]);
 	osd_set_position (COMPASS_LINE+1, 3);

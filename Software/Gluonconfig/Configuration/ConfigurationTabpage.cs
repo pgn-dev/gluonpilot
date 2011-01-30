@@ -427,42 +427,72 @@ namespace Gluonpilot
         private void _nud_gyroaccproc_telemetry_ValueChanged(object sender, EventArgs e)
         {
             _model.TelemetryGyroAccProc = (int)_nud_gyroaccproc_telemetry.Value;
+            if (_model.TelemetryGyroAccProc == 0)
+                _lbl_imuprocessed_hz.Text = "disabled";
+            else
+                _lbl_imuprocessed_hz.Text = (20.0 / (double)_model.TelemetryGyroAccProc).ToString("F") + " Hz";
         }
 
         private void _nud_ppm_telemetry_ValueChanged(object sender, EventArgs e)
         {
             _model.TelemetryPpm = (int)_nud_ppm_telemetry.Value;
+            if (_model.TelemetryPpm == 0)
+                _lbl_rc_hz.Text = "disabled";
+            else
+                _lbl_rc_hz.Text = (20.0 / (double)_model.TelemetryPpm).ToString("F") + " Hz";
         }
 
         private void _nud_pressuretemp_telemetry_ValueChanged(object sender, EventArgs e)
         {
             _model.TelemetryPressureTemp = (int)_nud_pressuretemp_telemetry.Value;
+            if (_model.TelemetryPressureTemp == 0)
+                _lbl_pressure_hz.Text = "disabled";
+            else
+                _lbl_pressure_hz.Text = (20.0 / (double)_model.TelemetryPressureTemp).ToString("F") + " Hz";
         }
 
         private void _nud_gpsbasic_telemetry_ValueChanged(object sender, EventArgs e)
         {
             _model.TelemetryGpsBasic = (int)_nud_gpsbasic_telemetry.Value;
+            if (_model.TelemetryGpsBasic == 0)
+                _lbl_basicgps_hz.Text = "disabled";
+            else
+                _lbl_basicgps_hz.Text = (20.0 / (double)_model.TelemetryGpsBasic).ToString("F") + " Hz";
         }
         
         private void _nud_gyroacc_telemetry_ValueChanged(object sender, EventArgs e)
         {
             _model.TelemetryGyroAccRaw = (int)_nud_gyroaccraw_telemetry.Value;
+            if (_model.TelemetryGyroAccRaw == 0)
+                _lbl_imu_raw_hz.Text = "disabled";
+            else
+                _lbl_imu_raw_hz.Text = (20.0 / (double)_model.TelemetryGyroAccRaw).ToString("F") + " Hz";
         }
 
         private void _nud_attitude_telemetry_ValueChanged(object sender, EventArgs e)
         {
             _model.TelemetryAttitude = (int)_nud_attitude_telemetry.Value;
+            if (_model.TelemetryAttitude == 0)
+                _lbl_attitude_hz.Text = "disabled";
+            else
+                _lbl_attitude_hz.Text = (20.0 / (double)_model.TelemetryAttitude).ToString("F") + " Hz";
         }
         
+        private void _nud_control_telemetry_ValueChanged(object sender, EventArgs e)
+        {
+            _model.TelemetryControl = (int)_nud_control_telemetry.Value;
+            if (_model.TelemetryControl == 0)
+                _lbl_control_hz.Text = "disabled";
+            else
+                _lbl_control_hz.Text = (20.0 / (double)_model.TelemetryControl).ToString("F") + " Hz";
+        }
+
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_telemetry");
         }
 
-        private void _nud_control_telemetry_ValueChanged(object sender, EventArgs e)
-        {
-            _model.TelemetryControl = (int)_nud_control_telemetry.Value;
-        }
+
 #endregion
 
 #region Servos tab page
@@ -626,7 +656,51 @@ namespace Gluonpilot
             ModuleImu3D.Imu3D.Run(_serial);
         }
 
+        private void _btn_telemetry_configuration_Click(object sender, EventArgs e)
+        {
+            _nud_attitude_telemetry.Value = 4;
+            _nud_control_telemetry.Value = 10;
+            _nud_gpsbasic_telemetry.Value = 5;
+            _nud_gyroaccproc_telemetry.Value = 6;
+            _nud_gyroaccraw_telemetry.Value = 5;
+            _nud_pressuretemp_telemetry.Value = 5;
+            _nud_ppm_telemetry.Value = 4;
+            if (_serial != null && _serial.IsOpen)
+            {
+                _serial.SendWriteTelemetry(
+                    (int)_nud_gpsbasic_telemetry.Value,
+                    (int)_nud_gyroaccraw_telemetry.Value,
+                    (int)_nud_gyroaccproc_telemetry.Value,
+                    (int)_nud_ppm_telemetry.Value,
+                    (int)_nud_pressuretemp_telemetry.Value,
+                    (int)_nud_attitude_telemetry.Value,
+                    (int)_nud_control_telemetry.Value);
+                _serial.ReadAllConfig();
+            }
+        }
 
+        private void _btn_telemetry_inflight_Click(object sender, EventArgs e)
+        {
+            _nud_attitude_telemetry.Value = 7;
+            _nud_control_telemetry.Value = 10;
+            _nud_gpsbasic_telemetry.Value = 5;
+            _nud_gyroaccproc_telemetry.Value = 1; _nud_gyroaccproc_telemetry.Value = 0;
+            _nud_gyroaccraw_telemetry.Value = 1; _nud_gyroaccraw_telemetry.Value = 0;
+            _nud_pressuretemp_telemetry.Value = 1; _nud_pressuretemp_telemetry.Value = 0;
+            _nud_ppm_telemetry.Value = 1; _nud_ppm_telemetry.Value = 0;
+            if (_serial != null && _serial.IsOpen)
+            {
+                _serial.SendWriteTelemetry(
+                    (int)_nud_gpsbasic_telemetry.Value,
+                    (int)_nud_gyroaccraw_telemetry.Value,
+                    (int)_nud_gyroaccproc_telemetry.Value,
+                    (int)_nud_ppm_telemetry.Value,
+                    (int)_nud_pressuretemp_telemetry.Value,
+                    (int)_nud_attitude_telemetry.Value,
+                    (int)_nud_control_telemetry.Value);
+                _serial.ReadAllConfig();
+            }
+        }
 
 
     }

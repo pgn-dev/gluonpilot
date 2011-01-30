@@ -110,5 +110,7 @@ namespace Communication
         public abstract void SendNavigationLoad();
 
         public abstract void SendReboot();
+
+        public abstract void SendWriteTelemetry(int basicgps, int gyroaccraw, int gyroaccproc, int ppm, int pressuretemp, int attitude, int control);
     }
 }
