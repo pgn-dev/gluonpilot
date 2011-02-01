@@ -73,6 +73,7 @@ namespace Configuration
         private void _btn_reload_Click(object sender, EventArgs e)
         {
             _serial.SendLoadConfigurationFromFlash();
+            _serial.ReadAllConfig();
         }
 
         private void _btn_save_Click(object sender, EventArgs e)

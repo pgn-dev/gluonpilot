@@ -160,6 +160,7 @@ namespace Configuration
         private void _btn_reload_Click(object sender, EventArgs e)
         {
             serial.SendNavigationLoad();
+            serial.SendNavigationRead();
         }
 
 
