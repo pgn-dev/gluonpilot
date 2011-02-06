@@ -371,6 +371,7 @@ void control_mix_out()
 	static int j = 0;
 	int i;
 	int aileron_out_left, aileron_out_right;
+	int number_of_controlled_channels = 4;
 	
 	// aileron differential
 	/*if (aileron_out > 0)
@@ -392,6 +393,7 @@ void control_mix_out()
 	switch(config.control.servo_mix)
 	{
 		case DELTA_PLUS:
+			number_of_controlled_channels = 4;
 			if (config.control.reverse_servo1)
 				servo_out[0] = +aileron_out_right + elevator_out + config.control.servo_neutral[0];
 			else
@@ -409,6 +411,7 @@ void control_mix_out()
 
 			break;
 		case DELTA_MIN:
+			number_of_controlled_channels = 4;
 			if (config.control.reverse_servo1)
 				servo_out[0] = +aileron_out_right - elevator_out + config.control.servo_neutral[0];
 			else
@@ -427,6 +430,7 @@ void control_mix_out()
 			break;
 		case QUADROCOPTER:
 		{
+			number_of_controlled_channels = 4;
 			/*          >
 			 *          0
 			 *      < /   \ <
@@ -460,6 +464,7 @@ void control_mix_out()
 			break;
 		}	
 		default:  // aileron
+			number_of_controlled_channels = 5;
 			if (config.control.reverse_servo1)
 				servo_out[0] = -aileron_out_right + config.control.servo_neutral[0];
 			else
@@ -488,7 +493,9 @@ void control_mix_out()
 			break;
 	}
 	
-	for(i = 0; i < 6; i++)
+	
+	
+	for(i = 0; i < number_of_controlled_channels; i++)
 	{	
 		if (servo_out[i] > config.control.servo_max[i])
 			servo_out[i] = config.control.servo_max[i];

@@ -8,10 +8,18 @@
  */
  
 #include <math.h>
- 
+
+// Include all FreeRTOS header files
+#include "FreeRTOS/FreeRTOS.h"
+#include "FreeRTOS/task.h"
+#include "FreeRTOS/queue.h"
+#include "FreeRTOS/croutine.h"
+#include "FreeRTOS/semphr.h"
+
+// Gluonpilot libraries
 #include "dataflash/dataflash.h"
 #include "ppm_in/ppm_in.h"
- 
+
 #include "configuration.h"
 #include "sensors.h"
 #include "navigation.h"
@@ -125,7 +133,7 @@ void navigation_update()
 	}	
 	
 	// Set the "home"-position
-	if (!navigation_data.airborne)
+	/*if (!navigation_data.airborne)
 	{ 
 		if (sensor_data.gps.speed_ms >= 3 && sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view >= 5)
 		{
@@ -146,7 +154,7 @@ void navigation_update()
 			navigation_set_home(); // set temporary home, not airborne
 		}	
 		return;
-	}
+	}*/
 	
 
 	struct NavigationCode *current_code = & navigation_data.navigation_codes[navigation_data.current_codeline];
@@ -273,6 +281,21 @@ void navigation_update()
 			else
 				navigation_data.current_codeline += 2;
 			break;
+		case SERVO_SET:
+			servo_set_us(current_code->a, current_code->b);  // a = channel(0..7), b = microseconds (1000...2000)
+			navigation_data.current_codeline++;
+			break;
+		case SERVO_TRIGGER:
+		{
+			unsigned int us = servo_read_us(current_code->a);
+			servo_set_us(current_code->a, current_code->b);  // a = channel(0..7), b = microseconds (1000...2000)
+			unsigned int ms_delay = (unsigned int)(current_code->x * 1000.0);
+			ms_delay = MIN(ms_delay, 3000);  // lets limit this to 3 seconds.
+			vTaskDelay(( ( portTickType ) ms_delay / portTICK_RATE_MS ) );
+			servo_set_us(current_code->a, us);  // set back to original position
+		}	
+			navigation_data.current_codeline++;
+			break;
 		case EMPTYCMD:
 			navigation_data.desired_pre_bank = 0.0;
 			navigation_data.current_codeline = 0;
@@ -281,8 +304,16 @@ void navigation_update()
 	                                                   		         sensor_data.gps.latitude_rad);
 	        navigation_data.desired_height_above_ground_m = 100.0; 
 			break;
-		//default:
-		
+			
+		default:
+			navigation_data.desired_pre_bank = 0.0;
+			navigation_data.current_codeline = 0;
+			// also return home @ 100m height
+			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
+	                                                   		         sensor_data.gps.latitude_rad);
+	        navigation_data.desired_height_above_ground_m = 100.0; 
+			break;
+	
 	}	
 }
 

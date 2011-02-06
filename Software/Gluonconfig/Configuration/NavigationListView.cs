@@ -210,6 +210,10 @@ namespace Configuration
                 c = new NavigationCommands.IfEq(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.IF_NE)
                 c = new NavigationCommands.IfNe(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.SERVO_SET)
+                c = new NavigationCommands.ServoSet(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.SERVO_TRIGGER)
+                c = new NavigationCommands.ServoTrigger(ni);
             else //if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.EMPTY)
                 c = new NavigationCommands.Empty(ni);
 

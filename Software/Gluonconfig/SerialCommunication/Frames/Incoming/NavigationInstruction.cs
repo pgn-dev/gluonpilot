@@ -29,7 +29,9 @@ namespace Communication.Frames.Incoming
             UNTIL_EQ = 13,
             UNTIL_NE = 14,
             UNTIL_GR = 15,
-            UNTIL_SM = 16
+            UNTIL_SM = 16,
+            SERVO_SET = 17,
+            SERVO_TRIGGER = 18
         };
 
         public navigation_command opcode;
@@ -124,6 +126,12 @@ namespace Communication.Frames.Incoming
                 break;
             case navigation_command.IF_EQ:
                 s += "IF(" + GetVariableText(a) + " = " + x + ")";
+                break;
+            case navigation_command.SERVO_SET:
+                s += "SERVO_SET(channel: " + (a+1) + ", position: " + b + "us)";
+                break;
+            case navigation_command.SERVO_TRIGGER:
+                s += "SERVO_TRIGGER(channel: " + (a + 1) + ", position: " + b + "us, hold: " + x + "s)";
                 break;
             default:
                 s += "UNKNOWN/UNSUPPORTED (" + (int)opcode + " : " +  x + ", " + y + ", " + a + ", " + b + ")";
