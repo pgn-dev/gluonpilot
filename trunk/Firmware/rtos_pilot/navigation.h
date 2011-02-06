@@ -57,7 +57,9 @@ enum navigation_command {
 	UNTIL_EQ=13,
 	UNTIL_NE=14,
 	UNTIL_GR=15,
-	UNTIL_SM=16
+	UNTIL_SM=16,
+	SERVO_SET=17,
+	SERVO_TRIGGER=18
 };
 
 

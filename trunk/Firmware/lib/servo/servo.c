@@ -64,6 +64,7 @@ void servo_init()
 
 void servo_all_neutral()
 {
+	servo_set_us(0, 1500);
 	servo_set_us(1, 1500);
 	servo_set_us(2, 1500);
 	servo_set_us(3, 1500);
@@ -71,12 +72,11 @@ void servo_all_neutral()
 	servo_set_us(5, 1500);
 	servo_set_us(6, 1500);
 	servo_set_us(7, 1500);
-	servo_set_us(8, 1500);
 }
 
 
 /*!
- *  Helper function to convert milliseconds to raw timer ticks.
+ *  Helper function to convert microseconds to raw timer ticks.
  *  @param us microseconds.
  *  @returns Raw timer ticks from us.
  */
@@ -96,8 +96,25 @@ unsigned int servo_us_to_raw(unsigned int us)
 
 
 /*!
+ *  Helper function to convert raw timer ticks to microseconds
+ *  @param raw timer ticks
+ *  @returns Pwm output in microseconds
+ */
+unsigned int servo_raw_to_us(unsigned int raw)
+{
+	raw <<= 2;    // * 4, to prevent losing bits while /8 
+	// scale from 625 to 1000
+	raw *= 8;
+	raw /= 5;
+	raw >>= 2; 
+	
+	return raw;
+}
+
+
+/*!
  *  Assigns a new value to the servo-output buffer.
- *  @param index Servo number (1 to 5)
+ *  @param index Servo number (0 to 7)
  *  @param us    Number of microseconds the PWM pulse to the servo must 
  *               last (preferable between 1000 and 2000).
  */
@@ -147,3 +164,41 @@ void servo_set_ms(int servo, float ms)
 {
 	servo_set_us(servo, (unsigned int)(ms*1000.0));
 }
+
+
+unsigned int servo_read_us(int channel)
+{
+	unsigned int raw;
+	switch (channel)
+	{
+		case 0: 
+			raw = OC1RS;
+			break;
+		case 1: 
+			raw = OC2RS;
+			break;
+		case 2: 
+			raw = OC3RS;
+			break;
+		case 3: 
+			raw = OC4RS;
+			break;
+		case 4: 
+			raw = OC5RS;
+			break;
+		case 5:
+			raw = OC6RS;
+			break;
+		case 6:
+			raw = OC7RS;
+			break;
+		case 7:
+			raw = OC8RS;
+			break;
+		default:
+			raw = 0;
+			break;
+	}
+	
+	return servo_raw_to_us(raw);
+}	

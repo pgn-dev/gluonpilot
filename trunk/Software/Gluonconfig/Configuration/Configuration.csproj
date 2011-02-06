@@ -179,6 +179,18 @@
     <Compile Include="NavigationCommands\NavigationCommandEditor.Designer.cs">
       <DependentUpon>NavigationCommandEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="NavigationCommands\ServoSet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\ServoSet.Designer.cs">
+      <DependentUpon>ServoSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\ServoTrigger.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\ServoTrigger.Designer.cs">
+      <DependentUpon>ServoTrigger.cs</DependentUpon>
+    </Compile>
     <Compile Include="NavigationCommands\UntilEq.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -303,6 +315,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\NavigationCommandEditor.resx">
       <DependentUpon>NavigationCommandEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\ServoSet.resx">
+      <DependentUpon>ServoSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\ServoTrigger.resx">
+      <DependentUpon>ServoTrigger.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\UntilEq.resx">
       <DependentUpon>UntilEq.cs</DependentUpon>
