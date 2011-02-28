@@ -530,10 +530,9 @@ void communication_input_task( void *parameters )
 					int i = atoi(&(buffer[token[1]])) - 1;
 					
 #ifdef LIMITED
-	if (i == 0)
+	//if (i < 2)
 		uart1_puts("Not allowed in Limited Edition!\r\n");
-#endif
-
+#elif
 					if (i < MAX_NAVIGATIONCODES)
 					{
 						navigation_data.navigation_codes[i].opcode = atoi(&(buffer[token[2]]));
@@ -542,6 +541,7 @@ void communication_input_task( void *parameters )
 						navigation_data.navigation_codes[i].a = atoi(&(buffer[token[5]]));
 						navigation_data.navigation_codes[i].b = atoi(&(buffer[token[6]]));
 					}
+#endif
 				}
 				///////////////////////////////////////////////////////////////
 				//                  READ ALL CONFIGURATION                   //

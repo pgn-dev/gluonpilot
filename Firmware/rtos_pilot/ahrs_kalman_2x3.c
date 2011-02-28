@@ -13,6 +13,10 @@
  *  @date     30-dec-2009
  *  @since    0.1
  */
+ 
+#ifdef ENABLE_QUADROCOPTER
+#error Please use ahrs_simple_quaternion_c for multicopter use!
+#endif
 
 #include <math.h>
  

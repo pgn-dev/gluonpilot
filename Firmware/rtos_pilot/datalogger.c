@@ -324,7 +324,7 @@ void datalogger_task( void *parameters )
 			l.control_state = control_state.flight_mode;
 			l.desired_heading = ((int)(navigation_data.desired_heading_rad * 180.0/3.14159));
 			l.navigation_code_line = navigation_data.current_codeline;
-			l.desired_height = control_state.desired_height;
+			l.desired_height = control_state.desired_altitude;
 #else
 			// Raw sensor logging at 50Hz
 			l.height_m_5 = (int)(sensor_data.pressure_height*5);

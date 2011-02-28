@@ -40,7 +40,7 @@
 extern xSemaphoreHandle xGpsSemaphore;
 extern xSemaphoreHandle xSpiSemaphore;
 
-static char version[] = "0.5.2";
+static char version[] = "0.5.2 DEV";
 
 int main()
 {
@@ -98,7 +98,11 @@ int main()
 	
 
 	// Create our tasks. 
-	xTaskCreate( control_task,                 ( signed portCHAR * ) "Control",      ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 7, NULL );
+	if (config.control.servo_mix == QUADROCOPTER)
+		xTaskCreate( control_copter_task,            ( signed portCHAR * ) "CControl",      ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 7, NULL );
+	else
+		xTaskCreate( control_wing_task,            ( signed portCHAR * ) "WControl",      ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 7, NULL );
+
 	xTaskCreate( sensors_task,                 ( signed portCHAR * ) "Sensors",      ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 6, NULL );
 	xTaskCreate( sensors_gps_task,             ( signed portCHAR * ) "GpsNavi",      ( configMINIMAL_STACK_SIZE * 4 ), NULL, tskIDLE_PRIORITY + 5, NULL );
 	xTaskCreate( communication_input_task,     ( signed portCHAR * ) "ConsoleInput", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 4, NULL );

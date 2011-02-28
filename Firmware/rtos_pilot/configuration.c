@@ -43,13 +43,14 @@ void configuration_determine_hardware_version()
 	
 	// are they connected? --> v0.1n or newer
 	PORTGbits.RG14 = 1;
-	microcontroller_delay_ms(1);
+	microcontroller_delay_us(10);
 	if (PORTGbits.RG12 == 1)
 	{
 		PORTGbits.RG14 = 0;
-		microcontroller_delay_ms(1);
+		microcontroller_delay_us(10);
 		if (PORTGbits.RG12 == 0)
 		{
+			//printf("RG12 and RG14 connected!\r\n");
 			HARDWARE_VERSION = V01N;
 		}	
 		else

@@ -9,6 +9,10 @@
  *  @date     30-dec-2009
  *  @since    0.1
  */
+ 
+#ifndef ENABLE_QUADROCOPTER
+#error Please use ahrs_kalman_2x3.c for fixed wing aircraft use!
+#endif
 
 #include <math.h>
  
