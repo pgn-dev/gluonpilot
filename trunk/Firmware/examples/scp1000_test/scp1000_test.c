@@ -16,7 +16,7 @@
 int main()
 {
 	microcontroller_init();	
-	uart1_open(38400L);
+	uart1_open(115200L);
 	scp1000_init();
 	
 	while(1)

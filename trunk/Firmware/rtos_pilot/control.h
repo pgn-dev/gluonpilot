@@ -13,7 +13,7 @@ struct ControlState
 	enum FlightModes flight_mode;
 	double desired_roll;
 	double desired_pitch;
-	double desired_height;
+	double desired_altitude;
 };
 
 extern struct ControlState control_state;
@@ -65,7 +65,8 @@ struct ControlConfig
 
 void control_init();
 
-void control_task( void *pvParameters );
+void control_copter_task( void *pvParameters );
+void control_wing_task( void *pvParameters );
 
 
 #endif // CONTROL_H
