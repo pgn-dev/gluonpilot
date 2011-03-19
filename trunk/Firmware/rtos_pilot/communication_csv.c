@@ -532,7 +532,7 @@ void communication_input_task( void *parameters )
 #ifdef LIMITED
 	//if (i < 2)
 		uart1_puts("Not allowed in Limited Edition!\r\n");
-#elif
+#else
 					if (i < MAX_NAVIGATIONCODES)
 					{
 						navigation_data.navigation_codes[i].opcode = atoi(&(buffer[token[2]]));

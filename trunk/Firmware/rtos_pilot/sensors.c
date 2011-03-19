@@ -115,7 +115,7 @@ void sensors_task( void *parameters )
 			float height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
 			if (height > -30000.0 && height < 30000.0)   // sometimes we get bad readings ~ -31000
 				sensor_data.pressure_height = height;
-			sensor_data.vertical_speed = sensor_data.vertical_speed * 0.5 + (sensor_data.pressure_height - last_height)/dt_since_last_height * 0.5;
+			sensor_data.vertical_speed = sensor_data.vertical_speed * 0.8 + (sensor_data.pressure_height - last_height)/dt_since_last_height * 0.2; // too much noise otherwise
 			
 			if (fabs(sensor_data.vertical_speed) > MAX(5.0, sensor_data.gps.speed_ms))  // validity check
 				sensor_data.vertical_speed = 0.0;
