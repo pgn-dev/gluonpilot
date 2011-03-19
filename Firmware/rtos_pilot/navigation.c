@@ -133,7 +133,7 @@ void navigation_update()
 	}	
 	
 	// Set the "home"-position
-	/*if (!navigation_data.airborne)
+	if (!navigation_data.airborne)
 	{ 
 		if (sensor_data.gps.speed_ms >= 3 && sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view >= 5)
 		{
@@ -154,7 +154,7 @@ void navigation_update()
 			navigation_set_home(); // set temporary home, not airborne
 		}	
 		return;
-	}*/
+	}
 	
 
 	struct NavigationCode *current_code = & navigation_data.navigation_codes[navigation_data.current_codeline];
