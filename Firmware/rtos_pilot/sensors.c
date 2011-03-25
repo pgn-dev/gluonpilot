@@ -74,6 +74,7 @@ void sensors_task( void *parameters )
 	portTickType xLastExecutionTime; 
 
 	uart1_puts("Sensors task initializing...");
+	hmc5843_init();
 	adc_open();	
 	scp1000_init();
 
@@ -136,9 +137,14 @@ void sensors_task( void *parameters )
 			sensor_data.battery_voltage_10 = ((float)adc_get_channel(8) * (3.3 * 5.1 / 6550.0));
 		}	
 		
+		if (low_update_counter % 5 == 0)
+		{
+			hmc5843_read(&sensor_data.magnetometer_raw); 
+		}
 
 		// x = (Pitch; Roll)'
 #ifdef ENABLE_QUADROCOPTER
+
 		ahrs_filter(0.005);	
 #else
 		ahrs_filter(0.02);	

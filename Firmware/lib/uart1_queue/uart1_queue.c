@@ -92,6 +92,16 @@ void uart1_puts(char *str)
 	}
 }
 
+void uart1_put(char *str, int len)
+{
+	while(len-- > 0)
+	{
+		while(U1STAbits.UTXBF)
+			;  /* wait if the buffer is full */
+		U1TXREG = *str++;   /* transfer data byte to TX reg */
+	}
+}
+
 void uart1_putc(char c)
 {
 	while(U1STAbits.UTXBF)

@@ -77,8 +77,8 @@ void InitI2C(void)
 	//microcontroller_delay_ms(1);
 
 	//First set the I2C(1) BRG Baud Rate.
-	I2C1BRG = 0x0188; //40 mips 100khz
-	//I2C1BRG = 0x005D; //40 mips 400khz
+	//I2C1BRG = 0x0188; //40 mips 100khz
+	I2C1BRG = 0x005D; //40 mips 400khz
 
 	I2C1CONbits.I2CEN = 0; // Disable I2C Mode
 	I2C1CONbits.DISSLW = 1; // Disable slew rate control
