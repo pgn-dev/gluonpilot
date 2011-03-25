@@ -57,7 +57,8 @@ int main()
 	
 	microcontroller_reset_type();  // printf out reason of reset; for debugging
 	led_init();
-	
+	i2c_init();
+
 	// Create semaphores needed for FreeRTOS synchronization (better to do it know, they are changed in interrupts of uart2 and ppm)
 	vSemaphoreCreateBinary( xSpiSemaphore );
 	vSemaphoreCreateBinary( xGpsSemaphore );

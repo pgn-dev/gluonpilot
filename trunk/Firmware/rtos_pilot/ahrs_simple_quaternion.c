@@ -58,7 +58,107 @@ void ahrs_init()
 }	
 
 
-void ahrs_filter(double dt)
+#define Kp 1.0f			// proportional gain governs rate of convergence to accelerometer/magnetometer
+#define Ki 0.003f		// integral gain governs rate of convergence of gyroscope biases
+#define halfT 0.002f		// half the sample period
+
+float exInt = 0, eyInt = 0, ezInt = 0;	// scaled integral error
+
+//====================================================================================================
+// Function
+//====================================================================================================
+
+void ahrs_filter() 
+{
+	float norm;
+	float mx, my, mz;
+	float hx, hy, hz, bx, bz;
+	float vx, vy, vz, wx, wy, wz;
+	float ex, ey, ez;
+
+	// auxiliary variables to reduce number of repeated operations
+	float q0q0 = q[0]*q[0];
+	float q0q1 = q[0]*q[1];
+	float q0q2 = q[0]*q[2];
+	float q0q3 = q[0]*q[3];
+	float q1q1 = q[1]*q[1];
+	float q1q2 = q[1]*q[2];
+	float q1q3 = q[1]*q[3];
+	float q2q2 = q[2]*q[2];   
+	float q2q3 = q[2]*q[3];
+	float q3q3 = q[3]*q[3];          
+	
+	// normalise the measurements
+	norm = sqrt(sensor_data.acc_x*sensor_data.acc_x + sensor_data.acc_y*sensor_data.acc_y + sensor_data.acc_z*sensor_data.acc_z);       
+	if (fabs(norm) > 0.001)
+	{
+		sensor_data.acc_x = sensor_data.acc_x / norm;
+		sensor_data.acc_y = sensor_data.acc_y / norm;
+		sensor_data.acc_z = sensor_data.acc_z / norm;
+	}
+	mx = (float)sensor_data.magnetometer_raw.x.i16;
+	my = (float)sensor_data.magnetometer_raw.y.i16;
+	mz = (float)sensor_data.magnetometer_raw.z.i16;
+	norm = sqrt(mx*mx + my*my + mz*mz);
+	if (fabs(norm) > 0.001)
+	{
+		mx = mx / norm;
+		my = my / norm;
+		mz = mz / norm;         
+	}
+	// compute reference direction of flux
+	hx = 2*mx*(0.5 - q2q2 - q3q3) + 2*my*(q1q2 - q0q3) + 2*mz*(q1q3 + q0q2);
+	hy = 2*mx*(q1q2 + q0q3) + 2*my*(0.5 - q1q1 - q3q3) + 2*mz*(q2q3 - q0q1);
+	hz = 2*mx*(q1q3 - q0q2) + 2*my*(q2q3 + q0q1) + 2*mz*(0.5 - q1q1 - q2q2);         
+	bx = sqrt((hx*hx) + (hy*hy));
+	bz = hz;        
+	
+	// estimated direction of gravity and flux (v and w)
+	vx = 2*(q1q3 - q0q2);
+	vy = 2*(q0q1 + q2q3);
+	vz = q0q0 - q1q1 - q2q2 + q3q3;
+	wx = 2*bx*(0.5 - q2q2 - q3q3) + 2*bz*(q1q3 - q0q2);
+	wy = 2*bx*(q1q2 - q0q3) + 2*bz*(q0q1 + q2q3);
+	wz = 2*bx*(q0q2 + q1q3) + 2*bz*(0.5 - q1q1 - q2q2);  
+	
+	// error is sum of cross product between reference direction of fields and direction measured by sensors
+	ex = (-sensor_data.acc_y*vz - -sensor_data.acc_z*vy) + (my*wz - mz*wy);
+	ey = (-sensor_data.acc_z*vx - sensor_data.acc_x*vz) + (mz*wx - mx*wz);
+	ez = (sensor_data.acc_x*vy - -sensor_data.acc_y*vx) + (mx*wy - my*wx);
+	
+	// integral error scaled integral gain
+	exInt = exInt + ex*Ki*halfT;
+	eyInt = eyInt + ey*Ki*halfT;
+	ezInt = ezInt + ez*Ki*halfT;
+	
+	// adjusted gyroscope measurements
+	sensor_data.p = sensor_data.p + Kp*ex + exInt;
+	sensor_data.q = -sensor_data.q + Kp*ey + eyInt;
+	sensor_data.r = sensor_data.r + Kp*ez + ezInt;
+	
+	// integrate quaternion rate and normalise
+	q[0] = q[0] + (-q[1]*sensor_data.p - q[2]*sensor_data.q - q[3]*sensor_data.r)*halfT;
+	q[1] = q[1] + (q[0]*sensor_data.p + q[2]*sensor_data.r - q[3]*sensor_data.q)*halfT;
+	q[2] = q[2] + (q[0]*sensor_data.q - q[1]*sensor_data.r + q[3]*sensor_data.p)*halfT;
+	q[3] = q[3] + (q[0]*sensor_data.r + q[1]*sensor_data.q - q[2]*sensor_data.p)*halfT;  
+	
+	// normalise quaternion
+	norm = sqrt(q[0]*q[0] + q[1]*q[1] + q[2]*q[2] + q[3]*q[3]);
+	if (fabs(norm) > 0.001)
+	{
+		q[0] = q[0] / norm;
+		q[1] = q[1] / norm;
+		q[2] = q[2] / norm;
+		q[3] = q[3] / norm;
+	}
+
+	sensor_data.roll = quaternion_to_roll(q);
+	sensor_data.pitch = quaternion_to_pitch(q);
+	sensor_data.yaw = quaternion_to_yaw(q);
+}
+
+
+void ahrs_filter2(double dt)
 {
 	//static int counter_since_last_update = 0;
 	//static int last_gps_sentence_number_last_fix = 0;

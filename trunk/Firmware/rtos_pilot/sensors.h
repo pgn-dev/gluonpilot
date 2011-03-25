@@ -2,12 +2,14 @@
 #define SENSORS_H
 
 #include "gps/gps.h"
-
+#include "hmc5843/hmc5843.h"
 
 struct SensorData
 {
 	unsigned int acc_x_raw, acc_y_raw, acc_z_raw;
 	unsigned int gyro_x_raw, gyro_y_raw, gyro_z_raw;
+	struct intvector magnetometer_raw;
+
 	unsigned int idg500_vref;
 	double acc_x, acc_y, acc_z;
 	double p, q, r;
