@@ -27,7 +27,7 @@ T5CONbits.TCS = 0;    \
 
 
 #define configUSE_PREEMPTION			1
-#define configUSE_IDLE_HOOK				0
+#define configUSE_IDLE_HOOK				1
 #define configUSE_TICK_HOOK				0
 #define configTICK_RATE_HZ				( ( portTickType ) 1000 )
 #define configCPU_CLOCK_HZ				( ( unsigned portLONG ) 40000000 )  /* Fosc / 2 */

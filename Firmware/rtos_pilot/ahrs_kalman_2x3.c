@@ -55,8 +55,8 @@ void ahrs_init()
 	}	
 	
 	// initialize our attitude with the current accelerometer's data
-	pitch_rad = gravity_to_pitch(sensor_data.acc_x, sensor_data.acc_z);
-	roll_rad = gravity_to_roll(sensor_data.acc_y, sensor_data.acc_z);
+        pitch_rad = gravity_to_pitch(sensor_data.acc_x, sensor_data.acc_z);
+        roll_rad = gravity_to_roll(sensor_data.acc_y, sensor_data.acc_z);
 }	
 
 #define normalize(pitch, roll)              \
@@ -249,7 +249,7 @@ void ahrs_filter(double dt)
     }
 	else if (i % 50 == 0) // outer loop at 1Hz
 	{
-		// change bias with a max of 0.2°/s per second
+		// change bias with a max of 0.2Â°/s per second
 		p_bias -= BIND(roll_rad_sum_error/20.0, DEG2RAD(-0.1), DEG2RAD(0.1));
 		q_bias -= BIND(pitch_rad_sum_error/20.0, DEG2RAD(-0.1), DEG2RAD(0.1));
 		roll_rad_sum_error = 0.0;
@@ -273,7 +273,7 @@ void ahrs_filter(double dt)
 		P[1] = 0.0;
 		P[2] = 0.0;
 		P[3] = 1.0;
-		printf("\r\n!\r\n");
+		//printf("\r\n!\r\n");
 	}
 	normalize(pitch_rad, roll_rad);
    	sensor_data.pitch = pitch_rad;

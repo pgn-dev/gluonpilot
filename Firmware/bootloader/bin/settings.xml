@@ -2,9 +2,9 @@
 <ds30LoaderSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CheckVerStart>false</CheckVerStart>
   <WindowOnTop>false</WindowOnTop>
-  <WindowWidth>160</WindowWidth>
-  <WindowHeight>31</WindowHeight>
-  <Filename>D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\rtos_pilot\hex\rtos_pilot.hex</Filename>
+  <WindowWidth>368</WindowWidth>
+  <WindowHeight>455</WindowHeight>
+  <Filename>D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\rtos_pilot\rtos_pilot.X\dist\default\production\rtos_pilot.X.production.hex</Filename>
   <DefaultStartSettings>
     <AdvancedMode>false</AdvancedMode>
     <AdvancedModeAllow>true</AdvancedModeAllow>

@@ -37,7 +37,8 @@ enum navigation_variable {
 	CHANNEL_6 = 13,
 	CHANNEL_7 = 14,
 	CHANNEL_8 = 15,
-	BATT_V = 16
+	BATT_V = 16,
+        BLOCK_TIME = 17
 };	
 
 enum navigation_command {
@@ -59,7 +60,8 @@ enum navigation_command {
 	UNTIL_GR=15,
 	UNTIL_SM=16,
 	SERVO_SET=17,
-	SERVO_TRIGGER=18
+	SERVO_TRIGGER=18,
+	BLOCK=19
 };
 
 
@@ -106,6 +108,7 @@ struct NavigationData
 	int last_code;
 	
 	unsigned int time_airborne_s;
+        unsigned int time_block_s;
 };
 
 extern struct NavigationData navigation_data;
