@@ -45,7 +45,7 @@ void print_logline_simulation(struct LogLine *l);
 #define BUFFERSIZE 200
 static char  buffer[BUFFERSIZE];
 
-
+extern unsigned long idle_counter;
 
 /*!
  *    This task will send telemetry directly to uart1 at a rate of maximum 
@@ -236,8 +236,12 @@ void communication_telemetry_task( void *parameters )
 			printf("%d;", (int)control_state.flight_mode);
 			printf("%d;%d", navigation_data.current_codeline, (int)(sensor_data.pressure_height - navigation_data.home_pressure_height));
 			printf(";%u", sensor_data.battery_voltage_10);
-			uart1_puts("\r\n");
+                        printf(";%d;%d", navigation_data.time_airborne_s, navigation_data.time_block_s);
+                        printf(";%d", ppm.connection_alive);
+                        //printf(";%ul", idle_counter);
+			printf("\r\n");
 			counters.stream_Control = 0;
+                        idle_counter = 0;
 		}
 		else if (counters.stream_Control > config.telemetry.stream_Control)
 			counters.stream_Control = 0;
@@ -345,15 +349,14 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'C')    // Set control
 				{
-					config.control.servo_mix = (buffer[token[1] + 0]) - '0';
-					config.control.max_pitch = atof(&(buffer[token[2]])) / 180.0 * 3.14;
-					config.control.max_roll = atof(&(buffer[token[3]])) / 180.0 * 3.14;
-					config.control.aileron_differential = atoi(&(buffer[token[4]])) / 10;
-					
-           	        config.control.waypoint_radius_m = atof(&(buffer[token[5]]));
-         	        config.control.cruising_speed_ms = atof(&(buffer[token[6]]));
-         	        config.control.stabilization_with_altitude_hold = atoi(&(buffer[token[7]])) == 0? 0 : 1;
+                                    config.control.servo_mix = (buffer[token[1] + 0]) - '0';
+                                    config.control.max_pitch = atof(&(buffer[token[2]])) / 180.0 * 3.14;
+                                    config.control.max_roll = atof(&(buffer[token[3]])) / 180.0 * 3.14;
+                                    config.control.aileron_differential = atoi(&(buffer[token[4]])) / 10;
 
+                                    config.control.waypoint_radius_m = atof(&(buffer[token[5]]));
+                                    config.control.cruising_speed_ms = atof(&(buffer[token[6]]));
+                                    config.control.stabilization_with_altitude_hold = atoi(&(buffer[token[7]])) == 0? 0 : 1;
 				}	
 				///////////////////////////////////////////////////////////////
 				//                  SET GPS CONFIGURATION                    //
@@ -363,8 +366,7 @@ void communication_input_task( void *parameters )
 					unsigned int x;
 					sscanf(&(buffer[token[1]]), "%u", &x);
 					config.gps.initial_baudrate = (long)x * 10;
-					config.gps.operational_baudrate = 0;
-					
+					config.gps.operational_baudrate = 0;	
 				}
 				///////////////////////////////////////////////////////////////
 				//                 SET PID PITCH 2 ELEVATOR                  //
@@ -427,6 +429,7 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'I')    
 				{
 					int i;
+                                        uart1_puts("\n\r");
 					for (i = 0; i < MAX_INDEX; i++)
 						printf("DT;%d;%d;%ld;%ld\r\n", i, datalogger_index_table[i].page_num, datalogger_index_table[i].date, datalogger_index_table[i].time);
 				}
@@ -452,7 +455,7 @@ void communication_input_task( void *parameters )
 					int i = atoi(&(buffer[token[1]]));
 					
 #ifndef RAW_50HZ_LOG
-					printf ("DH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
+					printf ("\r\nDH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
 					printf ("HeightBaro;Pitch;Roll;DesiredPitch;DesiredRoll;DesiredHeading;DesiredHeight;AccXG;AccYG;");
 					printf ("AccZG;P;Q;R;TempC;FlightMode;NavigationLine\r\n");
 #else
@@ -515,6 +518,7 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'R' && buffer[token[0] + 1] == 'N') 
 				{
 					int i;
+                                        uart1_puts("\n\r");
 					for (i = 0; i < MAX_NAVIGATIONCODES; i++)
 					{
 						printf("ND;%d;%d;%f;%f;%d;%d\n\r", i+1, navigation_data.navigation_codes[i].opcode,
@@ -540,9 +544,22 @@ void communication_input_task( void *parameters )
 						navigation_data.navigation_codes[i].y = atof(&(buffer[token[4]]));
 						navigation_data.navigation_codes[i].a = atoi(&(buffer[token[5]]));
 						navigation_data.navigation_codes[i].b = atoi(&(buffer[token[6]]));
+						// confirm by sending it back...
+						printf("\n\rND;%d;%d;%f;%f;%d;%d\n\r", i+1, navigation_data.navigation_codes[i].opcode,
+							navigation_data.navigation_codes[i].x, navigation_data.navigation_codes[i].y,
+							navigation_data.navigation_codes[i].a, navigation_data.navigation_codes[i].b);
 					}
 #endif
 				}
+                                ///////////////////////////////////////////////////////////////
+				//                 JUMP TO NAVIGATION LINE                   //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'J' && buffer[token[0] + 1] == 'N')
+				{
+                                    int number = atoi(&(buffer[token[1]]));
+                                    if (number >= 0 && number < MAX_NAVIGATIONCODES)
+                                        navigation_data.current_codeline = number;
+                                }
 				///////////////////////////////////////////////////////////////
 				//                  READ ALL CONFIGURATION                   //
 				///////////////////////////////////////////////////////////////

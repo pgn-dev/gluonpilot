@@ -42,11 +42,14 @@ extern xSemaphoreHandle xSpiSemaphore;
 
 static char version[] = "0.5.2 DEV";
 
+unsigned long idle_counter = 0;
+
 int main()
 {
 	microcontroller_init();
 	
-	uart1_queue_init(115200l);  // default baudrate: 115200
+	//uart1_queue_init(115200l);  // default baudrate: 115200
+	uart1_queue_init(57600l);  // default baudrate: 57600 due to XBee bi-direction communication
 	
 	printf("Gluonpilot v%s ", version);
 #ifdef LIMITED  // Limited version is pre-loaded on modules sent to Non-European countries
@@ -132,5 +135,6 @@ void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed portCHAR *pcTask
 
 void vApplicationIdleHook( void )
 {
+    idle_counter++;
 }
 

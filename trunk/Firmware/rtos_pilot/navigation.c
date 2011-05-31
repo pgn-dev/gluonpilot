@@ -34,7 +34,7 @@ double cos_latitude;
 float latitude_meter_per_radian = 6363057.32484;
 
 //! Convert longitude coordinates from radians into meters. 
-//! This current value is only valid when you live around 50° N.
+//! This current value is only valid when you live around 50ï¿½ N.
 float longitude_meter_per_radian = 4107840.76433121;   // = Pi/180*(a / (1-e^2*sin(lat)^2)^(1/2))*cos(lat)
                                                                     // ~ cos(latitude) * latitude_meter_per_radian
 void navigation_set_home();
@@ -65,6 +65,7 @@ void navigation_init ()
 	navigation_data.last_code = 0;
 	
 	navigation_data.time_airborne_s = 0;
+        navigation_data.time_block_s = 0;
 	
 	navigation_load();
 	
@@ -97,18 +98,30 @@ void navigation_calculate_relative_positions()
 		switch (navigation_data.navigation_codes[i].opcode)
 		{
 			case FROM_TO_REL:
+                            navigation_data.navigation_codes[i].opcode = FROM_TO_ABS;
+                            convert_parameters_to_abs();
+                            break;
 			case FLY_TO_REL:
+                            navigation_data.navigation_codes[i].opcode = FLY_TO_ABS;
+                            convert_parameters_to_abs();
+                            break;
 			case CIRCLE_REL:
-				navigation_data.navigation_codes[i].x /= latitude_meter_per_radian;
-				navigation_data.navigation_codes[i].x += navigation_data.home_latitude_rad;
-				navigation_data.navigation_codes[i].y /= longitude_meter_per_radian;
-				navigation_data.navigation_codes[i].y += navigation_data.home_longitude_rad;
-				break;
+                            navigation_data.navigation_codes[i].opcode = CIRCLE_ABS;
+                            convert_parameters_to_abs();
+                            break;
 			default:
-				break;
+                            break;
 		}	
 	}		
-}	
+}
+
+void convert_parameters_to_abs(int i)
+{
+    navigation_data.navigation_codes[i].x /= latitude_meter_per_radian;
+    navigation_data.navigation_codes[i].x += navigation_data.home_latitude_rad;
+    navigation_data.navigation_codes[i].y /= longitude_meter_per_radian;
+    navigation_data.navigation_codes[i].y += navigation_data.home_longitude_rad;
+}
 
 
 void navigation_burn()
@@ -130,6 +143,7 @@ void navigation_update()
 	{
 		ticks_counter = 0;
 		navigation_data.time_airborne_s++;
+                navigation_data.time_block_s++;
 	}	
 	
 	// Set the "home"-position
@@ -302,9 +316,11 @@ void navigation_update()
 			// also return home @ 100m height
 			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
 	                                                   		         sensor_data.gps.latitude_rad);
-	        navigation_data.desired_height_above_ground_m = 100.0; 
+                        navigation_data.desired_height_above_ground_m = 100.0;
 			break;
-			
+                case BLOCK:
+                    navigation_data.time_block_s = 0;
+                    break;
 		default:
 			navigation_data.desired_pre_bank = 0.0;
 			navigation_data.current_codeline = 0;
@@ -376,7 +392,9 @@ double get_variable(enum navigation_variable i)
 			return (double)ppm.channel[7];
 		case BATT_V:
 			return (double)(sensor_data.battery_voltage_10)/10.0;
-		default:
+                case BLOCK:
+                    return (double)navigation_data.time_block_s;
+                default:
 			return 0.0;
 	}	
 }	
@@ -392,7 +410,7 @@ void navigation_do_circle(struct NavigationCode *current_code)
 
 	// heading towards center of circle
 	float current_alpha = navigation_heading_rad_fromto(current_code->y - sensor_data.gps.longitude_rad,
-	                                                    current_code->x - sensor_data.gps.latitude_rad);  // 0° = top of circle
+	                                                    current_code->x - sensor_data.gps.latitude_rad);  // 0ï¿½ = top of circle
 
 	float distance_center = 
 	 	navigation_distance_between_meter(sensor_data.gps.longitude_rad, current_code->y,
