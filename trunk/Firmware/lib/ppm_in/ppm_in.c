@@ -88,7 +88,7 @@ void ppm_in_update_status(float dt)
 {
 	if (ppm.valid_frame && dt_no_valid_frame > 0)
 		dt_no_valid_frame -= dt;
-	else if (dt_no_valid_frame < CONNECTION_LOST_AFTER_SECONDS_NO_FRAME)
+	else if (dt_no_valid_frame <= CONNECTION_LOST_AFTER_SECONDS_NO_FRAME)
 		dt_no_valid_frame += dt;
 	
 	ppm.connection_alive = (dt_no_valid_frame < CONNECTION_LOST_AFTER_SECONDS_NO_FRAME);
@@ -101,6 +101,7 @@ void ppm_in_update_status(float dt)
 #define TICKS_FOR_NO_CONNECTION CONNECTION_LOST_AFTER_MS_NO_FRAME/20
 void ppm_in_update_status_ticks_50hz()
 {
+	// PPM
 	if (ppm.valid_frame && ticks_no_valid_frame > 0)
 	{
 		ticks_no_valid_frame -= 1;

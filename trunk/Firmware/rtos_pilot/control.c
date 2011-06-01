@@ -130,7 +130,16 @@ void control_wing_task( void *parameters )
 	{
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 20 / portTICK_RATE_MS ) );   //!> 50Hz
 		
-		ppm_in_update_status_ticks_50hz();
+		// Update RC link status
+		if (config.control.use_pwm)
+		{
+			if (ppm.channel[config.control.channel_motor] < 900)
+			{
+				//ppm.valid_frame = 0;
+				ppm.connection_alive = 0;
+			}
+		} else
+			ppm_in_update_status_ticks_50hz();
 
 		if (!ppm.connection_alive || ppm.channel[config.control.channel_ap] < 1300)
 		{

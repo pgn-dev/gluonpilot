@@ -74,7 +74,11 @@ void sensors_task( void *parameters )
 	portTickType xLastExecutionTime; 
 
 	uart1_puts("Sensors task initializing...");
+#ifdef ENABLE_QUADROCOPTER
+	i2c_init();
+	vTaskDelay(( portTickType ) 20 / portTICK_RATE_MS );
 	hmc5843_init();
+#endif
 	adc_open();	
 	scp1000_init();
 
@@ -137,13 +141,13 @@ void sensors_task( void *parameters )
 			sensor_data.battery_voltage_10 = ((float)adc_get_channel(8) * (3.3 * 5.1 / 6550.0));
 		}	
 		
+
+		// x = (Pitch; Roll)'
+#ifdef ENABLE_QUADROCOPTER
 		if (low_update_counter % 5 == 0)
 		{
 			hmc5843_read(&sensor_data.magnetometer_raw); 
 		}
-
-		// x = (Pitch; Roll)'
-#ifdef ENABLE_QUADROCOPTER
 
 		ahrs_filter(0.005);	
 #else
@@ -196,26 +200,25 @@ xSemaphoreHandle xGpsSemaphore = NULL;
 void sensors_gps_task( void *parameters )
 {
 	int i = 0;
-	portTickType xLastExecutionTime = xTaskGetTickCount();
 	
 	uart1_puts("Gps & Navigation task initializing...\r\n");
 	sensor_data.gps.status = EMPTY;	
-	
+	navigation_init ();
+		
 	gps_open_port(&(config.gps));
 		
 	// Wait for GPS output. On some old EB85 devices, this can take over 2sec
 	for (i = 10; i <= 1000; i *= 2)
 	{
 		if (! gps_valid_frames_receiving())
-			vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) i / portTICK_RATE_MS ) );
+			vTaskDelay( ( ( portTickType ) i / portTICK_RATE_MS ) );
 	}		
 
 	
 	gps_config_output();  // configure sentences and switch to 115200 baud
 
-	navigation_init ();
 	
-	vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 3000 / portTICK_RATE_MS ) );   // 3s
+	vTaskDelay(( ( portTickType ) 3000 / portTICK_RATE_MS ) );   // 3s
 	
 	uart1_puts("Gps & Navigation task initialized\r\n");
 	if (sensor_data.gps.status == EMPTY)
@@ -223,6 +226,7 @@ void sensors_gps_task( void *parameters )
 	else if (sensor_data.gps.status == VOID)
 		led2_on();
 	
+	portTickType xLastExecutionTime = xTaskGetTickCount();
 	for( ;; )
 	{
 		/* Wait until it is time for the next cycle. */

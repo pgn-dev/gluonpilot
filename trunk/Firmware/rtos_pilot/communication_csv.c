@@ -42,6 +42,9 @@ void print_unsigned_integer(unsigned int x, void (*printer)(char[]));
 void print_logline(struct LogLine *l);
 void print_logline_simulation(struct LogLine *l);
 
+void print_configuration();
+void print_navigation();
+
 #define BUFFERSIZE 200
 static char  buffer[BUFFERSIZE];
 
@@ -70,9 +73,15 @@ void communication_telemetry_task( void *parameters )
 	
 	uart1_puts("done\r\n");
 	
+	// delay a bit and send navigation and configuration
+	vTaskDelay(( ( portTickType ) 5 / portTICK_RATE_MS ) );  // 200ms
+	print_configuration();
+	vTaskDelay( ( ( portTickType ) 5 / portTICK_RATE_MS ) );  // 200ms
+	print_navigation();
+
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil() works correctly. */
 	xLastExecutionTime = xTaskGetTickCount();
-
+	
 	for( ;; )
 	{
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 50 / portTICK_RATE_MS ) );  // 20Hz
@@ -236,9 +245,17 @@ void communication_telemetry_task( void *parameters )
 			printf("%d;", (int)control_state.flight_mode);
 			printf("%d;%d", navigation_data.current_codeline, (int)(sensor_data.pressure_height - navigation_data.home_pressure_height));
 			printf(";%u", sensor_data.battery_voltage_10);
-                        printf(";%d;%d", navigation_data.time_airborne_s, navigation_data.time_block_s);
-                        printf(";%d", ppm.connection_alive);
-                        //printf(";%ul", idle_counter);
+            printf(";%d;%d", navigation_data.time_airborne_s, navigation_data.time_block_s);
+            if (config.control.use_pwm)
+            {
+	        	if (ppm.connection_alive)
+	        		printf(";100");
+	        	else
+	        		printf(";0");
+	        } else // ppm
+            	printf(";%d", (100-ppm_signal_quality()*4));  // %
+			
+			//printf(";%ul", idle_counter);
 			printf("\r\n");
 			counters.stream_Control = 0;
                         idle_counter = 0;
@@ -517,14 +534,7 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'R' && buffer[token[0] + 1] == 'N') 
 				{
-					int i;
-                                        uart1_puts("\n\r");
-					for (i = 0; i < MAX_NAVIGATIONCODES; i++)
-					{
-						printf("ND;%d;%d;%f;%f;%d;%d\n\r", i+1, navigation_data.navigation_codes[i].opcode,
-							navigation_data.navigation_codes[i].x, navigation_data.navigation_codes[i].y,
-							navigation_data.navigation_codes[i].a, navigation_data.navigation_codes[i].b);
-					}	
+					print_navigation();
 				}
 				///////////////////////////////////////////////////////////////
 				//                      WRITE NAVIGATION                     //
@@ -567,105 +577,7 @@ void communication_input_task( void *parameters )
 				{
 					if (buffer[token[1]] == 'A') 
 					{
-						int i;
-						uart1_puts("\n\rCA;");
-						
-						//config.sensors
-						print_unsigned_integer((unsigned int)config.sensors.acc_x_neutral, uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)config.sensors.acc_y_neutral, uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)config.sensors.acc_z_neutral, uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)config.sensors.gyro_x_neutral, uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)config.sensors.gyro_y_neutral, uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)config.sensors.gyro_z_neutral, uart1_puts);
-						uart1_putc(';');
-												
-						//config.telemetry
-						print_unsigned_integer((unsigned int)config.telemetry.stream_GpsBasic, uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)config.telemetry.stream_PPM, uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)config.telemetry.stream_GyroAccRaw, uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)config.telemetry.stream_GyroAccProc, uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)config.telemetry.stream_PressureTemp, uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)config.telemetry.stream_Attitude, uart1_puts);
-						uart1_putc(';');
-						
-						//config.gps
-						print_unsigned_integer((unsigned int)(config.gps.initial_baudrate/10), uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)(config.gps.operational_baudrate/10), uart1_puts);
-						uart1_putc(';');
-						
-						//config.control
-						print_unsigned_integer((unsigned int)(config.control.channel_ap), uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)(config.control.channel_motor), uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)(config.control.channel_pitch), uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)(config.control.channel_roll), uart1_puts);
-						uart1_putc(';');
-						print_unsigned_integer((unsigned int)(config.control.channel_yaw), uart1_puts);
-						uart1_putc(';');
-
-						// control.pid
-						printf("%f;%f;%f;%f;%f;%f;", config.control.pid_pitch2elevator.p_gain,
-						                    config.control.pid_pitch2elevator.d_gain,
-						                    config.control.pid_pitch2elevator.i_gain,
-						                    config.control.pid_pitch2elevator.i_min,
-						                    config.control.pid_pitch2elevator.i_max,
-						                    config.control.pid_pitch2elevator.d_term_min_var);
-						printf("%f;%f;%f;%f;%f;%f;", config.control.pid_roll2aileron.p_gain,
-						                    config.control.pid_roll2aileron.d_gain,
-						                    config.control.pid_roll2aileron.i_gain,
-						                    config.control.pid_roll2aileron.i_min,
-						                    config.control.pid_roll2aileron.i_max,
-						                    config.control.pid_roll2aileron.d_term_min_var);
-						printf("%f;%f;%f;%f;%f;%f;", config.control.pid_heading2roll.p_gain,
-						                    config.control.pid_heading2roll.d_gain,
-						                    config.control.pid_heading2roll.i_gain,
-						                    config.control.pid_heading2roll.i_min,
-						                    config.control.pid_heading2roll.i_max,
-						                    config.control.pid_heading2roll.d_term_min_var);
-						printf("%f;%f;%f;%f;%f;%f;", config.control.pid_altitude2pitch.p_gain,
-						                    config.control.pid_altitude2pitch.d_gain,
-						                    config.control.pid_altitude2pitch.i_gain,
-						                    config.control.pid_altitude2pitch.i_min,
-						                    config.control.pid_altitude2pitch.i_max,
-						                    config.control.pid_altitude2pitch.d_term_min_var);
-
-						// servo_reverse
-						print_unsigned_integer(((int)config.control.reverse_servo1) +
-						                       ((int)config.control.reverse_servo2<<1) +
-						                       ((int)config.control.reverse_servo3<<2) +
-						                       ((int)config.control.reverse_servo4<<3) +
-						                       ((int)config.control.reverse_servo5<<4) +
-						                       ((int)config.control.reverse_servo6<<5), uart1_puts); 
-						                       
-						// servo max/min/neutral
-						for (i = 0; i < 6; i++)
-						{
-							printf(";%d;%d;%d", config.control.servo_min[i], config.control.servo_max[i], config.control.servo_neutral[i]);
-						}	
-						
-						printf(";%d", (int)config.control.use_pwm);
-						
-						printf(";%d;%d;%d;%d;%d", (int)config.control.servo_mix, 
-						                     	     (int)(config.control.max_pitch/3.14*180.0), 
-						                     	     (int)(config.control.max_roll/3.14*180.0),
-						                   	         (int)(config.control.waypoint_radius_m),
-						                 	         (int)(config.control.cruising_speed_ms));
-						printf(";%d;%d;%d", (int)(config.control.stabilization_with_altitude_hold), 
-						                    config.control.aileron_differential*10, config.telemetry.stream_Control);
-						uart1_puts("\r\n");
+						print_configuration();
 					}	
 					
 					else if (current_token > 0)
@@ -696,6 +608,121 @@ void communication_input_task( void *parameters )
         }
 	}
 }
+
+void print_navigation()
+{
+	int i;
+	uart1_puts("\n\r");
+	for (i = 0; i < MAX_NAVIGATIONCODES; i++)
+	{
+		printf("ND;%d;%d;%f;%f;%d;%d\n\r", i+1, navigation_data.navigation_codes[i].opcode,
+			navigation_data.navigation_codes[i].x, navigation_data.navigation_codes[i].y,
+			navigation_data.navigation_codes[i].a, navigation_data.navigation_codes[i].b);
+	}	
+}
+
+void print_configuration()
+{
+	int i;
+	uart1_puts("\n\rCA;");
+	
+	//config.sensors
+	print_unsigned_integer((unsigned int)config.sensors.acc_x_neutral, uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)config.sensors.acc_y_neutral, uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)config.sensors.acc_z_neutral, uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)config.sensors.gyro_x_neutral, uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)config.sensors.gyro_y_neutral, uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)config.sensors.gyro_z_neutral, uart1_puts);
+	uart1_putc(';');
+							
+	//config.telemetry
+	print_unsigned_integer((unsigned int)config.telemetry.stream_GpsBasic, uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)config.telemetry.stream_PPM, uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)config.telemetry.stream_GyroAccRaw, uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)config.telemetry.stream_GyroAccProc, uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)config.telemetry.stream_PressureTemp, uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)config.telemetry.stream_Attitude, uart1_puts);
+	uart1_putc(';');
+	
+	//config.gps
+	print_unsigned_integer((unsigned int)(config.gps.initial_baudrate/10), uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)(config.gps.operational_baudrate/10), uart1_puts);
+	uart1_putc(';');
+	
+	//config.control
+	print_unsigned_integer((unsigned int)(config.control.channel_ap), uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)(config.control.channel_motor), uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)(config.control.channel_pitch), uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)(config.control.channel_roll), uart1_puts);
+	uart1_putc(';');
+	print_unsigned_integer((unsigned int)(config.control.channel_yaw), uart1_puts);
+	uart1_putc(';');
+
+	// control.pid
+	printf("%f;%f;%f;%f;%f;%f;", config.control.pid_pitch2elevator.p_gain,
+	                    config.control.pid_pitch2elevator.d_gain,
+	                    config.control.pid_pitch2elevator.i_gain,
+	                    config.control.pid_pitch2elevator.i_min,
+	                    config.control.pid_pitch2elevator.i_max,
+	                    config.control.pid_pitch2elevator.d_term_min_var);
+	printf("%f;%f;%f;%f;%f;%f;", config.control.pid_roll2aileron.p_gain,
+	                    config.control.pid_roll2aileron.d_gain,
+	                    config.control.pid_roll2aileron.i_gain,
+	                    config.control.pid_roll2aileron.i_min,
+	                    config.control.pid_roll2aileron.i_max,
+	                    config.control.pid_roll2aileron.d_term_min_var);
+	printf("%f;%f;%f;%f;%f;%f;", config.control.pid_heading2roll.p_gain,
+	                    config.control.pid_heading2roll.d_gain,
+	                    config.control.pid_heading2roll.i_gain,
+	                    config.control.pid_heading2roll.i_min,
+	                    config.control.pid_heading2roll.i_max,
+	                    config.control.pid_heading2roll.d_term_min_var);
+	printf("%f;%f;%f;%f;%f;%f;", config.control.pid_altitude2pitch.p_gain,
+	                    config.control.pid_altitude2pitch.d_gain,
+	                    config.control.pid_altitude2pitch.i_gain,
+	                    config.control.pid_altitude2pitch.i_min,
+	                    config.control.pid_altitude2pitch.i_max,
+	                    config.control.pid_altitude2pitch.d_term_min_var);
+
+	// servo_reverse
+	print_unsigned_integer(((int)config.control.reverse_servo1) +
+	                       ((int)config.control.reverse_servo2<<1) +
+	                       ((int)config.control.reverse_servo3<<2) +
+	                       ((int)config.control.reverse_servo4<<3) +
+	                       ((int)config.control.reverse_servo5<<4) +
+	                       ((int)config.control.reverse_servo6<<5), uart1_puts); 
+	                       
+	// servo max/min/neutral
+	for (i = 0; i < 6; i++)
+	{
+		printf(";%d;%d;%d", config.control.servo_min[i], config.control.servo_max[i], config.control.servo_neutral[i]);
+	}	
+	
+	printf(";%d", (int)config.control.use_pwm);
+	
+	printf(";%d;%d;%d;%d;%d", (int)config.control.servo_mix, 
+	                     	     (int)(config.control.max_pitch/3.14*180.0), 
+	                     	     (int)(config.control.max_roll/3.14*180.0),
+	                   	         (int)(config.control.waypoint_radius_m),
+	                 	         (int)(config.control.cruising_speed_ms));
+	printf(";%d;%d;%d", (int)(config.control.stabilization_with_altitude_hold), 
+	                    config.control.aileron_differential*10, config.telemetry.stream_Control);
+	uart1_puts("\r\n");
+}		
 
 
 /*!

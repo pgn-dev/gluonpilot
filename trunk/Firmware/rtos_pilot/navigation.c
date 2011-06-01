@@ -43,6 +43,7 @@ float distance_between_meter(float long1, float long2, float lat1, float lat2);
 void navigation_do_circle(struct NavigationCode *current_code);
 double get_variable(enum navigation_variable i);
 int waypoint_reached(struct NavigationCode *current_code);
+void convert_parameters_to_abs(int i);
 
 unsigned int ticks_counter = 0;
 
@@ -99,15 +100,15 @@ void navigation_calculate_relative_positions()
 		{
 			case FROM_TO_REL:
                             navigation_data.navigation_codes[i].opcode = FROM_TO_ABS;
-                            convert_parameters_to_abs();
+                            convert_parameters_to_abs(i);
                             break;
 			case FLY_TO_REL:
                             navigation_data.navigation_codes[i].opcode = FLY_TO_ABS;
-                            convert_parameters_to_abs();
+                            convert_parameters_to_abs(i);
                             break;
 			case CIRCLE_REL:
                             navigation_data.navigation_codes[i].opcode = CIRCLE_ABS;
-                            convert_parameters_to_abs();
+                            convert_parameters_to_abs(i);
                             break;
 			default:
                             break;
@@ -143,13 +144,14 @@ void navigation_update()
 	{
 		ticks_counter = 0;
 		navigation_data.time_airborne_s++;
-                navigation_data.time_block_s++;
+        navigation_data.time_block_s++;
 	}	
 	
 	// Set the "home"-position
 	if (!navigation_data.airborne)
 	{ 
-		if (sensor_data.gps.speed_ms >= 3 && sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view >= 5)
+		if (ppm.channel[config.control.channel_motor] > 1500 &&
+		    sensor_data.gps.speed_ms >= 2.0 && sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view >= 5)
 		{
 			navigation_data.time_airborne_s = 0.0;  // reset this to know the real time airborne
 			navigation_data.airborne = 1;
@@ -166,13 +168,19 @@ void navigation_update()
 				navigation_data.home_pressure_height = sensor_data.pressure_height;  // as opposed to GPS height!!
 			}
 			navigation_set_home(); // set temporary home, not airborne
+			
+			navigation_data.desired_pre_bank = 0.0;
+			navigation_data.current_codeline = 0;
+			// also return home @ 100m height
+			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
+	                                                   		         sensor_data.gps.latitude_rad);
+            navigation_data.desired_height_above_ground_m = 100.0;
 		}	
 		return;
 	}
 	
 
 	struct NavigationCode *current_code = & navigation_data.navigation_codes[navigation_data.current_codeline];
-	
 	switch(current_code->opcode)
 	{
 		case CLIMB:
@@ -316,11 +324,12 @@ void navigation_update()
 			// also return home @ 100m height
 			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
 	                                                   		         sensor_data.gps.latitude_rad);
-                        navigation_data.desired_height_above_ground_m = 100.0;
+            navigation_data.desired_height_above_ground_m = 100.0;
 			break;
-                case BLOCK:
-                    navigation_data.time_block_s = 0;
-                    break;
+        case BLOCK:
+            navigation_data.time_block_s = 0;
+            navigation_data.current_codeline++;
+            break;
 		default:
 			navigation_data.desired_pre_bank = 0.0;
 			navigation_data.current_codeline = 0;
@@ -438,7 +447,7 @@ void navigation_do_circle(struct NavigationCode *current_code)
 	                                   distance_center < abs_r - distance_ahead) ? 0 :
   				                          atan(sensor_data.gps.speed_ms*sensor_data.gps.speed_ms / (G*r));
 
-	float next_r = abs_r / cos(rad_ahead); // CHANGE sqrt(r*r + distance_ahead*distance_ahead);
+	float next_r = abs_r / cos(rad_ahead); // CHANGE sqrt(r*r + distance_ahe^ ad*distance_ahead);
 			
 	// max desired_heading
 	float pointlon = current_code->y + sin(next_alpha) * next_r / longitude_meter_per_radian;
