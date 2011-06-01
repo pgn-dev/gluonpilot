@@ -108,7 +108,7 @@ struct NavigationData
 	int last_code;
 	
 	unsigned int time_airborne_s;
-        unsigned int time_block_s;
+    unsigned int time_block_s;
 };
 
 extern struct NavigationData navigation_data;
