@@ -133,11 +133,13 @@ void control_wing_task( void *parameters )
 		// Update RC link status
 		if (config.control.use_pwm)
 		{
-			if (ppm.channel[config.control.channel_motor] < 900)
+			if (ppm.channel[config.control.channel_motor] < 900)  // We assume failsafe kicked in when motor channel < 900ms
 			{
 				//ppm.valid_frame = 0;
 				ppm.connection_alive = 0;
 			}
+			else
+				ppm.connection_alive = 1;
 		} else
 			ppm_in_update_status_ticks_50hz();
 
@@ -294,7 +296,7 @@ void control_wing_desired_to_servos(double dt)
 	control_state.desired_roll = MAX(control_state.desired_roll, -config.control.max_roll);
 
 	// compensate the loss in lift
-	//control_state.desired_pitch += (1.0/cosf(sensor_data.roll) - 1.0)*0.25; // (0.5: 12° up at 45° roll)
+	//control_state.desired_pitch += (1.0/cosf(sensor_data.roll) - 1.0)*0.25; // (0.5: 12ï¿½ up at 45ï¿½ roll)
 	
 	elevator_out_radians = pid_update(&config.control.pid_pitch2elevator, 
 	                                         control_state.desired_pitch - sensor_data.pitch, dt);
@@ -315,7 +317,7 @@ void control_wing_desired_to_servos(double dt)
 
 	motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
 	
-	elevator_out = (int)(elevator_out_radians * 630.0); // +-45° -> +- 500
+	elevator_out = (int)(elevator_out_radians * 630.0); // +-45ï¿½ -> +- 500
 	aileron_out = (int)(aileron_out_radians * 630.0);
 
 	control_mix_out();
@@ -444,7 +446,7 @@ void control_copter_desired_to_servos(double dt)
 	                                  control_state.desired_roll - sensor_data.roll, dt);
 	
 	double desired_yaw_rate  = (double)((int)ppm.channel[config.control.channel_yaw]
-		                            - config.control.channel_neutral[config.control.channel_yaw]) / 500.0 * (DEG2RAD(30.0)); // max 30°/s
+		                            - config.control.channel_neutral[config.control.channel_yaw]) / 500.0 * (DEG2RAD(30.0)); // max 30ï¿½/s
 
 	if (fabs(desired_yaw_rate) < DEG2RAD(5.0)) // stick in the middle
 		desired_yaw_rate = 0.0;		
@@ -459,7 +461,7 @@ void control_copter_desired_to_servos(double dt)
 	yaw_out = MAX(yaw_out, -800);
 	yaw_out = MIN(yaw_out, 800);	
 
-	elevator_out = (int)(elevator_out_radians * 630.0); // +-45° -> +- 500
+	elevator_out = (int)(elevator_out_radians * 630.0); // +-45ï¿½ -> +- 500
 	aileron_out = (int)(aileron_out_radians * 630.0);
 
 	control_mix_out();
