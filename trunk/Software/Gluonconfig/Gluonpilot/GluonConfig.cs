@@ -153,7 +153,7 @@ namespace Gluonpilot
             if (connected)  // Close the current connection if it's open
                 _btn_connect_Click(null, null);
 
-            Process p = System.Diagnostics.Process.Start(Application.StartupPath + "\\ds30loader\\ds30LoaderConsole.exe", " -k=" + _serial.PortName + " -f=\"" + fd.FileName + "\"  -p -d=dsPIC33FJ256MC710 -r=" + _serial.BaudRate + " -q=0a;5a;5a;3b;31;31;32;33;0a -u=115200 -b=1000 -o");
+            Process p = System.Diagnostics.Process.Start(Application.StartupPath + "\\ds30loader\\ds30LoaderConsole.exe", " -k=" + _serial.PortName + " -f=\"" + fd.FileName + "\"  -p -d=dsPIC33FJ256MC710 -r=" + _serial.BaudRate + " -q=0a;5a;5a;3b;31;31;32;33;0a -u=115200 -b=1200 -o");
             p.WaitForExit();
 
             if (connected)  // Reconnect if the state was connected

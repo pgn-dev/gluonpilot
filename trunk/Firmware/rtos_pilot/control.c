@@ -214,7 +214,8 @@ void control_wing_stabilized(double dt, int altitude_hold)
 		else  // altitude hold
 		  control_state.desired_pitch = (control_state.desired_altitude - sensor_data.pressure_height)  / 20.0 * config.control.max_pitch; 
 	} 
-
+       
+ motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
 	control_wing_desired_to_servos(dt);
 }
 
@@ -273,7 +274,22 @@ void control_wing_navigate(double dt, int altitude_controllable)
 			control_state.desired_pitch = manual_desired_pitch;
 			control_state.desired_altitude = sensor_data.pressure_height;  // save current height in case stick goes back to neutral
 		}
-	}	
+	}
+
+        // auto-throttle
+        if (config.control.autopilot_auto_throttle)
+        {
+            int d_altitude = control_state.desired_altitude - sensor_data.pressure_height;
+            int target = config.control.auto_throttle_cruise_pct +
+                        (d_altitude * config.control.auto_throttle_p_gain) / 10;
+            if (target > config.control.auto_throttle_max_pct)
+                target = config.control.auto_throttle_max_pct;
+            else if (target < config.control.auto_throttle_min_pct)
+                target = config.control.auto_throttle_min_pct;
+
+            motor_out = 1000 + target*10;
+        } else
+            motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
 
 	control_wing_desired_to_servos(dt);
 }
@@ -315,7 +331,7 @@ void control_wing_desired_to_servos(double dt)
 		elevator_out_radians *= 1.2;*/
 	
 
-	motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
+	//motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
 	
 	elevator_out = (int)(elevator_out_radians * 630.0); // +-45� -> +- 500
 	aileron_out = (int)(aileron_out_radians * 630.0);
@@ -588,7 +604,12 @@ void control_mix_out()
 			break;
 		}	
 		default:  // aileron
-			number_of_controlled_channels = 5;
+			number_of_controlled_channels = 6;
+                        if (config.control.reverse_servo6)
+				servo_out[5] = -(int)(sensor_data.roll*636.0) + 1500;//config.control.servo_neutral[6];
+			else
+				servo_out[5] = +-(int)(sensor_data.roll*636.0) + 1500;//config.control.servo_neutral[6];
+
 			if (config.control.reverse_servo1)
 				servo_out[0] = -aileron_out_right + config.control.servo_neutral[0];
 			else

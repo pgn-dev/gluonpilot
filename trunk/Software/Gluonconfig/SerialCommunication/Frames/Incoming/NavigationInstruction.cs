@@ -61,6 +61,25 @@ namespace Communication.Frames.Incoming
             this.b = ni.b;
         }
 
+        public override bool Equals(System.Object obj)
+        {
+            // If parameter is null return false.
+            if (obj == null)
+            {
+                return false;
+            }
+
+            // If parameter cannot be cast to Point return false.
+            NavigationInstruction p = obj as NavigationInstruction;
+            if ((System.Object)p == null)
+            {
+                return false;
+            }
+
+            // Return true if the fields match:
+            return (x == p.x) && (y == p.y) && (a == p.a) && (b == p.b);  // line??
+        }
+
         private double RAD2DEG(double x)
         {
             return x / 3.14159 * 180.0;
@@ -70,7 +89,7 @@ namespace Communication.Frames.Incoming
             return x / 180.0 * 3.14159;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             string s = "";
             switch (opcode)
