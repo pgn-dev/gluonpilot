@@ -433,6 +433,17 @@ void communication_input_task( void *parameters )
 					config.control.pid_altitude2pitch.i_max = (float)atof(&(buffer[token[5]]));
 					config.control.pid_altitude2pitch.d_term_min_var = (float)atof(&(buffer[token[6]]));
 				}
+                                ///////////////////////////////////////////////////////////////
+				//                  SET AUTOTHROTTLE                 //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'A' && buffer[token[0] + 1] == 'T')    // Set PID
+				{
+					config.control.auto_throttle_min_pct = atoi(&(buffer[token[1]]));
+					config.control.auto_throttle_max_pct = atoi(&(buffer[token[2]]));
+					config.control.auto_throttle_cruise_pct = atoi(&(buffer[token[3]]));
+					config.control.auto_throttle_p_gain = atoi(&(buffer[token[4]]));
+                                        config.control.autopilot_auto_throttle = atoi(&(buffer[token[5]])) == 1;
+				}
 				///////////////////////////////////////////////////////////////
 				//                      FORMAT DATALOG                       //
 				///////////////////////////////////////////////////////////////
@@ -721,6 +732,8 @@ void print_configuration()
 	                 	         (int)(config.control.cruising_speed_ms));
 	printf(";%d;%d;%d", (int)(config.control.stabilization_with_altitude_hold), 
 	                    config.control.aileron_differential*10, config.telemetry.stream_Control);
+        printf(";%d;%d;%d;%d;%d", (int)config.control.autopilot_auto_throttle, config.control.auto_throttle_min_pct, config.control.auto_throttle_max_pct,
+	                    config.control.auto_throttle_cruise_pct, config.control.auto_throttle_p_gain);
 	uart1_puts("\r\n");
 }		
 

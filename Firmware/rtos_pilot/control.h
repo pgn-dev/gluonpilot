@@ -60,6 +60,11 @@ struct ControlConfig
     int waypoint_radius_m;
     int cruising_speed_ms;
     unsigned int stabilization_with_altitude_hold : 1;
+    unsigned int autopilot_auto_throttle : 1;
+    int auto_throttle_cruise_pct;
+    int auto_throttle_min_pct;
+    int auto_throttle_max_pct;
+    int auto_throttle_p_gain; // pct/m
 };	
 
 

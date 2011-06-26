@@ -7,6 +7,7 @@
 #include "control.h"
 #include "gps/gps.h"
 
+
 struct Configuration
 {
 	struct SensorConfig sensors;
