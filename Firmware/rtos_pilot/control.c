@@ -279,7 +279,7 @@ void control_wing_navigate(double dt, int altitude_controllable)
         // auto-throttle
         if (config.control.autopilot_auto_throttle)
         {
-            int d_altitude = control_state.desired_altitude - sensor_data.pressure_height;
+            int d_altitude = (int)control_state.desired_altitude - (int)sensor_data.pressure_height;
             int target = config.control.auto_throttle_cruise_pct +
                         (d_altitude * config.control.auto_throttle_p_gain) / 10;
             if (target > config.control.auto_throttle_max_pct)
@@ -288,6 +288,7 @@ void control_wing_navigate(double dt, int altitude_controllable)
                 target = config.control.auto_throttle_min_pct;
 
             motor_out = 1000 + target*10;
+			//printf("\r\n%d = %d + (%d*%d)/10 - %d %d\r\n", target, config.control.auto_throttle_cruise_pct, d_altitude, config.control.auto_throttle_p_gain, (int)control_state.desired_altitude, (int)sensor_data.pressure_height);
         } else
             motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
 

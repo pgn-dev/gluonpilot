@@ -254,7 +254,14 @@ void communication_telemetry_task( void *parameters )
 	        		printf(";0");
 	        } else // ppm
             	printf(";%d", (100-ppm_signal_quality()*4));  // %
-			
+
+			int throttle = (config.control.servo_neutral[3] - servo_read_us(3))/10;
+			if (! config.control.reverse_servo4)
+				throttle = -throttle;
+			if (throttle < 0 || throttle > 100)
+				throttle = 0;
+			printf(";%d", throttle);
+
 			//printf(";%ul", idle_counter);
 			printf("\r\n");
 			counters.stream_Control = 0;
