@@ -27,7 +27,7 @@
 
 #define NAVIGATION_HZ 5  // 5 Hz
 
-struct NavigationData navigation_data;
+volatile struct NavigationData navigation_data;
 
 double cos_latitude;
 //! Convert latitude coordinates from radians into meters.
@@ -67,7 +67,7 @@ void navigation_init ()
 	
 	navigation_data.time_airborne_s = 0;
         navigation_data.time_block_s = 0;
-	
+	navigation_data.wind_heading_set = 0;
 	navigation_load();
 	
 	// Testing:
@@ -150,15 +150,14 @@ void navigation_update()
 	// Set the "home"-position
 	if (!navigation_data.airborne)
 	{ 
-		if (ppm.channel[config.control.channel_motor] > 1500 &&
-		    sensor_data.gps.speed_ms >= 2.0 && sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view >= 5)
+		if (ppm.channel[config.control.channel_motor] > 1600 &&
+		    /*sensor_data.gps.speed_ms >= 2.0 &&*/ sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view >= 5)
 		{
 			navigation_data.time_airborne_s = 0.0;  // reset this to know the real time airborne
 			navigation_data.airborne = 1;
 			navigation_set_home();
 			navigation_data.last_waypoint_latitude_rad = navigation_data.home_latitude_rad;
 			navigation_data.last_waypoint_longitude_rad = navigation_data.home_longitude_rad;
-			navigation_data.wind_heading = sensor_data.gps.heading_rad;
 			navigation_calculate_relative_positions();
 		}
 		else
@@ -170,13 +169,20 @@ void navigation_update()
 			navigation_set_home(); // set temporary home, not airborne
 			
 			navigation_data.desired_pre_bank = 0.0;
-			navigation_data.current_codeline = 0;
+			//navigation_data.current_codeline = 0;
 			// also return home @ 100m height
 			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
 	                                                   		         sensor_data.gps.latitude_rad);
             navigation_data.desired_height_above_ground_m = 100.0;
 		}	
-		return;
+		//return;
+	}
+	// set initial heading on take-off (fixed wing)
+	if (!navigation_data.wind_heading_set && sensor_data.gps.speed_ms >= 2.0)
+	{
+		navigation_data.wind_heading_set = 1;
+		navigation_data.wind_heading = sensor_data.gps.heading_rad;
+		navigation_data.time_airborne_s = 0.0;  // reset this to know the real time airborne
 	}
 	
 
@@ -185,7 +191,12 @@ void navigation_update()
 	{
 		case CLIMB:
 			navigation_data.desired_pre_bank = 0.0;
-			navigation_data.desired_heading_rad = navigation_data.wind_heading;
+
+			if (navigation_data.wind_heading_set)
+				navigation_data.desired_heading_rad = navigation_data.wind_heading;
+			else 
+				navigation_data.desired_heading_rad = sensor_data.gps.heading_rad;
+
 			navigation_data.desired_height_above_ground_m = current_code->x + 1000.0;
 			if (sensor_data.pressure_height - navigation_data.home_pressure_height > current_code->x)
 				navigation_data.current_codeline++;
@@ -249,6 +260,8 @@ void navigation_update()
 		case CIRCLE_ABS:
 			navigation_do_circle(current_code);
 			navigation_data.desired_height_above_ground_m = current_code->b;
+			navigation_data.last_waypoint_latitude_rad = current_code->x;
+			navigation_data.last_waypoint_longitude_rad = current_code->y;
 			navigation_data.current_codeline++;
 			break;
 		case GOTO:

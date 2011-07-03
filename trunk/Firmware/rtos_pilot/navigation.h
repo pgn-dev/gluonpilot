@@ -92,8 +92,9 @@ struct NavigationData
 	float last_waypoint_latitude_rad;
 	float last_waypoint_longitude_rad;
 	
-	char airborne;                //!< Is 0 when the plane didn't take off yet.	
+	unsigned int airborne : 1;                //!< Is 0 when the plane didn't take off yet.	
 	float wind_heading;           //!< Wind comes from...
+	unsigned int wind_heading_set : 1;
 	
 	float desired_heading_rad;    //!< Last calculated desired heading. In radians. Zero is north.
 	float desired_height_above_ground_m;
@@ -111,6 +112,6 @@ struct NavigationData
     unsigned int time_block_s;
 };
 
-extern struct NavigationData navigation_data;
+volatile extern struct NavigationData navigation_data;
 
 #endif // NAVIGATION_H
