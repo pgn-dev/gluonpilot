@@ -30,6 +30,7 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilo
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\adc\adc.h
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\button\button.h
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.h
@@ -66,3 +67,4 @@ C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilo
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\common.h
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h
 C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd.h
+C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h
