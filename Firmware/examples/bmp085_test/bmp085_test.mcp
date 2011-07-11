@@ -48,20 +48,20 @@ file_004=no
 file_005=no
 file_006=no
 [FILE_INFO]
-file_000=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\microcontroller\microcontroller.c
-file_001=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\uart1\uart1.c
-file_002=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\bmp085\bmp085.c
-file_003=bmp085_test.c
-file_004=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\uart1\uart1.h
-file_005=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\microcontroller\microcontroller.h
-file_006=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\bmp085\bmp085.h
+file_000=bmp085_test.c
+file_001=..\..\lib\bmp085\bmp085.c
+file_002=..\..\lib\microcontroller\microcontroller.c
+file_003=..\..\lib\uart1\uart1.c
+file_004=..\..\lib\bmp085\bmp085.h
+file_005=..\..\lib\microcontroller\microcontroller.h
+file_006=..\..\lib\uart1\uart1.h
 [SUITE_INFO]
 suite_guid={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 suite_state=
 [TOOL_SETTINGS]
 TS{7D9C6ECE-785D-44CB-BA22-17BF2E119622}=-g
-TS{25AC22BD-2378-4FDB-BFB6-7345A15512D3}=-g -Wall
-TS{7DAC9A1D-4C45-45D6-B25A-D117C74E8F5A}=--heap=1024 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
+TS{25AC22BD-2378-4FDB-BFB6-7345A15512D3}=-g -Wall -mlarge-code -mlarge-data
+TS{7DAC9A1D-4C45-45D6-B25A-D117C74E8F5A}=--heap=10024 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TS{509E5861-1E2A-483B-8B6B-CA8DB7F2DD78}=
 [INSTRUMENTED_TRACE]
 enable=0

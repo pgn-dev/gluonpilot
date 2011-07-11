@@ -24,7 +24,7 @@ int main()
 {
 	microcontroller_init();
 	
-	uart1_open(38400l);
+	uart1_open(115200l);
 	
 	// Create our two tasks. They both have 3 times default stack size. Make sure you understand this when
 	// designing your own tasks. The stack size INCLUDES possible stack usage by the interrupt routines.

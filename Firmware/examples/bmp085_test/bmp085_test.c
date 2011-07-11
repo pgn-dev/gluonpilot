@@ -15,10 +15,11 @@ int main ()
 
 	microcontroller_init();
 
-	uart1_open(115200l);		// open UART1
+	uart1_open(57600l);		// open UART1
 
 	printf ("Starting test...\n\r");
-	microcontroller_delay_ms(150);
+	microcontroller_delay_ms(1000);
+	
 	i2c_init();				// Initialise the I2C(1) module
 	bmp085_init();			// initialize the HMC5843 chip
 	//test_HMC5843();			// display configuration and ID registers

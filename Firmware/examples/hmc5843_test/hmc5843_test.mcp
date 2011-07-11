@@ -49,12 +49,12 @@ file_005=no
 file_006=no
 [FILE_INFO]
 file_000=hmc5843_test.c
-file_001=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\microcontroller\microcontroller.c
-file_002=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\uart1\uart1.c
-file_003=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\hmc5843\hmc5843.c
-file_004=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\microcontroller\microcontroller.h
-file_005=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\uart1\uart1.h
-file_006=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\hmc5843\hmc5843.h
+file_001=..\..\lib\uart1\uart1.c
+file_002=..\..\lib\hmc5843\hmc5843.c
+file_003=..\..\lib\microcontroller\microcontroller.c
+file_004=..\..\lib\hmc5843\hmc5843.h
+file_005=..\..\lib\uart1\uart1.h
+file_006=..\..\lib\microcontroller\microcontroller.h
 [SUITE_INFO]
 suite_guid={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 suite_state=

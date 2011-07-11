@@ -29,7 +29,7 @@ int main ()
 
 	microcontroller_init();
 
-	uart1_open(115200l);		// open UART1
+	uart1_open(57600l);		// open UART1
 
 	printf ("Starting test...\n\r");
 	microcontroller_delay_ms(5);
