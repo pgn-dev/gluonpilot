@@ -84,7 +84,7 @@ void osd_task( void *parameters )
 	uart1_puts("OSD task initializing...\r\n");
 	
 	if (osd_initialize(& xLastExecutionTime) == 0)
-		vTaskSuspend(xTaskGetCurrentTaskHandle());
+		vTaskDelete(xTaskGetCurrentTaskHandle());
 	
 	uart1_puts("OSD initialized\r\n");
 	

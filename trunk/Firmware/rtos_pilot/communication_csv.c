@@ -166,6 +166,15 @@ void communication_telemetry_task( void *parameters )
 			uart1_putc(';');
 			print_signed_integer((int)(sensor_data.yaw*1000), &uart1_puts);
 			uart1_puts("\r\n");
+
+			uart1_puts("TS;");
+			print_signed_integer((int)(servo_read_us(2)), &uart1_puts);  // elevator
+			uart1_putc(';');
+			print_signed_integer((int)(servo_read_us(0)), &uart1_puts);  // aileron
+			uart1_putc(';');
+			print_signed_integer((int)(servo_read_us(3)), &uart1_puts);  // motor
+			uart1_puts("\r\n");
+
 			counters.stream_Attitude = 0;
 		} 
 		else if (counters.stream_Attitude > config.telemetry.stream_Attitude)
@@ -266,6 +275,7 @@ void communication_telemetry_task( void *parameters )
 			printf("\r\n");
 			counters.stream_Control = 0;
                         idle_counter = 0;
+			//printf("\r\n%f - %f | %f + %f\r\n", control_state.desired_altitude, control_state.desired_pitch,navigation_data.desired_height_above_ground_m, navigation_data.home_pressure_height);
 		}
 		else if (counters.stream_Control > config.telemetry.stream_Control)
 			counters.stream_Control = 0;
@@ -285,7 +295,7 @@ extern xQueueHandle xRxedChars;
 void communication_input_task( void *parameters )
 {
 	static int   buffer_position;
-	static int   token[8] = {0,0,0,0,0,0,0};
+	static int   token[8] = {0,0,0,0,0,0,0,0};
 	static int   current_token;
 	
 	char tmp;
@@ -533,6 +543,38 @@ void communication_input_task( void *parameters )
 					configuration_default();
 				}	
 				///////////////////////////////////////////////////////////////
+				//                      ENABLE SIMULATION                    //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'E') 
+				{
+					uart1_puts("\r\nSimulation enabled\r\n");
+					control_state.simulation_mode = 1;
+					sensor_data.gps.satellites_in_view = 9;
+					sensor_data.gps.status = ACTIVE;
+				}
+				///////////////////////////////////////////////////////////////
+				//                      WRITE SIMULATION                    //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'W') 
+				{
+					sensor_data.gps.longitude_rad = (float)atof(&(buffer[token[1]]));
+					sensor_data.gps.latitude_rad = (float)atof(&(buffer[token[2]]));
+					sensor_data.gps.heading_rad	= (float)atof(&(buffer[token[3]]));
+					sensor_data.gps.speed_ms = (float)atof(&(buffer[token[4]]));
+					sensor_data.pressure_height = (float)atoi(&(buffer[token[5]]));
+					sensor_data.roll =  (float)atof(&(buffer[token[6]]));
+					sensor_data.pitch =  (float)atof(&(buffer[token[7]]));
+					navigation_update();
+				}
+				///////////////////////////////////////////////////////////////
+				//                       BURN NAVIGATION                     //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'N') 
+				{
+					navigation_burn();
+					uart1_puts("\r\nBurn OK\r\n");
+				}
+				///////////////////////////////////////////////////////////////
 				//                       BURN NAVIGATION                     //
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'N') 
@@ -602,7 +644,7 @@ void communication_input_task( void *parameters )
 						uart1_puts("\r\nERROR\r\n");
 				}
 				else if (current_token > 0)
-					uart1_puts("\r\nERROR\r\n");
+					printf("\r\nERROR %s\r\n", buffer);
 
             	buffer_position = 0;
             	current_token = 0;

@@ -69,6 +69,8 @@ int main()
 	configuration_determine_hardware_version();
 	if (HARDWARE_VERSION == V01N)
 		printf("Found hardware version v0.1n\r\n");
+	else if (HARDWARE_VERSION == V01O)
+		printf("Found hardware version v0.1o\r\n");
 	else
 		printf("Found hardware version v0.1j or earlier\r\n");
 	

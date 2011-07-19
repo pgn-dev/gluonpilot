@@ -40,6 +40,7 @@ void configuration_determine_hardware_version()
 	TRISGbits.TRISG14 = 0;
 	// input
 	TRISGbits.TRISG12 = 1;
+	TRISGbits.TRISG13 = 1;
 	
 	// are they connected? --> v0.1n or newer
 	PORTGbits.RG14 = 1;
@@ -51,7 +52,16 @@ void configuration_determine_hardware_version()
 		if (PORTGbits.RG12 == 0)
 		{
 			//printf("RG12 and RG14 connected!\r\n");
-			HARDWARE_VERSION = V01N;
+
+			if (PORTGbits.RG13 == 0)
+			{
+				PORTGbits.RG14 = 1;
+				microcontroller_delay_us(10);
+				if (PORTGbits.RG13 == 1)
+					HARDWARE_VERSION = V01O;
+				else
+					HARDWARE_VERSION = V01N;
+			}
 		}	
 		else
 			HARDWARE_VERSION = V01J;

@@ -5,6 +5,7 @@
 #include <math.h>
 #include "microcontroller/microcontroller.h"
 #include "uart1/uart1.h"
+#include "i2c/i2c.h"
 #include "bmp085/bmp085.h"
 
 

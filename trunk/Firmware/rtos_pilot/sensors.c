@@ -34,6 +34,8 @@
 #include "pid/pid.h"
 #include "uart1_queue/uart1_queue.h"
 #include "led/led.h"
+#include "i2c/i2c.h"
+#include "bmp085/bmp085.h"
 
 #include "sensors.h"
 #include "configuration.h"
@@ -80,7 +82,14 @@ void sensors_task( void *parameters )
 	hmc5843_init();
 #endif
 	adc_open();	
-	scp1000_init();
+
+	if (HARDWARE_VERSION >= V01O)
+	{
+		i2c_init();
+		bmp085_init();
+	}
+	else
+		scp1000_init();
 
 	read_raw_sensor_data();
 	scale_raw_sensor_data();
@@ -91,6 +100,8 @@ void sensors_task( void *parameters )
 	else // ADXRS-613 gyroscope
 		scale_z_gyro = (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)
 		
+
+
 	uart1_puts("done\r\n");
 	
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil()	works correctly. */
@@ -107,27 +118,6 @@ void sensors_task( void *parameters )
 		dt_since_last_height += 0.02;
 		low_update_counter += 5;
 #endif
-		if (scp1000_dataready())   // New reading from the pressure sensor -> calculate vertical speed
-		{
-			// this should be at 9Hz ->0.11s
-			if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 0 ))  // Spi1 is shared with SCP1000 and Dataflash
-			{
-				sensor_data.pressure = scp1000_get_pressure();
-				sensor_data.temperature = scp1000_get_temperature();
-				xSemaphoreGive( xSpiSemaphore );
-			}	
-			temperature_10 = (unsigned int)sensor_data.temperature * 10;
-			float height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
-			if (height > -30000.0 && height < 30000.0)   // sometimes we get bad readings ~ -31000
-				sensor_data.pressure_height = height;
-			sensor_data.vertical_speed = sensor_data.vertical_speed * 0.8 + (sensor_data.pressure_height - last_height)/dt_since_last_height * 0.2; // too much noise otherwise
-			
-			if (fabs(sensor_data.vertical_speed) > MAX(5.0, sensor_data.gps.speed_ms))  // validity check
-				sensor_data.vertical_speed = 0.0;
-				
-			last_height = sensor_data.pressure_height;
-			dt_since_last_height = 0.0;
-		}
 		
 		
 		read_raw_sensor_data();
@@ -136,9 +126,59 @@ void sensors_task( void *parameters )
 
 		scale_raw_sensor_data();
 		
-		if (low_update_counter % 250 == 0)
+		if (low_update_counter % 50 == 0) // 5Hz
 		{
 			sensor_data.battery_voltage_10 = ((float)adc_get_channel(8) * (3.3 * 5.1 / 6550.0));
+			if (HARDWARE_VERSION >= V01O)
+			{
+				if (low_update_counter/50 % 2 == 0)
+				{
+					long tmp = bmp085_read_temp();
+					bmp085_convert_temp(tmp, &sensor_data.temperature_10);
+					sensor_data.temperature = (double)sensor_data.temperature_10 / 10.0;
+					bmp085_start_convert_pressure();
+				} 
+				else
+				{
+					long tmp = bmp085_read_pressure();
+					long pressure;
+					bmp085_convert_pressure(tmp, &pressure);
+					sensor_data.pressure = (double)pressure;
+					float height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
+					sensor_data.pressure_height = height;
+					bmp085_start_convert_temp();
+				}	
+			}
+			else
+			{
+				if (scp1000_dataready())   // New reading from the pressure sensor -> calculate vertical speed
+				{
+					// this should be at 9Hz ->0.11s
+					if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 0 ))  // Spi1 is shared with SCP1000 and Dataflash
+					{
+						sensor_data.pressure = scp1000_get_pressure();
+						sensor_data.temperature = scp1000_get_temperature();
+						xSemaphoreGive( xSpiSemaphore );
+					}	
+					temperature_10 = (unsigned int)sensor_data.temperature * 10;
+					float height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
+					if (height > -30000.0 && height < 30000.0)   // sometimes we get bad readings ~ -31000
+						sensor_data.pressure_height = height;
+					sensor_data.vertical_speed = sensor_data.vertical_speed * 0.8 + (sensor_data.pressure_height - last_height)/dt_since_last_height * 0.2; // too much noise otherwise
+					
+					if (fabs(sensor_data.vertical_speed) > MAX(5.0, sensor_data.gps.speed_ms))  // validity check
+						sensor_data.vertical_speed = 0.0;
+						
+					last_height = sensor_data.pressure_height;
+					dt_since_last_height = 0.0;
+				}
+			}	
+				
+		
+
+
+			if (control_state.simulation_mode)
+				vTaskDelete(xTaskGetCurrentTaskHandle());
 		}	
 		
 
