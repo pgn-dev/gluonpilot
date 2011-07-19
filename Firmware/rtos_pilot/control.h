@@ -14,6 +14,7 @@ struct ControlState
 	double desired_roll;
 	double desired_pitch;
 	double desired_altitude;
+	unsigned int simulation_mode : 1;
 };
 
 extern struct ControlState control_state;

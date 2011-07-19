@@ -17,6 +17,7 @@ Mitch
 #include <math.h>
 #include "microcontroller/microcontroller.h"
 #include "uart1/uart1.h"
+#include "i2c/i2c.h"
 #include "hmc5843/hmc5843.h"
 
 

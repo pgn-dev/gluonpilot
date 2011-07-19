@@ -150,7 +150,7 @@ void navigation_update()
 	// Set the "home"-position
 	if (!navigation_data.airborne)
 	{ 
-		if (ppm.channel[config.control.channel_motor] > 1600 &&
+		if ((ppm.channel[config.control.channel_motor] > 1600 || control_state.simulation_mode) &&
 		    /*sensor_data.gps.speed_ms >= 2.0 &&*/ sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view >= 5)
 		{
 			navigation_data.time_airborne_s = 0.0;  // reset this to know the real time airborne
@@ -158,7 +158,7 @@ void navigation_update()
 			navigation_set_home();
 			navigation_data.last_waypoint_latitude_rad = navigation_data.home_latitude_rad;
 			navigation_data.last_waypoint_longitude_rad = navigation_data.home_longitude_rad;
-			navigation_calculate_relative_positions();
+			navigation_calculate_relative_positions();  // we should send the new waypoints or calculate relative positions on the fly
 		}
 		else
 		{
