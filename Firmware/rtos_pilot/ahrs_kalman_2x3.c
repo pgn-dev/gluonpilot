@@ -247,11 +247,12 @@ void ahrs_filter(double dt)
 			pitch_rad_sum_error += tmp2[1];
 		}
     }
-	else if (i % 50 == 0) // outer loop at 1Hz
+	else if (i % 25 == 0) // outer loop at 2Hz
 	{
-		// change bias with a max of 0.2Â°/s per second
-		p_bias -= BIND(roll_rad_sum_error/20.0, DEG2RAD(-0.1), DEG2RAD(0.1));
-		q_bias -= BIND(pitch_rad_sum_error/20.0, DEG2RAD(-0.1), DEG2RAD(0.1));
+		// change bias with a max of 0.1°/s per second
+		p_bias -= BIND(roll_rad_sum_error/10.0, DEG2RAD(-0.1), DEG2RAD(0.1));
+		q_bias -= BIND(pitch_rad_sum_error/10.0, DEG2RAD(-0.1), DEG2RAD(0.1));
+		//printf("\r\n %f \r\n", (roll_rad_sum_error/20.0));
 		roll_rad_sum_error = 0.0;
 		pitch_rad_sum_error = 0.0;
 	}	
