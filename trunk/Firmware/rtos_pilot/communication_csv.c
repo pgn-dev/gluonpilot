@@ -353,6 +353,42 @@ void communication_input_task( void *parameters )
 					config.sensors.gyro_z_neutral = (float)atof(&(buffer[token[3]]));
 				}
 				///////////////////////////////////////////////////////////////
+				//                     CALIBRATE GYRO                        //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'C' && buffer[token[0] + 1] == 'G')    // Calibrate gyro
+				{
+					int i;
+					long x=0, y=0, z=0;
+					for (i = 0; i < 10; i++)
+					{
+						x += sensor_data.gyro_x_raw;
+						y += sensor_data.gyro_y_raw;
+						z += sensor_data.gyro_z_raw;
+						vTaskDelay(( ( portTickType ) 10 / portTICK_RATE_MS ) );  // delay 10ms
+					}	
+					config.sensors.gyro_x_neutral = (float)(x / 10);
+					config.sensors.gyro_y_neutral = (float)(y / 10);
+					config.sensors.gyro_z_neutral = (float)(z / 10);
+				}
+				///////////////////////////////////////////////////////////////
+				//                    CALIBRATE ACCELERO                     //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'C' && buffer[token[0] + 1] == 'A')    // Calibrate accelerometer
+				{
+					int i;
+					long x=0, y=0, z=0;
+					for (i = 0; i < 10; i++)
+					{
+						x += sensor_data.acc_x_raw;
+						y += sensor_data.acc_y_raw;
+						z += sensor_data.acc_z_raw;
+						vTaskDelay(( ( portTickType ) 10 / portTICK_RATE_MS ) );  // delay 10ms
+					}	
+					config.sensors.acc_x_neutral = (float)(x / 10);
+					config.sensors.acc_y_neutral = (float)(y / 10);
+					config.sensors.acc_z_neutral = (float)(z / 10) - 6600.0;
+				}
+				///////////////////////////////////////////////////////////////
 				//                    SET INPUT CHANNELS                     //
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'I')    // Set Input Channel
@@ -450,7 +486,7 @@ void communication_input_task( void *parameters )
 					config.control.pid_altitude2pitch.i_max = (float)atof(&(buffer[token[5]]));
 					config.control.pid_altitude2pitch.d_term_min_var = (float)atof(&(buffer[token[6]]));
 				}
-                                ///////////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////////
 				//                  SET AUTOTHROTTLE                 //
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'A' && buffer[token[0] + 1] == 'T')    // Set PID
