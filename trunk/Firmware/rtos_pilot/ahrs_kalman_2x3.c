@@ -255,6 +255,23 @@ void ahrs_filter(double dt)
 		//printf("\r\n %f \r\n", (roll_rad_sum_error/20.0));
 		roll_rad_sum_error = 0.0;
 		pitch_rad_sum_error = 0.0;
+	}
+	if (F1E_STEERING && i % 5 == 0)
+	{
+		float mx = ((float)sensor_data.magnetometer_raw.x.i16);
+		float my = ((float)sensor_data.magnetometer_raw.y.i16);
+		float mz = ((float)sensor_data.magnetometer_raw.z.i16);
+
+		float YH =                my*cos_roll           - mz*sin_roll;
+		float XH = mx*cos_pitch + my*sin_roll*sin_pitch + mz*cos_roll*sin_pitch;
+		
+		sensor_data.yaw += atan2f (-YH, XH);
+		sensor_data.yaw /= 2.0;
+
+		/*printf("\r\n%5d %5d %5d -> %f\r\n",sensor_data.magnetometer_raw.x.i16, 
+							sensor_data.magnetometer_raw.y.i16,
+							sensor_data.magnetometer_raw.z.i16, 
+							sensor_data.yaw*180.0/3.14159);*/
 	}	
 	
    

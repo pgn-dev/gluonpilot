@@ -148,11 +148,28 @@ void control_wing_task( void *parameters )
 		{
 			control_state.flight_mode = AUTOPILOT;
 			
-			//control_state.desired_height = home_height + 65.0;
 			if (lastMode != control_state.flight_mode)  // target altitude = altitude when switching from manual to stabilized
 				control_state.desired_altitude = sensor_data.pressure_height;
 				
-			control_wing_navigate(0.020, config.control.stabilization_with_altitude_hold); // stabilized mode as long as navigation isn't available
+			if (F1E_STEERING)  // Add this define for F1E steering mode
+			{
+				float err_heading = navigation_data.desired_heading_rad - sensor_data.yaw;
+				if (err_heading > PI)
+					err_heading -= 2.0*PI;
+				else if (err_heading < -PI)
+					err_heading += 2.0*PI;
+				//printf("\r\n%f\r\n", err_heading);
+				aileron_out = (int)(pid_update(&config.control.pid_heading2roll, err_heading, 0.02)*630.0);
+				control_mix_out();
+				if (button_down())
+				{
+					sensor_data.gps.speed_ms = config.control.cruising_speed_ms;  // no GPS, so we need a cruising speed for kalman filter
+					//printf("\r\n%f-%f -> %d", navigation_data.desired_heading_rad, sensor_data.yaw, servo_out[0]);
+					navigation_data.desired_heading_rad = sensor_data.yaw;
+				}
+			}
+			else	
+				control_wing_navigate(0.020, config.control.stabilization_with_altitude_hold); // stabilized mode as long as navigation isn't available
 		} 
 		else if (ppm.channel[config.control.channel_ap] < 1666)
 		{
@@ -243,17 +260,19 @@ void control_wing_navigate(double dt, int altitude_controllable)
 	                             pid_update(&config.control.pid_heading2roll, heading_error_rad, dt);	
 	
 	// Not enough GPS satellites? Fly flat and hope to get a new lock :-)
+#ifndef F1E_STEERING
 	if (sensor_data.gps.satellites_in_view < 4)
 		control_state.desired_roll = 0.0;
-		
+#endif
+
 	// from paparazzi
-	double speed_depend_nav = sensor_data.gps.speed_ms / config.control.cruising_speed_ms;
+	/*double speed_depend_nav = sensor_data.gps.speed_ms / config.control.cruising_speed_ms;
  	if (speed_depend_nav > 1.3)	{
  		control_state.desired_roll *= 1.3;
  	} else if (speed_depend_nav < 0.8) { // good idea for takeoff?
  		control_state.desired_roll *= 0.8;
  	} else
-		control_state.desired_roll *= speed_depend_nav;
+		control_state.desired_roll *= speed_depend_nav;*/
 
 	
 	

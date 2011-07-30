@@ -55,10 +55,10 @@ file_027=lib
 file_028=.
 file_029=lib
 file_030=.
-file_031=.
+file_031=lib
 file_032=lib
 file_033=lib
-file_034=lib
+file_034=.
 file_035=lib
 file_036=lib
 file_037=lib
@@ -280,10 +280,10 @@ file_027=..\lib\quaternion\quaternion.c
 file_028=navigation.c
 file_029=..\lib\max7456\max7456.c
 file_030=osd_max7456.c
-file_031=ahrs_kalman_2x3.c
-file_032=..\lib\hmc5843\hmc5843.c
-file_033=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\bmp085\bmp085.c
-file_034=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\i2c\i2c.c
+file_031=..\lib\hmc5843\hmc5843.c
+file_032=..\lib\bmp085\bmp085.c
+file_033=..\lib\i2c\i2c.c
+file_034=ahrs_kalman_2x3.c
 file_035=..\lib\adc\adc.h
 file_036=..\lib\button\button.h
 file_037=..\lib\dataflash\dataflash.h
@@ -321,14 +321,14 @@ file_068=common.h
 file_069=..\lib\max7456\max7456.h
 file_070=osd.h
 file_071=..\lib\hmc5843\hmc5843.h
-file_072=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\bmp085\bmp085.h
-file_073=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\i2c\i2c.h
+file_072=..\lib\bmp085\bmp085.h
+file_073=..\lib\i2c\i2c.h
 [SUITE_INFO]
 suite_guid={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 suite_state=
 [TOOL_SETTINGS]
 TS{7D9C6ECE-785D-44CB-BA22-17BF2E119622}=-g
-TS{25AC22BD-2378-4FDB-BFB6-7345A15512D3}=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -O1
+TS{25AC22BD-2378-4FDB-BFB6-7345A15512D3}=-g -Wall -DMPLAB_DSPIC_PORT -DF1E_STEERING -mlarge-data -O1
 TS{7DAC9A1D-4C45-45D6-B25A-D117C74E8F5A}=--heap=10240 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TS{509E5861-1E2A-483B-8B6B-CA8DB7F2DD78}=
 [INSTRUMENTED_TRACE]

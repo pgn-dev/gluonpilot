@@ -76,7 +76,7 @@ void sensors_task( void *parameters )
 	portTickType xLastExecutionTime; 
 
 	uart1_puts("Sensors task initializing...");
-#ifdef ENABLE_QUADROCOPTER
+#if ENABLE_QUADROCOPTER || F1E_STEERING
 	i2c_init();
 	vTaskDelay(( portTickType ) 20 / portTICK_RATE_MS );
 	hmc5843_init();
@@ -95,7 +95,7 @@ void sensors_task( void *parameters )
 	scale_raw_sensor_data();
 	ahrs_init();
 	
-	if (HARDWARE_VERSION == V01N) // IDZ-500 gyroscope
+	if (HARDWARE_VERSION >= V01N) // IDZ-500 gyroscope
 		scale_z_gyro = (-0.02538315*3.14159/180.0)*2.0;
 	else // ADXRS-613 gyroscope
 		scale_z_gyro = (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)
@@ -126,7 +126,7 @@ void sensors_task( void *parameters )
 
 		scale_raw_sensor_data();
 		
-		if (low_update_counter % 50 == 0) // 5Hz
+		if (low_update_counter % 55 == 0) // 5Hz
 		{
 			if (control_state.simulation_mode)
 				vTaskDelete(xTaskGetCurrentTaskHandle());
@@ -134,7 +134,7 @@ void sensors_task( void *parameters )
 			sensor_data.battery_voltage_10 = ((float)adc_get_channel(8) * (3.3 * 5.1 / 6550.0));
 			if (HARDWARE_VERSION >= V01O)
 			{
-				if (low_update_counter/50 % 2 == 0)
+				if (low_update_counter/55 % 2 == 0)
 				{
 					long tmp = bmp085_read_temp();
 					bmp085_convert_temp(tmp, &sensor_data.temperature_10);
@@ -180,12 +180,21 @@ void sensors_task( void *parameters )
 		
 
 		// x = (Pitch; Roll)'
-#ifdef ENABLE_QUADROCOPTER
-		if (low_update_counter % 5 == 0)
+#if (ENABLE_QUADROCOPTER || F1E_STEERING)
+		if (low_update_counter % 25 == 0)
 		{
-			hmc5843_read(&sensor_data.magnetometer_raw); 
+			if (low_update_counter % 250*60 == 0)
+			{
+				i2c_init();
+				printf("\r\nRESET\r\n");
+			}	
+			else			
+				hmc5843_read(&sensor_data.magnetometer_raw); 
+			//printf("\r\n jlk \r\n");
 		}
+#endif
 
+#ifdef ENABLE_QUADROCOPTER
 		ahrs_filter(0.005);	
 #else
 		ahrs_filter(0.02);	

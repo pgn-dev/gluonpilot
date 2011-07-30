@@ -11,11 +11,14 @@
  */
  
 #ifndef ENABLE_QUADROCOPTER
-#error Please use ahrs_kalman_2x3.c for fixed wing aircraft use!
+	#ifndef F1E_STEERING
+		#error Please use ahrs_kalman_2x3.c for fixed wing aircraft use!
+	#endif
 #endif
 
 #include <math.h>
- 
+#include <stdio.h>
+
 #include "button/button.h"
 #include "matrix/matrix.h"
 #include "pid/pid.h"
@@ -63,6 +66,8 @@ void ahrs_init()
 #define halfT 0.002f		// half the sample period
 
 float exInt = 0, eyInt = 0, ezInt = 0;	// scaled integral error
+
+int i = 0;
 
 //====================================================================================================
 // Function
@@ -155,6 +160,9 @@ void ahrs_filter()
 	sensor_data.roll = quaternion_to_roll(q);
 	sensor_data.pitch = quaternion_to_pitch(q);
 	sensor_data.yaw = quaternion_to_yaw(q);
+	
+	//if (i++  % 50 == 0)
+	//	printf("\r\n %f \r\n", sensor_data.yaw/3.14*180.0);
 }
 
 

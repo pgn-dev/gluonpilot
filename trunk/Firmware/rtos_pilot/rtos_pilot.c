@@ -37,10 +37,12 @@
 #include "navigation.h"
 #include "osd.h"
 
+#include "common.h"
+
 extern xSemaphoreHandle xGpsSemaphore;
 extern xSemaphoreHandle xSpiSemaphore;
 
-static char version[] = "0.5.2 DEV";
+static char version[] = "0.6.0 DEV";
 
 unsigned long idle_counter = 0;
 

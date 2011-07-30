@@ -17,6 +17,7 @@ BATT_V	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rt
 BIND::(x,a,b)((x)>(b)?b:(((x)<(a))?a	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\common.h	9;"	d	line:9
 BLOCK	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	64;"	e	line:64	enum:navigation_command
 BLOCK_TIME	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	41;"	e	line:41	enum:navigation_variable
+BMP085_ADDRESS::0xEE	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	7;"	d	line:7	file:
 BUFFERSIZE::200	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	48;"	d	line:48	file:
 BUF_DI::0x01	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h	59;"	d	line:59
 BUF_EN::0x00	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h	58;"	d	line:58
@@ -44,7 +45,7 @@ CO_ROUTINE_H	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmw
 CS::PORTFbits.RF0	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.c	36;"	d	line:36	file:
 CS::PORTGbits.RG9	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	12;"	d	line:12	file:
 Configuration	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	11;"	s	line:11
-ControlConfig	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	24;"	s	line:24
+ControlConfig	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	25;"	s	line:25
 ControlState	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	11;"	s	line:11
 DATALOGGER_H	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	2;"	d	line:2
 DATA_BUF_LENGTH::968	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h	20;"	d	line:20
@@ -116,10 +117,12 @@ HEIGHT	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rt
 HEIGHT::0x8D	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	43;"	d	line:43	file:
 HOME::0xB4	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	40;"	d	line:40	file:
 HOME_DISTANCE	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	30;"	e	line:30	enum:navigation_variable
-I2Cread	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	210;"	f	line:210	signature:(char addr, char subaddr)
 I2Cread	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	48;"	p	line:48	signature:(char addr, char subaddr)
-I2Cwrite	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	199;"	f	line:199	signature:(char addr, char subaddr, char value)
+I2Cread	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	152;"	f	line:152	signature:(char addr, char subaddr)
+I2Cread	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.h	23;"	p	line:23	signature:(char addr, char subaddr)
 I2Cwrite	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	45;"	p	line:45	signature:(char addr, char subaddr, char value)
+I2Cwrite	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	141;"	f	line:141	signature:(char addr, char subaddr, char value)
+I2Cwrite	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.h	20;"	p	line:20	signature:(char addr, char subaddr, char value)
 IF_EQ	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	54;"	e	line:54	enum:navigation_command
 IF_GR	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	56;"	e	line:56	enum:navigation_command
 IF_NE	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	57;"	e	line:57	enum:navigation_command
@@ -130,7 +133,7 @@ INCLUDE_uxTaskPriorityGet::0	C:\Documents and Settings\Eigenaar\Mijn documenten\
 INCLUDE_vTaskCleanUpResources::0	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOSConfig.h	55;"	d	line:55
 INCLUDE_vTaskDelay::1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOSConfig.h	58;"	d	line:58
 INCLUDE_vTaskDelayUntil::1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOSConfig.h	57;"	d	line:57
-INCLUDE_vTaskDelete::0	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOSConfig.h	54;"	d	line:54
+INCLUDE_vTaskDelete::1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOSConfig.h	54;"	d	line:54
 INCLUDE_vTaskPrioritySet::1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOSConfig.h	52;"	d	line:52
 INCLUDE_vTaskSuspend::1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOSConfig.h	56;"	d	line:56
 INCLUDE_xTaskGetCurrentTaskHandle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOS.h	185;"	d	line:185
@@ -143,7 +146,7 @@ INC_FREERTOS_H	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Fir
 INTERRUPT_PROTECT::(x){	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	30;"	d	line:30
 INT_SYNC::0x30	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h	53;"	d	line:53
 INVERT_3X3::(b,det,a)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\matrix\matrix.h	26;"	d	line:26
-INVERT_X::-1.0	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	44;"	d	line:44	file:
+INVERT_X::-1.0	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	46;"	d	line:46	file:
 Index	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	210;"	l	line:210
 Index	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	251;"	l	line:251
 KMH::0xCB	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	45;"	d	line:45	file:
@@ -153,7 +156,7 @@ LED_H	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib
 LIST_H	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\list.h	88;"	d	line:88
 LOG_INDEX_PAGE	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.c	43;"	v	line:43
 LOITER	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	9;"	e	line:9	enum:FlightModes
-LONG_TIME::0xffff	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	199;"	d	line:199	file:
+LONG_TIME::0xffff	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	239;"	d	line:239	file:
 LogIndex	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	9;"	s	line:9
 LogLine	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	21;"	s	line:21
 LogLine	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	59;"	s	line:59
@@ -187,6 +190,7 @@ OSDBL_10_DisableAutoBlackLevel::0x10	C:\Documents and Settings\Eigenaar\Mijn doc
 OSDBL_RD::0xEC	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h	114;"	d	line:114
 OSDBL_WR::0x6C	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h	113;"	d	line:113
 OSD_EN::0x08	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h	54;"	d	line:54
+OSS::3	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	9;"	d	line:9	file:
 P	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	89;"	l	line:89	file:
 PAGE_SIZE	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.c	40;"	v	line:40
 PAL::0x40	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h	50;"	d	line:50
@@ -268,6 +272,7 @@ UNTIL_NE	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\
 UNTIL_SM	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	61;"	e	line:61	enum:navigation_command
 V01J::1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	21;"	d	line:21
 V01N::2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	22;"	d	line:22
+V01O::3	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	23;"	d	line:23
 VERT_SYNC_IMM::0x00	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h	55;"	d	line:55
 VERT_SYNC_VSYNC::0x04	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h	56;"	d	line:56
 VIDEO_MODE_0_01_EnVideo::0x01	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h	47;"	d	line:47
@@ -284,6 +289,8 @@ VIDEO_MODE_1_WRITE::0x01	C:\Documents and Settings\Eigenaar\Mijn documenten\gluo
 VOID	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.h	6;"	e	line:6	enum:gps_status
 Write8	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	178;"	f	line:178	signature:(unsigned int add, unsigned int val)
 Write8	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	20;"	p	line:20	file:	signature:(unsigned int add, unsigned int val)
+XH	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	274;"	l	line:274
+YH	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	273;"	l	line:273
 _AddressError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	129;"	f	line:129	signature:(void)
 _AltAddressError	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	163;"	f	line:163	signature:(void)
 _AltIC4Interrupt	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.c	192;"	f	line:192	signature:(void)
@@ -308,8 +315,14 @@ _trapISR::__attribute__((interrupt,no_au	C:\Documents and Settings\Eigenaar\Mijn
 _vPortYield	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\portasm_dsPIC.S	56;"	l	line:56
 a	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	164;"	l	line:164
 a	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	74;"	m	line:74	struct:NavigationCode
-abs_r	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	431;"	l	line:431
-acc_value_g	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	50;"	v	line:50	file:
+abs_r	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	432;"	l	line:432
+ac1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	11;"	v	line:11
+ac2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	12;"	v	line:12
+ac3	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	13;"	v	line:13
+ac4	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	14;"	v	line:14
+ac5	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	15;"	v	line:15
+ac6	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	16;"	v	line:16
+acc_value_g	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	52;"	v	line:52	file:
 acc_x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	68;"	m	line:68	struct:LogLine
 acc_x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	14;"	m	line:14	struct:SensorData
 acc_x_g	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	41;"	m	line:41	struct:LogLine
@@ -341,27 +354,52 @@ ahrs_filter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmwa
 ahrs_filter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	80;"	f	line:80	signature:(double dt)
 ahrs_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs.h	5;"	p	line:5	signature:()
 ahrs_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	47;"	f	line:47
-aileron_differential	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	51;"	m	line:51	struct:ControlConfig
+aileron_differential	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	52;"	m	line:52	struct:ControlConfig
 aileron_out	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	48;"	v	line:48
-aileron_out_left	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	506;"	l	line:506
-aileron_out_radians	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	306;"	l	line:306
-aileron_out_radians	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	445;"	l	line:445
-aileron_out_right	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	506;"	l	line:506
+aileron_out_left	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	510;"	l	line:510
+aileron_out_radians	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	310;"	l	line:310
+aileron_out_radians	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	449;"	l	line:449
+aileron_out_right	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	510;"	l	line:510
 airborne	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	95;"	m	line:95	struct:NavigationData
 alt	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	428;"	l	line:428
-auto_throttle_cruise_pct	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	64;"	m	line:64	struct:ControlConfig
-auto_throttle_max_pct	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	66;"	m	line:66	struct:ControlConfig
-auto_throttle_min_pct	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	65;"	m	line:65	struct:ControlConfig
-auto_throttle_p_gain	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	67;"	m	line:67	struct:ControlConfig
-autopilot_auto_throttle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	63;"	m	line:63	struct:ControlConfig
+auto_throttle_cruise_pct	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	65;"	m	line:65	struct:ControlConfig
+auto_throttle_max_pct	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	67;"	m	line:67	struct:ControlConfig
+auto_throttle_min_pct	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	66;"	m	line:66	struct:ControlConfig
+auto_throttle_p_gain	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	68;"	m	line:68	struct:ControlConfig
+autopilot_auto_throttle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	64;"	m	line:64	struct:ControlConfig
 b	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	164;"	l	line:164
 b	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	75;"	m	line:75	struct:NavigationCode
+b1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	17;"	v	line:17
+b2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	18;"	v	line:18
 b2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	9;"	m	line:9	union:bytetag
+b3	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	168;"	v	line:168	file:
+b4	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	169;"	v	line:169	file:
+b5	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	168;"	v	line:168	file:
+b6	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	168;"	v	line:168	file:
+b7	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	169;"	v	line:169	file:
 battery_voltage_10	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	24;"	m	line:24	struct:SensorData
+bmp085Read	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	23;"	f	line:23	signature:(unsigned char address)
+bmp085ReadInt	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	41;"	f	line:41	signature:(unsigned char address)
+bmp085ReadLong3	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	66;"	f	line:66	signature:(unsigned char address)
+bmp085_Calibration	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	103;"	f	line:103	signature:(void)
+bmp085_convert_pressure	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	180;"	f	line:180	signature:(long up, long* pressure)
+bmp085_convert_pressure	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.h	11;"	p	line:11	signature:(long up, long* pressure)
+bmp085_convert_temp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	171;"	f	line:171	signature:(long raw, int *temp)
+bmp085_convert_temp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.h	9;"	p	line:9	signature:(long raw, int *temp)
+bmp085_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	253;"	f	line:253
+bmp085_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.h	3;"	p	line:3	signature:()
+bmp085_read_pressure	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	162;"	f	line:162	signature:(void)
+bmp085_read_pressure	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.h	7;"	p	line:7	signature:(void)
+bmp085_read_temp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	157;"	f	line:157	signature:(void)
+bmp085_read_temp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.h	5;"	p	line:5	signature:(void)
+bmp085_start_convert_pressure	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	134;"	f	line:134
+bmp085_start_convert_pressure	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.h	13;"	p	line:13	signature:()
+bmp085_start_convert_temp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	145;"	f	line:145
+bmp085_start_convert_temp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.h	15;"	p	line:15	signature:()
 boot_sequence	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	14;"	m	line:14	struct:LogIndex
 buffer	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	49;"	v	line:49	file:
 buffer	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	34;"	v	line:34
-buffer_position	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	287;"	l	line:287	file:
+buffer_position	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	297;"	l	line:297	file:
 button_down	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\button\button.c	21;"	f	line:21
 button_down	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\button\button.h	3;"	p	line:3	signature:()
 button_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\button\button.c	13;"	f	line:13
@@ -376,15 +414,15 @@ c	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps
 c	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	59;"	l	line:59
 cChar	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\uart1_queue\uart1_queue.c	64;"	l	line:64
 cStatus	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	1974;"	l	line:1974
-carrot	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	216;"	l	line:216
-carrot::4.0	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	429;"	d	line:429	file:
+carrot	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	217;"	l	line:217
+carrot::4.0	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	430;"	d	line:430	file:
 channel	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.h	9;"	m	line:9	struct:ppm_info
-channel_ap	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	27;"	m	line:27	struct:ControlConfig
-channel_motor	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	26;"	m	line:26	struct:ControlConfig
-channel_neutral	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	32;"	m	line:32	struct:ControlConfig
-channel_pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	28;"	m	line:28	struct:ControlConfig
-channel_roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	29;"	m	line:29	struct:ControlConfig
-channel_yaw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	30;"	m	line:30	struct:ControlConfig
+channel_ap	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	28;"	m	line:28	struct:ControlConfig
+channel_motor	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	27;"	m	line:27	struct:ControlConfig
+channel_neutral	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	33;"	m	line:33	struct:ControlConfig
+channel_pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	29;"	m	line:29	struct:ControlConfig
+channel_roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	30;"	m	line:30	struct:ControlConfig
+channel_yaw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	31;"	m	line:31	struct:ControlConfig
 chars	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	6176;"	v	line:6176
 checksum	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	50;"	v	line:50
 chr0	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	301;"	v	line:301
@@ -644,7 +682,7 @@ chr97	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib
 chr98	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	2565;"	v	line:2565
 chr99	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	2588;"	v	line:2588
 communication_input_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication.h	24;"	p	line:24	signature:( void *parameters )
-communication_input_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	285;"	f	line:285	signature:( void *parameters )
+communication_input_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	295;"	f	line:295	signature:( void *parameters )
 communication_telemetry_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication.h	22;"	p	line:22	signature:( void *parameters )
 communication_telemetry_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	57;"	f	line:57	signature:( void *parameters )
 config	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.c	21;"	v	line:21
@@ -679,40 +717,40 @@ configUSE_PREEMPTION::1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluon
 configUSE_RECURSIVE_MUTEXES::0	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOS.h	142;"	d	line:142
 configUSE_TICK_HOOK::0	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOSConfig.h	31;"	d	line:31
 configUSE_TRACE_FACILITY::1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOSConfig.h	39;"	d	line:39
-configuration_default	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.c	87;"	f	line:87
-configuration_default	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	26;"	p	line:26	signature:()
+configuration_default	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.c	97;"	f	line:97
+configuration_default	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	27;"	p	line:27	signature:()
 configuration_determine_hardware_version	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.c	37;"	f	line:37
-configuration_determine_hardware_version	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	32;"	p	line:32	signature:()
+configuration_determine_hardware_version	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	33;"	p	line:33	signature:()
 configuration_load	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.c	31;"	f	line:31
-configuration_load	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	28;"	p	line:28	signature:()
-configuration_write	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.c	78;"	f	line:78
-configuration_write	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	30;"	p	line:30	signature:()
+configuration_load	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	29;"	p	line:29	signature:()
+configuration_write	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.c	88;"	f	line:88
+configuration_write	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	31;"	p	line:31	signature:()
 connection_alive	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.h	7;"	m	line:7	struct:ppm_info
 control	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	16;"	m	line:16	struct:Configuration
-control_copter_desired_to_servos	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	442;"	f	line:442	signature:(double dt)
-control_copter_stabilized	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	412;"	f	line:412	signature:(double dt, int altitude_hold)
-control_copter_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	353;"	f	line:353	signature:( void *parameters )
-control_copter_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	73;"	p	line:73	signature:( void *pvParameters )
+control_copter_desired_to_servos	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	446;"	f	line:446	signature:(double dt)
+control_copter_stabilized	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	416;"	f	line:416	signature:(double dt, int altitude_hold)
+control_copter_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	357;"	f	line:357	signature:( void *parameters )
+control_copter_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	74;"	p	line:74	signature:( void *pvParameters )
 control_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	63;"	f	line:63
-control_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	71;"	p	line:71	signature:()
-control_mix_out	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	502;"	f	line:502
+control_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	72;"	p	line:72	signature:()
+control_mix_out	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	506;"	f	line:506
 control_mix_out	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	51;"	p	line:51	file:
 control_state	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	54;"	v	line:54
 control_state	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	50;"	m	line:50	struct:LogLine
-control_wing_desired_to_servos	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	303;"	f	line:303	signature:(double dt)
+control_wing_desired_to_servos	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	307;"	f	line:307	signature:(double dt)
 control_wing_desired_to_servos	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	41;"	p	line:41	file:
-control_wing_manual	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	177;"	f	line:177
+control_wing_manual	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	181;"	f	line:181
 control_wing_manual	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	38;"	p	line:38	file:
-control_wing_navigate	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	229;"	f	line:229	signature:(double dt, int altitude_controllable)
+control_wing_navigate	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	233;"	f	line:233	signature:(double dt, int altitude_controllable)
 control_wing_navigate	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	40;"	p	line:40	file:	signature:(double dt, int altitude_controllable)
-control_wing_stabilized	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	197;"	f	line:197	signature:(double dt, int altitude_hold)
+control_wing_stabilized	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	201;"	f	line:201	signature:(double dt, int altitude_hold)
 control_wing_stabilized	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	39;"	p	line:39	file:	signature:(double dt, int h)
-control_wing_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	112;"	f	line:112	signature:( void *parameters )
-control_wing_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	74;"	p	line:74	signature:( void *pvParameters )
+control_wing_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	113;"	f	line:113	signature:( void *parameters )
+control_wing_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	75;"	p	line:75	signature:( void *pvParameters )
 convert_parameters_to_abs	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	119;"	f	line:119	signature:(int i)
 convert_parameters_to_abs	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	46;"	p	line:46	file:	signature:(int i)
-converted	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	836;"	l	line:836
-converted	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	880;"	l	line:880
+converted	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	914;"	l	line:914
+converted	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	958;"	l	line:958
 corCRCB	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\croutine.h	84;"	t	line:84
 corCoRoutineControlBlock	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\croutine.h	76;"	s	line:76
 corINITIAL_STATE::(0)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\croutine.c	79;"	d	line:79	file:
@@ -723,8 +761,8 @@ cos_roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\
 cos_roll_2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\quaternion\quaternion.c	22;"	l	line:22
 cos_yaw_2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\quaternion\quaternion.c	26;"	l	line:26
 counter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.c	194;"	l	line:194	file:
-counter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	307;"	l	line:307	file:
-counter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	446;"	l	line:446	file:
+counter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	311;"	l	line:311	file:
+counter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	450;"	l	line:450	file:
 counters	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	60;"	l	line:60
 crCOROUTINE_CODE	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\croutine.h	74;"	t	line:74
 crDELAY::(xHandle,xTicksToDelay)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\croutine.h	322;"	d	line:322
@@ -736,22 +774,23 @@ crQUEUE_SEND_FROM_ISR::(pxQueue,pvItemToQueue,xCoRout	C:\Documents and Settings\
 crSET_STATE0::(xHandle)((corCRCB*)xHandle)->	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\croutine.h	268;"	d	line:268
 crSET_STATE1::(xHandle)((corCRCB*)xHandle)->	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\croutine.h	269;"	d	line:269
 crSTART::(pxCRCB)switch(((corCRCB*)pxCR	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\croutine.h	231;"	d	line:231
-cruising_speed_ms	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	61;"	m	line:61	struct:ControlConfig
-current_alpha	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	434;"	l	line:434
-current_code	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	189;"	l	line:189
+cruising_speed_ms	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	62;"	m	line:62	struct:ControlConfig
+current_alpha	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	435;"	l	line:435
+current_code	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	190;"	l	line:190
 current_codeline	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	108;"	m	line:108	struct:NavigationData
 current_index	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	38;"	v	line:38
 current_line	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	158;"	v	line:158
 current_page	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	37;"	v	line:37
-current_token	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	289;"	l	line:289	file:
+current_token	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	299;"	l	line:299	file:
 d	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	203;"	l	line:203
 d1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	79;"	l	line:79
 d2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	79;"	l	line:79
-d_altitude	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	282;"	l	line:282
+d_altitude	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	286;"	l	line:286
 d_gain	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.h	12;"	m	line:12	struct:pid
 d_state	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.h	11;"	m	line:11	struct:pid
 d_term_min_var	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.h	13;"	m	line:13	struct:pid
-data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	145;"	l	line:145
+data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	25;"	l	line:25
+data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	123;"	l	line:123
 data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	21;"	v	line:21
 dataflash_disable_spi	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.c	140;"	f	line:140
 dataflash_disable_spi	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.c	26;"	p	line:26	file:
@@ -806,25 +845,25 @@ desired_pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firm
 desired_pre_bank	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	101;"	m	line:101	struct:NavigationData
 desired_roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	14;"	m	line:14	struct:ControlState
 desired_roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	29;"	m	line:29	struct:LogLine
-desired_yaw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	447;"	l	line:447	file:
-desired_yaw_rate	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	465;"	l	line:465
+desired_yaw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	451;"	l	line:451	file:
+desired_yaw_rate	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	469;"	l	line:469
 df_dx	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	88;"	l	line:88	file:
 dh	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	164;"	l	line:164
 dh_dx_3x2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	92;"	l	line:92	file:
-difflat	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	539;"	l	line:539
-difflong	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	538;"	l	line:538
+difflat	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	540;"	l	line:540
+difflong	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	539;"	l	line:539
 disable_logging	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	40;"	v	line:40
-distance_ahead	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	430;"	l	line:430
+distance_ahead	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	431;"	l	line:431
 distance_between_meter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	42;"	p	line:42	file:	signature:(float long1, float long2, float lat1, float lat2)
-distance_center	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	437;"	l	line:437
-dt	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	797;"	l	line:797
+distance_center	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	438;"	l	line:438
+dt	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	875;"	l	line:875
 dt_no_valid_frame	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.c	30;"	v	line:30
-dt_since_last_height	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	69;"	l	line:69
+dt_since_last_height	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	71;"	l	line:71
 elevator_out	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	48;"	v	line:48
-elevator_out_radians	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	305;"	l	line:305
-elevator_out_radians	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	444;"	l	line:444
-emptyChar	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	837;"	l	line:837
-emptyChar	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	881;"	l	line:881
+elevator_out_radians	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	309;"	l	line:309
+elevator_out_radians	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	448;"	l	line:448
+emptyChar	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	915;"	l	line:915
+emptyChar	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	959;"	l	line:959
 endheading	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	141;"	l	line:141
 errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY::(-1)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\projdefs.h	67;"	d	line:67
 errNO_TASK_TO_RUN::(-2)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\projdefs.h	68;"	d	line:68
@@ -833,16 +872,16 @@ errQUEUE_EMPTY::(0)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilo
 errQUEUE_FULL::(0)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\projdefs.h	64;"	d	line:64
 errQUEUE_YIELD::(-5)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\projdefs.h	70;"	d	line:70
 error	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	32;"	m	line:32	file:
-fast_cos	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	326;"	f	line:326	signature:(double x)
+fast_cos	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	352;"	f	line:352	signature:(double x)
 fast_cos	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	39;"	p	line:39	file:	signature:(double x)
-fast_sin	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	320;"	f	line:320	signature:(double x)
+fast_sin	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	346;"	f	line:346	signature:(double x)
 fast_sin	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	38;"	p	line:38	file:	signature:(double x)
 flags	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	25;"	m	line:25	file:
 flags_bit	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	33;"	m	line:33	file:
 flight_mode	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	13;"	m	line:13	struct:ControlState
 fourninemeter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	355;"	v	line:355
 fract	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	197;"	l	line:197
-get_variable	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	380;"	f	line:380	signature:(enum navigation_variable i)
+get_variable	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	381;"	f	line:381	signature:(enum navigation_variable i)
 get_variable	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	44;"	p	line:44	file:	signature:(enum navigation_variable i)
 gga_sentence_number	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	37;"	v	line:37
 gps	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	15;"	m	line:15	struct:Configuration
@@ -874,10 +913,10 @@ gps_valid_frames_receiving	C:\Documents and Settings\Eigenaar\Mijn documenten\gl
 gps_wait_for_lock	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	127;"	f	line:127
 gps_wait_for_lock	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.h	36;"	p	line:36	signature:()
 gpsinfo	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	129;"	l	line:129
-gravity_to_pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	309;"	f	line:309	signature:(double a_x, double a_z)
+gravity_to_pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	335;"	f	line:335	signature:(double a_x, double a_z)
 gravity_to_pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	36;"	p	line:36	file:	signature:(double a_x, double a_z)
 gravity_to_pitch2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	197;"	f	line:197	signature:(double a_x, double a_z)
-gravity_to_roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	290;"	f	line:290	signature:(double a_y, double a_z)
+gravity_to_roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	316;"	f	line:316	signature:(double a_y, double a_z)
 gravity_to_roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	35;"	p	line:35	file:	signature:(double a_y, double a_z)
 gravity_to_roll2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	185;"	f	line:185	signature:(double a_y, double a_z)
 gyro_x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	71;"	m	line:71	struct:LogLine
@@ -893,25 +932,27 @@ h	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pi
 h	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	693;"	l	line:693
 h	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	715;"	l	line:715
 hbyte	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	9;"	m	line:9	struct:bytetag::<anonymous>
+heading	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	276;"	l	line:276
 heading	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	142;"	l	line:142
 heading	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	47;"	v	line:47
-heading_error_rad	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	232;"	l	line:232
-heading_error_rad	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	364;"	l	line:364
+heading_error_rad	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	236;"	l	line:236
+heading_error_rad	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	365;"	l	line:365
 heading_rad	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.h	19;"	m	line:19	struct:gps_info
 heading_rad_fromto	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	41;"	p	line:41	file:	signature:(double diff_long, double diff_lat)
 heapBYTE_ALIGNMENT_MASK::((size_t)0x0000)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\heap_1.c	92;"	d	line:92	file:
 heapBYTE_ALIGNMENT_MASK::((size_t)0x0001)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\heap_1.c	88;"	d	line:88	file:
 heapBYTE_ALIGNMENT_MASK::((size_t)0x0003)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\heap_1.c	84;"	d	line:84	file:
 heapBYTE_ALIGNMENT_MASK::((size_t)0x0007)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\heap_1.c	80;"	d	line:80	file:
-height	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	120;"	l	line:120
+height	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	150;"	l	line:150
+height	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	168;"	l	line:168
 height_m	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.h	13;"	m	line:13	struct:gps_info
 height_m	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	53;"	m	line:53	struct:LogLine
 height_m_5	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	80;"	m	line:80	struct:LogLine
 hexchar2int	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	145;"	f	line:145	signature:(char c)
 high	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	674;"	l	line:674
-hmc5843_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	225;"	f	line:225
+hmc5843_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	190;"	f	line:190
 hmc5843_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	51;"	p	line:51	signature:(void)
-hmc5843_read	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	244;"	f	line:244	signature:(struct intvector *magdata)
+hmc5843_read	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	209;"	f	line:209	signature:(struct intvector *magdata)
 hmc5843_read	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	54;"	p	line:54	signature:(struct intvector *magdata)
 home_distance	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	89;"	m	line:89	struct:NavigationData
 home_distance	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	368;"	l	line:368
@@ -928,8 +969,8 @@ i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dat
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.c	322;"	l	line:322
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	174;"	l	line:174
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	195;"	l	line:195
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	114;"	l	line:114
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	144;"	l	line:144
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	122;"	l	line:122
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	92;"	l	line:92
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	56;"	l	line:56
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	42;"	l	line:42
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	54;"	l	line:54
@@ -938,21 +979,23 @@ i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	112;"	l	line:112
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	146;"	l	line:146
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	180;"	l	line:180
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	323;"	l	line:323
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	349;"	l	line:349
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	50;"	l	line:50
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	82;"	l	line:82	file:
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	466;"	l	line:466
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	490;"	l	line:490
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	562;"	l	line:562
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	360;"	l	line:360
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	378;"	l	line:378
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	512;"	l	line:512
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	536;"	l	line:536
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	59;"	l	line:59
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	632;"	l	line:632
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	644;"	l	line:644
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	782;"	l	line:782	file:
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	836;"	l	line:836
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	880;"	l	line:880
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.c	89;"	l	line:89
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	367;"	l	line:367
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	505;"	l	line:505
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	640;"	l	line:640
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	710;"	l	line:710
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	722;"	l	line:722
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	860;"	l	line:860	file:
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	914;"	l	line:914
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	958;"	l	line:958
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.c	99;"	l	line:99
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	371;"	l	line:371
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	509;"	l	line:509
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	65;"	l	line:65
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	165;"	l	line:165
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	199;"	l	line:199
@@ -960,22 +1003,26 @@ i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pi
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	57;"	l	line:57
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	96;"	l	line:96
 i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	81;"	l	line:81
-i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	202;"	l	line:202
+i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	242;"	l	line:242
 i16	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	8;"	m	line:8	union:bytetag
-i2c_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	86;"	f	line:86	signature:(void)
 i2c_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	29;"	p	line:29	signature:(void)
-i2c_read_byte	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	142;"	f	line:142	signature:(void)
+i2c_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	64;"	f	line:64	signature:(void)
+i2c_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.h	12;"	p	line:12	signature:(void)
 i2c_read_byte	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	35;"	p	line:35	signature:(void)
-i2c_restart	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	46;"	f	line:46	signature:(void)
+i2c_read_byte	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	120;"	f	line:120	signature:(void)
+i2c_read_byte	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.h	17;"	p	line:17	signature:(void)
 i2c_restart	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	23;"	p	line:23	signature:(void)
-i2c_start	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	25;"	f	line:25	signature:(void)
+i2c_restart	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	24;"	f	line:24	signature:(void)
+i2c_restart	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.h	6;"	p	line:6	signature:(void)
 i2c_start	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	20;"	p	line:20	signature:(void)
+i2c_start	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	3;"	f	line:3	signature:(void)
+i2c_start	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.h	3;"	p	line:3	signature:(void)
 i_gain	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.h	12;"	m	line:12	struct:pid
 i_max	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.h	10;"	m	line:10	struct:pid
 i_min	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.h	10;"	m	line:10	struct:pid
 i_state	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.h	9;"	m	line:9	struct:pid
 idg500_vref	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	13;"	m	line:13	struct:SensorData
-idle_counter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\rtos_pilot.c	45;"	v	line:45
+idle_counter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\rtos_pilot.c	47;"	v	line:47
 in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.c	200;"	l	line:200
 in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	130;"	l	line:130	file:
 in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	160;"	l	line:160	file:
@@ -995,21 +1042,21 @@ intvector	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware
 invalid_pulse	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.c	195;"	l	line:195	file:
 isNaN	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.c	46;"	f	line:46	signature:(double* f)
 j	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	56;"	l	line:56
-j	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	504;"	l	line:504	file:
+j	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	508;"	l	line:508	file:
 j	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	200;"	l	line:200
 l	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	264;"	l	line:264	file:
 l	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	692;"	l	line:692
 l	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	714;"	l	line:714
-lastMode	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	114;"	l	line:114
-lastMode	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	355;"	l	line:355
+lastMode	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	115;"	l	line:115
+lastMode	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	359;"	l	line:359
 last_call_gga_sentence_number	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	252;"	l	line:252	file:
 last_call_rmc_sentence_number	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	251;"	l	line:251	file:
 last_code	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	109;"	m	line:109	struct:NavigationData
 last_error	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.h	8;"	m	line:8	struct:pid
 last_fix_time	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.h	11;"	m	line:11	struct:gps_info
 last_flight_mode	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	359;"	l	line:359	file:
-last_height	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	783;"	l	line:783	file:
-last_height	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	68;"	l	line:68
+last_height	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	861;"	l	line:861	file:
+last_height	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	70;"	l	line:70
 last_index	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	195;"	l	line:195	file:
 last_index	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	57;"	l	line:57
 last_page	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	196;"	l	line:196	file:
@@ -1043,9 +1090,9 @@ led2_toggle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmwa
 led2_toggle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\led\led.h	13;"	p	line:13	signature:()
 led_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\led\led.c	5;"	f	line:5
 led_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\led\led.h	4;"	p	line:4	signature:()
-leg2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	210;"	l	line:210
-leg_x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	208;"	l	line:208
-leg_y	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	209;"	l	line:209
+leg2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	211;"	l	line:211
+leg_x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	209;"	l	line:209
+leg_y	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	210;"	l	line:210
 lines	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	166;"	l	line:166
 lines	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	197;"	l	line:197	file:
 listCURRENT_LIST_LENGTH::(pxList)((pxList)->uxNumberOfI	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\list.h	164;"	d	line:164
@@ -1059,13 +1106,15 @@ listSET_LIST_ITEM_VALUE::(pxListItem,xValue)(pxListItem	C:\Documents and Setting
 longitude_meter_per_radian	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	38;"	v	line:38
 longitude_rad	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.h	16;"	m	line:16	struct:gps_info
 low	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	675;"	l	line:675
-low_update_counter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	70;"	l	line:70
+low_update_counter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	72;"	l	line:72
+lsb	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	43;"	l	line:43
+lsb	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	68;"	l	line:68
 magnetometer_raw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	11;"	m	line:11	struct:SensorData
-main	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\rtos_pilot.c	47;"	f	line:47
+main	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\rtos_pilot.c	49;"	f	line:49
 mantissa	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	198;"	l	line:198
 manu	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.c	110;"	l	line:110
-manual_desired_pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	270;"	l	line:270
-manual_trim	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	44;"	m	line:44	struct:ControlConfig
+manual_desired_pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	274;"	l	line:274
+manual_trim	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	45;"	m	line:45	struct:ControlConfig
 matrix_2x2_add	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\matrix\matrix.c	17;"	f	line:17	signature:(double *A, double *B, double *R)
 matrix_2x2_add	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\matrix\matrix.h	111;"	p	line:111	signature:(double *A, double *B, double *R)
 matrix_2x2_mul::(A,B,R)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\matrix\matrix.h	108;"	d	line:108
@@ -1093,8 +1142,11 @@ max7456_loadchars	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\
 max7456_loadchars	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	24;"	p	line:24	file:
 max756_read_status	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	48;"	f	line:48
 max756_read_status	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h	127;"	p	line:127	signature:()
-max_pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	49;"	m	line:49	struct:ControlConfig
-max_roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	48;"	m	line:48	struct:ControlConfig
+max_pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	50;"	m	line:50	struct:ControlConfig
+max_roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	49;"	m	line:49	struct:ControlConfig
+mb	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	19;"	v	line:19
+mc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	20;"	v	line:20
+md	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	21;"	v	line:21
 microcontroller_after_reboot	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	109;"	f	line:109
 microcontroller_after_reboot	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	21;"	p	line:21	signature:()
 microcontroller_delay_ms	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.c	39;"	f	line:39	signature:(unsigned long ms)
@@ -1107,9 +1159,14 @@ microcontroller_reset_type	C:\Documents and Settings\Eigenaar\Mijn documenten\gl
 microcontroller_reset_type	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\microcontroller\microcontroller.h	22;"	p	line:22	signature:()
 minutes_decimal	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	235;"	l	line:235
 motor_out	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	48;"	v	line:48
-ms_delay	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	327;"	l	line:327
-nav_leg_length	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	213;"	l	line:213
-nav_leg_progress	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	211;"	l	line:211
+ms_delay	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	328;"	l	line:328
+msb	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	43;"	l	line:43
+msb	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	68;"	l	line:68
+mx	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	261;"	l	line:261
+my	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	262;"	l	line:262
+mz	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	263;"	l	line:263
+nav_leg_length	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	214;"	l	line:214
+nav_leg_progress	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	212;"	l	line:212
 navigation_burn	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	128;"	f	line:128
 navigation_burn	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	7;"	p	line:7	signature:()
 navigation_calculate_relative_positions	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	94;"	f	line:94
@@ -1117,22 +1174,22 @@ navigation_code_line	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpil
 navigation_codes	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	107;"	m	line:107	struct:NavigationData
 navigation_command	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	44;"	g	line:44
 navigation_data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	30;"	v	line:30
-navigation_distance_between_meter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	527;"	f	line:527	signature:(float long1, float long2, float lat1, float lat2)
+navigation_distance_between_meter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	528;"	f	line:528	signature:(float long1, float long2, float lat1, float lat2)
 navigation_distance_between_meter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	11;"	p	line:11	signature:(float long1, float long2, float lat1, float lat2)
-navigation_do_circle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	425;"	f	line:425	signature:(struct NavigationCode *current_code)
+navigation_do_circle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	426;"	f	line:426	signature:(struct NavigationCode *current_code)
 navigation_do_circle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	43;"	p	line:43	file:	signature:(struct NavigationCode *current_code)
-navigation_heading_rad_fromto	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	506;"	f	line:506	signature:(double diff_long, double diff_lat)
+navigation_heading_rad_fromto	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	507;"	f	line:507	signature:(double diff_long, double diff_lat)
 navigation_heading_rad_fromto	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	10;"	p	line:10	signature:(double diff_long, double diff_lat)
 navigation_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	53;"	f	line:53
 navigation_load	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	134;"	f	line:134
 navigation_load	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	8;"	p	line:8	signature:()
 navigation_set_home	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	40;"	p	line:40	file:
-navigation_set_home	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	489;"	f	line:489
+navigation_set_home	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	490;"	f	line:490
 navigation_update	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	140;"	f	line:140
 navigation_update	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	9;"	p	line:9	signature:()
 navigation_variable	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	24;"	g	line:24
-next_alpha	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	440;"	l	line:440
-next_r	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	463;"	l	line:463
+next_alpha	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	441;"	l	line:441
+next_r	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	464;"	l	line:464
 nmea_buffer_GGA	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	41;"	v	line:41
 nmea_buffer_GGA_counter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	42;"	v	line:42
 nmea_buffer_RMC	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	38;"	v	line:38
@@ -1140,9 +1197,9 @@ nmea_buffer_RMC_counter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluon
 no_frame_times_20_s	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	381;"	l	line:381
 norm	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\quaternion\quaternion.c	106;"	l	line:106
 normalize::(pitch,roll)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	77;"	d	line:77	file:
-number	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	587;"	l	line:587
+number	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	665;"	l	line:665
 number	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	48;"	v	line:48
-number_of_controlled_channels	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	507;"	l	line:507
+number_of_controlled_channels	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	511;"	l	line:511
 opcode	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	71;"	m	line:71	struct:NavigationCode
 operational_baudrate	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.h	29;"	m	line:29	struct:GpsConfig
 osd_charactermemory_busy	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	23;"	p	line:23	file:
@@ -1178,7 +1235,8 @@ osd_write_char	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Fir
 osd_write_char	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	681;"	f	line:681	signature:(unsigned char x)
 osd_write_string	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	30;"	p	line:30	file:	signature:(unsigned char *x)
 osd_write_string	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	690;"	f	line:690	signature:(unsigned char *x)
-p	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	260;"	l	line:260
+p	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	168;"	v	line:168	file:
+p	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	286;"	l	line:286
 p	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	47;"	m	line:47	struct:LogLine
 p	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	15;"	m	line:15	struct:SensorData
 p_bias	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	44;"	v	line:44
@@ -1205,12 +1263,12 @@ pdTASK_CODE	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmwa
 pdTASK_HOOK_CODE	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOS.h	73;"	t	line:73
 pdTRUE::(1)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\projdefs.h	58;"	d	line:58
 pid	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.h	6;"	s	line:6
-pid_altitude2pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	57;"	m	line:57	struct:ControlConfig
-pid_heading2roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	56;"	m	line:56	struct:ControlConfig
+pid_altitude2pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	58;"	m	line:58	struct:ControlConfig
+pid_heading2roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	57;"	m	line:57	struct:ControlConfig
 pid_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.c	32;"	f	line:32	signature:(struct pid *pid, double d_gain, double p_gain, double i_gain, double i_min, double i_max, double d_term_min_var)
 pid_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.h	16;"	p	line:16	signature:(struct pid *pid, double d_gain, double p_gain, double i_gain, double i_min, double i_max, double d_term_min_var)
-pid_pitch2elevator	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	55;"	m	line:55	struct:ControlConfig
-pid_roll2aileron	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	54;"	m	line:54	struct:ControlConfig
+pid_pitch2elevator	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	56;"	m	line:56	struct:ControlConfig
+pid_roll2aileron	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	55;"	m	line:55	struct:ControlConfig
 pid_update	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.c	60;"	f	line:60	signature:(struct pid *pid, double position, double dt)
 pid_update	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.h	18;"	p	line:18	signature:(struct pid *pid, double position, double dt)
 pid_update_external_d	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.h	19;"	p	line:19	signature:(struct pid *pid, double position, double d, double dt)
@@ -1221,15 +1279,15 @@ pid_update_only_p_and_i	C:\Documents and Settings\Eigenaar\Mijn documenten\gluon
 pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	33;"	m	line:33	struct:LogLine
 pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	77;"	m	line:77	struct:LogLine
 pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	16;"	m	line:16	struct:SensorData
-pitch_acc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	311;"	l	line:311
+pitch_acc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	337;"	l	line:337
 pitch_acc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	78;"	m	line:78	struct:LogLine
 pitch_acc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	199;"	l	line:199
 pitch_acc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	17;"	m	line:17	struct:SensorData
 pitch_increment	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	210;"	l	line:210
 pitch_rad	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	41;"	v	line:41	file:
 pitch_rad_sum_error	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	42;"	v	line:42
-pointlat	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	467;"	l	line:467
-pointlon	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	466;"	l	line:466
+pointlat	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	468;"	l	line:468
+pointlon	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	467;"	l	line:467
 portBASE_TYPE::short	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\portmacro.h	76;"	d	line:76
 portBIT_SET::1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\port.c	67;"	d	line:67	file:
 portBYTE_ALIGNMENT::2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\portmacro.h	88;"	d	line:88
@@ -1290,21 +1348,22 @@ ppm_info	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\
 ppm_signal_quality	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.c	126;"	f	line:126
 ppm_signal_quality	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.h	17;"	p	line:17	signature:()
 pressure	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	80;"	l	line:80
+pressure	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	147;"	l	line:147
 pressure	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	20;"	m	line:20	struct:SensorData
 pressure_height	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	22;"	m	line:22	struct:SensorData
 print_configuration	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	45;"	p	line:45	file:
-print_configuration	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	642;"	f	line:642
+print_configuration	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	720;"	f	line:720
 print_logline	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	42;"	p	line:42	file:	signature:(struct LogLine *l)
-print_logline	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	751;"	f	line:751	signature:(struct LogLine *l)
+print_logline	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	829;"	f	line:829	signature:(struct LogLine *l)
 print_logline_simulation	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	43;"	p	line:43	file:	signature:(struct LogLine *l)
-print_logline_simulation	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	780;"	f	line:780	signature:(struct LogLine *l)
+print_logline_simulation	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	858;"	f	line:858	signature:(struct LogLine *l)
 print_meters	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	307;"	f	line:307	signature:(int row, int col, int m)
 print_navigation	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	46;"	p	line:46	file:
-print_navigation	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	630;"	f	line:630
+print_navigation	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	708;"	f	line:708
 print_signed_integer	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	40;"	p	line:40	file:	signature:(int x, void (*printer)(char[]))
-print_signed_integer	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	832;"	f	line:832	signature:(int x, void (*printer)(char[]))
+print_signed_integer	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	910;"	f	line:910	signature:(int x, void (*printer)(char[]))
 print_unsigned_integer	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	41;"	p	line:41	file:	signature:(unsigned int x, void (*printer)(char[]))
-print_unsigned_integer	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	876;"	f	line:876	signature:(unsigned int x, void (*printer)(char[]))
+print_unsigned_integer	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	954;"	f	line:954	signature:(unsigned int x, void (*printer)(char[]))
 prvAddCoRoutineToReadyQueue::(pxCRCB)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\croutine.c	95;"	d	line:95	file:
 prvAddTaskToReadyQueue::(pxTCB)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	243;"	d	line:243	file:
 prvAllocateTCBAndStack	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	1929;"	f	line:1929	file:	signature:( unsigned portSHORT usStackDepth )
@@ -1440,12 +1499,12 @@ r	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\qua
 r	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\quaternion\quaternion.c	82;"	l	line:82
 r	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\quaternion\quaternion.c	94;"	l	line:94
 r	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	49;"	m	line:49	struct:LogLine
-r	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	427;"	l	line:427
+r	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	428;"	l	line:428
 r	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	15;"	m	line:15	struct:SensorData
-rad_ahead	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	441;"	l	line:441
-rad_s	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	428;"	l	line:428
-radix	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	835;"	l	line:835
-radix	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	879;"	l	line:879
+rad_ahead	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	442;"	l	line:442
+rad_s	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	429;"	l	line:429
+radix	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	913;"	l	line:913
+radix	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	957;"	l	line:957
 raw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	123;"	l	line:123
 raw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	171;"	l	line:171
 raw_in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.c	198;"	l	line:198
@@ -1457,35 +1516,37 @@ raw_in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\li
 raw_in	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pwm_in\pwm_in.c	279;"	l	line:279	file:
 read_positive_float	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	193;"	f	line:193	signature:(const char *str)
 read_positive_long	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	172;"	f	line:172	signature:(const char *str)
-read_raw_sensor_data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	159;"	f	line:159
-read_raw_sensor_data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	54;"	p	line:54	file:
+read_raw_sensor_data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	199;"	f	line:199
+read_raw_sensor_data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	56;"	p	line:56	file:
 read_register	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	14;"	p	line:14	file:	signature:(unsigned char register_name)
 read_register16	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	15;"	p	line:15	file:	signature:(unsigned char register_name)
 rep	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.c	48;"	l	line:48
-reset_i2c_bus	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	64;"	f	line:64	signature:(void)
 reset_i2c_bus	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	26;"	p	line:26	signature:(void)
+reset_i2c_bus	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	42;"	f	line:42	signature:(void)
+reset_i2c_bus	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.h	9;"	p	line:9	signature:(void)
 rest	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	141;"	l	line:141
 rest	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	555;"	l	line:555
+result	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	93;"	l	line:93
 result	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	175;"	l	line:175
-reverse_servo1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	37;"	m	line:37	struct:ControlConfig
-reverse_servo2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	38;"	m	line:38	struct:ControlConfig
-reverse_servo3	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	39;"	m	line:39	struct:ControlConfig
-reverse_servo4	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	40;"	m	line:40	struct:ControlConfig
-reverse_servo5	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	41;"	m	line:41	struct:ControlConfig
-reverse_servo6	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	42;"	m	line:42	struct:ControlConfig
+reverse_servo1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	38;"	m	line:38	struct:ControlConfig
+reverse_servo2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	39;"	m	line:39	struct:ControlConfig
+reverse_servo3	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	40;"	m	line:40	struct:ControlConfig
+reverse_servo4	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	41;"	m	line:41	struct:ControlConfig
+reverse_servo5	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	42;"	m	line:42	struct:ControlConfig
+reverse_servo6	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	43;"	m	line:43	struct:ControlConfig
 rmc_sentence_number	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	36;"	v	line:36
 roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	35;"	m	line:35	struct:LogLine
 roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	76;"	m	line:76	struct:LogLine
 roll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	16;"	m	line:16	struct:SensorData
-roll_acc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	292;"	l	line:292
+roll_acc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	318;"	l	line:318
 roll_acc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	187;"	l	line:187
 roll_acc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	17;"	m	line:17	struct:SensorData
 roll_rad	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	41;"	v	line:41	file:
 roll_rad_sum_error	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	43;"	v	line:43
 satellites_in_view	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.h	12;"	m	line:12	struct:gps_info
-scale_raw_sensor_data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	173;"	f	line:173
-scale_raw_sensor_data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	55;"	p	line:55	file:
-scale_z_gyro	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	57;"	v	line:57
+scale_raw_sensor_data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	213;"	f	line:213
+scale_raw_sensor_data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	57;"	p	line:57	file:
+scale_z_gyro	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	59;"	v	line:59
 sci0RxEsc	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	29;"	m	line:29	file:
 sci0RxLenLSB	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	30;"	m	line:30	file:
 sci0RxLenMSB	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	31;"	m	line:31	file:
@@ -1507,23 +1568,24 @@ scp1000_pressure_to_height	C:\Documents and Settings\Eigenaar\Mijn documenten\gl
 semBINARY_SEMAPHORE_QUEUE_LENGTH::((unsignedportCHAR)1)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\semphr.h	63;"	d	line:63
 semGIVE_BLOCK_TIME::((portTickType)0)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\semphr.h	65;"	d	line:65
 semSEMAPHORE_QUEUE_ITEM_LENGTH::((unsignedportCHAR)0)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\semphr.h	64;"	d	line:64
-send_i2c_byte	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	112;"	f	line:112	signature:(int data)
 send_i2c_byte	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	32;"	p	line:32	signature:(int data)
-sensor_data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	48;"	v	line:48
+send_i2c_byte	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	90;"	f	line:90	signature:(int data)
+send_i2c_byte	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.h	14;"	p	line:14	signature:(int data)
+sensor_data	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	50;"	v	line:50
 sensors	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	13;"	m	line:13	struct:Configuration
-sensors_gps_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	200;"	f	line:200	signature:( void *parameters )
+sensors_gps_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	240;"	f	line:240	signature:( void *parameters )
 sensors_gps_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	43;"	p	line:43	signature:( void *parameters )
-sensors_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	65;"	f	line:65	signature:( void *parameters )
+sensors_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	67;"	f	line:67	signature:( void *parameters )
 sensors_task	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	42;"	p	line:42	signature:( void *parameters )
 sentence_number_last_fix	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.h	21;"	m	line:21	struct:gps_info
 servo_all_neutral	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	65;"	f	line:65
 servo_all_neutral	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.h	15;"	p	line:15	signature:()
 servo_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	22;"	f	line:22
 servo_init	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.h	5;"	p	line:5	signature:()
-servo_max	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	34;"	m	line:34	struct:ControlConfig
-servo_min	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	35;"	m	line:35	struct:ControlConfig
-servo_mix	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	47;"	m	line:47	struct:ControlConfig
-servo_neutral	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	33;"	m	line:33	struct:ControlConfig
+servo_max	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	35;"	m	line:35	struct:ControlConfig
+servo_min	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	36;"	m	line:36	struct:ControlConfig
+servo_mix	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	48;"	m	line:48	struct:ControlConfig
+servo_neutral	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	34;"	m	line:34	struct:ControlConfig
 servo_out	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	45;"	v	line:45
 servo_pulse_max	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.c	21;"	v	line:21
 servo_pulse_min	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.c	23;"	v	line:23
@@ -1540,6 +1602,7 @@ servo_set_us	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmw
 servo_turbopwm	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	16;"	f	line:16
 servo_turbopwm	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.h	17;"	p	line:17	signature:()
 servo_us_to_raw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\servo\servo.c	83;"	f	line:83	signature:(unsigned int us)
+simulation_mode	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	17;"	m	line:17	struct:ControlState
 sin_lookup	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	33;"	v	line:33	file:
 sin_pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	85;"	l	line:85	file:
 sin_pitch_2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\quaternion\quaternion.c	25;"	l	line:25
@@ -1548,7 +1611,7 @@ sin_roll_2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmwar
 sin_yaw_2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\quaternion\quaternion.c	27;"	l	line:27
 size	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.c	111;"	l	line:111
 speed	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	533;"	l	line:533
-speed_depend_nav	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	249;"	l	line:249
+speed_depend_nav	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	253;"	l	line:253
 speed_ms	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.h	18;"	m	line:18	struct:gps_info
 spiReadReg	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.c	159;"	f	line:159	signature:(const unsigned char regAddr)
 spiReadReg	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\max7456\max7456.h	123;"	p	line:123	signature:(const unsigned char regAddr)
@@ -1565,7 +1628,7 @@ spi_comm_bitbang	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\F
 spi_comm_hw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.c	148;"	f	line:148	signature:(unsigned char add)
 spi_comm_hw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.c	19;"	p	line:19	file:	signature:(unsigned char outgoing_byte)
 spi_comm_software	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	17;"	p	line:17	file:	signature:(unsigned char outgoing_byte)
-stabilization_with_altitude_hold	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	62;"	m	line:62	struct:ControlConfig
+stabilization_with_altitude_hold	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	63;"	m	line:63	struct:ControlConfig
 start_page	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	57;"	l	line:57
 startheading	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	141;"	l	line:141
 state	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	48;"	v	line:48
@@ -1585,7 +1648,7 @@ sync_pulse	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmwar
 t	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	98;"	l	line:98
 t	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	155;"	l	line:155
 tan_pitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	87;"	l	line:87	file:
-target	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	283;"	l	line:283
+target	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	287;"	l	line:287
 taskDISABLE_INTERRUPTS::portDISABLE_INTERRUPTS	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\task.h	148;"	d	line:148
 taskENABLE_INTERRUPTS::portENABLE_INTERRUPTS	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\task.h	158;"	d	line:158
 taskENTER_CRITICAL::portENTER_CRITICAL	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\task.h	124;"	d	line:124
@@ -1602,31 +1665,34 @@ taskSECOND_CHECK_FOR_STACK_OVERFLOW::	C:\Documents and Settings\Eigenaar\Mijn do
 taskSECOND_CHECK_FOR_STACK_OVERFLOW::	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\StackMacros.h	84;"	d	line:84
 taskYIELD::portYIELD	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\task.h	110;"	d	line:110
 telemetry	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\configuration.h	14;"	m	line:14	struct:Configuration
-temp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	212;"	l	line:212
-temp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	87;"	l	line:87
+temp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	33;"	l	line:33
+temp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	154;"	l	line:154
+temp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	65;"	l	line:65
 temperature	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	21;"	m	line:21	struct:SensorData
-temperature_10	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	67;"	l	line:67
+temperature_10	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	69;"	l	line:69
 temperature_10	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	23;"	m	line:23	struct:SensorData
 temperature_c	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	52;"	m	line:52	struct:LogLine
-test_HMC5843	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	265;"	f	line:265
+test_HMC5843	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	231;"	f	line:231
 test_HMC5843	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	57;"	p	line:57	signature:(void)
-throttle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	258;"	l	line:258
+throttle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	267;"	l	line:267
 ticks_counter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	48;"	v	line:48
 ticks_no_valid_frame	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.c	31;"	v	line:31
 time	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.h	9;"	m	line:9	struct:gps_info
 time	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.h	13;"	m	line:13	struct:LogIndex
 time_airborne_s	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	111;"	m	line:111	struct:NavigationData
 time_block_s	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	112;"	m	line:112	struct:NavigationData
-tmp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	201;"	l	line:201
+tmp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	143;"	l	line:143
 tmp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\pid\pid.c	62;"	l	line:62
 tmp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	135;"	l	line:135
-tmp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	291;"	l	line:291
-tmp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	363;"	l	line:363
+tmp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	301;"	l	line:301
+tmp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	409;"	l	line:409
+tmp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	139;"	l	line:139
+tmp	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	146;"	l	line:146
 tmp1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	90;"	l	line:90	file:
 tmp2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	91;"	l	line:91	file:
-tmpChar	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	834;"	l	line:834	file:
-tmpChar	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	878;"	l	line:878	file:
-token	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	288;"	l	line:288	file:
+tmpChar	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	912;"	l	line:912	file:
+tmpChar	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	956;"	l	line:956	file:
+token	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	298;"	l	line:298	file:
 traceBLOCKING_ON_QUEUE_RECEIVE::(pxQueue)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOS.h	244;"	d	line:244
 traceBLOCKING_ON_QUEUE_SEND::(pxQueue)	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOS.h	252;"	d	line:252
 traceCREATE_COUNTING_SEMAPHORE::	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\FreeRTOS.h	290;"	d	line:290
@@ -1705,7 +1771,7 @@ ulTaskEndTrace	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Fir
 ulTaskSwitchedInTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	154;"	v	line:154	file:
 ulTempCounter	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	1529;"	l	line:1529
 ulTotalRunTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	1217;"	l	line:1217
-us	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	325;"	l	line:325
+us	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	326;"	l	line:326
 usCode	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\port.c	155;"	l	line:155
 usCount	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	2037;"	l	line:2037
 usQueue	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	1379;"	l	line:1379
@@ -1714,7 +1780,7 @@ usStackRemaining	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\F
 usTaskCheckFreeStackSpace	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	2035;"	f	line:2035	signature:( const unsigned portCHAR * pucStackByte )
 usTaskCheckFreeStackSpace	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	359;"	p	line:359	file:	signature:( const unsigned portCHAR * pucStackByte )
 use_metric	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	74;"	v	line:74
-use_pwm	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	45;"	m	line:45	struct:ControlConfig
+use_pwm	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	46;"	m	line:46	struct:ControlConfig
 ux	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\queue.c	1408;"	l	line:1408
 ux	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\queue.c	1431;"	l	line:1431
 uxBasePriority	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	92;"	m	line:92	struct:tskTaskControlBlock	file:
@@ -1763,8 +1829,8 @@ uxTopCoRoutineReadyPriority	C:\Documents and Settings\Eigenaar\Mijn documenten\g
 uxTopReadyPriority	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	143;"	v	line:143	file:
 uxTopUsedPriority	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	142;"	v	line:142	file:
 vApplicationIdleHook	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	1782;"	p	line:1782	file:	signature:( void )
-vApplicationIdleHook	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\rtos_pilot.c	135;"	f	line:135	signature:( void )
-vApplicationStackOverflowHook	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\rtos_pilot.c	126;"	f	line:126	signature:( xTaskHandle *pxTask, signed portCHAR *pcTaskName )
+vApplicationIdleHook	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\rtos_pilot.c	139;"	f	line:139	signature:( void )
+vApplicationStackOverflowHook	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\rtos_pilot.c	130;"	f	line:130	signature:( xTaskHandle *pxTask, signed portCHAR *pcTaskName )
 vApplicationTickHook	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	1351;"	p	line:1351	file:	signature:( void )
 vApplicationTickHook	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	1360;"	p	line:1360	file:	signature:( void )
 vCoRoutineAddToDelayedList	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\croutine.c	180;"	f	line:180	signature:( portTickType xTicksToDelay, xList *pxEventList )
@@ -1850,7 +1916,7 @@ vTaskSwitchContext	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot
 vWriteTraceToBuffer::	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	220;"	d	line:220	file:
 vWriteTraceToBuffer::	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	224;"	d	line:224	file:
 valid_frame	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\ppm_in\ppm_in.h	8;"	m	line:8	struct:ppm_info
-version	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\rtos_pilot.c	43;"	v	line:43	file:
+version	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\rtos_pilot.c	45;"	v	line:45	file:
 vertical_speed	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	18;"	m	line:18	struct:SensorData
 volt10	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	474;"	l	line:474
 vs10	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	463;"	l	line:463
@@ -1860,23 +1926,28 @@ w2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\qu
 w3	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\quaternion\quaternion.c	48;"	l	line:48
 w_dpitch	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	179;"	l	line:179
 w_droll	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	179;"	l	line:179
-waypointHeading	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	511;"	l	line:511
-waypoint_radius_m	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	60;"	m	line:60	struct:ControlConfig
-waypoint_reached	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	359;"	f	line:359	signature:(struct NavigationCode *current_code)
+waypointHeading	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	512;"	l	line:512
+waypoint_radius_m	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.h	61;"	m	line:61	struct:ControlConfig
+waypoint_reached	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	360;"	f	line:360	signature:(struct NavigationCode *current_code)
 waypoint_reached	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.c	45;"	p	line:45	file:	signature:(struct NavigationCode *current_code)
 wind_heading	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	96;"	m	line:96	struct:NavigationData
 wind_heading_set	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	97;"	m	line:97	struct:NavigationData
 write_register	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\scp1000\scp1000.c	16;"	p	line:16	file:	signature:(unsigned char register_name, unsigned char register_value)
 x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\dataflash\dataflash.c	173;"	l	line:173
-x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	27;"	l	line:27
-x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	48;"	l	line:48
-x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.c	66;"	l	line:66
 x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	14;"	m	line:14	struct:intvector
+x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	26;"	l	line:26
+x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	44;"	l	line:44
+x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\i2c\i2c.c	5;"	l	line:5
 x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\ahrs_kalman_2x3.c	49;"	l	line:49
-x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	390;"	l	line:390
+x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	361;"	l	line:361
+x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	379;"	l	line:379
+x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	436;"	l	line:436
 x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	72;"	m	line:72	struct:NavigationCode
 x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	141;"	l	line:141
 x	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	585;"	l	line:585
+x1	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	168;"	v	line:168	file:
+x2	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	168;"	v	line:168	file:
+x3	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	168;"	v	line:168	file:
 xAlreadyYielded	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	1047;"	l	line:1047
 xAlreadyYielded	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	566;"	l	line:566
 xAlreadyYielded	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	643;"	l	line:643
@@ -1898,7 +1969,7 @@ xEventListItem	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Fir
 xEventListItem	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	74;"	m	line:74	struct:tskTaskControlBlock	file:
 xGenericListItem	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\croutine.h	79;"	m	line:79	struct:corCoRoutineControlBlock
 xGenericListItem	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	73;"	m	line:73	struct:tskTaskControlBlock	file:
-xGpsSemaphore	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	196;"	v	line:196
+xGpsSemaphore	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	236;"	v	line:236
 xHandle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\queue.c	161;"	m	line:161	struct:QUEUE_REGISTRY_ITEM	file:
 xHeap	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\heap_1.c	105;"	v	line:105	file:
 xHigherPriorityTaskWoken	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\gps\gps.c	394;"	l	line:394	file:
@@ -1910,14 +1981,14 @@ xItemValue	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmwar
 xLIST	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\list.h	117;"	s	line:117
 xLIST_ITEM	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\list.h	96;"	s	line:96
 xLastExecutionTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	63;"	l	line:63
-xLastExecutionTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	117;"	l	line:117
-xLastExecutionTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	358;"	l	line:358
+xLastExecutionTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	118;"	l	line:118
+xLastExecutionTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	362;"	l	line:362
 xLastExecutionTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\datalogger.c	267;"	l	line:267
 xLastExecutionTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	80;"	l	line:80
-xLastExecutionTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	229;"	l	line:229
-xLastExecutionTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	74;"	l	line:74
+xLastExecutionTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	269;"	l	line:269
+xLastExecutionTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	76;"	l	line:76
 xLastTickCount	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\croutine.c	76;"	v	line:76	file:
-xLastWakeTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	479;"	l	line:479
+xLastWakeTime	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	525;"	l	line:525
 xList	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\list.h	122;"	t	line:122
 xListEnd	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\list.h	121;"	m	line:121	struct:xLIST
 xListIsEmpty	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	1898;"	l	line:1898
@@ -2056,6 +2127,7 @@ xTaskGetApplicationTaskTag	C:\Documents and Settings\Eigenaar\Mijn documenten\gl
 xTaskGetCurrentTaskHandle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\task.h	1061;"	p	line:1061	signature:( void )
 xTaskGetCurrentTaskHandle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	2095;"	f	line:2095	signature:( void )
 xTaskGetCurrentTaskHandle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	87;"	p	line:87	file:
+xTaskGetCurrentTaskHandle	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.c	132;"	p	line:132	file:
 xTaskGetSchedulerState	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\task.h	1084;"	p	line:1084	signature:( void )
 xTaskGetSchedulerState	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	2109;"	f	line:2109	signature:( void )
 xTaskGetTickCount	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\task.h	820;"	p	line:820	signature:( void )
@@ -2094,7 +2166,10 @@ xValueOfInsertion	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\
 xYieldRequired	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	1062;"	l	line:1062
 xYieldRequired	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	726;"	l	line:726
 xYieldRequired	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\FreeRTOS\tasks.c	946;"	l	line:946
+xlsb	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\bmp085\bmp085.c	68;"	l	line:68
 y	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	15;"	m	line:15	struct:intvector
+y	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	361;"	l	line:361
+y	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	379;"	l	line:379
 y	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\navigation.h	73;"	m	line:73	struct:NavigationCode
 y10	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	216;"	l	line:216
 y11	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\osd_max7456.c	217;"	l	line:217
@@ -2115,3 +2190,5 @@ yaw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_
 yaw	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\sensors.h	16;"	m	line:16	struct:SensorData
 yaw_out	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\control.c	48;"	v	line:48
 z	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\lib\hmc5843\hmc5843.h	16;"	m	line:16	struct:intvector
+z	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	361;"	l	line:361
+z	C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\rtos_pilot\communication_csv.c	379;"	l	line:379
