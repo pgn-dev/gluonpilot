@@ -167,13 +167,13 @@ void communication_telemetry_task( void *parameters )
 			print_signed_integer((int)(sensor_data.yaw*1000), &uart1_puts);
 			uart1_puts("\r\n");
 
-			uart1_puts("TS;");
-			print_signed_integer((int)(servo_read_us(2)), &uart1_puts);  // elevator
-			uart1_putc(';');
-			print_signed_integer((int)(servo_read_us(0)), &uart1_puts);  // aileron
-			uart1_putc(';');
-			print_signed_integer((int)(servo_read_us(3)), &uart1_puts);  // motor
-			uart1_puts("\r\n");
+//			uart1_puts("TS;");
+//			print_signed_integer((int)(servo_read_us(2)), &uart1_puts);  // elevator
+//			uart1_putc(';');
+//			print_signed_integer((int)(servo_read_us(0)), &uart1_puts);  // aileron
+//			uart1_putc(';');
+//			print_signed_integer((int)(servo_read_us(3)), &uart1_puts);  // motor
+//			uart1_puts("\r\n");
 
 			counters.stream_Attitude = 0;
 		} 
