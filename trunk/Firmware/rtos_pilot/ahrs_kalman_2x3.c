@@ -41,8 +41,7 @@ inline double fast_cos(double x);
 static double pitch_rad = 0.0, roll_rad = 0.0;
 double pitch_rad_sum_error = 0.0;
 double roll_rad_sum_error = 0.0;
-double p_bias = 0.0;
-double q_bias = 0.0;
+
 
 void ahrs_init()
 {
@@ -57,6 +56,9 @@ void ahrs_init()
 	// initialize our attitude with the current accelerometer's data
         pitch_rad = gravity_to_pitch(sensor_data.acc_x, sensor_data.acc_z);
         roll_rad = gravity_to_roll(sensor_data.acc_y, sensor_data.acc_z);
+        
+    sensor_data.p_bias = 0.0;
+	sensor_data.q_bias = 0.0;
 }	
 
 #define normalize(pitch, roll)              \
@@ -106,8 +108,8 @@ void ahrs_filter(double dt)
     tan_pitch = tan(pitch_rad);*/
     
     // correction from outer loop
-	sensor_data.p -= p_bias;
-	sensor_data.q -= q_bias;
+	sensor_data.p -= sensor_data.p_bias;
+	sensor_data.q -= sensor_data.q_bias;
 
 	roll_rad += dt * (sensor_data.p + (sensor_data.q*sin_roll + sensor_data.r*cos_roll) * tan_pitch);
 	pitch_rad += dt * (sensor_data.q*cos_roll - sensor_data.r*sin_roll);
@@ -250,13 +252,14 @@ void ahrs_filter(double dt)
 	else if (i % 25 == 0) // outer loop at 2Hz
 	{
 		// change bias with a max of 0.1°/s per second
-		p_bias -= BIND(roll_rad_sum_error/10.0, DEG2RAD(-0.1), DEG2RAD(0.1));
-		q_bias -= BIND(pitch_rad_sum_error/10.0, DEG2RAD(-0.1), DEG2RAD(0.1));
+		sensor_data.p_bias -= BIND(roll_rad_sum_error/10.0, DEG2RAD(-0.1), DEG2RAD(0.1));
+		sensor_data.q_bias -= BIND(pitch_rad_sum_error/10.0, DEG2RAD(-0.1), DEG2RAD(0.1));
 		//printf("\r\n %f \r\n", (roll_rad_sum_error/20.0));
 		roll_rad_sum_error = 0.0;
 		pitch_rad_sum_error = 0.0;
 	}
-	if (F1E_STEERING && i % 5 == 0)
+#ifdef F1E_STEERING
+	if (i % 5 == 0)
 	{
 		float mx = ((float)sensor_data.magnetometer_raw.x.i16);
 		float my = ((float)sensor_data.magnetometer_raw.y.i16);
@@ -273,7 +276,7 @@ void ahrs_filter(double dt)
 							sensor_data.magnetometer_raw.z.i16, 
 							sensor_data.yaw*180.0/3.14159);*/
 	}	
-	
+#endif	
    
     int p = (int)pitch_rad;   
     

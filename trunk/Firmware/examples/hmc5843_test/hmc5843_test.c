@@ -30,7 +30,7 @@ int main ()
 
 	microcontroller_init();
 
-	uart1_open(57600l);		// open UART1
+	uart1_open(115200l);		// open UART1
 
 	printf ("Starting test...\n\r");
 	microcontroller_delay_ms(5);
@@ -42,7 +42,7 @@ int main ()
 	{
 		hmc5843_read(&mag);		// update magnetometer data
 
-		printf( "%5d %5d %5d\r\n",magx,magy,magz);
+		printf( "%5d %5d %5d -> %f\r\n",magx,magy,magz, atan2f(-magy,magx)/3.14*180.0);
 
 		microcontroller_delay_ms(100);
 		

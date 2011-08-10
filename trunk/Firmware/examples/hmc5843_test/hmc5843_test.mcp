@@ -58,11 +58,11 @@ file_000=hmc5843_test.c
 file_001=..\..\lib\uart1\uart1.c
 file_002=..\..\lib\hmc5843\hmc5843.c
 file_003=..\..\lib\microcontroller\microcontroller.c
-file_004=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\i2c\i2c.c
+file_004=..\..\lib\i2c\i2c.c
 file_005=..\..\lib\hmc5843\hmc5843.h
 file_006=..\..\lib\uart1\uart1.h
 file_007=..\..\lib\microcontroller\microcontroller.h
-file_008=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\lib\i2c\i2c.h
+file_008=..\..\lib\i2c\i2c.h
 [SUITE_INFO]
 suite_guid={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 suite_state=
