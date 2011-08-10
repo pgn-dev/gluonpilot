@@ -68,25 +68,31 @@ void navigation_init ()
 	navigation_data.time_airborne_s = 0;
         navigation_data.time_block_s = 0;
 	navigation_data.wind_heading_set = 0;
+	navigation_data.relative_positions_calculated = 0;
 	navigation_load();
-	
-	// Testing:
-	/*sensor_data.gps.latitude_rad = DEG2RAD(50.852200);
-	sensor_data.gps.longitude_rad = DEG2RAD(3.670674);
-	navigation_set_home();
-
-	sensor_data.gps.latitude_rad = DEG2RAD(50.853371);
-	sensor_data.gps.longitude_rad = DEG2RAD(3.671246);
-	sensor_data.gps.speed_ms = 19;
-	
-	navigation_data.navigation_codes[1].x =  navigation_data.home_latitude_rad;
-	navigation_data.navigation_codes[1].y = navigation_data.home_longitude_rad;
-	
-	navigation_do_circle(& navigation_data.navigation_codes[1]);*/
-	
-
 }
 
+
+void navigation_calculate_relative_position(int i)
+{
+	switch (navigation_data.navigation_codes[i].opcode)
+	{
+		case FROM_TO_REL:
+                           navigation_data.navigation_codes[i].opcode = FROM_TO_ABS;
+                           convert_parameters_to_abs(i);
+                           break;
+		case FLY_TO_REL:
+                           navigation_data.navigation_codes[i].opcode = FLY_TO_ABS;
+                           convert_parameters_to_abs(i);
+                           break;
+		case CIRCLE_REL:
+                           navigation_data.navigation_codes[i].opcode = CIRCLE_ABS;
+                           convert_parameters_to_abs(i);
+                           break;
+		default:
+                           break;
+	}	
+}	
 
 /*!
  *    Calculate absolute lat/lon positions for relative waypoints.
@@ -96,25 +102,11 @@ void navigation_calculate_relative_positions()
 	int i;
 	for (i = 0; i < MAX_NAVIGATIONCODES; i++)
 	{
-		switch (navigation_data.navigation_codes[i].opcode)
-		{
-			case FROM_TO_REL:
-                            navigation_data.navigation_codes[i].opcode = FROM_TO_ABS;
-                            convert_parameters_to_abs(i);
-                            break;
-			case FLY_TO_REL:
-                            navigation_data.navigation_codes[i].opcode = FLY_TO_ABS;
-                            convert_parameters_to_abs(i);
-                            break;
-			case CIRCLE_REL:
-                            navigation_data.navigation_codes[i].opcode = CIRCLE_ABS;
-                            convert_parameters_to_abs(i);
-                            break;
-			default:
-                            break;
-		}	
-	}		
+		navigation_calculate_relative_position(i);
+	}
+	navigation_data.relative_positions_calculated = 1;
 }
+
 
 void convert_parameters_to_abs(int i)
 {

@@ -193,7 +193,7 @@ void hmc5843_init()
 	// or 0x3D for read operations.  Put the HMC5843 into continuous mode by sending 
 	// 0x3C 0x02 0x00 to write the 00 into the second register or mode register
 
-	I2Cwrite(0x03c, 0, 24); 	// put hmc at 50hz
+	I2Cwrite(0x03c, 0, 20); 	// put hmc at 10hz
 	//I2Cwrite(0x03c, 0, 4); // 1Hz
 	//microcontroller_delay_ms(100);
 	I2Cwrite(0x03c, 1, 0); 	// put hmc .7Ga mode
@@ -222,7 +222,9 @@ void hmc5843_read(struct intvector *magdata)
 	
 	magdata->z.b2.hbyte = I2Cread(0x03C, 7);
 	magdata->z.b2.lbyte = I2Cread(0x03C, 8);
+	
 	magdata->x.i16 = -magdata->x.i16;
+	//reset_i2c_bus();
 	//magdata->z.i16 = -magdata->z.i16;
 }
 

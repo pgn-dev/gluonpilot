@@ -16,6 +16,7 @@ struct SensorData
 	double roll, pitch, yaw;
 	double roll_acc, pitch_acc;
 	double vertical_speed; // estimated speed along z axis
+	double p_bias, q_bias;  // used in kalman filter
 	
 	double pressure;
 	double temperature;

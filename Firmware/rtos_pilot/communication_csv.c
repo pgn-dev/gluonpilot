@@ -369,6 +369,10 @@ void communication_input_task( void *parameters )
 					config.sensors.gyro_x_neutral = (float)(x / 10);
 					config.sensors.gyro_y_neutral = (float)(y / 10);
 					config.sensors.gyro_z_neutral = (float)(z / 10);
+					
+					// reset bias offsets
+					sensor_data.p_bias = 0.0;
+					sensor_data.q_bias = 0.0;
 				}
 				///////////////////////////////////////////////////////////////
 				//                    CALIBRATE ACCELERO                     //
@@ -624,6 +628,8 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'L' && buffer[token[0] + 1] == 'N') 
 				{
 					navigation_load();
+					if (navigation_data.relative_positions_calculated)
+						navigation_calculate_relative_positions();
 				}	
 				///////////////////////////////////////////////////////////////
 				//                       READ NAVIGATION                     //
@@ -654,10 +660,13 @@ void communication_input_task( void *parameters )
 						printf("\n\rND;%d;%d;%f;%f;%d;%d\n\r", i+1, navigation_data.navigation_codes[i].opcode,
 							navigation_data.navigation_codes[i].x, navigation_data.navigation_codes[i].y,
 							navigation_data.navigation_codes[i].a, navigation_data.navigation_codes[i].b);
+						
+						if (navigation_data.relative_positions_calculated)
+							navigation_calculate_relative_position(i);
 					}
 #endif
 				}
-                                ///////////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////////
 				//                 JUMP TO NAVIGATION LINE                   //
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'J' && buffer[token[0] + 1] == 'N')

@@ -9,6 +9,9 @@ void navigation_load();
 void navigation_update();
 double navigation_heading_rad_fromto (double diff_long, double diff_lat); // used in OSD-code
 float navigation_distance_between_meter(float long1, float long2, float lat1, float lat2);
+void navigation_calculate_relative_position(int i);
+void navigation_calculate_relative_positions();
+
 
 /*!
  *  The different waypoint types.
@@ -92,6 +95,7 @@ struct NavigationData
 	float last_waypoint_latitude_rad;
 	float last_waypoint_longitude_rad;
 	
+	unsigned int relative_positions_calculated : 1;  
 	unsigned int airborne : 1;                //!< Is 0 when the plane didn't take off yet.	
 	float wind_heading;           //!< Wind comes from...
 	unsigned int wind_heading_set : 1;

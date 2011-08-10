@@ -151,7 +151,7 @@ void control_wing_task( void *parameters )
 			if (lastMode != control_state.flight_mode)  // target altitude = altitude when switching from manual to stabilized
 				control_state.desired_altitude = sensor_data.pressure_height;
 				
-			if (F1E_STEERING)  // Add this define for F1E steering mode
+#ifdef F1E_STEERING  // Add this define for F1E steering mode
 			{
 				float err_heading = navigation_data.desired_heading_rad - sensor_data.yaw;
 				if (err_heading > PI)
@@ -167,9 +167,9 @@ void control_wing_task( void *parameters )
 					//printf("\r\n%f-%f -> %d", navigation_data.desired_heading_rad, sensor_data.yaw, servo_out[0]);
 					navigation_data.desired_heading_rad = sensor_data.yaw;
 				}
-			}
-			else	
+#else
 				control_wing_navigate(0.020, config.control.stabilization_with_altitude_hold); // stabilized mode as long as navigation isn't available
+#endif 
 		} 
 		else if (ppm.channel[config.control.channel_ap] < 1666)
 		{

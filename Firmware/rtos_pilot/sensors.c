@@ -186,7 +186,7 @@ void sensors_task( void *parameters )
 			if (low_update_counter % 250*60 == 0)
 			{
 				i2c_init();
-				printf("\r\nRESET\r\n");
+				//printf("\r\nRESET\r\n");
 			}	
 			else			
 				hmc5843_read(&sensor_data.magnetometer_raw); 
