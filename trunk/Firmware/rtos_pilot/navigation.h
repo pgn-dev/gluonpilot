@@ -7,7 +7,7 @@
 void navigation_burn();
 void navigation_load();
 void navigation_update();
-double navigation_heading_rad_fromto (double diff_long, double diff_lat); // used in OSD-code
+float navigation_heading_rad_fromto (float diff_long, float diff_lat); // used in OSD-code
 float navigation_distance_between_meter(float long1, float long2, float lat1, float lat2);
 void navigation_calculate_relative_position(int i);
 void navigation_calculate_relative_positions();
@@ -84,8 +84,8 @@ struct NavigationCode
  */
 struct NavigationData
 {
-	float home_longitude_rad;     //!< Home position, radians.
-	float home_latitude_rad;      //!< Home position, radians.
+	double home_longitude_rad;     //!< Home position, radians.
+	double home_latitude_rad;      //!< Home position, radians.
 	float home_gps_height;        //!< Height of home.
 	float home_pressure_height;
 	

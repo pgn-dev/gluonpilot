@@ -11,9 +11,9 @@ enum FlightModes { MANUAL = 0, STABILIZED = 1, AUTOPILOT = 2, LOITER = 3, RETURN
 struct ControlState
 {
 	enum FlightModes flight_mode;
-	double desired_roll;
-	double desired_pitch;
-	double desired_altitude;
+	float desired_roll;
+	float desired_pitch;
+	float desired_altitude;
 	unsigned int simulation_mode : 1;
 };
 
@@ -46,8 +46,8 @@ struct ControlConfig
 	unsigned int use_pwm : 1;
 
 	enum MixTypes servo_mix;	
-	double max_roll;
-	double max_pitch;
+	float max_roll;
+	float max_pitch;
 	
 	int aileron_differential;  //! Since 0.4
 	

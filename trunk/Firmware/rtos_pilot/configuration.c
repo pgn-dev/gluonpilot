@@ -114,8 +114,8 @@ void configuration_default()
 	config.control.reverse_servo5 = 0;
 	config.control.reverse_servo6 = 0;
 	
-	config.control.manual_trim = 0;
-	config.control.use_pwm = 0;
+	//config.control.manual_trim = 0;
+	config.control.use_pwm = 1;
 	
 	for (i = 0; i < 6; i++)
 	{
@@ -124,18 +124,17 @@ void configuration_default()
 		config.control.servo_neutral[i] = 1500;
 	}
 	
-	config.control.servo_mix = AILERON;
 	config.control.aileron_differential = 0;
-	config.control.cruising_speed_ms = 15;
+	config.control.cruising_speed_ms = 12;
 	config.control.max_pitch = 15.0/180.0*3.14;
-	config.control.max_roll = 30.0/180.0*3.14;
+	config.control.max_roll = 40.0/180.0*3.14;
 	config.control.servo_mix = AILERON;
 	
 	config.control.stabilization_with_altitude_hold = 0;
-        config.control.auto_throttle_cruise_pct = 90;
-        config.control.auto_throttle_min_pct = 30;
-        config.control.auto_throttle_max_pct = 100;
-        config.control.auto_throttle_p_gain = 8;  // 0.8
+    config.control.auto_throttle_cruise_pct = 90;
+    config.control.auto_throttle_min_pct = 30;
+    config.control.auto_throttle_max_pct = 100;
+    config.control.auto_throttle_p_gain = 8;  // 0.8
         
 
 	pid_init(&config.control.pid_heading2roll, 0.0, 0.7, 0.0, -1.0, 1.0, 0.0);
@@ -145,7 +144,7 @@ void configuration_default()
 	
 	config.control.waypoint_radius_m = 30;
 	
-        config.control.autopilot_auto_throttle = 90;
+    config.control.autopilot_auto_throttle = 0;   // disable auto throttle
 
 	config.gps.operational_baudrate = 115200l;
 	config.gps.initial_baudrate = 38400l;

@@ -19,7 +19,7 @@
 
 #define INVERT_3X3(b,det,a)         \
 {                       			\
-   double tmp;                  	\
+   float tmp;                  	\
    DETERMINANT_3X3 (det, a);        \
    tmp = 1.0 / (det);               \
    SCALE_ADJOINT_3X3 (b, tmp, a);   \
@@ -108,20 +108,20 @@
 }
 
 
-inline double* matrix_2x2_add(double *A, double *B, double *R);
-inline double* matrix_3x3_add(double *A, double *B, double *R);
-//inline double* matrix_2x2_mul(double *A, double *B, double *R);
-//inline double * matrix_2x2_mul_transp(double *A, double *B, double *R);
-//inline double * matrix_2x2_times_3x2_transp(double *A, double *B, double *R);
-//inline double * matrix_3x2_times_3x2_transp(double *A, double *B, double *R);
-//inline double * matrix_3x2_times_2x2(double *A, double *B, double *R);
-//inline double * matrix_2x3_times_3x2(double *A, double *B, double *R);
-//inline double * matrix_2x3_times_3x3(double *A, double *B, double *R);
-inline double matrix_3x3_determintant(double *A);
-inline double* matrix_3x3_invert(double *A);	
+inline float* matrix_2x2_add(float *A, float *B, float *R);
+inline float* matrix_3x3_add(float *A, float *B, float *R);
+//inline float* matrix_2x2_mul(float *A, float *B, float *R);
+//inline float * matrix_2x2_mul_transp(float *A, float *B, float *R);
+//inline float * matrix_2x2_times_3x2_transp(float *A, float *B, float *R);
+//inline float * matrix_3x2_times_3x2_transp(float *A, float *B, float *R);
+//inline float * matrix_3x2_times_2x2(float *A, float *B, float *R);
+//inline float * matrix_2x3_times_3x2(float *A, float *B, float *R);
+//inline float * matrix_2x3_times_3x3(float *A, float *B, float *R);
+inline float matrix_3x3_determintant(float *A);
+inline float* matrix_3x3_invert(float *A);	
 
-void matrix_print_2x2(double *A);
-void matrix_print_3x2(double *A);
-void matrix_print_2x3(double *A);
-void matrix_print_3x3(double *A);
+void matrix_print_2x2(float *A);
+void matrix_print_3x2(float *A);
+void matrix_print_2x3(float *A);
+void matrix_print_3x3(float *A);
 

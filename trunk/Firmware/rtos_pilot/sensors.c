@@ -49,14 +49,14 @@
 //! Contains all usefull (processed) sensor data
 struct SensorData sensor_data;
 
-static const float acc_value_g = 6600.0;
+static const float acc_value_g = 6600.0f;
 
 extern xSemaphoreHandle xSpiSemaphore;
 
 void read_raw_sensor_data();
 void scale_raw_sensor_data();
 
-float scale_z_gyro = 0.0;
+float scale_z_gyro = 0.0f;
 
 /*!
  *   FreeRTOS task that reads all the sensor data and stored it in the
@@ -67,9 +67,9 @@ float scale_z_gyro = 0.0;
 void sensors_task( void *parameters )
 {
 	unsigned int temperature_10 = 200;
-	float last_height = 0.0;
-	double dt_since_last_height = 0.0;
-	int low_update_counter = 0;
+	float last_height = 0.0f;
+	float dt_since_last_height = 0.0f;
+	unsigned int low_update_counter = 0;
 
 		
 	/* Used to wake the task at the correct frequency. */
@@ -96,9 +96,9 @@ void sensors_task( void *parameters )
 	ahrs_init();
 	
 	if (HARDWARE_VERSION >= V01N) // IDZ-500 gyroscope
-		scale_z_gyro = (-0.02538315*3.14159/180.0)*2.0;
+		scale_z_gyro = (-0.02538315f*3.14159f/180.0f)*2.0f;
 	else // ADXRS-613 gyroscope
-		scale_z_gyro = (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)
+		scale_z_gyro = (0.0062286f*3.14159f/180.0f);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)
 		
 
 
@@ -111,34 +111,34 @@ void sensors_task( void *parameters )
 	{
 #ifdef ENABLE_QUADROCOPTER
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 4 / portTICK_RATE_MS ) );   // 250Hz
-		dt_since_last_height += 0.004;
+		dt_since_last_height += 0.004f;
 		low_update_counter += 1;
 #else
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 20 / portTICK_RATE_MS ) );   // 50Hz
-		dt_since_last_height += 0.02;
+		dt_since_last_height += 0.02f;
 		low_update_counter += 5;
 #endif
-		
-		
+		if (low_update_counter > 65000)
+			low_update_counter = 0;
 		read_raw_sensor_data();
 				
 		adc_start();  // restart ADC sampling to make sure we have our samples on the next loop iteration.
 
 		scale_raw_sensor_data();
 		
-		if (low_update_counter % 55 == 0) // 5Hz
+		if (low_update_counter % 50 == 0) // 5Hz
 		{
 			if (control_state.simulation_mode)
 				vTaskDelete(xTaskGetCurrentTaskHandle());
 				
-			sensor_data.battery_voltage_10 = ((float)adc_get_channel(8) * (3.3 * 5.1 / 6550.0));
+			sensor_data.battery_voltage_10 = ((float)adc_get_channel(8) * (3.3f * 5.1f / 6550.0f));
 			if (HARDWARE_VERSION >= V01O)
 			{
-				if (low_update_counter/55 % 2 == 0)
+				if (low_update_counter/50 % 2 == 0)
 				{
 					long tmp = bmp085_read_temp();
 					bmp085_convert_temp(tmp, &sensor_data.temperature_10);
-					sensor_data.temperature = (double)sensor_data.temperature_10 / 10.0;
+					sensor_data.temperature = (float)sensor_data.temperature_10 / 10.0f;
 					bmp085_start_convert_pressure();
 				} 
 				else
@@ -146,7 +146,7 @@ void sensors_task( void *parameters )
 					long tmp = bmp085_read_pressure();
 					long pressure;
 					bmp085_convert_pressure(tmp, &pressure);
-					sensor_data.pressure = (double)pressure;
+					sensor_data.pressure = (float)pressure;
 					float height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
 					sensor_data.pressure_height = height;
 					bmp085_start_convert_temp();
@@ -166,15 +166,15 @@ void sensors_task( void *parameters )
 				}	
 				temperature_10 = (unsigned int)sensor_data.temperature * 10;
 				float height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
-				if (height > -30000.0 && height < 30000.0)   // sometimes we get bad readings ~ -31000
+				if (height > -30000.0f && height < 30000.0f)   // sometimes we get bad readings ~ -31000
 					sensor_data.pressure_height = height;
-				sensor_data.vertical_speed = sensor_data.vertical_speed * 0.8 + (sensor_data.pressure_height - last_height)/dt_since_last_height * 0.2; // too much noise otherwise
+				sensor_data.vertical_speed = sensor_data.vertical_speed * 0.8f + (sensor_data.pressure_height - last_height)/dt_since_last_height * 0.2f; // too much noise otherwise
 				
-				if (fabs(sensor_data.vertical_speed) > MAX(5.0, sensor_data.gps.speed_ms))  // validity check
-					sensor_data.vertical_speed = 0.0;
+				if (fabs(sensor_data.vertical_speed) > MAX(5.0f, sensor_data.gps.speed_ms))  // validity check
+					sensor_data.vertical_speed = 0.0f;
 					
 				last_height = sensor_data.pressure_height;
-				dt_since_last_height = 0.0;
+				dt_since_last_height = 0.0f;
 			}
 		}	
 		
@@ -183,21 +183,14 @@ void sensors_task( void *parameters )
 #if (ENABLE_QUADROCOPTER || F1E_STEERING)
 		if (low_update_counter % 25 == 0)
 		{
-			if (low_update_counter % 250*60 == 0)
-			{
-				i2c_init();
-				//printf("\r\nRESET\r\n");
-			}	
-			else			
-				hmc5843_read(&sensor_data.magnetometer_raw); 
-			//printf("\r\n jlk \r\n");
+			hmc5843_read(&sensor_data.magnetometer_raw); 
 		}
 #endif
 
 #ifdef ENABLE_QUADROCOPTER
-		ahrs_filter(0.005);	
+		ahrs_filter(0.005f);	
 #else
-		ahrs_filter(0.02);	
+		ahrs_filter(0.02f);	
 #endif
 	}
 }
@@ -219,14 +212,14 @@ void read_raw_sensor_data()
 void scale_raw_sensor_data()
 {
 	// scale to "g" units. We prefer "g" over SI units (m/s^2) because this allows to cancel out the gravity constant as it is "1"
-	sensor_data.acc_x = ((double)(sensor_data.acc_x_raw) - (double)config.sensors.acc_x_neutral) / (-acc_value_g*INVERT_X);
-	sensor_data.acc_y = ((double)(sensor_data.acc_y_raw) - (double)config.sensors.acc_y_neutral) / (-acc_value_g*INVERT_X);
-	sensor_data.acc_z = ((double)(sensor_data.acc_z_raw) - (double)config.sensors.acc_z_neutral) / (-acc_value_g);
+	sensor_data.acc_x = ((float)(sensor_data.acc_x_raw) - (float)config.sensors.acc_x_neutral) / (-acc_value_g*INVERT_X);
+	sensor_data.acc_y = ((float)(sensor_data.acc_y_raw) - (float)config.sensors.acc_y_neutral) / (-acc_value_g*INVERT_X);
+	sensor_data.acc_z = ((float)(sensor_data.acc_z_raw) - (float)config.sensors.acc_z_neutral) / (-acc_value_g);
 			
 	// scale to rad/sec
-	sensor_data.p = ((double)(sensor_data.gyro_x_raw)-config.sensors.gyro_x_neutral) * (-0.02518315*3.14159/180.0 * INVERT_X);  // 0.02518315f
-	sensor_data.q = ((double)(sensor_data.gyro_y_raw)-config.sensors.gyro_y_neutral) * (-0.02538315*3.14159/180.0 * INVERT_X);
-	sensor_data.r = ((double)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * scale_z_gyro;
+	sensor_data.p = ((float)(sensor_data.gyro_x_raw)-config.sensors.gyro_x_neutral) * (-0.02518315f*3.14159f/180.0f * INVERT_X);  // 0.02518315f
+	sensor_data.q = ((float)(sensor_data.gyro_y_raw)-config.sensors.gyro_y_neutral) * (-0.02538315f*3.14159f/180.0f * INVERT_X);
+	sensor_data.r = ((float)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * scale_z_gyro;
 }	
 
 

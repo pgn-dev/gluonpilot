@@ -30,69 +30,69 @@
 #include "common.h"
 
 
-static double sin_lookup[181];  // lookup table to avoid sinus calculations
+static float sin_lookup[181];  // lookup table to avoid sinus calculations
 
-double gravity_to_roll(double a_y, double a_z);
-double gravity_to_pitch(double a_x, double a_z);
+float gravity_to_roll(float a_y, float a_z);
+float gravity_to_pitch(float a_x, float a_z);
 
-inline double fast_sin(double x);
-inline double fast_cos(double x);
+inline float fast_sin(float x);
+inline float fast_cos(float x);
 
-static double pitch_rad = 0.0, roll_rad = 0.0;
-double pitch_rad_sum_error = 0.0;
-double roll_rad_sum_error = 0.0;
+static float pitch_rad = 0.0, roll_rad = 0.0;
+float pitch_rad_sum_error = 0.0;
+float roll_rad_sum_error = 0.0;
 
 
 void ahrs_init()
 {
-	double x;
+	float x;
 	int i;
 	
-	for (x=(-3.14159), i = 0; x < 3.14159; x+=(2.0/180.0*3.14159), i++)
+	for (x=(-3.14159f), i = 0; x < 3.14159f; x+=(2.0f/180.0f*3.14159f), i++)
 	{
-		sin_lookup[i] = sin(x);
+		sin_lookup[i] = sinf(x);
 	}	
 	
 	// initialize our attitude with the current accelerometer's data
         pitch_rad = gravity_to_pitch(sensor_data.acc_x, sensor_data.acc_z);
         roll_rad = gravity_to_roll(sensor_data.acc_y, sensor_data.acc_z);
         
-    sensor_data.p_bias = 0.0;
-	sensor_data.q_bias = 0.0;
+    sensor_data.p_bias = 0.0f;
+	sensor_data.q_bias = 0.0f;
 }	
 
 #define normalize(pitch, roll)              \
-		if (pitch > DEG2RAD(100.0)) \
+		if (pitch > DEG2RAD(100.0f)) \
 		{                                   \
-            pitch = pitch - DEG2RAD(90.0);    \
-            roll = roll + DEG2RAD(180.0);          \
+            pitch = pitch - DEG2RAD(90.0f);    \
+            roll = roll + DEG2RAD(180.0f);          \
   		}                                   \
-        if (pitch < DEG2RAD(-100.0)) \
+        if (pitch < DEG2RAD(-100.0f)) \
         {                                    \
-            pitch = pitch + DEG2RAD(90.0);     \
-            roll = roll + DEG2RAD(180.0);           \
+            pitch = pitch + DEG2RAD(90.0f);     \
+            roll = roll + DEG2RAD(180.0f);           \
         }                                    \
-        if (roll > DEG2RAD(180.0))     \
-            roll = roll - DEG2RAD(180.0); \
-        if (roll < DEG2RAD(-180.0))    \
-            roll = roll + DEG2RAD(180.0); \
+        if (roll > DEG2RAD(180.0f))     \
+            roll = roll - DEG2RAD(180.0f); \
+        if (roll < DEG2RAD(-180.0f))    \
+            roll = roll + DEG2RAD(180.0f); \
 
 
 
-void ahrs_filter(double dt)
+void ahrs_filter(float dt)
 {
 	static int i = 0;
-	static double sin_roll=0.0;
-	static double cos_roll=1.0;
-	static double sin_pitch=0.0;
-	static double cos_pitch=1.0;
-	static double tan_pitch=0.0;
-	static double df_dx[4] = {0.0, 0.0, 0.0, 0.0};
-	static double P[4] = {1.0, 0.0, 0.0, 1.0};
-	static double tmp1[9];
-	static double tmp2[9];
-	static double dh_dx_3x2[6];
-	static double L[6];
+	static float sin_roll=0.0;
+	static float cos_roll=1.0;
+	static float sin_pitch=0.0;
+	static float cos_pitch=1.0;
+	static float tan_pitch=0.0;
+	static float df_dx[4] = {0.0, 0.0, 0.0, 0.0};
+	static float P[4] = {1.0, 0.0, 0.0, 1.0};
+	static float tmp1[9];
+	static float tmp2[9];
+	static float dh_dx_3x2[6];
+	static float L[6];
 
 
 	if (button_down())
@@ -115,15 +115,15 @@ void ahrs_filter(double dt)
 	pitch_rad += dt * (sensor_data.q*cos_roll - sensor_data.r*sin_roll);
 	
 	// pitch = (-90,90]; roll = (-180,180]
-	if (pitch_rad > DEG2RAD(180.0))
-		pitch_rad -= DEG2RAD(360.0);
-	if (pitch_rad < DEG2RAD(-180.0))
-		pitch_rad += DEG2RAD(360.0);
+	if (pitch_rad > DEG2RAD(180.0f))
+		pitch_rad -= DEG2RAD(360.0f);
+	if (pitch_rad < DEG2RAD(-180.0f))
+		pitch_rad += DEG2RAD(360.0f);
 
-	if (roll_rad > DEG2RAD(180.0))
-		roll_rad -= DEG2RAD(360.0);
-	if (roll_rad < DEG2RAD(-180.0))
-		roll_rad += DEG2RAD(360.0);
+	if (roll_rad > DEG2RAD(180.0f))
+		roll_rad -= DEG2RAD(360.0f);
+	if (roll_rad < DEG2RAD(-180.0f))
+		roll_rad += DEG2RAD(360.0f);
 
 	
 	sin_roll = fast_sin(roll_rad);
@@ -144,10 +144,10 @@ void ahrs_filter(double dt)
     /* optimize me: P is symmectric: P[1] = P[2] */
     matrix_2x2_mul(df_dx, P, tmp1);   // A * P = tmp1
     matrix_2x2_mul_transp(P, df_dx, tmp2);  //  P * A' = tmp2
-    tmp2[0] += 0.1 + tmp1[0];     // Q(1) = 0.1 for roll
+    tmp2[0] += 0.1f + tmp1[0];     // Q(1) = 0.1 for roll
     tmp2[1] += tmp1[1];
     //tmp2[2] += tmp1[2];
-    tmp2[3] += 0.04 + tmp1[3];    // Q(2) = 0.02 for pitch, because the accelerometer is undergoing more non-compensated accelerations (at take-off for example)
+    tmp2[3] += 0.04f + tmp1[3];    // Q(2) = 0.02 for pitch, because the accelerometer is undergoing more non-compensated accelerations (at take-off for example)
     P[0] += tmp2[0] * dt;
     P[1] += tmp2[1] * dt;
     //P[2] += tmp2[2] * dt;
@@ -157,28 +157,28 @@ void ahrs_filter(double dt)
     ////////////////////////////////
     
     if (i++ % 2 == 0 &&    // only apply every other iteration
-        fabs(sensor_data.acc_x) < 1.0)   // only apply when the acceleration along the x-axis is not too large (take-off!)
+        fabs(sensor_data.acc_x) < 1.0f)   // only apply when the acceleration along the x-axis is not too large (take-off!)
     {
 	    //dh_dx = [q(i)/G*w_droll                        cos_pitch + q(i)*w_dpitch/G;...
 	    //         -cos_pitch*cos_roll + p(i)*w_droll/G   sin_roll*sin_pitch + (r(i)*u_dpitch - p(i)*w_dpitch)/G;...
 	    //         sin_roll*cos_pitch-p(i)*w_droll/G      cos_roll*sin_pitch + (p(i)*w_dpitch - q(i)*u_dpitch)/G];
 	  	
-	  	double dh = -sensor_data.vertical_speed;
-	  	/*double u = cos_pitch * sensor_data.gps.speed_ms - sin_pitch * dh;
-		double w = cos_roll * sin_pitch * sensor_data.gps.speed_ms + cos_roll * cos_pitch * dh;
+	  	float dh = -sensor_data.vertical_speed;
+	  	/*float u = cos_pitch * sensor_data.gps.speed_ms - sin_pitch * dh;
+		float w = cos_roll * sin_pitch * sensor_data.gps.speed_ms + cos_roll * cos_pitch * dh;
 	
-	    double w_droll = -sin_roll * (sin_pitch * sensor_data.gps.speed_ms + cos_pitch * dh);
-	    double u_dpitch = -sin_pitch * sensor_data.gps.speed_ms - cos_pitch * dh;
-	    double w_dpitch = cos_roll * (cos_pitch * sensor_data.gps.speed_ms - sin_pitch * dh);*/
+	    float w_droll = -sin_roll * (sin_pitch * sensor_data.gps.speed_ms + cos_pitch * dh);
+	    float u_dpitch = -sin_pitch * sensor_data.gps.speed_ms - cos_pitch * dh;
+	    float w_dpitch = cos_roll * (cos_pitch * sensor_data.gps.speed_ms - sin_pitch * dh);*/
 	    
 	    /* Without dh: */
-	  	double u = sqrt(sensor_data.gps.speed_ms*sensor_data.gps.speed_ms + dh*dh);
-		double w = dh*cos_pitch*cos_roll; //cos_roll * sin_pitch * sensor_data.gps.speed_ms;
+	  	float u = sqrt(sensor_data.gps.speed_ms*sensor_data.gps.speed_ms + dh*dh);
+		float w = dh*cos_pitch*cos_roll; //cos_roll * sin_pitch * sensor_data.gps.speed_ms;
 	
-	    //double w_droll = -sin_roll * (sin_pitch * sensor_data.gps.speed_ms);
-	    //double u_dpitch = -sin_pitch * sensor_data.gps.speed_ms;
-	    //double w_dpitch = cos_roll * (cos_pitch * sensor_data.gps.speed_ms);
-	    double w_droll = 0.0; double u_dpitch = 0.0; double w_dpitch = 0.0;
+	    //float w_droll = -sin_roll * (sin_pitch * sensor_data.gps.speed_ms);
+	    //float u_dpitch = -sin_pitch * sensor_data.gps.speed_ms;
+	    //float w_dpitch = cos_roll * (cos_pitch * sensor_data.gps.speed_ms);
+	    float w_droll = 0.0; float u_dpitch = 0.0; float w_dpitch = 0.0;
 
 
 	    dh_dx_3x2[0] = sensor_data.q/G*w_droll;
@@ -198,13 +198,13 @@ void ahrs_filter(double dt)
 	   	//R = diag([0.25 0.25 0.25]);
 	   	
 	   	
-	   	tmp2[0] += 40.0;   // x-axis = forward acceleration (not compensated), so less thrustworthy
-	   	tmp2[4] += 30.0;
-	   	tmp2[8] += 35.0;   // z-axis = vertical acceleration (not compensated for the moment, possibly using barometer?)
+	   	tmp2[0] += 40.0f;   // x-axis = forward acceleration (not compensated), so less thrustworthy
+	   	tmp2[4] += 30.0f;
+	   	tmp2[8] += 35.0f;   // z-axis = vertical acceleration (not compensated for the moment, possibly using barometer?)
 	   	
-	   	double d;
+	   	float d;
 	   	INVERT_3X3(tmp1, d, tmp2); // result = tmp1
-	   	if (fabs(d) < 0.01)  // almost division by 0 
+	   	if (fabs(d) < 0.01f)  // almost division by 0 
 	   		return;
 	   	
 	   	// P * C'  [2x3] = tmp2
@@ -215,10 +215,10 @@ void ahrs_filter(double dt)
 	   	
 	   	// P = (eye(2,2) - L*C)*P;
 	   	matrix_2x3_times_3x2(L, dh_dx_3x2, tmp1);
-	   	tmp2[0] = 1.0 - tmp1[0];
+	   	tmp2[0] = 1.0f - tmp1[0];
 	   	tmp2[1] = -tmp1[1];
 	   	tmp2[2] = -tmp1[2];
-	   	tmp2[3] = 1.0 - tmp1[3];
+	   	tmp2[3] = 1.0f - tmp1[3];
 	   	matrix_2x2_mul(tmp2, P, tmp1);
 	   	P[0] = tmp1[0];
 	   	P[1] = tmp1[1];
@@ -252,11 +252,11 @@ void ahrs_filter(double dt)
 	else if (i % 25 == 0) // outer loop at 2Hz
 	{
 		// change bias with a max of 0.1°/s per second
-		sensor_data.p_bias -= BIND(roll_rad_sum_error/10.0, DEG2RAD(-0.1), DEG2RAD(0.1));
-		sensor_data.q_bias -= BIND(pitch_rad_sum_error/10.0, DEG2RAD(-0.1), DEG2RAD(0.1));
+		sensor_data.p_bias -= BIND(roll_rad_sum_error/10.0f, DEG2RAD(-0.1f), DEG2RAD(0.1f));
+		sensor_data.q_bias -= BIND(pitch_rad_sum_error/10.0f, DEG2RAD(-0.1f), DEG2RAD(0.1f));
 		//printf("\r\n %f \r\n", (roll_rad_sum_error/20.0));
-		roll_rad_sum_error = 0.0;
-		pitch_rad_sum_error = 0.0;
+		roll_rad_sum_error = 0.0f;
+		pitch_rad_sum_error = 0.0f;
 	}
 #ifdef F1E_STEERING
 	if (i % 5 == 0)
@@ -269,7 +269,7 @@ void ahrs_filter(double dt)
 		float XH = mx*cos_pitch + my*sin_roll*sin_pitch + mz*cos_roll*sin_pitch;
 		
 		sensor_data.yaw += atan2f (-YH, XH);
-		sensor_data.yaw /= 2.0;
+		sensor_data.yaw /= 2.0f;
 
 		/*printf("\r\n%5d %5d %5d -> %f\r\n",sensor_data.magnetometer_raw.x.i16, 
 							sensor_data.magnetometer_raw.y.i16,
@@ -308,15 +308,15 @@ void ahrs_filter(double dt)
  *
  *   Makes sure the output is similar to the quaternion's output.
  */
-double gravity_to_roll(double a_y, double a_z)
+float gravity_to_roll(float a_y, float a_z)
 {
-	double roll_acc = atan(a_y / a_z);
-	if (a_z > 0.0)
+	float roll_acc = atan(a_y / a_z);
+	if (a_z > 0.0f)
 	{
-		if (a_y < 0.0)	
-			roll_acc =  roll_acc + 3.14159;
+		if (a_y < 0.0f)	
+			roll_acc =  roll_acc + 3.14159f;
 		else
-			roll_acc =  roll_acc - 3.14159;
+			roll_acc =  roll_acc - 3.14159f;
 	}	
 	return roll_acc;	
 }	
@@ -327,25 +327,26 @@ double gravity_to_roll(double a_y, double a_z)
  *
  *   Makes sure the output is similar to the quaternion's output.
  */
-double gravity_to_pitch(double a_x, double a_z)
+float gravity_to_pitch(float a_x, float a_z)
 {
-	double pitch_acc = -atan(a_x / a_z); // replace with asin?
+	float pitch_acc = -atan(a_x / a_z); // replace with asin?
 
-	if (a_z > 0.0)
+	if (a_z > 0.0f)
 		pitch_acc =  -pitch_acc;
 
 	return pitch_acc;
 }
 
 
-inline double fast_sin(double x)
+inline float fast_sin(float x)
 {
 	// -180..180 -> -60..60
-	int i = (int)(x/(2.0/(180.0/3.14159))) + (180/2);
+	//int i = (int)(x/(2.0f/(180.0f/3.14159f))) + (180/2);
+	int i = (int)(x/0.034906585f) + 90;
 	return sin_lookup[i];
 }	
-inline double fast_cos(double x)
+inline float fast_cos(float x)
 {
 	// -180..180 -> -60..60
-	return fast_sin((3.14159/2.0) - x);
+	return fast_sin((1.5707963f) - x);
 }	

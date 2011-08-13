@@ -21,7 +21,7 @@
 #include "uart1_queue/uart1_queue.h"
 
 
-#define KTS2MS       0.5144                // knots to meter per second
+#define KTS2MS       0.5144f                // knots to meter per second
 #define RAD2DEG      57.29577951308232     // radians to degrees 
 #define DEG2RAD      0.01745329251994      // degrees to radians
 
@@ -224,19 +224,58 @@ float read_positive_float (const char *str)
 
 
 /*!
+ *  Helper function to read a positive double point variable.
+ *  @param str Pointer to a string starting with a positive number.
+ */
+double read_positive_double (const char *str)
+{
+	int i = 0;
+	double integer = 0,
+	       fract = 0,
+	       mantissa = 10.0;
+	char c;
+	
+	while (1)
+	{
+		c = str[i++];
+		if (c >= '0' && c <= '9')
+			integer = integer*10.0 + (double)(c-'0');
+		else 
+			break;
+	}
+	if (c == '.')
+	{
+		while (1)
+		{
+			c = str[i++];
+			if (c >= '0' && c <= '9')
+				fract = fract + ((double)(c-'0')) / mantissa;
+			else 
+				break;
+			mantissa *= 10.0;
+		}
+	}
+	
+	return integer  + fract;
+}
+
+
+/*!
  *  Convert default NMEA latitude or langitude to radians.
  *  NMEA positions are formatted as 4916.46 when the actual position
  *  is 49° 16.45'. This function transforms this to radians (49.2711666/180.0/3.14159).
  *  @param p NMEA-formatted position.
  *  @return p converted to radians.
  */
-float position_NMEA_to_rad(float p)
+double position_NMEA_to_rad(double p)
 {
-	float minutes_decimal = fmodf(p, 100.0) / 60.0;
-	float degrees = floorf(p/100.0);
+	double minutes_decimal = fmod(p, 100.0) / 60.0;
+	double degrees = floor(p/100.0);
 	
 	return (degrees + minutes_decimal) * DEG2RAD;
 }
+
+
 
 
 /*!
@@ -310,7 +349,7 @@ char gps_update_info(struct gps_info *gpsinfo)
 		while (*(stringpointer++) != ',') 
 			;
 				
-		gpsinfo->latitude_rad = position_NMEA_to_rad(read_positive_float(stringpointer));
+		gpsinfo->latitude_rad = position_NMEA_to_rad(read_positive_double(stringpointer));
 		
 		while (*(stringpointer++) != ',') 
 			;
@@ -322,7 +361,7 @@ char gps_update_info(struct gps_info *gpsinfo)
 		while (*(stringpointer++) != ',') 
 			;
 			
-		gpsinfo->longitude_rad = position_NMEA_to_rad(read_positive_float(stringpointer));
+		gpsinfo->longitude_rad = position_NMEA_to_rad(read_positive_double(stringpointer));
 		
 		while (*(stringpointer++) != ',') 
 			;
