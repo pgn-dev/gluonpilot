@@ -29,7 +29,7 @@
  *                        term. Used to prevent jitter on the output.
  *  @todo  Add global min and max value for the output.
  */
-void pid_init(struct pid *pid, double d_gain, double p_gain, double i_gain, double i_min, double i_max, double d_term_min_var)
+void pid_init(struct pid *pid, float d_gain, float p_gain, float i_gain, float i_min, float i_max, float d_term_min_var)
 {
 	pid->last_error = 0.0;
 	pid->i_state = 0.0;
@@ -43,7 +43,7 @@ void pid_init(struct pid *pid, double d_gain, double p_gain, double i_gain, doub
 }
 
 
-__attribute__((__const__)) int isNaN (double* f) 
+__attribute__((__const__)) int isNaN (float* f) 
 {
 	const int* rep = ((const int*) f) + 1;
 	return ((*rep & 0x7F00) == 0x7F00);
@@ -57,9 +57,9 @@ __attribute__((__const__)) int isNaN (double* f)
  *  @param dt       Time since last update, needed for the integral and derivative term.
  *  @return The calculated pid output.
  */
-double pid_update(struct pid *pid, double position, double dt)
+float pid_update(struct pid *pid, float position, float dt)
 {
-	double tmp;
+	float tmp;
 	
 	tmp = (position - pid->d_state) / dt;   // D-term;
 	
@@ -96,13 +96,13 @@ double pid_update(struct pid *pid, double position, double dt)
  *  @param dt       Time since last update, needed for the integral and derivative term.
  *  @return The calculated pid output.
  */
-double pid_update_only_p(struct pid *pid, double position, double dt)
+float pid_update_only_p(struct pid *pid, float position, float dt)
 {
 	return pid->p_gain * position;                        // P-term	
 }
 
 
-double pid_update_only_p_and_i(struct pid *pid, double position, double dt)
+float pid_update_only_p_and_i(struct pid *pid, float position, float dt)
 {
 	pid->i_state += position * dt;                        // I-term
 	if (pid->i_state > pid->i_max)

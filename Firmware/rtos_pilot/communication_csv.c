@@ -225,7 +225,7 @@ void communication_telemetry_task( void *parameters )
 			uart1_putc(';');
 			uart1_putc('0' + (unsigned char)sensor_data.gps.status);
 			uart1_putc(';');
-			printf ("%f;%f", sensor_data.gps.latitude_rad, sensor_data.gps.longitude_rad);
+			printf ("%.9f;%.9Lf", sensor_data.gps.latitude_rad, sensor_data.gps.longitude_rad);
 			//PrintUnsignedLong((unsigned long)(sensor_data.gps.latitude_rad*1000000), &uart1_puts);
 			//uart1_putc(';');
 			//PrintUnsignedLong((unsigned long)(sensor_data.gps.longitude_rad*1000000), &uart1_puts);
@@ -867,7 +867,7 @@ void print_logline(struct LogLine *l)
 void print_logline_simulation(struct LogLine *l)
 {
 	static int i = 0;
-	static double last_height;
+	static float last_height;
 	
 	sensor_data.acc_x_raw = l->acc_x;
 	sensor_data.acc_y_raw = l->acc_y;
@@ -881,21 +881,21 @@ void print_logline_simulation(struct LogLine *l)
 	i++;
 	if (last_height != sensor_data.pressure_height)
 	{
-		double dt = (double)i * 0.02;
+		float dt = (float)i * 0.02;
 		i = 0;
 		sensor_data.vertical_speed = sensor_data.vertical_speed * 0.5 + (sensor_data.pressure_height - last_height)/dt * 0.5;
 		last_height = sensor_data.pressure_height;
 		sensor_data.vertical_speed = 0.0;
 	}	
 	
-	sensor_data.acc_x = ((double)(sensor_data.acc_x_raw) - (double)config.sensors.acc_x_neutral) / (-6600.0*-1.0);
-	sensor_data.acc_y = ((double)(sensor_data.acc_y_raw) - (double)config.sensors.acc_y_neutral) / (-6600.0*-1.0);
-	sensor_data.acc_z = ((double)(sensor_data.acc_z_raw) - (double)config.sensors.acc_z_neutral) / (-6600.0);
+	sensor_data.acc_x = ((float)(sensor_data.acc_x_raw) - (float)config.sensors.acc_x_neutral) / (-6600.0*-1.0);
+	sensor_data.acc_y = ((float)(sensor_data.acc_y_raw) - (float)config.sensors.acc_y_neutral) / (-6600.0*-1.0);
+	sensor_data.acc_z = ((float)(sensor_data.acc_z_raw) - (float)config.sensors.acc_z_neutral) / (-6600.0);
 			
 	// scale to rad/sec
-	sensor_data.p = ((double)(sensor_data.gyro_x_raw)-config.sensors.gyro_x_neutral) * (-0.02518315*3.14159/180.0 * -1.0);  // 0.02518315f
-	sensor_data.q = ((double)(sensor_data.gyro_y_raw)-config.sensors.gyro_y_neutral) * (-0.02538315*3.14159/180.0 * -1.0);
-	sensor_data.r = ((double)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)
+	sensor_data.p = ((float)(sensor_data.gyro_x_raw)-config.sensors.gyro_x_neutral) * (-0.02518315*3.14159/180.0 * -1.0);  // 0.02518315f
+	sensor_data.q = ((float)(sensor_data.gyro_y_raw)-config.sensors.gyro_y_neutral) * (-0.02538315*3.14159/180.0 * -1.0);
+	sensor_data.r = ((float)(sensor_data.gyro_z_raw)-config.sensors.gyro_z_neutral) * (0.0062286*3.14159/180.0);  //(2^16-1 - (2^5-1)) / 3.3 * 0.0125*(22)/(22+12)
 	
 	ahrs_filter();
 	

@@ -11,16 +11,16 @@ struct SensorData
 	struct intvector magnetometer_raw;
 
 	unsigned int idg500_vref;
-	double acc_x, acc_y, acc_z;
-	double p, q, r;
-	double roll, pitch, yaw;
-	double roll_acc, pitch_acc;
-	double vertical_speed; // estimated speed along z axis
-	double p_bias, q_bias;  // used in kalman filter
+	float acc_x, acc_y, acc_z;
+	float p, q, r;
+	float roll, pitch, yaw;
+	float roll_acc, pitch_acc;
+	float vertical_speed; // estimated speed along z axis
+	float p_bias, q_bias;  // used in kalman filter
 	
-	double pressure;
-	double temperature;
-	double pressure_height;
+	float pressure;
+	float temperature;
+	float pressure_height;
 	int temperature_10;
 	unsigned int battery_voltage_10;
 	

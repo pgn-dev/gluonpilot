@@ -14,7 +14,7 @@
 /**
  *   A + B = R
  */
-double * matrix_2x2_add(double *A, double *B, double *R)
+float * matrix_2x2_add(float *A, float *B, float *R)
 {
 	R[0] = A[0] + B[0];
 	R[1] = A[1] + B[1];
@@ -26,7 +26,7 @@ double * matrix_2x2_add(double *A, double *B, double *R)
 /**
  *   A + B = R
  */
-double * matrix_3x3_add(double *A, double *B, double *R)
+float * matrix_3x3_add(float *A, float *B, float *R)
 {
 	R[0] = A[0] + B[0];
 	R[1] = A[1] + B[1];
@@ -44,7 +44,7 @@ double * matrix_3x3_add(double *A, double *B, double *R)
 /**
  *   A * B = R
  */
-/*inline double * matrix_2x2_mul(double *A, double *B, double *R)
+/*inline float * matrix_2x2_mul(float *A, float *B, float *R)
 {
 	R[M2x2(0,0)] = A[M2x2(0,0)] * B[M2x2(0,0)] + A[M2x2(0,1)] * B[M2x2(1,0)];
 	R[M2x2(0,1)] = A[M2x2(0,0)] * B[M2x2(0,1)] + A[M2x2(0,1)] * B[M2x2(1,1)];
@@ -60,7 +60,7 @@ double * matrix_3x3_add(double *A, double *B, double *R)
  *     10  11        10  11 ]
  *     20  21 ]
  */
-/*inline double * matrix_3x2_times_2x2(double *A, double *B, double *R)
+/*inline float * matrix_3x2_times_2x2(float *A, float *B, float *R)
 {
 	R[M3x2(0,0)] = A[M3x2(0,0)] * B[M2x2(0,0)] + A[M3x2(0,1)] * B[M2x2(1,0)];
 	R[M3x2(0,1)] = A[M3x2(0,0)] * B[M2x2(0,1)] + A[M3x2(0,1)] * B[M2x2(1,1)];
@@ -78,7 +78,7 @@ double * matrix_3x3_add(double *A, double *B, double *R)
  *     10  11        01  11 21]
  *     20  21 ]
  */
-/*inline double * matrix_3x2_times_3x2_transp(double *A, double *B, double *R)
+/*inline float * matrix_3x2_times_3x2_transp(float *A, float *B, float *R)
 {
 	R[M3x3(0,0)] = A[M3x2(0,0)] * B[M3x2(0,0)] + A[M3x2(0,1)] * B[M3x2(0,1)];
 	R[M3x3(0,1)] = A[M3x2(0,0)] * B[M3x2(1,0)] + A[M3x2(0,1)] * B[M3x2(1,1)];
@@ -99,7 +99,7 @@ double * matrix_3x3_add(double *A, double *B, double *R)
  *     10  11]        01  11 21]
  */
 
-/*inline double * matrix_2x2_times_3x2_transp(double *A, double *B, double *R)
+/*inline float * matrix_2x2_times_3x2_transp(float *A, float *B, float *R)
 {
 	R[M3x3(0,0)] = A[M3x2(0,0)] * B[M3x2(0,0)] + A[M3x2(0,1)] * B[M3x2(0,1)];
 	R[M3x3(0,1)] = A[M3x2(0,0)] * B[M3x2(1,0)] + A[M3x2(0,1)] * B[M3x2(1,1)];
@@ -117,7 +117,7 @@ double * matrix_3x3_add(double *A, double *B, double *R)
  *      10  11 12]   10  11      
  *                   20  21 ]
  */
-/*inline double * matrix_2x3_times_3x2(double *A, double *B, double *R)
+/*inline float * matrix_2x3_times_3x2(float *A, float *B, float *R)
 {
 	R[M2x2(0,0)] = A[M2x3(0,0)] * B[M3x2(0,0)] + A[M2x3(0,1)] * B[M3x2(1,0)] + A[M2x3(0,2)] * B[M3x2(2,0)];
 	R[M2x2(0,1)] = A[M2x3(0,0)] * B[M3x2(0,1)] + A[M2x3(0,1)] * B[M3x2(1,1)] + A[M2x3(0,2)] * B[M3x2(2,1)];
@@ -132,7 +132,7 @@ double * matrix_3x3_add(double *A, double *B, double *R)
  *      10  11 12]   10  11 12     
  *                   20  21 22 ]
  */
-/*inline double * matrix_2x3_times_3x3(double *A, double *B, double *R)
+/*inline float * matrix_2x3_times_3x3(float *A, float *B, float *R)
 {
 	R[M2x3(0,0)] = A[M2x3(0,0)] * B[M3x3(0,0)] + A[M2x3(0,1)] * B[M3x3(1,0)] + A[M2x3(0,2)] * B[M3x3(2,0)];
 	R[M2x3(0,1)] = A[M2x3(0,0)] * B[M3x3(0,1)] + A[M2x3(0,1)] * B[M3x3(1,1)] + A[M2x3(0,2)] * B[M3x3(2,1)];
@@ -146,7 +146,7 @@ double * matrix_3x3_add(double *A, double *B, double *R)
 /**
  *   A * B' = R
  */
-/*double * matrix_2x2_mul_transp(double *A, double *B, double *R)
+/*float * matrix_2x2_mul_transp(float *A, float *B, float *R)
 {
 	R[M2x2(0,0)] = A[M2x2(0,0)] * B[M2x2(0,0)] + A[M2x2(0,1)] * B[M2x2(0,1)];
 	R[M2x2(0,1)] = A[M2x2(0,0)] * B[M2x2(1,0)] + A[M2x2(0,1)] * B[M2x2(1,1)];
@@ -155,22 +155,22 @@ double * matrix_3x3_add(double *A, double *B, double *R)
 	return R;
 }*/
 
-void matrix_print_2x2(double *A)
+void matrix_print_2x2(float *A)
 {
 	printf ("%.2f  %.2f	\r\n%.2f  %.2f\r\n", A[0], A[1], A[2], A[3]);
 }	
 
-void matrix_print_3x2(double *A)
+void matrix_print_3x2(float *A)
 {
 	printf ("%.2f  %.2f	\r\n%.2f  %.2f\r\n%.2f  %.2f\r\n", A[0], A[1], A[2], A[3], A[4], A[5]);
 }
 
-void matrix_print_2x3(double *A)
+void matrix_print_2x3(float *A)
 {
 	printf ("%.2f  %.2f	 %.2f\r\n%.2f  %.2f  %.2f\r\n", A[0], A[1], A[2], A[3], A[4], A[5]);
 }
 
-void matrix_print_3x3(double *A)
+void matrix_print_3x3(float *A)
 {
 	printf ("%.3f  %.3f	 %.3f\r\n%.3f  %.3f  %.3f\r\n%.3f  %.3f  %.3f\r\n", A[0], A[1], A[2], A[3], A[4], A[5], A[6], A[7], A[8]);
 }	

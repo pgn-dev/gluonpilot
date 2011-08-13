@@ -98,6 +98,7 @@ file_070=.
 file_071=lib
 file_072=lib
 file_073=lib
+file_074=.
 [GENERATED_FILES]
 file_000=no
 file_001=no
@@ -173,6 +174,7 @@ file_070=no
 file_071=no
 file_072=no
 file_073=no
+file_074=no
 [OTHER_FILES]
 file_000=no
 file_001=no
@@ -248,6 +250,7 @@ file_070=no
 file_071=no
 file_072=no
 file_073=no
+file_074=no
 [FILE_INFO]
 file_000=..\lib\adc\adc.c
 file_001=..\lib\button\button.c
@@ -323,12 +326,13 @@ file_070=osd.h
 file_071=..\lib\hmc5843\hmc5843.h
 file_072=..\lib\bmp085\bmp085.h
 file_073=..\lib\i2c\i2c.h
+file_074=inttypes.h
 [SUITE_INFO]
 suite_guid={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 suite_state=
 [TOOL_SETTINGS]
 TS{7D9C6ECE-785D-44CB-BA22-17BF2E119622}=-g
-TS{25AC22BD-2378-4FDB-BFB6-7345A15512D3}=-g -Wall -DMPLAB_DSPIC_PORT -mlarge-data -O1
+TS{25AC22BD-2378-4FDB-BFB6-7345A15512D3}=-g -fno-short-double -Wall -DMPLAB_DSPIC_PORT -mlarge-code -mlarge-data -O1
 TS{7DAC9A1D-4C45-45D6-B25A-D117C74E8F5A}=--heap=10240 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TS{509E5861-1E2A-483B-8B6B-CA8DB7F2DD78}=
 [INSTRUMENTED_TRACE]

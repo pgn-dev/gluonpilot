@@ -182,9 +182,9 @@ void osd_print_compass()
 	osd_set_position(COMPASS_LINE, ++x);
 	osd_write_char(0xD0);  // degree
 }	
-double gravity_to_roll2(double a_y, double a_z)
+float gravity_to_roll2(float a_y, float a_z)
 {
-	double roll_acc = atan(a_y / a_z);
+	float roll_acc = atan(a_y / a_z);
 	if (a_z > 0.0)
 	{
 		if (a_y < 0.0)	
@@ -194,9 +194,9 @@ double gravity_to_roll2(double a_y, double a_z)
 	}	
 	return roll_acc;	
 }	
-double gravity_to_pitch2(double a_x, double a_z)
+float gravity_to_pitch2(float a_x, float a_z)
 {
-	double pitch_acc = -atan(a_x / a_z); // replace with asin?
+	float pitch_acc = -atan(a_x / a_z); // replace with asin?
 
 	if (a_z > 0.0)
 		pitch_acc =  -pitch_acc;

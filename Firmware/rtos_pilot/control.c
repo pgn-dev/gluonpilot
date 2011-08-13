@@ -36,9 +36,9 @@
 #include "common.h"
 
 void control_wing_manual();
-void control_wing_stabilized(double dt, int h);
-void control_wing_navigate(double dt, int altitude_controllable);
-void control_wing_desired_to_servos();
+void control_wing_stabilized(float dt, int h);
+void control_wing_navigate(float dt, int altitude_controllable);
+void control_wing_desired_to_servos(float dt);
 
 
 //! Contains the last calculated servo position
@@ -154,12 +154,15 @@ void control_wing_task( void *parameters )
 #ifdef F1E_STEERING  // Add this define for F1E steering mode
 			{
 				float err_heading = navigation_data.desired_heading_rad - sensor_data.yaw;
-				if (err_heading > PI)
+				if (err_heading > 3.0)
 					err_heading -= 2.0*PI;
-				else if (err_heading < -PI)
+				else if (err_heading < -3.0)
 					err_heading += 2.0*PI;
 				//printf("\r\n%f\r\n", err_heading);
-				aileron_out = (int)(pid_update(&config.control.pid_heading2roll, err_heading, 0.02)*630.0);
+				//aileron_out = (int)(pid_update(&config.control.pid_heading2roll, err_heading, 0.02)*630.0);
+				aileron_out *= 2;
+				aileron_out += (int)(pid_update(&config.control.pid_heading2roll, err_heading, 0.02)*630.0);
+				aileron_out /= 3;
 				control_mix_out();
 				if (button_down())
 				{
@@ -167,9 +170,10 @@ void control_wing_task( void *parameters )
 					//printf("\r\n%f-%f -> %d", navigation_data.desired_heading_rad, sensor_data.yaw, servo_out[0]);
 					navigation_data.desired_heading_rad = sensor_data.yaw;
 				}
-#else
+			}
+#else	
 				control_wing_navigate(0.020, config.control.stabilization_with_altitude_hold); // stabilized mode as long as navigation isn't available
-#endif 
+#endif
 		} 
 		else if (ppm.channel[config.control.channel_ap] < 1666)
 		{
@@ -212,12 +216,12 @@ void control_wing_manual()
  *   the module's attitude are used in a PID loop to position the servo's so the
  *   desired attitude can be obtained.
  */
-void control_wing_stabilized(double dt, int altitude_hold)
+void control_wing_stabilized(float dt, int altitude_hold)
 {
-	control_state.desired_roll = (double)((int)ppm.channel[config.control.channel_roll]
+	control_state.desired_roll = (float)((int)ppm.channel[config.control.channel_roll]
 	                             - config.control.channel_neutral[config.control.channel_roll]) / 500.0 * (config.control.max_roll);
 
-	control_state.desired_pitch = (double)((int)ppm.channel[config.control.channel_pitch]
+	control_state.desired_pitch = (float)((int)ppm.channel[config.control.channel_pitch]
 	                              - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * (config.control.max_pitch);
 
 
@@ -244,10 +248,10 @@ void control_wing_stabilized(double dt, int altitude_hold)
  *   the module's attitude are used in a PID loop to position the servo's so the
  *   desired attitude can be obtained.
  */
-void control_wing_navigate(double dt, int altitude_controllable)
+void control_wing_navigate(float dt, int altitude_controllable)
 {
 	/* Calculate desired roll */
-	double heading_error_rad = navigation_data.desired_heading_rad - sensor_data.gps.heading_rad;
+	float heading_error_rad = navigation_data.desired_heading_rad - sensor_data.gps.heading_rad;
 	
 	// Choose shortest turn-direction
 	if (heading_error_rad >= PI)
@@ -266,7 +270,7 @@ void control_wing_navigate(double dt, int altitude_controllable)
 #endif
 
 	// from paparazzi
-	/*double speed_depend_nav = sensor_data.gps.speed_ms / config.control.cruising_speed_ms;
+	/*float speed_depend_nav = sensor_data.gps.speed_ms / config.control.cruising_speed_ms;
  	if (speed_depend_nav > 1.3)	{
  		control_state.desired_roll *= 1.3;
  	} else if (speed_depend_nav < 0.8) { // good idea for takeoff?
@@ -287,7 +291,7 @@ void control_wing_navigate(double dt, int altitude_controllable)
 	
 	if (altitude_controllable)  // control altitude with pitch transmitter stick?
 	{
-		double manual_desired_pitch = (double)((int)ppm.channel[config.control.channel_pitch]
+		float manual_desired_pitch = (float)((int)ppm.channel[config.control.channel_pitch]
 		                              - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * (config.control.max_pitch);
 	    if (fabs(manual_desired_pitch) > (config.control.max_pitch / 5.0)) // elevator stick not in neutral position
 	    {
@@ -320,10 +324,10 @@ void control_wing_navigate(double dt, int altitude_controllable)
  *   Takes control_state.desired_roll and control_state.desired_pitch as input,
  *   and calculates elevator_out and aileron_out.
  */
-void control_wing_desired_to_servos(double dt)
+void control_wing_desired_to_servos(float dt)
 {
-	double elevator_out_radians,
-	       aileron_out_radians;     
+	float elevator_out_radians,
+	      aileron_out_radians;     
 	static int counter = 0;
 	
 	// Keep pitch & roll within limits
@@ -429,12 +433,12 @@ void control_copter_task( void *parameters )
  *   the module's attitude are used in a PID loop to position the servo's so the
  *   desired attitude can be obtained.
  */
-void control_copter_stabilized(double dt, int altitude_hold)
+void control_copter_stabilized(float dt, int altitude_hold)
 {
-	control_state.desired_roll = (double)((int)ppm.channel[config.control.channel_roll]
+	control_state.desired_roll = (float)((int)ppm.channel[config.control.channel_roll]
 	                             - config.control.channel_neutral[config.control.channel_roll]) / 500.0 * (config.control.max_roll);
 
-	control_state.desired_pitch = (double)((int)ppm.channel[config.control.channel_pitch]
+	control_state.desired_pitch = (float)((int)ppm.channel[config.control.channel_pitch]
 	                              - config.control.channel_neutral[config.control.channel_pitch]) / 500.0 * (config.control.max_pitch);
 
 
@@ -459,12 +463,12 @@ void control_copter_stabilized(double dt, int altitude_hold)
  *   Takes control_state.desired_roll and control_state.desired_pitch as input,
  *   and calculates elevator_out and aileron_out.
  */
-void control_copter_desired_to_servos(double dt)
+void control_copter_desired_to_servos(float dt)
 {
-	double elevator_out_radians,
-	       aileron_out_radians;     
+	float elevator_out_radians,
+	      aileron_out_radians;     
 	static int counter = 0;
-	static double desired_yaw = 0.0;
+	static float desired_yaw = 0.0;
 	
 	motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];	
 	if (motor_out < 100)  // when the quad is on the ground, keep this yaw angle when taking off
@@ -482,7 +486,7 @@ void control_copter_desired_to_servos(double dt)
 	aileron_out_radians = pid_update(&config.control.pid_roll2aileron, 
 	                                  control_state.desired_roll - sensor_data.roll, dt);
 	
-	double desired_yaw_rate  = (double)((int)ppm.channel[config.control.channel_yaw]
+	float desired_yaw_rate  = (float)((int)ppm.channel[config.control.channel_yaw]
 		                            - config.control.channel_neutral[config.control.channel_yaw]) / 500.0 * (DEG2RAD(30.0)); // max 30�/s
 
 	if (fabs(desired_yaw_rate) < DEG2RAD(5.0)) // stick in the middle
@@ -626,10 +630,10 @@ void control_mix_out()
 		}	
 		default:  // aileron
 			number_of_controlled_channels = 6;
-                        if (config.control.reverse_servo6)
-				servo_out[5] = -(int)(sensor_data.roll*636.0) + 1500;//config.control.servo_neutral[6];
+            if (config.control.reverse_servo6)
+				servo_out[5] = (int)(-sensor_data.roll*636.0) + 1500;//config.control.servo_neutral[6];
 			else
-				servo_out[5] = +-(int)(sensor_data.roll*636.0) + 1500;//config.control.servo_neutral[6];
+				servo_out[5] = +(int)(sensor_data.roll*636.0) + 1500;//config.control.servo_neutral[6];
 
 			if (config.control.reverse_servo1)
 				servo_out[0] = -aileron_out_right + config.control.servo_neutral[0];

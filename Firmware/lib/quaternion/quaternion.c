@@ -17,14 +17,14 @@
 /*!
  *	 Initialize quaternion (q[4]) with roll, pitch and yaw euclidian angles.
  */
-void quaternion_from_attitude (const double roll, const double pitch, const double yaw, double* q)
+void quaternion_from_attitude (const float roll, const float pitch, const float yaw, float* q)
 {
-	double cos_roll_2 = cosf(roll/2.0);
-	double sin_roll_2 = sinf(roll/2.0);
-	double cos_pitch_2 = cosf(pitch/2.0);
-	double sin_pitch_2 = sinf(pitch/2.0);
-	double cos_yaw_2 = cosf(yaw/2.0);
-	double sin_yaw_2 = sinf(yaw/2.0);
+	float cos_roll_2 = cosf(roll/2.0);
+	float sin_roll_2 = sinf(roll/2.0);
+	float cos_pitch_2 = cosf(pitch/2.0);
+	float sin_pitch_2 = sinf(pitch/2.0);
+	float cos_yaw_2 = cosf(yaw/2.0);
+	float sin_yaw_2 = sinf(yaw/2.0);
 
 	q[0] = cos_roll_2 * cos_pitch_2 * cos_yaw_2 + sin_roll_2 * sin_pitch_2 * sin_yaw_2;
 	q[1] = sin_roll_2 * cos_pitch_2 * cos_yaw_2 - cos_roll_2 * sin_pitch_2 * sin_yaw_2;
@@ -41,16 +41,16 @@ void quaternion_from_attitude (const double roll, const double pitch, const doub
  *   @param q = along the y-axis = pitch-rate
  *   @param z = along the z-axis = yaw-rate
  */
-void quaternion_update_with_rates (const double rollrate, const double pitchrate, const double headingrate, double *q, const double dt)
+void quaternion_update_with_rates (const float rollrate, const float pitchrate, const float headingrate, float *q, const float dt)
 {
-	const double w1 = rollrate;
-	const double w2 = pitchrate;
-	const double w3 = headingrate;
+	const float w1 = rollrate;
+	const float w2 = pitchrate;
+	const float w3 = headingrate;
 
-	double q0 = q[0];
-	double q1 = q[1];
-	double q2 = q[2];
-	double q3 = q[3];
+	float q0 = q[0];
+	float q1 = q[1];
+	float q2 = q[2];
+	float q3 = q[3];
 	
 	q0 += 0.5 * (        - q[1]*w1 - q[2]*w2 - q[3]*w3)*dt;
 	q1 += 0.5 * (q[0]*w1 +           q[2]*w3 - q[3]*w2)*dt;
@@ -65,9 +65,9 @@ void quaternion_update_with_rates (const double rollrate, const double pitchrate
 	quaternion_normalize(q);
 }
 
-double quaternion_to_roll (const double* q)
+float quaternion_to_roll (const float* q)
 {
-	double r;
+	float r;
 	errno = 0;
 	r = atan2( 2.0 * ( q[2]*q[3] + q[0]*q[1] ) ,
 	             (1.0 - 2.0 * (q[1]*q[1] + q[2]*q[2])) );  
@@ -77,9 +77,9 @@ double quaternion_to_roll (const double* q)
 		return r;
 }	
 
-double quaternion_to_pitch(const double* q)
+float quaternion_to_pitch(const float* q)
 {
-	double r;
+	float r;
 	errno = 0;
 	r = asinf( -2.0 * (q[1]*q[3] - q[0]*q[2]) );	
 	if (errno)
@@ -89,9 +89,9 @@ double quaternion_to_pitch(const double* q)
 }
 
 
-double quaternion_to_yaw(const double* q)
+float quaternion_to_yaw(const float* q)
 {
-	double r;
+	float r;
 	errno = 0;
 	r = atan2( 2.0 * ( q[0]*q[3] + q[1]*q[2] ) ,
 	          (1.0 - 2.0 * (q[2]*q[2] + q[3]*q[3])) );  
@@ -101,9 +101,9 @@ double quaternion_to_yaw(const double* q)
 		return r;
 }	
 
-void quaternion_normalize(double *q)
+void quaternion_normalize(float *q)
 {
-	double norm = sqrtf(q[0]*q[0] + q[1]*q[1] + q[2]*q[2] + q[3]*q[3]);
+	float norm = sqrtf(q[0]*q[0] + q[1]*q[1] + q[2]*q[2] + q[3]*q[3]);
 
 	q[0] /= norm;	
 	q[1] /= norm;

@@ -5,20 +5,20 @@
 
 struct pid 
 {
-	double last_error;
-	double i_state;
-	double i_max, i_min;
-	double d_state;
-	double d_gain, p_gain, i_gain;
-	double d_term_min_var;
+	float last_error;
+	float i_state;
+	float i_max, i_min;
+	float d_state;
+	float d_gain, p_gain, i_gain;
+	float d_term_min_var;
 };
 
-void pid_init(struct pid *pid, double d_gain, double p_gain, double i_gain, double i_min, double i_max, double d_term_min_var);
+void pid_init(struct pid *pid, float d_gain, float p_gain, float i_gain, float i_min, float i_max, float d_term_min_var);
 
-double pid_update(struct pid *pid, double position, double dt);
-double pid_update_external_d(struct pid *pid, double position, double d, double dt);
-double pid_update_only_p(struct pid *pid, double position, double dt);
-double pid_update_only_p_and_i(struct pid *pid, double position, double dt);
+float pid_update(struct pid *pid, float position, float dt);
+float pid_update_external_d(struct pid *pid, float position, float d, float dt);
+float pid_update_only_p(struct pid *pid, float position, float dt);
+float pid_update_only_p_and_i(struct pid *pid, float position, float dt);
 /*
 float pid_pitch_to_elevator(float desired_pitch, struct ahrs_info *ahrs);
 float pid_roll_to_aileron(float roll, struct ahrs_info *ahrs);

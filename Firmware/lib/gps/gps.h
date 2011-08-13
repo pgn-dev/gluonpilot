@@ -12,8 +12,8 @@ struct gps_info {
 	int  satellites_in_view;
 	int  height_m;
 	
-	float latitude_rad,
-	      longitude_rad;
+	double latitude_rad,
+	       longitude_rad;
 	      
 	float speed_ms;      // meter per second
 	float heading_rad;   // in radians
