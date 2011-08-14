@@ -225,7 +225,10 @@ void communication_telemetry_task( void *parameters )
 			uart1_putc(';');
 			uart1_putc('0' + (unsigned char)sensor_data.gps.status);
 			uart1_putc(';');
+			//sensor_data.gps.latitude_rad = 10.123456789;
+			//sensor_data.gps.longitude_rad = 10.123456789;
 			printf ("%.9f;%.9Lf", sensor_data.gps.latitude_rad, sensor_data.gps.longitude_rad);
+			//printf ("%.9f;%f", ((float)sensor_data.gps.latitude_rad), ((float)sensor_data.gps.longitude_rad));
 			//PrintUnsignedLong((unsigned long)(sensor_data.gps.latitude_rad*1000000), &uart1_puts);
 			//uart1_putc(';');
 			//PrintUnsignedLong((unsigned long)(sensor_data.gps.longitude_rad*1000000), &uart1_puts);
