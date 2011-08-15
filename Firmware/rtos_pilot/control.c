@@ -311,8 +311,12 @@ void control_wing_navigate(float dt, int altitude_controllable)
             else if (target < config.control.auto_throttle_min_pct)
                 target = config.control.auto_throttle_min_pct;
 
+			if (navigation_data.desired_throttle_pct != -1)  // currently only flare
+				target = navigation_data.desired_throttle_pct;
+
             motor_out = /*1000 + */target*10;
 			//printf("\r\n%d = %d + (%d*%d)/10 - %d %d\r\n", target, config.control.auto_throttle_cruise_pct, d_altitude, config.control.auto_throttle_p_gain, (int)control_state.desired_altitude, (int)sensor_data.pressure_height);
+			
         } else
             motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
 

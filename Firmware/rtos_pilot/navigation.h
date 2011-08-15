@@ -41,7 +41,10 @@ enum navigation_variable {
 	CHANNEL_7 = 14,
 	CHANNEL_8 = 15,
 	BATT_V = 16,
-        BLOCK_TIME = 17
+    BLOCK_TIME = 17,
+    ABS_ALTITUDE_ERROR = 18,
+    ABS_HEADING_ERROR = 19,
+    ABS_ALT_AND_HEADING_ERR = 20
 };	
 
 enum navigation_command {
@@ -64,7 +67,9 @@ enum navigation_command {
 	UNTIL_SM=16,
 	SERVO_SET=17,
 	SERVO_TRIGGER=18,
-	BLOCK=19
+	BLOCK=19,
+	FLARE_TO_ABS=20,
+	FLARE_TO_REL=21
 };
 
 
@@ -99,6 +104,8 @@ struct NavigationData
 	unsigned int airborne : 1;                //!< Is 0 when the plane didn't take off yet.	
 	float wind_heading;           //!< Wind comes from...
 	unsigned int wind_heading_set : 1;
+	
+	int desired_throttle_pct; // -1 = auto
 	
 	float desired_heading_rad;    //!< Last calculated desired heading. In radians. Zero is north.
 	float desired_height_above_ground_m;
