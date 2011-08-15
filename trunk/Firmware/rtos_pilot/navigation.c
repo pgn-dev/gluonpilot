@@ -518,6 +518,12 @@ void navigation_do_circle(struct NavigationCode *current_code)
 	float next_alpha;
 	float rad_ahead = rad_s*carrot;
 	
+	if (rad_ahead > 0.0f)
+		rad_ahead = BIND(rad_ahead, DEG2RAD(10.0f), DEG2RAD(45.0f));   // because of /cos(rad_ahead)
+	else
+		rad_ahead = BIND(rad_ahead, DEG2RAD(-45.0f), DEG2RAD(-10.0f));   // because of /cos(rad_ahead)
+		
+		
 	//if (distance_center > abs_r + distance_ahead ||
 	//    distance_center < abs_r - distance_ahead)  // too far in or out of the circle?
 	//{
