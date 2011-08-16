@@ -172,7 +172,7 @@ void navigation_update()
 		//return;
 	}
 	// set initial heading on take-off (fixed wing)
-	if (!navigation_data.wind_heading_set && sensor_data.gps.speed_ms >= 2.0)
+	if (!navigation_data.wind_heading_set && sensor_data.gps.speed_ms >= 3.0)
 	{
 		navigation_data.wind_heading_set = 1;
 		navigation_data.wind_heading = sensor_data.gps.heading_rad;
