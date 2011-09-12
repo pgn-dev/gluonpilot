@@ -242,6 +242,8 @@ void sensors_gps_task( void *parameters )
 	
 	uart1_puts("Gps & Navigation task initializing...\r\n");
 	sensor_data.gps.status = EMPTY;	
+	sensor_data.gps.latitude_rad = 0.0;
+	sensor_data.gps.longitude_rad = 0.0;
 	navigation_init ();
 		
 	gps_open_port(&(config.gps));

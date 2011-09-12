@@ -16,6 +16,7 @@
  
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 #include "FreeRTOS/FreeRTOS.h"
 #include "FreeRTOS/task.h"
@@ -49,6 +50,14 @@ void print_navigation();
 static char  buffer[BUFFERSIZE];
 
 extern unsigned long idle_counter;
+
+//void comm_printf(const char *fmt, ...);
+#define COMM_BUFFER_LEN 80
+char comm_buffer[COMM_BUFFER_LEN];
+void comm_send_buffer_with_checksum(int length);
+#define comm_printf(T,...) comm_send_buffer_with_checksum(sprintf(comm_buffer, T, __VA_ARGS__))
+
+int check_checksum(char *s);
 
 /*!
  *    This task will send telemetry directly to uart1 at a rate of maximum 
@@ -113,7 +122,7 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_GyroAccRaw == config.telemetry.stream_GyroAccRaw)
 		{
-			uart1_puts("TR;");
+			/*uart1_puts("TR;");
 			print_unsigned_integer((int)(sensor_data.acc_x_raw), &uart1_puts);
 			uart1_putc(';');
 			print_unsigned_integer((int)(sensor_data.acc_y_raw), &uart1_puts);
@@ -126,7 +135,10 @@ void communication_telemetry_task( void *parameters )
 			uart1_putc(';');
 			print_unsigned_integer((int)(sensor_data.gyro_z_raw), &uart1_puts);
 			//printf(";%f", sensor_data.temperature);
-			uart1_puts("\r\n");
+			uart1_puts("\r\n");*/
+			comm_printf("TR;%u;%u;%u;%u;%u;%u", (sensor_data.acc_x_raw), (sensor_data.acc_y_raw),
+			                                    (sensor_data.acc_z_raw), (sensor_data.gyro_x_raw),
+			                                    (sensor_data.gyro_y_raw), (sensor_data.gyro_z_raw));
 			counters.stream_GyroAccRaw = 0;
 		} 
 		else if (counters.stream_GyroAccRaw > config.telemetry.stream_GyroAccRaw)
@@ -137,7 +149,7 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_GyroAccProc == config.telemetry.stream_GyroAccProc)
 		{
-			uart1_puts("TP;");
+			/*uart1_puts("TP;");
 			print_signed_integer((int)(sensor_data.acc_x*1000), &uart1_puts);
 			uart1_putc(';');
 			print_signed_integer((int)(sensor_data.acc_y*1000), &uart1_puts);
@@ -149,7 +161,10 @@ void communication_telemetry_task( void *parameters )
 			print_signed_integer((int)(sensor_data.q*1000), &uart1_puts);
 			uart1_putc(';');
 			print_signed_integer((int)(sensor_data.r*1000), &uart1_puts);
-			uart1_puts("\r\n");
+			uart1_puts("\r\n");*/
+			comm_printf("TP;%d;%d;%d;%d;%d;%d", (int)(sensor_data.acc_x*1000), (int)(sensor_data.acc_y*1000),
+			                                        (int)(sensor_data.acc_z*1000), (int)(sensor_data.p*1000),
+			                                        (int)(sensor_data.q*1000), (int)(sensor_data.r*1000));
 		}	
 		else if (counters.stream_GyroAccProc > config.telemetry.stream_GyroAccProc)
 			counters.stream_GyroAccProc = 0;
@@ -159,13 +174,14 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////	
 		if (counters.stream_Attitude == config.telemetry.stream_Attitude)
 		{		
-			uart1_puts("TA;");
+			comm_printf("TA;%d;%d;%d", (int)(sensor_data.roll*1000), (int)(sensor_data.pitch*1000), (int)(sensor_data.yaw*1000));
+			/*uart1_puts("TA;");
 			print_signed_integer((int)(sensor_data.roll*1000), &uart1_puts);
 			uart1_putc(';');
 			print_signed_integer((int)(sensor_data.pitch*1000), &uart1_puts);
 			uart1_putc(';');
 			print_signed_integer((int)(sensor_data.yaw*1000), &uart1_puts);
-			uart1_puts("\r\n");
+			uart1_puts("\r\n");*/
 
 //			uart1_puts("TS;");
 //			print_signed_integer((int)(servo_read_us(2)), &uart1_puts);  // elevator
@@ -185,12 +201,13 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_PressureTemp == config.telemetry.stream_PressureTemp)
 		{
-			uart1_puts("TH;");
+			/*uart1_puts("TH;");
 			printf("%.0f", (sensor_data.pressure));
 			//PrintUnsignedInteger((unsigned int)(sensor_data.pressure/10), &uart1_puts);
 			uart1_putc(';');
 			print_signed_integer((int)sensor_data.temperature, &uart1_puts);
-			uart1_puts("\r\n");
+			uart1_puts("\r\n");*/
+			comm_printf("TH;%u;%d", (unsigned int)(sensor_data.pressure/10), (int)sensor_data.temperature);
 			counters.stream_PressureTemp = 0;
 		}
 		else if (counters.stream_PressureTemp > config.telemetry.stream_PressureTemp)
@@ -204,13 +221,17 @@ void communication_telemetry_task( void *parameters )
 			//vTaskGetRunTimeStats( buffer );
 			//uart1_puts(buffer);
 
-			uart1_puts("TT");
+			/*uart1_puts("TT");
 			for (i = 0; i < 8; i++)
 			{
 				uart1_putc(';');
 				print_unsigned_integer((unsigned int)ppm.channel[i], &uart1_puts);
 			}			
-			uart1_puts("\r\n");
+			uart1_puts("\r\n");*/
+			comm_printf("TT;%u;%u;%u;%u;%u;%u;%u;%u", (unsigned int)ppm.channel[0], (unsigned int)ppm.channel[1],
+			                                          (unsigned int)ppm.channel[2], (unsigned int)ppm.channel[3],
+			                                          (unsigned int)ppm.channel[4], (unsigned int)ppm.channel[5],
+			                                          (unsigned int)ppm.channel[6], (unsigned int)ppm.channel[7]);
 			counters.stream_PPM = 0;
 		}
 		else if (counters.stream_PPM > config.telemetry.stream_PPM)
@@ -221,7 +242,7 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_GpsBasic == config.telemetry.stream_GpsBasic)
 		{
-			uart1_puts("TG");
+			/*uart1_puts("TG");
 			uart1_putc(';');
 			uart1_putc('0' + (unsigned char)sensor_data.gps.status);
 			uart1_putc(';');
@@ -240,8 +261,13 @@ void communication_telemetry_task( void *parameters )
 			print_unsigned_integer((unsigned int)(sensor_data.gps.satellites_in_view), &uart1_puts);
 			uart1_putc(';');
 			print_unsigned_integer((unsigned int)(sensor_data.gps.height_m), &uart1_puts);
-
-			uart1_puts("\r\n");
+			uart1_puts("\r\n");*/
+			comm_printf("TG;%c;%.9Lf;%.9Lf;%u;%u;%u;%u", '0' + (unsigned char)sensor_data.gps.status,
+			                                            sensor_data.gps.latitude_rad, sensor_data.gps.longitude_rad,
+			                                            (unsigned int)(sensor_data.gps.speed_ms*10),
+			                                            (unsigned int)(sensor_data.gps.heading_rad*100),
+			                                            (unsigned int)(sensor_data.gps.satellites_in_view),
+			                                            (unsigned int)(sensor_data.gps.height_m));
 			counters.stream_GpsBasic = 0;
 		}
 		else if (counters.stream_GpsBasic > config.telemetry.stream_GpsBasic)
@@ -253,7 +279,7 @@ void communication_telemetry_task( void *parameters )
 		//printf("TC;CONTROL_STATUS;LINE;HEIGHT(;CARROTX;CARROTY;CARROTH)");
 		if (counters.stream_Control == config.telemetry.stream_Control)
 		{
-			uart1_puts("TC;");
+			/*uart1_puts("TC;");
 			printf("%d;", (int)control_state.flight_mode);
 			printf("%d;%d", navigation_data.current_codeline, (int)(sensor_data.pressure_height - navigation_data.home_pressure_height));
 			printf(";%u", sensor_data.battery_voltage_10);
@@ -275,7 +301,30 @@ void communication_telemetry_task( void *parameters )
 			printf(";%d", throttle);
 
 			//printf(";%ul", idle_counter);
-			printf("\r\n");
+			printf("\r\n");*/
+			int sig_quality = 0;
+			if (config.control.use_pwm)
+            {
+	        	if (ppm.connection_alive)
+	        		sig_quality = 100;
+	        	else
+	        		sig_quality = 0;
+	        } else // ppm
+            	sig_quality = (100-ppm_signal_quality()*4);  // %
+            	
+			int throttle = (config.control.servo_neutral[3] - servo_read_us(3))/10;
+			if (! config.control.reverse_servo4)
+				throttle = -throttle;
+			if (throttle < 0 || throttle > 100)
+				throttle = 0;
+				
+			
+			comm_printf("TC;%d;%d;%d;%u;%d;%d;%d;%d", (int)control_state.flight_mode,
+			       navigation_data.current_codeline, (int)(sensor_data.pressure_height - navigation_data.home_pressure_height),
+			       sensor_data.battery_voltage_10,
+			       navigation_data.time_airborne_s, navigation_data.time_block_s,
+			       sig_quality, throttle);
+			
 			counters.stream_Control = 0;
                         idle_counter = 0;
 			//printf("\r\n%f - %f | %f + %f\r\n", control_state.desired_altitude, control_state.desired_pitch,navigation_data.desired_height_above_ground_m, navigation_data.home_pressure_height);
@@ -298,7 +347,7 @@ extern xQueueHandle xRxedChars;
 void communication_input_task( void *parameters )
 {
 	static int   buffer_position;
-	static int   token[8] = {0,0,0,0,0,0,0,0};
+	static int   token[9] = {0,0,0,0,0,0,0,0,0};
 	static int   current_token;
 	
 	char tmp;
@@ -313,9 +362,18 @@ void communication_input_task( void *parameters )
         {           
 	        //vTaskList(&buffer1);
 	        //uart1_putc(tmp);
-            if ((tmp == '\n' || tmp == '\r'))
+            if (tmp == '\n' || tmp == '\r')
             {
 	            buffer[buffer_position] = '\0';
+	            if (buffer[0] == '$')  // with checksum
+	            {
+		        	if (check_checksum(buffer))
+		        	{
+			        	buffer[0] = buffer[1];
+			        	buffer[1] = buffer[2];	
+			        } else
+			        	printf("Error checksum: %s\r\n", buffer);
+		        } 
 	            //token[current_token + 1] = buffer_position;
 
 				///////////////////////////////////////////////////////////////
@@ -674,10 +732,10 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'J' && buffer[token[0] + 1] == 'N')
 				{
-                                    int number = atoi(&(buffer[token[1]]));
-                                    if (number >= 0 && number < MAX_NAVIGATIONCODES)
-                                        navigation_data.current_codeline = number;
-                                }
+					int number = atoi(&(buffer[token[1]]));
+					if (number >= 0 && number < MAX_NAVIGATIONCODES)
+						navigation_data.current_codeline = number;
+				}
 				///////////////////////////////////////////////////////////////
 				//                  READ ALL CONFIGURATION                   //
 				///////////////////////////////////////////////////////////////
@@ -705,11 +763,10 @@ void communication_input_task( void *parameters )
             	token[6] = 0;
             	token[7] = 0;
             }
-            else if (tmp == ';' && current_token < 7 && buffer_position < BUFFERSIZE)
+            else if ((tmp == ';' || tmp == '*') && current_token < 8 && buffer_position < BUFFERSIZE)
             {
 	            buffer[buffer_position++] = tmp;
 	            token[++current_token] = buffer_position;
-	            
 	        } 
 	        else if (buffer_position < BUFFERSIZE)
 	        	buffer[buffer_position++] = tmp;
@@ -989,4 +1046,59 @@ void print_unsigned_integer(unsigned int x, void (*printer)(char[]))
 		}
 	}
 }
+
+
+
+void comm_puts(char *s)
+{
+	uart1_puts(s);
+}
+
+char hex[] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+void comm_send_buffer_with_checksum(int length)
+{
+	char checksum = 0;
+	int j;
+	uart1_putc('$');
+	for (j=0;j < length; j++)
+	{
+		char c = comm_buffer[j];
+		uart1_putc(c);
+		checksum ^= c;
+	}
+	uart1_putc('*');
+	//0123456789ABCDEF
+	uart1_putc(hex[checksum/16]);
+	uart1_putc(hex[checksum%16]);
+	uart1_putc('\r');
+	uart1_putc('\n');
+}
+
+int check_checksum(char *s)
+{
+	int i = 1;
+	char checksum = 0;
+	
+	while (s[i] != '*' && i < BUFFERSIZE)
+	{
+		checksum ^= s[i];
+		i++;
+	}
+	//if (! (s[i+1] == hex[checksum/16] && s[i+2] == hex[checksum%16]))
+	//	printf("\r\n %c %c <> %c %c\r\n", s[i+1], s[i+2], hex[checksum/16], hex[checksum%16]);
+
+	return s[i+1] == hex[checksum/16] && s[i+2] == hex[checksum%16];
+}	
+	
+
+/*void comm_printf(const char *fmt, ...)
+{
+    va_list args;
+    va_start(args, fmt);
+    int i;
+
+    //return printf(fmt, args);
+
+	comm_send_buffer_with_checksum(sprintf(comm_buffer, fmt, args));
+}*/
 

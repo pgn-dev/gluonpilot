@@ -97,11 +97,11 @@ void configuration_write()
 void configuration_default()
 {
 	int i;
-	config.control.channel_ap = 4;
-	config.control.channel_motor = 3;
+	config.control.channel_ap = 3;
+	config.control.channel_motor = 2;
 	config.control.channel_pitch = 0;
 	config.control.channel_roll = 1;
-	config.control.channel_yaw = 2;
+	config.control.channel_yaw = 4;
 	
 	for (i = 0; i < 8; i++)
 		config.control.channel_neutral[i] = 1500;
