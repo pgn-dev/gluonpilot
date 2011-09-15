@@ -160,8 +160,8 @@ void configuration_default()
 	
 	
 	config.telemetry.stream_GpsBasic = 5;
-	config.telemetry.stream_GyroAccProc = 20;
-	config.telemetry.stream_GyroAccRaw = 30;
+	config.telemetry.stream_GyroAccProc = 25;
+	config.telemetry.stream_GyroAccRaw = 35;
 	config.telemetry.stream_PPM = 35;
 	config.telemetry.stream_PressureTemp = 30;
 	config.telemetry.stream_Attitude = 5;
