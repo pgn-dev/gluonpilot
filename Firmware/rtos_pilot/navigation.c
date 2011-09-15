@@ -90,6 +90,10 @@ void navigation_calculate_relative_position(int i)
                            navigation_data.navigation_codes[i].opcode = CIRCLE_ABS;
                            convert_parameters_to_abs(i);
                            break;
+		case FLARE_TO_REL:
+                           navigation_data.navigation_codes[i].opcode = FLARE_TO_ABS;
+                           convert_parameters_to_abs(i);
+                           break;
 		default:
                            break;
 	}	
