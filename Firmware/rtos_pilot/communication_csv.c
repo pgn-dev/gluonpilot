@@ -725,13 +725,14 @@ void communication_input_task( void *parameters )
 						navigation_data.navigation_codes[i].y = atof(&(buffer[token[4]]));
 						navigation_data.navigation_codes[i].a = atoi(&(buffer[token[5]]));
 						navigation_data.navigation_codes[i].b = atoi(&(buffer[token[6]]));
+
+						if (navigation_data.relative_positions_calculated)
+							navigation_calculate_relative_position(i);
+							
 						// confirm by sending it back...
 						comm_printf("ND;%d;%d;%f;%f;%d;%d", i+1, navigation_data.navigation_codes[i].opcode,
 										navigation_data.navigation_codes[i].x, navigation_data.navigation_codes[i].y,
 										navigation_data.navigation_codes[i].a, navigation_data.navigation_codes[i].b);
-						
-						if (navigation_data.relative_positions_calculated)
-							navigation_calculate_relative_position(i);
 					}
 #endif
 				}

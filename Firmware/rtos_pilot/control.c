@@ -632,6 +632,39 @@ void control_mix_out()
 			}
 			break;
 		}	
+		case AILERONS_FLAPERONS:
+			number_of_controlled_channels = 6;
+            if (config.control.reverse_servo6)
+				servo_out[5] = (int)(-sensor_data.roll*636.0) + 1500;//config.control.servo_neutral[6];
+			else
+				servo_out[5] = +(int)(sensor_data.roll*636.0) + 1500;//config.control.servo_neutral[6];
+
+			if (config.control.reverse_servo1)
+				servo_out[0] = -aileron_out_right + config.control.servo_neutral[0] + ppm.channel[config.control.channel_yaw] - config.control.channel_neutral[config.control.channel_yaw];
+			else
+				servo_out[0] = +aileron_out_right + config.control.servo_neutral[0] - ppm.channel[config.control.channel_yaw] + config.control.channel_neutral[config.control.channel_yaw];
+				
+			if (config.control.reverse_servo2)
+				servo_out[1] = +aileron_out_left + config.control.servo_neutral[1];
+			else
+				servo_out[1] = -aileron_out_left + config.control.servo_neutral[1];
+				
+			if (config.control.reverse_servo3)
+				servo_out[2] = -elevator_out + config.control.servo_neutral[2];
+			else
+				servo_out[2] = elevator_out + config.control.servo_neutral[2];
+				
+			if (config.control.reverse_servo4)
+				servo_out[3] = -motor_out + config.control.servo_neutral[3];
+			else
+				servo_out[3] = motor_out + config.control.servo_neutral[3];
+			
+			if (config.control.reverse_servo5)
+				servo_out[4] = +yaw_out + config.control.servo_neutral[4];
+			else 
+				servo_out[4] = -yaw_out + config.control.servo_neutral[4];
+
+			break;
 		default:  // aileron
 			number_of_controlled_channels = 6;
             if (config.control.reverse_servo6)
