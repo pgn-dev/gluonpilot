@@ -314,7 +314,7 @@ void datalogger_task( void *parameters )
 			//l.gyro_z = sensor_data.gyro_z_raw;
 			l.p = (int)(sensor_data.p * (180.0/3.14159));
 			l.q = (int)(sensor_data.q * (180.0/3.14159));
-			l.r = (int)navigation_data.home_pressure_height; //(int)(sensor_data.r * (180.0/3.14159));
+			l.r = (int)(sensor_data.r * (180.0/3.14159));
 			l.pitch = (int)(sensor_data.pitch * (180.0/3.14159));
 			l.roll = (int)(sensor_data.roll * (180.0/3.14159));
 			l.desired_pitch = (int)(control_state.desired_pitch * (180.0/3.14159));

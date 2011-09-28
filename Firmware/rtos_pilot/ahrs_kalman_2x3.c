@@ -130,7 +130,10 @@ void ahrs_filter(float dt)
     cos_roll = fast_cos(roll_rad);
     sin_pitch = fast_sin(pitch_rad);
     cos_pitch = fast_cos(pitch_rad);
-    tan_pitch = sin_pitch / cos_pitch; //tan(pitch_rad);
+    if (fabs(cos_pitch) < 0.02f)  // to avoid /0
+    	tan_pitch = 1.0;
+    else 
+    	tan_pitch = sin_pitch / cos_pitch; //tan(pitch_rad);
     
     
     df_dx[0] = (sensor_data.q*cos_roll - sensor_data.r*sin_roll) * tan_pitch;
@@ -248,6 +251,18 @@ void ahrs_filter(float dt)
 		    roll_rad_sum_error += tmp2[0];
 			pitch_rad_sum_error += tmp2[1];
 		}
+		
+		if (fabs(pitch_rad) < DEG2RAD(89.0)) // to overcome secans +-inf
+		{
+			sensor_data.yaw += (sin_roll * sensor_data.q / cos_pitch + cos_roll * sensor_data.r / cos_pitch) * 0.04 ;  // try to calculate yaw approx.
+			if (sensor_data.yaw >= DEG2RAD(360.0))
+				sensor_data.yaw -= DEG2RAD(360.0);
+			else if (sensor_data.yaw < DEG2RAD(0.0))
+				sensor_data.yaw += DEG2RAD(360.0);
+				
+			if (fabs(sensor_data.yaw - sensor_data.gps.heading_rad) < DEG2RAD(250.0))  // do not chang if e.g. yaw = 355° and heading = 2°
+				sensor_data.yaw = sensor_data.yaw*0.991 + sensor_data.gps.heading_rad*0.009;
+		}	
     }
 	else if (i % 25 == 0) // outer loop at 2Hz
 	{
@@ -257,6 +272,7 @@ void ahrs_filter(float dt)
 		//printf("\r\n %f \r\n", (roll_rad_sum_error/20.0));
 		roll_rad_sum_error = 0.0f;
 		pitch_rad_sum_error = 0.0f;
+		
 	}
 #ifdef F1E_STEERING
 	if (i % 5 == 0)

@@ -645,9 +645,9 @@ void control_mix_out()
 				servo_out[0] = +aileron_out_right + config.control.servo_neutral[0] - ppm.channel[config.control.channel_yaw] + config.control.channel_neutral[config.control.channel_yaw];
 				
 			if (config.control.reverse_servo2)
-				servo_out[1] = +aileron_out_left + config.control.servo_neutral[1];
+				servo_out[1] = +aileron_out_left + config.control.servo_neutral[1] - ppm.channel[config.control.channel_yaw] + config.control.channel_neutral[config.control.channel_yaw];
 			else
-				servo_out[1] = -aileron_out_left + config.control.servo_neutral[1];
+				servo_out[1] = -aileron_out_left + config.control.servo_neutral[1]  + ppm.channel[config.control.channel_yaw] - config.control.channel_neutral[config.control.channel_yaw];
 				
 			if (config.control.reverse_servo3)
 				servo_out[2] = -elevator_out + config.control.servo_neutral[2];

@@ -181,6 +181,8 @@ void navigation_update()
 		navigation_data.wind_heading_set = 1;
 		navigation_data.wind_heading = sensor_data.gps.heading_rad;
 		navigation_data.time_airborne_s = 0.0;  // reset this to know the real time airborne
+		// lock yaw
+		sensor_data.yaw = sensor_data.gps.heading_rad;
 	}
 	
 
@@ -489,9 +491,23 @@ float get_variable(enum navigation_variable i)
         case ABS_ALT_AND_HEADING_ERR:
         {
             struct NavigationCode *next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+1];
+            if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
+                next_code->opcode != FLARE_TO_ABS)
+            {
+                next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+2];
+	            if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
+	                next_code->opcode != FLARE_TO_ABS)
+	            {
+	                next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+3];
+	            	if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
+	                	next_code->opcode != FLARE_TO_ABS)
+	               		printf("\r\nBad ABS_ALT_AND_HEADING_ERR position\r\n");
+	            }   		
+			}
+			                
             float heading_error = navigation_heading_rad_fromto((float)(sensor_data.gps.longitude_rad - (double)(next_code->y)),
 	                                                           (float)(sensor_data.gps.latitude_rad - (double)(next_code->x)));
-			heading_error = RAD2DEG(heading_error);
+			heading_error = RAD2DEG(heading_error - sensor_data.gps.heading_rad);
 	        if (heading_error > 180.0f)
 	        	heading_error -= 360.0f;
 	        else if (heading_error < -180.0f)
