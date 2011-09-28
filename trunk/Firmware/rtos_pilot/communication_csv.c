@@ -223,7 +223,7 @@ void communication_telemetry_task( void *parameters )
 			uart1_putc(';');
 			print_signed_integer((int)sensor_data.temperature, &uart1_puts);
 			uart1_puts("\r\n");*/
-			comm_printf_poll("TH;%u;%d", (unsigned int)(sensor_data.pressure/10), (int)sensor_data.temperature);
+			comm_printf_poll("TH;%lu;%d", (unsigned long)(sensor_data.pressure), (int)sensor_data.temperature);
 			counters.stream_PressureTemp = 0;
 		}
 		else if (counters.stream_PressureTemp > config.telemetry.stream_PressureTemp)
