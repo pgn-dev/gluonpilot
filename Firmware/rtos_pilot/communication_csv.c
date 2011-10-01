@@ -759,7 +759,10 @@ void communication_input_task( void *parameters )
 					}	
 				}
 				else if (current_token > 0)
+				{
+					buffer[BUFFERSIZE-1] = '\0';
 					printf("ERROR %s\r\n", buffer);
+				}	
 
             	buffer_position = 0;
             	current_token = 0;
@@ -1083,7 +1086,7 @@ int check_checksum(char *s)
 	int i = 1;
 	char checksum = 0;
 	
-	while (s[i] != '*' && i < BUFFERSIZE)
+	while (s[i] != '*' && i < BUFFERSIZE-2)
 	{
 		checksum ^= s[i];
 		i++;
