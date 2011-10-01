@@ -283,7 +283,7 @@ void control_wing_navigate(float dt, int altitude_controllable)
 	/* Calculate desired pitch */
   	// altitude hold
   	
-  	control_state.desired_altitude = navigation_data.desired_height_above_ground_m + navigation_data.home_pressure_height;
+  	control_state.desired_altitude = navigation_data.desired_altitude_agl + navigation_data.home_pressure_height;
   	
 	//control_state.desired_pitch = (control_state.desired_height - sensor_data.pressure_height) / 10.0 * config.control.max_pitch; 
 	control_state.desired_pitch = pid_update(&config.control.pid_altitude2pitch, 

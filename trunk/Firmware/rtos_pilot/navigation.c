@@ -171,7 +171,7 @@ void navigation_update()
 			// also return home @ 100m height
 			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
 	                                                   		                    sensor_data.gps.latitude_rad);
-            navigation_data.desired_height_above_ground_m = 100.0;
+            navigation_data.desired_altitude_agl = 100.0;
 		}	
 		//return;
 	}
@@ -198,7 +198,7 @@ void navigation_update()
 			else 
 				navigation_data.desired_heading_rad = sensor_data.gps.heading_rad;
 
-			navigation_data.desired_height_above_ground_m = current_code->x + 1000.0f;
+			navigation_data.desired_altitude_agl = current_code->x + 1000.0f;
 			if (sensor_data.pressure_height - navigation_data.home_pressure_height > current_code->x)
 				navigation_data.current_codeline++;
 			break;
@@ -218,27 +218,30 @@ void navigation_update()
 			  /** distance of carrot (in meter) */
 			float carrot = 4.0f * sensor_data.gps.speed_ms;
 			
-			nav_leg_progress += MAX(carrot / nav_leg_length, 0.f);
+			//nav_leg_progress += MAX(carrot / nav_leg_length, 0.f);
 			
-			if (nav_leg_progress >= 1.0f)
+			if (nav_leg_progress >= 1.0f) // did we pass (miss) the waypoint?
 			{
 				navigation_data.desired_heading_rad = navigation_heading_rad_fromto((float)(sensor_data.gps.longitude_rad - (double)current_code->y),
 		                                                                            (float)(sensor_data.gps.latitude_rad - (double)current_code->x));
 			}
 			else
 			{
+				nav_leg_progress += MAX(carrot / nav_leg_length, 0.f); // fly towards carrot
+				
 				navigation_data.desired_heading_rad = navigation_heading_rad_fromto(
 					(float)(sensor_data.gps.longitude_rad - (double)( navigation_data.last_waypoint_longitude_rad + nav_leg_progress * leg_y / longitude_meter_per_radian)),
 		            (float)(sensor_data.gps.latitude_rad - (double)( navigation_data.last_waypoint_latitude_rad + nav_leg_progress * leg_x / latitude_meter_per_radian ) ) );
 			}
 				                                                         
-	        navigation_data.desired_height_above_ground_m = current_code->a;
+	        navigation_data.desired_altitude_agl = current_code->a;
 			
 			if (waypoint_reached(current_code))
 			{
 				navigation_data.current_codeline++;
 				navigation_data.last_waypoint_latitude_rad = current_code->x;
 				navigation_data.last_waypoint_longitude_rad = current_code->y;
+				navigation_data.last_waypoint_altitude_agl = navigation_data.desired_altitude_agl;
 			}
 			
 			break;
@@ -251,13 +254,14 @@ void navigation_update()
 			navigation_data.desired_heading_rad = navigation_heading_rad_fromto((float)(sensor_data.gps.longitude_rad - (double)current_code->y),
 	                                                                            (float)(sensor_data.gps.latitude_rad - (double)current_code->x));
 	                                                         
-	        navigation_data.desired_height_above_ground_m = current_code->a;
+	        navigation_data.desired_altitude_agl = current_code->a;
 			
 			if (waypoint_reached(current_code))
 			{
 				navigation_data.current_codeline++;
 				navigation_data.last_waypoint_latitude_rad = current_code->x;
 				navigation_data.last_waypoint_longitude_rad = current_code->y;
+				navigation_data.last_waypoint_altitude_agl = navigation_data.desired_altitude_agl;
 			}	
 			break;
 		
@@ -265,9 +269,10 @@ void navigation_update()
 		case CIRCLE_ABS:
 			navigation_data.desired_throttle_pct = -1;
 			navigation_do_circle(current_code);
-			navigation_data.desired_height_above_ground_m = current_code->b;
+			navigation_data.desired_altitude_agl = current_code->b;
 			navigation_data.last_waypoint_latitude_rad = current_code->x;
 			navigation_data.last_waypoint_longitude_rad = current_code->y;
+			navigation_data.last_waypoint_altitude_agl = navigation_data.desired_altitude_agl;
 			navigation_data.current_codeline++;
 			break;
 		case GOTO:
@@ -344,7 +349,7 @@ void navigation_update()
 			// also return home @ 100m height
 			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
 	                                                   		         sensor_data.gps.latitude_rad);
-            navigation_data.desired_height_above_ground_m = 100.0f;
+            navigation_data.desired_altitude_agl = 100.0f;
 			break;
         case BLOCK:
             navigation_data.time_block_s = 0;
@@ -379,14 +384,41 @@ void navigation_update()
 					(float)(sensor_data.gps.longitude_rad - (double)( navigation_data.last_waypoint_longitude_rad + nav_leg_progress * leg_y / longitude_meter_per_radian)),
 		            (float)(sensor_data.gps.latitude_rad - (double)( navigation_data.last_waypoint_latitude_rad + nav_leg_progress * leg_x / latitude_meter_per_radian ) ) );
 				                                                         
-	        navigation_data.desired_height_above_ground_m = current_code->a;
+	        navigation_data.desired_altitude_agl = current_code->a;
+		    break;	
+		}
+		case GLIDE_TO_REL:
+        case GLIDE_TO_ABS:
+        {
+			navigation_data.desired_pre_bank = 0.0f;
 			
-			/*if (waypoint_reached(current_code))
+			navigation_data.desired_throttle_pct = current_code->b;
+			
+			float leg_x = (current_code->x - navigation_data.last_waypoint_latitude_rad) * latitude_meter_per_radian;  // lat
+  			float leg_y = (current_code->y - navigation_data.last_waypoint_longitude_rad) * longitude_meter_per_radian;  // lon
+  			float leg2 = MAX(leg_x * leg_x + leg_y * leg_y, 1.f);
+  			float nav_leg_progress = ((sensor_data.gps.latitude_rad - navigation_data.last_waypoint_latitude_rad) * latitude_meter_per_radian * leg_x + 
+  			                          (sensor_data.gps.longitude_rad - navigation_data.last_waypoint_longitude_rad) * longitude_meter_per_radian * leg_y) / leg2;
+  			float nav_leg_length = sqrtf(leg2);
+
+			  /** distance of carrot (in meter) */
+			float carrot = 4.0f * sensor_data.gps.speed_ms;
+			
+			//nav_leg_progress += MAX(carrot / nav_leg_length, 0.f);
+			if (nav_leg_progress > 1.0)
+				nav_leg_progress = 1.0;
+			
+			/*if (nav_leg_progress >= 1.0f)
 			{
-				navigation_data.current_codeline++;
-				navigation_data.last_waypoint_latitude_rad = current_code->x;
-				navigation_data.last_waypoint_longitude_rad = current_code->y;
-			}*/
+				navigation_data.desired_heading_rad = navigation_heading_rad_fromto((float)(sensor_data.gps.longitude_rad - (double)current_code->y),
+		                                                                            (float)(sensor_data.gps.latitude_rad - (double)current_code->x));
+			}
+			else*/
+				navigation_data.desired_heading_rad = navigation_heading_rad_fromto(
+					(float)(sensor_data.gps.longitude_rad - (double)( navigation_data.last_waypoint_longitude_rad + nav_leg_progress * leg_y / longitude_meter_per_radian)),
+		            (float)(sensor_data.gps.latitude_rad - (double)( navigation_data.last_waypoint_latitude_rad + nav_leg_progress * leg_x / latitude_meter_per_radian ) ) );
+				                                                         
+	        navigation_data.desired_altitude_agl = navigation_data.last_waypoint_altitude_agl * (1.0-nav_leg_progress) + current_code->a * (nav_leg_progress);
 		    break;	
 		}
 		default:
@@ -395,7 +427,7 @@ void navigation_update()
 			// also return home @ 100m height
 			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
 	                                                   		         sensor_data.gps.latitude_rad);
-	        navigation_data.desired_height_above_ground_m = 100.0f; 
+	        navigation_data.desired_altitude_agl = 100.0f; 
 			break;
 	
 	}	
@@ -479,9 +511,23 @@ float get_variable(enum navigation_variable i)
         case ABS_HEADING_ERROR:
         {
 	        struct NavigationCode *next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+1];
+	        if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
+                next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
+            {
+                next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+2];
+	            if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
+	                next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
+	            {
+	                next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+3];
+	            	if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
+	                	next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
+	               		printf("\r\nBad ABS_HEADING_ERR position\r\n");
+	            }   		
+			}
+			
             float heading_error = navigation_heading_rad_fromto((float)(sensor_data.gps.longitude_rad - (double)(next_code->y)),
 	                                                           (float)(sensor_data.gps.latitude_rad - (double)(next_code->x)));
-	        heading_error = RAD2DEG(heading_error);
+	        heading_error = RAD2DEG(heading_error - sensor_data.gps.heading_rad);
 	        if (heading_error > 180.0f)
 	        	heading_error -= 360.0f;
 	        else if (heading_error < -180.0f)
@@ -492,15 +538,15 @@ float get_variable(enum navigation_variable i)
         {
             struct NavigationCode *next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+1];
             if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
-                next_code->opcode != FLARE_TO_ABS)
+                next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
             {
                 next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+2];
 	            if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
-	                next_code->opcode != FLARE_TO_ABS)
+	                next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
 	            {
 	                next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+3];
 	            	if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
-	                	next_code->opcode != FLARE_TO_ABS)
+	                	next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
 	               		printf("\r\nBad ABS_ALT_AND_HEADING_ERR position\r\n");
 	            }   		
 			}
@@ -579,7 +625,7 @@ void navigation_do_circle(struct NavigationCode *current_code)
 	else if (navigation_data.desired_heading_rad < 0.0f)
 		navigation_data.desired_heading_rad += DEG2RAD(360.0f);
 		
-	navigation_data.desired_height_above_ground_m = current_code->b;
+	navigation_data.desired_altitude_agl = current_code->b;
 	
 	/*printf("-> %f | %f", distance_center, current_alpha);
 	printf("(%f) %f\r\n", navigation_data.desired_pre_bank/3.14159*180.0, navigation_data.desired_heading_rad/3.14159*180.0);

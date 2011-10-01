@@ -69,7 +69,9 @@ enum navigation_command {
 	SERVO_TRIGGER=18,
 	BLOCK=19,
 	FLARE_TO_ABS=20,
-	FLARE_TO_REL=21
+	FLARE_TO_REL=21,
+	GLIDE_TO_ABS=22,
+	GLIDE_TO_REL=23
 };
 
 
@@ -99,6 +101,7 @@ struct NavigationData
 	
 	float last_waypoint_latitude_rad;
 	float last_waypoint_longitude_rad;
+	float last_waypoint_altitude_agl;
 	
 	unsigned int relative_positions_calculated : 1;  
 	unsigned int airborne : 1;                //!< Is 0 when the plane didn't take off yet.	
@@ -108,7 +111,7 @@ struct NavigationData
 	int desired_throttle_pct; // -1 = auto
 	
 	float desired_heading_rad;    //!< Last calculated desired heading. In radians. Zero is north.
-	float desired_height_above_ground_m;
+	float desired_altitude_agl;
 	float desired_pre_bank;
 	
 	//float height_error;       
