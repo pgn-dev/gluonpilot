@@ -94,6 +94,10 @@ void navigation_calculate_relative_position(int i)
                            navigation_data.navigation_codes[i].opcode = FLARE_TO_ABS;
                            convert_parameters_to_abs(i);
                            break;
+		case GLIDE_TO_REL:
+                           navigation_data.navigation_codes[i].opcode = GLIDE_TO_ABS;
+                           convert_parameters_to_abs(i);
+                           break;
 		default:
                            break;
 	}	
@@ -390,7 +394,7 @@ void navigation_update()
 		case GLIDE_TO_REL:
         case GLIDE_TO_ABS:
         {
-			navigation_data.desired_pre_bank = 0.0f;
+						navigation_data.desired_pre_bank = 0.0f;
 			
 			navigation_data.desired_throttle_pct = current_code->b;
 			
@@ -404,9 +408,7 @@ void navigation_update()
 			  /** distance of carrot (in meter) */
 			float carrot = 4.0f * sensor_data.gps.speed_ms;
 			
-			//nav_leg_progress += MAX(carrot / nav_leg_length, 0.f);
-			if (nav_leg_progress > 1.0)
-				nav_leg_progress = 1.0;
+			nav_leg_progress += MAX(carrot / nav_leg_length, 0.f);
 			
 			/*if (nav_leg_progress >= 1.0f)
 			{
@@ -417,10 +419,33 @@ void navigation_update()
 				navigation_data.desired_heading_rad = navigation_heading_rad_fromto(
 					(float)(sensor_data.gps.longitude_rad - (double)( navigation_data.last_waypoint_longitude_rad + nav_leg_progress * leg_y / longitude_meter_per_radian)),
 		            (float)(sensor_data.gps.latitude_rad - (double)( navigation_data.last_waypoint_latitude_rad + nav_leg_progress * leg_x / latitude_meter_per_radian ) ) );
-				                                                         
+				                     
 	        navigation_data.desired_altitude_agl = navigation_data.last_waypoint_altitude_agl * (1.0-nav_leg_progress) + current_code->a * (nav_leg_progress);
+	        printf("\r\n%d\r\n", (int)navigation_data.desired_altitude_agl);
 		    break;	
 		}
+		case SET_LOITER_POSITION:
+			navigation_data.loiter_waypoint_latitude_rad = sensor_data.gps.latitude_rad;
+			navigation_data.loiter_waypoint_longitude_rad = sensor_data.gps.longitude_rad;
+			navigation_data.loiter_waypoint_altitude_agl = sensor_data.pressure_height - navigation_data.home_pressure_height;
+			navigation_data.current_codeline++;
+			break;
+		case LOITER_CIRCLE:
+		{
+			struct NavigationCode code;
+			code.x = navigation_data.loiter_waypoint_latitude_rad;
+			code.y = navigation_data.loiter_waypoint_longitude_rad;
+			code.a = current_code->a; // radius
+			code.b = navigation_data.loiter_waypoint_altitude_agl; // altitude agl
+			navigation_data.desired_throttle_pct = -1;
+			navigation_do_circle(&code);
+			navigation_data.desired_altitude_agl = code.b;
+			navigation_data.last_waypoint_latitude_rad = code.x;
+			navigation_data.last_waypoint_longitude_rad = code.y;
+			navigation_data.last_waypoint_altitude_agl = navigation_data.desired_altitude_agl;
+			navigation_data.current_codeline++;
+			break;
+		}	
 		default:
 			navigation_data.desired_pre_bank = 0.0f;
 			navigation_data.current_codeline = 0;
@@ -544,7 +569,7 @@ float get_variable(enum navigation_variable i)
 	            if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
 	                next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
 	            {
-	                next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+3];
+	                next_code = & (navigation_data.navigation_codes[navigation_data.current_codeline+3]);
 	            	if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
 	                	next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
 	               		printf("\r\nBad ABS_ALT_AND_HEADING_ERR position\r\n");
@@ -554,6 +579,7 @@ float get_variable(enum navigation_variable i)
             float heading_error = navigation_heading_rad_fromto((float)(sensor_data.gps.longitude_rad - (double)(next_code->y)),
 	                                                           (float)(sensor_data.gps.latitude_rad - (double)(next_code->x)));
 			heading_error = RAD2DEG(heading_error - sensor_data.gps.heading_rad);
+			//printf("\r\n%d\r\n", (int)heading_error);
 	        if (heading_error > 180.0f)
 	        	heading_error -= 360.0f;
 	        else if (heading_error < -180.0f)
@@ -644,6 +670,11 @@ void navigation_set_home()
 	
 	cos_latitude = cos(sensor_data.gps.latitude_rad);
 	longitude_meter_per_radian = latitude_meter_per_radian * cos_latitude;  // approx
+	
+	// set loiter position to home
+	navigation_data.loiter_waypoint_latitude_rad = sensor_data.gps.latitude_rad;
+	navigation_data.loiter_waypoint_longitude_rad = sensor_data.gps.longitude_rad;
+	navigation_data.loiter_waypoint_altitude_agl = sensor_data.pressure_height - navigation_data.home_pressure_height;
 }
 
 
