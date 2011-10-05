@@ -71,7 +71,9 @@ enum navigation_command {
 	FLARE_TO_ABS=20,
 	FLARE_TO_REL=21,
 	GLIDE_TO_ABS=22,
-	GLIDE_TO_REL=23
+	GLIDE_TO_REL=23,
+	SET_LOITER_POSITION = 24,
+    LOITER_CIRCLE = 25
 };
 
 
@@ -102,6 +104,10 @@ struct NavigationData
 	float last_waypoint_latitude_rad;
 	float last_waypoint_longitude_rad;
 	float last_waypoint_altitude_agl;
+	
+	float loiter_waypoint_latitude_rad;
+	float loiter_waypoint_longitude_rad;
+	float loiter_waypoint_altitude_agl;
 	
 	unsigned int relative_positions_calculated : 1;  
 	unsigned int airborne : 1;                //!< Is 0 when the plane didn't take off yet.	
