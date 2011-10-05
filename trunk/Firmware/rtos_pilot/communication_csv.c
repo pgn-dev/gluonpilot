@@ -381,6 +381,7 @@ void communication_input_task( void *parameters )
             if (tmp == '\n' || tmp == '\r')
             {
 	            buffer[buffer_position] = '\0';
+	            //printf("\r\nChecking checksum: %s\r\n", buffer);
 	            if (buffer[0] == '$')  // with checksum
 	            {
 		        	if (check_checksum(buffer))
@@ -1093,7 +1094,8 @@ int check_checksum(char *s)
 	}
 	//if (! (s[i+1] == hex[checksum/16] && s[i+2] == hex[checksum%16]))
 	//	printf("\r\n %c %c <> %c %c\r\n", s[i+1], s[i+2], hex[checksum/16], hex[checksum%16]);
-
+//	s[i]='*';
+//printf("\r\n %s  %d <> %c%c\r\n", s,checksum, s[i+1], s[i+2]);
 	return s[i+1] == hex[checksum/16] && s[i+2] == hex[checksum%16];
 }	
 	
