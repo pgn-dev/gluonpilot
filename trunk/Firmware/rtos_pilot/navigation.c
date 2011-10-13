@@ -279,8 +279,49 @@ void navigation_update()
 			navigation_data.last_waypoint_altitude_agl = navigation_data.desired_altitude_agl;
 			navigation_data.current_codeline++;
 			break;
+		case CIRCLE_TO_REL:
+		case CIRCLE_TO_ABS:
+		{
+			struct NavigationCode code;
+			// circle center = in between previous and current waypoint
+			code.x = (navigation_data.last_waypoint_latitude_rad + current_code->x) / 2.0;
+			code.y = (navigation_data.last_waypoint_longitude_rad + current_code->y) / 2.0;
+			code.a = navigation_distance_between_meter(navigation_data.last_waypoint_longitude_rad, current_code->y, navigation_data.last_waypoint_latitude_rad, current_code->x)/2.0;
+			
+			struct NavigationCode *next = & navigation_data.navigation_codes[navigation_data.current_codeline+1];
+			float dir1 = navigation_heading_rad_fromto(navigation_data.last_waypoint_longitude_rad - current_code->y),
+	                                                   navigation_data.last_waypoint_latitude_rad - current_code->x));
+			float dir2 = navigation_heading_rad_fromto(current_code->y - next->y),
+	                                                   current_code->x - next->x);
+			float diffheading = dir1 - dir2;
+			if (diffheading > DEG2RAD(180.0))
+				diffheading -= DEG2RAD(360.0)
+			else if (diffheading < DEG2RAD(-180.0))
+				diffheading += DEG2RAD(360.0)
+	                                                   
+			if (diffheading > 0.0)
+			{
+				code.a = -code.a;
+			}	
+			code.b = current_code->b;  // altitude_agl
+			navigation_data.desired_throttle_pct = -1;
+			navigation_do_circle(&code);
+			navigation_data.desired_altitude_agl = code.b;
+			
+			if (get_variable(ABS_ALT_AND_HEADING_ERR) < 20.0)
+			{
+				navigation_data.last_waypoint_latitude_rad = code.x;
+				navigation_data.last_waypoint_longitude_rad = code.y;
+				navigation_data.last_waypoint_altitude_agl = navigation_data.desired_altitude_agl;
+				navigation_data.current_codeline++;
+			}	
+			break;
+		}	
 		case GOTO:
-			navigation_data.current_codeline = current_code->a;
+			if (current_code->a < 0)
+				navigation_data.current_codeline = navigation_data.current_codeline + current_code->a;
+			else
+				navigation_data.current_codeline = current_code->a;
 			break;
 		case UNTIL_GR:
 			if (get_variable(current_code->a) > current_code->x)
@@ -394,7 +435,7 @@ void navigation_update()
 		case GLIDE_TO_REL:
         case GLIDE_TO_ABS:
         {
-						navigation_data.desired_pre_bank = 0.0f;
+			navigation_data.desired_pre_bank = 0.0f;
 			
 			navigation_data.desired_throttle_pct = current_code->b;
 			
@@ -537,15 +578,15 @@ float get_variable(enum navigation_variable i)
         {
 	        struct NavigationCode *next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+1];
 	        if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
-                next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
+                next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS || next_code->opcode != CIRCLE_TO_ABS)
             {
                 next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+2];
 	            if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
-	                next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
+	                next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS || next_code->opcode != CIRCLE_TO_ABS)
 	            {
 	                next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+3];
 	            	if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
-	                	next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
+	                	next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS || next_code->opcode != CIRCLE_TO_ABS)
 	               		printf("\r\nBad ABS_HEADING_ERR position\r\n");
 	            }   		
 			}

@@ -73,7 +73,9 @@ enum navigation_command {
 	GLIDE_TO_ABS=22,
 	GLIDE_TO_REL=23,
 	SET_LOITER_POSITION = 24,
-    LOITER_CIRCLE = 25
+    LOITER_CIRCLE = 25,
+	CIRCLE_TO_ABS = 26,
+    CIRCLE_TO_REL = 27
 };
 
 
