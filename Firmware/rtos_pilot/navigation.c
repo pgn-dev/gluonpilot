@@ -90,6 +90,10 @@ void navigation_calculate_relative_position(int i)
                            navigation_data.navigation_codes[i].opcode = CIRCLE_ABS;
                            convert_parameters_to_abs(i);
                            break;
+		case CIRCLE_TO_REL:
+                           navigation_data.navigation_codes[i].opcode = CIRCLE_TO_ABS;
+                           convert_parameters_to_abs(i);
+                           break;
 		case FLARE_TO_REL:
                            navigation_data.navigation_codes[i].opcode = FLARE_TO_ABS;
                            convert_parameters_to_abs(i);
@@ -289,15 +293,15 @@ void navigation_update()
 			code.a = navigation_distance_between_meter(navigation_data.last_waypoint_longitude_rad, current_code->y, navigation_data.last_waypoint_latitude_rad, current_code->x)/2.0;
 			
 			struct NavigationCode *next = & navigation_data.navigation_codes[navigation_data.current_codeline+1];
-			float dir1 = navigation_heading_rad_fromto(navigation_data.last_waypoint_longitude_rad - current_code->y),
-	                                                   navigation_data.last_waypoint_latitude_rad - current_code->x));
-			float dir2 = navigation_heading_rad_fromto(current_code->y - next->y),
+			float dir1 = navigation_heading_rad_fromto(navigation_data.last_waypoint_longitude_rad - current_code->y,
+	                                                   navigation_data.last_waypoint_latitude_rad - current_code->x);
+			float dir2 = navigation_heading_rad_fromto(current_code->y - next->y,
 	                                                   current_code->x - next->x);
 			float diffheading = dir1 - dir2;
 			if (diffheading > DEG2RAD(180.0))
-				diffheading -= DEG2RAD(360.0)
+				diffheading -= DEG2RAD(360.0);
 			else if (diffheading < DEG2RAD(-180.0))
-				diffheading += DEG2RAD(360.0)
+				diffheading += DEG2RAD(360.0);
 	                                                   
 			if (diffheading > 0.0)
 			{
