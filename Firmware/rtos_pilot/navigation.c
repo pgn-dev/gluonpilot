@@ -317,8 +317,8 @@ void navigation_update()
 			
 			if (get_variable(ABS_ALT_AND_HEADING_ERR) < 20.0)
 			{
-				navigation_data.last_waypoint_latitude_rad = code.x;
-				navigation_data.last_waypoint_longitude_rad = code.y;
+				navigation_data.last_waypoint_latitude_rad = current_code->x;
+				navigation_data.last_waypoint_longitude_rad = current_code->y;
 				navigation_data.last_waypoint_altitude_agl = navigation_data.desired_altitude_agl;
 				navigation_data.current_codeline++;
 			}	
