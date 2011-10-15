@@ -36,6 +36,7 @@
 #include "datalogger.h"
 #include "navigation.h"
 
+#include "common.h"
 
 // Helper functions
 void print_signed_integer(int x, void (*printer)(char[]));
@@ -66,6 +67,13 @@ void comm_send_buffer_with_checksum(int length);
 #define comm_printf(T,...) \
    if (xSemaphoreTake( xUart1Semaphore, ( portTickType ) 100 / portTICK_RATE_MS )  == pdTRUE) { \
       comm_send_buffer_with_checksum(sprintf(comm_buffer, T, __VA_ARGS__)); \
+      xSemaphoreGive( xUart1Semaphore ); \
+      }
+
+// Write to output and wait at most 10ms until it becomes available
+#define comm_printf_direct(T,...) \
+   if (xSemaphoreTake( xUart1Semaphore, ( portTickType ) 100 / portTICK_RATE_MS )  == pdTRUE) { \
+      printf(T); \
       xSemaphoreGive( xUart1Semaphore ); \
       }
       
@@ -363,7 +371,7 @@ extern xQueueHandle xRxedChars;
 void communication_input_task( void *parameters )
 {
 	static int   buffer_position;
-	static int   token[9] = {0,0,0,0,0,0,0,0,0};
+	static int   token[10] = {0,0,0,0,0,0,0,0,0,0};
 	static int   current_token;
 	
 	char tmp;
@@ -509,6 +517,7 @@ void communication_input_task( void *parameters )
                     config.control.waypoint_radius_m = atof(&(buffer[token[5]]));
                     config.control.cruising_speed_ms = atof(&(buffer[token[6]]));
                     config.control.stabilization_with_altitude_hold = atoi(&(buffer[token[7]])) == 0? 0 : 1;
+                    config.control.min_pitch = DEG2RAD(atof(&(buffer[token[8]])));
 				}	
 				///////////////////////////////////////////////////////////////
 				//                  SET GPS CONFIGURATION                    //
@@ -603,7 +612,7 @@ void communication_input_task( void *parameters )
 				{
 					if (atoi(&(buffer[token[1]])) == 1123)  // double check
 					{
-						printf("Reboot command received...\r\n");
+						comm_printf_direct("Reboot command received...\r\n");
 						portTickType xLastWakeTime;
      					xLastWakeTime = xTaskGetTickCount();
 						vTaskDelayUntil( &xLastWakeTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );  // 1s
@@ -644,7 +653,7 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'C')    // FC write to flash!
 				{
 					configuration_write();
-					printf("Configuration burned to flash\r\n");
+					comm_printf_direct("Configuration burned to flash\r\n");
 				}
 				///////////////////////////////////////////////////////////////
 				//                     LOAD FROM FLASH                       //
@@ -690,7 +699,7 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'N') 
 				{
 					navigation_burn();
-					printf("Navigation burned to flash\r\n");
+					comm_printf_direct("Navigation burned to flash\r\n");
 				}	
 				///////////////////////////////////////////////////////////////
 				//                       LOAD NAVIGATION                     //
@@ -775,8 +784,9 @@ void communication_input_task( void *parameters )
             	token[5] = 0;
             	token[6] = 0;
             	token[7] = 0;
+            	token[8] = 0;
             }
-            else if ((tmp == ';' || tmp == '*') && current_token < 8 && buffer_position < BUFFERSIZE)
+            else if ((tmp == ';' || tmp == '*') && current_token < 9 && buffer_position < BUFFERSIZE)
             {
 	            buffer[buffer_position++] = tmp;
 	            token[++current_token] = buffer_position;
@@ -893,14 +903,15 @@ void print_configuration()
 	printf(";%d", (int)config.control.use_pwm);
 	
 	printf(";%d;%d;%d;%d;%d", (int)config.control.servo_mix, 
-	                     	     (int)(config.control.max_pitch/3.14*180.0), 
-	                     	     (int)(config.control.max_roll/3.14*180.0),
+	                     	     (int)(RAD2DEG(config.control.max_pitch)+0.5), 
+	                     	     (int)(RAD2DEG(config.control.max_roll)+0.5),
 	                   	         (int)(config.control.waypoint_radius_m),
 	                 	         (int)(config.control.cruising_speed_ms));
 	printf(";%d;%d;%d", (int)(config.control.stabilization_with_altitude_hold), 
 	                    config.control.aileron_differential*10, config.telemetry.stream_Control);
-        printf(";%d;%d;%d;%d;%d", (int)config.control.autopilot_auto_throttle, config.control.auto_throttle_min_pct, config.control.auto_throttle_max_pct,
+    printf(";%d;%d;%d;%d;%d", (int)config.control.autopilot_auto_throttle, config.control.auto_throttle_min_pct, config.control.auto_throttle_max_pct,
 	                    config.control.auto_throttle_cruise_pct, config.control.auto_throttle_p_gain);
+	printf(";%d", (int)(RAD2DEG(config.control.min_pitch)-0.5));
 	uart1_puts("\r\n");
 }		
 

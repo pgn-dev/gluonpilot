@@ -362,9 +362,12 @@ void osd_print_home_info()
 	
 	// Pre-calculate some data used for OSD
 	home_heading_deg = RAD2DEG(navigation_heading_rad_fromto(sensor_data.gps.longitude_rad - navigation_data.home_longitude_rad,
-	                                                         sensor_data.gps.latitude_rad - navigation_data.home_latitude_rad));
+	                                                         sensor_data.gps.latitude_rad - navigation_data.home_latitude_rad) 
+	                           - sensor_data.gps.heading_rad);
 	if (home_heading_deg < 0)
 		home_heading_deg += 360;
+	else if (home_heading_deg > 360)
+		home_heading_deg -= 360;
 	int home_distance = (int) navigation_distance_between_meter(sensor_data.gps.longitude_rad, navigation_data.home_longitude_rad,
 	                                                            sensor_data.gps.latitude_rad, navigation_data.home_latitude_rad);
 	int home_heading_index = (int)(home_heading_deg / 22);

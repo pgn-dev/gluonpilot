@@ -126,7 +126,8 @@ void configuration_default()
 	
 	config.control.aileron_differential = 0;
 	config.control.cruising_speed_ms = 12;
-	config.control.max_pitch = 15.0/180.0*3.14;
+	config.control.max_pitch = 20.0/180.0*3.14;
+	config.control.min_pitch = -10.0/180.0*3.14;
 	config.control.max_roll = 40.0/180.0*3.14;
 	config.control.servo_mix = AILERON;
 	
