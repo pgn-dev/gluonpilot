@@ -336,7 +336,7 @@ void control_wing_desired_to_servos(float dt)
 	
 	// Keep pitch & roll within limits
 	control_state.desired_pitch = MIN(control_state.desired_pitch, config.control.max_pitch);
-	control_state.desired_pitch = MAX(control_state.desired_pitch, -config.control.max_pitch);
+	control_state.desired_pitch = MAX(control_state.desired_pitch, config.control.min_pitch);
 	control_state.desired_roll = MIN(control_state.desired_roll, config.control.max_roll);
 	control_state.desired_roll = MAX(control_state.desired_roll, -config.control.max_roll);
 
@@ -480,7 +480,7 @@ void control_copter_desired_to_servos(float dt)
 	
 	// Keep pitch & roll within limits
 	control_state.desired_pitch = MIN(control_state.desired_pitch, config.control.max_pitch);
-	control_state.desired_pitch = MAX(control_state.desired_pitch, -config.control.max_pitch);
+	control_state.desired_pitch = MAX(control_state.desired_pitch, config.control.min_pitch);
 	control_state.desired_roll = MIN(control_state.desired_roll, config.control.max_roll);
 	control_state.desired_roll = MAX(control_state.desired_roll, -config.control.max_roll);
 

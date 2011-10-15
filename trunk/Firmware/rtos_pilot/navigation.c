@@ -44,8 +44,10 @@ void navigation_do_circle(struct NavigationCode *current_code);
 float get_variable(enum navigation_variable i);
 int waypoint_reached(struct NavigationCode *current_code);
 void convert_parameters_to_abs(int i);
+struct NavigationCode * next_code(int current_codeline);
 
 unsigned int ticks_counter = 0;
+
 
 /*!
  *  Initializes the navigation.
@@ -290,9 +292,10 @@ void navigation_update()
 			// circle center = in between previous and current waypoint
 			code.x = (navigation_data.last_waypoint_latitude_rad + current_code->x) / 2.0;
 			code.y = (navigation_data.last_waypoint_longitude_rad + current_code->y) / 2.0;
-			code.a = navigation_distance_between_meter(navigation_data.last_waypoint_longitude_rad, current_code->y, navigation_data.last_waypoint_latitude_rad, current_code->x)/2.0;
+			code.a = (int)(navigation_distance_between_meter(navigation_data.last_waypoint_longitude_rad, current_code->y, navigation_data.last_waypoint_latitude_rad, current_code->x))/2;
 			
-			struct NavigationCode *next = & navigation_data.navigation_codes[navigation_data.current_codeline+1];
+			// decide to turn right or left
+			struct NavigationCode *next = next_code(navigation_data.current_codeline);
 			float dir1 = navigation_heading_rad_fromto(navigation_data.last_waypoint_longitude_rad - current_code->y,
 	                                                   navigation_data.last_waypoint_latitude_rad - current_code->x);
 			float dir2 = navigation_heading_rad_fromto(current_code->y - next->y,
@@ -606,23 +609,10 @@ float get_variable(enum navigation_variable i)
 	    } 
         case ABS_ALT_AND_HEADING_ERR:
         {
-            struct NavigationCode *next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+1];
-            if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
-                next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
-            {
-                next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+2];
-	            if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
-	                next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
-	            {
-	                next_code = & (navigation_data.navigation_codes[navigation_data.current_codeline+3]);
-	            	if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
-	                	next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS)
-	               		printf("\r\nBad ABS_ALT_AND_HEADING_ERR position\r\n");
-	            }   		
-			}
+            struct NavigationCode *next = next_code(navigation_data.current_codeline);
 			                
-            float heading_error = navigation_heading_rad_fromto((float)(sensor_data.gps.longitude_rad - (double)(next_code->y)),
-	                                                           (float)(sensor_data.gps.latitude_rad - (double)(next_code->x)));
+            float heading_error = navigation_heading_rad_fromto((float)(sensor_data.gps.longitude_rad - (double)(next->y)),
+	                                                           (float)(sensor_data.gps.latitude_rad - (double)(next->x)));
 			heading_error = RAD2DEG(heading_error - sensor_data.gps.heading_rad);
 			//printf("\r\n%d\r\n", (int)heading_error);
 	        if (heading_error > 180.0f)
@@ -636,6 +626,42 @@ float get_variable(enum navigation_variable i)
 	}	
 }	
 
+
+struct NavigationCode * next_code(int current_codeline)
+{
+	struct NavigationCode *next = & navigation_data.navigation_codes[current_codeline+1];
+	
+	if (next->opcode != FROM_TO_ABS && next->opcode != FLY_TO_ABS && next->opcode != CIRCLE_ABS && 
+        next->opcode != FLARE_TO_ABS && next->opcode != GLIDE_TO_ABS && next->opcode != CIRCLE_TO_ABS)
+	{
+		if (next->opcode == GOTO)
+		{
+			if (next->a >= 0)
+				current_codeline = next->a - 2;
+			else
+				current_codeline = (current_codeline + 1) + next->a - 2;
+		}		
+		
+		next = & navigation_data.navigation_codes[current_codeline+2];
+		if (next->opcode != FROM_TO_ABS && next->opcode != FLY_TO_ABS && next->opcode != CIRCLE_ABS && 
+            next->opcode != FLARE_TO_ABS && next->opcode != GLIDE_TO_ABS && next->opcode != CIRCLE_TO_ABS)
+		{
+			if (next->opcode == GOTO)
+			{
+				if (next->a >= 0)
+					current_codeline = next->a - 3;
+				else
+					current_codeline = (current_codeline + 1) + next->a - 3;
+			}
+			next = & navigation_data.navigation_codes[current_codeline+3];
+			if (next->opcode != FROM_TO_ABS && next->opcode != FLY_TO_ABS && next->opcode != CIRCLE_ABS && 
+			    next->opcode != FLARE_TO_ABS && next->opcode != GLIDE_TO_ABS)
+				printf("\r\nNext code not found!!\r\n");
+		}   		
+	}
+	return next;
+}
+	
 
 void navigation_do_circle(struct NavigationCode *current_code)
 {

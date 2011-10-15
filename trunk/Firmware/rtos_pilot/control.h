@@ -48,6 +48,7 @@ struct ControlConfig
 	enum MixTypes servo_mix;	
 	float max_roll;
 	float max_pitch;
+	float min_pitch;
 	
 	int aileron_differential;  //! Since 0.4
 	
