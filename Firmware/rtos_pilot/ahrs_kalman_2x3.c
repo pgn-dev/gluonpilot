@@ -208,7 +208,11 @@ void ahrs_filter(float dt)
 	   	float d;
 	   	INVERT_3X3(tmp1, d, tmp2); // result = tmp1
 	   	if (fabs(d) < 0.01f)  // almost division by 0 
-	   		return;
+	   	{
+		   	int j;
+		   	for (j = 0; j < 9; j++)
+	   			tmp1[j] = 9999.9;
+	   	}	
 	   	
 	   	// P * C'  [2x3] = tmp2
 	   	matrix_2x2_times_3x2_transp(P, dh_dx_3x2, tmp2);  // P * C' = tmp2
@@ -294,9 +298,8 @@ void ahrs_filter(float dt)
 	}	
 #endif	
    
-    int p = (int)pitch_rad;   
-    
-    if (p == -1 && (int)roll_rad == -1)   // we have a NaN -> ALERT
+    /*int p = (int)pitch_rad;   
+    if (p == -1 || (int)roll_rad == -1)   // we have a NaN -> ALERT
     {
 		// reset everything
 		pitch_rad = 0.0;
@@ -311,7 +314,26 @@ void ahrs_filter(float dt)
 		P[2] = 0.0;
 		P[3] = 1.0;
 		//printf("\r\n!\r\n");
+	}*/
+	if (pitch_rad != pitch_rad)
+	{
+		sin_pitch = 0.0;
+		cos_pitch = 1.0;
+		tan_pitch = 0.0;
+		P[0] = 1.0;
+		P[1] = 0.0;
+		P[2] = 0.0;
+		P[3] = 1.0;
 	}
+	if (roll_rad != roll_rad)
+	{
+		sin_roll = 0.0;
+		cos_roll = 1.0;
+		P[0] = 1.0;
+		P[1] = 0.0;
+		P[2] = 0.0;
+		P[3] = 1.0;
+	}	
 	normalize(pitch_rad, roll_rad);
    	sensor_data.pitch = pitch_rad;
 	sensor_data.roll = roll_rad;

@@ -467,9 +467,10 @@ void navigation_update()
 				navigation_data.desired_heading_rad = navigation_heading_rad_fromto(
 					(float)(sensor_data.gps.longitude_rad - (double)( navigation_data.last_waypoint_longitude_rad + nav_leg_progress * leg_y / longitude_meter_per_radian)),
 		            (float)(sensor_data.gps.latitude_rad - (double)( navigation_data.last_waypoint_latitude_rad + nav_leg_progress * leg_x / latitude_meter_per_radian ) ) );
-				                     
+				                
+			nav_leg_progress -= MAX(carrot*0.75 / nav_leg_length, 0.f);     
 	        navigation_data.desired_altitude_agl = navigation_data.last_waypoint_altitude_agl * (1.0-nav_leg_progress) + current_code->a * (nav_leg_progress);
-	        printf("\r\n%d\r\n", (int)navigation_data.desired_altitude_agl);
+	        printf("\r\n%d: %d %d\r\n", (int)(nav_leg_progress*100.f), (int)navigation_data.desired_altitude_agl, (int)(sensor_data.pressure_height - navigation_data.home_pressure_height));
 		    break;	
 		}
 		case SET_LOITER_POSITION:

@@ -31,10 +31,10 @@ extern unsigned int ppm_in_us_to_raw(unsigned int us);
 void pwm_in_wait_for()
 {
 	int i;
-	for (i = 0; i < 40; i++) // 25ms * 40 = 1 second, which is how long it can take for a 2.4GHz receiver to come online
+	for (i = 0; i < 150; i++) // 25ms * 60 = 1.5 second, which is how long it can take for a 2.4GHz receiver to come online
 	{
 		uart1_putc('.');
-		if (! (ppm.channel[4] > 900 && ppm.channel[4] < 2100)) // valid signal
+		if (! (ppm.channel[1] > 900 && ppm.channel[1] < 2100)) // valid signal
 			microcontroller_delay_ms(25);  // wait for RC-receiver to boot (long enough?)
 		else
 			break;
