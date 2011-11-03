@@ -317,6 +317,7 @@ void ahrs_filter(float dt)
 	}*/
 	if (pitch_rad != pitch_rad)
 	{
+		pitch_rad = sensor_data.pitch;
 		sin_pitch = 0.0;
 		cos_pitch = 1.0;
 		tan_pitch = 0.0;
@@ -327,6 +328,7 @@ void ahrs_filter(float dt)
 	}
 	if (roll_rad != roll_rad)
 	{
+		roll_rad = sensor_data.roll;
 		sin_roll = 0.0;
 		cos_roll = 1.0;
 		P[0] = 1.0;
