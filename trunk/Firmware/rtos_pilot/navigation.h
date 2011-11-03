@@ -75,7 +75,8 @@ enum navigation_command {
 	SET_LOITER_POSITION = 24,
     LOITER_CIRCLE = 25,
 	CIRCLE_TO_ABS = 26,
-    CIRCLE_TO_REL = 27
+    CIRCLE_TO_REL = 27,
+    SET_BATTERY_ALARM = 28
 };
 
 

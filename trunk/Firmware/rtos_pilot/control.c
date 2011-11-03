@@ -80,7 +80,7 @@ void control_init()
 		for (i = 0; i < 8; i++)
 			if (ppm.channel[i] > 800 && ppm.channel[i] < 2200)  // only take valid values
 				config.control.channel_neutral[i] = ppm.channel[i];
-		
+			
 		// This procedure calculates the servo's neutral settings using the RC-transmitter's input
 		elevator_out = config.control.channel_neutral[config.control.channel_pitch] - 1500;
 		aileron_out = config.control.channel_neutral[config.control.channel_roll] - 1500;
@@ -92,6 +92,8 @@ void control_init()
 		// mixed outputs are our servo's neutral values
 		for (i = 0; i < 6; i++)
 			config.control.servo_neutral[i] = servo_out[i];
+			
+		//printf("\r\n<- %d ->\r\n", config.control.servo_neutral[0]);
 	}
 	
 	if (config.control.cruising_speed_ms < 0.5)  // not valid? change to 18 to avoid /0
@@ -554,7 +556,12 @@ void control_mix_out()
 	switch(config.control.servo_mix)
 	{
 		case DELTA_PLUS:
-			number_of_controlled_channels = 4;
+			number_of_controlled_channels = 5;
+            if (config.control.reverse_servo5)
+				servo_out[4] = (int)(-sensor_data.roll*636.0) + 1500;//config.control.servo_neutral[6];
+			else
+				servo_out[4] = +(int)(sensor_data.roll*636.0) + 1500;//config.control.servo_neutral[6];
+				
 			if (config.control.reverse_servo1)
 				servo_out[0] = +aileron_out_right + elevator_out + config.control.servo_neutral[0];
 			else
@@ -572,7 +579,12 @@ void control_mix_out()
 
 			break;
 		case DELTA_MIN:
-			number_of_controlled_channels = 4;
+			number_of_controlled_channels = 5;
+            if (config.control.reverse_servo5)
+				servo_out[4] = (int)(-sensor_data.roll*636.0) + 1500;//config.control.servo_neutral[6];
+			else
+				servo_out[4] = +(int)(sensor_data.roll*636.0) + 1500;//config.control.servo_neutral[6];
+				
 			if (config.control.reverse_servo1)
 				servo_out[0] = +aileron_out_right - elevator_out + config.control.servo_neutral[0];
 			else
