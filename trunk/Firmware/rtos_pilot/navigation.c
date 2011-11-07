@@ -48,6 +48,12 @@ struct NavigationCode * next_code(int current_codeline);
 
 unsigned int ticks_counter = 0;
 
+struct BatteryAlarm {
+	float panic_v;
+	float warning_v;
+	int panic_line;
+} battery_alarm;	
+
 
 /*!
  *  Initializes the navigation.
@@ -73,6 +79,10 @@ void navigation_init ()
 	navigation_data.relative_positions_calculated = 0;
 	navigation_data.desired_throttle_pct = -1;
 	navigation_load();
+	
+	battery_alarm.panic_v = 0.0;
+	battery_alarm.warning_v = 0.0;
+	battery_alarm.panic_line = -1;
 }
 
 
@@ -147,11 +157,26 @@ void navigation_load()
 void navigation_update()
 {
 	ticks_counter++;
-	if (ticks_counter == NAVIGATION_HZ)
+	// keep our "time" up to date
+	if (ticks_counter % NAVIGATION_HZ == 0)
 	{
-		ticks_counter = 0;
 		navigation_data.time_airborne_s++;
         navigation_data.time_block_s++;
+	}
+	
+	// Alarms
+	if (ticks_counter % (NAVIGATION_HZ * 10) == 0) // check for alarms every 10 seconds
+	{
+		if (sensor_data.battery_voltage_10 < (int)(battery_alarm.panic_v*10.0))
+		{
+			navigation_data.alarm_battery_panic = 1;
+			if (battery_alarm.panic_line >= 0)
+				navigation_data.current_codeline = battery_alarm.panic_line;
+		}
+		if (sensor_data.battery_voltage_10 < (int)(battery_alarm.warning_v*10.0))
+		{
+			navigation_data.alarm_battery_warning = 1;
+		}
 	}	
 	
 	// Set the "home"-position
@@ -456,7 +481,7 @@ void navigation_update()
 			  /** distance of carrot (in meter) */
 			float carrot = 4.0f * sensor_data.gps.speed_ms;
 			
-			nav_leg_progress += MAX(carrot / nav_leg_length, 0.f);
+			float nav_leg_progress_aim = nav_leg_progress + MAX(carrot / nav_leg_length, 0.f);
 			
 			/*if (nav_leg_progress >= 1.0f)
 			{
@@ -465,12 +490,22 @@ void navigation_update()
 			}
 			else*/
 				navigation_data.desired_heading_rad = navigation_heading_rad_fromto(
-					(float)(sensor_data.gps.longitude_rad - (double)( navigation_data.last_waypoint_longitude_rad + nav_leg_progress * leg_y / longitude_meter_per_radian)),
-		            (float)(sensor_data.gps.latitude_rad - (double)( navigation_data.last_waypoint_latitude_rad + nav_leg_progress * leg_x / latitude_meter_per_radian ) ) );
+					(float)(sensor_data.gps.longitude_rad - (double)( navigation_data.last_waypoint_longitude_rad + nav_leg_progress_aim * leg_y / longitude_meter_per_radian)),
+		            (float)(sensor_data.gps.latitude_rad - (double)( navigation_data.last_waypoint_latitude_rad + nav_leg_progress_aim * leg_x / latitude_meter_per_radian ) ) );
 				                
-			nav_leg_progress -= MAX(carrot*0.75 / nav_leg_length, 0.f);     
-	        navigation_data.desired_altitude_agl = navigation_data.last_waypoint_altitude_agl * (1.0-nav_leg_progress) + current_code->a * (nav_leg_progress);
-	        printf("\r\n%d: %d %d\r\n", (int)(nav_leg_progress*100.f), (int)navigation_data.desired_altitude_agl, (int)(sensor_data.pressure_height - navigation_data.home_pressure_height));
+			//nav_leg_progress -= MAX(carrot*0.75 / nav_leg_length, 0.f);     
+	        
+	        //navigation_data.desired_altitude_agl = navigation_data.last_waypoint_altitude_agl * (1.0-nav_leg_progress_aim) + current_code->a * (nav_leg_progress_aim);
+	        
+	        // hard_aim
+	        float altitude_agl = (sensor_data.pressure_height - navigation_data.home_pressure_height);
+	        float desired_pitch = -fabs(atanf(altitude_agl / (nav_leg_length*(1.0-nav_leg_progress))));
+	        navigation_data.desired_altitude_agl = desired_pitch / config.control.pid_altitude2pitch.p_gain + altitude_agl;
+	        
+	        if (desired_pitch > DEG2RAD(-3.0) && altitude_agl > 5 && sensor_data.gps.speed_ms > 1.0)
+	        	navigation_data.desired_throttle_pct = 10;
+	        
+	        printf("\r\n%d: %d %d (%d | %d)\r\n", (int)(nav_leg_progress*100.f), (int)navigation_data.desired_altitude_agl, (int)altitude_agl, (int)(desired_pitch/3.14*180.0), (int)(sensor_data.pitch/3.14*180.0));
 		    break;	
 		}
 		case SET_LOITER_POSITION:
@@ -495,6 +530,12 @@ void navigation_update()
 			navigation_data.current_codeline++;
 			break;
 		}	
+		case SET_BATTERY_ALARM:
+			battery_alarm.panic_v = current_code->y;
+			battery_alarm.warning_v = current_code->x;
+			battery_alarm.panic_line = current_code->a;
+			navigation_data.current_codeline++;
+			break;
 		default:
 			navigation_data.desired_pre_bank = 0.0f;
 			navigation_data.current_codeline = 0;
