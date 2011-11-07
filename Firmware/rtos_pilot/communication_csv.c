@@ -140,6 +140,17 @@ void communication_telemetry_task( void *parameters )
 			uart1_puts("ATFR\r\n") ;
 			vTaskDelay( ( ( portTickType ) 10 / portTICK_RATE_MS ) ); // wait 10ms
 		}	
+		
+		if (navigation_data.alarm_battery_warning == 1)
+		{
+			comm_printf_direct("Warning: Battery low");
+			navigation_data.alarm_battery_warning = 0;
+		}
+		else if (navigation_data.alarm_battery_panic == 1)
+		{
+			comm_printf_direct("Panic: Battery low");
+			navigation_data.alarm_battery_panic = 0;
+		}
 				
 		///////////////////////////////////////////////////////////////
 		//               GYRO AND ACCELEROMETER RAW                  //

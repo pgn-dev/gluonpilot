@@ -133,6 +133,9 @@ struct NavigationData
 	
 	unsigned int time_airborne_s;
     unsigned int time_block_s;
+    
+    unsigned int alarm_battery_panic : 1;
+    unsigned int alarm_battery_warning : 1;
 };
 
 volatile extern struct NavigationData navigation_data;
