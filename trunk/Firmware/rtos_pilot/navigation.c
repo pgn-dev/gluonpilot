@@ -164,20 +164,18 @@ void navigation_update()
         navigation_data.time_block_s++;
 	}
 	
-	// Alarms
+	// Alarms, check every 10 seconds
 	if (ticks_counter % (NAVIGATION_HZ * 10) == 0) // check for alarms every 10 seconds
 	{
 		if (sensor_data.battery_voltage_10 < (int)(battery_alarm.panic_v*10.0))
 		{
-			navigation_data.alarm_battery_panic = 1;
-			if (battery_alarm.panic_line >= 0)
+			navigation_data.alarm_battery_panic++;
+			if (battery_alarm.panic_line >= 0 && navigation_data.alarm_battery_panic == 1)  // only do this one time
 				navigation_data.current_codeline = battery_alarm.panic_line;
 		}
-		if (sensor_data.battery_voltage_10 < (int)(battery_alarm.warning_v*10.0))
-		{
-			navigation_data.alarm_battery_warning = 1;
-		}
-	}	
+		else if (sensor_data.battery_voltage_10 < (int)(battery_alarm.warning_v*10.0))
+			navigation_data.alarm_battery_warning++;
+	}
 	
 	// Set the "home"-position
 	if (!navigation_data.airborne)
@@ -479,7 +477,7 @@ void navigation_update()
   			float nav_leg_length = sqrtf(leg2);
 
 			  /** distance of carrot (in meter) */
-			float carrot = 4.0f * sensor_data.gps.speed_ms;
+			float carrot = 2.0f * sensor_data.gps.speed_ms;
 			
 			float nav_leg_progress_aim = nav_leg_progress + MAX(carrot / nav_leg_length, 0.f);
 			
@@ -499,13 +497,14 @@ void navigation_update()
 	        
 	        // hard_aim
 	        float altitude_agl = (sensor_data.pressure_height - navigation_data.home_pressure_height);
-	        float desired_pitch = -fabs(atanf(altitude_agl / (nav_leg_length*(1.0-nav_leg_progress))));
+	        //float desired_pitch = -fabs(atanf(altitude_agl / (nav_leg_length*(1.0-nav_leg_progress))));
+	        float desired_pitch = -fabs(atanf(altitude_agl / (nav_leg_length*(1.0-nav_leg_progress_aim))));
 	        navigation_data.desired_altitude_agl = desired_pitch / config.control.pid_altitude2pitch.p_gain + altitude_agl;
 	        
 	        if (desired_pitch > DEG2RAD(-3.0) && altitude_agl > 5 && sensor_data.gps.speed_ms > 1.0)
 	        	navigation_data.desired_throttle_pct = 10;
 	        
-	        printf("\r\n%d: %d %d (%d | %d)\r\n", (int)(nav_leg_progress*100.f), (int)navigation_data.desired_altitude_agl, (int)altitude_agl, (int)(desired_pitch/3.14*180.0), (int)(sensor_data.pitch/3.14*180.0));
+	        printf("\r\n%d: %d %d (%d-%d | %d)\r\n", (int)(nav_leg_progress*100.f), (int)navigation_data.desired_altitude_agl, (int)altitude_agl, (int)(desired_pitch/3.14*180.0), (int)(control_state.desired_pitch/3.14*180.0), (int)(sensor_data.pitch/3.14*180.0));
 		    break;	
 		}
 		case SET_LOITER_POSITION:

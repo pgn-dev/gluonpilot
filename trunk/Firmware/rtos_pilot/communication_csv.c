@@ -143,13 +143,15 @@ void communication_telemetry_task( void *parameters )
 		
 		if (navigation_data.alarm_battery_warning == 1)
 		{
-			comm_printf_direct("Warning: Battery low");
+			comm_printf_direct("Warning: Battery low\r\n");
+			// clear the flag so it is printed every few seconds
 			navigation_data.alarm_battery_warning = 0;
 		}
 		else if (navigation_data.alarm_battery_panic == 1)
 		{
-			comm_printf_direct("Panic: Battery low");
-			navigation_data.alarm_battery_panic = 0;
+			// print this once 
+			comm_printf_direct("!!! Panic: Battery low !!!\r\n");
+			navigation_data.alarm_battery_panic++; // an ugly hack to make sure it's never printed again
 		}
 				
 		///////////////////////////////////////////////////////////////
