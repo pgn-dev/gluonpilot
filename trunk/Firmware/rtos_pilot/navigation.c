@@ -477,7 +477,7 @@ void navigation_update()
   			float nav_leg_length = sqrtf(leg2);
 
 			  /** distance of carrot (in meter) */
-			float carrot = 2.0f * sensor_data.gps.speed_ms;
+			float carrot = 4.0f * sensor_data.gps.speed_ms;
 			
 			float nav_leg_progress_aim = nav_leg_progress + MAX(carrot / nav_leg_length, 0.f);
 			
