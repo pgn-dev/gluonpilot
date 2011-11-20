@@ -66,7 +66,7 @@ void control_init()
 	control_state.simulation_mode = 0;
 
 	// Manual trim mode: the servo's neutral settings are defined by the RC-transmitters trim settings. See wiki.
-	if (1/*config.control.manual_trim*/)
+	if (! config.control.manual_trim)
 	{	
 		for (i = 0; i < 6; i++)
 		{

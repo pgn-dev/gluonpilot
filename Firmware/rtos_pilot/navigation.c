@@ -24,6 +24,7 @@
 #include "sensors.h"
 #include "navigation.h"
 #include "common.h"
+#include "trigger.h"
 
 #define NAVIGATION_HZ 5  // 5 Hz
 
@@ -408,12 +409,7 @@ void navigation_update()
 			break;
 		case SERVO_TRIGGER:
 		{
-			unsigned int us = servo_read_us(current_code->a);
-			servo_set_us(current_code->a, current_code->b);  // a = channel(0..7), b = microseconds (1000...2000)
-			unsigned int ms_delay = (unsigned int)(current_code->x * 1000.0f);
-			ms_delay = MIN(ms_delay, 3000);  // lets limit this to 3 seconds.
-			vTaskDelay(( ( portTickType ) ms_delay / portTICK_RATE_MS ) );
-			servo_set_us(current_code->a, us);  // set back to original position
+			trigger_servo(current_code->a, current_code->b, current_code->x);
 		}	
 			navigation_data.current_codeline++;
 			break;

@@ -107,9 +107,9 @@ void communication_telemetry_task( void *parameters )
 	uart1_puts("done\r\n");
 	
 	// delay a bit and send navigation and configuration
-	vTaskDelay(( ( portTickType ) 5 / portTICK_RATE_MS ) );  // 200ms
+	vTaskDelay(( ( portTickType ) 100 / portTICK_RATE_MS ) );  
 	print_configuration();
-	vTaskDelay( ( ( portTickType ) 5 / portTICK_RATE_MS ) );  // 200ms
+	vTaskDelay( ( ( portTickType ) 100 / portTICK_RATE_MS ) ); 
 	print_navigation();
 
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil() works correctly. */
@@ -159,20 +159,6 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_GyroAccRaw == config.telemetry.stream_GyroAccRaw)
 		{
-			/*uart1_puts("TR;");
-			print_unsigned_integer((int)(sensor_data.acc_x_raw), &uart1_puts);
-			uart1_putc(';');
-			print_unsigned_integer((int)(sensor_data.acc_y_raw), &uart1_puts);
-			uart1_putc(';');
-			print_unsigned_integer((int)(sensor_data.acc_z_raw), &uart1_puts);
-			uart1_putc(';');
-			print_unsigned_integer((int)(sensor_data.gyro_x_raw), &uart1_puts);
-			uart1_putc(';');
-			print_unsigned_integer((int)(sensor_data.gyro_y_raw), &uart1_puts);
-			uart1_putc(';');
-			print_unsigned_integer((int)(sensor_data.gyro_z_raw), &uart1_puts);
-			//printf(";%f", sensor_data.temperature);
-			uart1_puts("\r\n");*/
 			comm_printf_poll("TR;%u;%u;%u;%u;%u;%u", (sensor_data.acc_x_raw), (sensor_data.acc_y_raw),
 			                                    (sensor_data.acc_z_raw), (sensor_data.gyro_x_raw),
 			                                    (sensor_data.gyro_y_raw), (sensor_data.gyro_z_raw));
@@ -186,19 +172,6 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_GyroAccProc == config.telemetry.stream_GyroAccProc)
 		{
-			/*uart1_puts("TP;");
-			print_signed_integer((int)(sensor_data.acc_x*1000), &uart1_puts);
-			uart1_putc(';');
-			print_signed_integer((int)(sensor_data.acc_y*1000), &uart1_puts);
-			uart1_putc(';');
-			print_signed_integer((int)(sensor_data.acc_z*1000), &uart1_puts);
-			uart1_putc(';');
-			print_signed_integer((int)(sensor_data.p*1000), &uart1_puts);
-			uart1_putc(';');
-			print_signed_integer((int)(sensor_data.q*1000), &uart1_puts);
-			uart1_putc(';');
-			print_signed_integer((int)(sensor_data.r*1000), &uart1_puts);
-			uart1_puts("\r\n");*/
 			comm_printf_poll("TP;%d;%d;%d;%d;%d;%d", (int)(sensor_data.acc_x*1000), (int)(sensor_data.acc_y*1000),
 			                                        (int)(sensor_data.acc_z*1000), (int)(sensor_data.p*1000),
 			                                        (int)(sensor_data.q*1000), (int)(sensor_data.r*1000));
@@ -212,21 +185,6 @@ void communication_telemetry_task( void *parameters )
 		if (counters.stream_Attitude == config.telemetry.stream_Attitude)
 		{		
 			comm_printf_poll("TA;%d;%d;%d", (int)(sensor_data.roll*1000), (int)(sensor_data.pitch*1000), (int)(sensor_data.yaw*1000));
-			/*uart1_puts("TA;");
-			print_signed_integer((int)(sensor_data.roll*1000), &uart1_puts);
-			uart1_putc(';');
-			print_signed_integer((int)(sensor_data.pitch*1000), &uart1_puts);
-			uart1_putc(';');
-			print_signed_integer((int)(sensor_data.yaw*1000), &uart1_puts);
-			uart1_puts("\r\n");*/
-
-//			uart1_puts("TS;");
-//			print_signed_integer((int)(servo_read_us(2)), &uart1_puts);  // elevator
-//			uart1_putc(';');
-//			print_signed_integer((int)(servo_read_us(0)), &uart1_puts);  // aileron
-//			uart1_putc(';');
-//			print_signed_integer((int)(servo_read_us(3)), &uart1_puts);  // motor
-//			uart1_puts("\r\n");
 
 			counters.stream_Attitude = 0;
 		} 
@@ -238,12 +196,6 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_PressureTemp == config.telemetry.stream_PressureTemp)
 		{
-			/*uart1_puts("TH;");
-			printf("%.0f", (sensor_data.pressure));
-			//PrintUnsignedInteger((unsigned int)(sensor_data.pressure/10), &uart1_puts);
-			uart1_putc(';');
-			print_signed_integer((int)sensor_data.temperature, &uart1_puts);
-			uart1_puts("\r\n");*/
 			comm_printf_poll("TH;%lu;%d", (unsigned long)(sensor_data.pressure), (int)sensor_data.temperature);
 			counters.stream_PressureTemp = 0;
 		}
@@ -257,14 +209,6 @@ void communication_telemetry_task( void *parameters )
 		{
 			//vTaskGetRunTimeStats( buffer );
 			//uart1_puts(buffer);
-
-			/*uart1_puts("TT");
-			for (i = 0; i < 8; i++)
-			{
-				uart1_putc(';');
-				print_unsigned_integer((unsigned int)ppm.channel[i], &uart1_puts);
-			}			
-			uart1_puts("\r\n");*/
 			comm_printf_poll("TT;%u;%u;%u;%u;%u;%u;%u;%u", (unsigned int)ppm.channel[0], (unsigned int)ppm.channel[1],
 			                                          (unsigned int)ppm.channel[2], (unsigned int)ppm.channel[3],
 			                                          (unsigned int)ppm.channel[4], (unsigned int)ppm.channel[5],
@@ -279,26 +223,6 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_GpsBasic == config.telemetry.stream_GpsBasic)
 		{
-			/*uart1_puts("TG");
-			uart1_putc(';');
-			uart1_putc('0' + (unsigned char)sensor_data.gps.status);
-			uart1_putc(';');
-			//sensor_data.gps.latitude_rad = 10.123456789;
-			//sensor_data.gps.longitude_rad = 10.123456789;
-			printf ("%.9f;%.9Lf", sensor_data.gps.latitude_rad, sensor_data.gps.longitude_rad);
-			//printf ("%.9f;%f", ((float)sensor_data.gps.latitude_rad), ((float)sensor_data.gps.longitude_rad));
-			//PrintUnsignedLong((unsigned long)(sensor_data.gps.latitude_rad*1000000), &uart1_puts);
-			//uart1_putc(';');
-			//PrintUnsignedLong((unsigned long)(sensor_data.gps.longitude_rad*1000000), &uart1_puts);
-			uart1_putc(';');
-			print_unsigned_integer((unsigned int)(sensor_data.gps.speed_ms*10), &uart1_puts);
-			uart1_putc(';');
-			print_unsigned_integer((unsigned int)(sensor_data.gps.heading_rad*100), &uart1_puts);
-			uart1_putc(';');
-			print_unsigned_integer((unsigned int)(sensor_data.gps.satellites_in_view), &uart1_puts);
-			uart1_putc(';');
-			print_unsigned_integer((unsigned int)(sensor_data.gps.height_m), &uart1_puts);
-			uart1_puts("\r\n");*/
 			comm_printf_poll("TG;%c;%.9Lf;%.9Lf;%u;%u;%u;%u", '0' + (unsigned char)sensor_data.gps.status,
 			                                            sensor_data.gps.latitude_rad, sensor_data.gps.longitude_rad,
 			                                            (unsigned int)(sensor_data.gps.speed_ms*10),
@@ -316,29 +240,6 @@ void communication_telemetry_task( void *parameters )
 		//printf("TC;CONTROL_STATUS;LINE;HEIGHT(;CARROTX;CARROTY;CARROTH)");
 		if (counters.stream_Control == config.telemetry.stream_Control)
 		{
-			/*uart1_puts("TC;");
-			printf("%d;", (int)control_state.flight_mode);
-			printf("%d;%d", navigation_data.current_codeline, (int)(sensor_data.pressure_height - navigation_data.home_pressure_height));
-			printf(";%u", sensor_data.battery_voltage_10);
-            printf(";%d;%d", navigation_data.time_airborne_s, navigation_data.time_block_s);
-            if (config.control.use_pwm)
-            {
-	        	if (ppm.connection_alive)
-	        		printf(";100");
-	        	else
-	        		printf(";0");
-	        } else // ppm
-            	printf(";%d", (100-ppm_signal_quality()*4));  // %
-
-			int throttle = (config.control.servo_neutral[3] - servo_read_us(3))/10;
-			if (! config.control.reverse_servo4)
-				throttle = -throttle;
-			if (throttle < 0 || throttle > 100)
-				throttle = 0;
-			printf(";%d", throttle);
-
-			//printf(";%ul", idle_counter);
-			printf("\r\n");*/
 			int sig_quality = 0;
 			if (config.control.use_pwm)
             {
@@ -432,11 +333,8 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'A')    // Set Accelerometer neutral
 				{
-					//sscanf(&(buffer[token[1]]), "%u", &x);
 					config.sensors.acc_x_neutral = (float)atof(&(buffer[token[1]]));
-					//sscanf(&(buffer[token[2]]), "%u", &x);
 					config.sensors.acc_y_neutral = (float)atof(&(buffer[token[2]]));
-					//sscanf(&(buffer[token[3]]), "%u", &x);
 					config.sensors.acc_z_neutral = (float)atof(&(buffer[token[3]]));
 				}
 				///////////////////////////////////////////////////////////////
@@ -444,11 +342,8 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'Y')    // Set Gyro neutral
 				{
-					//sscanf(&(buffer[token[1]]), "%u", &x);
 					config.sensors.gyro_x_neutral = (float)atof(&(buffer[token[1]]));
-					//sscanf(&(buffer[token[2]]), "%u", &x);
 					config.sensors.gyro_y_neutral = (float)atof(&(buffer[token[2]]));
-					//sscanf(&(buffer[token[3]]), "%u", &x);
 					config.sensors.gyro_z_neutral = (float)atof(&(buffer[token[3]]));
 				}
 				///////////////////////////////////////////////////////////////
@@ -516,6 +411,20 @@ void communication_input_task( void *parameters )
 					config.control.reverse_servo4 = ((tmp & 8) != 0);
 					config.control.reverse_servo5 = ((tmp & 16) != 0);
 					config.control.reverse_servo6 = ((tmp & 32) != 0);
+					config.control.manual_trim = buffer[token[2]] == '1'?1:0;
+				}
+				///////////////////////////////////////////////////////////////
+				//                    SET MIN MAX                            //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'M')    // Set servo reverse
+				{
+					int nr = atoi(&(buffer[token[1]]));
+				    int min = atoi(&(buffer[token[2]]));
+				    int neutral = atoi(&(buffer[token[3]]));
+				    int max = atoi(&(buffer[token[4]]));
+				    config.control.servo_min[nr] = min;
+				    config.control.servo_neutral[nr] = neutral;
+				    config.control.servo_max[nr] = max;
 				}
 				///////////////////////////////////////////////////////////////
 				//                       SET CONTROL                         //
@@ -840,6 +749,8 @@ void print_configuration()
 	uart1_putc(';');
 	print_unsigned_integer((unsigned int)config.sensors.gyro_z_neutral, uart1_puts);
 	uart1_putc(';');
+	
+	vTaskDelay(( ( portTickType ) 50 / portTICK_RATE_MS ) );  // 50ms
 							
 	//config.telemetry
 	print_unsigned_integer((unsigned int)config.telemetry.stream_GpsBasic, uart1_puts);
@@ -854,6 +765,8 @@ void print_configuration()
 	uart1_putc(';');
 	print_unsigned_integer((unsigned int)config.telemetry.stream_Attitude, uart1_puts);
 	uart1_putc(';');
+	
+	vTaskDelay(( ( portTickType ) 50 / portTICK_RATE_MS ) );  // 50ms
 	
 	//config.gps
 	print_unsigned_integer((unsigned int)(config.gps.initial_baudrate/10), uart1_puts);
@@ -872,6 +785,8 @@ void print_configuration()
 	uart1_putc(';');
 	print_unsigned_integer((unsigned int)(config.control.channel_yaw), uart1_puts);
 	uart1_putc(';');
+	
+	vTaskDelay(( ( portTickType ) 50 / portTICK_RATE_MS ) );  // 50ms
 
 	// control.pid
 	printf("%f;%f;%f;%f;%f;%f;", config.control.pid_pitch2elevator.p_gain,
@@ -880,25 +795,28 @@ void print_configuration()
 	                    config.control.pid_pitch2elevator.i_min,
 	                    config.control.pid_pitch2elevator.i_max,
 	                    config.control.pid_pitch2elevator.d_term_min_var);
+	vTaskDelay(( ( portTickType ) 50 / portTICK_RATE_MS ) );  // 50ms
 	printf("%f;%f;%f;%f;%f;%f;", config.control.pid_roll2aileron.p_gain,
 	                    config.control.pid_roll2aileron.d_gain,
 	                    config.control.pid_roll2aileron.i_gain,
 	                    config.control.pid_roll2aileron.i_min,
 	                    config.control.pid_roll2aileron.i_max,
 	                    config.control.pid_roll2aileron.d_term_min_var);
+	vTaskDelay(( ( portTickType ) 50 / portTICK_RATE_MS ) );  // 50ms
 	printf("%f;%f;%f;%f;%f;%f;", config.control.pid_heading2roll.p_gain,
 	                    config.control.pid_heading2roll.d_gain,
 	                    config.control.pid_heading2roll.i_gain,
 	                    config.control.pid_heading2roll.i_min,
 	                    config.control.pid_heading2roll.i_max,
 	                    config.control.pid_heading2roll.d_term_min_var);
+	vTaskDelay(( ( portTickType ) 50 / portTICK_RATE_MS ) );  // 50ms
 	printf("%f;%f;%f;%f;%f;%f;", config.control.pid_altitude2pitch.p_gain,
 	                    config.control.pid_altitude2pitch.d_gain,
 	                    config.control.pid_altitude2pitch.i_gain,
 	                    config.control.pid_altitude2pitch.i_min,
 	                    config.control.pid_altitude2pitch.i_max,
 	                    config.control.pid_altitude2pitch.d_term_min_var);
-
+	vTaskDelay(( ( portTickType ) 50 / portTICK_RATE_MS ) );  // 50ms
 	// servo_reverse
 	print_unsigned_integer(((int)config.control.reverse_servo1) +
 	                       ((int)config.control.reverse_servo2<<1) +
@@ -906,12 +824,13 @@ void print_configuration()
 	                       ((int)config.control.reverse_servo4<<3) +
 	                       ((int)config.control.reverse_servo5<<4) +
 	                       ((int)config.control.reverse_servo6<<5), uart1_puts); 
-	                       
+	                     
 	// servo max/min/neutral
 	for (i = 0; i < 6; i++)
 	{
 		printf(";%d;%d;%d", config.control.servo_min[i], config.control.servo_max[i], config.control.servo_neutral[i]);
 	}	
+	vTaskDelay(( ( portTickType ) 50 / portTICK_RATE_MS ) );  // 50ms
 	
 	printf(";%d", (int)config.control.use_pwm);
 	
@@ -922,9 +841,11 @@ void print_configuration()
 	                 	         (int)(config.control.cruising_speed_ms));
 	printf(";%d;%d;%d", (int)(config.control.stabilization_with_altitude_hold), 
 	                    config.control.aileron_differential*10, config.telemetry.stream_Control);
+	vTaskDelay(( ( portTickType ) 50 / portTICK_RATE_MS ) );  // 50ms
     printf(";%d;%d;%d;%d;%d", (int)config.control.autopilot_auto_throttle, config.control.auto_throttle_min_pct, config.control.auto_throttle_max_pct,
 	                    config.control.auto_throttle_cruise_pct, config.control.auto_throttle_p_gain);
 	printf(";%d", (int)(RAD2DEG(config.control.min_pitch)-0.5));
+	printf(";%d", (int)config.control.manual_trim);
 	uart1_puts("\r\n");
 }		
 
