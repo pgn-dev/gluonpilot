@@ -259,7 +259,7 @@ void sensors_gps_task( void *parameters )
 	gps_config_output();  // configure sentences and switch to 115200 baud
 
 	
-	vTaskDelay(( ( portTickType ) 3000 / portTICK_RATE_MS ) );   // 3s
+	vTaskDelay(( ( portTickType ) 100 / portTICK_RATE_MS ) );   
 	
 	uart1_puts("Gps & Navigation task initialized\r\n");
 	if (sensor_data.gps.status == EMPTY)
