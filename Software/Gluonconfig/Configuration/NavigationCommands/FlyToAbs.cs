@@ -28,6 +28,7 @@ namespace Configuration.NavigationCommands
             ni.a = (int)_dtb_height.DistanceM;
             ni.x = _ce.GetLatitudeRad();
             ni.y = _ce.GetLongitudeRad();
+            ni.opcode = NavigationInstruction.navigation_command.FLY_TO_ABS;
             return ni;
         }
 

@@ -37,8 +37,22 @@ namespace Configuration.NavigationCommands
             _ce.SetCoordinateRad(ni.x, ni.y);
             _dtb_radius.DistanceM = ni.a;
             _dtb_height.DistanceM = ni.b;
+            ni.opcode = NavigationInstruction.navigation_command.CIRCLE_ABS;
+            _dtb_radius_DistanceChanged(null, EventArgs.Empty);
         }
 
         #endregion
+
+
+        private void _dtb_radius_DistanceChanged(object sender, EventArgs e)
+        {
+            if (_dtb_radius.DistanceM < 50)
+                _dtb_radius.Color = Color.Red;
+            else if (_dtb_radius.DistanceM < 70)
+                _dtb_radius.Color = Color.Yellow;
+            else
+                _dtb_radius.Color = Color.White;
+
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace Communication.Frames.Configuration
@@ -18,6 +17,7 @@ namespace Communication.Frames.Configuration
         // control
         public double control_max_roll;
         public double control_max_pitch;
+        public double control_min_pitch;
         public int control_aileron_differential;
         public int control_mixing;
         public bool control_stabilization_with_altitude_hold;
@@ -74,6 +74,11 @@ namespace Communication.Frames.Configuration
         public double pid_altitude2pitch_imax;
         public double pid_altitude2pitch_dmin;
 
+        public bool auto_throttle_enabled;
+        public int auto_throttle_min_pct;
+        public int auto_throttle_max_pct;
+        public int auto_throttle_cruise_pct;
+        public int auto_throttle_p_gain_10;
 
 
         // servo
@@ -82,5 +87,6 @@ namespace Communication.Frames.Configuration
         public int[] servo_min = new int[6];
         public int[] servo_max = new int[6];
         public int[] servo_neutral = new int[6];
+        public bool manual_trim;
     }
 }

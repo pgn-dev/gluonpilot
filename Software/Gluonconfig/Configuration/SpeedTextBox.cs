@@ -20,14 +20,14 @@ namespace Configuration
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.SpeedUnit == "m/s")
+            if (GluonCS.Properties.Settings.Default.SpeedUnit == "m/s")
                 cb_unit.SelectedIndex = 0;
-            else if (Properties.Settings.Default.SpeedUnit == "km/h")
+            else if (GluonCS.Properties.Settings.Default.SpeedUnit == "km/h")
                 cb_unit.SelectedIndex = 1;
             else
                 cb_unit.SelectedIndex = 2;
 
-            Properties.Settings.Default.Save();
+            GluonCS.Properties.Settings.Default.Save();
         }
 
         [BrowsableAttribute(true)]
@@ -54,21 +54,21 @@ namespace Configuration
         {
             if (cb_unit.SelectedIndex == 0) // m/s
             {
-                Properties.Settings.Default.SpeedUnit = "m/s";
+                GluonCS.Properties.Settings.Default.SpeedUnit = "m/s";
                 tb_speed.Text = current_speed_ms.ToString(CultureInfo.InvariantCulture);
             }
             else if (cb_unit.SelectedIndex == 1) // km/h
             {
-                Properties.Settings.Default.SpeedUnit = "km/h";
+                GluonCS.Properties.Settings.Default.SpeedUnit = "km/h";
                 tb_speed.Text = (current_speed_ms * 3.6).ToString(CultureInfo.InvariantCulture);
             }
             else // mph
             {
-                Properties.Settings.Default.SpeedUnit = "mph";
+                GluonCS.Properties.Settings.Default.SpeedUnit = "mph";
                 tb_speed.Text = (current_speed_ms * (3.6 * 0.621371192)).ToString(CultureInfo.InvariantCulture);
             }
 
-            Properties.Settings.Default.Save();
+            GluonCS.Properties.Settings.Default.Save();
         }
 
         private void cb_unit_DropDown(object sender, EventArgs e)

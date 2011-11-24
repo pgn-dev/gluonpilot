@@ -51,10 +51,13 @@
             "IF_SM",
             "IF_GR",
             "IF_NE",
-            "WHILE_EQ",
-            "WHILE_NE",
-            "WHILE_GR",
-            "WHILE_SM"});
+            "UNTIL_EQ",
+            "UNTIL_NE",
+            "UNTIL_GR",
+            "UNTIL_SM",
+            "SERVO_SET",
+            "SERVO_TRIGGER",
+            "BLOCK"});
             this._cb_opcode.Location = new System.Drawing.Point(57, 12);
             this._cb_opcode.Name = "_cb_opcode";
             this._cb_opcode.Size = new System.Drawing.Size(268, 21);

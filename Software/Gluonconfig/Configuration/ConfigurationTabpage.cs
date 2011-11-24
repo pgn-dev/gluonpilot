@@ -43,6 +43,25 @@ namespace Gluonpilot
             
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        
+
+            if (_serial != null)
+            {
+                _serial.GyroAccRawCommunicationReceived -= ReceiveGyroAccRaw;
+                _serial.GyroAccProcCommunicationReceived -= ReceiveGyroAccProc;
+                _serial.PressureTempCommunicationReceived -= ReceivePressureTemp;
+                _serial.AllConfigCommunicationReceived -= ReceiveAllConfig;
+                _serial.RcInputCommunicationReceived -= new SerialCommunication_CSV.ReceiveRcInputCommunicationFrame(ReceiveRcInput);
+                _serial.GpsBasicCommunicationReceived -= new SerialCommunication.ReceiveGpsBasicCommunicationFrame(ReceiveGpsBasic);
+            }
+        }
 
         public ConfigurationModel GetModel()
         {
@@ -95,6 +114,7 @@ namespace Gluonpilot
             _rbPwm.Checked = _model.RcTransmitterFromPpm == 0? true : false;
 
             _nud_control_pitch_max.Value = (int)_model.ControlMaxPitch;
+            _nud_control_pitch_min.Value = (int)_model.ControlMinPitch;
             _nud_control_roll_max.Value = (int)_model.ControlMaxRoll;
             _nud_aileron_diff.Value = _model.ControlAileronDiff;
 
@@ -177,6 +197,17 @@ namespace Gluonpilot
                 _tb_servo5_neutral.Text = _model.ServoNeutral[4].ToString();
                 _tb_servo6_neutral.Text = _model.ServoNeutral[5].ToString();
             }
+
+            if (_model.ManualTrim)
+                _rb_servos_neutral_configurable.Checked = true;
+            else
+                _rb_serovs_neutral_auto.Checked = true;
+
+            _nudAutoThrottleMinPct.Value = _model.AutoThrottleMinPct;
+            _nudAutoThrottleMaxPct.Value = _model.AutoThrottleMaxPct;
+            _nudAutoThrottleCruisePct.Value = _model.AutoThrottleCruisePct;
+            _ntbAutoThrottlePGain.DoubleValue = _model.AutoThrottlePGain;
+            _cbMotor.SelectedIndex = _model.AutoThrottleEnabled ? 1 : 0;
         }
 
         /*!
@@ -196,6 +227,7 @@ namespace Gluonpilot
 
         private void ReceiveAllConfig(AllConfig ac)
         {
+            Console.WriteLine("GUI received");
             this.BeginInvoke(new D_ReceiveAllConfig(AllConfig), new object[] { ac });
         }
         private delegate void D_ReceiveAllConfig(AllConfig ac);
@@ -420,6 +452,15 @@ namespace Gluonpilot
             else if (_rbApCh7.Checked)
                 _model.ChannelAp = 7;
         }
+        
+        private void _rbPpm_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_rbPpm.Checked)
+                _model.RcTransmitterFromPpm = 1;
+            else
+                _model.RcTransmitterFromPpm = 0;
+        }
+
 #endregion
 
 #region Telemetry tab page
@@ -493,9 +534,98 @@ namespace Gluonpilot
         }
 
 
+        private void _btn_telemetry_configuration_Click(object sender, EventArgs e)
+        {
+            _nud_attitude_telemetry.Value = 4;
+            _nud_control_telemetry.Value = 10;
+            _nud_gpsbasic_telemetry.Value = 5;
+            _nud_gyroaccproc_telemetry.Value = 6;
+            _nud_gyroaccraw_telemetry.Value = 5;
+            _nud_pressuretemp_telemetry.Value = 5;
+            _nud_ppm_telemetry.Value = 4;
+            if (_serial != null && _serial.IsOpen)
+            {
+                _serial.SendWriteTelemetry(
+                    (int)_nud_gpsbasic_telemetry.Value,
+                    (int)_nud_gyroaccraw_telemetry.Value,
+                    (int)_nud_gyroaccproc_telemetry.Value,
+                    (int)_nud_ppm_telemetry.Value,
+                    (int)_nud_pressuretemp_telemetry.Value,
+                    (int)_nud_attitude_telemetry.Value,
+                    (int)_nud_control_telemetry.Value);
+                _serial.ReadAllConfig();
+            }
+        }
+
+        private void _btn_telemetry_inflight_Click(object sender, EventArgs e)
+        {
+            _nud_attitude_telemetry.Value = 7;
+            _nud_control_telemetry.Value = 10;
+            _nud_gpsbasic_telemetry.Value = 5;
+            _nud_gyroaccproc_telemetry.Value = 1; _nud_gyroaccproc_telemetry.Value = 0;
+            _nud_gyroaccraw_telemetry.Value = 1; _nud_gyroaccraw_telemetry.Value = 0;
+            _nud_pressuretemp_telemetry.Value = 1; _nud_pressuretemp_telemetry.Value = 0;
+            _nud_ppm_telemetry.Value = 1; _nud_ppm_telemetry.Value = 0;
+            if (_serial != null && _serial.IsOpen)
+            {
+                _serial.SendWriteTelemetry(
+                    (int)_nud_gpsbasic_telemetry.Value,
+                    (int)_nud_gyroaccraw_telemetry.Value,
+                    (int)_nud_gyroaccproc_telemetry.Value,
+                    (int)_nud_ppm_telemetry.Value,
+                    (int)_nud_pressuretemp_telemetry.Value,
+                    (int)_nud_attitude_telemetry.Value,
+                    (int)_nud_control_telemetry.Value);
+                _serial.ReadAllConfig();
+            }
+        }
+
 #endregion
 
 #region Servos tab page
+
+        private void _nud_servo_TextChanged(object sender, EventArgs e)
+        {
+            if (sender == _tb_servo1_min)
+                int.TryParse(_tb_servo1_min.Text, out _model.ServoMin[0]);
+            if (sender == _tb_servo2_min)
+                int.TryParse(_tb_servo2_min.Text, out _model.ServoMin[1]);
+            if (sender == _tb_servo3_min)
+                int.TryParse(_tb_servo3_min.Text, out _model.ServoMin[2]);
+            if (sender == _tb_servo4_min)
+                int.TryParse(_tb_servo4_min.Text, out _model.ServoMin[3]);
+            if (sender == _tb_servo5_min)
+                int.TryParse(_tb_servo5_min.Text, out _model.ServoMin[4]);
+            if (sender == _tb_servo6_min)
+                int.TryParse(_tb_servo6_min.Text, out _model.ServoMin[5]);
+
+            if (sender == _tb_servo1_max)
+                int.TryParse(_tb_servo1_max.Text, out _model.ServoMax[0]);
+            if (sender == _tb_servo2_max)
+                int.TryParse(_tb_servo2_max.Text, out _model.ServoMax[1]);
+            if (sender == _tb_servo3_max)
+                int.TryParse(_tb_servo3_max.Text, out _model.ServoMax[2]);
+            if (sender == _tb_servo4_max)
+                int.TryParse(_tb_servo4_max.Text, out _model.ServoMax[3]);
+            if (sender == _tb_servo5_max)
+                int.TryParse(_tb_servo5_max.Text, out _model.ServoMax[4]);
+            if (sender == _tb_servo6_max)
+                int.TryParse(_tb_servo6_max.Text, out _model.ServoMax[5]);
+
+            if (sender == _tb_servo1_neutral)
+                int.TryParse(_tb_servo1_neutral.Text, out _model.ServoNeutral[0]);
+            if (sender == _tb_servo2_neutral)
+                int.TryParse(_tb_servo2_neutral.Text, out _model.ServoNeutral[1]);
+            if (sender == _tb_servo3_neutral)
+                int.TryParse(_tb_servo3_neutral.Text, out _model.ServoNeutral[2]);
+            if (sender == _tb_servo4_neutral)
+                int.TryParse(_tb_servo4_neutral.Text, out _model.ServoNeutral[3]);
+            if (sender == _tb_servo5_neutral)
+                int.TryParse(_tb_servo5_neutral.Text, out _model.ServoNeutral[4]);
+            if (sender == _tb_servo6_neutral)
+                int.TryParse(_tb_servo6_neutral.Text, out _model.ServoNeutral[5]);
+        }
+
 
         private void _cb_reverse_servo_Click(object sender, EventArgs e)
         {
@@ -512,6 +642,35 @@ namespace Gluonpilot
             if (sender == _cb_reverse_servo6)
                 _model.ReverseServo6 = _cb_reverse_servo6.Checked;
         }
+
+        private void _llServos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_Servos");
+        }
+
+     
+        private void _rb_serovs_neutral_auto_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (Control c in _panelServos.Controls)
+            {
+                TextBox tb = c as TextBox;
+                if (tb != null)
+                    tb.ReadOnly = true;
+            }
+            _model.ManualTrim = false;
+        } 
+  
+        private void _rb_servos_neutral_configurable_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (Control c in _panelServos.Controls)
+            {
+                TextBox tb = c as TextBox;
+                if (tb != null)
+                    tb.ReadOnly = false;
+            }
+            _model.ManualTrim = true;
+        }
+
 
 #endregion
 
@@ -560,13 +719,27 @@ namespace Gluonpilot
         }
 
 
+        private void _llConfigGps_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_Gps");
+        }
+
 #endregion
 
 #region Control tab page
         private void _cbControlMix_SelectedIndexChanged(object sender, EventArgs e)
         {
             _model.ControlMixing = _cbControlMix.SelectedIndex;
-            _lblControlMixInfo.Text = "1: Up/Down, 2: Aileron1, 3: Aileron2, 4: Motor";
+            if (_cbControlMix.SelectedIndex == 0)
+                _lblControlMixInfo.Text = "1: Aileron1, 2: Aileron2, 3: Up/Down, 2, 4: Motor, 6: roll stabi";
+            if (_cbControlMix.SelectedIndex == 1)
+                _lblControlMixInfo.Text = "1: Elevon1, 2: Elevon2, 4: Motor";
+            if (_cbControlMix.SelectedIndex == 2)
+                _lblControlMixInfo.Text = "1: Elevon1, 2: Elevon2, 4: Motor";
+            if (_cbControlMix.SelectedIndex == 3)
+                _lblControlMixInfo.Text = "See quadrocopter page";
+            if (_cbControlMix.SelectedIndex == 4)
+                _lblControlMixInfo.Text = "1: Aileron1, 2: Aileron2, 3: Up/Down, 2, 4: Motor, 6: roll stabi";
         }
 
         private void _pid_pitch_to_elevator_IsChanged(object sender, EventArgs e)
@@ -593,6 +766,11 @@ namespace Gluonpilot
         {
             _model.ControlMaxRoll = Convert.ToDouble(_nud_control_roll_max.Value);
             CalculateMinimumRadius(sender, null);
+        }
+
+        private void _nud_control_pitch_min_ValueChanged(object sender, EventArgs e)
+        {
+            _model.ControlMinPitch = Convert.ToDouble(_nud_control_pitch_min.Value);
         }
 
         private void _nud_control_pitch_max_ValueChanged(object sender, EventArgs e)
@@ -629,78 +807,45 @@ namespace Gluonpilot
         {
             _model.ControlAileronDiff = (int)_nud_aileron_diff.Value;
         }
+
+
+        private void _nudAutoThrottleMinPct_ValueChanged(object sender, EventArgs e)
+        {
+            _model.AutoThrottleMinPct = (int)_nudAutoThrottleMinPct.Value;
+        }
+
+        private void _nudAutoThrottleCruisePct_ValueChanged(object sender, EventArgs e)
+        {
+            _model.AutoThrottleCruisePct = (int)_nudAutoThrottleCruisePct.Value;
+        }
+
+        private void _nudAutoThrottleMaxPct_ValueChanged(object sender, EventArgs e)
+        {
+            _model.AutoThrottleMaxPct = (int)_nudAutoThrottleMaxPct.Value;
+        }
+
+        private void _cbMotor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _model.AutoThrottleEnabled = _cbMotor.SelectedIndex == 1;
+        }
+
+        private void _ntbAutoThrottlePGain_TextChanged(object sender, EventArgs e)
+        {
+            _model.AutoThrottlePGain = _ntbAutoThrottlePGain.DoubleValue;
+        }
+
 #endregion
 
-        private void _llConfigGps_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+
+
+        private void label63_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_Gps");
+
         }
 
-        private void _rbPpm_CheckedChanged(object sender, EventArgs e)
-        {
-            if (_rbPpm.Checked)
-                _model.RcTransmitterFromPpm = 1;
-            else
-                _model.RcTransmitterFromPpm = 0;
-        }
 
-        private void _llServos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://www.gluonpilot.com/wiki/Config_Servos");
-        }
 
-        
 
-        private void _btn_cube_Click(object sender, EventArgs e)
-        {
-            ModuleImu3D.Imu3D.Run(_serial);
-        }
-
-        private void _btn_telemetry_configuration_Click(object sender, EventArgs e)
-        {
-            _nud_attitude_telemetry.Value = 4;
-            _nud_control_telemetry.Value = 10;
-            _nud_gpsbasic_telemetry.Value = 5;
-            _nud_gyroaccproc_telemetry.Value = 6;
-            _nud_gyroaccraw_telemetry.Value = 5;
-            _nud_pressuretemp_telemetry.Value = 5;
-            _nud_ppm_telemetry.Value = 4;
-            if (_serial != null && _serial.IsOpen)
-            {
-                _serial.SendWriteTelemetry(
-                    (int)_nud_gpsbasic_telemetry.Value,
-                    (int)_nud_gyroaccraw_telemetry.Value,
-                    (int)_nud_gyroaccproc_telemetry.Value,
-                    (int)_nud_ppm_telemetry.Value,
-                    (int)_nud_pressuretemp_telemetry.Value,
-                    (int)_nud_attitude_telemetry.Value,
-                    (int)_nud_control_telemetry.Value);
-                _serial.ReadAllConfig();
-            }
-        }
-
-        private void _btn_telemetry_inflight_Click(object sender, EventArgs e)
-        {
-            _nud_attitude_telemetry.Value = 7;
-            _nud_control_telemetry.Value = 10;
-            _nud_gpsbasic_telemetry.Value = 5;
-            _nud_gyroaccproc_telemetry.Value = 1; _nud_gyroaccproc_telemetry.Value = 0;
-            _nud_gyroaccraw_telemetry.Value = 1; _nud_gyroaccraw_telemetry.Value = 0;
-            _nud_pressuretemp_telemetry.Value = 1; _nud_pressuretemp_telemetry.Value = 0;
-            _nud_ppm_telemetry.Value = 1; _nud_ppm_telemetry.Value = 0;
-            if (_serial != null && _serial.IsOpen)
-            {
-                _serial.SendWriteTelemetry(
-                    (int)_nud_gpsbasic_telemetry.Value,
-                    (int)_nud_gyroaccraw_telemetry.Value,
-                    (int)_nud_gyroaccproc_telemetry.Value,
-                    (int)_nud_ppm_telemetry.Value,
-                    (int)_nud_pressuretemp_telemetry.Value,
-                    (int)_nud_attitude_telemetry.Value,
-                    (int)_nud_control_telemetry.Value);
-                _serial.ReadAllConfig();
-            }
-        }
 
 
     }

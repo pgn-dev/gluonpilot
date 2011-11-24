@@ -17,6 +17,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,15 +36,34 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="csgl, Version=1.4.1.0, Culture=neutral, PublicKeyToken=d8fb3bdb88c36cd4">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ModuleImu3D\csgl.dll</HintPath>
+    <Reference Include="Artificial3DHorizon">
+      <HintPath>..\Libs\Artificial3DHorizon.dll</HintPath>
     </Reference>
-    <Reference Include="CsGL.Basecode, Version=1.0.0.0, Culture=neutral">
+    <Reference Include="ArtificialHorizon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ModuleImu3D\CsGL.Basecode.dll</HintPath>
+      <HintPath>..\Libs\ArtificialHorizon.dll</HintPath>
     </Reference>
+    <Reference Include="D3DControls">
+      <HintPath>..\Libs\D3DControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -67,6 +87,12 @@
     <Compile Include="ConnectDialog.Designer.cs">
       <DependentUpon>ConnectDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="EasyConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EasyConfig.Designer.cs">
+      <DependentUpon>EasyConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="GluonConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +103,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ConnectDialog.resx">
       <DependentUpon>ConnectDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EasyConfig.de.resx">
+      <DependentUpon>EasyConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EasyConfig.nl.resx">
+      <DependentUpon>EasyConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EasyConfig.resx">
+      <DependentUpon>EasyConfig.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GluonConfig.de.resx">
+      <DependentUpon>GluonConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GluonConfig.nl.resx">
+      <DependentUpon>GluonConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GluonConfig.resx">
       <DependentUpon>GluonConfig.cs</DependentUpon>
@@ -91,7 +133,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.config" />
+    <None Include="..\Models\EasyStar\easystar.x">
+      <Link>Models\Easystar\easystar.x</Link>
+    </None>
+    <None Include="..\Models\FunJet\funjet.x">
+      <Link>Models\Funjet\funjet.x</Link>
+    </None>
+    <None Include="..\Models\MQ-9 Reaper\MQ-9 Reaper.x">
+      <Link>Models\Reaper\MQ-9 Reaper.x</Link>
+    </None>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -119,62 +172,44 @@
       <Project>{3F7BDAB7-2F07-4D0B-A517-42E6DE6C70DB}</Project>
       <Name>Kml</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ModuleImu3D\ModuleImu3D.csproj">
-      <Project>{F9704876-1533-4E3A-A1C6-3FE0132AB487}</Project>
-      <Name>ModuleImu3D</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SerialCommunication\Communication.csproj">
       <Project>{D4C21631-D662-4C79-8047-1BB72967B3B1}</Project>
       <Name>Communication</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ds30loader\canlibCLSNET.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="..\Models\EasyStar\easystar.jpg">
+      <Link>Models\Easystar\easystar.jpg</Link>
+    </Content>
+    <Content Include="..\Models\EasyStar\texture.jpg">
+      <Link>Models\Easystar\texture.jpg</Link>
+    </Content>
+    <Content Include="..\Models\FunJet\funjet.jpg">
+      <Link>Models\Funjet\funjet.jpg</Link>
+    </Content>
+    <Content Include="..\Models\FunJet\texture.jpg">
+      <Link>Models\Funjet\texture.jpg</Link>
+    </Content>
+    <Content Include="..\Models\MQ-9 Reaper\Missile01.jpg">
+      <Link>Models\Reaper\Missile01.jpg</Link>
+    </Content>
+    <Content Include="..\Models\MQ-9 Reaper\Missile02.jpg">
+      <Link>Models\Reaper\Missile02.jpg</Link>
+    </Content>
+    <Content Include="..\Models\MQ-9 Reaper\Sketchy_Crosshatch_Wavy.jpg">
+      <Link>Models\Reaper\Sketchy_Crosshatch_Wavy.jpg</Link>
+    </Content>
+    <Content Include="..\Models\MQ-9 Reaper\Texture.jpg">
+      <Link>Models\Reaper\Texture.jpg</Link>
     </Content>
     <Content Include="ds30loader\devices.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ds30loader\ds30 Loader.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="ds30loader\ds30LoaderConsole.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ds30loader\ds30LoaderPortIxxat.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ds30loader\ds30LoaderPortKvaser.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ds30loader\ds30LoaderPortSerial.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ds30loader\ds30LoaderPortVector.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ds30loader\GHelper.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ds30loader\ixxatBitRates.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ds30loader\settingsPortSerial.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ds30loader\vcinet2.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ds30loader\vectorBitRates.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ds30loader\vxlapi.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ds30loader\vxlapi_NET20.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

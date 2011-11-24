@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace Communication.Frames.Incoming
@@ -11,9 +10,13 @@ namespace Communication.Frames.Incoming
             MANUAL = 0, STABILIZED = 1, AUTOPILOT = 2, LOITER = 3, RETURN = 4 
         };
 
-        public FlightModes FlightMode;
-        public double HeightAboveStartGround;
-        public int CurrentNavigationLine;
-        public double BattVoltage;
+        public FlightModes FlightMode = FlightModes.AUTOPILOT;
+        public double HeightAboveStartGround = 0;
+        public int CurrentNavigationLine = 1;
+        public double BattVoltage = 0;
+        public int FlightTime = 0;
+        public int BlockTime = 0;
+        public int Throttle = 0;
+        public int RcLink = 0;
     }
 }

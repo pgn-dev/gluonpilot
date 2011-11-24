@@ -27,6 +27,7 @@ namespace Configuration.NavigationCommands
             ni.a = (int)_nud_channel.Value - 1;
             ni.b = (int)_nud_us.Value;
             ni.x = ((double)_nud_position_hold.Value) / 1000.0;
+            ni.opcode = NavigationInstruction.navigation_command.SERVO_TRIGGER;
             return ni;
         }
 

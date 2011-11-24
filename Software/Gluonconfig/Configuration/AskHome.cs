@@ -15,8 +15,8 @@ namespace Configuration
         {
             InitializeComponent();
             _ce.SetCoordinateRad(
-                Properties.Settings.Default.home_latitude,
-                Properties.Settings.Default.home_longitude);
+                GluonCS.Properties.Settings.Default.HomeLatitude,
+                GluonCS.Properties.Settings.Default.HomeLongitude);
         }
 
         public double GetLatitudeRad()
@@ -31,9 +31,9 @@ namespace Configuration
 
         private void _btn_ok_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.home_latitude = _ce.GetLatitudeRad();
-            Properties.Settings.Default.home_longitude = _ce.GetLongitudeRad();
-            Properties.Settings.Default.Save();
+            GluonCS.Properties.Settings.Default.HomeLatitude = _ce.GetLatitudeRad();
+            GluonCS.Properties.Settings.Default.HomeLongitude = _ce.GetLongitudeRad();
+            GluonCS.Properties.Settings.Default.Save();
         }
     }
 }

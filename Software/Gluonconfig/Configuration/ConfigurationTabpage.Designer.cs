@@ -7,18 +7,6 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
 
         #region Component Designer generated code
 
@@ -58,7 +46,6 @@
             this.label45 = new System.Windows.Forms.Label();
             this._tpSensors = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this._btn_cube = new System.Windows.Forms.Button();
             this._btn_use_current_gyro = new System.Windows.Forms.Button();
             this._tbGyroZNeutral = new Configuration.NumericTextBox();
             this._tbGyroYNeutral = new Configuration.NumericTextBox();
@@ -210,6 +197,25 @@
             this._rbPwm = new System.Windows.Forms.RadioButton();
             this._rbPpm = new System.Windows.Forms.RadioButton();
             this._tpServos = new System.Windows.Forms.TabPage();
+            this._panelServos = new System.Windows.Forms.Panel();
+            this._tb_servo1_min = new System.Windows.Forms.TextBox();
+            this._tb_servo1_neutral = new Configuration.NumericTextBox();
+            this._tb_servo2_neutral = new Configuration.NumericTextBox();
+            this._tb_servo3_neutral = new Configuration.NumericTextBox();
+            this._tb_servo4_neutral = new Configuration.NumericTextBox();
+            this._tb_servo5_neutral = new Configuration.NumericTextBox();
+            this._tb_servo6_neutral = new Configuration.NumericTextBox();
+            this._tb_servo1_max = new System.Windows.Forms.TextBox();
+            this._tb_servo2_min = new System.Windows.Forms.TextBox();
+            this._tb_servo2_max = new System.Windows.Forms.TextBox();
+            this._tb_servo3_min = new System.Windows.Forms.TextBox();
+            this._tb_servo3_max = new System.Windows.Forms.TextBox();
+            this._tb_servo4_min = new System.Windows.Forms.TextBox();
+            this._tb_servo4_max = new System.Windows.Forms.TextBox();
+            this._tb_servo5_min = new System.Windows.Forms.TextBox();
+            this._tb_servo5_max = new System.Windows.Forms.TextBox();
+            this._tb_servo6_min = new System.Windows.Forms.TextBox();
+            this._tb_servo6_max = new System.Windows.Forms.TextBox();
             this.label83 = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
             this.label70 = new System.Windows.Forms.Label();
@@ -226,39 +232,30 @@
             this._cb_reverse_servo2 = new System.Windows.Forms.CheckBox();
             this._cb_reverse_servo1 = new System.Windows.Forms.CheckBox();
             this.label44 = new System.Windows.Forms.Label();
-            this._tb_servo6_max = new System.Windows.Forms.TextBox();
-            this._tb_servo6_min = new System.Windows.Forms.TextBox();
             this.label43 = new System.Windows.Forms.Label();
-            this._tb_servo5_max = new System.Windows.Forms.TextBox();
-            this._tb_servo5_min = new System.Windows.Forms.TextBox();
             this.label42 = new System.Windows.Forms.Label();
-            this._tb_servo4_max = new System.Windows.Forms.TextBox();
-            this._tb_servo4_min = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
-            this._tb_servo3_max = new System.Windows.Forms.TextBox();
-            this._tb_servo3_min = new System.Windows.Forms.TextBox();
             this.label40 = new System.Windows.Forms.Label();
-            this._tb_servo2_max = new System.Windows.Forms.TextBox();
-            this._tb_servo2_min = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
-            this._tb_servo1_max = new System.Windows.Forms.TextBox();
             this.label32 = new System.Windows.Forms.Label();
-            this._tb_servo1_min = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this._tb_servo6_neutral = new Configuration.NumericTextBox();
-            this._tb_servo5_neutral = new Configuration.NumericTextBox();
-            this._tb_servo4_neutral = new Configuration.NumericTextBox();
-            this._tb_servo3_neutral = new Configuration.NumericTextBox();
-            this._tb_servo2_neutral = new Configuration.NumericTextBox();
-            this._tb_servo1_neutral = new Configuration.NumericTextBox();
             this._tbControl = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this._ntbAutoThrottlePGain = new Configuration.NumericTextBox();
+            this.label92 = new System.Windows.Forms.Label();
+            this._nudAutoThrottleMinPct = new System.Windows.Forms.NumericUpDown();
+            this._nudAutoThrottleMaxPct = new System.Windows.Forms.NumericUpDown();
+            this.label91 = new System.Windows.Forms.Label();
+            this.label89 = new System.Windows.Forms.Label();
+            this.label90 = new System.Windows.Forms.Label();
+            this._nudAutoThrottleCruisePct = new System.Windows.Forms.NumericUpDown();
+            this.label88 = new System.Windows.Forms.Label();
             this._dtb_waypoint_radius = new Configuration.DistanceTextBox();
             this.label86 = new System.Windows.Forms.Label();
             this.label85 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this._cbMotor = new System.Windows.Forms.ComboBox();
             this.label82 = new System.Windows.Forms.Label();
             this.label81 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -268,6 +265,7 @@
             this.label79 = new System.Windows.Forms.Label();
             this.label64 = new System.Windows.Forms.Label();
             this.label65 = new System.Windows.Forms.Label();
+            this._nud_control_pitch_min = new System.Windows.Forms.NumericUpDown();
             this._nud_control_pitch_max = new System.Windows.Forms.NumericUpDown();
             this.label66 = new System.Windows.Forms.Label();
             this.label63 = new System.Windows.Forms.Label();
@@ -309,10 +307,15 @@
             this.panel1.SuspendLayout();
             this._pnlRoll.SuspendLayout();
             this._tpServos.SuspendLayout();
+            this._panelServos.SuspendLayout();
             this._tbControl.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._nudAutoThrottleMinPct)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._nudAutoThrottleMaxPct)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._nudAutoThrottleCruisePct)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._nud_aileron_diff)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._nud_control_pitch_min)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_pitch_max)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_roll_max)).BeginInit();
             this._tbPid.SuspendLayout();
@@ -324,9 +327,7 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this._tpTelemetry);
             this.tabControl1.Controls.Add(this._tpSensors);
             this.tabControl1.Controls.Add(this._tbGps);
@@ -334,11 +335,8 @@
             this.tabControl1.Controls.Add(this._tpServos);
             this.tabControl1.Controls.Add(this._tbControl);
             this.tabControl1.Controls.Add(this._tbPid);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(598, 301);
-            this.tabControl1.TabIndex = 3;
             // 
             // _tpTelemetry
             // 
@@ -367,271 +365,183 @@
             this._tpTelemetry.Controls.Add(this.label47);
             this._tpTelemetry.Controls.Add(this.label46);
             this._tpTelemetry.Controls.Add(this.label45);
-            this._tpTelemetry.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this._tpTelemetry, "_tpTelemetry");
             this._tpTelemetry.Name = "_tpTelemetry";
-            this._tpTelemetry.Size = new System.Drawing.Size(590, 275);
-            this._tpTelemetry.TabIndex = 3;
-            this._tpTelemetry.Text = "Telemetry";
             this._tpTelemetry.UseVisualStyleBackColor = true;
             // 
             // _btn_telemetry_inflight
             // 
-            this._btn_telemetry_inflight.Location = new System.Drawing.Point(396, 8);
+            resources.ApplyResources(this._btn_telemetry_inflight, "_btn_telemetry_inflight");
             this._btn_telemetry_inflight.Name = "_btn_telemetry_inflight";
-            this._btn_telemetry_inflight.Size = new System.Drawing.Size(149, 37);
-            this._btn_telemetry_inflight.TabIndex = 24;
-            this._btn_telemetry_inflight.Text = "Set for in-flight\r\n(wireless XBee connection)\r\n";
             this._btn_telemetry_inflight.UseVisualStyleBackColor = true;
             this._btn_telemetry_inflight.Click += new System.EventHandler(this._btn_telemetry_inflight_Click);
             // 
             // _btn_telemetry_configuration
             // 
-            this._btn_telemetry_configuration.Location = new System.Drawing.Point(255, 8);
+            resources.ApplyResources(this._btn_telemetry_configuration, "_btn_telemetry_configuration");
             this._btn_telemetry_configuration.Name = "_btn_telemetry_configuration";
-            this._btn_telemetry_configuration.Size = new System.Drawing.Size(135, 37);
-            this._btn_telemetry_configuration.TabIndex = 23;
-            this._btn_telemetry_configuration.Text = "Set for configuration\r\n(serial FTDI connection)\r\n";
             this._btn_telemetry_configuration.UseVisualStyleBackColor = true;
             this._btn_telemetry_configuration.Click += new System.EventHandler(this._btn_telemetry_configuration_Click);
             // 
             // _lbl_control_hz
             // 
-            this._lbl_control_hz.AutoSize = true;
-            this._lbl_control_hz.Location = new System.Drawing.Point(239, 214);
+            resources.ApplyResources(this._lbl_control_hz, "_lbl_control_hz");
             this._lbl_control_hz.Name = "_lbl_control_hz";
-            this._lbl_control_hz.Size = new System.Drawing.Size(0, 13);
-            this._lbl_control_hz.TabIndex = 22;
             // 
             // _lbl_rc_hz
             // 
-            this._lbl_rc_hz.AutoSize = true;
-            this._lbl_rc_hz.Location = new System.Drawing.Point(239, 187);
+            resources.ApplyResources(this._lbl_rc_hz, "_lbl_rc_hz");
             this._lbl_rc_hz.Name = "_lbl_rc_hz";
-            this._lbl_rc_hz.Size = new System.Drawing.Size(10, 13);
-            this._lbl_rc_hz.TabIndex = 21;
-            this._lbl_rc_hz.Text = " ";
             // 
             // _lbl_imuprocessed_hz
             // 
-            this._lbl_imuprocessed_hz.AutoSize = true;
-            this._lbl_imuprocessed_hz.Location = new System.Drawing.Point(239, 161);
+            resources.ApplyResources(this._lbl_imuprocessed_hz, "_lbl_imuprocessed_hz");
             this._lbl_imuprocessed_hz.Name = "_lbl_imuprocessed_hz";
-            this._lbl_imuprocessed_hz.Size = new System.Drawing.Size(10, 13);
-            this._lbl_imuprocessed_hz.TabIndex = 20;
-            this._lbl_imuprocessed_hz.Text = " ";
             // 
             // _lbl_imu_raw_hz
             // 
-            this._lbl_imu_raw_hz.AutoSize = true;
-            this._lbl_imu_raw_hz.Location = new System.Drawing.Point(239, 135);
+            resources.ApplyResources(this._lbl_imu_raw_hz, "_lbl_imu_raw_hz");
             this._lbl_imu_raw_hz.Name = "_lbl_imu_raw_hz";
-            this._lbl_imu_raw_hz.Size = new System.Drawing.Size(10, 13);
-            this._lbl_imu_raw_hz.TabIndex = 19;
-            this._lbl_imu_raw_hz.Text = " ";
             // 
             // _lbl_pressure_hz
             // 
-            this._lbl_pressure_hz.AutoSize = true;
-            this._lbl_pressure_hz.Location = new System.Drawing.Point(239, 109);
+            resources.ApplyResources(this._lbl_pressure_hz, "_lbl_pressure_hz");
             this._lbl_pressure_hz.Name = "_lbl_pressure_hz";
-            this._lbl_pressure_hz.Size = new System.Drawing.Size(0, 13);
-            this._lbl_pressure_hz.TabIndex = 18;
             // 
             // _lbl_basicgps_hz
             // 
-            this._lbl_basicgps_hz.AutoSize = true;
-            this._lbl_basicgps_hz.Location = new System.Drawing.Point(239, 83);
+            resources.ApplyResources(this._lbl_basicgps_hz, "_lbl_basicgps_hz");
             this._lbl_basicgps_hz.Name = "_lbl_basicgps_hz";
-            this._lbl_basicgps_hz.Size = new System.Drawing.Size(0, 13);
-            this._lbl_basicgps_hz.TabIndex = 17;
             // 
             // _lbl_attitude_hz
             // 
-            this._lbl_attitude_hz.AutoSize = true;
-            this._lbl_attitude_hz.Location = new System.Drawing.Point(239, 57);
+            resources.ApplyResources(this._lbl_attitude_hz, "_lbl_attitude_hz");
             this._lbl_attitude_hz.Name = "_lbl_attitude_hz";
-            this._lbl_attitude_hz.Size = new System.Drawing.Size(0, 13);
-            this._lbl_attitude_hz.TabIndex = 16;
             // 
             // _nud_control_telemetry
             // 
-            this._nud_control_telemetry.Location = new System.Drawing.Point(174, 212);
+            resources.ApplyResources(this._nud_control_telemetry, "_nud_control_telemetry");
             this._nud_control_telemetry.Name = "_nud_control_telemetry";
-            this._nud_control_telemetry.Size = new System.Drawing.Size(59, 20);
-            this._nud_control_telemetry.TabIndex = 15;
             this._nud_control_telemetry.ValueChanged += new System.EventHandler(this._nud_control_telemetry_ValueChanged);
             // 
             // label87
             // 
-            this.label87.AutoSize = true;
-            this.label87.Location = new System.Drawing.Point(17, 214);
+            resources.ApplyResources(this.label87, "label87");
             this.label87.Name = "label87";
-            this.label87.Size = new System.Drawing.Size(94, 13);
-            this.label87.TabIndex = 14;
-            this.label87.Text = "Control information";
             // 
             // _nud_attitude_telemetry
             // 
-            this._nud_attitude_telemetry.Location = new System.Drawing.Point(174, 55);
+            resources.ApplyResources(this._nud_attitude_telemetry, "_nud_attitude_telemetry");
             this._nud_attitude_telemetry.Name = "_nud_attitude_telemetry";
-            this._nud_attitude_telemetry.Size = new System.Drawing.Size(59, 20);
-            this._nud_attitude_telemetry.TabIndex = 13;
             this._nud_attitude_telemetry.ValueChanged += new System.EventHandler(this._nud_attitude_telemetry_ValueChanged);
             // 
             // label84
             // 
-            this.label84.AutoSize = true;
-            this.label84.Location = new System.Drawing.Point(17, 55);
+            resources.ApplyResources(this.label84, "label84");
             this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(43, 13);
-            this.label84.TabIndex = 12;
-            this.label84.Text = "Attitude";
             // 
             // _nud_gyroaccproc_telemetry
             // 
-            this._nud_gyroaccproc_telemetry.Location = new System.Drawing.Point(174, 159);
+            resources.ApplyResources(this._nud_gyroaccproc_telemetry, "_nud_gyroaccproc_telemetry");
             this._nud_gyroaccproc_telemetry.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this._nud_gyroaccproc_telemetry.Name = "_nud_gyroaccproc_telemetry";
-            this._nud_gyroaccproc_telemetry.Size = new System.Drawing.Size(59, 20);
-            this._nud_gyroaccproc_telemetry.TabIndex = 11;
             this._nud_gyroaccproc_telemetry.ValueChanged += new System.EventHandler(this._nud_gyroaccproc_telemetry_ValueChanged);
             // 
             // label59
             // 
-            this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(17, 161);
+            resources.ApplyResources(this.label59, "label59");
             this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(151, 13);
-            this.label59.TabIndex = 10;
-            this.label59.Text = "IMU processed sensors output";
             // 
             // linkLabel2
             // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(551, 8);
+            resources.ApplyResources(this.linkLabel2, "linkLabel2");
             this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(28, 13);
-            this.linkLabel2.TabIndex = 9;
             this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Wiki";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
             // label49
             // 
-            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label49.Location = new System.Drawing.Point(17, 12);
+            resources.ApplyResources(this.label49, "label49");
             this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(232, 26);
-            this.label49.TabIndex = 8;
-            this.label49.Text = "Output telemetry every \"x/20\" seconds.\r\nSet to \"0\" to disable.";
             // 
             // _nud_gpsbasic_telemetry
             // 
-            this._nud_gpsbasic_telemetry.Location = new System.Drawing.Point(174, 81);
+            resources.ApplyResources(this._nud_gpsbasic_telemetry, "_nud_gpsbasic_telemetry");
             this._nud_gpsbasic_telemetry.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this._nud_gpsbasic_telemetry.Name = "_nud_gpsbasic_telemetry";
-            this._nud_gpsbasic_telemetry.Size = new System.Drawing.Size(59, 20);
-            this._nud_gpsbasic_telemetry.TabIndex = 7;
             this._nud_gpsbasic_telemetry.ValueChanged += new System.EventHandler(this._nud_gpsbasic_telemetry_ValueChanged);
             // 
             // _nud_pressuretemp_telemetry
             // 
-            this._nud_pressuretemp_telemetry.Location = new System.Drawing.Point(174, 107);
+            resources.ApplyResources(this._nud_pressuretemp_telemetry, "_nud_pressuretemp_telemetry");
             this._nud_pressuretemp_telemetry.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this._nud_pressuretemp_telemetry.Name = "_nud_pressuretemp_telemetry";
-            this._nud_pressuretemp_telemetry.Size = new System.Drawing.Size(59, 20);
-            this._nud_pressuretemp_telemetry.TabIndex = 6;
             this._nud_pressuretemp_telemetry.ValueChanged += new System.EventHandler(this._nud_pressuretemp_telemetry_ValueChanged);
             // 
             // _nud_ppm_telemetry
             // 
-            this._nud_ppm_telemetry.Location = new System.Drawing.Point(174, 185);
+            resources.ApplyResources(this._nud_ppm_telemetry, "_nud_ppm_telemetry");
             this._nud_ppm_telemetry.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this._nud_ppm_telemetry.Name = "_nud_ppm_telemetry";
-            this._nud_ppm_telemetry.Size = new System.Drawing.Size(59, 20);
-            this._nud_ppm_telemetry.TabIndex = 5;
             this._nud_ppm_telemetry.ValueChanged += new System.EventHandler(this._nud_ppm_telemetry_ValueChanged);
             // 
             // _nud_gyroaccraw_telemetry
             // 
-            this._nud_gyroaccraw_telemetry.Location = new System.Drawing.Point(174, 133);
+            resources.ApplyResources(this._nud_gyroaccraw_telemetry, "_nud_gyroaccraw_telemetry");
             this._nud_gyroaccraw_telemetry.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this._nud_gyroaccraw_telemetry.Name = "_nud_gyroaccraw_telemetry";
-            this._nud_gyroaccraw_telemetry.Size = new System.Drawing.Size(59, 20);
-            this._nud_gyroaccraw_telemetry.TabIndex = 4;
             this._nud_gyroaccraw_telemetry.ValueChanged += new System.EventHandler(this._nud_gyroacc_telemetry_ValueChanged);
             // 
             // label48
             // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(17, 83);
+            resources.ApplyResources(this.label48, "label48");
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(58, 13);
-            this.label48.TabIndex = 3;
-            this.label48.Text = "Basic GPS";
             // 
             // label47
             // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(17, 109);
+            resources.ApplyResources(this.label47, "label47");
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(116, 13);
-            this.label47.TabIndex = 2;
-            this.label47.Text = "Pressure && temperature";
             // 
             // label46
             // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(17, 187);
+            resources.ApplyResources(this.label46, "label46");
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(73, 13);
-            this.label46.TabIndex = 1;
-            this.label46.Text = "RC transmitter";
             // 
             // label45
             // 
-            this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(17, 135);
+            resources.ApplyResources(this.label45, "label45");
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(119, 13);
-            this.label45.TabIndex = 0;
-            this.label45.Text = "IMU raw sensors output";
             // 
             // _tpSensors
             // 
             this._tpSensors.Controls.Add(this.groupBox2);
             this._tpSensors.Controls.Add(this.groupBox1);
-            this._tpSensors.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this._tpSensors, "_tpSensors");
             this._tpSensors.Name = "_tpSensors";
-            this._tpSensors.Padding = new System.Windows.Forms.Padding(3);
-            this._tpSensors.Size = new System.Drawing.Size(590, 275);
-            this._tpSensors.TabIndex = 0;
-            this._tpSensors.Text = "Sensors";
             this._tpSensors.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this._btn_cube);
             this.groupBox2.Controls.Add(this._btn_use_current_gyro);
             this.groupBox2.Controls.Add(this._tbGyroZNeutral);
             this.groupBox2.Controls.Add(this._tbGyroYNeutral);
@@ -672,33 +582,14 @@
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this._tbAccXRaw);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(6, 64);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(574, 210);
-            this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "6DOF: accelerometers && gyroscopes";
-            // 
-            // _btn_cube
-            // 
-            this._btn_cube.Image = ((System.Drawing.Image)(resources.GetObject("_btn_cube.Image")));
-            this._btn_cube.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this._btn_cube.Location = new System.Drawing.Point(467, 10);
-            this._btn_cube.Name = "_btn_cube";
-            this._btn_cube.Size = new System.Drawing.Size(75, 23);
-            this._btn_cube.TabIndex = 39;
-            this._btn_cube.Text = "3D cube";
-            this._btn_cube.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this._btn_cube.UseVisualStyleBackColor = true;
-            this._btn_cube.Click += new System.EventHandler(this._btn_cube_Click);
             // 
             // _btn_use_current_gyro
             // 
-            this._btn_use_current_gyro.Location = new System.Drawing.Point(467, 151);
+            resources.ApplyResources(this._btn_use_current_gyro, "_btn_use_current_gyro");
             this._btn_use_current_gyro.Name = "_btn_use_current_gyro";
-            this._btn_use_current_gyro.Size = new System.Drawing.Size(75, 23);
-            this._btn_use_current_gyro.TabIndex = 38;
-            this._btn_use_current_gyro.Text = "Use current";
             this._btn_use_current_gyro.UseVisualStyleBackColor = true;
             this._btn_use_current_gyro.Click += new System.EventHandler(this._btn_use_current_gyro_Click);
             // 
@@ -710,13 +601,10 @@
             0,
             0,
             0});
-            this._tbGyroZNeutral.DoubleValue = 0;
+            this._tbGyroZNeutral.DoubleValue = 0D;
             this._tbGyroZNeutral.IntValue = 0;
-            this._tbGyroZNeutral.Location = new System.Drawing.Point(394, 153);
+            resources.ApplyResources(this._tbGyroZNeutral, "_tbGyroZNeutral");
             this._tbGyroZNeutral.Name = "_tbGyroZNeutral";
-            this._tbGyroZNeutral.Size = new System.Drawing.Size(67, 20);
-            this._tbGyroZNeutral.TabIndex = 37;
-            this._tbGyroZNeutral.Text = "0";
             this._tbGyroZNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
             // 
             // _tbGyroYNeutral
@@ -727,23 +615,16 @@
             0,
             0,
             0});
-            this._tbGyroYNeutral.DoubleValue = 0;
+            this._tbGyroYNeutral.DoubleValue = 0D;
             this._tbGyroYNeutral.IntValue = 0;
-            this._tbGyroYNeutral.Location = new System.Drawing.Point(255, 153);
+            resources.ApplyResources(this._tbGyroYNeutral, "_tbGyroYNeutral");
             this._tbGyroYNeutral.Name = "_tbGyroYNeutral";
-            this._tbGyroYNeutral.Size = new System.Drawing.Size(66, 20);
-            this._tbGyroYNeutral.TabIndex = 36;
-            this._tbGyroYNeutral.Text = "0";
             this._tbGyroYNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
             // 
             // label74
             // 
-            this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(55, 182);
+            resources.ApplyResources(this.label74, "label74");
             this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(60, 13);
-            this.label74.TabIndex = 35;
-            this.label74.Text = "Processed:";
             // 
             // _tbGyroXNeutral
             // 
@@ -753,214 +634,140 @@
             0,
             0,
             0});
-            this._tbGyroXNeutral.DoubleValue = 0;
+            this._tbGyroXNeutral.DoubleValue = 0D;
             this._tbGyroXNeutral.IntValue = 0;
-            this._tbGyroXNeutral.Location = new System.Drawing.Point(122, 153);
+            resources.ApplyResources(this._tbGyroXNeutral, "_tbGyroXNeutral");
             this._tbGyroXNeutral.Name = "_tbGyroXNeutral";
-            this._tbGyroXNeutral.Size = new System.Drawing.Size(67, 20);
-            this._tbGyroXNeutral.TabIndex = 34;
-            this._tbGyroXNeutral.Text = "0";
             this._tbGyroXNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
             // 
             // label73
             // 
-            this.label73.AutoSize = true;
-            this.label73.Location = new System.Drawing.Point(78, 130);
+            resources.ApplyResources(this.label73, "label73");
             this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(32, 13);
-            this.label73.TabIndex = 33;
-            this.label73.Text = "Raw:";
             // 
             // label72
             // 
-            this.label72.AutoSize = true;
-            this.label72.Location = new System.Drawing.Point(71, 157);
+            resources.ApplyResources(this.label72, "label72");
             this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(44, 13);
-            this.label72.TabIndex = 32;
-            this.label72.Text = "Neutral:";
             // 
             // _tbSumAcc
             // 
-            this._tbSumAcc.Location = new System.Drawing.Point(507, 91);
+            resources.ApplyResources(this._tbSumAcc, "_tbSumAcc");
             this._tbSumAcc.Name = "_tbSumAcc";
             this._tbSumAcc.ReadOnly = true;
-            this._tbSumAcc.Size = new System.Drawing.Size(44, 20);
-            this._tbSumAcc.TabIndex = 31;
             // 
             // label60
             // 
-            this.label60.AutoSize = true;
-            this.label60.Location = new System.Drawing.Point(488, 96);
+            resources.ApplyResources(this.label60, "label60");
             this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(13, 13);
-            this.label60.TabIndex = 30;
-            this.label60.Text = "=";
             // 
             // _tbGyroZRaw
             // 
-            this._tbGyroZRaw.Location = new System.Drawing.Point(394, 127);
+            resources.ApplyResources(this._tbGyroZRaw, "_tbGyroZRaw");
             this._tbGyroZRaw.Name = "_tbGyroZRaw";
             this._tbGyroZRaw.ReadOnly = true;
-            this._tbGyroZRaw.Size = new System.Drawing.Size(67, 20);
-            this._tbGyroZRaw.TabIndex = 29;
             // 
             // _tbGyroYRaw
             // 
-            this._tbGyroYRaw.Location = new System.Drawing.Point(255, 127);
+            resources.ApplyResources(this._tbGyroYRaw, "_tbGyroYRaw");
             this._tbGyroYRaw.Name = "_tbGyroYRaw";
             this._tbGyroYRaw.ReadOnly = true;
-            this._tbGyroYRaw.Size = new System.Drawing.Size(66, 20);
-            this._tbGyroYRaw.TabIndex = 28;
             // 
             // _tbGyroXRaw
             // 
-            this._tbGyroXRaw.Location = new System.Drawing.Point(122, 127);
+            resources.ApplyResources(this._tbGyroXRaw, "_tbGyroXRaw");
             this._tbGyroXRaw.Name = "_tbGyroXRaw";
             this._tbGyroXRaw.ReadOnly = true;
-            this._tbGyroXRaw.Size = new System.Drawing.Size(67, 20);
-            this._tbGyroXRaw.TabIndex = 27;
             // 
             // _btn_sensors_current_to_neutral
             // 
-            this._btn_sensors_current_to_neutral.Location = new System.Drawing.Point(467, 63);
+            resources.ApplyResources(this._btn_sensors_current_to_neutral, "_btn_sensors_current_to_neutral");
             this._btn_sensors_current_to_neutral.Name = "_btn_sensors_current_to_neutral";
-            this._btn_sensors_current_to_neutral.Size = new System.Drawing.Size(75, 23);
-            this._btn_sensors_current_to_neutral.TabIndex = 26;
-            this._btn_sensors_current_to_neutral.Text = "Use current";
             this._btn_sensors_current_to_neutral.UseVisualStyleBackColor = true;
             this._btn_sensors_current_to_neutral.Click += new System.EventHandler(this._btn_sensors_current_to_neutral_Click);
             // 
             // _llConfigSensors
             // 
-            this._llConfigSensors.AutoSize = true;
-            this._llConfigSensors.Location = new System.Drawing.Point(544, 15);
+            resources.ApplyResources(this._llConfigSensors, "_llConfigSensors");
             this._llConfigSensors.Name = "_llConfigSensors";
-            this._llConfigSensors.Size = new System.Drawing.Size(28, 13);
-            this._llConfigSensors.TabIndex = 11;
             this._llConfigSensors.TabStop = true;
-            this._llConfigSensors.Text = "Wiki";
             this._llConfigSensors.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._llConfigSensors_LinkClicked);
             // 
             // label20
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(467, 182);
+            resources.ApplyResources(this.label20, "label20");
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(21, 13);
-            this.label20.TabIndex = 25;
-            this.label20.Text = "°/s";
             // 
             // label19
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(327, 182);
+            resources.ApplyResources(this.label19, "label19");
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(21, 13);
-            this.label19.TabIndex = 24;
-            this.label19.Text = "°/s";
             // 
             // label18
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(194, 182);
+            resources.ApplyResources(this.label18, "label18");
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(21, 13);
-            this.label18.TabIndex = 23;
-            this.label18.Text = "°/s";
             // 
             // _tbGyroZ
             // 
-            this._tbGyroZ.Location = new System.Drawing.Point(394, 179);
+            resources.ApplyResources(this._tbGyroZ, "_tbGyroZ");
             this._tbGyroZ.Name = "_tbGyroZ";
             this._tbGyroZ.ReadOnly = true;
-            this._tbGyroZ.Size = new System.Drawing.Size(67, 20);
-            this._tbGyroZ.TabIndex = 22;
             // 
             // _tbGyroY
             // 
-            this._tbGyroY.Location = new System.Drawing.Point(255, 179);
+            resources.ApplyResources(this._tbGyroY, "_tbGyroY");
             this._tbGyroY.Name = "_tbGyroY";
             this._tbGyroY.ReadOnly = true;
-            this._tbGyroY.Size = new System.Drawing.Size(66, 20);
-            this._tbGyroY.TabIndex = 21;
             // 
             // _tbGyroX
             // 
-            this._tbGyroX.Location = new System.Drawing.Point(122, 179);
+            resources.ApplyResources(this._tbGyroX, "_tbGyroX");
             this._tbGyroX.Name = "_tbGyroX";
             this._tbGyroX.ReadOnly = true;
-            this._tbGyroX.Size = new System.Drawing.Size(67, 20);
-            this._tbGyroX.TabIndex = 20;
             // 
             // label17
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(464, 96);
+            resources.ApplyResources(this.label17, "label17");
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(13, 13);
-            this.label17.TabIndex = 19;
-            this.label17.Text = "g";
             // 
             // label16
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(327, 96);
+            resources.ApplyResources(this.label16, "label16");
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(13, 13);
-            this.label16.TabIndex = 18;
-            this.label16.Text = "g";
             // 
             // label15
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(195, 96);
+            resources.ApplyResources(this.label15, "label15");
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(13, 13);
-            this.label15.TabIndex = 17;
-            this.label15.Text = "g";
             // 
             // label14
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 130);
+            resources.ApplyResources(this.label14, "label14");
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(66, 13);
-            this.label14.TabIndex = 16;
-            this.label14.Text = "Gyroscopes:";
             // 
             // _tbAccZ
             // 
-            this._tbAccZ.Location = new System.Drawing.Point(394, 91);
+            resources.ApplyResources(this._tbAccZ, "_tbAccZ");
             this._tbAccZ.Name = "_tbAccZ";
             this._tbAccZ.ReadOnly = true;
-            this._tbAccZ.Size = new System.Drawing.Size(66, 20);
-            this._tbAccZ.TabIndex = 15;
             // 
             // _tbAccY
             // 
-            this._tbAccY.Location = new System.Drawing.Point(255, 91);
+            resources.ApplyResources(this._tbAccY, "_tbAccY");
             this._tbAccY.Name = "_tbAccY";
             this._tbAccY.ReadOnly = true;
-            this._tbAccY.Size = new System.Drawing.Size(66, 20);
-            this._tbAccY.TabIndex = 14;
             // 
             // _tbAccX
             // 
-            this._tbAccX.Location = new System.Drawing.Point(122, 92);
+            resources.ApplyResources(this._tbAccX, "_tbAccX");
             this._tbAccX.Name = "_tbAccX";
             this._tbAccX.ReadOnly = true;
-            this._tbAccX.Size = new System.Drawing.Size(66, 20);
-            this._tbAccX.TabIndex = 13;
             // 
             // label13
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(55, 96);
+            resources.ApplyResources(this.label13, "label13");
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(60, 13);
-            this.label13.TabIndex = 12;
-            this.label13.Text = "Processed:";
             // 
             // _tbAccZNeutral
             // 
@@ -970,13 +777,10 @@
             0,
             0,
             0});
-            this._tbAccZNeutral.DoubleValue = 0;
+            this._tbAccZNeutral.DoubleValue = 0D;
             this._tbAccZNeutral.IntValue = 0;
-            this._tbAccZNeutral.Location = new System.Drawing.Point(394, 65);
+            resources.ApplyResources(this._tbAccZNeutral, "_tbAccZNeutral");
             this._tbAccZNeutral.Name = "_tbAccZNeutral";
-            this._tbAccZNeutral.Size = new System.Drawing.Size(67, 20);
-            this._tbAccZNeutral.TabIndex = 11;
-            this._tbAccZNeutral.Text = "0";
             this._tbAccZNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
             // 
             // _tbAccYNeutral
@@ -987,13 +791,10 @@
             0,
             0,
             0});
-            this._tbAccYNeutral.DoubleValue = 0;
+            this._tbAccYNeutral.DoubleValue = 0D;
             this._tbAccYNeutral.IntValue = 0;
-            this._tbAccYNeutral.Location = new System.Drawing.Point(255, 65);
+            resources.ApplyResources(this._tbAccYNeutral, "_tbAccYNeutral");
             this._tbAccYNeutral.Name = "_tbAccYNeutral";
-            this._tbAccYNeutral.Size = new System.Drawing.Size(66, 20);
-            this._tbAccYNeutral.TabIndex = 10;
-            this._tbAccYNeutral.Text = "0";
             this._tbAccYNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
             // 
             // _tbAccXNeutral
@@ -1004,92 +805,59 @@
             0,
             0,
             0});
-            this._tbAccXNeutral.DoubleValue = 0;
+            this._tbAccXNeutral.DoubleValue = 0D;
             this._tbAccXNeutral.IntValue = 0;
-            this._tbAccXNeutral.Location = new System.Drawing.Point(121, 65);
+            resources.ApplyResources(this._tbAccXNeutral, "_tbAccXNeutral");
             this._tbAccXNeutral.Name = "_tbAccXNeutral";
-            this._tbAccXNeutral.Size = new System.Drawing.Size(67, 20);
-            this._tbAccXNeutral.TabIndex = 9;
-            this._tbAccXNeutral.Text = "0";
             this._tbAccXNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(71, 68);
+            resources.ApplyResources(this.label12, "label12");
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(44, 13);
-            this.label12.TabIndex = 8;
-            this.label12.Text = "Neutral:";
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(86, 42);
+            resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(32, 13);
-            this.label11.TabIndex = 7;
-            this.label11.Text = "Raw:";
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(420, 23);
+            resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(14, 13);
-            this.label10.TabIndex = 6;
-            this.label10.Text = "Z";
             // 
             // _tbAccZRaw
             // 
-            this._tbAccZRaw.Location = new System.Drawing.Point(394, 39);
+            resources.ApplyResources(this._tbAccZRaw, "_tbAccZRaw");
             this._tbAccZRaw.Name = "_tbAccZRaw";
             this._tbAccZRaw.ReadOnly = true;
-            this._tbAccZRaw.Size = new System.Drawing.Size(67, 20);
-            this._tbAccZRaw.TabIndex = 5;
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(282, 23);
+            resources.ApplyResources(this.label9, "label9");
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(14, 13);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Y";
             // 
             // _tbAccYRaw
             // 
-            this._tbAccYRaw.Location = new System.Drawing.Point(255, 39);
+            resources.ApplyResources(this._tbAccYRaw, "_tbAccYRaw");
             this._tbAccYRaw.Name = "_tbAccYRaw";
             this._tbAccYRaw.ReadOnly = true;
-            this._tbAccYRaw.Size = new System.Drawing.Size(66, 20);
-            this._tbAccYRaw.TabIndex = 3;
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(147, 23);
+            resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(14, 13);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "X";
             // 
             // _tbAccXRaw
             // 
-            this._tbAccXRaw.Location = new System.Drawing.Point(121, 39);
+            resources.ApplyResources(this._tbAccXRaw, "_tbAccXRaw");
             this._tbAccXRaw.Name = "_tbAccXRaw";
             this._tbAccXRaw.ReadOnly = true;
-            this._tbAccXRaw.Size = new System.Drawing.Size(67, 20);
-            this._tbAccXRaw.TabIndex = 1;
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 42);
+            resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(78, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Accelerometer:";
             // 
             // groupBox1
             // 
@@ -1102,90 +870,57 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this._tbPressure);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(574, 52);
-            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "SCP1000 pressure sensor";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(511, 22);
+            resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(18, 13);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "°C";
             // 
             // _tbTemperature
             // 
-            this._tbTemperature.Location = new System.Drawing.Point(462, 19);
+            resources.ApplyResources(this._tbTemperature, "_tbTemperature");
             this._tbTemperature.Name = "_tbTemperature";
             this._tbTemperature.ReadOnly = true;
-            this._tbTemperature.Size = new System.Drawing.Size(43, 20);
-            this._tbTemperature.TabIndex = 8;
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(386, 22);
+            resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(70, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Temperature:";
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(329, 22);
+            resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(15, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "m";
             // 
             // _tbHeight
             // 
-            this._tbHeight.Location = new System.Drawing.Point(251, 19);
+            resources.ApplyResources(this._tbHeight, "_tbHeight");
             this._tbHeight.Name = "_tbHeight";
             this._tbHeight.ReadOnly = true;
-            this._tbHeight.Size = new System.Drawing.Size(72, 20);
-            this._tbHeight.TabIndex = 5;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(204, 22);
+            resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Height:";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(133, 22);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(20, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Pa";
             // 
             // _tbPressure
             // 
-            this._tbPressure.Location = new System.Drawing.Point(58, 19);
+            resources.ApplyResources(this._tbPressure, "_tbPressure");
             this._tbPressure.Name = "_tbPressure";
             this._tbPressure.ReadOnly = true;
-            this._tbPressure.Size = new System.Drawing.Size(69, 20);
-            this._tbPressure.TabIndex = 2;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1, 22);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Pressure:";
             // 
             // _tbGps
             // 
@@ -1211,199 +946,125 @@
             this._tbGps.Controls.Add(this.label50);
             this._tbGps.Controls.Add(this._tb_initial_baudrate);
             this._tbGps.Controls.Add(this._tb_operational_baudrate);
-            this._tbGps.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this._tbGps, "_tbGps");
             this._tbGps.Name = "_tbGps";
-            this._tbGps.Size = new System.Drawing.Size(590, 275);
-            this._tbGps.TabIndex = 4;
-            this._tbGps.Text = "GPS";
             this._tbGps.UseVisualStyleBackColor = true;
             // 
             // _rb_gps_notfound
             // 
-            this._rb_gps_notfound.AutoSize = true;
-            this._rb_gps_notfound.Enabled = false;
-            this._rb_gps_notfound.Location = new System.Drawing.Point(235, 127);
+            resources.ApplyResources(this._rb_gps_notfound, "_rb_gps_notfound");
             this._rb_gps_notfound.Name = "_rb_gps_notfound";
-            this._rb_gps_notfound.Size = new System.Drawing.Size(72, 17);
-            this._rb_gps_notfound.TabIndex = 23;
             this._rb_gps_notfound.TabStop = true;
-            this._rb_gps_notfound.Text = "Not found";
             this._rb_gps_notfound.UseVisualStyleBackColor = true;
             // 
             // _llConfigGps
             // 
-            this._llConfigGps.AutoSize = true;
-            this._llConfigGps.Location = new System.Drawing.Point(550, 9);
+            resources.ApplyResources(this._llConfigGps, "_llConfigGps");
             this._llConfigGps.Name = "_llConfigGps";
-            this._llConfigGps.Size = new System.Drawing.Size(28, 13);
-            this._llConfigGps.TabIndex = 22;
             this._llConfigGps.TabStop = true;
-            this._llConfigGps.Text = "Wiki";
             this._llConfigGps.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._llConfigGps_LinkClicked);
             // 
             // _llGoogleMaps
             // 
-            this._llGoogleMaps.AutoSize = true;
-            this._llGoogleMaps.Location = new System.Drawing.Point(370, 129);
+            resources.ApplyResources(this._llGoogleMaps, "_llGoogleMaps");
             this._llGoogleMaps.Name = "_llGoogleMaps";
-            this._llGoogleMaps.Size = new System.Drawing.Size(93, 13);
-            this._llGoogleMaps.TabIndex = 21;
             this._llGoogleMaps.TabStop = true;
-            this._llGoogleMaps.Text = "Goto google maps";
             this._llGoogleMaps.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._llGoogleMaps_LinkClicked);
             // 
             // _tb_gps_numsat
             // 
-            this._tb_gps_numsat.Location = new System.Drawing.Point(122, 186);
+            resources.ApplyResources(this._tb_gps_numsat, "_tb_gps_numsat");
             this._tb_gps_numsat.Name = "_tb_gps_numsat";
             this._tb_gps_numsat.ReadOnly = true;
-            this._tb_gps_numsat.Size = new System.Drawing.Size(35, 20);
-            this._tb_gps_numsat.TabIndex = 19;
             // 
             // _tb_gps_heading
             // 
-            this._tb_gps_heading.Location = new System.Drawing.Point(518, 153);
+            resources.ApplyResources(this._tb_gps_heading, "_tb_gps_heading");
             this._tb_gps_heading.Name = "_tb_gps_heading";
             this._tb_gps_heading.ReadOnly = true;
-            this._tb_gps_heading.Size = new System.Drawing.Size(42, 20);
-            this._tb_gps_heading.TabIndex = 18;
             // 
             // _tb_gps_speed
             // 
-            this._tb_gps_speed.Location = new System.Drawing.Point(414, 153);
+            resources.ApplyResources(this._tb_gps_speed, "_tb_gps_speed");
             this._tb_gps_speed.Name = "_tb_gps_speed";
             this._tb_gps_speed.ReadOnly = true;
-            this._tb_gps_speed.Size = new System.Drawing.Size(42, 20);
-            this._tb_gps_speed.TabIndex = 17;
             // 
             // _tb_gps_height
             // 
-            this._tb_gps_height.Location = new System.Drawing.Point(319, 153);
+            resources.ApplyResources(this._tb_gps_height, "_tb_gps_height");
             this._tb_gps_height.Name = "_tb_gps_height";
             this._tb_gps_height.ReadOnly = true;
-            this._tb_gps_height.Size = new System.Drawing.Size(42, 20);
-            this._tb_gps_height.TabIndex = 16;
             // 
             // _tb_gps_longitude
             // 
-            this._tb_gps_longitude.Location = new System.Drawing.Point(203, 153);
+            resources.ApplyResources(this._tb_gps_longitude, "_tb_gps_longitude");
             this._tb_gps_longitude.Name = "_tb_gps_longitude";
             this._tb_gps_longitude.ReadOnly = true;
-            this._tb_gps_longitude.Size = new System.Drawing.Size(63, 20);
-            this._tb_gps_longitude.TabIndex = 15;
             // 
             // _tb_gps_latitude
             // 
-            this._tb_gps_latitude.Location = new System.Drawing.Point(71, 153);
+            resources.ApplyResources(this._tb_gps_latitude, "_tb_gps_latitude");
             this._tb_gps_latitude.Name = "_tb_gps_latitude";
             this._tb_gps_latitude.ReadOnly = true;
-            this._tb_gps_latitude.Size = new System.Drawing.Size(63, 20);
-            this._tb_gps_latitude.TabIndex = 14;
             // 
             // label57
             // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(14, 189);
+            resources.ApplyResources(this.label57, "label57");
             this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(102, 13);
-            this.label57.TabIndex = 13;
-            this.label57.Text = "Number of satellites:";
             // 
             // label56
             // 
-            this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(462, 156);
+            resources.ApplyResources(this.label56, "label56");
             this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(50, 13);
-            this.label56.TabIndex = 12;
-            this.label56.Text = "Heading:";
             // 
             // label55
             // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(367, 156);
+            resources.ApplyResources(this.label55, "label55");
             this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(41, 13);
-            this.label55.TabIndex = 11;
-            this.label55.Text = "Speed:";
             // 
             // label54
             // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(272, 156);
+            resources.ApplyResources(this.label54, "label54");
             this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(41, 13);
-            this.label54.TabIndex = 10;
-            this.label54.Text = "Height:";
             // 
             // label53
             // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(140, 156);
+            resources.ApplyResources(this.label53, "label53");
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(57, 13);
-            this.label53.TabIndex = 9;
-            this.label53.Text = "Longitude:";
             // 
             // label52
             // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(14, 156);
+            resources.ApplyResources(this.label52, "label52");
             this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(51, 13);
-            this.label52.TabIndex = 8;
-            this.label52.Text = "Latitude: ";
             // 
             // label51
             // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(14, 130);
+            resources.ApplyResources(this.label51, "label51");
             this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(40, 13);
-            this.label51.TabIndex = 7;
-            this.label51.Text = "Status:";
             // 
             // _rb_gps_status_active
             // 
-            this._rb_gps_status_active.AutoSize = true;
-            this._rb_gps_status_active.Enabled = false;
-            this._rb_gps_status_active.Location = new System.Drawing.Point(168, 127);
+            resources.ApplyResources(this._rb_gps_status_active, "_rb_gps_status_active");
             this._rb_gps_status_active.Name = "_rb_gps_status_active";
-            this._rb_gps_status_active.Size = new System.Drawing.Size(61, 17);
-            this._rb_gps_status_active.TabIndex = 6;
             this._rb_gps_status_active.TabStop = true;
-            this._rb_gps_status_active.Text = "Locked";
             this._rb_gps_status_active.UseVisualStyleBackColor = true;
             // 
             // _rb_gps_status_void
             // 
-            this._rb_gps_status_void.AutoSize = true;
-            this._rb_gps_status_void.Enabled = false;
-            this._rb_gps_status_void.Location = new System.Drawing.Point(71, 127);
+            resources.ApplyResources(this._rb_gps_status_void, "_rb_gps_status_void");
             this._rb_gps_status_void.Name = "_rb_gps_status_void";
-            this._rb_gps_status_void.Size = new System.Drawing.Size(92, 17);
-            this._rb_gps_status_void.TabIndex = 5;
             this._rb_gps_status_void.TabStop = true;
-            this._rb_gps_status_void.Text = "Acquiring lock";
             this._rb_gps_status_void.UseVisualStyleBackColor = true;
             // 
             // label456
             // 
-            this.label456.AutoSize = true;
-            this.label456.Location = new System.Drawing.Point(14, 40);
+            resources.ApplyResources(this.label456, "label456");
             this.label456.Name = "label456";
-            this.label456.Size = new System.Drawing.Size(109, 13);
-            this.label456.TabIndex = 2;
-            this.label456.Text = "Operational baudrate:";
             // 
             // label50
             // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(14, 16);
+            resources.ApplyResources(this.label50, "label50");
             this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(92, 13);
-            this.label50.TabIndex = 0;
-            this.label50.Text = "Start-up baudrate:";
             // 
             // _tb_initial_baudrate
             // 
@@ -1413,13 +1074,10 @@
             0,
             0,
             0});
-            this._tb_initial_baudrate.DoubleValue = 0;
+            this._tb_initial_baudrate.DoubleValue = 0D;
             this._tb_initial_baudrate.IntValue = 0;
-            this._tb_initial_baudrate.Location = new System.Drawing.Point(129, 13);
+            resources.ApplyResources(this._tb_initial_baudrate, "_tb_initial_baudrate");
             this._tb_initial_baudrate.Name = "_tb_initial_baudrate";
-            this._tb_initial_baudrate.Size = new System.Drawing.Size(100, 20);
-            this._tb_initial_baudrate.TabIndex = 20;
-            this._tb_initial_baudrate.Text = "0";
             this._tb_initial_baudrate.TextChanged += new System.EventHandler(this._tb_initial_baudrate_TextChanged);
             // 
             // _tb_operational_baudrate
@@ -1430,14 +1088,10 @@
             0,
             0,
             0});
-            this._tb_operational_baudrate.DoubleValue = 0;
-            this._tb_operational_baudrate.Enabled = false;
+            this._tb_operational_baudrate.DoubleValue = 0D;
+            resources.ApplyResources(this._tb_operational_baudrate, "_tb_operational_baudrate");
             this._tb_operational_baudrate.IntValue = 0;
-            this._tb_operational_baudrate.Location = new System.Drawing.Point(129, 39);
             this._tb_operational_baudrate.Name = "_tb_operational_baudrate";
-            this._tb_operational_baudrate.Size = new System.Drawing.Size(100, 20);
-            this._tb_operational_baudrate.TabIndex = 3;
-            this._tb_operational_baudrate.Text = "0";
             this._tb_operational_baudrate.TextChanged += new System.EventHandler(this._tb_operational_baudrate_TextChanged);
             // 
             // _tpRc
@@ -1448,40 +1102,25 @@
             this._tpRc.Controls.Add(this.groupBox3);
             this._tpRc.Controls.Add(this._rbPwm);
             this._tpRc.Controls.Add(this._rbPpm);
-            this._tpRc.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this._tpRc, "_tpRc");
             this._tpRc.Name = "_tpRc";
-            this._tpRc.Size = new System.Drawing.Size(590, 275);
-            this._tpRc.TabIndex = 2;
-            this._tpRc.Text = "RC input";
             this._tpRc.UseVisualStyleBackColor = true;
             // 
             // label78
             // 
-            this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(173, 248);
+            resources.ApplyResources(this.label78, "label78");
             this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(52, 13);
-            this.label78.TabIndex = 26;
-            this.label78.Text = "Stabilized";
             // 
             // _llRc
             // 
-            this._llRc.AutoSize = true;
-            this._llRc.Location = new System.Drawing.Point(552, 8);
+            resources.ApplyResources(this._llRc, "_llRc");
             this._llRc.Name = "_llRc";
-            this._llRc.Size = new System.Drawing.Size(28, 13);
-            this._llRc.TabIndex = 25;
             this._llRc.TabStop = true;
-            this._llRc.Text = "Wiki";
             // 
             // label75
             // 
-            this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(278, 22);
+            resources.ApplyResources(this.label75, "label75");
             this.label75.Name = "label75";
-            this.label75.Size = new System.Drawing.Size(156, 13);
-            this.label75.TabIndex = 24;
-            this.label75.Text = "(Burn to flash && Reset required!)";
             // 
             // groupBox3
             // 
@@ -1520,57 +1159,34 @@
             this.groupBox3.Controls.Add(this._lblCh1Ms);
             this.groupBox3.Controls.Add(this.label21);
             this.groupBox3.Controls.Add(this._pbCh1);
-            this.groupBox3.Location = new System.Drawing.Point(17, 46);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(548, 218);
-            this.groupBox3.TabIndex = 23;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Channel configuration";
             // 
             // label77
             // 
-            this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(208, 190);
+            resources.ApplyResources(this.label77, "label77");
             this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(147, 13);
-            this.label77.TabIndex = 36;
-            this.label77.Text = "Up/Right/Full throttle/Manual";
             // 
             // label76
             // 
-            this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(5, 190);
+            resources.ApplyResources(this.label76, "label76");
             this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(126, 13);
-            this.label76.TabIndex = 35;
-            this.label76.Text = "Down/Left/Idle/Autopilot";
             // 
             // label24
             // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(213, 25);
+            resources.ApplyResources(this.label24, "label24");
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(31, 13);
-            this.label24.TabIndex = 34;
-            this.label24.Text = "2ms |";
             // 
             // label22
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(122, 25);
+            resources.ApplyResources(this.label22, "label22");
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(31, 13);
-            this.label22.TabIndex = 33;
-            this.label22.Text = "| 1ms";
             // 
             // label38
             // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(482, 21);
+            resources.ApplyResources(this.label38, "label38");
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(48, 13);
-            this.label38.TabIndex = 32;
-            this.label38.Text = "Autopilot";
             // 
             // panel4
             // 
@@ -1581,96 +1197,69 @@
             this.panel4.Controls.Add(this._rbApCh3);
             this.panel4.Controls.Add(this._rbApCh2);
             this.panel4.Controls.Add(this._rbApCh1);
-            this.panel4.Location = new System.Drawing.Point(498, 30);
+            resources.ApplyResources(this.panel4, "panel4");
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(30, 165);
-            this.panel4.TabIndex = 31;
             // 
             // _rbApCh7
             // 
-            this._rbApCh7.AutoSize = true;
-            this._rbApCh7.Location = new System.Drawing.Point(0, 137);
+            resources.ApplyResources(this._rbApCh7, "_rbApCh7");
             this._rbApCh7.Name = "_rbApCh7";
-            this._rbApCh7.Size = new System.Drawing.Size(14, 13);
-            this._rbApCh7.TabIndex = 26;
             this._rbApCh7.TabStop = true;
             this._rbApCh7.UseVisualStyleBackColor = true;
             this._rbApCh7.CheckedChanged += new System.EventHandler(this.ApChannel_CheckedChanged);
             // 
             // _rbApCh4
             // 
-            this._rbApCh4.AutoSize = true;
-            this._rbApCh4.Location = new System.Drawing.Point(0, 74);
+            resources.ApplyResources(this._rbApCh4, "_rbApCh4");
             this._rbApCh4.Name = "_rbApCh4";
-            this._rbApCh4.Size = new System.Drawing.Size(14, 13);
-            this._rbApCh4.TabIndex = 29;
             this._rbApCh4.TabStop = true;
             this._rbApCh4.UseVisualStyleBackColor = true;
             this._rbApCh4.CheckedChanged += new System.EventHandler(this.ApChannel_CheckedChanged);
             // 
             // _rbApCh6
             // 
-            this._rbApCh6.AutoSize = true;
-            this._rbApCh6.Location = new System.Drawing.Point(0, 116);
+            resources.ApplyResources(this._rbApCh6, "_rbApCh6");
             this._rbApCh6.Name = "_rbApCh6";
-            this._rbApCh6.Size = new System.Drawing.Size(14, 13);
-            this._rbApCh6.TabIndex = 28;
             this._rbApCh6.TabStop = true;
             this._rbApCh6.UseVisualStyleBackColor = true;
             this._rbApCh6.CheckedChanged += new System.EventHandler(this.ApChannel_CheckedChanged);
             // 
             // _rbApCh5
             // 
-            this._rbApCh5.AutoSize = true;
-            this._rbApCh5.Location = new System.Drawing.Point(0, 95);
+            resources.ApplyResources(this._rbApCh5, "_rbApCh5");
             this._rbApCh5.Name = "_rbApCh5";
-            this._rbApCh5.Size = new System.Drawing.Size(14, 13);
-            this._rbApCh5.TabIndex = 27;
             this._rbApCh5.TabStop = true;
             this._rbApCh5.UseVisualStyleBackColor = true;
             this._rbApCh5.CheckedChanged += new System.EventHandler(this.ApChannel_CheckedChanged);
             // 
             // _rbApCh3
             // 
-            this._rbApCh3.AutoSize = true;
-            this._rbApCh3.Location = new System.Drawing.Point(0, 53);
+            resources.ApplyResources(this._rbApCh3, "_rbApCh3");
             this._rbApCh3.Name = "_rbApCh3";
-            this._rbApCh3.Size = new System.Drawing.Size(14, 13);
-            this._rbApCh3.TabIndex = 25;
             this._rbApCh3.TabStop = true;
             this._rbApCh3.UseVisualStyleBackColor = true;
             this._rbApCh3.CheckedChanged += new System.EventHandler(this.ApChannel_CheckedChanged);
             // 
             // _rbApCh2
             // 
-            this._rbApCh2.AutoSize = true;
-            this._rbApCh2.Location = new System.Drawing.Point(0, 32);
+            resources.ApplyResources(this._rbApCh2, "_rbApCh2");
             this._rbApCh2.Name = "_rbApCh2";
-            this._rbApCh2.Size = new System.Drawing.Size(14, 13);
-            this._rbApCh2.TabIndex = 24;
             this._rbApCh2.TabStop = true;
             this._rbApCh2.UseVisualStyleBackColor = true;
             this._rbApCh2.CheckedChanged += new System.EventHandler(this.ApChannel_CheckedChanged);
             // 
             // _rbApCh1
             // 
-            this._rbApCh1.AutoSize = true;
-            this._rbApCh1.Location = new System.Drawing.Point(0, 11);
+            resources.ApplyResources(this._rbApCh1, "_rbApCh1");
             this._rbApCh1.Name = "_rbApCh1";
-            this._rbApCh1.Size = new System.Drawing.Size(14, 13);
-            this._rbApCh1.TabIndex = 23;
             this._rbApCh1.TabStop = true;
             this._rbApCh1.UseVisualStyleBackColor = true;
             this._rbApCh1.CheckedChanged += new System.EventHandler(this.ApChannel_CheckedChanged);
             // 
             // label37
             // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(451, 21);
+            resources.ApplyResources(this.label37, "label37");
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(34, 13);
-            this.label37.TabIndex = 31;
-            this.label37.Text = "Motor";
             // 
             // panel3
             // 
@@ -1681,97 +1270,69 @@
             this.panel3.Controls.Add(this._rbMotorCh3);
             this.panel3.Controls.Add(this._rbMotorCh2);
             this.panel3.Controls.Add(this._rbMotorCh1);
-            this.panel3.Location = new System.Drawing.Point(462, 30);
+            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(30, 165);
-            this.panel3.TabIndex = 30;
             // 
             // _rbMotorCh7
             // 
-            this._rbMotorCh7.AutoSize = true;
-            this._rbMotorCh7.Location = new System.Drawing.Point(0, 137);
+            resources.ApplyResources(this._rbMotorCh7, "_rbMotorCh7");
             this._rbMotorCh7.Name = "_rbMotorCh7";
-            this._rbMotorCh7.Size = new System.Drawing.Size(14, 13);
-            this._rbMotorCh7.TabIndex = 26;
             this._rbMotorCh7.TabStop = true;
             this._rbMotorCh7.UseVisualStyleBackColor = true;
             this._rbMotorCh7.CheckedChanged += new System.EventHandler(this.MotorChannel_CheckedChanged);
             // 
             // _rbMotorCh4
             // 
-            this._rbMotorCh4.AutoSize = true;
-            this._rbMotorCh4.Location = new System.Drawing.Point(0, 74);
+            resources.ApplyResources(this._rbMotorCh4, "_rbMotorCh4");
             this._rbMotorCh4.Name = "_rbMotorCh4";
-            this._rbMotorCh4.Size = new System.Drawing.Size(14, 13);
-            this._rbMotorCh4.TabIndex = 29;
             this._rbMotorCh4.TabStop = true;
             this._rbMotorCh4.UseVisualStyleBackColor = true;
             this._rbMotorCh4.CheckedChanged += new System.EventHandler(this.MotorChannel_CheckedChanged);
             // 
             // _rbMotorCh6
             // 
-            this._rbMotorCh6.AutoSize = true;
-            this._rbMotorCh6.Location = new System.Drawing.Point(0, 116);
+            resources.ApplyResources(this._rbMotorCh6, "_rbMotorCh6");
             this._rbMotorCh6.Name = "_rbMotorCh6";
-            this._rbMotorCh6.Size = new System.Drawing.Size(14, 13);
-            this._rbMotorCh6.TabIndex = 28;
             this._rbMotorCh6.TabStop = true;
             this._rbMotorCh6.UseVisualStyleBackColor = true;
             this._rbMotorCh6.CheckedChanged += new System.EventHandler(this.MotorChannel_CheckedChanged);
             // 
             // _rbMotorCh5
             // 
-            this._rbMotorCh5.AutoSize = true;
-            this._rbMotorCh5.Location = new System.Drawing.Point(0, 95);
+            resources.ApplyResources(this._rbMotorCh5, "_rbMotorCh5");
             this._rbMotorCh5.Name = "_rbMotorCh5";
-            this._rbMotorCh5.Size = new System.Drawing.Size(14, 13);
-            this._rbMotorCh5.TabIndex = 27;
             this._rbMotorCh5.TabStop = true;
             this._rbMotorCh5.UseVisualStyleBackColor = true;
             this._rbMotorCh5.CheckedChanged += new System.EventHandler(this.MotorChannel_CheckedChanged);
             // 
             // _rbMotorCh3
             // 
-            this._rbMotorCh3.AutoSize = true;
-            this._rbMotorCh3.Location = new System.Drawing.Point(0, 53);
+            resources.ApplyResources(this._rbMotorCh3, "_rbMotorCh3");
             this._rbMotorCh3.Name = "_rbMotorCh3";
-            this._rbMotorCh3.Size = new System.Drawing.Size(14, 13);
-            this._rbMotorCh3.TabIndex = 25;
             this._rbMotorCh3.TabStop = true;
             this._rbMotorCh3.UseVisualStyleBackColor = true;
             this._rbMotorCh3.CheckedChanged += new System.EventHandler(this.MotorChannel_CheckedChanged);
             // 
             // _rbMotorCh2
             // 
-            this._rbMotorCh2.AutoSize = true;
-            this._rbMotorCh2.Location = new System.Drawing.Point(0, 32);
+            resources.ApplyResources(this._rbMotorCh2, "_rbMotorCh2");
             this._rbMotorCh2.Name = "_rbMotorCh2";
-            this._rbMotorCh2.Size = new System.Drawing.Size(14, 13);
-            this._rbMotorCh2.TabIndex = 24;
             this._rbMotorCh2.TabStop = true;
             this._rbMotorCh2.UseVisualStyleBackColor = true;
             this._rbMotorCh2.CheckedChanged += new System.EventHandler(this.MotorChannel_CheckedChanged);
             // 
             // _rbMotorCh1
             // 
-            this._rbMotorCh1.AutoSize = true;
-            this._rbMotorCh1.Location = new System.Drawing.Point(0, 11);
+            resources.ApplyResources(this._rbMotorCh1, "_rbMotorCh1");
             this._rbMotorCh1.Name = "_rbMotorCh1";
-            this._rbMotorCh1.Size = new System.Drawing.Size(14, 13);
-            this._rbMotorCh1.TabIndex = 23;
             this._rbMotorCh1.TabStop = true;
             this._rbMotorCh1.UseVisualStyleBackColor = true;
             this._rbMotorCh1.CheckedChanged += new System.EventHandler(this.MotorChannel_CheckedChanged);
             // 
             // label36
             // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(417, 21);
+            resources.ApplyResources(this.label36, "label36");
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(34, 13);
-            this.label36.TabIndex = 29;
-            this.label36.Text = "(Yaw)";
-            this.label36.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panel2
             // 
@@ -1782,96 +1343,69 @@
             this.panel2.Controls.Add(this._rbYawCh3);
             this.panel2.Controls.Add(this._rbYawCh2);
             this.panel2.Controls.Add(this._rbYawCh1);
-            this.panel2.Location = new System.Drawing.Point(426, 30);
+            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(30, 165);
-            this.panel2.TabIndex = 28;
             // 
             // _rbYawCh7
             // 
-            this._rbYawCh7.AutoSize = true;
-            this._rbYawCh7.Location = new System.Drawing.Point(0, 137);
+            resources.ApplyResources(this._rbYawCh7, "_rbYawCh7");
             this._rbYawCh7.Name = "_rbYawCh7";
-            this._rbYawCh7.Size = new System.Drawing.Size(14, 13);
-            this._rbYawCh7.TabIndex = 26;
             this._rbYawCh7.TabStop = true;
             this._rbYawCh7.UseVisualStyleBackColor = true;
             this._rbYawCh7.CheckedChanged += new System.EventHandler(this.YawChannel_CheckedChanged);
             // 
             // _rbYawCh4
             // 
-            this._rbYawCh4.AutoSize = true;
-            this._rbYawCh4.Location = new System.Drawing.Point(0, 74);
+            resources.ApplyResources(this._rbYawCh4, "_rbYawCh4");
             this._rbYawCh4.Name = "_rbYawCh4";
-            this._rbYawCh4.Size = new System.Drawing.Size(14, 13);
-            this._rbYawCh4.TabIndex = 29;
             this._rbYawCh4.TabStop = true;
             this._rbYawCh4.UseVisualStyleBackColor = true;
             this._rbYawCh4.CheckedChanged += new System.EventHandler(this.YawChannel_CheckedChanged);
             // 
             // _rbYawCh6
             // 
-            this._rbYawCh6.AutoSize = true;
-            this._rbYawCh6.Location = new System.Drawing.Point(0, 116);
+            resources.ApplyResources(this._rbYawCh6, "_rbYawCh6");
             this._rbYawCh6.Name = "_rbYawCh6";
-            this._rbYawCh6.Size = new System.Drawing.Size(14, 13);
-            this._rbYawCh6.TabIndex = 28;
             this._rbYawCh6.TabStop = true;
             this._rbYawCh6.UseVisualStyleBackColor = true;
             this._rbYawCh6.CheckedChanged += new System.EventHandler(this.YawChannel_CheckedChanged);
             // 
             // _rbYawCh5
             // 
-            this._rbYawCh5.AutoSize = true;
-            this._rbYawCh5.Location = new System.Drawing.Point(0, 95);
+            resources.ApplyResources(this._rbYawCh5, "_rbYawCh5");
             this._rbYawCh5.Name = "_rbYawCh5";
-            this._rbYawCh5.Size = new System.Drawing.Size(14, 13);
-            this._rbYawCh5.TabIndex = 27;
             this._rbYawCh5.TabStop = true;
             this._rbYawCh5.UseVisualStyleBackColor = true;
             this._rbYawCh5.CheckedChanged += new System.EventHandler(this.YawChannel_CheckedChanged);
             // 
             // _rbYawCh3
             // 
-            this._rbYawCh3.AutoSize = true;
-            this._rbYawCh3.Location = new System.Drawing.Point(0, 53);
+            resources.ApplyResources(this._rbYawCh3, "_rbYawCh3");
             this._rbYawCh3.Name = "_rbYawCh3";
-            this._rbYawCh3.Size = new System.Drawing.Size(14, 13);
-            this._rbYawCh3.TabIndex = 25;
             this._rbYawCh3.TabStop = true;
             this._rbYawCh3.UseVisualStyleBackColor = true;
             this._rbYawCh3.CheckedChanged += new System.EventHandler(this.YawChannel_CheckedChanged);
             // 
             // _rbYawCh2
             // 
-            this._rbYawCh2.AutoSize = true;
-            this._rbYawCh2.Location = new System.Drawing.Point(0, 32);
+            resources.ApplyResources(this._rbYawCh2, "_rbYawCh2");
             this._rbYawCh2.Name = "_rbYawCh2";
-            this._rbYawCh2.Size = new System.Drawing.Size(14, 13);
-            this._rbYawCh2.TabIndex = 24;
             this._rbYawCh2.TabStop = true;
             this._rbYawCh2.UseVisualStyleBackColor = true;
             this._rbYawCh2.CheckedChanged += new System.EventHandler(this.YawChannel_CheckedChanged);
             // 
             // _rbYawCh1
             // 
-            this._rbYawCh1.AutoSize = true;
-            this._rbYawCh1.Location = new System.Drawing.Point(0, 11);
+            resources.ApplyResources(this._rbYawCh1, "_rbYawCh1");
             this._rbYawCh1.Name = "_rbYawCh1";
-            this._rbYawCh1.Size = new System.Drawing.Size(14, 13);
-            this._rbYawCh1.TabIndex = 23;
             this._rbYawCh1.TabStop = true;
             this._rbYawCh1.UseVisualStyleBackColor = true;
             this._rbYawCh1.CheckedChanged += new System.EventHandler(this.YawChannel_CheckedChanged);
             // 
             // label35
             // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(382, 21);
+            resources.ApplyResources(this.label35, "label35");
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(31, 13);
-            this.label35.TabIndex = 27;
-            this.label35.Text = "Pitch";
             // 
             // panel1
             // 
@@ -1882,96 +1416,69 @@
             this.panel1.Controls.Add(this._rbPitchCh3);
             this.panel1.Controls.Add(this._rbPitchCh2);
             this.panel1.Controls.Add(this._rbPitchCh1);
-            this.panel1.Location = new System.Drawing.Point(390, 30);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(30, 165);
-            this.panel1.TabIndex = 26;
             // 
             // _rbPitchCh7
             // 
-            this._rbPitchCh7.AutoSize = true;
-            this._rbPitchCh7.Location = new System.Drawing.Point(0, 137);
+            resources.ApplyResources(this._rbPitchCh7, "_rbPitchCh7");
             this._rbPitchCh7.Name = "_rbPitchCh7";
-            this._rbPitchCh7.Size = new System.Drawing.Size(14, 13);
-            this._rbPitchCh7.TabIndex = 26;
             this._rbPitchCh7.TabStop = true;
             this._rbPitchCh7.UseVisualStyleBackColor = true;
             this._rbPitchCh7.CheckedChanged += new System.EventHandler(this.PitchChannel_CheckedChanged);
             // 
             // _rbPitchCh4
             // 
-            this._rbPitchCh4.AutoSize = true;
-            this._rbPitchCh4.Location = new System.Drawing.Point(0, 74);
+            resources.ApplyResources(this._rbPitchCh4, "_rbPitchCh4");
             this._rbPitchCh4.Name = "_rbPitchCh4";
-            this._rbPitchCh4.Size = new System.Drawing.Size(14, 13);
-            this._rbPitchCh4.TabIndex = 29;
             this._rbPitchCh4.TabStop = true;
             this._rbPitchCh4.UseVisualStyleBackColor = true;
             this._rbPitchCh4.CheckedChanged += new System.EventHandler(this.PitchChannel_CheckedChanged);
             // 
             // _rbPitchCh6
             // 
-            this._rbPitchCh6.AutoSize = true;
-            this._rbPitchCh6.Location = new System.Drawing.Point(0, 116);
+            resources.ApplyResources(this._rbPitchCh6, "_rbPitchCh6");
             this._rbPitchCh6.Name = "_rbPitchCh6";
-            this._rbPitchCh6.Size = new System.Drawing.Size(14, 13);
-            this._rbPitchCh6.TabIndex = 28;
             this._rbPitchCh6.TabStop = true;
             this._rbPitchCh6.UseVisualStyleBackColor = true;
             this._rbPitchCh6.CheckedChanged += new System.EventHandler(this.PitchChannel_CheckedChanged);
             // 
             // _rbPitchCh5
             // 
-            this._rbPitchCh5.AutoSize = true;
-            this._rbPitchCh5.Location = new System.Drawing.Point(0, 95);
+            resources.ApplyResources(this._rbPitchCh5, "_rbPitchCh5");
             this._rbPitchCh5.Name = "_rbPitchCh5";
-            this._rbPitchCh5.Size = new System.Drawing.Size(14, 13);
-            this._rbPitchCh5.TabIndex = 27;
             this._rbPitchCh5.TabStop = true;
             this._rbPitchCh5.UseVisualStyleBackColor = true;
             this._rbPitchCh5.CheckedChanged += new System.EventHandler(this.PitchChannel_CheckedChanged);
             // 
             // _rbPitchCh3
             // 
-            this._rbPitchCh3.AutoSize = true;
-            this._rbPitchCh3.Location = new System.Drawing.Point(0, 53);
+            resources.ApplyResources(this._rbPitchCh3, "_rbPitchCh3");
             this._rbPitchCh3.Name = "_rbPitchCh3";
-            this._rbPitchCh3.Size = new System.Drawing.Size(14, 13);
-            this._rbPitchCh3.TabIndex = 25;
             this._rbPitchCh3.TabStop = true;
             this._rbPitchCh3.UseVisualStyleBackColor = true;
             this._rbPitchCh3.CheckedChanged += new System.EventHandler(this.PitchChannel_CheckedChanged);
             // 
             // _rbPitchCh2
             // 
-            this._rbPitchCh2.AutoSize = true;
-            this._rbPitchCh2.Location = new System.Drawing.Point(0, 32);
+            resources.ApplyResources(this._rbPitchCh2, "_rbPitchCh2");
             this._rbPitchCh2.Name = "_rbPitchCh2";
-            this._rbPitchCh2.Size = new System.Drawing.Size(14, 13);
-            this._rbPitchCh2.TabIndex = 24;
             this._rbPitchCh2.TabStop = true;
             this._rbPitchCh2.UseVisualStyleBackColor = true;
             this._rbPitchCh2.CheckedChanged += new System.EventHandler(this.PitchChannel_CheckedChanged);
             // 
             // _rbPitchCh1
             // 
-            this._rbPitchCh1.AutoSize = true;
-            this._rbPitchCh1.Location = new System.Drawing.Point(0, 11);
+            resources.ApplyResources(this._rbPitchCh1, "_rbPitchCh1");
             this._rbPitchCh1.Name = "_rbPitchCh1";
-            this._rbPitchCh1.Size = new System.Drawing.Size(14, 13);
-            this._rbPitchCh1.TabIndex = 23;
             this._rbPitchCh1.TabStop = true;
             this._rbPitchCh1.UseVisualStyleBackColor = true;
             this._rbPitchCh1.CheckedChanged += new System.EventHandler(this.PitchChannel_CheckedChanged);
             // 
             // label34
             // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(347, 21);
+            resources.ApplyResources(this.label34, "label34");
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(25, 13);
-            this.label34.TabIndex = 25;
-            this.label34.Text = "Roll";
             // 
             // _pnlRoll
             // 
@@ -1982,316 +1489,216 @@
             this._pnlRoll.Controls.Add(this._rbRollCh3);
             this._pnlRoll.Controls.Add(this._rbRollCh2);
             this._pnlRoll.Controls.Add(this._rbRollCh1);
-            this._pnlRoll.Location = new System.Drawing.Point(354, 30);
+            resources.ApplyResources(this._pnlRoll, "_pnlRoll");
             this._pnlRoll.Name = "_pnlRoll";
-            this._pnlRoll.Size = new System.Drawing.Size(30, 165);
-            this._pnlRoll.TabIndex = 24;
             // 
             // _rbRollCh7
             // 
-            this._rbRollCh7.AutoSize = true;
-            this._rbRollCh7.Location = new System.Drawing.Point(0, 137);
+            resources.ApplyResources(this._rbRollCh7, "_rbRollCh7");
             this._rbRollCh7.Name = "_rbRollCh7";
-            this._rbRollCh7.Size = new System.Drawing.Size(14, 13);
-            this._rbRollCh7.TabIndex = 26;
             this._rbRollCh7.TabStop = true;
             this._rbRollCh7.UseVisualStyleBackColor = true;
             this._rbRollCh7.CheckedChanged += new System.EventHandler(this.RollChannel_CheckedChanged);
             // 
             // _rbRollCh4
             // 
-            this._rbRollCh4.AutoSize = true;
-            this._rbRollCh4.Location = new System.Drawing.Point(0, 74);
+            resources.ApplyResources(this._rbRollCh4, "_rbRollCh4");
             this._rbRollCh4.Name = "_rbRollCh4";
-            this._rbRollCh4.Size = new System.Drawing.Size(14, 13);
-            this._rbRollCh4.TabIndex = 29;
             this._rbRollCh4.TabStop = true;
             this._rbRollCh4.UseVisualStyleBackColor = true;
             this._rbRollCh4.CheckedChanged += new System.EventHandler(this.RollChannel_CheckedChanged);
             // 
             // _rbRollCh6
             // 
-            this._rbRollCh6.AutoSize = true;
-            this._rbRollCh6.Location = new System.Drawing.Point(0, 116);
+            resources.ApplyResources(this._rbRollCh6, "_rbRollCh6");
             this._rbRollCh6.Name = "_rbRollCh6";
-            this._rbRollCh6.Size = new System.Drawing.Size(14, 13);
-            this._rbRollCh6.TabIndex = 28;
             this._rbRollCh6.TabStop = true;
             this._rbRollCh6.UseVisualStyleBackColor = true;
             this._rbRollCh6.CheckedChanged += new System.EventHandler(this.RollChannel_CheckedChanged);
             // 
             // _rbRollCh5
             // 
-            this._rbRollCh5.AutoSize = true;
-            this._rbRollCh5.Location = new System.Drawing.Point(0, 95);
+            resources.ApplyResources(this._rbRollCh5, "_rbRollCh5");
             this._rbRollCh5.Name = "_rbRollCh5";
-            this._rbRollCh5.Size = new System.Drawing.Size(14, 13);
-            this._rbRollCh5.TabIndex = 27;
             this._rbRollCh5.TabStop = true;
             this._rbRollCh5.UseVisualStyleBackColor = true;
             this._rbRollCh5.CheckedChanged += new System.EventHandler(this.RollChannel_CheckedChanged);
             // 
             // _rbRollCh3
             // 
-            this._rbRollCh3.AutoSize = true;
-            this._rbRollCh3.Location = new System.Drawing.Point(0, 53);
+            resources.ApplyResources(this._rbRollCh3, "_rbRollCh3");
             this._rbRollCh3.Name = "_rbRollCh3";
-            this._rbRollCh3.Size = new System.Drawing.Size(14, 13);
-            this._rbRollCh3.TabIndex = 25;
             this._rbRollCh3.TabStop = true;
             this._rbRollCh3.UseVisualStyleBackColor = true;
             this._rbRollCh3.CheckedChanged += new System.EventHandler(this.RollChannel_CheckedChanged);
             // 
             // _rbRollCh2
             // 
-            this._rbRollCh2.AutoSize = true;
-            this._rbRollCh2.Location = new System.Drawing.Point(0, 32);
+            resources.ApplyResources(this._rbRollCh2, "_rbRollCh2");
             this._rbRollCh2.Name = "_rbRollCh2";
-            this._rbRollCh2.Size = new System.Drawing.Size(14, 13);
-            this._rbRollCh2.TabIndex = 24;
             this._rbRollCh2.TabStop = true;
             this._rbRollCh2.UseVisualStyleBackColor = true;
             this._rbRollCh2.CheckedChanged += new System.EventHandler(this.RollChannel_CheckedChanged);
             // 
             // _rbRollCh1
             // 
-            this._rbRollCh1.AutoSize = true;
-            this._rbRollCh1.Location = new System.Drawing.Point(0, 11);
+            resources.ApplyResources(this._rbRollCh1, "_rbRollCh1");
             this._rbRollCh1.Name = "_rbRollCh1";
-            this._rbRollCh1.Size = new System.Drawing.Size(14, 13);
-            this._rbRollCh1.TabIndex = 23;
             this._rbRollCh1.TabStop = true;
             this._rbRollCh1.UseVisualStyleBackColor = true;
             this._rbRollCh1.CheckedChanged += new System.EventHandler(this.RollChannel_CheckedChanged);
             // 
             // _lblCh7Ms
             // 
-            this._lblCh7Ms.AutoSize = true;
-            this._lblCh7Ms.Location = new System.Drawing.Point(296, 168);
+            resources.ApplyResources(this._lblCh7Ms, "_lblCh7Ms");
             this._lblCh7Ms.Name = "_lblCh7Ms";
-            this._lblCh7Ms.Size = new System.Drawing.Size(31, 13);
-            this._lblCh7Ms.TabIndex = 22;
-            this._lblCh7Ms.Text = "1500";
             // 
             // label33
             // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(9, 168);
+            resources.ApplyResources(this.label33, "label33");
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(55, 13);
-            this.label33.TabIndex = 21;
-            this.label33.Text = "Channel 7";
             // 
             // _pbCh7
             // 
-            this._pbCh7.Location = new System.Drawing.Point(70, 167);
+            resources.ApplyResources(this._pbCh7, "_pbCh7");
             this._pbCh7.Maximum = 2500;
             this._pbCh7.Minimum = 500;
             this._pbCh7.Name = "_pbCh7";
-            this._pbCh7.Size = new System.Drawing.Size(220, 15);
             this._pbCh7.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this._pbCh7.TabIndex = 20;
             this._pbCh7.Value = 1500;
             // 
             // _lblCh6Ms
             // 
-            this._lblCh6Ms.AutoSize = true;
-            this._lblCh6Ms.Location = new System.Drawing.Point(296, 147);
+            resources.ApplyResources(this._lblCh6Ms, "_lblCh6Ms");
             this._lblCh6Ms.Name = "_lblCh6Ms";
-            this._lblCh6Ms.Size = new System.Drawing.Size(31, 13);
-            this._lblCh6Ms.TabIndex = 19;
-            this._lblCh6Ms.Text = "1500";
             // 
             // label31
             // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(9, 147);
+            resources.ApplyResources(this.label31, "label31");
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(55, 13);
-            this.label31.TabIndex = 18;
-            this.label31.Text = "Channel 6";
             // 
             // _pbCh6
             // 
-            this._pbCh6.Location = new System.Drawing.Point(70, 146);
+            resources.ApplyResources(this._pbCh6, "_pbCh6");
             this._pbCh6.Maximum = 2500;
             this._pbCh6.Minimum = 500;
             this._pbCh6.Name = "_pbCh6";
-            this._pbCh6.Size = new System.Drawing.Size(220, 15);
             this._pbCh6.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this._pbCh6.TabIndex = 17;
             this._pbCh6.Value = 1500;
             // 
             // _lblCh5Ms
             // 
-            this._lblCh5Ms.AutoSize = true;
-            this._lblCh5Ms.Location = new System.Drawing.Point(296, 126);
+            resources.ApplyResources(this._lblCh5Ms, "_lblCh5Ms");
             this._lblCh5Ms.Name = "_lblCh5Ms";
-            this._lblCh5Ms.Size = new System.Drawing.Size(31, 13);
-            this._lblCh5Ms.TabIndex = 16;
-            this._lblCh5Ms.Text = "1500";
             // 
             // label29
             // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(9, 126);
+            resources.ApplyResources(this.label29, "label29");
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(55, 13);
-            this.label29.TabIndex = 15;
-            this.label29.Text = "Channel 5";
             // 
             // _pbCh5
             // 
-            this._pbCh5.Location = new System.Drawing.Point(70, 125);
+            resources.ApplyResources(this._pbCh5, "_pbCh5");
             this._pbCh5.Maximum = 2500;
             this._pbCh5.Minimum = 500;
             this._pbCh5.Name = "_pbCh5";
-            this._pbCh5.Size = new System.Drawing.Size(220, 15);
             this._pbCh5.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this._pbCh5.TabIndex = 14;
             this._pbCh5.Value = 1500;
             // 
             // _lblCh4Ms
             // 
-            this._lblCh4Ms.AutoSize = true;
-            this._lblCh4Ms.Location = new System.Drawing.Point(296, 105);
+            resources.ApplyResources(this._lblCh4Ms, "_lblCh4Ms");
             this._lblCh4Ms.Name = "_lblCh4Ms";
-            this._lblCh4Ms.Size = new System.Drawing.Size(31, 13);
-            this._lblCh4Ms.TabIndex = 13;
-            this._lblCh4Ms.Text = "1500";
             // 
             // label27
             // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(9, 105);
+            resources.ApplyResources(this.label27, "label27");
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(55, 13);
-            this.label27.TabIndex = 12;
-            this.label27.Text = "Channel 4";
             // 
             // _pbCh4
             // 
-            this._pbCh4.Location = new System.Drawing.Point(70, 104);
+            resources.ApplyResources(this._pbCh4, "_pbCh4");
             this._pbCh4.Maximum = 2500;
             this._pbCh4.Minimum = 500;
             this._pbCh4.Name = "_pbCh4";
-            this._pbCh4.Size = new System.Drawing.Size(220, 15);
             this._pbCh4.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this._pbCh4.TabIndex = 11;
             this._pbCh4.Value = 1500;
             // 
             // _lblCh3Ms
             // 
-            this._lblCh3Ms.AutoSize = true;
-            this._lblCh3Ms.Location = new System.Drawing.Point(296, 84);
+            resources.ApplyResources(this._lblCh3Ms, "_lblCh3Ms");
             this._lblCh3Ms.Name = "_lblCh3Ms";
-            this._lblCh3Ms.Size = new System.Drawing.Size(31, 13);
-            this._lblCh3Ms.TabIndex = 10;
-            this._lblCh3Ms.Text = "1500";
             // 
             // label25
             // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(9, 84);
+            resources.ApplyResources(this.label25, "label25");
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(55, 13);
-            this.label25.TabIndex = 9;
-            this.label25.Text = "Channel 3";
             // 
             // _pbCh3
             // 
-            this._pbCh3.Location = new System.Drawing.Point(70, 83);
+            resources.ApplyResources(this._pbCh3, "_pbCh3");
             this._pbCh3.Maximum = 2500;
             this._pbCh3.Minimum = 500;
             this._pbCh3.Name = "_pbCh3";
-            this._pbCh3.Size = new System.Drawing.Size(220, 15);
             this._pbCh3.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this._pbCh3.TabIndex = 8;
             this._pbCh3.Value = 1500;
             // 
             // _lblCh2Ms
             // 
-            this._lblCh2Ms.AutoSize = true;
-            this._lblCh2Ms.Location = new System.Drawing.Point(296, 63);
+            resources.ApplyResources(this._lblCh2Ms, "_lblCh2Ms");
             this._lblCh2Ms.Name = "_lblCh2Ms";
-            this._lblCh2Ms.Size = new System.Drawing.Size(31, 13);
-            this._lblCh2Ms.TabIndex = 7;
-            this._lblCh2Ms.Text = "1500";
             // 
             // label23
             // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(9, 63);
+            resources.ApplyResources(this.label23, "label23");
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(55, 13);
-            this.label23.TabIndex = 6;
-            this.label23.Text = "Channel 2";
             // 
             // _pbCh2
             // 
-            this._pbCh2.Location = new System.Drawing.Point(70, 62);
+            resources.ApplyResources(this._pbCh2, "_pbCh2");
             this._pbCh2.Maximum = 2500;
             this._pbCh2.Minimum = 500;
             this._pbCh2.Name = "_pbCh2";
-            this._pbCh2.Size = new System.Drawing.Size(220, 15);
             this._pbCh2.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this._pbCh2.TabIndex = 5;
             this._pbCh2.Value = 1500;
             // 
             // _lblCh1Ms
             // 
-            this._lblCh1Ms.AutoSize = true;
-            this._lblCh1Ms.Location = new System.Drawing.Point(296, 42);
+            resources.ApplyResources(this._lblCh1Ms, "_lblCh1Ms");
             this._lblCh1Ms.Name = "_lblCh1Ms";
-            this._lblCh1Ms.Size = new System.Drawing.Size(31, 13);
-            this._lblCh1Ms.TabIndex = 4;
-            this._lblCh1Ms.Text = "1500";
             // 
             // label21
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(9, 42);
+            resources.ApplyResources(this.label21, "label21");
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(55, 13);
-            this.label21.TabIndex = 3;
-            this.label21.Text = "Channel 1";
             // 
             // _pbCh1
             // 
-            this._pbCh1.Location = new System.Drawing.Point(70, 41);
+            resources.ApplyResources(this._pbCh1, "_pbCh1");
             this._pbCh1.Maximum = 2500;
             this._pbCh1.Minimum = 500;
             this._pbCh1.Name = "_pbCh1";
-            this._pbCh1.Size = new System.Drawing.Size(220, 15);
             this._pbCh1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this._pbCh1.TabIndex = 2;
             this._pbCh1.Value = 1500;
             // 
             // _rbPwm
             // 
-            this._rbPwm.AutoSize = true;
-            this._rbPwm.Location = new System.Drawing.Point(134, 20);
+            resources.ApplyResources(this._rbPwm, "_rbPwm");
             this._rbPwm.Name = "_rbPwm";
-            this._rbPwm.Size = new System.Drawing.Size(129, 17);
-            this._rbPwm.TabIndex = 1;
-            this._rbPwm.Text = "Separate PWM inputs";
             this._rbPwm.UseVisualStyleBackColor = true;
             // 
             // _rbPpm
             // 
-            this._rbPpm.AutoSize = true;
+            resources.ApplyResources(this._rbPpm, "_rbPpm");
             this._rbPpm.Checked = true;
-            this._rbPpm.Location = new System.Drawing.Point(29, 20);
             this._rbPpm.Name = "_rbPpm";
-            this._rbPpm.Size = new System.Drawing.Size(99, 17);
-            this._rbPpm.TabIndex = 0;
             this._rbPpm.TabStop = true;
-            this._rbPpm.Text = "PPM pulse train";
             this._rbPpm.UseVisualStyleBackColor = true;
             this._rbPpm.CheckedChanged += new System.EventHandler(this._rbPpm_CheckedChanged);
             // 
             // _tpServos
             // 
+            this._tpServos.Controls.Add(this._panelServos);
             this._tpServos.Controls.Add(this.label83);
             this._tpServos.Controls.Add(this.label71);
             this._tpServos.Controls.Add(this.label70);
@@ -2308,460 +1715,48 @@
             this._tpServos.Controls.Add(this._cb_reverse_servo2);
             this._tpServos.Controls.Add(this._cb_reverse_servo1);
             this._tpServos.Controls.Add(this.label44);
-            this._tpServos.Controls.Add(this._tb_servo6_max);
-            this._tpServos.Controls.Add(this._tb_servo6_min);
             this._tpServos.Controls.Add(this.label43);
-            this._tpServos.Controls.Add(this._tb_servo5_max);
-            this._tpServos.Controls.Add(this._tb_servo5_min);
             this._tpServos.Controls.Add(this.label42);
-            this._tpServos.Controls.Add(this._tb_servo4_max);
-            this._tpServos.Controls.Add(this._tb_servo4_min);
             this._tpServos.Controls.Add(this.label41);
-            this._tpServos.Controls.Add(this._tb_servo3_max);
-            this._tpServos.Controls.Add(this._tb_servo3_min);
             this._tpServos.Controls.Add(this.label40);
-            this._tpServos.Controls.Add(this._tb_servo2_max);
-            this._tpServos.Controls.Add(this._tb_servo2_min);
             this._tpServos.Controls.Add(this.label39);
-            this._tpServos.Controls.Add(this._tb_servo1_max);
             this._tpServos.Controls.Add(this.label32);
-            this._tpServos.Controls.Add(this._tb_servo1_min);
             this._tpServos.Controls.Add(this.label30);
             this._tpServos.Controls.Add(this.label28);
             this._tpServos.Controls.Add(this.label26);
-            this._tpServos.Controls.Add(this._tb_servo6_neutral);
-            this._tpServos.Controls.Add(this._tb_servo5_neutral);
-            this._tpServos.Controls.Add(this._tb_servo4_neutral);
-            this._tpServos.Controls.Add(this._tb_servo3_neutral);
-            this._tpServos.Controls.Add(this._tb_servo2_neutral);
-            this._tpServos.Controls.Add(this._tb_servo1_neutral);
-            this._tpServos.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this._tpServos, "_tpServos");
             this._tpServos.Name = "_tpServos";
-            this._tpServos.Padding = new System.Windows.Forms.Padding(3);
-            this._tpServos.Size = new System.Drawing.Size(590, 275);
-            this._tpServos.TabIndex = 1;
-            this._tpServos.Text = "Servos";
             this._tpServos.UseVisualStyleBackColor = true;
             // 
-            // label83
-            // 
-            this.label83.AutoSize = true;
-            this.label83.Location = new System.Drawing.Point(365, 199);
-            this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(42, 13);
-            this.label83.TabIndex = 42;
-            this.label83.Text = "Rudder";
-            // 
-            // label71
-            // 
-            this.label71.AutoSize = true;
-            this.label71.Location = new System.Drawing.Point(353, 64);
-            this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(140, 13);
-            this.label71.TabIndex = 41;
-            this.label71.Text = "Function (depending on mix)";
-            // 
-            // label70
-            // 
-            this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(365, 170);
-            this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(34, 13);
-            this.label70.TabIndex = 40;
-            this.label70.Text = "Motor";
-            // 
-            // label69
-            // 
-            this.label69.AutoSize = true;
-            this.label69.Location = new System.Drawing.Point(365, 141);
-            this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(46, 13);
-            this.label69.TabIndex = 39;
-            this.label69.Text = "Elevator";
-            // 
-            // label68
-            // 
-            this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(365, 112);
-            this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(115, 13);
-            this.label68.TabIndex = 38;
-            this.label68.Text = "Aileron / Elevon (delta)";
-            // 
-            // label67
-            // 
-            this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(365, 83);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(115, 13);
-            this.label67.TabIndex = 37;
-            this.label67.Text = "Aileron / Elevon (delta)";
-            // 
-            // _llServos
-            // 
-            this._llServos.AutoSize = true;
-            this._llServos.Location = new System.Drawing.Point(551, 9);
-            this._llServos.Name = "_llServos";
-            this._llServos.Size = new System.Drawing.Size(28, 13);
-            this._llServos.TabIndex = 36;
-            this._llServos.TabStop = true;
-            this._llServos.Text = "Wiki";
-            this._llServos.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._llServos_LinkClicked);
-            // 
-            // _rb_serovs_neutral_auto
-            // 
-            this._rb_serovs_neutral_auto.AutoSize = true;
-            this._rb_serovs_neutral_auto.Checked = true;
-            this._rb_serovs_neutral_auto.Enabled = false;
-            this._rb_serovs_neutral_auto.Location = new System.Drawing.Point(10, 18);
-            this._rb_serovs_neutral_auto.Name = "_rb_serovs_neutral_auto";
-            this._rb_serovs_neutral_auto.Size = new System.Drawing.Size(304, 17);
-            this._rb_serovs_neutral_auto.TabIndex = 35;
-            this._rb_serovs_neutral_auto.TabStop = true;
-            this._rb_serovs_neutral_auto.Text = "Servo neutral value is taken from manual mode trim settings";
-            this._rb_serovs_neutral_auto.UseVisualStyleBackColor = true;
-            // 
-            // _rb_servos_neutral_configurable
-            // 
-            this._rb_servos_neutral_configurable.AutoSize = true;
-            this._rb_servos_neutral_configurable.Enabled = false;
-            this._rb_servos_neutral_configurable.Location = new System.Drawing.Point(10, 41);
-            this._rb_servos_neutral_configurable.Name = "_rb_servos_neutral_configurable";
-            this._rb_servos_neutral_configurable.Size = new System.Drawing.Size(168, 17);
-            this._rb_servos_neutral_configurable.TabIndex = 34;
-            this._rb_servos_neutral_configurable.Text = "Servo neutral value is set here";
-            this._rb_servos_neutral_configurable.UseVisualStyleBackColor = true;
-            // 
-            // _cb_reverse_servo6
-            // 
-            this._cb_reverse_servo6.AutoSize = true;
-            this._cb_reverse_servo6.Location = new System.Drawing.Point(302, 228);
-            this._cb_reverse_servo6.Name = "_cb_reverse_servo6";
-            this._cb_reverse_servo6.Size = new System.Drawing.Size(15, 14);
-            this._cb_reverse_servo6.TabIndex = 33;
-            this._cb_reverse_servo6.UseVisualStyleBackColor = true;
-            this._cb_reverse_servo6.CheckedChanged += new System.EventHandler(this._cb_reverse_servo_Click);
-            // 
-            // _cb_reverse_servo5
-            // 
-            this._cb_reverse_servo5.AutoSize = true;
-            this._cb_reverse_servo5.Location = new System.Drawing.Point(302, 199);
-            this._cb_reverse_servo5.Name = "_cb_reverse_servo5";
-            this._cb_reverse_servo5.Size = new System.Drawing.Size(15, 14);
-            this._cb_reverse_servo5.TabIndex = 32;
-            this._cb_reverse_servo5.UseVisualStyleBackColor = true;
-            this._cb_reverse_servo5.CheckedChanged += new System.EventHandler(this._cb_reverse_servo_Click);
-            // 
-            // _cb_reverse_servo4
-            // 
-            this._cb_reverse_servo4.AutoSize = true;
-            this._cb_reverse_servo4.Location = new System.Drawing.Point(302, 170);
-            this._cb_reverse_servo4.Name = "_cb_reverse_servo4";
-            this._cb_reverse_servo4.Size = new System.Drawing.Size(15, 14);
-            this._cb_reverse_servo4.TabIndex = 31;
-            this._cb_reverse_servo4.UseVisualStyleBackColor = true;
-            this._cb_reverse_servo4.CheckedChanged += new System.EventHandler(this._cb_reverse_servo_Click);
-            // 
-            // _cb_reverse_servo3
-            // 
-            this._cb_reverse_servo3.AutoSize = true;
-            this._cb_reverse_servo3.Location = new System.Drawing.Point(302, 140);
-            this._cb_reverse_servo3.Name = "_cb_reverse_servo3";
-            this._cb_reverse_servo3.Size = new System.Drawing.Size(15, 14);
-            this._cb_reverse_servo3.TabIndex = 30;
-            this._cb_reverse_servo3.UseVisualStyleBackColor = true;
-            this._cb_reverse_servo3.CheckedChanged += new System.EventHandler(this._cb_reverse_servo_Click);
-            // 
-            // _cb_reverse_servo2
-            // 
-            this._cb_reverse_servo2.AutoSize = true;
-            this._cb_reverse_servo2.Location = new System.Drawing.Point(302, 111);
-            this._cb_reverse_servo2.Name = "_cb_reverse_servo2";
-            this._cb_reverse_servo2.Size = new System.Drawing.Size(15, 14);
-            this._cb_reverse_servo2.TabIndex = 29;
-            this._cb_reverse_servo2.UseVisualStyleBackColor = true;
-            this._cb_reverse_servo2.CheckedChanged += new System.EventHandler(this._cb_reverse_servo_Click);
-            // 
-            // _cb_reverse_servo1
-            // 
-            this._cb_reverse_servo1.AutoSize = true;
-            this._cb_reverse_servo1.Location = new System.Drawing.Point(302, 83);
-            this._cb_reverse_servo1.Name = "_cb_reverse_servo1";
-            this._cb_reverse_servo1.Size = new System.Drawing.Size(15, 14);
-            this._cb_reverse_servo1.TabIndex = 28;
-            this._cb_reverse_servo1.UseVisualStyleBackColor = true;
-            this._cb_reverse_servo1.CheckedChanged += new System.EventHandler(this._cb_reverse_servo_Click);
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(287, 64);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(47, 13);
-            this.label44.TabIndex = 27;
-            this.label44.Text = "Reverse";
-            // 
-            // _tb_servo6_max
-            // 
-            this._tb_servo6_max.Location = new System.Drawing.Point(222, 225);
-            this._tb_servo6_max.Name = "_tb_servo6_max";
-            this._tb_servo6_max.ReadOnly = true;
-            this._tb_servo6_max.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo6_max.TabIndex = 26;
-            // 
-            // _tb_servo6_min
-            // 
-            this._tb_servo6_min.Location = new System.Drawing.Point(98, 225);
-            this._tb_servo6_min.Name = "_tb_servo6_min";
-            this._tb_servo6_min.ReadOnly = true;
-            this._tb_servo6_min.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo6_min.TabIndex = 25;
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(34, 228);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(44, 13);
-            this.label43.TabIndex = 23;
-            this.label43.Text = "Servo 6";
-            // 
-            // _tb_servo5_max
-            // 
-            this._tb_servo5_max.Location = new System.Drawing.Point(222, 196);
-            this._tb_servo5_max.Name = "_tb_servo5_max";
-            this._tb_servo5_max.ReadOnly = true;
-            this._tb_servo5_max.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo5_max.TabIndex = 22;
-            // 
-            // _tb_servo5_min
-            // 
-            this._tb_servo5_min.Location = new System.Drawing.Point(98, 196);
-            this._tb_servo5_min.Name = "_tb_servo5_min";
-            this._tb_servo5_min.ReadOnly = true;
-            this._tb_servo5_min.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo5_min.TabIndex = 21;
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(34, 199);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(44, 13);
-            this.label42.TabIndex = 19;
-            this.label42.Text = "Servo 5";
-            // 
-            // _tb_servo4_max
-            // 
-            this._tb_servo4_max.Location = new System.Drawing.Point(222, 167);
-            this._tb_servo4_max.Name = "_tb_servo4_max";
-            this._tb_servo4_max.ReadOnly = true;
-            this._tb_servo4_max.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo4_max.TabIndex = 18;
-            // 
-            // _tb_servo4_min
-            // 
-            this._tb_servo4_min.Location = new System.Drawing.Point(98, 167);
-            this._tb_servo4_min.Name = "_tb_servo4_min";
-            this._tb_servo4_min.ReadOnly = true;
-            this._tb_servo4_min.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo4_min.TabIndex = 17;
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(34, 170);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(44, 13);
-            this.label41.TabIndex = 15;
-            this.label41.Text = "Servo 4";
-            // 
-            // _tb_servo3_max
-            // 
-            this._tb_servo3_max.Location = new System.Drawing.Point(222, 138);
-            this._tb_servo3_max.Name = "_tb_servo3_max";
-            this._tb_servo3_max.ReadOnly = true;
-            this._tb_servo3_max.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo3_max.TabIndex = 14;
-            // 
-            // _tb_servo3_min
-            // 
-            this._tb_servo3_min.Location = new System.Drawing.Point(98, 138);
-            this._tb_servo3_min.Name = "_tb_servo3_min";
-            this._tb_servo3_min.ReadOnly = true;
-            this._tb_servo3_min.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo3_min.TabIndex = 13;
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(34, 140);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(44, 13);
-            this.label40.TabIndex = 11;
-            this.label40.Text = "Servo 3";
-            // 
-            // _tb_servo2_max
-            // 
-            this._tb_servo2_max.Location = new System.Drawing.Point(222, 109);
-            this._tb_servo2_max.Name = "_tb_servo2_max";
-            this._tb_servo2_max.ReadOnly = true;
-            this._tb_servo2_max.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo2_max.TabIndex = 10;
-            // 
-            // _tb_servo2_min
-            // 
-            this._tb_servo2_min.Location = new System.Drawing.Point(98, 109);
-            this._tb_servo2_min.Name = "_tb_servo2_min";
-            this._tb_servo2_min.ReadOnly = true;
-            this._tb_servo2_min.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo2_min.TabIndex = 9;
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(34, 111);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(44, 13);
-            this.label39.TabIndex = 7;
-            this.label39.Text = "Servo 2";
-            // 
-            // _tb_servo1_max
-            // 
-            this._tb_servo1_max.Location = new System.Drawing.Point(222, 80);
-            this._tb_servo1_max.Name = "_tb_servo1_max";
-            this._tb_servo1_max.ReadOnly = true;
-            this._tb_servo1_max.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo1_max.TabIndex = 6;
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(235, 64);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(27, 13);
-            this.label32.TabIndex = 5;
-            this.label32.Text = "Max";
+            // _panelServos
+            // 
+            this._panelServos.Controls.Add(this._tb_servo1_min);
+            this._panelServos.Controls.Add(this._tb_servo1_neutral);
+            this._panelServos.Controls.Add(this._tb_servo2_neutral);
+            this._panelServos.Controls.Add(this._tb_servo3_neutral);
+            this._panelServos.Controls.Add(this._tb_servo4_neutral);
+            this._panelServos.Controls.Add(this._tb_servo5_neutral);
+            this._panelServos.Controls.Add(this._tb_servo6_neutral);
+            this._panelServos.Controls.Add(this._tb_servo1_max);
+            this._panelServos.Controls.Add(this._tb_servo2_min);
+            this._panelServos.Controls.Add(this._tb_servo2_max);
+            this._panelServos.Controls.Add(this._tb_servo3_min);
+            this._panelServos.Controls.Add(this._tb_servo3_max);
+            this._panelServos.Controls.Add(this._tb_servo4_min);
+            this._panelServos.Controls.Add(this._tb_servo4_max);
+            this._panelServos.Controls.Add(this._tb_servo5_min);
+            this._panelServos.Controls.Add(this._tb_servo5_max);
+            this._panelServos.Controls.Add(this._tb_servo6_min);
+            this._panelServos.Controls.Add(this._tb_servo6_max);
+            resources.ApplyResources(this._panelServos, "_panelServos");
+            this._panelServos.Name = "_panelServos";
             // 
             // _tb_servo1_min
             // 
-            this._tb_servo1_min.Location = new System.Drawing.Point(98, 80);
+            resources.ApplyResources(this._tb_servo1_min, "_tb_servo1_min");
             this._tb_servo1_min.Name = "_tb_servo1_min";
             this._tb_servo1_min.ReadOnly = true;
-            this._tb_servo1_min.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo1_min.TabIndex = 4;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(112, 64);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(24, 13);
-            this.label30.TabIndex = 3;
-            this.label30.Text = "Min";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(168, 64);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(41, 13);
-            this.label28.TabIndex = 1;
-            this.label28.Text = "Neutral";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(34, 83);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(44, 13);
-            this.label26.TabIndex = 0;
-            this.label26.Text = "Servo 1";
-            // 
-            // _tb_servo6_neutral
-            // 
-            this._tb_servo6_neutral.AllowSpace = false;
-            this._tb_servo6_neutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tb_servo6_neutral.DoubleValue = 0;
-            this._tb_servo6_neutral.IntValue = 0;
-            this._tb_servo6_neutral.Location = new System.Drawing.Point(160, 225);
-            this._tb_servo6_neutral.Name = "_tb_servo6_neutral";
-            this._tb_servo6_neutral.ReadOnly = true;
-            this._tb_servo6_neutral.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo6_neutral.TabIndex = 24;
-            this._tb_servo6_neutral.Text = "0";
-            // 
-            // _tb_servo5_neutral
-            // 
-            this._tb_servo5_neutral.AllowSpace = false;
-            this._tb_servo5_neutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tb_servo5_neutral.DoubleValue = 0;
-            this._tb_servo5_neutral.IntValue = 0;
-            this._tb_servo5_neutral.Location = new System.Drawing.Point(160, 196);
-            this._tb_servo5_neutral.Name = "_tb_servo5_neutral";
-            this._tb_servo5_neutral.ReadOnly = true;
-            this._tb_servo5_neutral.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo5_neutral.TabIndex = 20;
-            this._tb_servo5_neutral.Text = "0";
-            // 
-            // _tb_servo4_neutral
-            // 
-            this._tb_servo4_neutral.AllowSpace = false;
-            this._tb_servo4_neutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tb_servo4_neutral.DoubleValue = 0;
-            this._tb_servo4_neutral.IntValue = 0;
-            this._tb_servo4_neutral.Location = new System.Drawing.Point(160, 167);
-            this._tb_servo4_neutral.Name = "_tb_servo4_neutral";
-            this._tb_servo4_neutral.ReadOnly = true;
-            this._tb_servo4_neutral.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo4_neutral.TabIndex = 16;
-            this._tb_servo4_neutral.Text = "0";
-            // 
-            // _tb_servo3_neutral
-            // 
-            this._tb_servo3_neutral.AllowSpace = false;
-            this._tb_servo3_neutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tb_servo3_neutral.DoubleValue = 0;
-            this._tb_servo3_neutral.IntValue = 0;
-            this._tb_servo3_neutral.Location = new System.Drawing.Point(160, 138);
-            this._tb_servo3_neutral.Name = "_tb_servo3_neutral";
-            this._tb_servo3_neutral.ReadOnly = true;
-            this._tb_servo3_neutral.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo3_neutral.TabIndex = 12;
-            this._tb_servo3_neutral.Text = "0";
-            // 
-            // _tb_servo2_neutral
-            // 
-            this._tb_servo2_neutral.AllowSpace = false;
-            this._tb_servo2_neutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tb_servo2_neutral.DoubleValue = 0;
-            this._tb_servo2_neutral.IntValue = 0;
-            this._tb_servo2_neutral.Location = new System.Drawing.Point(160, 109);
-            this._tb_servo2_neutral.Name = "_tb_servo2_neutral";
-            this._tb_servo2_neutral.ReadOnly = true;
-            this._tb_servo2_neutral.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo2_neutral.TabIndex = 8;
-            this._tb_servo2_neutral.Text = "0";
+            this._tb_servo1_min.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
             // 
             // _tb_servo1_neutral
             // 
@@ -2771,14 +1766,309 @@
             0,
             0,
             0});
-            this._tb_servo1_neutral.DoubleValue = 0;
+            this._tb_servo1_neutral.DoubleValue = 0D;
             this._tb_servo1_neutral.IntValue = 0;
-            this._tb_servo1_neutral.Location = new System.Drawing.Point(160, 80);
+            resources.ApplyResources(this._tb_servo1_neutral, "_tb_servo1_neutral");
             this._tb_servo1_neutral.Name = "_tb_servo1_neutral";
             this._tb_servo1_neutral.ReadOnly = true;
-            this._tb_servo1_neutral.Size = new System.Drawing.Size(56, 20);
-            this._tb_servo1_neutral.TabIndex = 2;
-            this._tb_servo1_neutral.Text = "0";
+            this._tb_servo1_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo2_neutral
+            // 
+            this._tb_servo2_neutral.AllowSpace = false;
+            this._tb_servo2_neutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tb_servo2_neutral.DoubleValue = 0D;
+            this._tb_servo2_neutral.IntValue = 0;
+            resources.ApplyResources(this._tb_servo2_neutral, "_tb_servo2_neutral");
+            this._tb_servo2_neutral.Name = "_tb_servo2_neutral";
+            this._tb_servo2_neutral.ReadOnly = true;
+            this._tb_servo2_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo3_neutral
+            // 
+            this._tb_servo3_neutral.AllowSpace = false;
+            this._tb_servo3_neutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tb_servo3_neutral.DoubleValue = 0D;
+            this._tb_servo3_neutral.IntValue = 0;
+            resources.ApplyResources(this._tb_servo3_neutral, "_tb_servo3_neutral");
+            this._tb_servo3_neutral.Name = "_tb_servo3_neutral";
+            this._tb_servo3_neutral.ReadOnly = true;
+            this._tb_servo3_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo4_neutral
+            // 
+            this._tb_servo4_neutral.AllowSpace = false;
+            this._tb_servo4_neutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tb_servo4_neutral.DoubleValue = 0D;
+            this._tb_servo4_neutral.IntValue = 0;
+            resources.ApplyResources(this._tb_servo4_neutral, "_tb_servo4_neutral");
+            this._tb_servo4_neutral.Name = "_tb_servo4_neutral";
+            this._tb_servo4_neutral.ReadOnly = true;
+            this._tb_servo4_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo5_neutral
+            // 
+            this._tb_servo5_neutral.AllowSpace = false;
+            this._tb_servo5_neutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tb_servo5_neutral.DoubleValue = 0D;
+            this._tb_servo5_neutral.IntValue = 0;
+            resources.ApplyResources(this._tb_servo5_neutral, "_tb_servo5_neutral");
+            this._tb_servo5_neutral.Name = "_tb_servo5_neutral";
+            this._tb_servo5_neutral.ReadOnly = true;
+            this._tb_servo5_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo6_neutral
+            // 
+            this._tb_servo6_neutral.AllowSpace = false;
+            this._tb_servo6_neutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tb_servo6_neutral.DoubleValue = 0D;
+            this._tb_servo6_neutral.IntValue = 0;
+            resources.ApplyResources(this._tb_servo6_neutral, "_tb_servo6_neutral");
+            this._tb_servo6_neutral.Name = "_tb_servo6_neutral";
+            this._tb_servo6_neutral.ReadOnly = true;
+            this._tb_servo6_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo1_max
+            // 
+            resources.ApplyResources(this._tb_servo1_max, "_tb_servo1_max");
+            this._tb_servo1_max.Name = "_tb_servo1_max";
+            this._tb_servo1_max.ReadOnly = true;
+            this._tb_servo1_max.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo2_min
+            // 
+            resources.ApplyResources(this._tb_servo2_min, "_tb_servo2_min");
+            this._tb_servo2_min.Name = "_tb_servo2_min";
+            this._tb_servo2_min.ReadOnly = true;
+            this._tb_servo2_min.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo2_max
+            // 
+            resources.ApplyResources(this._tb_servo2_max, "_tb_servo2_max");
+            this._tb_servo2_max.Name = "_tb_servo2_max";
+            this._tb_servo2_max.ReadOnly = true;
+            this._tb_servo2_max.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo3_min
+            // 
+            resources.ApplyResources(this._tb_servo3_min, "_tb_servo3_min");
+            this._tb_servo3_min.Name = "_tb_servo3_min";
+            this._tb_servo3_min.ReadOnly = true;
+            this._tb_servo3_min.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo3_max
+            // 
+            resources.ApplyResources(this._tb_servo3_max, "_tb_servo3_max");
+            this._tb_servo3_max.Name = "_tb_servo3_max";
+            this._tb_servo3_max.ReadOnly = true;
+            this._tb_servo3_max.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo4_min
+            // 
+            resources.ApplyResources(this._tb_servo4_min, "_tb_servo4_min");
+            this._tb_servo4_min.Name = "_tb_servo4_min";
+            this._tb_servo4_min.ReadOnly = true;
+            this._tb_servo4_min.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo4_max
+            // 
+            resources.ApplyResources(this._tb_servo4_max, "_tb_servo4_max");
+            this._tb_servo4_max.Name = "_tb_servo4_max";
+            this._tb_servo4_max.ReadOnly = true;
+            this._tb_servo4_max.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo5_min
+            // 
+            resources.ApplyResources(this._tb_servo5_min, "_tb_servo5_min");
+            this._tb_servo5_min.Name = "_tb_servo5_min";
+            this._tb_servo5_min.ReadOnly = true;
+            this._tb_servo5_min.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo5_max
+            // 
+            resources.ApplyResources(this._tb_servo5_max, "_tb_servo5_max");
+            this._tb_servo5_max.Name = "_tb_servo5_max";
+            this._tb_servo5_max.ReadOnly = true;
+            this._tb_servo5_max.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo6_min
+            // 
+            resources.ApplyResources(this._tb_servo6_min, "_tb_servo6_min");
+            this._tb_servo6_min.Name = "_tb_servo6_min";
+            this._tb_servo6_min.ReadOnly = true;
+            this._tb_servo6_min.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo6_max
+            // 
+            resources.ApplyResources(this._tb_servo6_max, "_tb_servo6_max");
+            this._tb_servo6_max.Name = "_tb_servo6_max";
+            this._tb_servo6_max.ReadOnly = true;
+            this._tb_servo6_max.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // label83
+            // 
+            resources.ApplyResources(this.label83, "label83");
+            this.label83.Name = "label83";
+            // 
+            // label71
+            // 
+            resources.ApplyResources(this.label71, "label71");
+            this.label71.Name = "label71";
+            // 
+            // label70
+            // 
+            resources.ApplyResources(this.label70, "label70");
+            this.label70.Name = "label70";
+            // 
+            // label69
+            // 
+            resources.ApplyResources(this.label69, "label69");
+            this.label69.Name = "label69";
+            // 
+            // label68
+            // 
+            resources.ApplyResources(this.label68, "label68");
+            this.label68.Name = "label68";
+            // 
+            // label67
+            // 
+            resources.ApplyResources(this.label67, "label67");
+            this.label67.Name = "label67";
+            // 
+            // _llServos
+            // 
+            resources.ApplyResources(this._llServos, "_llServos");
+            this._llServos.Name = "_llServos";
+            this._llServos.TabStop = true;
+            this._llServos.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._llServos_LinkClicked);
+            // 
+            // _rb_serovs_neutral_auto
+            // 
+            resources.ApplyResources(this._rb_serovs_neutral_auto, "_rb_serovs_neutral_auto");
+            this._rb_serovs_neutral_auto.Checked = true;
+            this._rb_serovs_neutral_auto.Name = "_rb_serovs_neutral_auto";
+            this._rb_serovs_neutral_auto.TabStop = true;
+            this._rb_serovs_neutral_auto.UseVisualStyleBackColor = true;
+            this._rb_serovs_neutral_auto.CheckedChanged += new System.EventHandler(this._rb_serovs_neutral_auto_CheckedChanged);
+            // 
+            // _rb_servos_neutral_configurable
+            // 
+            resources.ApplyResources(this._rb_servos_neutral_configurable, "_rb_servos_neutral_configurable");
+            this._rb_servos_neutral_configurable.Name = "_rb_servos_neutral_configurable";
+            this._rb_servos_neutral_configurable.UseVisualStyleBackColor = true;
+            this._rb_servos_neutral_configurable.CheckedChanged += new System.EventHandler(this._rb_servos_neutral_configurable_CheckedChanged);
+            // 
+            // _cb_reverse_servo6
+            // 
+            resources.ApplyResources(this._cb_reverse_servo6, "_cb_reverse_servo6");
+            this._cb_reverse_servo6.Name = "_cb_reverse_servo6";
+            this._cb_reverse_servo6.UseVisualStyleBackColor = true;
+            this._cb_reverse_servo6.CheckedChanged += new System.EventHandler(this._cb_reverse_servo_Click);
+            // 
+            // _cb_reverse_servo5
+            // 
+            resources.ApplyResources(this._cb_reverse_servo5, "_cb_reverse_servo5");
+            this._cb_reverse_servo5.Name = "_cb_reverse_servo5";
+            this._cb_reverse_servo5.UseVisualStyleBackColor = true;
+            this._cb_reverse_servo5.CheckedChanged += new System.EventHandler(this._cb_reverse_servo_Click);
+            // 
+            // _cb_reverse_servo4
+            // 
+            resources.ApplyResources(this._cb_reverse_servo4, "_cb_reverse_servo4");
+            this._cb_reverse_servo4.Name = "_cb_reverse_servo4";
+            this._cb_reverse_servo4.UseVisualStyleBackColor = true;
+            this._cb_reverse_servo4.CheckedChanged += new System.EventHandler(this._cb_reverse_servo_Click);
+            // 
+            // _cb_reverse_servo3
+            // 
+            resources.ApplyResources(this._cb_reverse_servo3, "_cb_reverse_servo3");
+            this._cb_reverse_servo3.Name = "_cb_reverse_servo3";
+            this._cb_reverse_servo3.UseVisualStyleBackColor = true;
+            this._cb_reverse_servo3.CheckedChanged += new System.EventHandler(this._cb_reverse_servo_Click);
+            // 
+            // _cb_reverse_servo2
+            // 
+            resources.ApplyResources(this._cb_reverse_servo2, "_cb_reverse_servo2");
+            this._cb_reverse_servo2.Name = "_cb_reverse_servo2";
+            this._cb_reverse_servo2.UseVisualStyleBackColor = true;
+            this._cb_reverse_servo2.CheckedChanged += new System.EventHandler(this._cb_reverse_servo_Click);
+            // 
+            // _cb_reverse_servo1
+            // 
+            resources.ApplyResources(this._cb_reverse_servo1, "_cb_reverse_servo1");
+            this._cb_reverse_servo1.Name = "_cb_reverse_servo1";
+            this._cb_reverse_servo1.UseVisualStyleBackColor = true;
+            this._cb_reverse_servo1.CheckedChanged += new System.EventHandler(this._cb_reverse_servo_Click);
+            // 
+            // label44
+            // 
+            resources.ApplyResources(this.label44, "label44");
+            this.label44.Name = "label44";
+            // 
+            // label43
+            // 
+            resources.ApplyResources(this.label43, "label43");
+            this.label43.Name = "label43";
+            // 
+            // label42
+            // 
+            resources.ApplyResources(this.label42, "label42");
+            this.label42.Name = "label42";
+            // 
+            // label41
+            // 
+            resources.ApplyResources(this.label41, "label41");
+            this.label41.Name = "label41";
+            // 
+            // label40
+            // 
+            resources.ApplyResources(this.label40, "label40");
+            this.label40.Name = "label40";
+            // 
+            // label39
+            // 
+            resources.ApplyResources(this.label39, "label39");
+            this.label39.Name = "label39";
+            // 
+            // label32
+            // 
+            resources.ApplyResources(this.label32, "label32");
+            this.label32.Name = "label32";
+            // 
+            // label30
+            // 
+            resources.ApplyResources(this.label30, "label30");
+            this.label30.Name = "label30";
+            // 
+            // label28
+            // 
+            resources.ApplyResources(this.label28, "label28");
+            this.label28.Name = "label28";
+            // 
+            // label26
+            // 
+            resources.ApplyResources(this.label26, "label26");
+            this.label26.Name = "label26";
             // 
             // _tbControl
             // 
@@ -2791,6 +2081,7 @@
             this._tbControl.Controls.Add(this.label79);
             this._tbControl.Controls.Add(this.label64);
             this._tbControl.Controls.Add(this.label65);
+            this._tbControl.Controls.Add(this._nud_control_pitch_min);
             this._tbControl.Controls.Add(this._nud_control_pitch_max);
             this._tbControl.Controls.Add(this.label66);
             this._tbControl.Controls.Add(this.label63);
@@ -2802,115 +2093,159 @@
             this._tbControl.Controls.Add(this.label58);
             this._tbControl.Controls.Add(this.tb_min_circle_radius);
             this._tbControl.Controls.Add(this.tb_speed);
-            this._tbControl.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this._tbControl, "_tbControl");
             this._tbControl.Name = "_tbControl";
-            this._tbControl.Size = new System.Drawing.Size(590, 275);
-            this._tbControl.TabIndex = 6;
-            this._tbControl.Text = "Control";
             this._tbControl.UseVisualStyleBackColor = true;
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this._ntbAutoThrottlePGain);
+            this.groupBox7.Controls.Add(this.label92);
+            this.groupBox7.Controls.Add(this._nudAutoThrottleMinPct);
+            this.groupBox7.Controls.Add(this._nudAutoThrottleMaxPct);
+            this.groupBox7.Controls.Add(this.label91);
+            this.groupBox7.Controls.Add(this.label89);
+            this.groupBox7.Controls.Add(this.label90);
+            this.groupBox7.Controls.Add(this._nudAutoThrottleCruisePct);
+            this.groupBox7.Controls.Add(this.label88);
             this.groupBox7.Controls.Add(this._dtb_waypoint_radius);
             this.groupBox7.Controls.Add(this.label86);
             this.groupBox7.Controls.Add(this.label85);
-            this.groupBox7.Controls.Add(this.comboBox1);
-            this.groupBox7.Location = new System.Drawing.Point(313, 138);
+            this.groupBox7.Controls.Add(this._cbMotor);
+            resources.ApplyResources(this.groupBox7, "groupBox7");
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(265, 122);
-            this.groupBox7.TabIndex = 19;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Navigation";
+            // 
+            // _ntbAutoThrottlePGain
+            // 
+            this._ntbAutoThrottlePGain.AllowSpace = false;
+            this._ntbAutoThrottlePGain.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._ntbAutoThrottlePGain.DoubleValue = 0D;
+            this._ntbAutoThrottlePGain.IntValue = 0;
+            resources.ApplyResources(this._ntbAutoThrottlePGain, "_ntbAutoThrottlePGain");
+            this._ntbAutoThrottlePGain.Name = "_ntbAutoThrottlePGain";
+            this._ntbAutoThrottlePGain.TextChanged += new System.EventHandler(this._ntbAutoThrottlePGain_TextChanged);
+            // 
+            // label92
+            // 
+            resources.ApplyResources(this.label92, "label92");
+            this.label92.Name = "label92";
+            // 
+            // _nudAutoThrottleMinPct
+            // 
+            resources.ApplyResources(this._nudAutoThrottleMinPct, "_nudAutoThrottleMinPct");
+            this._nudAutoThrottleMinPct.Name = "_nudAutoThrottleMinPct";
+            this._nudAutoThrottleMinPct.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this._nudAutoThrottleMinPct.ValueChanged += new System.EventHandler(this._nudAutoThrottleMinPct_ValueChanged);
+            // 
+            // _nudAutoThrottleMaxPct
+            // 
+            resources.ApplyResources(this._nudAutoThrottleMaxPct, "_nudAutoThrottleMaxPct");
+            this._nudAutoThrottleMaxPct.Name = "_nudAutoThrottleMaxPct";
+            this._nudAutoThrottleMaxPct.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this._nudAutoThrottleMaxPct.ValueChanged += new System.EventHandler(this._nudAutoThrottleMaxPct_ValueChanged);
+            // 
+            // label91
+            // 
+            resources.ApplyResources(this.label91, "label91");
+            this.label91.Name = "label91";
+            // 
+            // label89
+            // 
+            resources.ApplyResources(this.label89, "label89");
+            this.label89.Name = "label89";
+            // 
+            // label90
+            // 
+            resources.ApplyResources(this.label90, "label90");
+            this.label90.Name = "label90";
+            // 
+            // _nudAutoThrottleCruisePct
+            // 
+            resources.ApplyResources(this._nudAutoThrottleCruisePct, "_nudAutoThrottleCruisePct");
+            this._nudAutoThrottleCruisePct.Name = "_nudAutoThrottleCruisePct";
+            this._nudAutoThrottleCruisePct.Value = new decimal(new int[] {
+            85,
+            0,
+            0,
+            0});
+            this._nudAutoThrottleCruisePct.ValueChanged += new System.EventHandler(this._nudAutoThrottleCruisePct_ValueChanged);
+            // 
+            // label88
+            // 
+            resources.ApplyResources(this.label88, "label88");
+            this.label88.Name = "label88";
             // 
             // _dtb_waypoint_radius
             // 
-            this._dtb_waypoint_radius.DistanceM = 0;
-            this._dtb_waypoint_radius.Location = new System.Drawing.Point(102, 44);
+            this._dtb_waypoint_radius.Color = System.Drawing.SystemColors.Window;
+            this._dtb_waypoint_radius.DistanceM = 0D;
+            resources.ApplyResources(this._dtb_waypoint_radius, "_dtb_waypoint_radius");
             this._dtb_waypoint_radius.Name = "_dtb_waypoint_radius";
             this._dtb_waypoint_radius.ReadOnly = false;
-            this._dtb_waypoint_radius.Size = new System.Drawing.Size(99, 21);
-            this._dtb_waypoint_radius.TabIndex = 4;
+            this._dtb_waypoint_radius.UseAltitudeColoring = false;
             this._dtb_waypoint_radius.DistanceChanged += new System.EventHandler(this._dtb_waypoint_radius_DistanceChanged);
             // 
             // label86
             // 
-            this.label86.AutoSize = true;
-            this.label86.Location = new System.Drawing.Point(10, 47);
+            resources.ApplyResources(this.label86, "label86");
             this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(83, 13);
-            this.label86.TabIndex = 3;
-            this.label86.Text = "Waypoint radius";
             // 
             // label85
             // 
-            this.label85.AutoSize = true;
-            this.label85.Location = new System.Drawing.Point(10, 21);
+            resources.ApplyResources(this.label85, "label85");
             this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(34, 13);
-            this.label85.TabIndex = 2;
-            this.label85.Text = "Motor";
             // 
-            // comboBox1
+            // _cbMotor
             // 
-            this.comboBox1.Enabled = false;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Manual",
-            "Altitude hold with manual max",
-            "Altitude hold"});
-            this.comboBox1.Location = new System.Drawing.Point(50, 17);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(209, 21);
-            this.comboBox1.TabIndex = 1;
+            this._cbMotor.FormattingEnabled = true;
+            this._cbMotor.Items.AddRange(new object[] {
+            resources.GetString("_cbMotor.Items"),
+            resources.GetString("_cbMotor.Items1")});
+            resources.ApplyResources(this._cbMotor, "_cbMotor");
+            this._cbMotor.Name = "_cbMotor";
+            this._cbMotor.SelectedIndexChanged += new System.EventHandler(this._cbMotor_SelectedIndexChanged);
             // 
             // label82
             // 
-            this.label82.AutoSize = true;
-            this.label82.Location = new System.Drawing.Point(310, 83);
+            resources.ApplyResources(this.label82, "label82");
             this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(107, 13);
-            this.label82.TabIndex = 17;
-            this.label82.Text = "Minimum circle radius";
             // 
             // label81
             // 
-            this.label81.AutoSize = true;
-            this.label81.Location = new System.Drawing.Point(310, 56);
+            resources.ApplyResources(this.label81, "label81");
             this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(76, 13);
-            this.label81.TabIndex = 15;
-            this.label81.Text = "Cruising speed";
             // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.cb_altitudehold);
-            this.groupBox6.Location = new System.Drawing.Point(12, 138);
+            resources.ApplyResources(this.groupBox6, "groupBox6");
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(295, 122);
-            this.groupBox6.TabIndex = 14;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Altitude control";
             // 
             // cb_altitudehold
             // 
-            this.cb_altitudehold.AutoSize = true;
-            this.cb_altitudehold.Location = new System.Drawing.Point(8, 19);
+            resources.ApplyResources(this.cb_altitudehold, "cb_altitudehold");
             this.cb_altitudehold.Name = "cb_altitudehold";
-            this.cb_altitudehold.Size = new System.Drawing.Size(267, 30);
-            this.cb_altitudehold.TabIndex = 0;
-            this.cb_altitudehold.Text = "Stabilized: Elevator stick: (ON) altitude - (OFF) pitch\r\nNavigation: Altitude: (O" +
-                "N) manual  (OFF) waypoint";
             this.cb_altitudehold.UseVisualStyleBackColor = true;
             this.cb_altitudehold.CheckedChanged += new System.EventHandler(this.cb_altitudehold_CheckedChanged);
             // 
             // label80
             // 
-            this.label80.AutoSize = true;
-            this.label80.Location = new System.Drawing.Point(157, 108);
+            resources.ApplyResources(this.label80, "label80");
             this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(69, 13);
-            this.label80.TabIndex = 13;
-            this.label80.Text = "% (-100..100)";
             // 
             // _nud_aileron_diff
             // 
@@ -2919,145 +2254,116 @@
             0,
             0,
             0});
-            this._nud_aileron_diff.Location = new System.Drawing.Point(104, 106);
+            resources.ApplyResources(this._nud_aileron_diff, "_nud_aileron_diff");
             this._nud_aileron_diff.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this._nud_aileron_diff.Name = "_nud_aileron_diff";
-            this._nud_aileron_diff.Size = new System.Drawing.Size(47, 20);
-            this._nud_aileron_diff.TabIndex = 12;
             this._nud_aileron_diff.ValueChanged += new System.EventHandler(this._nud_aileron_diff_ValueChanged);
             // 
             // label79
             // 
-            this.label79.AutoSize = true;
-            this.label79.Location = new System.Drawing.Point(9, 108);
+            resources.ApplyResources(this.label79, "label79");
             this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(90, 13);
-            this.label79.TabIndex = 11;
-            this.label79.Text = "Aileron differential";
             // 
             // label64
             // 
-            this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(76, 82);
+            resources.ApplyResources(this.label64, "label64");
             this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(16, 13);
-            this.label64.TabIndex = 10;
-            this.label64.Text = "+-";
             // 
             // label65
             // 
-            this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(157, 82);
+            resources.ApplyResources(this.label65, "label65");
             this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(45, 13);
-            this.label65.TabIndex = 9;
-            this.label65.Text = "degrees";
+            // 
+            // _nud_control_pitch_min
+            // 
+            resources.ApplyResources(this._nud_control_pitch_min, "_nud_control_pitch_min");
+            this._nud_control_pitch_min.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._nud_control_pitch_min.Minimum = new decimal(new int[] {
+            25,
+            0,
+            0,
+            -2147483648});
+            this._nud_control_pitch_min.Name = "_nud_control_pitch_min";
+            this._nud_control_pitch_min.ValueChanged += new System.EventHandler(this._nud_control_pitch_min_ValueChanged);
             // 
             // _nud_control_pitch_max
             // 
-            this._nud_control_pitch_max.Location = new System.Drawing.Point(95, 54);
+            resources.ApplyResources(this._nud_control_pitch_max, "_nud_control_pitch_max");
             this._nud_control_pitch_max.Name = "_nud_control_pitch_max";
-            this._nud_control_pitch_max.Size = new System.Drawing.Size(56, 20);
-            this._nud_control_pitch_max.TabIndex = 8;
             this._nud_control_pitch_max.ValueChanged += new System.EventHandler(this._nud_control_pitch_max_ValueChanged);
             // 
             // label66
             // 
-            this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(9, 82);
+            resources.ApplyResources(this.label66, "label66");
             this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(43, 13);
-            this.label66.TabIndex = 7;
-            this.label66.Text = "Max roll";
             // 
             // label63
             // 
-            this.label63.AutoSize = true;
-            this.label63.Location = new System.Drawing.Point(76, 56);
+            resources.ApplyResources(this.label63, "label63");
             this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(16, 13);
-            this.label63.TabIndex = 6;
-            this.label63.Text = "+-";
+            this.label63.Click += new System.EventHandler(this.label63_Click);
             // 
             // label62
             // 
-            this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(157, 56);
+            resources.ApplyResources(this.label62, "label62");
             this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(45, 13);
-            this.label62.TabIndex = 5;
-            this.label62.Text = "degrees";
             // 
             // _nud_control_roll_max
             // 
-            this._nud_control_roll_max.Location = new System.Drawing.Point(95, 80);
+            resources.ApplyResources(this._nud_control_roll_max, "_nud_control_roll_max");
             this._nud_control_roll_max.Name = "_nud_control_roll_max";
-            this._nud_control_roll_max.Size = new System.Drawing.Size(56, 20);
-            this._nud_control_roll_max.TabIndex = 4;
             this._nud_control_roll_max.ValueChanged += new System.EventHandler(this._nud_control_roll_max_ValueChanged);
             // 
             // label61
             // 
-            this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(9, 56);
+            resources.ApplyResources(this.label61, "label61");
             this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(53, 13);
-            this.label61.TabIndex = 3;
-            this.label61.Text = "Max pitch";
             // 
             // _lblControlMixInfo
             // 
-            this._lblControlMixInfo.AutoSize = true;
-            this._lblControlMixInfo.Location = new System.Drawing.Point(212, 19);
+            resources.ApplyResources(this._lblControlMixInfo, "_lblControlMixInfo");
             this._lblControlMixInfo.Name = "_lblControlMixInfo";
-            this._lblControlMixInfo.Size = new System.Drawing.Size(36, 13);
-            this._lblControlMixInfo.TabIndex = 2;
-            this._lblControlMixInfo.Text = "<info>";
             // 
             // _cbControlMix
             // 
             this._cbControlMix.FormattingEnabled = true;
             this._cbControlMix.Items.AddRange(new object[] {
-            "Aileron",
-            "Delta+",
-            "Delta-",
-            "Quadrocopter"});
-            this._cbControlMix.Location = new System.Drawing.Point(75, 16);
+            resources.GetString("_cbControlMix.Items"),
+            resources.GetString("_cbControlMix.Items1"),
+            resources.GetString("_cbControlMix.Items2"),
+            resources.GetString("_cbControlMix.Items3"),
+            resources.GetString("_cbControlMix.Items4")});
+            resources.ApplyResources(this._cbControlMix, "_cbControlMix");
             this._cbControlMix.Name = "_cbControlMix";
-            this._cbControlMix.Size = new System.Drawing.Size(121, 21);
-            this._cbControlMix.TabIndex = 1;
             this._cbControlMix.SelectedIndexChanged += new System.EventHandler(this._cbControlMix_SelectedIndexChanged);
             // 
             // label58
             // 
-            this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(9, 19);
+            resources.ApplyResources(this.label58, "label58");
             this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(60, 13);
-            this.label58.TabIndex = 0;
-            this.label58.Text = "Output mix:";
             // 
             // tb_min_circle_radius
             // 
-            this.tb_min_circle_radius.DistanceM = 0;
-            this.tb_min_circle_radius.Enabled = false;
-            this.tb_min_circle_radius.Location = new System.Drawing.Point(426, 81);
+            this.tb_min_circle_radius.Color = System.Drawing.SystemColors.Control;
+            this.tb_min_circle_radius.DistanceM = 0D;
+            resources.ApplyResources(this.tb_min_circle_radius, "tb_min_circle_radius");
             this.tb_min_circle_radius.Name = "tb_min_circle_radius";
             this.tb_min_circle_radius.ReadOnly = true;
-            this.tb_min_circle_radius.Size = new System.Drawing.Size(110, 21);
-            this.tb_min_circle_radius.TabIndex = 18;
+            this.tb_min_circle_radius.UseAltitudeColoring = false;
             // 
             // tb_speed
             // 
-            this.tb_speed.Location = new System.Drawing.Point(426, 54);
+            resources.ApplyResources(this.tb_speed, "tb_speed");
             this.tb_speed.Name = "tb_speed";
-            this.tb_speed.Size = new System.Drawing.Size(110, 21);
-            this.tb_speed.SpeedMS = 0;
-            this.tb_speed.TabIndex = 16;
+            this.tb_speed.SpeedMS = 0D;
             this.tb_speed.SpeedChanged += new System.EventHandler(this.tb_speed_SpeedChanged);
             this.tb_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CalculateMinimumRadius);
             // 
@@ -3067,117 +2373,92 @@
             this._tbPid.Controls.Add(this.groupBox5);
             this._tbPid.Controls.Add(this._pid_roll2aileron);
             this._tbPid.Controls.Add(this.groupBox4);
-            this._tbPid.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this._tbPid, "_tbPid");
             this._tbPid.Name = "_tbPid";
-            this._tbPid.Size = new System.Drawing.Size(590, 275);
-            this._tbPid.TabIndex = 5;
-            this._tbPid.Text = "PID";
             this._tbPid.UseVisualStyleBackColor = true;
             // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this._pid_altitude_to_pitch);
-            this.groupBox8.Location = new System.Drawing.Point(295, 136);
+            resources.ApplyResources(this.groupBox8, "groupBox8");
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(281, 123);
-            this.groupBox8.TabIndex = 4;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Altitude error -> Pitch";
             // 
             // _pid_altitude_to_pitch
             // 
-            this._pid_altitude_to_pitch.D = 0;
-            this._pid_altitude_to_pitch.Dmin = 0;
-            this._pid_altitude_to_pitch.I = 0;
-            this._pid_altitude_to_pitch.Imax = 9999;
-            this._pid_altitude_to_pitch.Imin = -9999;
-            this._pid_altitude_to_pitch.Location = new System.Drawing.Point(6, 19);
+            this._pid_altitude_to_pitch.D = 0D;
+            this._pid_altitude_to_pitch.Dmin = 0D;
+            this._pid_altitude_to_pitch.I = 0D;
+            this._pid_altitude_to_pitch.Imax = 9999D;
+            this._pid_altitude_to_pitch.Imin = -9999D;
+            resources.ApplyResources(this._pid_altitude_to_pitch, "_pid_altitude_to_pitch");
             this._pid_altitude_to_pitch.Name = "_pid_altitude_to_pitch";
-            this._pid_altitude_to_pitch.P = 0;
-            this._pid_altitude_to_pitch.Size = new System.Drawing.Size(296, 87);
-            this._pid_altitude_to_pitch.TabIndex = 0;
+            this._pid_altitude_to_pitch.P = 0D;
             this._pid_altitude_to_pitch.IsChanged += new System.EventHandler(this._pid_altitude_to_pitch_IsChanged);
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this._pid_heading_to_roll);
-            this.groupBox5.Location = new System.Drawing.Point(12, 136);
+            resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(277, 123);
-            this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Heading error -> roll/yaw";
             // 
             // _pid_heading_to_roll
             // 
-            this._pid_heading_to_roll.D = 0;
-            this._pid_heading_to_roll.Dmin = 0;
-            this._pid_heading_to_roll.I = 0;
-            this._pid_heading_to_roll.Imax = 9999;
-            this._pid_heading_to_roll.Imin = -9999;
-            this._pid_heading_to_roll.Location = new System.Drawing.Point(6, 20);
+            this._pid_heading_to_roll.D = 0D;
+            this._pid_heading_to_roll.Dmin = 0D;
+            this._pid_heading_to_roll.I = 0D;
+            this._pid_heading_to_roll.Imax = 9999D;
+            this._pid_heading_to_roll.Imin = -9999D;
+            resources.ApplyResources(this._pid_heading_to_roll, "_pid_heading_to_roll");
             this._pid_heading_to_roll.Name = "_pid_heading_to_roll";
-            this._pid_heading_to_roll.P = 0;
-            this._pid_heading_to_roll.Size = new System.Drawing.Size(296, 87);
-            this._pid_heading_to_roll.TabIndex = 0;
+            this._pid_heading_to_roll.P = 0D;
             this._pid_heading_to_roll.IsChanged += new System.EventHandler(this._pid_heading_to_roll_IsChanged);
             // 
             // _pid_roll2aileron
             // 
             this._pid_roll2aileron.Controls.Add(this._pid_roll_to_aileron);
-            this._pid_roll2aileron.Location = new System.Drawing.Point(295, 15);
+            resources.ApplyResources(this._pid_roll2aileron, "_pid_roll2aileron");
             this._pid_roll2aileron.Name = "_pid_roll2aileron";
-            this._pid_roll2aileron.Size = new System.Drawing.Size(281, 115);
-            this._pid_roll2aileron.TabIndex = 2;
             this._pid_roll2aileron.TabStop = false;
-            this._pid_roll2aileron.Text = "Roll error -> Aileron";
             // 
             // _pid_roll_to_aileron
             // 
-            this._pid_roll_to_aileron.D = 0;
-            this._pid_roll_to_aileron.Dmin = 0;
-            this._pid_roll_to_aileron.I = 0;
-            this._pid_roll_to_aileron.Imax = 9999;
-            this._pid_roll_to_aileron.Imin = -9999;
-            this._pid_roll_to_aileron.Location = new System.Drawing.Point(6, 19);
+            this._pid_roll_to_aileron.D = 0D;
+            this._pid_roll_to_aileron.Dmin = 0D;
+            this._pid_roll_to_aileron.I = 0D;
+            this._pid_roll_to_aileron.Imax = 9999D;
+            this._pid_roll_to_aileron.Imin = -9999D;
+            resources.ApplyResources(this._pid_roll_to_aileron, "_pid_roll_to_aileron");
             this._pid_roll_to_aileron.Name = "_pid_roll_to_aileron";
-            this._pid_roll_to_aileron.P = 0;
-            this._pid_roll_to_aileron.Size = new System.Drawing.Size(269, 87);
-            this._pid_roll_to_aileron.TabIndex = 0;
+            this._pid_roll_to_aileron.P = 0D;
             this._pid_roll_to_aileron.IsChanged += new System.EventHandler(this._pid_roll_to_aileron_IsChanged);
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this._pid_pitch_to_elevator);
-            this.groupBox4.Location = new System.Drawing.Point(12, 15);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(277, 115);
-            this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Pitch error -> Elevator";
             // 
             // _pid_pitch_to_elevator
             // 
-            this._pid_pitch_to_elevator.D = 0;
-            this._pid_pitch_to_elevator.Dmin = 0;
-            this._pid_pitch_to_elevator.I = 0;
-            this._pid_pitch_to_elevator.Imax = 9999;
-            this._pid_pitch_to_elevator.Imin = -9999;
-            this._pid_pitch_to_elevator.Location = new System.Drawing.Point(6, 19);
+            this._pid_pitch_to_elevator.D = 0D;
+            this._pid_pitch_to_elevator.Dmin = 0D;
+            this._pid_pitch_to_elevator.I = 0D;
+            this._pid_pitch_to_elevator.Imax = 9999D;
+            this._pid_pitch_to_elevator.Imin = -9999D;
+            resources.ApplyResources(this._pid_pitch_to_elevator, "_pid_pitch_to_elevator");
             this._pid_pitch_to_elevator.Name = "_pid_pitch_to_elevator";
-            this._pid_pitch_to_elevator.P = 0;
-            this._pid_pitch_to_elevator.Size = new System.Drawing.Size(258, 89);
-            this._pid_pitch_to_elevator.TabIndex = 0;
+            this._pid_pitch_to_elevator.P = 0D;
             this._pid_pitch_to_elevator.IsChanged += new System.EventHandler(this._pid_pitch_to_elevator_IsChanged);
             // 
             // ConfigurationTabpage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.Controls.Add(this.tabControl1);
             this.Name = "ConfigurationTabpage";
-            this.Size = new System.Drawing.Size(598, 297);
             this.tabControl1.ResumeLayout(false);
             this._tpTelemetry.ResumeLayout(false);
             this._tpTelemetry.PerformLayout();
@@ -3211,13 +2492,19 @@
             this._pnlRoll.PerformLayout();
             this._tpServos.ResumeLayout(false);
             this._tpServos.PerformLayout();
+            this._panelServos.ResumeLayout(false);
+            this._panelServos.PerformLayout();
             this._tbControl.ResumeLayout(false);
             this._tbControl.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._nudAutoThrottleMinPct)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._nudAutoThrottleMaxPct)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._nudAutoThrottleCruisePct)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._nud_aileron_diff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._nud_control_pitch_min)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_pitch_max)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_control_roll_max)).EndInit();
             this._tbPid.ResumeLayout(false);
@@ -3430,7 +2717,6 @@
         private System.Windows.Forms.Label label65;
         private System.Windows.Forms.NumericUpDown _nud_control_pitch_max;
         private System.Windows.Forms.Label label66;
-        private System.Windows.Forms.Label label63;
         private System.Windows.Forms.Label label62;
         private System.Windows.Forms.NumericUpDown _nud_control_roll_max;
         private System.Windows.Forms.Label label61;
@@ -3475,10 +2761,9 @@
         private System.Windows.Forms.GroupBox groupBox8;
         private Configuration.PidControl _pid_altitude_to_pitch;
         private System.Windows.Forms.Label label85;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox _cbMotor;
         private Configuration.DistanceTextBox _dtb_waypoint_radius;
         private System.Windows.Forms.Label label86;
-        private System.Windows.Forms.Button _btn_cube;
         private System.Windows.Forms.NumericUpDown _nud_control_telemetry;
         private System.Windows.Forms.Label label87;
         private System.Windows.Forms.Label _lbl_attitude_hz;
@@ -3490,5 +2775,17 @@
         private System.Windows.Forms.Label _lbl_control_hz;
         private System.Windows.Forms.Button _btn_telemetry_configuration;
         private System.Windows.Forms.Button _btn_telemetry_inflight;
+        private System.Windows.Forms.NumericUpDown _nudAutoThrottleMinPct;
+        private System.Windows.Forms.NumericUpDown _nudAutoThrottleMaxPct;
+        private System.Windows.Forms.Label label91;
+        private System.Windows.Forms.Label label89;
+        private System.Windows.Forms.Label label90;
+        private System.Windows.Forms.NumericUpDown _nudAutoThrottleCruisePct;
+        private System.Windows.Forms.Label label88;
+        private System.Windows.Forms.Label label92;
+        private Configuration.NumericTextBox _ntbAutoThrottlePGain;
+        private System.Windows.Forms.NumericUpDown _nud_control_pitch_min;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.Panel _panelServos;
     }
 }

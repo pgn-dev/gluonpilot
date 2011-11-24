@@ -27,8 +27,8 @@ namespace Configuration.NavigationCommands
             int a, b;
             y = distanceTextBoxEast.DistanceM;
             x = distanceTextBoxNorth.DistanceM;
-            a = (int) distanceTextBoxRadius.DistanceM;
-            b = (int) distanceTextBoxHeight.DistanceM;
+            a = (int) _dtb_radius.DistanceM;
+            b = (int) _dtb_altitude.DistanceM;
             return new NavigationInstruction(
                 ni.line, NavigationInstruction.navigation_command.CIRCLE_REL,
                 x, y, a, b);
@@ -39,8 +39,22 @@ namespace Configuration.NavigationCommands
             this.ni = ni;
             distanceTextBoxNorth.DistanceM = ni.x;
             distanceTextBoxEast.DistanceM = ni.y;
-            distanceTextBoxRadius.DistanceM = ni.a;
-            distanceTextBoxHeight.DistanceM = ni.b;
+            _dtb_radius.DistanceM = ni.a;
+            _dtb_altitude.DistanceM = ni.b;
+            ni.opcode = NavigationInstruction.navigation_command.CIRCLE_REL;
+
+            _dtb_radius_DistanceChanged(null, EventArgs.Empty);
+        }
+
+        private void _dtb_radius_DistanceChanged(object sender, EventArgs e)
+        {
+            if (_dtb_radius.DistanceM < 50)
+                _dtb_radius.Color = Color.Red;
+            else if (_dtb_radius.DistanceM < 70)
+                _dtb_radius.Color = Color.Yellow;
+            else
+                _dtb_radius.Color = Color.White;
+
         }
     }
 }

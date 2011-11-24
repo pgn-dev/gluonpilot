@@ -24,15 +24,17 @@ namespace Configuration.NavigationCommands
 
         public NavigationInstruction GetNavigationInstruction()
         {
+            ni = new NavigationInstruction(ni);
             ni.x = _dtb_north.DistanceM;
             ni.y = _dtb_east.DistanceM;
             ni.a = (int)_dtb_height.DistanceM;
+            ni.opcode = NavigationInstruction.navigation_command.FROM_TO_REL;
             return ni;
         }
 
         public void SetNavigationInstruction(NavigationInstruction ni)
         {
-            this.ni = ni;
+            this.ni = new NavigationInstruction(ni);
             _dtb_north.DistanceM = ni.x;
             _dtb_east.DistanceM = ni.y;
             _dtb_height.DistanceM = ni.a;

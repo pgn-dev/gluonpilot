@@ -9,7 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.IO;
 using System.IO.Ports;
@@ -21,6 +20,7 @@ namespace Communication
     public abstract class SerialCommunication
     {
         protected SerialPort _serialPort;   // COM communication port
+        public abstract string LogToFilename { get; set; }
 
         // delegates used for the communication frames events
         public delegate void ReceiveCommunication(string line);
@@ -36,6 +36,10 @@ namespace Communication
         public delegate void ReceiveDatalogLineCommunicationFrame(DatalogLine line);
         public delegate void ReceiveNavigationInstructionCommunicationFrame(NavigationInstruction ni);
         public delegate void ReceiveControlInfoCommunicationFrame(ControlInfo ci);
+        public delegate void ReceiveServosCommunicationFrame(Servos s);
+
+        public delegate void LostCommunication();
+        public delegate void EstablishedCommunication();
 
 
         // General: all lines received will be broadcasted by this event
@@ -61,6 +65,12 @@ namespace Communication
         public abstract event ReceiveNavigationInstructionCommunicationFrame NavigationInstructionCommunicationReceived;
         // ControlInfo
         public abstract event ReceiveControlInfoCommunicationFrame ControlInfoCommunicationReceived;
+        public abstract event ReceiveServosCommunicationFrame ServosCommunicationReceived;
+        // Communication status
+        public abstract event LostCommunication CommunicationLost;
+        public abstract event EstablishedCommunication CommunicationEstablished;
+
+        public abstract double SecondsConnectionLost();
 
         public static string[] GetPorts()
         {
@@ -69,21 +79,39 @@ namespace Communication
 
         public string PortName
         {
-            get { return _serialPort.PortName; }
+            get { if (_serialPort != null) return _serialPort.PortName; else return ""; }
         }
 
         public int BaudRate
         {
-            get { return _serialPort.BaudRate; }
+            get { if (_serialPort != null) return _serialPort.BaudRate; else return 0; }
         }
 
         public bool IsOpen
         {
             get
             {
-                return _serialPort.IsOpen;
+                return _serialPort != null && _serialPort.IsOpen;
             }
         }
+
+        public abstract void Close();
+
+        public abstract void SendTelemetry(int basicgps, int gyroaccraw, int gyroaccproc, int ppm, int pressuretemp, int attitude, int control);
+
+        public abstract void SendServoReverse(bool a, bool b, bool c, bool d, bool e, bool f, bool manual_trim);
+
+        public abstract void SendServoMinNeutralMax(int nr, int min, int neutral, int max);
+
+        public abstract void SendConfigChannels(int is_ppm, int channel_ap, int channel_motor, int channel_pitch, int channel_roll, int channel_yaw);
+
+        public abstract void SendPidPitch2Elevator(double p, double i, double d, double imin, double imax, double dmin);
+
+        public abstract void SendPidRoll2Aileron(double p, double i, double d, double imin, double imax, double dmin);
+
+        public abstract void SendAutoThrottleConfig(int auto_throttle_min_pct, int auto_throttle_max_pct, int auto_throttle_cruise_pct, int auto_throttle_p_gain_10, bool auto_throttle_enabled);
+
+        public abstract void SendControlSettings(int mixing, double max_pitch, double min_pitch, double max_roll, int aileron_differential, double waypoint_radius, double cruising_speed, bool stabilization_with_altitude_hold);
 
         public abstract void Send(AllConfig ac);
 
@@ -103,6 +131,8 @@ namespace Communication
 
         public abstract void SendNavigationInstruction(NavigationInstruction ni);
 
+        public abstract void SendJumpToNavigationLine(int line);
+
         public abstract void SendNavigationBurn();
 
         public abstract void SendNavigationRead();
@@ -112,5 +142,13 @@ namespace Communication
         public abstract void SendReboot();
 
         public abstract void SendWriteTelemetry(int basicgps, int gyroaccraw, int gyroaccproc, int ppm, int pressuretemp, int attitude, int control);
+
+        public abstract void SetSimulationOn();
+
+        public abstract void SendSimulationUpdate(double lat_rad, double lng_rad, double roll_rad, double pitch_rad, double altitude_m, double speed_ms, double heading_rad);
+
+        public abstract void SendCalibrateGyros();
+
+        public abstract void SendCalibrateAcceleros();
     }
 }

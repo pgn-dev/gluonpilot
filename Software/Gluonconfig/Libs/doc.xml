@@ -1,0 +1,564 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>D3DControls</name>
+    </assembly>
+    <members>
+        <member name="T:RC.D3DControls.Components.D3DMeshBase">
+            <summary>
+            Summary description for ID3DMeshBase.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.RenderPlanarShadow(Microsoft.DirectX.Plane,Microsoft.DirectX.Direct3D.Light,System.Boolean)">
+            <summary>
+            Renders a planar shadow on the specified plane.
+            <note>
+            If a depth/stencil format is used that deos not support stenciling
+            <c>allowDoubleBlending</c> must be set to <c>true</c> to avoid errors.
+            </note>
+            <seealso cref="M:RC.D3DControls.Components.D3DMeshBase.SetPlanarShadowOpacity(System.Single)"/>
+            </summary>
+            <param name="groundPlane">Plane to render the shadow on.</param>
+            <param name="light">Source of the shadow</param>
+            <param name="allowDoubleBlending">If <c>false</c> the stencil buffer will be used to disallow double blending.</param>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.SetPlanarShadowOpacity(System.Single)">
+            <summary>
+            Sets the opacity of the shadow rendered eith the <c>RenderPlanarShadow</c> method.
+            </summary>
+            <param name="shadowOpacity">0.0f - 1.0f</param>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.GetWorldMatrix">
+            <summary>
+            Returns a transformation matrix based on the current position, scale and rotation.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.Intersects(RC.D3DControls.Components.ID3DMesh)">
+            <summary>
+            Tests whether or not the mesh is intersection with another mesh.
+            <note>The <c>CollisionTestMethod</c> of each object will be used to do the calculation.</note>
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.GetBoundingBox">
+            <summary>
+            Returns an axial aligned bounding box for the mesh transformed to world space.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.GetBoundingSphere">
+            <summary>
+            Returns a bounding sphere for the mesh transformed to world space.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.Move(System.Single,System.Single,System.Single)">
+            <summary>
+            Moves the object the specified distance
+            </summary>
+            <param name="xAmount">Distance to move along the X axis</param>
+            <param name="yAmount">Distance to move along the Y axis</param>
+            <param name="zAmount">Distance to move along the Z axis</param>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.SetScale(System.Single)">
+            <summary>
+            Sets a uniform scale value
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.SetScale(System.Single,System.Single,System.Single)">
+            <summary>
+            Scales the mesh to the specified scale values
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.GetWidth">
+            <summary>
+            Calculates the width of the mesh
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.GetHeight">
+            <summary>
+            Calculates the height of the mesh
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.GetDepth">
+            <summary>
+            Calculates the depth of the mesh
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.SetWidth(System.Single)">
+            <summary>
+            Calculates and sets the X axis scale value based on the supplied width.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.SetWidth(System.Single,System.Boolean)">
+            <summary>
+            Calculates and sets the X axis scale value based on the supplied width.
+            </summary>
+            <param name="width"></param>
+            <param name="uniformScale">If <c>true</c> the calculated scale value will be applied as a uniform scale.</param>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.SetHeight(System.Single)">
+            <summary>
+            Calculates and sets the Y axis scale value based on the supplied height.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.SetHeight(System.Single,System.Boolean)">
+            <summary>
+            Calculates and sets the Y axis scale value based on the supplied height.
+            </summary>
+            <param name="height"></param>
+            <param name="uniformScale">If <c>true</c> the calculated scale value will be applied as a uniform scale.</param>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.SetDepth(System.Single)">
+            <summary>
+            Calculates and sets the Z axis scale value based on the supplied depth.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.SetDepth(System.Single,System.Boolean)">
+            <summary>
+            Calculates and sets the Z axis scale value based on the supplied depth.
+            </summary>
+            <param name="depth"></param>
+            <param name="uniformScale">If <c>true</c> the calculated scale value will be applied as a uniform scale.</param>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.SetSize(System.Single,System.Single,System.Single)">
+            <summary>
+            Calculates and sets the scale values based on the supplied values.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.DrawMesh">
+            <summary>
+            Calls all appropriate <c>Mesh.DrawSubset</c> method on the mesh object
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.Initialize(Microsoft.DirectX.Direct3D.Mesh)">
+            <summary>
+            Sets up the mesh and materials.
+            <note>This call is required for the object to function correctly.</note>
+            </summary>
+            <param name="createdMesh">The <c>Mesh</c> object created for this instance.</param>
+            <returns></returns>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.LoadDefaultMaterial">
+            <summary>
+            Creates the default material based on the objects color values.
+            </summary>
+            <returns><c>true</c> if no error occurred.</returns>
+        </member>
+        <member name="M:RC.D3DControls.Components.D3DMeshBase.LoadWireMaterial">
+            <summary>
+            Created the material for the wireframe.
+            </summary>
+            <returns><c>true</c> if no error occurred.</returns>
+        </member>
+        <member name="P:RC.D3DControls.Components.D3DMeshBase.CollisionDetectionMethod">
+            <summary>
+            This property determins what calculation is used in the <c>Intersects</c> method
+            </summary>
+        </member>
+        <member name="T:RC.D3DControls.Components.Camera">
+            <summary>
+            Class to represent a camera used to view a 3D scene
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.GetViewMatrix">
+            <summary>
+            Builds a matrix to be used for the view transformation based on the camera's properties
+            </summary>
+            <returns>left-handed look-at matrix</returns>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.GetProjectionMatrix">
+            <summary>
+            Builds a matrix to be used for the projection transformation based on the camera's properties
+            </summary>
+            <returns>left-handed perspective projection matrix</returns>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.SetAspectRatio(System.Int32,System.Int32)">
+            <summary>
+            Sets the correct aspect ratio based on the width and height of the viewport
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.SetAspectRatio(System.Single,System.Single)">
+            <summary>
+            Sets the correct aspect ratio based on the width and height of the viewport
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.SetFieldOfViewFromDegree(System.Single)">
+            <summary>
+            Sets the correct field of view in the Y direction for the supplied degree
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.SetFieldOfViewFromDegree(System.Int32)">
+            <summary>
+            Sets the correct field of view in the Y direction for the supplied degree
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.SetTargetPosition(System.Single,System.Single,System.Single)">
+            <summary>
+            Sets the position of the cameras target.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.SetCameraPosition(System.Single,System.Single,System.Single)">
+            <summary>
+            Sets the position of the camera.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.MoveTarget(System.Single,System.Single,System.Single)">
+            <summary>
+            Moves each axis of the target by the supplied amount.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.MoveCamera(System.Single,System.Single,System.Single)">
+            <summary>
+            Moves each axis of the camera by the supplied amount.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.MoveCameraAndTarget(System.Single,System.Single,System.Single)">
+            <summary>
+            Moves each axis of the camera and target by the supplied amount.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.SetCameraAtAngleFromTarget(System.Single,System.Single)">
+            <summary>
+            Sets the camera at the supplied angle and distance from the target.
+            </summary>
+            <param name="angle">Angle in radians</param>
+            <param name="distance"></param>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.SetCameraUpAxis(RC.D3DControls.Axis)">
+            <summary>
+            Sets the cameras up vector based on the supplied axis.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Components.Camera.SetUpVectorAngle(System.Single)">
+            <summary>
+            Sets the camera's up vector to the supplied angle. Used to roll the camera.
+            </summary>
+            <param name="angle">Angle in radians</param>
+        </member>
+        <member name="P:RC.D3DControls.Components.Camera.Position">
+            <summary>
+            Position of the camera
+            </summary>
+        </member>
+        <member name="P:RC.D3DControls.Components.Camera.Target">
+            <summary>
+            Point in 3D space that the camera is pointed
+            </summary>
+        </member>
+        <member name="P:RC.D3DControls.Components.Camera.FieldOfView">
+            <summary>
+            Field of view in the Y direction in radians
+            </summary>
+        </member>
+        <member name="T:RC.D3DControls.Dialogs.ChooseDeviceDialog">
+            <summary>
+            Summary description for ChooseDeviceDialog.
+            </summary>
+        </member>
+        <member name="F:RC.D3DControls.Dialogs.ChooseDeviceDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Dialogs.ChooseDeviceDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Dialogs.ChooseDeviceDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.ControlEngine.Application_Idle(System.Object,System.EventArgs)">
+            <summary>
+            Starts the render loop when ever the application is idle. The render loop will continue until 
+            there is a message to process.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:RC.D3DControls.ControlEngine.PeekMessage(RC.D3DControls.ControlEngine.Message@,System.IntPtr,System.UInt32,System.UInt32,System.UInt32)">
+            <summary>
+            Checks if there is a message waiting to be processed.
+            </summary>
+            <param name="msg"></param>
+            <param name="hWnd"></param>
+            <param name="messageFilterMin"></param>
+            <param name="messageFilterMax"></param>
+            <param name="flags"></param>
+            <returns><c>true</c> if there is a message waiting to be processed.</returns>
+        </member>
+        <member name="P:RC.D3DControls.ControlEngine.AppStillIdle">
+            <summary>
+            Checks to see if the application is idel or if there is a message 
+            waiting to be processed.
+            </summary>
+        </member>
+        <member name="T:RC.D3DControls.ControlEngine.Message">
+            <summary>
+            Required by <c>PeekMessage</c>
+            </summary>
+        </member>
+        <member name="T:RC.D3DControls.D3DSimpleSurface">
+            <summary>
+            User control for displaying a Direct3D scene.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.SetVertexFormat">
+            <summary>
+            Sets the internal VertexProcessing create flag to the default value.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.SetBackBufferFormat">
+            <summary>
+            Sets the internal back buffer format to the default value.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.SetDepthStencilFormat">
+            <summary>
+            Sets the internal depth/stencil format to the default value.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.SetMultiSampleType">
+            <summary>
+            Sets the internal multi sample type to the default value.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.Render">
+            <summary>
+            Renders the scene. This method call the OnRender event and presents the scene
+            as long as <c>CancelRender()</c> has not been called.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.SetDefaultLighting">
+            <summary>
+            Sets up the default lighting, which is a white, directional light coming from over our right shoulder.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.d3dDevice_DeviceReset(System.Object,System.EventArgs)">
+            <summary>
+            Event handler for the D3DDevice DeviceReset event.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.Start(System.Boolean)">
+            <summary>
+            Initializes the Direct3D Device and starts the render loop.
+            </summary>
+            <returns><c>true</c> if successful</returns>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.Stop">
+            <summary>
+            Stops the render loop and disposes the Direct3D Device.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.ClearDevice">
+            <summary>
+            Clears the target surface and the Z buffer, setting the background color.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.SetViewTransform">
+            <summary>
+            Sets the view transform based on the <c>ActiveCamera</c>
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.SetViewTransform(RC.D3DControls.Components.Camera)">
+            <summary>
+            Sets the view transform based on the <c>Camera</c>
+            </summary>
+            <param name="camera">Used to create the view matrix</param>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.SetProjectionTransform">
+            <summary>
+            Sets the projection transform based on the <c>ActiveCamera</c>
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.SetProjectionTransform(RC.D3DControls.Components.Camera)">
+            <summary>
+            Sets the projection transform based on the <c>Camera</c>
+            </summary>
+            <param name="camera">Used to create the projection matrix</param>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.CancelRender">
+            <summary>
+            If called the next render pass will not present the scene.
+            <note>Once on frame is canceled the application will continue to render as usual.</note>
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.D3DSimpleSurface.ShowDeviceSettingsForm">
+            <summary>
+            Displays a dialog that allows the user to edit the <c>BackBufferFormat</c>,
+            <c>DepthStencilFormat</c>, <c>MultiSampleType</c>, <c>VertexProcessingFlag</c>
+            and <c>PresentInterval</c>. The adapter information is also displayed.
+            </summary>
+        </member>
+        <member name="E:RC.D3DControls.D3DSimpleSurface.OnRender">
+            <summary>
+            Raised during the render loop. This is the event where the scenes objects should be drawn.
+            </summary>
+        </member>
+        <member name="E:RC.D3DControls.D3DSimpleSurface.OnSceneUpdateReady">
+            <summary>
+            Raised just before the OnRender event, this event is used to increment the scene and prepare objects for rendering.
+            </summary>
+        </member>
+        <member name="E:RC.D3DControls.D3DSimpleSurface.OnD3DDeviceReset">
+            <summary>
+            Raised from the Direct3D.Device.DeviceReset event, this event is raised when the device is reset.
+            It should be used to reset the lighting, materials, and other scene objects that require it.
+            </summary>
+        </member>
+        <member name="P:RC.D3DControls.D3DSimpleSurface.D3DDevice">
+            <summary>
+            The Direct3D.Device used to render the scene.
+            </summary>
+        </member>
+        <member name="P:RC.D3DControls.D3DSimpleSurface.ActiveCamera">
+            <summary>
+            The active camera object used with the 
+            <c>SetViewProjTransformsAutomatically</c> property.
+            <note>This object is creates when the class initializes.</note>
+            </summary>
+        </member>
+        <member name="P:RC.D3DControls.D3DSimpleSurface.SetViewProjTransformsAutomatically">
+            <summary>
+            If <c>true</c> the view and projection transforms will be set
+            automatically in the render loop.
+            </summary>
+        </member>
+        <member name="P:RC.D3DControls.D3DSimpleSurface.Running">
+            <summary>
+            <c>true</c> if the render loop is running.
+            </summary>
+        </member>
+        <member name="P:RC.D3DControls.D3DSimpleSurface.SuspendRender">
+            <summary>
+            While <c>true</c> the render loop will be paused.
+            <note>This will stop the <c>OnSceneUpdateReady</c> and <c>OnRender</c>
+            events. It is used to pause the loop while objects are set up and materials are created.</note>
+            </summary>
+        </member>
+        <member name="P:RC.D3DControls.D3DSimpleSurface.UseDefaultLighting">
+            <summary>
+            Specifies whether the default lighting should be setup and used.
+            </summary>
+        </member>
+        <member name="P:RC.D3DControls.D3DSimpleSurface.PresentIntervalImmediate">
+            <summary>
+            If set to <c>true</c> the scene will be presented immedialty, otherwise
+            the present will be synced with the monitors refresh rate.
+            </summary>
+        </member>
+        <member name="P:RC.D3DControls.D3DSimpleSurface.BackBufferFormat">
+            <summary>
+            Current back buffer format
+            </summary>
+        </member>
+        <member name="P:RC.D3DControls.D3DSimpleSurface.DepthStencilFormat">
+            <summary>
+            Current depth/stencil format
+            </summary>
+        </member>
+        <member name="P:RC.D3DControls.D3DSimpleSurface.MultiSample">
+            <summary>
+            Current multi sample type
+            </summary>
+        </member>
+        <member name="P:RC.D3DControls.D3DSimpleSurface.VertexProcessingFlag">
+            <summary>
+            Current vertex processing flag
+            </summary>
+        </member>
+        <member name="T:RC.D3DControls.Util">
+            <summary>
+            Summary description for Util.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Util.DegreeToRadian(System.Int32)">
+            <summary>
+            Converts degrees to radians
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Util.DegreeToRadian(System.Single)">
+            <summary>
+            Converts degrees to radians
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Util.RadianToDegree(System.Int32)">
+            <summary>
+            Converts radians to degrees
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Util.RadianToDegree(System.Single)">
+            <summary>
+            Converts radians to degrees
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Util.CalculateProjectile(System.Int32,System.Single,System.Single,System.Single@,System.Single@)">
+            <summary>
+            Calculates the location of a projectile, simulating earths gravity
+            </summary>
+            <param name="initialVelocity">Initial velocity</param>
+            <param name="initialAngle">Initial angle in radians</param>
+            <param name="elapsedSeconds">Time in seconds since firing</param>
+            <param name="x">Calculated X position</param>
+            <param name="y">Calculated Y position</param>
+        </member>
+        <member name="M:RC.D3DControls.Util.BuildD3DDeviceDataTable">
+            <summary>
+            Builds a database of all the supported device combinations. The included fields are:
+            Adapter, DeviceType, AdapterFormat, BackBufferFormat, Windowed
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Util.GetVertexProcessingFlags">
+            <summary>
+            Gets all the valid vertex processing options for the default adapter.
+            </summary>
+            <returns>A flag with all valid options</returns>
+        </member>
+        <member name="M:RC.D3DControls.Util.GetBackBufferFormats(System.Data.DataTable)">
+            <summary>
+            Finds all the valid back buffer formats for the default adapter
+            </summary>
+            <param name="d3dDeviceDataTable">Table created with <c>BuildD3DDeviceDataTable()</c></param>
+        </member>
+        <member name="M:RC.D3DControls.Util.GetDepthStencilFormats(Microsoft.DirectX.Direct3D.Format)">
+            <summary>
+            Finds all the valid depth stencil formats for the default adapter using the supplied back buffer format.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Util.GetMultiSampleTypes(Microsoft.DirectX.Direct3D.Format,Microsoft.DirectX.Direct3D.DepthFormat)">
+            <summary>
+            Finds all the valid multi-sample types for the supplied back buffer format/depth stencil format combination.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Util.CreateBoundingBox(Microsoft.DirectX.Vector3,Microsoft.DirectX.Vector3)">
+            <summary>
+            Creates an axial aligned bounding box
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Util.CreateBoundingBoxCorners(Microsoft.DirectX.Vector3,Microsoft.DirectX.Vector3)">
+            <summary>
+            Creates an array of 8 vectors to represent the corners of a bounding box for
+            the supplied min and max vectors.
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Util.Intersects(RC.D3DControls.Components.MeshBoundingBox,RC.D3DControls.Components.MeshBoundingBox)">
+            <summary>
+            Tests to see if two bounding boxes are intersecting
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Util.Intersects(RC.D3DControls.Components.MeshBoundingSphere,RC.D3DControls.Components.MeshBoundingBox)">
+            <summary>
+            Tests to see if a bounding boxes and a bounding sphere are intersecting
+            </summary>
+        </member>
+        <member name="M:RC.D3DControls.Util.Intersects(RC.D3DControls.Components.MeshBoundingSphere,RC.D3DControls.Components.MeshBoundingSphere)">
+            <summary>
+            Tests to see if two bounding spheres are intersecting
+            </summary>
+        </member>
+    </members>
+</doc>
