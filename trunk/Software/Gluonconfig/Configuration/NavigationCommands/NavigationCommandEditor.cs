@@ -42,6 +42,8 @@ namespace Configuration.NavigationCommands
                 flowLayoutPanel.Controls.Add(new NavigationCommands.FromToAbs(ni));
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.CLIMB)
                 flowLayoutPanel.Controls.Add(new NavigationCommands.Climb(ni));
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.BLOCK)
+                flowLayoutPanel.Controls.Add(new NavigationCommands.Block(ni));
         }
 
         private void _btn_cancel_Click(object sender, EventArgs e)

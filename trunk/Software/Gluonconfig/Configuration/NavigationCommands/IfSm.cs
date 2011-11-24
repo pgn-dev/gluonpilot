@@ -18,7 +18,7 @@ namespace Configuration.NavigationCommands
         public IfSm(NavigationInstruction ni)
         {
             InitializeComponent();
-            foreach (string s in Common.Variables)
+            foreach (string s in Global.Variables)
                 _cb_variables.Items.Add(s);
             SetNavigationInstruction(ni);
         }

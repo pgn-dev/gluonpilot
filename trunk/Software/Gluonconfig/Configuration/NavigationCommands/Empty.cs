@@ -24,6 +24,7 @@ namespace Configuration.NavigationCommands
 
         public NavigationInstruction GetNavigationInstruction()
         {
+            ni.opcode = NavigationInstruction.navigation_command.EMPTY;
             return ni;
         }
 

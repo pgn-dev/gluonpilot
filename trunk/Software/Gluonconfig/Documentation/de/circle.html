@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.1  (Win32)">
+	<META NAME="AUTHOR" CONTENT="Tom P">
+	<META NAME="CREATED" CONTENT="20110813;20530400">
+	<META NAME="CHANGEDBY" CONTENT="Tom P">
+	<META NAME="CHANGED" CONTENT="20110817;23365000">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 2cm }
+		H1 { margin-top: 0.02cm; margin-bottom: 0.11cm }
+		H1.western { font-family: "Arial", sans-serif; font-size: 11pt }
+		H1.cjk { font-family: "Lucida Sans Unicode"; font-size: 16pt }
+		H1.ctl { font-family: "Tahoma"; font-size: 16pt }
+		P { margin-bottom: 0.21cm }
+		P.western { font-family: "Verdana", sans-serif; font-size: 7pt }
+		A:link { so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<H1 CLASS="western">CIRCLE</H1>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt">Kreis um den aktuellen Wegpunkt.</FONT><br>
+<FONT SIZE=1 STYLE="font-size: 8pt"> Der CIRCLE-Befehl kann nicht wissen, wie lange er den Kreis machen soll, sollte diesen Befehl immer einem GOTO oder UNTIL Befehl folgen.</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt"> Beispiel: Kreis, bis die Höhe größer als 100m ist.</FONT></P>
+<OL START=3>
+  <li><P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt"></FONT><FONT SIZE=1 STYLE="font-size: 8pt">CIRCLE (0m N, 0m E, Radius: 120, Höhe: 120m)</FONT></li>
+  <li><P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt"></FONT><FONT SIZE=1 STYLE="font-size: 8pt">UNTIL (Höhe> 100 m)
+    
+    
+  </FONT></li>
+</ol>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt">Beispiel: immer Kreisen
+  
+</FONT></P>
+<OL START=3>
+  <li><P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt"></FONT><FONT SIZE=1 STYLE="font-size: 8pt">CIRCLE (0m N, 0m E, Radius: 120, Höhe: 120m)
+  </FONT></li>
+  <li> <P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt"></FONT><FONT SIZE=1 STYLE="font-size: 8pt">GOTO (3)
+    
+    
+    
+    
+    
+  </FONT></li>
+</ol>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt"><em>Parameter:</em></FONT></P>
+<UL>
+  <LI>
+  <P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt"></FONT><FONT SIZE=1 STYLE="font-size: 8pt">Latitude von Kreismittelpunkt</FONT></P>  
+</UL>
+<UL>
+  <LI>
+  <P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt"></FONT><FONT SIZE=1 STYLE="font-size: 8pt">Longitude vom Kreismittelpunkt </FONT>
+</UL>
+<UL>
+  <LI>
+  <P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt"></FONT><FONT SIZE=1 STYLE="font-size: 8pt">Radius des Kreises. bei einen positiven Radius macht das UAV den Kreis im Uhrzeigersinn, einen negativer Radius gegen den Uhrzeigersinn.</FONT>  
+</UL>
+<UL>
+  <LI>
+  <P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt"></FONT><FONT SIZE=1 STYLE="font-size: 8pt">Zielhöhe</FONT>
+</UL>
+</UL>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><BR>
+</P>
+</BODY>
+</HTML>

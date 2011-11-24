@@ -43,27 +43,29 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(1, 57);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.Size = new System.Drawing.Size(42, 13);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Height";
+            this.label1.Text = "Altitude";
             // 
             // _dtb_height
             // 
-            this._dtb_height.DistanceM = 0;
+            this._dtb_height.Color = System.Drawing.SystemColors.Window;
+            this._dtb_height.DistanceM = 0D;
             this._dtb_height.Location = new System.Drawing.Point(73, 55);
             this._dtb_height.Name = "_dtb_height";
             this._dtb_height.ReadOnly = false;
             this._dtb_height.Size = new System.Drawing.Size(99, 21);
             this._dtb_height.TabIndex = 4;
+            this._dtb_height.UseAltitudeColoring = true;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(178, 3);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 13);
+            this.label6.Size = new System.Drawing.Size(56, 13);
             this.label6.TabIndex = 15;
-            this.label6.Text = "north of home";
+            this.label6.Text = "N of home";
             // 
             // label5
             // 
@@ -76,30 +78,34 @@
             // 
             // _dtb_east
             // 
-            this._dtb_east.DistanceM = 0;
+            this._dtb_east.Color = System.Drawing.SystemColors.Window;
+            this._dtb_east.DistanceM = 0D;
             this._dtb_east.Location = new System.Drawing.Point(73, 28);
             this._dtb_east.Name = "_dtb_east";
             this._dtb_east.ReadOnly = false;
             this._dtb_east.Size = new System.Drawing.Size(99, 21);
             this._dtb_east.TabIndex = 13;
+            this._dtb_east.UseAltitudeColoring = false;
             // 
             // _dtb_north
             // 
-            this._dtb_north.DistanceM = 0;
+            this._dtb_north.Color = System.Drawing.SystemColors.Window;
+            this._dtb_north.DistanceM = 0D;
             this._dtb_north.Location = new System.Drawing.Point(73, 1);
             this._dtb_north.Name = "_dtb_north";
             this._dtb_north.ReadOnly = false;
             this._dtb_north.Size = new System.Drawing.Size(99, 21);
             this._dtb_north.TabIndex = 12;
+            this._dtb_north.UseAltitudeColoring = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(178, 31);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 13);
+            this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 11;
-            this.label2.Text = "east of home";
+            this.label2.Text = "E of home";
             // 
             // label3
             // 
@@ -114,6 +120,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this._dtb_east);
@@ -123,7 +131,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this._dtb_height);
             this.Name = "FromToRel";
-            this.Size = new System.Drawing.Size(251, 77);
+            this.Size = new System.Drawing.Size(237, 79);
             this.ResumeLayout(false);
             this.PerformLayout();
 

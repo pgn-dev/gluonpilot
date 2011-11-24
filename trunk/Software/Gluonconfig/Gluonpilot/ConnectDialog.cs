@@ -32,7 +32,7 @@ namespace Gluonpilot
                 if (s == Properties.Settings.Default.ComPort)
                     _cbPorts.SelectedIndex = i;
             }
-            _cbBaud.SelectedIndex = 6;
+            _cbBaud.SelectedIndex = 5;
         }
 
         private void _btnConnect_Click(object sender, EventArgs e)

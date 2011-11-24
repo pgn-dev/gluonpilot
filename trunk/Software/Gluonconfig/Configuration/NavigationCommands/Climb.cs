@@ -32,6 +32,7 @@ namespace Configuration.NavigationCommands
         {
             this.ni = ni;
             _dtb_height.DistanceM = ni.x;
+            ni.opcode = NavigationInstruction.navigation_command.CLIMB;
         }
 
         #endregion

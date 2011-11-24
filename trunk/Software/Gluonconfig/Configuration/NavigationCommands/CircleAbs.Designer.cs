@@ -40,9 +40,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(0, 92);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 11;
-            this.label4.Text = "Height";
+            this.label4.Text = "Altitude";
             // 
             // label3
             // 
@@ -55,21 +55,26 @@
             // 
             // _dtb_height
             // 
-            this._dtb_height.DistanceM = 0;
+            this._dtb_height.Color = System.Drawing.SystemColors.Window;
+            this._dtb_height.DistanceM = 0D;
             this._dtb_height.Location = new System.Drawing.Point(78, 89);
             this._dtb_height.Name = "_dtb_height";
             this._dtb_height.ReadOnly = false;
             this._dtb_height.Size = new System.Drawing.Size(99, 21);
             this._dtb_height.TabIndex = 9;
+            this._dtb_height.UseAltitudeColoring = true;
             // 
             // _dtb_radius
             // 
-            this._dtb_radius.DistanceM = 0;
+            this._dtb_radius.Color = System.Drawing.SystemColors.Window;
+            this._dtb_radius.DistanceM = 0D;
             this._dtb_radius.Location = new System.Drawing.Point(78, 62);
             this._dtb_radius.Name = "_dtb_radius";
             this._dtb_radius.ReadOnly = false;
             this._dtb_radius.Size = new System.Drawing.Size(99, 21);
             this._dtb_radius.TabIndex = 8;
+            this._dtb_radius.UseAltitudeColoring = false;
+            this._dtb_radius.DistanceChanged += new System.EventHandler(this._dtb_radius_DistanceChanged);
             // 
             // _ce
             // 

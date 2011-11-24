@@ -25,6 +25,7 @@ namespace Gluonpilot
         public int[] ServoMin = new int[6];
         public int[] ServoMax = new int[6];
         public int[] ServoNeutral = new int[6];
+        public bool ManualTrim;
 
         public int GpsInitialBaudrate;
         public int GpsOperationalBaudrate;
@@ -52,6 +53,7 @@ namespace Gluonpilot
         public int RcTransmitterFromPpm;
 
         public double ControlMaxPitch;
+        public double ControlMinPitch;
         public double ControlMaxRoll;
         public int ControlMixing;
         public int ControlAileronDiff;
@@ -60,12 +62,19 @@ namespace Gluonpilot
         public double WaypointRadius;
         public bool StabilizationWithAltitudeHold;
 
+        public int AutoThrottleMinPct;
+        public int AutoThrottleMaxPct;
+        public int AutoThrottleCruisePct;
+        public double AutoThrottlePGain;
+        public bool AutoThrottleEnabled;
+
 
         /*!
          *    Converts to _model to AllConfig communication frame.
          */
         public AllConfig ToAllConfig()
         {
+            Console.WriteLine("To all config");
             AllConfig ac = new AllConfig();
             ConfigurationModel _model = this;
             ac.acc_x_neutral = _model.NeutralAccX;
@@ -83,6 +92,7 @@ namespace Gluonpilot
             ac.rc_ppm = _model.RcTransmitterFromPpm;
 
             ac.control_max_pitch = _model.ControlMaxPitch;
+            ac.control_min_pitch = _model.ControlMinPitch;
             ac.control_max_roll = _model.ControlMaxRoll;
             ac.control_mixing = _model.ControlMixing;
             ac.control_waypoint_radius = _model.WaypointRadius;
@@ -135,6 +145,30 @@ namespace Gluonpilot
             ac.servo_reverse[3] = _model.ReverseServo4;
             ac.servo_reverse[4] = _model.ReverseServo5;
             ac.servo_reverse[5] = _model.ReverseServo6;
+            ac.manual_trim = _model.ManualTrim;
+            ac.servo_min[0] = _model.ServoMin[0];
+            ac.servo_min[1] = _model.ServoMin[1];
+            ac.servo_min[2] = _model.ServoMin[2];
+            ac.servo_min[3] = _model.ServoMin[3];
+            ac.servo_min[4] = _model.ServoMin[4];
+            ac.servo_min[5] = _model.ServoMin[5];
+            ac.servo_max[0] = _model.ServoMax[0];
+            ac.servo_max[1] = _model.ServoMax[1];
+            ac.servo_max[2] = _model.ServoMax[2];
+            ac.servo_max[3] = _model.ServoMax[3];
+            ac.servo_max[4] = _model.ServoMax[4];
+            ac.servo_max[5] = _model.ServoMax[5];
+            ac.servo_neutral[0] = _model.ServoNeutral[0];
+            ac.servo_neutral[1] = _model.ServoNeutral[1];
+            ac.servo_neutral[2] = _model.ServoNeutral[2];
+            ac.servo_neutral[3] = _model.ServoNeutral[3];
+            ac.servo_neutral[4] = _model.ServoNeutral[4];
+            ac.servo_neutral[5] = _model.ServoNeutral[5];
+            ac.auto_throttle_enabled = _model.AutoThrottleEnabled;
+            ac.auto_throttle_min_pct = _model.AutoThrottleMinPct;
+            ac.auto_throttle_max_pct = _model.AutoThrottleMaxPct;
+            ac.auto_throttle_cruise_pct = _model.AutoThrottleCruisePct;
+            ac.auto_throttle_p_gain_10 = (int)(_model.AutoThrottlePGain * 10);
 
             return ac;
         }
@@ -169,6 +203,7 @@ namespace Gluonpilot
 
             _model.ControlMixing = ac.control_mixing;
             _model.ControlMaxPitch = ac.control_max_pitch;
+            _model.ControlMinPitch = ac.control_min_pitch;
             _model.ControlMaxRoll = ac.control_max_roll;
             _model.ControlAileronDiff = ac.control_aileron_differential;
 
@@ -221,6 +256,13 @@ namespace Gluonpilot
                 _model.ServoMax[i] = ac.servo_max[i];
                 _model.ServoNeutral[i] = ac.servo_neutral[i];
             }
+            _model.ManualTrim = ac.manual_trim;
+
+            _model.AutoThrottleEnabled = ac.auto_throttle_enabled;
+            _model.AutoThrottleMinPct = ac.auto_throttle_min_pct;
+            _model.AutoThrottleMaxPct = ac.auto_throttle_max_pct;
+            _model.AutoThrottleCruisePct = ac.auto_throttle_cruise_pct;
+            _model.AutoThrottlePGain = (double)ac.auto_throttle_p_gain_10 / 10;
         }
     }
 }

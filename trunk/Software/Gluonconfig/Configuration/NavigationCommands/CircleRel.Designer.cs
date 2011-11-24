@@ -34,8 +34,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.distanceTextBoxHeight = new Configuration.DistanceTextBox();
-            this.distanceTextBoxRadius = new Configuration.DistanceTextBox();
+            this._dtb_altitude = new Configuration.DistanceTextBox();
+            this._dtb_radius = new Configuration.DistanceTextBox();
             this.distanceTextBoxEast = new Configuration.DistanceTextBox();
             this.distanceTextBoxNorth = new Configuration.DistanceTextBox();
             this.SuspendLayout();
@@ -54,9 +54,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(177, 32);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 13);
+            this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "east of home";
+            this.label2.Text = "E of home";
             // 
             // label3
             // 
@@ -72,9 +72,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(0, 85);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Height";
+            this.label4.Text = "Altitude";
             // 
             // label5
             // 
@@ -90,62 +90,72 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(177, 3);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 13);
+            this.label6.Size = new System.Drawing.Size(56, 13);
             this.label6.TabIndex = 9;
-            this.label6.Text = "north of home";
+            this.label6.Text = "N of home";
             // 
-            // distanceTextBoxHeight
+            // _dtb_altitude
             // 
-            this.distanceTextBoxHeight.DistanceM = 0;
-            this.distanceTextBoxHeight.Location = new System.Drawing.Point(72, 82);
-            this.distanceTextBoxHeight.Name = "distanceTextBoxHeight";
-            this.distanceTextBoxHeight.ReadOnly = false;
-            this.distanceTextBoxHeight.Size = new System.Drawing.Size(99, 21);
-            this.distanceTextBoxHeight.TabIndex = 5;
+            this._dtb_altitude.Color = System.Drawing.SystemColors.Window;
+            this._dtb_altitude.DistanceM = 0D;
+            this._dtb_altitude.Location = new System.Drawing.Point(72, 82);
+            this._dtb_altitude.Name = "_dtb_altitude";
+            this._dtb_altitude.ReadOnly = false;
+            this._dtb_altitude.Size = new System.Drawing.Size(99, 21);
+            this._dtb_altitude.TabIndex = 5;
+            this._dtb_altitude.UseAltitudeColoring = true;
             // 
-            // distanceTextBoxRadius
+            // _dtb_radius
             // 
-            this.distanceTextBoxRadius.DistanceM = 0;
-            this.distanceTextBoxRadius.Location = new System.Drawing.Point(72, 55);
-            this.distanceTextBoxRadius.Name = "distanceTextBoxRadius";
-            this.distanceTextBoxRadius.ReadOnly = false;
-            this.distanceTextBoxRadius.Size = new System.Drawing.Size(99, 21);
-            this.distanceTextBoxRadius.TabIndex = 4;
+            this._dtb_radius.Color = System.Drawing.SystemColors.Window;
+            this._dtb_radius.DistanceM = 0D;
+            this._dtb_radius.Location = new System.Drawing.Point(72, 55);
+            this._dtb_radius.Name = "_dtb_radius";
+            this._dtb_radius.ReadOnly = false;
+            this._dtb_radius.Size = new System.Drawing.Size(99, 21);
+            this._dtb_radius.TabIndex = 4;
+            this._dtb_radius.UseAltitudeColoring = false;
+            this._dtb_radius.DistanceChanged += new System.EventHandler(this._dtb_radius_DistanceChanged);
             // 
             // distanceTextBoxEast
             // 
-            this.distanceTextBoxEast.DistanceM = 0;
+            this.distanceTextBoxEast.Color = System.Drawing.SystemColors.Window;
+            this.distanceTextBoxEast.DistanceM = 0D;
             this.distanceTextBoxEast.Location = new System.Drawing.Point(72, 28);
             this.distanceTextBoxEast.Name = "distanceTextBoxEast";
             this.distanceTextBoxEast.ReadOnly = false;
             this.distanceTextBoxEast.Size = new System.Drawing.Size(99, 21);
             this.distanceTextBoxEast.TabIndex = 3;
+            this.distanceTextBoxEast.UseAltitudeColoring = false;
             // 
             // distanceTextBoxNorth
             // 
-            this.distanceTextBoxNorth.DistanceM = 0;
+            this.distanceTextBoxNorth.Color = System.Drawing.SystemColors.Window;
+            this.distanceTextBoxNorth.DistanceM = 0D;
             this.distanceTextBoxNorth.Location = new System.Drawing.Point(72, 1);
             this.distanceTextBoxNorth.Name = "distanceTextBoxNorth";
             this.distanceTextBoxNorth.ReadOnly = false;
             this.distanceTextBoxNorth.Size = new System.Drawing.Size(99, 21);
             this.distanceTextBoxNorth.TabIndex = 2;
+            this.distanceTextBoxNorth.UseAltitudeColoring = false;
             // 
             // CircleRel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.distanceTextBoxHeight);
-            this.Controls.Add(this.distanceTextBoxRadius);
+            this.Controls.Add(this._dtb_altitude);
+            this.Controls.Add(this._dtb_radius);
             this.Controls.Add(this.distanceTextBoxEast);
             this.Controls.Add(this.distanceTextBoxNorth);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "CircleRel";
-            this.Size = new System.Drawing.Size(251, 103);
+            this.Size = new System.Drawing.Size(233, 103);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -157,8 +167,8 @@
         private System.Windows.Forms.Label label2;
         private DistanceTextBox distanceTextBoxNorth;
         private DistanceTextBox distanceTextBoxEast;
-        private DistanceTextBox distanceTextBoxRadius;
-        private DistanceTextBox distanceTextBoxHeight;
+        private DistanceTextBox _dtb_radius;
+        private DistanceTextBox _dtb_altitude;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;

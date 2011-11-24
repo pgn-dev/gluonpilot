@@ -44,6 +44,18 @@ namespace Configuration
             _btn_to_kml.Enabled = true;
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+
+            if (serial != null)
+                serial.NavigationInstructionCommunicationReceived -= new SerialCommunication.ReceiveNavigationInstructionCommunicationFrame(_serial_NavigationInstructionCommunicationReceived);
+
+        }
 
         public void Connect(SerialCommunication serial)
         {
@@ -79,13 +91,18 @@ namespace Configuration
         private void NavigationInstructionReceived(NavigationInstruction ni)
         {
             dirty_list.Remove(ni.line);
-            _lv_navigation.Items[ni.line - 1].Tag = ni;
-            if (_lv_navigation.Items[ni.line - 1].SubItems.Count <= 1)
+            if (ni.line < 1)
+                Console.WriteLine("ERROR: navigation line = 0");
+            else
             {
-                _lv_navigation.Items[ni.line - 1].SubItems.Add(new ListViewItem.ListViewSubItem());
-                _lv_navigation.Items[ni.line - 1].SubItems.Add(new ListViewItem.ListViewSubItem());
+                _lv_navigation.Items[ni.line - 1].Tag = ni;
+                if (_lv_navigation.Items[ni.line - 1].SubItems.Count <= 1)
+                {
+                    _lv_navigation.Items[ni.line - 1].SubItems.Add(new ListViewItem.ListViewSubItem());
+                    _lv_navigation.Items[ni.line - 1].SubItems.Add(new ListViewItem.ListViewSubItem());
+                }
+                _lv_navigation.Items[ni.line - 1].SubItems[1].Text = ni.ToString();
             }
-            _lv_navigation.Items[ni.line - 1].SubItems[1].Text = ni.ToString();
         }
 
 
@@ -190,6 +207,14 @@ namespace Configuration
                 c = new NavigationCommands.FromToRel(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.GOTO)
                 c = new NavigationCommands.Goto(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.FLARE_TO_ABS)
+                c = new NavigationCommands.FlareToAbs(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.FLARE_TO_REL)
+                c = new NavigationCommands.FlareToRel(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.GLIDE_TO_ABS)
+                c = new NavigationCommands.GlideToAbs(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.GLIDE_TO_REL)
+                c = new NavigationCommands.GlideToRel(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.FROM_TO_ABS)
                 c = new NavigationCommands.FromToAbs(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.CLIMB)
@@ -214,6 +239,16 @@ namespace Configuration
                 c = new NavigationCommands.ServoSet(ni);
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.SERVO_TRIGGER)
                 c = new NavigationCommands.ServoTrigger(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.BLOCK)
+                c = new NavigationCommands.Block(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.SET_LOITER_POSITION)
+                c = new NavigationCommands.SetLoiterPosition(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.LOITER_CIRCLE)
+                c = new NavigationCommands.LoiterCircle(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.CIRCLE_TO_REL)
+                c = new NavigationCommands.CircleToRel(ni);
+            else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.CIRCLE_TO_ABS)
+                c = new NavigationCommands.CircleToAbs(ni);
             else //if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.EMPTY)
                 c = new NavigationCommands.Empty(ni);
 
@@ -365,10 +400,13 @@ namespace Configuration
                 dirty_list.Clear();
                 foreach (ListViewItem lvi in _lv_navigation.Items)
                 {
-                    lvi.Tag = list[i];
-                    lvi.SubItems[1].Text = "* " + list[i].ToString();
-                    dirty_list.Add(i);
-                    i++;
+                    if (list.Length > i)
+                    {
+                        lvi.Tag = list[i];
+                        lvi.SubItems[1].Text = "* " + list[i].ToString();
+                        dirty_list.Add(i);
+                        i++;
+                    }
                 }
                 stream.Close();
             }

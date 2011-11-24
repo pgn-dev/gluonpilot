@@ -25,7 +25,8 @@ namespace Configuration.NavigationCommands
         public NavigationInstruction GetNavigationInstruction()
         {
             ni.a = _ntb_linenr.IntValue - 1;
-            return ni;
+            ni.opcode = NavigationInstruction.navigation_command.GOTO;
+            return new NavigationInstruction(ni);
         }
 
         public void SetNavigationInstruction(NavigationInstruction ni)

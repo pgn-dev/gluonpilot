@@ -31,21 +31,17 @@
             this._btn_ok = new System.Windows.Forms.Button();
             this._btn_cancel = new System.Windows.Forms.Button();
             this._cb_opcode = new System.Windows.Forms.ComboBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this._lbl_x = new System.Windows.Forms.Label();
-            this._tb_x = new System.Windows.Forms.TextBox();
-            this._lbl_y = new System.Windows.Forms.Label();
-            this._tb_y = new System.Windows.Forms.TextBox();
-            this._lbl_a = new System.Windows.Forms.Label();
-            this._tb_a = new System.Windows.Forms.TextBox();
-            this._lbl_b = new System.Windows.Forms.Label();
-            this._tb_b = new System.Windows.Forms.TextBox();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this._gbParameters = new System.Windows.Forms.GroupBox();
+            this.webBrowser = new System.Windows.Forms.WebBrowser();
+            this._gbParameters.SuspendLayout();
             this.SuspendLayout();
             // 
             // _btn_ok
             // 
-            this._btn_ok.Location = new System.Drawing.Point(205, 233);
+            this._btn_ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._btn_ok.Location = new System.Drawing.Point(454, 233);
             this._btn_ok.Name = "_btn_ok";
             this._btn_ok.Size = new System.Drawing.Size(75, 23);
             this._btn_ok.TabIndex = 0;
@@ -56,7 +52,7 @@
             // _btn_cancel
             // 
             this._btn_cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._btn_cancel.Location = new System.Drawing.Point(12, 233);
+            this._btn_cancel.Location = new System.Drawing.Point(22, 233);
             this._btn_cancel.Name = "_btn_cancel";
             this._btn_cancel.Size = new System.Drawing.Size(75, 23);
             this._btn_cancel.TabIndex = 1;
@@ -68,137 +64,119 @@
             // 
             this._cb_opcode.FormattingEnabled = true;
             this._cb_opcode.Items.AddRange(new object[] {
+            "- Structure -",
+            "BLOCK",
             "EMPTY",
-            "CLIMB",
-            "FROM_TO_REL",
-            "FROM_TO_ABS",
-            "FLY_TO_REL",
-            "FLY_TO_ABS",
             "GOTO",
-            "CIRCLE_ABS",
-            "CIRCLE_REL",
-            "IF_EQ",
-            "IF_SM",
-            "IF_GR",
-            "IF_NE",
-            "WHILE_EQ",
-            "WHILE_NE",
-            "WHILE_GR",
-            "WHILE_SM"});
-            this._cb_opcode.Location = new System.Drawing.Point(12, 41);
+            "",
+            "- Waypoints -",
+            "CIRCLE",
+            "CIRCLE_TO",
+            "CLIMB",
+            "FLARE_TO",
+            "FLY_TO",
+            "FROM_TO",
+            "GLIDE_TO",
+            "",
+            "- Conditional -",
+            "IF",
+            "UNTIL",
+            "",
+            "- Servo -",
+            "SERVO_SET",
+            "SERVO_TRIGGER",
+            "",
+            "- Loiter -",
+            "SET_LOITER_POSITION",
+            "LOITER_CIRCLE",
+            "",
+            "- Settings -",
+            "SET_BATTERY_ALARM"});
+            this._cb_opcode.Location = new System.Drawing.Point(74, 12);
+            this._cb_opcode.MaxDropDownItems = 20;
             this._cb_opcode.Name = "_cb_opcode";
-            this._cb_opcode.Size = new System.Drawing.Size(268, 21);
-            this._cb_opcode.TabIndex = 2;
+            this._cb_opcode.Size = new System.Drawing.Size(155, 21);
+            this._cb_opcode.TabIndex = 6;
             this._cb_opcode.SelectedIndexChanged += new System.EventHandler(this._cb_opcode_SelectedIndexChanged);
             // 
-            // flowLayoutPanel1
+            // tableLayoutPanel
             // 
-            this.flowLayoutPanel1.Controls.Add(this._lbl_x);
-            this.flowLayoutPanel1.Controls.Add(this._tb_x);
-            this.flowLayoutPanel1.Controls.Add(this._lbl_y);
-            this.flowLayoutPanel1.Controls.Add(this._tb_y);
-            this.flowLayoutPanel1.Controls.Add(this._lbl_a);
-            this.flowLayoutPanel1.Controls.Add(this._tb_a);
-            this.flowLayoutPanel1.Controls.Add(this._lbl_b);
-            this.flowLayoutPanel1.Controls.Add(this._tb_b);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(43, 78);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(200, 110);
-            this.flowLayoutPanel1.TabIndex = 3;
+            this.tableLayoutPanel.AutoScroll = true;
+            this.tableLayoutPanel.AutoSize = true;
+            this.tableLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.tableLayoutPanel.ColumnCount = 1;
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel.Location = new System.Drawing.Point(10, 20);
+            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            this.tableLayoutPanel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.tableLayoutPanel.RowCount = 1;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.Size = new System.Drawing.Size(10, 0);
+            this.tableLayoutPanel.TabIndex = 10;
             // 
-            // _lbl_x
+            // label1
             // 
-            this._lbl_x.AutoEllipsis = true;
-            this._lbl_x.AutoSize = true;
-            this._lbl_x.Location = new System.Drawing.Point(3, 6);
-            this._lbl_x.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
-            this._lbl_x.MaximumSize = new System.Drawing.Size(60, 15);
-            this._lbl_x.MinimumSize = new System.Drawing.Size(80, 15);
-            this._lbl_x.Name = "_lbl_x";
-            this._lbl_x.Size = new System.Drawing.Size(80, 15);
-            this._lbl_x.TabIndex = 0;
-            this._lbl_x.Text = "Lat";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Command";
             // 
-            // _tb_x
+            // _gbParameters
             // 
-            this._tb_x.Location = new System.Drawing.Point(89, 3);
-            this._tb_x.Name = "_tb_x";
-            this._tb_x.Size = new System.Drawing.Size(100, 20);
-            this._tb_x.TabIndex = 1;
+            this._gbParameters.AutoSize = true;
+            this._gbParameters.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this._gbParameters.Controls.Add(this.tableLayoutPanel);
+            this._gbParameters.Location = new System.Drawing.Point(16, 38);
+            this._gbParameters.Margin = new System.Windows.Forms.Padding(0);
+            this._gbParameters.MaximumSize = new System.Drawing.Size(270, 195);
+            this._gbParameters.MinimumSize = new System.Drawing.Size(200, 0);
+            this._gbParameters.Name = "_gbParameters";
+            this._gbParameters.Padding = new System.Windows.Forms.Padding(10, 0, 3, 0);
+            this._gbParameters.Size = new System.Drawing.Size(200, 33);
+            this._gbParameters.TabIndex = 12;
+            this._gbParameters.TabStop = false;
+            this._gbParameters.Text = "Parameters";
+            this._gbParameters.Enter += new System.EventHandler(this.groupBox1_Enter);
+            this._gbParameters.Resize += new System.EventHandler(this._gbParameters_Resize);
             // 
-            // _lbl_y
+            // webBrowser
             // 
-            this._lbl_y.Location = new System.Drawing.Point(3, 32);
-            this._lbl_y.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
-            this._lbl_y.MaximumSize = new System.Drawing.Size(60, 15);
-            this._lbl_y.MinimumSize = new System.Drawing.Size(80, 15);
-            this._lbl_y.Name = "_lbl_y";
-            this._lbl_y.Size = new System.Drawing.Size(80, 15);
-            this._lbl_y.TabIndex = 2;
-            this._lbl_y.Text = "Lon";
-            // 
-            // _tb_y
-            // 
-            this._tb_y.Location = new System.Drawing.Point(89, 29);
-            this._tb_y.Name = "_tb_y";
-            this._tb_y.Size = new System.Drawing.Size(100, 20);
-            this._tb_y.TabIndex = 3;
-            // 
-            // _lbl_a
-            // 
-            this._lbl_a.Location = new System.Drawing.Point(3, 58);
-            this._lbl_a.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
-            this._lbl_a.MaximumSize = new System.Drawing.Size(60, 15);
-            this._lbl_a.MinimumSize = new System.Drawing.Size(80, 15);
-            this._lbl_a.Name = "_lbl_a";
-            this._lbl_a.Size = new System.Drawing.Size(80, 15);
-            this._lbl_a.TabIndex = 4;
-            this._lbl_a.Text = "Radius";
-            // 
-            // _tb_a
-            // 
-            this._tb_a.Location = new System.Drawing.Point(89, 55);
-            this._tb_a.Name = "_tb_a";
-            this._tb_a.Size = new System.Drawing.Size(100, 20);
-            this._tb_a.TabIndex = 5;
-            // 
-            // _lbl_b
-            // 
-            this._lbl_b.Location = new System.Drawing.Point(3, 84);
-            this._lbl_b.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
-            this._lbl_b.MaximumSize = new System.Drawing.Size(60, 15);
-            this._lbl_b.MinimumSize = new System.Drawing.Size(80, 15);
-            this._lbl_b.Name = "_lbl_b";
-            this._lbl_b.Size = new System.Drawing.Size(80, 15);
-            this._lbl_b.TabIndex = 6;
-            this._lbl_b.Text = "Height";
-            // 
-            // _tb_b
-            // 
-            this._tb_b.Location = new System.Drawing.Point(89, 81);
-            this._tb_b.Name = "_tb_b";
-            this._tb_b.Size = new System.Drawing.Size(100, 20);
-            this._tb_b.TabIndex = 7;
+            this.webBrowser.IsWebBrowserContextMenuEnabled = false;
+            this.webBrowser.Location = new System.Drawing.Point(235, 12);
+            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser.Name = "webBrowser";
+            this.webBrowser.Size = new System.Drawing.Size(294, 215);
+            this.webBrowser.TabIndex = 0;
+            this.webBrowser.WebBrowserShortcutsEnabled = false;
             // 
             // NavigationInstructionEdit
             // 
             this.AcceptButton = this._btn_ok;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.CancelButton = this._btn_cancel;
-            this.ClientSize = new System.Drawing.Size(292, 268);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(543, 268);
+            this.Controls.Add(this.webBrowser);
+            this.Controls.Add(this._gbParameters);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this._cb_opcode);
-            this.Controls.Add(this._btn_cancel);
             this.Controls.Add(this._btn_ok);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Controls.Add(this._btn_cancel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NavigationInstructionEdit";
             this.Text = "Edit navigation instruction";
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
+            this.Resize += new System.EventHandler(this.NavigationInstructionEdit_Resize);
+            this._gbParameters.ResumeLayout(false);
+            this._gbParameters.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -207,14 +185,9 @@
         private System.Windows.Forms.Button _btn_ok;
         private System.Windows.Forms.Button _btn_cancel;
         private System.Windows.Forms.ComboBox _cb_opcode;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Label _lbl_x;
-        private System.Windows.Forms.TextBox _tb_x;
-        private System.Windows.Forms.Label _lbl_y;
-        private System.Windows.Forms.TextBox _tb_y;
-        private System.Windows.Forms.Label _lbl_a;
-        private System.Windows.Forms.TextBox _tb_a;
-        private System.Windows.Forms.Label _lbl_b;
-        private System.Windows.Forms.TextBox _tb_b;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox _gbParameters;
+        private System.Windows.Forms.WebBrowser webBrowser;
     }
 }

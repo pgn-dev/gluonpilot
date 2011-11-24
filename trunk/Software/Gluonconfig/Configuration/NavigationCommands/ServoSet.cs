@@ -26,6 +26,7 @@ namespace Configuration.NavigationCommands
         {
             ni.a = (int)_nud_channel.Value - 1;
             ni.b = (int)_nud_us.Value;
+            ni.opcode = NavigationInstruction.navigation_command.SERVO_SET;
             return ni;
         }
 
