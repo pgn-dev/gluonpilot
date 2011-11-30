@@ -132,6 +132,58 @@ ToolArgsString=-g -Wall -DTEST
 TraceCmdString=
 DebugOptions=
 [File010]
+Location=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\examples\gps_test\tmp\gps_test.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=D:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|gps_test.c|..\..\lib\microcontroller\microcontroller.c|..\..\lib\uart1\uart1.c|..\..\lib\uart2\uart2.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall -DTEST
+TraceCmdString=
+DebugOptions=
+[File011]
+Location=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\examples\gps_test\tmp\microcontroller.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=D:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|gps_test.c|..\..\lib\gps\gps.c|..\..\lib\microcontroller\microcontroller.c|..\..\lib\uart1\uart1.c|..\..\lib\uart2\uart2.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall -DTEST
+TraceCmdString=
+DebugOptions=
+[File012]
+Location=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\examples\gps_test\tmp\uart1.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=D:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|gps_test.c|..\..\lib\gps\gps.c|..\..\lib\microcontroller\microcontroller.c|..\..\lib\uart1\uart1.c|..\..\lib\uart2\uart2.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall -DTEST
+TraceCmdString=
+DebugOptions=
+[File013]
+Location=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\examples\gps_test\tmp\uart2.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=D:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|gps_test.c|..\..\lib\gps\gps.c|..\..\lib\microcontroller\microcontroller.c|..\..\lib\uart1\uart1.c|..\..\lib\uart2\uart2.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall -DTEST
+TraceCmdString=
+DebugOptions=
+[File014]
 Location=C:\pic\IMUboard\examples\gps_test\hex\gps_test.cof
 Folder=Output
 DeviceName=dsPIC33FJ256MC710
@@ -144,7 +196,7 @@ SuiteArgsString=
 ToolArgsString=--heap=128 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TraceCmdString=
 DebugOptions=
-[File011]
+[File015]
 Location=C:\pic\IMUboard\examples\gps_test\hex\gps_test.hex
 Folder=Output
 DeviceName=dsPIC33FJ256MC710
@@ -157,7 +209,7 @@ SuiteArgsString=
 ToolArgsString=--heap=128 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TraceCmdString=
 DebugOptions=
-[File012]
+[File016]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\gps_test\hex\gps_test.cof
 Folder=Output
 DeviceName=dsPIC33FJ256MC710
@@ -170,7 +222,7 @@ SuiteArgsString=
 ToolArgsString=--heap=128 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TraceCmdString=
 DebugOptions=
-[File013]
+[File017]
 Location=C:\Documents and Settings\Eigenaar\Mijn documenten\gluonpilot\Firmware\examples\gps_test\hex\gps_test.hex
 Folder=Output
 DeviceName=dsPIC33FJ256MC710
@@ -183,6 +235,32 @@ SuiteArgsString=
 ToolArgsString=--heap=128 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TraceCmdString=
 DebugOptions=
+[File018]
+Location=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\examples\gps_test\hex\gps_test.cof
+Folder=Output
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
+LanguageToolLocation=D:\Program Files\Microchip\mplabc30\v3.30\bin\pic30-ld.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|gps_test.c|..\..\lib\microcontroller\microcontroller.c|..\..\lib\uart1\uart1.c|..\..\lib\uart2\uart2.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=--heap=128 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
+TraceCmdString=
+DebugOptions=
+[File019]
+Location=D:\Documents and Settings\Tom\My Documents\Gluonpilot\Firmware\examples\gps_test\hex\gps_test.hex
+Folder=Output
+DeviceName=dsPIC33FJ256MC710
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
+LanguageToolLocation=D:\Program Files\Microchip\mplabc30\v3.30\bin\pic30-ld.exe
+PPAD=$(BINDIR)|hex||$(TMPDIR)|tmp||$(AINDIR)||$(INCDIR)|../../lib||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|gps_test.c|..\..\lib\microcontroller\microcontroller.c|..\..\lib\uart1\uart1.c|..\..\lib\uart2\uart2.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=--heap=128 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
+TraceCmdString=
+DebugOptions=
 [TOOL_LOC_STAMPS]
-tool_loc{069BD372-6CA0-40D4-BF2F-5DC806D05083}=C:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
-tool_loc{433C3D55-811D-409D-A6BF-159CF9355B42}=C:\Program Files\Microchip\MPLAB C30\bin\pic30-ld.exe
+tool_loc{069BD372-6CA0-40D4-BF2F-5DC806D05083}=D:\Program Files\Microchip\MPLAB C30\bin\pic30-gcc.exe
+tool_loc{433C3D55-811D-409D-A6BF-159CF9355B42}=D:\Program Files\Microchip\mplabc30\v3.30\bin\pic30-ld.exe

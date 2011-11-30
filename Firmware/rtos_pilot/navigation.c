@@ -8,6 +8,7 @@
  */
  
 #include <math.h>
+#include <stdio.h>
 
 // Include all FreeRTOS header files
 #include "FreeRTOS/FreeRTOS.h"
@@ -17,7 +18,6 @@
 #include "FreeRTOS/semphr.h"
 
 // Gluonpilot libraries
-#include "dataflash/dataflash.h"
 #include "ppm_in/ppm_in.h"
 
 #include "configuration.h"
@@ -25,8 +25,9 @@
 #include "navigation.h"
 #include "common.h"
 #include "trigger.h"
+#include "alarms.h"
+#include "gluonscript.h"
 
-#define NAVIGATION_HZ 5  // 5 Hz
 
 volatile struct NavigationData navigation_data;
 
@@ -41,19 +42,9 @@ float longitude_meter_per_radian = 4107840.76433121;   // = Pi/180*(a / (1-e^2*s
 void navigation_set_home();
 float heading_rad_fromto (float diff_long, float diff_lat);
 float distance_between_meter(float long1, float long2, float lat1, float lat2);
-void navigation_do_circle(struct NavigationCode *current_code);
-float get_variable(enum navigation_variable i);
-int waypoint_reached(struct NavigationCode *current_code);
+void navigation_do_circle(struct GluonscriptCode *current_code);
+int waypoint_reached(struct GluonscriptCode *current_code);
 void convert_parameters_to_abs(int i);
-struct NavigationCode * next_code(int current_codeline);
-
-unsigned int ticks_counter = 0;
-
-struct BatteryAlarm {
-	float panic_v;
-	float warning_v;
-	int panic_line;
-} battery_alarm;	
 
 
 /*!
@@ -71,48 +62,40 @@ void navigation_init ()
 	
 	navigation_data.airborne = 0;
 	
-	navigation_data.current_codeline = 0;
-	navigation_data.last_code = 0;
-	
 	navigation_data.time_airborne_s = 0;
-        navigation_data.time_block_s = 0;
+    navigation_data.time_block_s = 0;
 	navigation_data.wind_heading_set = 0;
 	navigation_data.relative_positions_calculated = 0;
 	navigation_data.desired_throttle_pct = -1;
-	navigation_load();
-	
-	battery_alarm.panic_v = 0.0;
-	battery_alarm.warning_v = 0.0;
-	battery_alarm.panic_line = -1;
 }
 
 
 void navigation_calculate_relative_position(int i)
 {
-	switch (navigation_data.navigation_codes[i].opcode)
+	switch (gluonscript_data.codes[i].opcode)
 	{
 		case FROM_TO_REL:
-                           navigation_data.navigation_codes[i].opcode = FROM_TO_ABS;
+                           gluonscript_data.codes[i].opcode = FROM_TO_ABS;
                            convert_parameters_to_abs(i);
                            break;
 		case FLY_TO_REL:
-                           navigation_data.navigation_codes[i].opcode = FLY_TO_ABS;
+                           gluonscript_data.codes[i].opcode = FLY_TO_ABS;
                            convert_parameters_to_abs(i);
                            break;
 		case CIRCLE_REL:
-                           navigation_data.navigation_codes[i].opcode = CIRCLE_ABS;
+                           gluonscript_data.codes[i].opcode = CIRCLE_ABS;
                            convert_parameters_to_abs(i);
                            break;
 		case CIRCLE_TO_REL:
-                           navigation_data.navigation_codes[i].opcode = CIRCLE_TO_ABS;
+                           gluonscript_data.codes[i].opcode = CIRCLE_TO_ABS;
                            convert_parameters_to_abs(i);
                            break;
 		case FLARE_TO_REL:
-                           navigation_data.navigation_codes[i].opcode = FLARE_TO_ABS;
+                           gluonscript_data.codes[i].opcode = FLARE_TO_ABS;
                            convert_parameters_to_abs(i);
                            break;
 		case GLIDE_TO_REL:
-                           navigation_data.navigation_codes[i].opcode = GLIDE_TO_ABS;
+                           gluonscript_data.codes[i].opcode = GLIDE_TO_ABS;
                            convert_parameters_to_abs(i);
                            break;
 		default:
@@ -126,7 +109,7 @@ void navigation_calculate_relative_position(int i)
 void navigation_calculate_relative_positions()
 {
 	int i;
-	for (i = 0; i < MAX_NAVIGATIONCODES; i++)
+	for (i = 0; i < MAX_GLUONSCRIPTCODES; i++)
 	{
 		navigation_calculate_relative_position(i);
 	}
@@ -136,47 +119,24 @@ void navigation_calculate_relative_positions()
 
 void convert_parameters_to_abs(int i)
 {
-    navigation_data.navigation_codes[i].x /= latitude_meter_per_radian;
-    navigation_data.navigation_codes[i].x += navigation_data.home_latitude_rad;
-    navigation_data.navigation_codes[i].y /= longitude_meter_per_radian;
-    navigation_data.navigation_codes[i].y += navigation_data.home_longitude_rad;
+    gluonscript_data.codes[i].x /= latitude_meter_per_radian;
+    gluonscript_data.codes[i].x += navigation_data.home_latitude_rad;
+    gluonscript_data.codes[i].y /= longitude_meter_per_radian;
+    gluonscript_data.codes[i].y += navigation_data.home_longitude_rad;
 }
 
 
-void navigation_burn()
-{
-	dataflash_write(NAVIGATION_PAGE, sizeof(navigation_data.navigation_codes), (unsigned char*) & (navigation_data.navigation_codes));
-}
 
-	
-void navigation_load()
+//void navigation_update()
+ScriptHandlerReturn navigation_handle_gluonscriptcommand (struct GluonscriptCode *current_code)
 {
-	dataflash_read(NAVIGATION_PAGE, sizeof(navigation_data.navigation_codes), (unsigned char*) & (navigation_data.navigation_codes));
-}	
-
-
-void navigation_update()
-{
-	ticks_counter++;
 	// keep our "time" up to date
-	if (ticks_counter % NAVIGATION_HZ == 0)
+	if (gluonscript_data.tick % GLUONSCRIPT_HZ == 0)
 	{
 		navigation_data.time_airborne_s++;
         navigation_data.time_block_s++;
 	}
 	
-	// Alarms, check every 10 seconds
-	if (ticks_counter % (NAVIGATION_HZ * 10) == 0) // check for alarms every 10 seconds
-	{
-		if (sensor_data.battery_voltage_10 < (int)(battery_alarm.panic_v*10.0))
-		{
-			navigation_data.alarm_battery_panic++;
-			if (battery_alarm.panic_line >= 0 && navigation_data.alarm_battery_panic == 1)  // only do this one time
-				navigation_data.current_codeline = battery_alarm.panic_line;
-		}
-		else if (sensor_data.battery_voltage_10 < (int)(battery_alarm.warning_v*10.0))
-			navigation_data.alarm_battery_warning++;
-	}
 	
 	// Set the "home"-position
 	if (!navigation_data.airborne)
@@ -219,8 +179,7 @@ void navigation_update()
 		sensor_data.yaw = sensor_data.gps.heading_rad;
 	}
 	
-
-	struct NavigationCode *current_code = & navigation_data.navigation_codes[navigation_data.current_codeline];
+		
 	switch(current_code->opcode)
 	{
 		case CLIMB:
@@ -234,8 +193,9 @@ void navigation_update()
 
 			navigation_data.desired_altitude_agl = current_code->x + 1000.0f;
 			if (sensor_data.pressure_height - navigation_data.home_pressure_height > current_code->x)
-				navigation_data.current_codeline++;
-			break;
+				return HANDLED_FINISHED;
+			else
+				return HANDLED_UNFINISHED;
 		case FROM_TO_REL:
 		case FROM_TO_ABS:
 		{
@@ -272,13 +232,12 @@ void navigation_update()
 			
 			if (waypoint_reached(current_code))
 			{
-				navigation_data.current_codeline++;
 				navigation_data.last_waypoint_latitude_rad = current_code->x;
 				navigation_data.last_waypoint_longitude_rad = current_code->y;
 				navigation_data.last_waypoint_altitude_agl = navigation_data.desired_altitude_agl;
+				return HANDLED_FINISHED;
 			}
-			
-			break;
+			return HANDLED_UNFINISHED;
 		}
 		case FLY_TO_REL:
 		case FLY_TO_ABS:
@@ -292,13 +251,13 @@ void navigation_update()
 			
 			if (waypoint_reached(current_code))
 			{
-				navigation_data.current_codeline++;
 				navigation_data.last_waypoint_latitude_rad = current_code->x;
 				navigation_data.last_waypoint_longitude_rad = current_code->y;
 				navigation_data.last_waypoint_altitude_agl = navigation_data.desired_altitude_agl;
-			}	
-			break;
-		
+				return HANDLED_FINISHED;
+			} 
+			else
+				return HANDLED_UNFINISHED;
 		case CIRCLE_REL:
 		case CIRCLE_ABS:
 			navigation_data.desired_throttle_pct = -1;
@@ -307,19 +266,18 @@ void navigation_update()
 			navigation_data.last_waypoint_latitude_rad = current_code->x;
 			navigation_data.last_waypoint_longitude_rad = current_code->y;
 			navigation_data.last_waypoint_altitude_agl = navigation_data.desired_altitude_agl;
-			navigation_data.current_codeline++;
-			break;
+			return HANDLED_FINISHED;
 		case CIRCLE_TO_REL:
 		case CIRCLE_TO_ABS:
 		{
-			struct NavigationCode code;
+			struct GluonscriptCode code;
 			// circle center = in between previous and current waypoint
 			code.x = (navigation_data.last_waypoint_latitude_rad + current_code->x) / 2.0;
 			code.y = (navigation_data.last_waypoint_longitude_rad + current_code->y) / 2.0;
 			code.a = (int)(navigation_distance_between_meter(navigation_data.last_waypoint_longitude_rad, current_code->y, navigation_data.last_waypoint_latitude_rad, current_code->x))/2;
 			
 			// decide to turn right or left
-			struct NavigationCode *next = next_code(navigation_data.current_codeline);
+			struct GluonscriptCode *next = gluonscript_next_waypoint_code(gluonscript_data.current_codeline);
 			float dir1 = navigation_heading_rad_fromto(navigation_data.last_waypoint_longitude_rad - current_code->y,
 	                                                   navigation_data.last_waypoint_latitude_rad - current_code->x);
 			float dir2 = navigation_heading_rad_fromto(current_code->y - next->y,
@@ -339,93 +297,16 @@ void navigation_update()
 			navigation_do_circle(&code);
 			navigation_data.desired_altitude_agl = code.b;
 			
-			if (get_variable(ABS_ALT_AND_HEADING_ERR) < 20.0)
+			if (gluonscript_get_variable(ABS_ALT_AND_HEADING_ERR) < 20.0)
 			{
 				navigation_data.last_waypoint_latitude_rad = current_code->x;
 				navigation_data.last_waypoint_longitude_rad = current_code->y;
 				navigation_data.last_waypoint_altitude_agl = navigation_data.desired_altitude_agl;
-				navigation_data.current_codeline++;
-			}	
-			break;
-		}	
-		case GOTO:
-			if (current_code->a < 0)
-				navigation_data.current_codeline = navigation_data.current_codeline + current_code->a;
+				return HANDLED_FINISHED;
+			} 
 			else
-				navigation_data.current_codeline = current_code->a;
-			break;
-		case UNTIL_GR:
-			if (get_variable(current_code->a) > current_code->x)
-				navigation_data.current_codeline++;
-			else
-				navigation_data.current_codeline--;
-			break;
-		case UNTIL_SM:
-			//printf("-> %f < %f => %d\n\r", get_variable(current_code->a), current_code->x, (int)(get_variable(current_code->a) < current_code->x));
-			if (get_variable(current_code->a) < current_code->x)
-				navigation_data.current_codeline++;
-			else
-				navigation_data.current_codeline--;
-			break;
-		case UNTIL_EQ:
-			if (fabs(get_variable(current_code->a) - current_code->x) < 1e-6f)
-				navigation_data.current_codeline++;
-			else
-				navigation_data.current_codeline--;
-			break;
-		case UNTIL_NE:
-			if (fabs(get_variable(current_code->a) - current_code->x) > 1e-6f)
-				navigation_data.current_codeline++;
-			else
-				navigation_data.current_codeline--;
-			break;
-		case IF_GR:
-			if (get_variable(current_code->a) > current_code->x)
-				navigation_data.current_codeline++;
-			else
-				navigation_data.current_codeline += 2;
-			break;
-		case IF_SM:
-			if (get_variable(current_code->a) < current_code->x)
-				navigation_data.current_codeline++;
-			else
-				navigation_data.current_codeline += 2;
-			break;
-		case IF_EQ:
-			if (fabs(get_variable(current_code->a) - current_code->x) < 1e-6f)
-				navigation_data.current_codeline++;
-			else
-				navigation_data.current_codeline += 2;
-			break;
-		case IF_NE:
-			if (fabs(get_variable(current_code->a) - current_code->x) > 1e-6f)
-				navigation_data.current_codeline++;
-			else
-				navigation_data.current_codeline += 2;
-			break;
-		case SERVO_SET:
-			servo_set_us(current_code->a, current_code->b);  // a = channel(0..7), b = microseconds (1000...2000)
-			navigation_data.current_codeline++;
-			break;
-		case SERVO_TRIGGER:
-		{
-			trigger_servo(current_code->a, current_code->b, current_code->x);
-		}	
-			navigation_data.current_codeline++;
-			break;
-		case EMPTYCMD:
-			navigation_data.desired_pre_bank = 0.0f;
-			navigation_data.desired_throttle_pct = -1;
-			navigation_data.current_codeline = 0;
-			// also return home @ 100m height
-			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
-	                                                   		         sensor_data.gps.latitude_rad);
-            navigation_data.desired_altitude_agl = 100.0f;
-			break;
-        case BLOCK:
-            navigation_data.time_block_s = 0;
-            navigation_data.current_codeline++;
-            break;
+				return HANDLED_UNFINISHED;
+		}
         case FLARE_TO_REL:
         case FLARE_TO_ABS:
         {
@@ -456,7 +337,7 @@ void navigation_update()
 		            (float)(sensor_data.gps.latitude_rad - (double)( navigation_data.last_waypoint_latitude_rad + nav_leg_progress * leg_x / latitude_meter_per_radian ) ) );
 				                                                         
 	        navigation_data.desired_altitude_agl = current_code->a;
-		    break;	
+		    return HANDLED_UNFINISHED;
 		}
 		case GLIDE_TO_REL:
         case GLIDE_TO_ABS:
@@ -501,17 +382,16 @@ void navigation_update()
 	        	navigation_data.desired_throttle_pct = 10;
 	        
 	        printf("\r\n%d: %d %d (%d-%d | %d)\r\n", (int)(nav_leg_progress*100.f), (int)navigation_data.desired_altitude_agl, (int)altitude_agl, (int)(desired_pitch/3.14*180.0), (int)(control_state.desired_pitch/3.14*180.0), (int)(sensor_data.pitch/3.14*180.0));
-		    break;	
+		    return HANDLED_UNFINISHED;
 		}
 		case SET_LOITER_POSITION:
 			navigation_data.loiter_waypoint_latitude_rad = sensor_data.gps.latitude_rad;
 			navigation_data.loiter_waypoint_longitude_rad = sensor_data.gps.longitude_rad;
 			navigation_data.loiter_waypoint_altitude_agl = sensor_data.pressure_height - navigation_data.home_pressure_height;
-			navigation_data.current_codeline++;
-			break;
+			return HANDLED_FINISHED;
 		case LOITER_CIRCLE:
 		{
-			struct NavigationCode code;
+			struct GluonscriptCode code;
 			code.x = navigation_data.loiter_waypoint_latitude_rad;
 			code.y = navigation_data.loiter_waypoint_longitude_rad;
 			code.a = current_code->a; // radius
@@ -522,32 +402,25 @@ void navigation_update()
 			navigation_data.last_waypoint_latitude_rad = code.x;
 			navigation_data.last_waypoint_longitude_rad = code.y;
 			navigation_data.last_waypoint_altitude_agl = navigation_data.desired_altitude_agl;
-			navigation_data.current_codeline++;
-			break;
+			return HANDLED_FINISHED;
 		}	
-		case SET_BATTERY_ALARM:
-			battery_alarm.panic_v = current_code->y;
-			battery_alarm.warning_v = current_code->x;
-			battery_alarm.panic_line = current_code->a;
-			navigation_data.current_codeline++;
-			break;
-		default:
+		/*default:
 			navigation_data.desired_pre_bank = 0.0f;
 			navigation_data.current_codeline = 0;
 			// also return home @ 100m height
 			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
 	                                                   		         sensor_data.gps.latitude_rad);
 	        navigation_data.desired_altitude_agl = 100.0f; 
-			break;
-	
+			return 0;*/
 	}	
+	return NOT_HANDLED;
 }
 
 
 /*!
  *   Are we flying towards or away from the waypoint?
  */
-int flying_towards_waypoint(struct NavigationCode *current_code)
+int flying_towards_waypoint(struct GluonscriptCode *current_code)
 {
 	float heading_error_rad = navigation_data.desired_heading_rad - sensor_data.gps.heading_rad;
 		
@@ -563,7 +436,7 @@ int flying_towards_waypoint(struct NavigationCode *current_code)
 }
 
 	
-int waypoint_reached(struct NavigationCode *current_code)
+int waypoint_reached(struct GluonscriptCode *current_code)
 {
 	if (navigation_distance_between_meter(sensor_data.gps.longitude_rad, current_code->y,
 			                              sensor_data.gps.latitude_rad, current_code->x) < config.control.waypoint_radius_m)
@@ -575,132 +448,9 @@ int waypoint_reached(struct NavigationCode *current_code)
 	} 
 	return 0;
 }
-	
-
-float get_variable(enum navigation_variable i)
-{
-	switch (i)
-	{
-		case HEIGHT:
-			return sensor_data.pressure_height - navigation_data.home_pressure_height;
-		case SPEED_MS:
-			return sensor_data.gps.speed_ms;
-		case HEADING_DEG:
-			return RAD2DEG(sensor_data.gps.heading_rad);
-		case FLIGHT_TIME_S:
-			return (float)navigation_data.time_airborne_s;
-		case SATELLITES_IN_VIEW:
-			return sensor_data.gps.satellites_in_view;
-		case HOME_DISTANCE:
-			return navigation_distance_between_meter(sensor_data.gps.longitude_rad, navigation_data.home_longitude_rad,
-			                                         sensor_data.gps.latitude_rad, navigation_data.home_latitude_rad);
-		case PPM_LINK_ALIVE:
-			return ppm.connection_alive ? 1.0f : 0.0f;
-		case CHANNEL_1:
-			return (float)ppm.channel[0];
-		case CHANNEL_2:
-			return (float)ppm.channel[1];
-		case CHANNEL_3:
-			return (float)ppm.channel[2];
-		case CHANNEL_4:
-			return (float)ppm.channel[3];
-		case CHANNEL_5:
-			return (float)ppm.channel[4];
-		case CHANNEL_6:
-			return (float)ppm.channel[5];
-		case CHANNEL_7:
-			return (float)ppm.channel[6];
-		case CHANNEL_8:
-			return (float)ppm.channel[7];
-		case BATT_V:
-			return (float)(sensor_data.battery_voltage_10)/10.0f;
-        case BLOCK_TIME:
-            return (float)navigation_data.time_block_s;
-        case ABS_ALTITUDE_ERROR:
-        	return fabs(control_state.desired_altitude - sensor_data.pressure_height);
-        case ABS_HEADING_ERROR:
-        {
-	        struct NavigationCode *next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+1];
-	        if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
-                next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS || next_code->opcode != CIRCLE_TO_ABS)
-            {
-                next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+2];
-	            if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
-	                next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS || next_code->opcode != CIRCLE_TO_ABS)
-	            {
-	                next_code = & navigation_data.navigation_codes[navigation_data.current_codeline+3];
-	            	if (next_code->opcode != FROM_TO_ABS && next_code->opcode != FLY_TO_ABS && next_code->opcode != CIRCLE_ABS && 
-	                	next_code->opcode != FLARE_TO_ABS && next_code->opcode != GLIDE_TO_ABS || next_code->opcode != CIRCLE_TO_ABS)
-	               		printf("\r\nBad ABS_HEADING_ERR position\r\n");
-	            }   		
-			}
-			
-            float heading_error = navigation_heading_rad_fromto((float)(sensor_data.gps.longitude_rad - (double)(next_code->y)),
-	                                                           (float)(sensor_data.gps.latitude_rad - (double)(next_code->x)));
-	        heading_error = RAD2DEG(heading_error - sensor_data.gps.heading_rad);
-	        if (heading_error > 180.0f)
-	        	heading_error -= 360.0f;
-	        else if (heading_error < -180.0f)
-	        	heading_error += 360.0f;
-        	return fabs(heading_error);
-	    } 
-        case ABS_ALT_AND_HEADING_ERR:
-        {
-            struct NavigationCode *next = next_code(navigation_data.current_codeline);
-			                
-            float heading_error = navigation_heading_rad_fromto((float)(sensor_data.gps.longitude_rad - (double)(next->y)),
-	                                                           (float)(sensor_data.gps.latitude_rad - (double)(next->x)));
-			heading_error = RAD2DEG(heading_error - sensor_data.gps.heading_rad);
-			//printf("\r\n%d\r\n", (int)heading_error);
-	        if (heading_error > 180.0f)
-	        	heading_error -= 360.0f;
-	        else if (heading_error < -180.0f)
-	        	heading_error += 360.0f;
-        	return fabs(control_state.desired_altitude - sensor_data.pressure_height) + fabs(heading_error);
-        }	
-        default:
-			return 0.0;
-	}	
-}	
 
 
-struct NavigationCode * next_code(int current_codeline)
-{
-	struct NavigationCode *next = & navigation_data.navigation_codes[current_codeline+1];
-	
-	if (next->opcode != FROM_TO_ABS && next->opcode != FLY_TO_ABS && next->opcode != CIRCLE_ABS && 
-        next->opcode != FLARE_TO_ABS && next->opcode != GLIDE_TO_ABS && next->opcode != CIRCLE_TO_ABS)
-	{
-		if (next->opcode == GOTO)
-		{
-			if (next->a >= 0)
-				current_codeline = next->a - 2;
-			else
-				current_codeline = (current_codeline + 1) + next->a - 2;
-		}		
-		
-		next = & navigation_data.navigation_codes[current_codeline+2];
-		if (next->opcode != FROM_TO_ABS && next->opcode != FLY_TO_ABS && next->opcode != CIRCLE_ABS && 
-            next->opcode != FLARE_TO_ABS && next->opcode != GLIDE_TO_ABS && next->opcode != CIRCLE_TO_ABS)
-		{
-			if (next->opcode == GOTO)
-			{
-				if (next->a >= 0)
-					current_codeline = next->a - 3;
-				else
-					current_codeline = (current_codeline + 1) + next->a - 3;
-			}
-			next = & navigation_data.navigation_codes[current_codeline+3];
-			if (next->opcode != FROM_TO_ABS && next->opcode != FLY_TO_ABS && next->opcode != CIRCLE_ABS && 
-			    next->opcode != FLARE_TO_ABS && next->opcode != GLIDE_TO_ABS)
-				printf("\r\nNext code not found!!\r\n");
-		}   		
-	}
-	return next;
-}
-	
-
-void navigation_do_circle(struct NavigationCode *current_code)
+void navigation_do_circle(struct GluonscriptCode *current_code)
 {
 	float r = (float)current_code->a; // meter
 	float rad_s = sensor_data.gps.speed_ms / r;   // rad/s for this circle

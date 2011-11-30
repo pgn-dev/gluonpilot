@@ -27,6 +27,7 @@
 #include "dataflash/dataflash.h"
 #include "pwm_in/pwm_in.h"
 #include "ppm_in/ppm_in.h"
+#include "led/led.h"
 
 // rtos_pilot includes
 #include "control.h"
@@ -35,6 +36,7 @@
 #include "configuration.h"
 #include "datalogger.h"
 #include "navigation.h"
+#include "gluonscript.h"
 #include "osd.h"
 
 #include "common.h"
@@ -58,7 +60,7 @@ int main()
 	uart1_puts("Limited version");
 #endif
 	
-	printf(" [%s %s, config: %dB, logline: %dB, navigation: %dB, double: %dB]\r\n\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(navigation_data.navigation_codes), sizeof(double));
+	printf(" [%s %s, config: %dB, logline: %dB, navigation: %dB, double: %dB]\r\n\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(gluonscript_data.codes), sizeof(double));
 	
 	microcontroller_reset_type();  // printf out reason of reset; for debugging
 	led_init();

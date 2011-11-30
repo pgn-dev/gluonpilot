@@ -27,6 +27,7 @@
 #include "sensors.h"
 #include "control.h"
 #include "navigation.h"
+#include "gluonscript.h"
 
 
 struct LogIndex datalogger_index_table[MAX_INDEX];
@@ -323,7 +324,7 @@ void datalogger_task( void *parameters )
 			//l.roll_acc = (int)(sensor_data.roll_acc * (180.0/3.14159));
 			l.control_state = control_state.flight_mode;
 			l.desired_heading = ((int)(navigation_data.desired_heading_rad * 180.0/3.14159));
-			l.navigation_code_line = navigation_data.current_codeline;
+			l.navigation_code_line = gluonscript_data.current_codeline;
 			l.desired_height = control_state.desired_altitude;
 #else
 			// Raw sensor logging at 50Hz

@@ -42,6 +42,7 @@
 #include "ahrs.h"
 #include "navigation.h"
 #include "common.h"
+#include "gluonscript.h"
 
 #define INVERT_X -1.0   // set to -1 if front becomes back
 
@@ -244,7 +245,8 @@ void sensors_gps_task( void *parameters )
 	sensor_data.gps.status = EMPTY;	
 	sensor_data.gps.latitude_rad = 0.0;
 	sensor_data.gps.longitude_rad = 0.0;
-	navigation_init ();
+
+	gluonscript_init();
 		
 	gps_open_port(&(config.gps));
 		
@@ -267,24 +269,35 @@ void sensors_gps_task( void *parameters )
 	else if (sensor_data.gps.status == VOID)
 		led2_on();
 	
-	portTickType xLastExecutionTime = xTaskGetTickCount();
+	//portTickType xLastExecutionTime = xTaskGetTickCount();
 	for( ;; )
 	{
 		/* Wait until it is time for the next cycle. */
-		if( xSemaphoreTake( xGpsSemaphore, LONG_TIME ) == pdTRUE )
+		if( xSemaphoreTake( xGpsSemaphore, ( portTickType ) 205 / portTICK_RATE_MS ) == pdTRUE )
 		{
 			gps_update_info(&(sensor_data.gps)); // 5Hz (needed?)
-			
+			i++;
+		}	
+		else
+		{
+			// alert: no message received from GPS!
+			sensor_data.gps.status = EMPTY;
+			led2_off();
+			i = 0;
+			sensor_data.gps.satellites_in_view = 0;
+		}		
 			// Speed is use for calculating accelerations (in the attitude filter)
 			// When the GPS is no longer locked, we don't know the speed -> no reliable attitude
 			// Use pre-configured cruising speed as measured speed
-			if (sensor_data.gps.satellites_in_view < 4 && 
-				navigation_data.airborne)
+			if (sensor_data.gps.satellites_in_view < 4 && navigation_data.airborne)
+			{
 					sensor_data.gps.speed_ms = config.control.cruising_speed_ms;
+			}
 				
-			i++;
 			if (i % 2 == 0)
-				navigation_update();
+			{
+				gluonscript_do(); //navigation_update();
+			}
 			
 			if (i % 6 == 0 || (i+1) % 6 == 0 || (i+2) % 6 == 0)  // this is used for both RMC and GGA, so only update every other tick
 			{
@@ -294,6 +307,6 @@ void sensors_gps_task( void *parameters )
 			else if (sensor_data.gps.status != EMPTY)
 				led2_on();
 
-		}
+		//}
 	}
 }
