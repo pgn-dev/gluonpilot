@@ -1,4 +1,2 @@
  
- void osd_task( void *parameters );
- 
- 
+void osd_task( void *parameters );

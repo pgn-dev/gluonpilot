@@ -29,12 +29,14 @@
 #include "gps/gps.h"
 #include "ppm_in/ppm_in.h"
 #include "led/led.h"
+#include "servo/servo.h"
 
 #include "sensors.h"
 #include "communication.h"
 #include "configuration.h"
 #include "datalogger.h"
 #include "navigation.h"
+#include "alarms.h"
 
 #include "common.h"
 
@@ -87,7 +89,7 @@ xSemaphoreHandle xUart1Semaphore;
  */
 void communication_telemetry_task( void *parameters )
 {
-	int i, c = 0;
+	int c = 0;
 	struct TelemetryConfig counters;
 		
 	/* Used to wake the task at the correct frequency. */
@@ -103,6 +105,7 @@ void communication_telemetry_task( void *parameters )
 	counters.stream_PressureTemp = 0;
 	counters.stream_GpsBasic = 0;
 	counters.stream_Control = 0;
+	counters.stream_Attitude = 0;
 	
 	uart1_puts("done\r\n");
 	
@@ -141,17 +144,17 @@ void communication_telemetry_task( void *parameters )
 			vTaskDelay( ( ( portTickType ) 10 / portTICK_RATE_MS ) ); // wait 10ms
 		}	
 		
-		if (navigation_data.alarm_battery_warning == 1)
+		if (battery_alarm.alarm_battery_warning == 1)
 		{
 			comm_printf_direct("Warning: Battery low\r\n");
 			// clear the flag so it is printed every few seconds
-			navigation_data.alarm_battery_warning = 0;
+			battery_alarm.alarm_battery_warning = 0;
 		}
-		else if (navigation_data.alarm_battery_panic == 1)
+		else if (battery_alarm.alarm_battery_panic == 1)
 		{
 			// print this once 
 			comm_printf_direct("!!! Panic: Battery low !!!\r\n");
-			navigation_data.alarm_battery_panic++; // an ugly hack to make sure it's never printed again
+			battery_alarm.alarm_battery_panic++; // an ugly hack to make sure it's never printed again
 		}
 				
 		///////////////////////////////////////////////////////////////
@@ -258,7 +261,7 @@ void communication_telemetry_task( void *parameters )
 				
 			
 			comm_printf_poll("TC;%d;%d;%d;%u;%d;%d;%d;%d", (int)control_state.flight_mode,
-			       navigation_data.current_codeline, (int)(sensor_data.pressure_height - navigation_data.home_pressure_height),
+			       gluonscript_data.current_codeline, (int)(sensor_data.pressure_height - navigation_data.home_pressure_height),
 			       sensor_data.battery_voltage_10,
 			       navigation_data.time_airborne_s, navigation_data.time_block_s,
 			       sig_quality, throttle);
@@ -613,22 +616,23 @@ void communication_input_task( void *parameters )
 					sensor_data.pressure_height = (float)atoi(&(buffer[token[5]]));
 					sensor_data.roll =  (float)atof(&(buffer[token[6]]));
 					sensor_data.pitch =  (float)atof(&(buffer[token[7]]));
-					navigation_update();
+					//navigation_update();
+					gluonscript_do();
 				}
 				///////////////////////////////////////////////////////////////
 				//                       BURN NAVIGATION                     //
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'N') 
 				{
-					navigation_burn();
-					comm_printf_direct("Navigation burned to flash\r\n");
+					gluonscript_burn();
+					comm_printf_direct("Script burned to flash\r\n");
 				}	
 				///////////////////////////////////////////////////////////////
 				//                       LOAD NAVIGATION                     //
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'L' && buffer[token[0] + 1] == 'N') 
 				{
-					navigation_load();
+					gluonscript_load();
 					if (navigation_data.relative_positions_calculated)
 						navigation_calculate_relative_positions();
 				}	
@@ -650,21 +654,21 @@ void communication_input_task( void *parameters )
 	//if (i < 2)
 		uart1_puts("Not allowed in Limited Edition!\r\n");
 #else
-					if (i < MAX_NAVIGATIONCODES)
+					if (i < MAX_GLUONSCRIPTCODES)
 					{
-						navigation_data.navigation_codes[i].opcode = atoi(&(buffer[token[2]]));
-						navigation_data.navigation_codes[i].x = atof(&(buffer[token[3]]));
-						navigation_data.navigation_codes[i].y = atof(&(buffer[token[4]]));
-						navigation_data.navigation_codes[i].a = atoi(&(buffer[token[5]]));
-						navigation_data.navigation_codes[i].b = atoi(&(buffer[token[6]]));
+						gluonscript_data.codes[i].opcode = atoi(&(buffer[token[2]]));
+						gluonscript_data.codes[i].x = atof(&(buffer[token[3]]));
+						gluonscript_data.codes[i].y = atof(&(buffer[token[4]]));
+						gluonscript_data.codes[i].a = atoi(&(buffer[token[5]]));
+						gluonscript_data.codes[i].b = atoi(&(buffer[token[6]]));
 
 						if (navigation_data.relative_positions_calculated)
 							navigation_calculate_relative_position(i);
 							
 						// confirm by sending it back...
-						comm_printf("ND;%d;%d;%f;%f;%d;%d", i+1, navigation_data.navigation_codes[i].opcode,
-										navigation_data.navigation_codes[i].x, navigation_data.navigation_codes[i].y,
-										navigation_data.navigation_codes[i].a, navigation_data.navigation_codes[i].b);
+						comm_printf("ND;%d;%d;%f;%f;%d;%d", i+1, gluonscript_data.codes[i].opcode,
+										gluonscript_data.codes[i].x, gluonscript_data.codes[i].y,
+										gluonscript_data.codes[i].a, gluonscript_data.codes[i].b);
 					}
 #endif
 				}
@@ -674,8 +678,8 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'J' && buffer[token[0] + 1] == 'N')
 				{
 					int number = atoi(&(buffer[token[1]]));
-					if (number >= 0 && number < MAX_NAVIGATIONCODES)
-						navigation_data.current_codeline = number;
+					if (number >= 0 && number < MAX_GLUONSCRIPTCODES)
+						gluonscript_data.current_codeline = number;
 				}
 				///////////////////////////////////////////////////////////////
 				//                  READ ALL CONFIGURATION                   //
@@ -723,11 +727,11 @@ void print_navigation()
 {
 	int i;
 	uart1_puts("\n\r");
-	for (i = 0; i < MAX_NAVIGATIONCODES; i++)
+	for (i = 0; i < MAX_GLUONSCRIPTCODES; i++)
 	{
-		printf("ND;%d;%d;%f;%f;%d;%d\n\r", i+1, navigation_data.navigation_codes[i].opcode,
-			navigation_data.navigation_codes[i].x, navigation_data.navigation_codes[i].y,
-			navigation_data.navigation_codes[i].a, navigation_data.navigation_codes[i].b);
+		printf("ND;%d;%d;%f;%f;%d;%d\n\r", i+1, gluonscript_data.codes[i].opcode,
+			gluonscript_data.codes[i].x, gluonscript_data.codes[i].y,
+			gluonscript_data.codes[i].a, gluonscript_data.codes[i].b);
 	}	
 }
 

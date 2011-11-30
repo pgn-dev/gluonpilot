@@ -79,6 +79,7 @@ void gps_init(struct GpsConfig *gpsconfig)
 
 	// First we configure which sentences we want. If the unit outputs all sentences at 5Hz by default, then 38400 will be too slow 
 	// and the unit won't allow us to change the baudrate.
+	
 	gps_config_output();
 }
 
@@ -109,6 +110,7 @@ void gps_open_port(struct GpsConfig *gpsconfig)
 void gps_config_output()
 {
 	// Change to 115200 baud
+	
 	uart2_puts("$PMTK251,115200*1F\r\n");  // this can take a while if no GPS is connected
 	microcontroller_delay_ms(10);
 	uart2_open(115200l);

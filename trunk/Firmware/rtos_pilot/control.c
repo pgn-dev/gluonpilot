@@ -39,7 +39,7 @@ void control_wing_manual();
 void control_wing_stabilized(float dt, int h);
 void control_wing_navigate(float dt, int altitude_controllable);
 void control_wing_desired_to_servos(float dt);
-
+void control_copter_stabilized(float dt, int altitude_hold);
 
 //! Contains the last calculated servo position
 int servo_out[6];
@@ -334,7 +334,6 @@ void control_wing_desired_to_servos(float dt)
 {
 	float elevator_out_radians,
 	      aileron_out_radians;     
-	static int counter = 0;
 	
 	// Keep pitch & roll within limits
 	control_state.desired_pitch = MIN(control_state.desired_pitch, config.control.max_pitch);
@@ -473,7 +472,6 @@ void control_copter_desired_to_servos(float dt)
 {
 	float elevator_out_radians,
 	      aileron_out_radians;     
-	static int counter = 0;
 	static float desired_yaw = 0.0;
 	
 	motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];	
@@ -531,7 +529,6 @@ void control_copter_desired_to_servos(float dt)
  */
 void control_mix_out()
 {
-	static int j = 0;
 	int i;
 	int aileron_out_left, aileron_out_right;
 	int number_of_controlled_channels = 4;
