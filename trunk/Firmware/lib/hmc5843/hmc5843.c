@@ -231,11 +231,11 @@ void hmc5843_read(struct intvector *magdata)
 // exhibit the status of the HMC5843
 void test_HMC5843() 
 {
-	printf( "rega %u \r\n",I2Cread(0x03C,0));
+	/*printf( "rega %u \r\n",I2Cread(0x03C,0));
 	printf( "regb %u \r\n",I2Cread(0x03C,1));
 	printf( "mode %u \r\n",I2Cread(0x03C,2));
 	printf( "stat %u \r\n",I2Cread(0x03C,9));
 	printf( "id   %1c%1c%1c \r\n",I2Cread(0x03C,10),I2Cread(0x03C,11),I2Cread(0x03C,12));
-	
+	*/
 }
 
