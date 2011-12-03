@@ -107,7 +107,7 @@ int dataflash_read_Mbit()
 	
 	// Write to buffer 1
 	spi_comm(0x9F);
-	int manu = spi_comm(0x00);
+	/*int manu = */spi_comm(0x00);
 	int size = spi_comm(0x00) & 31;
 	spi_comm(0x00);
 	spi_comm(0x00);
@@ -318,7 +318,7 @@ void dataflash_write_raw(int page, int size, unsigned char *buffer)
 
 void dataflash_read_raw(int page, int size, unsigned char *buffer)
 {
-	int add1, add2;
+	int add1=0, add2=0;
 	int i;
 	
 	// For 528 bytes page size: xxPPPPPP | PPPPPPBB | BBBBBBBB
@@ -333,7 +333,7 @@ void dataflash_read_raw(int page, int size, unsigned char *buffer)
 		add2 = page;
 		add2 <<= 2;
 	} 
-	else if (PAGE_SIZE == 264)
+	else //if (PAGE_SIZE == 264)
 	{
 		add1 = page;
 		add1 >>= 7;

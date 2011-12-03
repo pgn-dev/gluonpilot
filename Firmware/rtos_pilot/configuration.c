@@ -114,7 +114,7 @@ void configuration_default()
 	config.control.reverse_servo5 = 0;
 	config.control.reverse_servo6 = 0;
 	
-	//config.control.manual_trim = 0;
+	config.control.manual_trim = 0;
 	config.control.use_pwm = 1;
 	
 	for (i = 0; i < 6; i++)

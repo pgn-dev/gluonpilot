@@ -110,7 +110,8 @@ void communication_telemetry_task( void *parameters )
 	uart1_puts("done\r\n");
 	
 	// delay a bit and send navigation and configuration
-	vTaskDelay(( ( portTickType ) 100 / portTICK_RATE_MS ) );  
+	vTaskDelay(( ( portTickType ) 1500 / portTICK_RATE_MS ) );  
+	//vTaskDelay(( ( portTickType ) 100 / portTICK_RATE_MS ) );  
 	print_configuration();
 	vTaskDelay( ( ( portTickType ) 100 / portTICK_RATE_MS ) ); 
 	print_navigation();
@@ -226,7 +227,7 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_GpsBasic == config.telemetry.stream_GpsBasic)
 		{
-			comm_printf_poll("TG;%c;%.9Lf;%.9Lf;%u;%u;%u;%u", '0' + (unsigned char)sensor_data.gps.status,
+			comm_printf_poll("TG;%c;%.9f;%.9f;%u;%u;%u;%u", '0' + (unsigned char)sensor_data.gps.status,
 			                                            sensor_data.gps.latitude_rad, sensor_data.gps.longitude_rad,
 			                                            (unsigned int)(sensor_data.gps.speed_ms*10),
 			                                            (unsigned int)(sensor_data.gps.heading_rad*100),
@@ -265,10 +266,11 @@ void communication_telemetry_task( void *parameters )
 			       sensor_data.battery_voltage_10,
 			       navigation_data.time_airborne_s, navigation_data.time_block_s,
 			       sig_quality, throttle);
-			
+			 
 			counters.stream_Control = 0;
-                        idle_counter = 0;
-			//printf("\r\n%f - %f | %f + %f\r\n", control_state.desired_altitude, control_state.desired_pitch,navigation_data.desired_height_above_ground_m, navigation_data.home_pressure_height);
+			//comm_printf_poll("-- %lu --", idle_counter);
+            //idle_counter = 0;
+			//comm_printf_poll("-- %lu --", idle_counter);
 		}
 		else if (counters.stream_Control > config.telemetry.stream_Control)
 			counters.stream_Control = 0;
@@ -278,6 +280,7 @@ void communication_telemetry_task( void *parameters )
 
 extern xQueueHandle xRxedChars;
 
+#define MAX_TOKEN 10
 
 /*!
  *   This task parses and executes all commands coming from the groundstation
@@ -288,7 +291,7 @@ extern xQueueHandle xRxedChars;
 void communication_input_task( void *parameters )
 {
 	static int   buffer_position;
-	static int   token[10] = {0,0,0,0,0,0,0,0,0,0};
+	static int   token[MAX_TOKEN+1] = {0,0,0,0,0,0,0,0,0,0,0};
 	static int   current_token;
 	
 	char tmp;
@@ -712,10 +715,18 @@ void communication_input_task( void *parameters )
             	token[7] = 0;
             	token[8] = 0;
             }
-            else if ((tmp == ';' || tmp == '*') && current_token < 9 && buffer_position < BUFFERSIZE)
+            else if ((tmp == ';' || tmp == '*'))
             {
-	            buffer[buffer_position++] = tmp;
-	            token[++current_token] = buffer_position;
+				if  (current_token < MAX_TOKEN && buffer_position < BUFFERSIZE)
+				{
+	            	buffer[buffer_position++] = tmp;
+	            	token[++current_token] = buffer_position;
+				} 
+				else if (current_token >= MAX_TOKEN) // error!
+				{
+					buffer_position = 0;
+					current_token = 0;
+				}
 	        } 
 	        else if (buffer_position < BUFFERSIZE)
 	        	buffer[buffer_position++] = tmp;
@@ -729,7 +740,7 @@ void print_navigation()
 	uart1_puts("\n\r");
 	for (i = 0; i < MAX_GLUONSCRIPTCODES; i++)
 	{
-		printf("ND;%d;%d;%f;%f;%d;%d\n\r", i+1, gluonscript_data.codes[i].opcode,
+		comm_printf_poll("ND;%d;%d;%f;%f;%d;%d", i+1, gluonscript_data.codes[i].opcode,
 			gluonscript_data.codes[i].x, gluonscript_data.codes[i].y,
 			gluonscript_data.codes[i].a, gluonscript_data.codes[i].b);
 	}	
@@ -738,7 +749,7 @@ void print_navigation()
 void print_configuration()
 {
 	int i;
-	uart1_puts("CA;");
+	uart1_puts("CA;"); // 21
 	
 	//config.sensors
 	print_unsigned_integer((unsigned int)config.sensors.acc_x_neutral, uart1_puts);
