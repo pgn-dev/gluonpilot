@@ -286,26 +286,19 @@ void sensors_gps_task( void *parameters )
 			i = 0;
 			sensor_data.gps.satellites_in_view = 0;
 		}		
+	
 		// Speed is use for calculating accelerations (in the attitude filter)
 		// When the GPS is no longer locked, we don't know the speed -> no reliable attitude
 		// Use pre-configured cruising speed as measured speed
 		if (sensor_data.gps.satellites_in_view < 4 && navigation_data.airborne)
-		{
 				sensor_data.gps.speed_ms = config.control.cruising_speed_ms;
-		}
 			
-		if (i % 2 == 0)
-		{
-			gluonscript_do(); //navigation_update();
-		}
+		if (i % 2 == 0) // this is used for both RMC and GGA, so only update every other tick
+			gluonscript_do(); 
 		
-		if (i % 6 == 0 || (i+1) % 6 == 0 || (i+2) % 6 == 0)  // this is used for both RMC and GGA, so only update every other tick
-		{
-			if (sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view > 5)
-				led2_off();
-		}	
+		if ((i % 6 == 0 || (i+1) % 6 == 0 || (i+2) % 6 == 0) &&  sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view > 5)
+			led2_off();
 		else if (sensor_data.gps.status != EMPTY)
 			led2_on();
-
 	}
 }
