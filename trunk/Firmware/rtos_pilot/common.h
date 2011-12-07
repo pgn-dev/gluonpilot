@@ -6,4 +6,4 @@
 #define MAX(a,b) ((a)>(b)?(a):(b))
 #define MIN(a,b) ((a)<(b)?(a):(b))
 
-#define BIND(x,a,b) ((x)>(b)?b:(((x)<(a))?a:x))
+#define BIND(x,a,b) ((x)>(b)?(b):(((x)<(a))?(a):(x)))

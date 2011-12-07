@@ -9,10 +9,12 @@
  *  @since    0.1
  */
  
-
+// Gluonpilot library includes
 #include "microcontroller/microcontroller.h"
 #include "dataflash/dataflash.h"
 #include "gps/gps.h"
+
+// rtos_pilot includes
 #include "sensors.h"
 #include "communication.h"
 #include "configuration.h"
