@@ -17,22 +17,24 @@
 
 #include <math.h>
 
+// FreeRTOS includes
 #include "FreeRTOS/FreeRTOS.h"
 #include "FreeRTOS/task.h"
 #include "FreeRTOS/queue.h"
 #include "FreeRTOS/croutine.h"
 #include "FreeRTOS/semphr.h"
 
+// Gluonpilot library includes
 #include "ppm_in/ppm_in.h"
 #include "servo/servo.h"
 #include "pid/pid.h"
 #include "uart1_queue/uart1_queue.h"
 
+// rtos_pilot includes
 #include "control.h"
 #include "configuration.h"
 #include "sensors.h"
 #include "navigation.h"
-
 #include "common.h"
 
 void control_wing_manual();
@@ -112,18 +114,16 @@ void control_init()
 /*!
  *   FreeRTOS task for fixed wing aircraft (not QUAD mixing)
  */
-void control_wing_task( void *parameters )
+void control_wing_task(void *parameters)
 {
 	enum FlightModes lastMode = MANUAL;
 	
 	/* Used to wake the task at the correct frequency. */
 	portTickType xLastExecutionTime; 
 
-	uart1_puts("Control task initializing...");
-	
+	uart1_puts("Control task initializing...");	
 	servo_init();
 	control_init();
-
 	uart1_puts("done\r\n");
 	
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil()	works correctly. */
@@ -187,8 +187,7 @@ void control_wing_task( void *parameters )
 		else
 		{
 			control_state.flight_mode = MANUAL;
-			control_wing_manual(); // manual mode
-			
+			control_wing_manual(); // manual mode	
 		}
 		lastMode = control_state.flight_mode;
 	}
@@ -239,7 +238,7 @@ void control_wing_stabilized(float dt, int altitude_hold)
 		  control_state.desired_pitch = (control_state.desired_altitude - sensor_data.pressure_height)  / 20.0 * config.control.max_pitch; 
 	} 
        
- motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
+	motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
 	control_wing_desired_to_servos(dt);
 }
 
@@ -302,25 +301,25 @@ void control_wing_navigate(float dt, int altitude_controllable)
 		}
 	}
 
-        // auto-throttle
-        if (config.control.autopilot_auto_throttle)
-        {
-            int d_altitude = (int)control_state.desired_altitude - (int)sensor_data.pressure_height;
-            int target = config.control.auto_throttle_cruise_pct +
-                        (d_altitude * config.control.auto_throttle_p_gain) / 10;
-            if (target > config.control.auto_throttle_max_pct)
-                target = config.control.auto_throttle_max_pct;
-            else if (target < config.control.auto_throttle_min_pct)
-                target = config.control.auto_throttle_min_pct;
+	// auto-throttle
+	if (config.control.autopilot_auto_throttle)
+	{
+		int d_altitude = (int)control_state.desired_altitude - (int)sensor_data.pressure_height;
+		int target = config.control.auto_throttle_cruise_pct +
+					(d_altitude * config.control.auto_throttle_p_gain) / 10;
+		if (target > config.control.auto_throttle_max_pct)
+			target = config.control.auto_throttle_max_pct;
+		else if (target < config.control.auto_throttle_min_pct)
+			target = config.control.auto_throttle_min_pct;
 
-			if (navigation_data.desired_throttle_pct != -1)  // currently only flare
-				target = navigation_data.desired_throttle_pct;
+		if (navigation_data.desired_throttle_pct != -1)  // currently only flare
+			target = navigation_data.desired_throttle_pct;
 
-            motor_out = /*1000 + */target*10;
-			//printf("\r\n%d = %d + (%d*%d)/10 - %d %d\r\n", target, config.control.auto_throttle_cruise_pct, d_altitude, config.control.auto_throttle_p_gain, (int)control_state.desired_altitude, (int)sensor_data.pressure_height);
-			
-        } else
-            motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
+		motor_out = /*1000 + */target*10;
+		//printf("\r\n%d = %d + (%d*%d)/10 - %d %d\r\n", target, config.control.auto_throttle_cruise_pct, d_altitude, config.control.auto_throttle_p_gain, (int)control_state.desired_altitude, (int)sensor_data.pressure_height);
+
+	} else
+		motor_out = ppm.channel[config.control.channel_motor] - config.control.channel_neutral[config.control.channel_motor];
 
 	control_wing_desired_to_servos(dt);
 }

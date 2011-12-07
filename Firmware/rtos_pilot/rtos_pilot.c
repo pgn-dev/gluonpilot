@@ -44,7 +44,7 @@
 extern xSemaphoreHandle xGpsSemaphore;
 extern xSemaphoreHandle xSpiSemaphore;
 
-static char version[] = "0.7.2";
+static char version[] = "0.8 DEV";
 
 unsigned long idle_counter = 0;
 
@@ -52,15 +52,15 @@ int main()
 {
 	microcontroller_init();
 	
-	//uart1_queue_init(115200l);  // default baudrate: 115200
 	uart1_queue_init(57600l);  // default baudrate: 57600 due to XBee bi-direction communication
 	
 	printf("Gluonpilot v%s ", version);
 #ifdef LIMITED  // Limited version is pre-loaded on modules sent to Non-European countries
-	uart1_puts("Limited version");
+	printf("Limited version");
 #endif
 	
-	printf(" [%s %s, config: %dB, logline: %dB, navigation: %dB, double: %dB]\r\n\r\n", __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(gluonscript_data.codes), sizeof(double));
+	printf(" [%s %s, config: %dB, logline: %dB, navigation: %dB, double: %dB]\r\n\r\n",
+                __DATE__, __TIME__, sizeof(struct Configuration), sizeof(struct LogLine), sizeof(gluonscript_data.codes), sizeof(double));
 	
 	microcontroller_reset_type();  // printf out reason of reset; for debugging
 	led_init();

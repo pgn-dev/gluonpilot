@@ -31,10 +31,10 @@ enum gluonscript_variable {
 	CHANNEL_7 = 14,
 	CHANNEL_8 = 15,
 	BATT_V = 16,
-    BLOCK_TIME = 17,
-    ABS_ALTITUDE_ERROR = 18,
-    ABS_HEADING_ERROR = 19,
-    ABS_ALT_AND_HEADING_ERR = 20
+	BLOCK_TIME = 17,
+	ABS_ALTITUDE_ERROR = 18,
+	ABS_HEADING_ERROR = 19,
+	ABS_ALT_AND_HEADING_ERR = 20
 };
 
 
@@ -68,7 +68,9 @@ enum gluonscript_command {
     LOITER_CIRCLE = 25,
 	CIRCLE_TO_ABS = 26,
     CIRCLE_TO_REL = 27,
-    SET_BATTERY_ALARM = 28
+    SET_BATTERY_ALARM = 28,
+	CALL = 29,
+	RETURN = 30
 };
 
 

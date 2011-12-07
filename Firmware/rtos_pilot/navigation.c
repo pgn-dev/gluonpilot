@@ -6,7 +6,8 @@
  *  @date     28-apr-2010
  *  @since    0.2
  */
- 
+
+// Library includes
 #include <math.h>
 #include <stdio.h>
 
@@ -63,7 +64,7 @@ void navigation_init ()
 	navigation_data.airborne = 0;
 	
 	navigation_data.time_airborne_s = 0;
-    navigation_data.time_block_s = 0;
+	navigation_data.time_block_s = 0;
 	navigation_data.wind_heading_set = 0;
 	navigation_data.relative_positions_calculated = 0;
 	navigation_data.desired_throttle_pct = -1;

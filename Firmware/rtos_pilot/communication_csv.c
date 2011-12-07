@@ -59,26 +59,38 @@ char comm_buffer[COMM_BUFFER_LEN];
 void comm_send_buffer_with_checksum(int length);
 
 // Only write to output when the uart is available
-#define comm_printf_poll(T,...) \
+#define printf_checksum_direct(T,...) \
    if (xSemaphoreTake( xUart1Semaphore, 0 ) == pdTRUE) { \
       comm_send_buffer_with_checksum(sprintf(comm_buffer, T, __VA_ARGS__)); \
       xSemaphoreGive( xUart1Semaphore ); \
       }
 
-// Write to output and wait at most 10ms until it becomes available
-#define comm_printf(T,...) \
+// Write to output and wait at most 100ms until the semaphore becomes available
+#define printf_checksum(T,...) \
    if (xSemaphoreTake( xUart1Semaphore, ( portTickType ) 100 / portTICK_RATE_MS )  == pdTRUE) { \
       comm_send_buffer_with_checksum(sprintf(comm_buffer, T, __VA_ARGS__)); \
       xSemaphoreGive( xUart1Semaphore ); \
       }
 
-// Write to output and wait at most 10ms until it becomes available
-#define comm_printf_direct(T,...) \
+// Write to output and wait at most 100ms until the semaphore becomes available
+#define printf_nochecksum(T,...) \
    if (xSemaphoreTake( xUart1Semaphore, ( portTickType ) 100 / portTICK_RATE_MS )  == pdTRUE) { \
       printf(T); \
       xSemaphoreGive( xUart1Semaphore ); \
       }
-      
+
+#define printf_nochecksum_direct(T,...) \
+   if (xSemaphoreTake( xUart1Semaphore, ( portTickType ) 0 / portTICK_RATE_MS )  == pdTRUE) { \
+      printf(T); \
+      xSemaphoreGive( xUart1Semaphore ); \
+      }
+
+#define printf_message(T, ...) \
+	if (xSemaphoreTake( xUart1Semaphore, ( portTickType ) 100 / portTICK_RATE_MS )  == pdTRUE) { \
+      printf(T); \
+      xSemaphoreGive( xUart1Semaphore ); \
+      }
+
 int check_checksum(char *s);
 
 xSemaphoreHandle xUart1Semaphore;
@@ -147,14 +159,14 @@ void communication_telemetry_task( void *parameters )
 		
 		if (battery_alarm.alarm_battery_warning == 1)
 		{
-			comm_printf_direct("Warning: Battery low\r\n");
+			printf_message("Warning: Battery low\r\n");
 			// clear the flag so it is printed every few seconds
 			battery_alarm.alarm_battery_warning = 0;
 		}
 		else if (battery_alarm.alarm_battery_panic == 1)
 		{
 			// print this once 
-			comm_printf_direct("!!! Panic: Battery low !!!\r\n");
+			printf_message("!!! Panic: Battery low !!!\r\n");
 			battery_alarm.alarm_battery_panic++; // an ugly hack to make sure it's never printed again
 		}
 				
@@ -163,7 +175,7 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_GyroAccRaw == config.telemetry.stream_GyroAccRaw)
 		{
-			comm_printf_poll("TR;%u;%u;%u;%u;%u;%u", (sensor_data.acc_x_raw), (sensor_data.acc_y_raw),
+			printf_checksum_direct("TR;%u;%u;%u;%u;%u;%u", (sensor_data.acc_x_raw), (sensor_data.acc_y_raw),
 			                                    (sensor_data.acc_z_raw), (sensor_data.gyro_x_raw),
 			                                    (sensor_data.gyro_y_raw), (sensor_data.gyro_z_raw));
 			counters.stream_GyroAccRaw = 0;
@@ -176,7 +188,7 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_GyroAccProc == config.telemetry.stream_GyroAccProc)
 		{
-			comm_printf_poll("TP;%d;%d;%d;%d;%d;%d", (int)(sensor_data.acc_x*1000), (int)(sensor_data.acc_y*1000),
+			printf_checksum_direct("TP;%d;%d;%d;%d;%d;%d", (int)(sensor_data.acc_x*1000), (int)(sensor_data.acc_y*1000),
 			                                        (int)(sensor_data.acc_z*1000), (int)(sensor_data.p*1000),
 			                                        (int)(sensor_data.q*1000), (int)(sensor_data.r*1000));
 		}	
@@ -188,7 +200,7 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////	
 		if (counters.stream_Attitude == config.telemetry.stream_Attitude)
 		{		
-			comm_printf_poll("TA;%d;%d;%d", (int)(sensor_data.roll*1000), (int)(sensor_data.pitch*1000), (int)(sensor_data.yaw*1000));
+			printf_checksum_direct("TA;%d;%d;%d", (int)(sensor_data.roll*1000), (int)(sensor_data.pitch*1000), (int)(sensor_data.yaw*1000));
 
 			counters.stream_Attitude = 0;
 		} 
@@ -200,7 +212,7 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_PressureTemp == config.telemetry.stream_PressureTemp)
 		{
-			comm_printf_poll("TH;%lu;%d", (unsigned long)(sensor_data.pressure), (int)sensor_data.temperature);
+			printf_checksum_direct("TH;%lu;%d", (unsigned long)(sensor_data.pressure), (int)sensor_data.temperature);
 			counters.stream_PressureTemp = 0;
 		}
 		else if (counters.stream_PressureTemp > config.telemetry.stream_PressureTemp)
@@ -213,7 +225,7 @@ void communication_telemetry_task( void *parameters )
 		{
 			//vTaskGetRunTimeStats( buffer );
 			//uart1_puts(buffer);
-			comm_printf_poll("TT;%u;%u;%u;%u;%u;%u;%u;%u", (unsigned int)ppm.channel[0], (unsigned int)ppm.channel[1],
+			printf_checksum_direct("TT;%u;%u;%u;%u;%u;%u;%u;%u", (unsigned int)ppm.channel[0], (unsigned int)ppm.channel[1],
 			                                          (unsigned int)ppm.channel[2], (unsigned int)ppm.channel[3],
 			                                          (unsigned int)ppm.channel[4], (unsigned int)ppm.channel[5],
 			                                          (unsigned int)ppm.channel[6], (unsigned int)ppm.channel[7]);
@@ -227,7 +239,7 @@ void communication_telemetry_task( void *parameters )
 		///////////////////////////////////////////////////////////////
 		if (counters.stream_GpsBasic == config.telemetry.stream_GpsBasic)
 		{
-			comm_printf_poll("TG;%c;%.9f;%.9f;%u;%u;%u;%u", '0' + (unsigned char)sensor_data.gps.status,
+			printf_checksum_direct("TG;%c;%.9f;%.9f;%u;%u;%u;%u", '0' + (unsigned char)sensor_data.gps.status,
 			                                            sensor_data.gps.latitude_rad, sensor_data.gps.longitude_rad,
 			                                            (unsigned int)(sensor_data.gps.speed_ms*10),
 			                                            (unsigned int)(sensor_data.gps.heading_rad*100),
@@ -261,16 +273,16 @@ void communication_telemetry_task( void *parameters )
 				throttle = 0;
 				
 			
-			comm_printf_poll("TC;%d;%d;%d;%u;%d;%d;%d;%d", (int)control_state.flight_mode,
+			printf_checksum_direct("TC;%d;%d;%d;%u;%d;%d;%d;%d", (int)control_state.flight_mode,
 			       gluonscript_data.current_codeline, (int)(sensor_data.pressure_height - navigation_data.home_pressure_height),
 			       sensor_data.battery_voltage_10,
 			       navigation_data.time_airborne_s, navigation_data.time_block_s,
 			       sig_quality, throttle);
 			 
 			counters.stream_Control = 0;
-			//comm_printf_poll("-- %lu --", idle_counter);
+			//printf_checksum_poll("-- %lu --", idle_counter);
             //idle_counter = 0;
-			//comm_printf_poll("-- %lu --", idle_counter);
+			//printf_checksum_poll("-- %lu --", idle_counter);
 		}
 		else if (counters.stream_Control > config.telemetry.stream_Control)
 			counters.stream_Control = 0;
@@ -317,7 +329,7 @@ void communication_input_task( void *parameters )
 			        	buffer[0] = buffer[1];
 			        	buffer[1] = buffer[2];	
 			        } else
-			        	printf("Error checksum: %s\r\n", buffer);
+			        	printf_message("Error checksum: %s\r\n", buffer);
 		        } 
 	            //token[current_token + 1] = buffer_position;
 
@@ -531,7 +543,7 @@ void communication_input_task( void *parameters )
 					int i;
                     //uart1_puts("\n\r");
 					for (i = 0; i < MAX_INDEX; i++)
-						comm_printf("DT;%d;%d;%ld;%ld", i, datalogger_index_table[i].page_num, datalogger_index_table[i].date, datalogger_index_table[i].time);
+						printf_checksum("DT;%d;%d;%ld;%ld", i, datalogger_index_table[i].page_num, datalogger_index_table[i].date, datalogger_index_table[i].time);
 				}
 				///////////////////////////////////////////////////////////////
 				//                           RESET                           //
@@ -540,7 +552,7 @@ void communication_input_task( void *parameters )
 				{
 					if (atoi(&(buffer[token[1]])) == 1123)  // double check
 					{
-						comm_printf_direct("Reboot command received...\r\n");
+						printf_message("Reboot command received...\r\n");
 						portTickType xLastWakeTime;
      					xLastWakeTime = xTaskGetTickCount();
 						vTaskDelayUntil( &xLastWakeTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );  // 1s
@@ -555,11 +567,11 @@ void communication_input_task( void *parameters )
 					int i = atoi(&(buffer[token[1]]));
 					
 #ifndef RAW_50HZ_LOG
-					printf ("\r\nDH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
-					printf ("HeightBaro;Pitch;Roll;DesiredPitch;DesiredRoll;DesiredHeading;DesiredHeight;AccXG;AccYG;");
-					printf ("AccZG;P;Q;R;TempC;FlightMode;NavigationLine\r\n");
+					printf_nochecksum ("\r\nDH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
+					printf_nochecksum ("HeightBaro;Pitch;Roll;DesiredPitch;DesiredRoll;DesiredHeading;DesiredHeight;AccXG;AccYG;");
+					printf_nochecksum ("AccZG;P;Q;R;TempC;FlightMode;NavigationLine\r\n");
 #else
-					printf ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");//;idg500-vref;FlightMode\r\n");
+					printf_nochecksum ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");//;idg500-vref;FlightMode\r\n");
 #endif
 
 					datalogger_disable();
@@ -581,7 +593,7 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'C')    // FC write to flash!
 				{
 					configuration_write();
-					comm_printf_direct("Configuration burned to flash\r\n");
+					printf_message("Configuration burned to flash\r\n");
 				}
 				///////////////////////////////////////////////////////////////
 				//                     LOAD FROM FLASH                       //
@@ -602,7 +614,7 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'E') 
 				{
-					printf("Simulation enabled\r\n");
+					printf_message("Simulation enabled\r\n");
 					control_state.simulation_mode = 1;
 					sensor_data.gps.satellites_in_view = 9;
 					sensor_data.gps.status = ACTIVE;
@@ -628,7 +640,7 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'N') 
 				{
 					gluonscript_burn();
-					comm_printf_direct("Script burned to flash\r\n");
+					printf_message("Script burned to flash\r\n");
 				}	
 				///////////////////////////////////////////////////////////////
 				//                       LOAD NAVIGATION                     //
@@ -669,7 +681,7 @@ void communication_input_task( void *parameters )
 							navigation_calculate_relative_position(i);
 							
 						// confirm by sending it back...
-						comm_printf("ND;%d;%d;%f;%f;%d;%d", i+1, gluonscript_data.codes[i].opcode,
+						printf_checksum("ND;%d;%d;%f;%f;%d;%d", i+1, gluonscript_data.codes[i].opcode,
 										gluonscript_data.codes[i].x, gluonscript_data.codes[i].y,
 										gluonscript_data.codes[i].a, gluonscript_data.codes[i].b);
 					}
@@ -700,7 +712,7 @@ void communication_input_task( void *parameters )
 				else if (current_token > 0)
 				{
 					buffer[BUFFERSIZE-1] = '\0';
-					printf("ERROR %s\r\n", buffer);
+					printf_message("ERROR %s\r\n", buffer);
 				}	
 
             	buffer_position = 0;
@@ -740,7 +752,7 @@ void print_navigation()
 	uart1_puts("\n\r");
 	for (i = 0; i < MAX_GLUONSCRIPTCODES; i++)
 	{
-		comm_printf_poll("ND;%d;%d;%f;%f;%d;%d", i+1, gluonscript_data.codes[i].opcode,
+		printf_checksum("ND;%d;%d;%f;%f;%d;%d", i+1, gluonscript_data.codes[i].opcode,
 			gluonscript_data.codes[i].x, gluonscript_data.codes[i].y,
 			gluonscript_data.codes[i].a, gluonscript_data.codes[i].b);
 	}	

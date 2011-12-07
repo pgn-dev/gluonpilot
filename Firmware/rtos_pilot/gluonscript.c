@@ -28,6 +28,9 @@ float get_variable(enum gluonscript_variable i);
 
 void gluonscript_init()
 {
+	gluonscript_data.current_codeline = 0;
+	gluonscript_data.last_code = 0;
+	gluonscript_data.tick = 0;
 	gluonscript_load();
 	navigation_init();
 }	
@@ -51,7 +54,34 @@ void gluonscript_init()
 	
 	}
 }*/
-		
+
+#define STACK_DEPTH 2
+int stack[STACK_DEPTH]; // lets start with a 2-level stack
+int stack_pointer = -1;
+
+void push_codeline()
+{
+	if (stack_pointer < STACK_DEPTH-1)
+	{
+		stack_pointer++;
+		stack[stack_pointer] = gluonscript_data.current_codeline;
+	}
+}
+
+void pop_codeline()
+{
+	if (stack_pointer >= 0)
+	{
+		gluonscript_data.current_codeline = stack[stack_pointer];
+		stack_pointer--;
+	}
+}
+
+inline int stack_empty()
+{
+	return stack_pointer <= -1;
+}
+
 
 void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 {
@@ -73,6 +103,13 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 	{
 		switch(current_code->opcode)
 		{
+			case CALL:
+				push_codeline();
+				if (current_code->a < 0)
+					gluonscript_data.current_codeline = gluonscript_data.current_codeline + current_code->a;
+				else
+					gluonscript_data.current_codeline = current_code->a;
+				break;
 			case GOTO:
 				if (current_code->a < 0)
 					gluonscript_data.current_codeline = gluonscript_data.current_codeline + current_code->a;
@@ -143,6 +180,10 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 				navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
 		                                                   		         sensor_data.gps.latitude_rad);
 	            navigation_data.desired_altitude_agl = 100.0f;
+				break;
+			case RETURN:
+				pop_codeline();
+				gluonscript_data.current_codeline++;
 				break;
 			default:
 				if (handlers_result == NOT_HANDLED)
