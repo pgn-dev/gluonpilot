@@ -143,7 +143,7 @@ ScriptHandlerReturn navigation_handle_gluonscriptcommand (struct GluonscriptCode
 	if (!navigation_data.airborne)
 	{ 
 		if (/*(ppm.channel[config.control.channel_motor] > 1600 || control_state.simulation_mode) &&*/
-		    /*sensor_data.gps.speed_ms >= 2.0 &&*/ sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view >= 5)
+		    sensor_data.gps.speed_ms >= 2.0 && sensor_data.gps.status == ACTIVE && sensor_data.gps.satellites_in_view >= 5)
 		{
 			navigation_data.time_airborne_s = 0.0;  // reset this to know the real time airborne
 			navigation_data.airborne = 1;
