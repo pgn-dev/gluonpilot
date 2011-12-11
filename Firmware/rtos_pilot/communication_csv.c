@@ -693,8 +693,7 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'J' && buffer[token[0] + 1] == 'N')
 				{
 					int number = atoi(&(buffer[token[1]]));
-					if (number >= 0 && number < MAX_GLUONSCRIPTCODES)
-						gluonscript_data.current_codeline = number;
+					gluonscript_goto_from_gcs(number);
 				}
 				///////////////////////////////////////////////////////////////
 				//                  READ ALL CONFIGURATION                   //

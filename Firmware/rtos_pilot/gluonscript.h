@@ -102,4 +102,6 @@ void gluonscript_burn();
 void gluonscript_load();
 void gluonscript_init();
 
+void gluonscript_goto_from_gcs(int line_number);
+
 #endif //GLUONSCRIPT_H

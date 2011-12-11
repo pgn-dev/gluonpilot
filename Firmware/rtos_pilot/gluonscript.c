@@ -24,8 +24,6 @@
 
 struct GluonscriptData gluonscript_data = {.current_codeline = 0, .last_code = 0, .tick = 0 };
 
-float get_variable(enum gluonscript_variable i);
-
 void gluonscript_init()
 {
 	gluonscript_data.current_codeline = 0;
@@ -36,27 +34,8 @@ void gluonscript_init()
 }	
 
 
-/*void gluonscript_engine_task( void *parameters )
-{
-	uart1_puts("Console input task initializing...");
-	uart1_puts("done\r\n");
-	
-	for( ;; )
-	{
-		if (xSemaphoreTake( xGpsSemaphore, LONG_TIME ) == pdTRUE)
-		{
-			printf("GPS received\r\n");
-		} 
-		else
-		{
-			printf("Semaphore timeout\r\n");
-		}
-	
-	}
-}*/
-
-#define STACK_DEPTH 2
-int stack[STACK_DEPTH]; // lets start with a 2-level stack
+#define STACK_DEPTH 3
+int stack[STACK_DEPTH] = { 0, 0, 0 }; // lets start with a 2-level stack
 int stack_pointer = -1;
 
 void push_codeline()
@@ -66,14 +45,24 @@ void push_codeline()
 		stack_pointer++;
 		stack[stack_pointer] = gluonscript_data.current_codeline;
 	}
+	else // stack full
+	{
+		stack_pointer = 0;
+		stack[stack_pointer] = gluonscript_data.current_codeline;
+	}
 }
 
 void pop_codeline()
 {
-	if (stack_pointer >= 0)
+	if (stack_pointer > 0)
 	{
 		gluonscript_data.current_codeline = stack[stack_pointer];
 		stack_pointer--;
+	}
+	else if (stack_pointer == 0)
+	{
+		gluonscript_data.current_codeline = stack[stack_pointer];
+		stack_pointer = STACK_DEPTH-1;
 	}
 }
 
@@ -199,7 +188,14 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 		}
 	}	
 }
-	
+
+void gluonscript_goto_from_gcs(int line_number)
+{
+	gluonscript_data.current_codeline--;  // because RETURN does pop+1
+	push_codeline(); // in case this is a function. In case it's not: our circular buffer will handle it.
+	if (line_number >= 0 && line_number < MAX_GLUONSCRIPTCODES)
+		gluonscript_data.current_codeline = line_number;
+}
 
 float gluonscript_get_variable(enum gluonscript_variable i)
 {
