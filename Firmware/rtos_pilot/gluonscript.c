@@ -110,6 +110,10 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 				else
 					gluonscript_data.current_codeline = current_code->a;
 				break;
+			case RETURN:
+				pop_codeline();
+				gluonscript_data.current_codeline++;
+				break;
 			case GOTO:
 				if (current_code->a < 0)
 					gluonscript_data.current_codeline = gluonscript_data.current_codeline + current_code->a;
@@ -180,10 +184,6 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 				navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
 		                                                   		         sensor_data.gps.latitude_rad);
 	            navigation_data.desired_altitude_agl = 100.0f;
-				break;
-			case RETURN:
-				pop_codeline();
-				gluonscript_data.current_codeline++;
 				break;
 			default:
 				if (handlers_result == NOT_HANDLED)
