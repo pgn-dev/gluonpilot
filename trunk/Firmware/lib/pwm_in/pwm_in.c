@@ -19,6 +19,7 @@
 #include "microcontroller/microcontroller.h"
 #include "ppm_in/ppm_in.h"
 #include "pwm_in/pwm_in.h"
+#include "uart1_queue/uart1_queue.h"
 
 // from ppm_in
 extern unsigned int servo_pulse_max; 
@@ -123,7 +124,7 @@ unsigned int pwm_in_raw_to_us(unsigned int raw)
 
 // shadow: fast context save DONT USE IT HERE!!!
 // no_auto_psv: code does not access string literals or const vars
-void __attribute__((__interrupt__)) _IC6Interrupt(void)
+void __attribute__((__interrupt__, __auto_psv__)) _IC6Interrupt(void)
 {
 	static volatile unsigned int raw_in, 
 	                    last_raw_in = 0,
@@ -153,7 +154,7 @@ void __attribute__((__interrupt__)) _IC6Interrupt(void)
 }
 
 
-void __attribute__((__interrupt__)) _IC5Interrupt(void)
+void __attribute__((__interrupt__, __auto_psv__)) _IC5Interrupt(void)
 {
 	static volatile unsigned int raw_in, 
 	                    last_raw_in = 0,
@@ -183,7 +184,7 @@ void __attribute__((__interrupt__)) _IC5Interrupt(void)
 }
 
 
-void __attribute__((__interrupt__)) _IC4Interrupt(void)
+void __attribute__((__interrupt__, __auto_psv__)) _IC4Interrupt(void)
 {
 	static volatile unsigned int raw_in, 
 	                    last_raw_in = 0,
@@ -213,7 +214,7 @@ void __attribute__((__interrupt__)) _IC4Interrupt(void)
 }
 
 
-void __attribute__((__interrupt__)) _IC3Interrupt(void)
+void __attribute__((__interrupt__, __auto_psv__)) _IC3Interrupt(void)
 {
 	static volatile unsigned int raw_in, 
 	                    last_raw_in = 0,
@@ -243,7 +244,7 @@ void __attribute__((__interrupt__)) _IC3Interrupt(void)
 }
 
 
-void __attribute__((__interrupt__)) _IC2Interrupt(void)
+void __attribute__((__interrupt__, __auto_psv__)) _IC2Interrupt(void)
 {
 	static volatile unsigned int raw_in, 
 	                    last_raw_in = 0,
@@ -274,7 +275,7 @@ void __attribute__((__interrupt__)) _IC2Interrupt(void)
 
 
 
-void __attribute__((__interrupt__)) _IC1Interrupt(void)
+void __attribute__((__interrupt__, __auto_psv__)) _IC1Interrupt(void)
 {
 	static volatile unsigned int raw_in, 
 	                    last_raw_in = 0,

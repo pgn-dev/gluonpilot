@@ -3,6 +3,15 @@
 #include "microcontroller/microcontroller.h"
 #include "i2c/i2c.h"
 
+void i2c_wait_acken()
+{
+	int i = 0;
+	while(I2C1CONbits.ACKEN == 1)
+	{
+		if (i++ > 3000)
+			break;
+	}
+}
 
 // iniate a start condition on bus
 void i2c_start(void)

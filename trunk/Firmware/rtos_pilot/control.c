@@ -16,7 +16,7 @@
  */
 
 #include <math.h>
-
+#include <stdio.h>
 // FreeRTOS includes
 #include "FreeRTOS/FreeRTOS.h"
 #include "FreeRTOS/task.h"
@@ -28,6 +28,7 @@
 #include "ppm_in/ppm_in.h"
 #include "servo/servo.h"
 #include "pid/pid.h"
+#include "button/button.h"
 #include "uart1_queue/uart1_queue.h"
 
 // rtos_pilot includes
@@ -117,6 +118,7 @@ void control_init()
 void control_wing_task(void *parameters)
 {
 	enum FlightModes lastMode = MANUAL;
+	int i = 0;
 	
 	/* Used to wake the task at the correct frequency. */
 	portTickType xLastExecutionTime; 
@@ -155,6 +157,7 @@ void control_wing_task(void *parameters)
 				
 #ifdef F1E_STEERING  // Add this define for F1E steering mode
 			{
+				static int aileron_out_old;
 				float err_heading = navigation_data.desired_heading_rad - sensor_data.yaw;
 				if (err_heading > 3.0)
 					err_heading -= 2.0*PI;
@@ -165,12 +168,24 @@ void control_wing_task(void *parameters)
 				aileron_out *= 2;
 				aileron_out += (int)(pid_update(&config.control.pid_heading2roll, err_heading, 0.02)*630.0);
 				aileron_out /= 3;
+
+				//aileron_out = (int)(((long)aileron_out_old * 1 + (long)aileron_out) / 2);
+
+				if ((aileron_out-aileron_out_old) < 10 && (aileron_out-aileron_out_old) > -10)  //deadband
+					aileron_out = aileron_out_old;
+				else
+					aileron_out_old = aileron_out;
+
 				control_mix_out();
 				if (button_down())
 				{
 					sensor_data.gps.speed_ms = config.control.cruising_speed_ms;  // no GPS, so we need a cruising speed for kalman filter
-					//printf("\r\n%f-%f -> %d", navigation_data.desired_heading_rad, sensor_data.yaw, servo_out[0]);
+					printf("\r\n%f - %f -> %d\r\n", (double)RAD2DEG(navigation_data.desired_heading_rad), (double)RAD2DEG(sensor_data.yaw), servo_out[0]);
 					navigation_data.desired_heading_rad = sensor_data.yaw;
+				}
+				if (i++ % 50 == 0)
+				{
+					printf("\r\n%f - %f -> %d\r\n", (double)RAD2DEG(navigation_data.desired_heading_rad), (double)RAD2DEG(sensor_data.yaw), servo_out[0]);
 				}
 			}
 #else	

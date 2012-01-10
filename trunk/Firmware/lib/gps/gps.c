@@ -401,7 +401,7 @@ char gps_update_info(struct gps_info *gpsinfo)
  *  This function buffers a valid (structure and checksum) RMC sentence. The
  *  used buffer is nmea_buffer_RMC.
  */
-void __attribute__((__interrupt__, __shadow__)) _U2RXInterrupt(void)
+void __attribute__((__interrupt__, __shadow__, __auto_psv__)) _U2RXInterrupt(void)
 {
 	unsigned char c = U2RXREG;
 	//uart1_putc(c);

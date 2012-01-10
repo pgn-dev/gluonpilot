@@ -189,7 +189,7 @@ void ppm_in_guess_num_channels()
  *
  *  This routine uses the alternate interrupt vector table pwm_in uses the normal one.
  */
-void __attribute__((__interrupt__)) _AltIC4Interrupt(void)
+void __attribute__((__interrupt__, __auto_psv__)) _AltIC4Interrupt(void)
 {
 	static volatile unsigned int counter = 0;
 	static volatile unsigned char invalid_pulse = 1;

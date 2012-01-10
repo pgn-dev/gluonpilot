@@ -37,6 +37,7 @@ float gravity_to_pitch(float a_x, float a_z);
 
 inline float fast_sin(float x);
 inline float fast_cos(float x);
+__attribute__((__const__)) int isNaN (float* f) ;
 
 static float pitch_rad = 0.0, roll_rad = 0.0;
 float pitch_rad_sum_error = 0.0;
@@ -54,8 +55,9 @@ void ahrs_init()
 	}	
 	
 	// initialize our attitude with the current accelerometer's data
-        pitch_rad = gravity_to_pitch(sensor_data.acc_x, sensor_data.acc_z);
-        roll_rad = gravity_to_roll(sensor_data.acc_y, sensor_data.acc_z);
+	//printf("-> %f %f %f <-\r\n", sensor_data.acc_x, sensor_data.acc_y, sensor_data.acc_z);
+    pitch_rad = gravity_to_pitch(sensor_data.acc_x, sensor_data.acc_z);
+    roll_rad = gravity_to_roll(sensor_data.acc_y, sensor_data.acc_z);
         
     sensor_data.p_bias = 0.0f;
 	sensor_data.q_bias = 0.0f;
@@ -97,7 +99,7 @@ void ahrs_filter(float dt)
 
 	if (button_down())
 	{
-		;
+		//printf("down\r\n");
 	}	
 				
 	/* optimization: comment this: */
@@ -288,8 +290,10 @@ void ahrs_filter(float dt)
 		float YH =                my*cos_roll           - mz*sin_roll;
 		float XH = mx*cos_pitch + my*sin_roll*sin_pitch + mz*cos_roll*sin_pitch;
 		
-		sensor_data.yaw += atan2f (-YH, XH);
-		sensor_data.yaw /= 2.0f;
+		sensor_data.yaw = atan2f (-YH, XH);
+		while (sensor_data.yaw < 0.0)
+			sensor_data.yaw += DEG2RAD(360.0);
+		//sensor_data.yaw /= 2.0f;
 
 		/*printf("\r\n%5d %5d %5d -> %f\r\n",sensor_data.magnetometer_raw.x.i16, 
 							sensor_data.magnetometer_raw.y.i16,
@@ -315,7 +319,7 @@ void ahrs_filter(float dt)
 		P[3] = 1.0;
 		//printf("\r\n!\r\n");
 	}*/
-	if (pitch_rad != pitch_rad)
+	if (isNaN(&pitch_rad))
 	{
 		pitch_rad = sensor_data.pitch;
 		sin_pitch = 0.0;
@@ -325,8 +329,9 @@ void ahrs_filter(float dt)
 		P[1] = 0.0;
 		P[2] = 0.0;
 		P[3] = 1.0;
+		printf("\r\n!\r\n");
 	}
-	if (roll_rad != roll_rad)
+	if (isNaN(&roll_rad))
 	{
 		roll_rad = sensor_data.roll;
 		sin_roll = 0.0;
@@ -335,12 +340,19 @@ void ahrs_filter(float dt)
 		P[1] = 0.0;
 		P[2] = 0.0;
 		P[3] = 1.0;
+		printf("\r\n!\r\n");
 	}	
 	normalize(pitch_rad, roll_rad);
    	sensor_data.pitch = pitch_rad;
 	sensor_data.roll = roll_rad;
 }	
 
+
+__attribute__((__const__)) int isNaN (float* f)
+ {
+        int* rep = ((int*) f) + 1;
+        return ((*rep & 0x7F00) == 0x7F00);
+ }
 
 
 /*!

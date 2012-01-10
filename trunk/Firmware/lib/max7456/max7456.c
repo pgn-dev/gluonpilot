@@ -47,7 +47,7 @@ void max7456_init()
 
 int max756_read_status()
 {
-	spiReadReg(STATUS_READ);
+	return spiReadReg(STATUS_READ);
 }	
 
 

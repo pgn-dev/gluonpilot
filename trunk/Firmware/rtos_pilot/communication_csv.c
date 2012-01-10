@@ -85,7 +85,7 @@ void comm_send_buffer_with_checksum(int length);
       xSemaphoreGive( xUart1Semaphore ); \
       }
 
-#define printf_message(T, ...) \
+#define printf_message(T,...) \
 	if (xSemaphoreTake( xUart1Semaphore, ( portTickType ) 100 / portTICK_RATE_MS )  == pdTRUE) { \
       printf(T); \
       xSemaphoreGive( xUart1Semaphore ); \
@@ -266,11 +266,12 @@ void communication_telemetry_task( void *parameters )
 	        } else // ppm
             	sig_quality = (100-ppm_signal_quality()*4);  // %
             	
-			int throttle = (config.control.servo_neutral[3] - servo_read_us(3))/10;
+			int throttle = (config.control.servo_neutral[3] - (int)servo_read_us(3))/10;
 			if (! config.control.reverse_servo4)
 				throttle = -throttle;
 			if (throttle < 0 || throttle > 100)
 				throttle = 0;
+			//printf("\r\n %d %d\r\n", config.control.servo_neutral[3], (int)servo_read_us(3));
 				
 			
 			printf_checksum_direct("TC;%d;%d;%d;%u;%d;%d;%d;%d", (int)control_state.flight_mode,
