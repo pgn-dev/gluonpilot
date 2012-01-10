@@ -1,5 +1,5 @@
  
-
+#include <stdio.h>
 #include "i2c/i2c.h"
 #include "bmp085/bmp085.h"
 #include "microcontroller/microcontroller.h"
@@ -22,7 +22,7 @@ int md;
 
 char bmp085Read(unsigned char address)
 {
-	unsigned char data;
+//	unsigned char data;
   
 	i2c_start();
 	send_i2c_byte(BMP085_ADDRESS);
@@ -52,9 +52,9 @@ int bmp085ReadInt(unsigned char address)
 
 	msb = i2c_read_byte();
 
-I2C1CONbits.ACKDT = 0;
-I2C1CONbits.ACKEN = 1;
-while(I2C1CONbits.ACKEN == 1);
+	I2C1CONbits.ACKDT = 0;
+	I2C1CONbits.ACKEN = 1;
+	i2c_wait_acken();
 
 	lsb = i2c_read_byte();
 
@@ -78,13 +78,13 @@ long bmp085ReadLong3(unsigned char address)
 
 I2C1CONbits.ACKDT = 0;
 I2C1CONbits.ACKEN = 1;
-while(I2C1CONbits.ACKEN == 1);
+i2c_wait_acken();
 
 	lsb = i2c_read_byte();
 
 I2C1CONbits.ACKDT = 0;
 I2C1CONbits.ACKEN = 1;
-while(I2C1CONbits.ACKEN == 1);
+i2c_wait_acken();
 
 	xlsb = i2c_read_byte();
 
@@ -102,8 +102,8 @@ while(I2C1CONbits.ACKEN == 1);
 
 void bmp085_Calibration(void)
 {
-	printf("\nCalibration Information:\n");
-	printf("------------------------\n");
+	//printf("\nCalibration Information:\n");
+	//printf("------------------------\n");
 	ac1 = bmp085ReadInt(0xAA);
 	ac2 = bmp085ReadInt(0xAC);
 	ac3 = bmp085ReadInt(0xAE);
@@ -116,18 +116,18 @@ void bmp085_Calibration(void)
 	mc = bmp085ReadInt(0xBC);
 	md = bmp085ReadInt(0xBE);
 	
-	printf("\rAC1\t%d\n", ac1);
-	printf("\rAC2\t%d\n", ac2);
-	printf("\rAC3\t%d\n", ac3);
-	printf("\rAC4\t%d\n", ac4);
-	printf("\rAC5\t%d\n", ac5);
-	printf("\rAC6\t%d\n", ac6);
-	printf("\rB1\t%d\n", b1);
-	printf("\rB2\t%d\n", b2);
-	printf("\rMB\t%d\n", mb);
-	printf("\rMC\t%d\n", mc);
-	printf("\rMD\t%d\n", md);
-	printf("------------------------\n\n");
+	//printf("\rAC1\t%d\n", ac1);
+	//printf("\rAC2\t%d\n", ac2);
+	//printf("\rAC3\t%d\n", ac3);
+	//printf("\rAC4\t%d\n", ac4);
+	//printf("\rAC5\t%d\n", ac5);
+	//printf("\rAC6\t%d\n", ac6);
+	//printf("\rB1\t%d\n", b1);
+	//printf("\rB2\t%d\n", b2);
+	//printf("\rMB\t%d\n", mb);
+	//printf("\rMC\t%d\n", mc);
+	//printf("\rMD\t%d\n", md);
+	//printf("------------------------\n\n");
 }
 
 

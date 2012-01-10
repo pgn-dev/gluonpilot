@@ -56,6 +56,7 @@ extern xSemaphoreHandle xSpiSemaphore;
 
 void read_raw_sensor_data();
 void scale_raw_sensor_data();
+void bmp085_do_10Hz();
 
 float scale_z_gyro = 0.0f;
 
@@ -94,6 +95,9 @@ void sensors_task( void *parameters )
 
 	read_raw_sensor_data();
 	scale_raw_sensor_data();
+	vTaskDelay( ( ( portTickType ) 20 / portTICK_RATE_MS ) );
+	read_raw_sensor_data();
+	scale_raw_sensor_data();
 	ahrs_init();
 	
 	if (HARDWARE_VERSION >= V01N) // IDZ-500 gyroscope
@@ -127,7 +131,7 @@ void sensors_task( void *parameters )
 
 		scale_raw_sensor_data();
 		
-		if (low_update_counter % 50 == 0) // 5Hz
+		if (low_update_counter % 25 == 0) // 10Hz
 		{
 			if (control_state.simulation_mode)
 				vTaskDelete(xTaskGetCurrentTaskHandle());
@@ -135,23 +139,7 @@ void sensors_task( void *parameters )
 			sensor_data.battery_voltage_10 = ((float)adc_get_channel(8) * (3.3f * 5.1f / 6550.0f));
 			if (HARDWARE_VERSION >= V01O)
 			{
-				if (low_update_counter/50 % 2 == 0)
-				{
-					long tmp = bmp085_read_temp();
-					bmp085_convert_temp(tmp, &sensor_data.temperature_10);
-					sensor_data.temperature = (float)sensor_data.temperature_10 / 10.0f;
-					bmp085_start_convert_pressure();
-				} 
-				else
-				{
-					long tmp = bmp085_read_pressure();
-					long pressure;
-					bmp085_convert_pressure(tmp, &pressure);
-					sensor_data.pressure = (float)pressure;
-					float height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
-					sensor_data.pressure_height = height;
-					bmp085_start_convert_temp();
-				}	
+				bmp085_do_10Hz();
 			}
 		}	
 		else
@@ -193,6 +181,45 @@ void sensors_task( void *parameters )
 #else
 		ahrs_filter(0.02f);	
 #endif
+	}
+}
+
+
+
+void bmp085_do_10Hz()
+{
+	static int state = 0;
+	long tmp;
+
+	switch (state)
+	{
+		case 0:
+			bmp085_start_convert_temp();
+			state = 1;
+			break;
+		case 1:
+		{
+			tmp = bmp085_read_temp();
+			int old_temp10 = sensor_data.temperature_10;
+			bmp085_convert_temp(tmp, &sensor_data.temperature_10);
+			sensor_data.temperature = (float)sensor_data.temperature_10 / 10.0f;
+		}
+			bmp085_start_convert_pressure();
+			state = 2;
+			break;
+		case 2:
+		{
+			long pressure;
+			tmp = bmp085_read_pressure();
+			bmp085_convert_pressure(tmp, &pressure);
+
+			sensor_data.pressure = (float)pressure;
+		}
+			sensor_data.pressure_height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
+
+			bmp085_start_convert_temp();
+			state = 1;
+			break;
 	}
 }
 
@@ -241,6 +268,11 @@ void sensors_gps_task( void *parameters )
 {
 	int i = 0;
 	
+#ifdef F1E_STEERING
+	while(1)
+		vTaskDelay( ( ( portTickType ) 1000 / portTICK_RATE_MS ) );
+#endif
+
 	uart1_puts("Gps & Navigation task initializing...\r\n");
 	sensor_data.gps.status = EMPTY;	
 	sensor_data.gps.latitude_rad = 0.0;

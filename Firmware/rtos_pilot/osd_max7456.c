@@ -12,6 +12,7 @@
 #include "button/button.h"
 #include "ppm_in/ppm_in.h"
 #include "adc/adc.h"
+#include "uart1_queue/uart1_queue.h"
 
 #include "common.h"
 #include "configuration.h"
@@ -27,11 +28,12 @@ int osd_use_ntsc();
 int osd_initialize(portTickType *xLastExecutionTime);
 void osd_set_position(int row, int column);
 void osd_write_char(unsigned char x);
-void osd_write_string(unsigned char *x);
+void osd_write_string(const unsigned char *x);
 void osd_write_ascii_char(unsigned char x);
 void osd_write_ascii_string(unsigned char *x);
 void osd_print_static_data();
-
+void osd_print_artificial_horizon();
+void osd_print_integer(int num, int row, int col);
 
 // Other characters
 #define SATELLITE_1 0xC8
@@ -310,7 +312,7 @@ void print_meters(int row, int col, int m)
 	{
 		if (m > 999)
 		{
-			osd_print_integer(m/1000, row, col);
+			osd_print_integer((int)m/1000, row, col);
 			osd_write_char(0x41);
 			if (m > 9999)
 				col += 3;
@@ -352,12 +354,12 @@ void print_meters(int row, int col, int m)
 
 
 	
-const char fourninemeter[] = {0x09,0x09,0x09,0x09,METER,0x00};
+const unsigned char fourninemeter[] = {0x09,0x09,0x09,0x09,METER,0x00};
 
 void osd_print_home_info()
 {
 	static int last_flight_mode = -1;
-	int index;
+//	int index;
 	
 	
 	// Pre-calculate some data used for OSD
@@ -442,7 +444,7 @@ void osd_print_home_info()
 	
 	// vario  ^x.y[m/s]
 	//            
-	sensor_data.vertical_speed; // m/s
+//	sensor_data.vertical_speed; // m/s
 	osd_set_position(7, 24);
 	if (sensor_data.vertical_speed > 5.0)
 		osd_write_char(0xB7); 
@@ -690,7 +692,7 @@ void osd_write_char(unsigned char x)
 /*!
  *   Write string x (ended with '\0');
  */
-void osd_write_string(unsigned char *x)
+void osd_write_string(const unsigned char *x)
 {
 	unsigned char l = spiReadReg(DM_ADDRL_READ);
 	unsigned char h = spiReadReg(DM_ADDRH_READ);
@@ -749,4 +751,4 @@ int osd_use_pal()
 int osd_use_ntsc()
 {
 	return max756_read_status() & (STATUS_01_NTSC_DETECTED);	
-}	
+}

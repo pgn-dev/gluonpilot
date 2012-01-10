@@ -1,4 +1,5 @@
 
+void i2c_wait_acken();
  
 // function iniates a start condition on bus
 void i2c_start(void);

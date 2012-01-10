@@ -43,7 +43,7 @@ void pid_init(struct pid *pid, float d_gain, float p_gain, float i_gain, float i
 }
 
 
-__attribute__((__const__)) int isNaN (float* f) 
+__attribute__((__const__)) int isNaN_PID (float* f)
 {
 	const int* rep = ((const int*) f) + 1;
 	return ((*rep & 0x7F00) == 0x7F00);
@@ -72,7 +72,7 @@ float pid_update(struct pid *pid, float position, float dt)
 	// update d_state for next call.
 	pid->d_state = position;
 	
-	if (isNaN(&(pid->i_state))) // no NAN
+	if (isNaN_PID(&(pid->i_state))) // no NAN
 		pid->i_state = 0.0;
 		
 	pid->i_state += position * dt;                        // I-term
