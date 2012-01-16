@@ -221,6 +221,46 @@ int datalogger_print_next_page(int index, void(*printer)(struct LogLine*))
 		
 	return 1;
 }
+
+int datalogger_print_next_page_of_all(int index, void(*printer)(struct LogLine*))
+{
+	static int last_page = -1;
+	static struct LogLine *lines = (struct LogLine*) &(buffer[2]);
+	static int processed_lines = 0;
+
+	int *current_i = (int*) &(buffer[0]);
+	int j;
+
+	if (last_page == -1)
+		last_page = datalogger_index_table[index].page_num; // start to read at the current page (oldest entry to be overwritten)
+
+	datalogger_read(last_page++, sizeof(buffer), buffer);
+	processed_lines++;
+
+	if (last_page == datalogger_index_table[index].page_num || processed_lines > 4095 - START_LOG_PAGE)
+	{
+		printf("\r\nAll log-pages have been processed\r\n");
+		processed_lines = 0;
+		last_page = -1;
+		return 0;
+	}
+	if (last_page >= MAX_PAGE)
+			last_page = START_LOG_PAGE;
+
+	/*if (*current_i != index+1)
+	{
+		printf ("%d != %d\r\n", *current_i, index+1);
+		return 0;
+	}*/
+
+	for (j = 0; j < (PAGE_SIZE - 2) / sizeof(struct LogLine); j++)
+	{
+		if (*current_i == index)
+			printer(&lines[j]);
+	}
+	printf("\r\n processed page %d having index %d\r\n", last_page, *current_i);
+	return 1;
+}
 	
 
 /*!
@@ -277,7 +317,7 @@ void datalogger_task( void *parameters )
 	xLastExecutionTime = xTaskGetTickCount();
 	
 	// wait for GPS	(date & time!)
-	while(sensor_data.gps.status != ACTIVE)
+	while(sensor_data.gps.status != ACTIVE && navigation_data.airborne)
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );   // 1Hz
 	
 	// ok, now we've got the current date and time, we can find an available page and write the index	

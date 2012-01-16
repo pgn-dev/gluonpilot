@@ -309,7 +309,13 @@ void sensors_gps_task( void *parameters )
 		{
 			gps_update_info(&(sensor_data.gps)); // 5Hz (needed?)
 			i++;
-		}	
+		}
+		else if (control_state.simulation_mode)
+		{
+			i++;
+			sensor_data.gps.satellites_in_view = 9;
+			sensor_data.gps.status = ACTIVE;
+		}
 		else
 		{
 			// alert: no message received from GPS!
