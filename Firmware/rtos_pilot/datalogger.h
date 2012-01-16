@@ -89,6 +89,8 @@ void datalogger_writeline(struct LogLine *line);
 void datalogger_task( void *parameters );
 void datalogger_format();
 int datalogger_print_next_page(int index, void(*printer)(struct LogLine*));
+int datalogger_print_next_page_of_all(int index, void(*printer)(struct LogLine*));
+
 void datalogger_enable();
 void datalogger_disable();
 

@@ -202,6 +202,10 @@ void communication_telemetry_task( void *parameters )
 		{		
 			printf_checksum_direct("TA;%d;%d;%d", (int)(sensor_data.roll*1000), (int)(sensor_data.pitch*1000), (int)(sensor_data.yaw*1000));
 
+			if (control_state.simulation_mode)
+			{
+				printf_checksum_direct("TS;%d;%d;%d", servo_read_us(2), servo_read_us(0), servo_read_us(3));
+			}
 			counters.stream_Attitude = 0;
 		} 
 		else if (counters.stream_Attitude > config.telemetry.stream_Attitude)
@@ -330,7 +334,7 @@ void communication_input_task( void *parameters )
 			        	buffer[0] = buffer[1];
 			        	buffer[1] = buffer[2];	
 			        } else
-			        	printf_message("Error checksum: %s\r\n", buffer);
+			        	printf_message("Error checksum\r\n");
 		        } 
 	            //token[current_token + 1] = buffer_position;
 
@@ -577,7 +581,7 @@ void communication_input_task( void *parameters )
 
 					datalogger_disable();
 					
-					while (datalogger_print_next_page(i, &print_logline))
+					while (datalogger_print_next_page_of_all(i, &print_logline))
 						;
 					
 					
@@ -628,12 +632,13 @@ void communication_input_task( void *parameters )
 					sensor_data.gps.longitude_rad = (float)atof(&(buffer[token[1]]));
 					sensor_data.gps.latitude_rad = (float)atof(&(buffer[token[2]]));
 					sensor_data.gps.heading_rad	= (float)atof(&(buffer[token[3]]));
+					sensor_data.yaw = sensor_data.gps.heading_rad;
 					sensor_data.gps.speed_ms = (float)atof(&(buffer[token[4]]));
 					sensor_data.pressure_height = (float)atoi(&(buffer[token[5]]));
 					sensor_data.roll =  (float)atof(&(buffer[token[6]]));
 					sensor_data.pitch =  (float)atof(&(buffer[token[7]]));
 					//navigation_update();
-					gluonscript_do();
+					//gluonscript_do();
 				}
 				///////////////////////////////////////////////////////////////
 				//                       BURN NAVIGATION                     //
@@ -712,7 +717,7 @@ void communication_input_task( void *parameters )
 				else if (current_token > 0)
 				{
 					buffer[BUFFERSIZE-1] = '\0';
-					printf_message("ERROR %s\r\n", buffer);
+					printf_message("ERROR received data\r\n");
 				}	
 
             	buffer_position = 0;
