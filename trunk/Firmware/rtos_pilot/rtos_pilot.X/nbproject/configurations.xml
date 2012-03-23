@@ -51,18 +51,6 @@
       <itemPath>../sensors.h</itemPath>
       <itemPath>../trigger.h</itemPath>
     </logicalFolder>
-    <logicalFolder name="LibraryFiles"
-                   displayName="Library Files"
-                   projectFiles="true">
-    </logicalFolder>
-    <logicalFolder name="LinkerScript"
-                   displayName="Linker Files"
-                   projectFiles="true">
-    </logicalFolder>
-    <logicalFolder name="ObjectFiles"
-                   displayName="Object Files"
-                   projectFiles="true">
-    </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
@@ -140,8 +128,7 @@
         <makeCustomizationPostStep></makeCustomizationPostStep>
         <makeCustomizationAlternativeFileToLoadEnabled>false</makeCustomizationAlternativeFileToLoadEnabled>
         <makeCustomizationAlternativeFileToLoad></makeCustomizationAlternativeFileToLoad>
-        <makeCustomizationUseOfUserID>makeCustomizationUseOfUserID</makeCustomizationUseOfUserID>
-        <makeCustomizationUserID>makeCustomizationUserID</makeCustomizationUserID>
+        <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
       </makeCustomizationType>
       <C30>
         <property key="optimization-level" value="1"/>
@@ -171,8 +158,8 @@
         <property key="extra-include-directories-for-assembler" value=".."/>
         <property key="preprocessor-macros" value=""/>
         <property key="list-file" value=""/>
-        <property key="list-assembly" value="false"/>
         <property key="list-source" value="false"/>
+        <property key="list-assembly" value="false"/>
         <property key="relax" value="false"/>
         <property key="extra-include-directories-for-preprocessor"
                   value="../../lib/FreeRTOS;../../lib;../../lib/button;../../lib/adc;..;../../lib/i2c;../../lib/bmp085;../../lib/hmc5843;../../lib/max7456;../../lib/matrix;../../lib/quaternion;../../lib/pid;../../lib/pwm_in;../../lib/led;../../lib/ppm_in;../../lib/uart2;../../lib/uart1_queue;../../lib/servo;../../lib/scp1000;../../lib/microcontroller;../../lib/gps;../../lib/dataflash"/>
@@ -250,8 +237,7 @@
         <makeCustomizationPostStep></makeCustomizationPostStep>
         <makeCustomizationAlternativeFileToLoadEnabled>false</makeCustomizationAlternativeFileToLoadEnabled>
         <makeCustomizationAlternativeFileToLoad></makeCustomizationAlternativeFileToLoad>
-        <makeCustomizationUseOfUserID>makeCustomizationUseOfUserID</makeCustomizationUseOfUserID>
-        <makeCustomizationUserID>makeCustomizationUserID</makeCustomizationUserID>
+        <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
       </makeCustomizationType>
       <C30>
         <property key="optimization-level" value="1"/>
@@ -361,8 +347,7 @@
         <makeCustomizationPostStep></makeCustomizationPostStep>
         <makeCustomizationAlternativeFileToLoadEnabled>false</makeCustomizationAlternativeFileToLoadEnabled>
         <makeCustomizationAlternativeFileToLoad></makeCustomizationAlternativeFileToLoad>
-        <makeCustomizationUseOfUserID>makeCustomizationUseOfUserID</makeCustomizationUseOfUserID>
-        <makeCustomizationUserID>makeCustomizationUserID</makeCustomizationUserID>
+        <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
       </makeCustomizationType>
       <C30>
         <property key="optimization-level" value="1"/>

@@ -14,7 +14,11 @@ enum trigger_mode
 struct trigger_state
 {
 	enum trigger_mode mode;
-	unsigned int is_triggering : 1	;
+	unsigned int is_triggering : 1;
+    int servo_channel;
+    int usec_pulse;
+    float delay_s;
+    float period_s;
 };	
 
 extern struct trigger_state trigger;

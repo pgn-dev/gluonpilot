@@ -129,9 +129,17 @@ void datalogger_start_session()
 {	
 	// update the index
 	datalogger_index_table[current_index - 1].page_num = current_page;
-	datalogger_index_table[current_index - 1].time = sensor_data.gps.time;
-	datalogger_index_table[current_index - 1].date = sensor_data.gps.date;
-	
+	if (control_state.simulation_mode)
+	{
+		// set using Enable Simulation command
+		datalogger_index_table[current_index - 1].time = sensor_data.gps.time;
+		datalogger_index_table[current_index - 1].date = sensor_data.gps.date;
+	}
+	else
+	{
+		datalogger_index_table[current_index - 1].time = sensor_data.gps.time;
+		datalogger_index_table[current_index - 1].date = sensor_data.gps.date;
+	}
 	datalogger_write(LOG_INDEX_PAGE, sizeof(struct LogIndex) * MAX_INDEX, (unsigned char*)datalogger_index_table);
 	//printf("Starting to datalog to page %d, index %d\r\n", current_page, current_index);
 }	
@@ -317,7 +325,7 @@ void datalogger_task( void *parameters )
 	xLastExecutionTime = xTaskGetTickCount();
 	
 	// wait for GPS	(date & time!)
-	while(sensor_data.gps.status != ACTIVE && navigation_data.airborne)
+	while(sensor_data.gps.status != ACTIVE)
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );   // 1Hz
 	
 	// ok, now we've got the current date and time, we can find an available page and write the index	
@@ -333,7 +341,7 @@ void datalogger_task( void *parameters )
 
 		if (! disable_logging)   // logging is disabled when the config tool reads out logging.
 		{
-#ifndef RAW_50HZ_LOG
+#ifdef DETAILED_LOG
 			// Normal logging
 			l.temperature_c = (char)sensor_data.temperature; // -128°C...+128°C
 			l.height_m = (int)sensor_data.pressure_height;
@@ -366,7 +374,7 @@ void datalogger_task( void *parameters )
 			l.desired_heading = ((int)(navigation_data.desired_heading_rad * 180.0/3.14159));
 			l.navigation_code_line = gluonscript_data.current_codeline;
 			l.desired_height = control_state.desired_altitude;
-#else
+#elif RAW_50HZ_LOG
 			// Raw sensor logging at 50Hz
 			l.height_m_5 = (int)(sensor_data.pressure_height*5);
 			l.gps_latitude_rad = sensor_data.gps.latitude_rad;
@@ -385,6 +393,25 @@ void datalogger_task( void *parameters )
 			l.pitch_acc = (int)(sensor_data.pitch_acc * (180.0/3.14159));
 			l.roll = (int)(sensor_data.roll * (180.0/3.14159));
 			//l.control_state = control_state.flight_mode;
+
+#else
+            // Simple logging
+			l.temperature_c = (char)sensor_data.temperature; // -128°C...+128°C
+			l.height_m = (int)sensor_data.pressure_height;
+			l.gps_latitude_rad = sensor_data.gps.latitude_rad;
+			l.gps_longitude_rad = sensor_data.gps.longitude_rad;
+			l.gps_height_m = sensor_data.gps.height_m;
+			l.gps_heading = (int)(sensor_data.gps.heading_rad * (180.0/3.14159));
+			l.gps_speed_m_s = (unsigned char)(sensor_data.gps.speed_ms*3.0);
+
+			l.pitch = (int)(sensor_data.pitch * (180.0/3.14159));
+			l.roll = (int)(sensor_data.roll * (180.0/3.14159));
+
+			l.control_state = control_state.flight_mode;
+			l.navigation_code_line = gluonscript_data.current_codeline;
+            l.date = sensor_data.gps.date;
+            l.time = sensor_data.gps.time;
+            l.servo_trigger = 0;//
 #endif
 			datalogger_writeline(&l);
 		}

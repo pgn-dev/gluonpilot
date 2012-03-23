@@ -16,7 +16,7 @@ struct LogIndex
 
 extern struct LogIndex datalogger_index_table[MAX_INDEX];
 
-#ifndef RAW_50HZ_LOG
+#ifdef DETAILED_LOG
 
 struct LogLine
 {
@@ -54,7 +54,7 @@ struct LogLine
 	int  navigation_code_line;
 };
 
-#else
+#elif defined RAW_50HZ_LOG
 
 struct LogLine
 {
@@ -78,6 +78,28 @@ struct LogLine
 	int pitch_acc;
 	
 	int  height_m_5;
+};
+
+#else
+
+struct LogLine
+{
+	double gps_latitude_rad;    // 8
+	double gps_longitude_rad;   // 8
+    long date;                  // 4
+    long time;                  // 4
+	int gps_height_m;           // 2
+	unsigned char gps_speed_m_s;// 1
+	int gps_heading;            // 2
+	int pitch;                  // 2
+	int roll;                   // 2
+	int yaw;                    // 2
+
+	char  control_state;        // 1
+	char temperature_c;         // 1
+	int  height_m;              // 2
+    unsigned char servo_trigger;// 1
+	int  navigation_code_line;  // 2 = 42
 };
 
 #endif

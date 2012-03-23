@@ -267,7 +267,7 @@ void ahrs_filter(float dt)
 				sensor_data.yaw += DEG2RAD(360.0);
 				
 			if (fabs(sensor_data.yaw - sensor_data.gps.heading_rad) < DEG2RAD(250.0))  // do not chang if e.g. yaw = 355° and heading = 2°
-				sensor_data.yaw = sensor_data.yaw*0.991 + sensor_data.gps.heading_rad*0.009;
+				sensor_data.yaw = sensor_data.yaw*0.99 + sensor_data.gps.heading_rad*0.01;
 		}	
     }
 	else if (i % 25 == 0) // outer loop at 2Hz
