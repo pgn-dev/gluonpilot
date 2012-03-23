@@ -439,10 +439,11 @@ int flying_towards_waypoint(struct GluonscriptCode *current_code)
 	
 int waypoint_reached(struct GluonscriptCode *current_code)
 {
-	if (navigation_distance_between_meter(sensor_data.gps.longitude_rad, current_code->y,
-			                              sensor_data.gps.latitude_rad, current_code->x) < config.control.waypoint_radius_m)
+	float distance = navigation_distance_between_meter(sensor_data.gps.longitude_rad, current_code->y,
+			                                           sensor_data.gps.latitude_rad, current_code->x);
+	if (distance < config.control.waypoint_radius_m) // we are within the waypoint radius
 	{
-		if (! flying_towards_waypoint(current_code))  // we are flying away from the waypoint AND we are close enough
+		if (! flying_towards_waypoint(current_code) || distance <= sensor_data.gps.speed_ms/4)  // we are flying away from the waypoint OR we will have passed it in the next navigation update
 			return 1;
 		else
 			return 0;

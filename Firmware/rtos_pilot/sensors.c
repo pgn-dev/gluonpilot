@@ -17,7 +17,7 @@
  *  @since    0.1
  */
  
- #include <math.h>
+#include <math.h>
  
 // Include all FreeRTOS header files
 #include "FreeRTOS/FreeRTOS.h"
@@ -57,6 +57,7 @@ extern xSemaphoreHandle xSpiSemaphore;
 void read_raw_sensor_data();
 void scale_raw_sensor_data();
 void bmp085_do_10Hz();
+unsigned int squared(unsigned int a, unsigned int b, unsigned int c);
 
 float scale_z_gyro = 0.0f;
 
@@ -73,6 +74,8 @@ void sensors_task( void *parameters )
 	float dt_since_last_height = 0.0f;
 	unsigned int low_update_counter = 0;
 
+    unsigned int mean_gyro_x, mean_gyro_y, mean_gyro_z;
+    unsigned long var_gyros, var_gyros_temp = 0;
 		
 	/* Used to wake the task at the correct frequency. */
 	portTickType xLastExecutionTime; 
@@ -99,6 +102,10 @@ void sensors_task( void *parameters )
 	read_raw_sensor_data();
 	scale_raw_sensor_data();
 	ahrs_init();
+
+     mean_gyro_x = sensor_data.gyro_x_raw;
+     mean_gyro_y = sensor_data.gyro_y_raw;
+     mean_gyro_z = sensor_data.gyro_z_raw;
 	
 	if (HARDWARE_VERSION >= V01N) // IDZ-500 gyroscope
 		scale_z_gyro = (-0.02538315f*3.14159f/180.0f)*2.0f;
@@ -133,6 +140,20 @@ void sensors_task( void *parameters )
 		
 		if (low_update_counter % 25 == 0) // 10Hz
 		{
+            // detects when the module is not moving.
+            mean_gyro_x = (mean_gyro_x >> 1) + (sensor_data.gyro_x_raw >> 1);
+            mean_gyro_y = (mean_gyro_y >> 1) + (sensor_data.gyro_y_raw >> 1);
+            mean_gyro_z = (mean_gyro_z >> 1) + (sensor_data.gyro_z_raw >> 1);
+            var_gyros_temp = var_gyros_temp - (var_gyros_temp >> 2) +
+                        squared((unsigned int)(mean_gyro_x - sensor_data.gyro_x_raw),
+                                (unsigned int)(mean_gyro_y - sensor_data.gyro_y_raw),
+                                (unsigned int)(mean_gyro_z - sensor_data.gyro_z_raw) );
+            var_gyros = var_gyros_temp >> 2;
+            //if (var_gyros <= 10)
+            //    printf("\r\n still \r\n");
+            //else if (low_update_counter % 300 == 0)
+            //    printf("\r\n%lu [%u %u] [%u %u] [%u %u]\r\n", var_gyros, (unsigned int)(mean_gyro_x - sensor_data.gyro_x_raw), sensor_data.gyro_x_raw,mean_gyro_y, sensor_data.gyro_y_raw,mean_gyro_z, sensor_data.gyro_z_raw);
+
 			if (control_state.simulation_mode)
 				vTaskDelete(xTaskGetCurrentTaskHandle());
 				
@@ -184,6 +205,29 @@ void sensors_task( void *parameters )
 	}
 }
 
+unsigned int squared(unsigned int a, unsigned int b, unsigned int c)
+{
+    unsigned long i;
+    if (a > 60000)
+        a = !a;
+    if (b > 60000)
+        b = !b;
+    if (c > 60000)
+        c = !c;
+
+    if (a > 200)
+        return 60000;
+    if (b > 200)
+        return 60000;
+    if (c > 200)
+        return 60000;
+
+    i = (unsigned long)(a*a) + (unsigned long)(b*b) + (unsigned long)(c*c);
+    if (i > 65000)
+        return 65000;
+    else
+        return (unsigned int)i;
+}
 
 
 void bmp085_do_10Hz()
@@ -305,16 +349,17 @@ void sensors_gps_task( void *parameters )
 	for( ;; )
 	{
 		/* Wait until it is time for the next cycle. */
-		if( xSemaphoreTake( xGpsSemaphore, ( portTickType ) 205 / portTICK_RATE_MS ) == pdTRUE )
+		if (control_state.simulation_mode)
+		{
+			i++;
+			vTaskDelay(( ( portTickType ) 100 / portTICK_RATE_MS ) );
+			sensor_data.gps.satellites_in_view = 9;
+			sensor_data.gps.status = ACTIVE;
+		}
+		else if( xSemaphoreTake( xGpsSemaphore, ( portTickType ) 205 / portTICK_RATE_MS ) == pdTRUE )
 		{
 			gps_update_info(&(sensor_data.gps)); // 5Hz (needed?)
 			i++;
-		}
-		else if (control_state.simulation_mode)
-		{
-			i++;
-			sensor_data.gps.satellites_in_view = 9;
-			sensor_data.gps.status = ACTIVE;
 		}
 		else
 		{

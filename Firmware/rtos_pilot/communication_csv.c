@@ -75,17 +75,17 @@ void comm_send_buffer_with_checksum(int length);
 // Write to output and wait at most 100ms until the semaphore becomes available
 #define printf_nochecksum(T,...) \
    if (xSemaphoreTake( xUart1Semaphore, ( portTickType ) 100 / portTICK_RATE_MS )  == pdTRUE) { \
-      printf(T); \
+      printf(T, __VA_ARGS__); \
       xSemaphoreGive( xUart1Semaphore ); \
       }
 
 #define printf_nochecksum_direct(T,...) \
    if (xSemaphoreTake( xUart1Semaphore, ( portTickType ) 0 / portTICK_RATE_MS )  == pdTRUE) { \
-      printf(T); \
+      printf(T, __VA_ARGS__); \
       xSemaphoreGive( xUart1Semaphore ); \
       }
 
-#define printf_message(T,...) \
+#define printf_message(T) \
 	if (xSemaphoreTake( xUart1Semaphore, ( portTickType ) 100 / portTICK_RATE_MS )  == pdTRUE) { \
       printf(T); \
       xSemaphoreGive( xUart1Semaphore ); \
@@ -572,16 +572,16 @@ void communication_input_task( void *parameters )
 					int i = atoi(&(buffer[token[1]]));
 					
 #ifndef RAW_50HZ_LOG
-					printf_nochecksum ("\r\nDH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
-					printf_nochecksum ("HeightBaro;Pitch;Roll;DesiredPitch;DesiredRoll;DesiredHeading;DesiredHeight;AccXG;AccYG;");
-					printf_nochecksum ("AccZG;P;Q;R;TempC;FlightMode;NavigationLine\r\n");
+					printf_message ("\r\nDH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
+					printf_message ("HeightBaro;Pitch;Roll;DesiredPitch;DesiredRoll;DesiredHeading;DesiredHeight;AccXG;AccYG;");
+					printf_message ("AccZG;P;Q;R;TempC;FlightMode;NavigationLine\r\n");
 #else
-					printf_nochecksum ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");//;idg500-vref;FlightMode\r\n");
+					printf_message ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");//;idg500-vref;FlightMode\r\n");
 #endif
 
 					datalogger_disable();
 					
-					while (datalogger_print_next_page_of_all(i, &print_logline))
+					while (datalogger_print_next_page(i, &print_logline))
 						;
 					
 					
@@ -623,6 +623,8 @@ void communication_input_task( void *parameters )
 					control_state.simulation_mode = 1;
 					sensor_data.gps.satellites_in_view = 9;
 					sensor_data.gps.status = ACTIVE;
+					sensor_data.gps.date = atol(&(buffer[token[1]]));
+					sensor_data.gps.time = atol(&(buffer[token[2]]));
 				}
 				///////////////////////////////////////////////////////////////
 				//                      WRITE SIMULATION                    //
@@ -637,6 +639,9 @@ void communication_input_task( void *parameters )
 					sensor_data.pressure_height = (float)atoi(&(buffer[token[5]]));
 					sensor_data.roll =  (float)atof(&(buffer[token[6]]));
 					sensor_data.pitch =  (float)atof(&(buffer[token[7]]));
+					//sensor_data.vertical_speed
+					//sensor_data.battery_voltage_10
+
 					//navigation_update();
 					//gluonscript_do();
 				}
@@ -887,19 +892,19 @@ void print_configuration()
  */ 
 void print_logline(struct LogLine *l)
 {
-#ifndef RAW_50HZ_LOG
+#ifdef DETAILED_LOG
 	// Normal logging
-	printf ("DD;%f;%f;", l->gps_latitude_rad*(180.0/3.14159), l->gps_longitude_rad*(180.0/3.14159));
-	printf ("%f;%d;%d;%d;", ((float)l->gps_speed_m_s)/100.0, l->gps_heading, l->gps_height_m, (int)l->gps_satellites);
-	printf ("%d;%d;", l->height_m, l->pitch);
-	printf ("%d;", l->roll);
-	printf ("%d;%d;%d;%d;", l->desired_pitch, l->desired_roll, l->desired_heading, l->desired_height);
-	printf ("%f;", l->acc_x_g);
-	printf ("%f;%f;", l->acc_y_g, l->acc_z_g);
-	printf ("%d;%d;%d;", l->p, l->q, l->r);
-	printf ("%d;%d;%d\r\n", (int)l->temperature_c, l->control_state, l->navigation_code_line+1);
+	printf_nochecksum ("DD;%f;%f;", RAD2DEG(l->gps_latitude_rad), RAD2DEG(l->gps_longitude_rad));
+	printf_nochecksum ("%f;%d;%d;%d;", ((float)l->gps_speed_m_s)/100.0, l->gps_heading, l->gps_height_m, (int)l->gps_satellites);
+	printf_nochecksum ("%d;%d;", l->height_m, l->pitch);
+	printf_nochecksum ("%d;", l->roll);
+	printf_nochecksum ("%d;%d;%d;%d;", l->desired_pitch, l->desired_roll, l->desired_heading, l->desired_height);
+	printf_nochecksum ("%f;", l->acc_x_g);
+	printf_nochecksum ("%f;%f;", l->acc_y_g, l->acc_z_g);
+	printf_nochecksum ("%d;%d;%d;", l->p, l->q, l->r);
+	printf_nochecksum ("%d;%d;%d\r\n", (int)l->temperature_c, (int)l->control_state, l->navigation_code_line+1);
 
-#else
+#elif RAW_50HZ_LOG
 	// Raw sensor logging @ 50Hz
 	printf ("DD;%f;%f;", l->gps_latitude_rad*(180.0/3.14159), l->gps_longitude_rad*(180.0/3.14159));
 	printf ("%lu;%f;%d;", l->gps_time, ((float)l->gps_speed_m_s_10) / 10.0, ((int)l->gps_heading_2)*2);
@@ -909,6 +914,14 @@ void print_logline(struct LogLine *l)
 
 //	printf ("%f;%d;%d;%d;%u;%d\r\n", ((float)l->height_m_5) / 5.0, l->pitch, l->roll, l->pitch_acc, l->idg500_vref, l->control_state);
 	printf ("%f;%d;%d;%d\r\n", ((float)l->height_m_5) / 5.0, l->pitch, l->roll, l->pitch_acc);
+#else
+	// Normal logging
+	printf_nochecksum ("DD;%f;%f;", RAD2DEG(l->gps_latitude_rad), RAD2DEG(l->gps_longitude_rad));
+	printf_nochecksum ("%f;%d;%d;", ((float)l->gps_speed_m_s)/3.0, l->gps_heading, l->gps_height_m);
+	printf_nochecksum ("%d;%d;", l->height_m, l->pitch);
+	printf_nochecksum ("%d;", l->roll);
+	printf_nochecksum ("%d;%d;%d\r\n", (int)l->temperature_c, (int)l->control_state, l->navigation_code_line+1);
+
 #endif
 }	
 

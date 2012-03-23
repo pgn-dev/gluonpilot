@@ -10,8 +10,8 @@ CND_CONF=fixed_wing
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${IMAGE_TYPE}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/rtos_pilot.X.${IMAGE_TYPE}.out
-OUTPUT_BASENAME=rtos_pilot.X.${IMAGE_TYPE}.out
+OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/rtos_pilot.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+OUTPUT_BASENAME=rtos_pilot.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 PACKAGE_TOP_DIR=rtospilot.x/
 
 # Functions

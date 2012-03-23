@@ -70,7 +70,9 @@ enum gluonscript_command {
     CIRCLE_TO_REL = 27,
     SET_BATTERY_ALARM = 28,
 	CALL = 29,
-	RETURN = 30
+	RETURN = 30,
+    SERVO_START_TRIGGER = 31,
+    SERVO_STOP_TRIGGER = 32
 };
 
 
