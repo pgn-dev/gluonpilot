@@ -16,4 +16,8 @@ void servo_all_neutral();
 
 void servo_turbopwm();
 
+void servo_set_logical_0(int servo);
+
+void servo_set_logical_1(int servo);
+
 #endif // SERVO_H

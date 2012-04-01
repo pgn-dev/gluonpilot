@@ -112,6 +112,9 @@ unsigned int servo_raw_to_us(unsigned int raw)
 }
 
 
+volatile unsigned int* OCxRS[] = { &OC1RS, &OC2RS, &OC3RS, &OC4RS, &OC5RS, &OC6RS, &OC7RS, &OC8RS };
+volatile OC1CONBITS* OCxCONbits[] = { &OC1CONbits, &OC2CONbits, &OC3CONbits, &OC4CONbits, &OC5CONbits, &OC6CONbits, &OC7CONbits, &OC8CONbits };
+
 /*!
  *  Assigns a new value to the servo-output buffer.
  *  @param index Servo number (0 to 7)
@@ -121,37 +124,69 @@ unsigned int servo_raw_to_us(unsigned int raw)
 void servo_set_us(int servo, unsigned int us)
 {
 	unsigned int raw = servo_us_to_raw(us);
-	
-	switch (servo)
-	{
-		case 0: 
-			OC1RS = raw;
-			break;
-		case 1: 
-			OC2RS = raw;
-			break;
-		case 2: 
-			OC3RS = raw;
-			break;
-		case 3: 
-			OC4RS = raw;
-			break;
-		case 4: 
-			OC5RS = raw;
-			break;
-		case 5:
-			OC6RS = raw;
-			break;
-		case 6:
-			OC7RS = raw;
-			break;
-		case 7:
-			OC8RS = raw;
-			break;
-		default:
-			break;
-	}	
+
+
+    //*(OCxRS[servo]) = raw;
+    switch (servo)
+    {
+        case 0:
+            OC1RS = raw;
+            break;
+        case 1:
+            OC2RS = raw;
+            break;
+        case 2:
+            OC3RS = raw;
+            break;
+        case 3:
+            OC4RS = raw;
+            break;
+        case 4:
+            OC5RS = raw;
+            break;
+        case 5:
+            OC6RS = raw;
+            break;
+        case 6:
+            OC7RS = raw;
+            break;
+        case 7:
+            OC8RS = raw;
+            break;
+        default:
+            break;
+    }
 }	
+
+/*!
+ *    Set the servo's output to a high level (5V). Used for other triggering peripherals that can't use PWM
+ *    Remark: after calling this command, the channel will output no longer in PWM, even when calling the servo_set_us command.
+ */
+void servo_set_logical_1(int servo)
+{
+    if (servo < 8)
+    {
+        *(OCxRS[servo]) = 2500;
+        (OCxCONbits[servo])->OCM = 0;
+        TRISD &= ~(1 << servo);
+        PORTD |= (1 << servo);
+    }
+}
+
+/*!
+ *    Set the servo's output to a low level (0V). Used for other triggering peripherals that can't use PWM
+ *    Remark: after calling this command, the channel will output no longer in PWM, even when calling the servo_set_us command.
+ */
+void servo_set_logical_0(int servo)
+{
+    if (servo < 8)
+    {
+        *(OCxRS[servo]) = 0;
+        (OCxCONbits[servo])->OCM = 0;
+        TRISD &= ~(1 << servo);
+        PORTD &= ~(1 << servo);
+    }
+}
 
 
 /*!

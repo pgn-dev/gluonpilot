@@ -28,6 +28,7 @@
 #include "control.h"
 #include "navigation.h"
 #include "gluonscript.h"
+#include "trigger.h"
 
 
 struct LogIndex datalogger_index_table[MAX_INDEX];
@@ -406,12 +407,12 @@ void datalogger_task( void *parameters )
 
 			l.pitch = (int)(sensor_data.pitch * (180.0/3.14159));
 			l.roll = (int)(sensor_data.roll * (180.0/3.14159));
-
+            l.yaw = (int)(sensor_data.yaw * (180.0/3.14159));
 			l.control_state = control_state.flight_mode;
 			l.navigation_code_line = gluonscript_data.current_codeline;
             l.date = sensor_data.gps.date;
             l.time = sensor_data.gps.time;
-            l.servo_trigger = 0;//
+            l.servo_trigger = trigger.trigger_counter;
 #endif
 			datalogger_writeline(&l);
 		}
