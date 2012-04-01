@@ -4,6 +4,7 @@
 #include "navigation.h"
 #include "gluonscript.h"
 
+
 enum trigger_mode 
 {
 	SINGLE_SHOT,
@@ -19,6 +20,7 @@ struct trigger_state
     int usec_pulse;
     float delay_s;
     float period_s;
+    unsigned int trigger_counter;
 };	
 
 extern struct trigger_state trigger;

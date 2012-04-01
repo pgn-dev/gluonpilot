@@ -86,8 +86,8 @@ struct LogLine
 {
 	double gps_latitude_rad;    // 8
 	double gps_longitude_rad;   // 8
-    long date;                  // 4
-    long time;                  // 4
+    unsigned long date;                  // 4
+    unsigned long time;                  // 4
 	int gps_height_m;           // 2
 	unsigned char gps_speed_m_s;// 1
 	int gps_heading;            // 2
@@ -98,8 +98,8 @@ struct LogLine
 	char  control_state;        // 1
 	char temperature_c;         // 1
 	int  height_m;              // 2
-    unsigned char servo_trigger;// 1
-	int  navigation_code_line;  // 2 = 42
+	int  navigation_code_line;  // 2 
+    unsigned int servo_trigger; // 2 = 44
 };
 
 #endif

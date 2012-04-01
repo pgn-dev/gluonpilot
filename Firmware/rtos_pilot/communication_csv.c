@@ -571,12 +571,16 @@ void communication_input_task( void *parameters )
 				{
 					int i = atoi(&(buffer[token[1]]));
 					
-#ifndef RAW_50HZ_LOG
+#ifdef DETAILED_LOG
 					printf_message ("\r\nDH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
 					printf_message ("HeightBaro;Pitch;Roll;DesiredPitch;DesiredRoll;DesiredHeading;DesiredHeight;AccXG;AccYG;");
 					printf_message ("AccZG;P;Q;R;TempC;FlightMode;NavigationLine\r\n");
-#else
+#elif RAW_50HZ_LOG
 					printf_message ("DH;Latitude;Longitude;Time;SpeedGPS;HeadingGPS;AccX;AccY;AccZ;GyroX;GyroY;GyroZ;HeightBaro;Pitch;Roll;PitchAcc\r\n");//;idg500-vref;FlightMode\r\n");
+#else
+                    printf_message ("\r\nDH;Date;Time;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;");
+					printf_message ("HeightBaro;Pitch;Roll;Yaw;");
+					printf_message ("TempC;FlightMode;NavigationLine;ServoTrigger\r\n");
 #endif
 
 					datalogger_disable();
@@ -916,12 +920,10 @@ void print_logline(struct LogLine *l)
 	printf ("%f;%d;%d;%d\r\n", ((float)l->height_m_5) / 5.0, l->pitch, l->roll, l->pitch_acc);
 #else
 	// Normal logging
-	printf_nochecksum ("DD;%f;%f;", RAD2DEG(l->gps_latitude_rad), RAD2DEG(l->gps_longitude_rad));
+	printf_nochecksum ("DD;%lu;%lu;%.9f;%.9f;", l->date, l->time, RAD2DEG(l->gps_latitude_rad), RAD2DEG(l->gps_longitude_rad));
 	printf_nochecksum ("%f;%d;%d;", ((float)l->gps_speed_m_s)/3.0, l->gps_heading, l->gps_height_m);
-	printf_nochecksum ("%d;%d;", l->height_m, l->pitch);
-	printf_nochecksum ("%d;", l->roll);
-	printf_nochecksum ("%d;%d;%d\r\n", (int)l->temperature_c, (int)l->control_state, l->navigation_code_line+1);
-
+	printf_nochecksum ("%d;%d;%d;%d;", l->height_m, l->pitch, l->roll, l->yaw);
+	printf_nochecksum ("%d;%d;%d;%u\r\n", (int)l->temperature_c, (int)l->control_state, l->navigation_code_line+1, l->servo_trigger);
 #endif
 }	
 
