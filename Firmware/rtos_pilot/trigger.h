@@ -7,8 +7,8 @@
 
 enum trigger_mode 
 {
-	SINGLE_SHOT,
-	CONTINUOUS_SHOOTING	
+    SERVO_TRIGGER_MODE = 0,
+    CHDK_MODE = 1
 };
 
 
