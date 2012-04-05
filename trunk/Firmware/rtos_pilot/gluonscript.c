@@ -84,7 +84,7 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
  	handlers_result |= trigger_handle_gluonscriptcommand(current_code);
  	handlers_result |= navigation_handle_gluonscriptcommand(current_code);
  	
- 	if (handlers_result == HANDLED_FINISHED)  // one of the handlers already handled it completely
+ 	if (handlers_result & HANDLED_FINISHED)  // one of the handlers already handled it completely
  	{
 		gluonscript_data.current_codeline++;
 	}
@@ -159,22 +159,25 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 				break;
 			case SERVO_SET:
 
-                if (current_code->a == 5 && current_code->b == 0)
+                if (current_code->b == 0)
                 {
                     //OC6CONbits.OCM = 0;//0b010;
                     //TRISDbits.TRISD5 = 0;
                     //PORTDbits.RD5 = 0;
                     servo_set_logical_0(current_code->a);
                 }
-                else if (current_code->a == 5 && current_code->b > 2499)
+                else if (current_code->b > 2499)
                 {
                     //OC6CONbits.OCM = 0;//0b001;
                     //TRISDbits.TRISD5 = 0;
                     //PORTDbits.RD5 = 1;
                     servo_set_logical_1(current_code->a);
-                } else
+                } 
+                else
+                {
                     servo_set_us(current_code->a, current_code->b);  // a = channel(0..7), b = microseconds (1000...2000)
-
+                }
+                
                 gluonscript_data.current_codeline++;
 				break;
 	        case BLOCK:
