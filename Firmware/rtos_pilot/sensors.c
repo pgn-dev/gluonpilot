@@ -252,18 +252,18 @@ void bmp085_do_10Hz()
 			state = 2;
 			break;
 		case 2:
-		{
-			long pressure;
-			tmp = bmp085_read_pressure();
-			bmp085_convert_pressure(tmp, &pressure);
+            {
+                long pressure;
+                tmp = bmp085_read_pressure();
+                bmp085_convert_pressure(tmp, &pressure);
 
-			sensor_data.pressure = (float)pressure;
-		}
-			sensor_data.pressure_height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
+                sensor_data.pressure = (float)pressure;
+            }
+            sensor_data.pressure_height = scp1000_pressure_to_height(sensor_data.pressure, sensor_data.temperature);
 
-			bmp085_start_convert_temp();
-			state = 1;
-			break;
+            bmp085_start_convert_temp();
+            state = 1;
+            break;
 	}
 }
 

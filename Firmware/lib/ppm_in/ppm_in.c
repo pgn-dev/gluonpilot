@@ -27,6 +27,8 @@ unsigned int sync_pulse;
 //! Global struct that contains the state of the PPM pulses.
 volatile struct ppm_info ppm;
 
+volatile unsigned int frame_counter = 0;
+
 float dt_no_valid_frame = 1.0;
 int ticks_no_valid_frame = 1;
 
@@ -98,16 +100,33 @@ void ppm_in_update_status(float dt)
 /**
  *   Integer version of ppm_in_update_status()
  */
+static unsigned int last_frame_counter = 0;
+
 #define TICKS_FOR_NO_CONNECTION CONNECTION_LOST_AFTER_MS_NO_FRAME/20
 void ppm_in_update_status_ticks_50hz()
 {
+    if (frame_counter == last_frame_counter)
+    {
+        if (ticks_no_valid_frame < TICKS_FOR_NO_CONNECTION)
+        {
+            ticks_no_valid_frame++;
+        }
+    }
+    else
+    {
+        last_frame_counter = frame_counter;
+        if (ticks_no_valid_frame > 0)
+            ticks_no_valid_frame--;
+    }
+
+    
 	// PPM
-	if (ppm.valid_frame && ticks_no_valid_frame > 0)
+	/*if (ppm.valid_frame && ticks_no_valid_frame > 0)
 	{
 		ticks_no_valid_frame -= 1;
 	} else if (!ppm.valid_frame && ticks_no_valid_frame < TICKS_FOR_NO_CONNECTION)
 		ticks_no_valid_frame += 1;
-	
+	*/
 	ppm.connection_alive = (ticks_no_valid_frame < TICKS_FOR_NO_CONNECTION);
 }
 
@@ -218,9 +237,13 @@ void __attribute__((__interrupt__, __auto_psv__)) _AltIC4Interrupt(void)
 			counter = 0;
 			invalid_pulse = 0;
 			if (ppm.valid_frame) //
+            {
 				for (counter=0; counter < NUM_CHANNELS; counter++)
 					ppm.channel[counter] = ppm_in[counter];
+                frame_counter++;
+            }
 			counter = 0;
+
 		}
 		else if (in < servo_pulse_max && in > servo_pulse_min && !invalid_pulse)
 		{

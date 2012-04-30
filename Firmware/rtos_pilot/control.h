@@ -8,6 +8,8 @@ enum MixTypes { AILERON = 0, DELTA_PLUS = 1, DELTA_MIN = 2, QUADROCOPTER  = 3, A
 
 enum FlightModes { MANUAL = 0, STABILIZED = 1, AUTOPILOT = 2, LOITER = 3, RTL = 4};
 
+enum AltitudeModes { PRESSURE = 1, GPS_ABSOLUTE = 2, GPS_RELATIVE = 3 };
+
 struct ControlState
 {
 	enum FlightModes flight_mode;
@@ -67,6 +69,8 @@ struct ControlConfig
     int auto_throttle_min_pct;
     int auto_throttle_max_pct;
     int auto_throttle_p_gain; // pct/m
+
+    enum AltitudeModes altitude_mode;
 };	
 
 

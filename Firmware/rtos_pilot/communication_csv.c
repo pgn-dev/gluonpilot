@@ -133,7 +133,7 @@ void communication_telemetry_task( void *parameters )
 	
 	for( ;; )
 	{
-		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 50 / portTICK_RATE_MS ) );  // 20Hz
+		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 100 / portTICK_RATE_MS ) );  // 10Hz
 		counters.stream_PPM++;
 		counters.stream_GyroAccRaw++;
 		counters.stream_GyroAccProc++;
@@ -142,12 +142,12 @@ void communication_telemetry_task( void *parameters )
 		counters.stream_Attitude++;
 		counters.stream_Control++;
 		
-		if (c++ % 10 == 0)  // this counter will never be used at 20Hz
+		if (c++ % 5 == 0)  // this counter will never be used at 20Hz
 			led1_on();
 		else
 			led1_off();
 		
-		if (c % 6000 == 0) // reset Xbee every 5 minutes to prevent a lock-up (duty cycle)
+		if (c % 3000 == 0) // reset Xbee every 5 minutes to prevent a lock-up (duty cycle)
 		{
 			//uart1_puts("\r\nResetting XBEE...\r\n") ;
 			vTaskDelay( ( ( portTickType ) 1001 / portTICK_RATE_MS ) ); // guard time wait 1000ms
@@ -338,10 +338,194 @@ void communication_input_task( void *parameters )
 		        } 
 	            //token[current_token + 1] = buffer_position;
 
+                // first handle all navigation
+                if (buffer[token[0] + 1] == 'N')
+                {
+                    ///////////////////////////////////////////////////////////////
+                    //                      WRITE NAVIGATION                     //
+                    ///////////////////////////////////////////////////////////////
+                    if (buffer[token[0]] == 'W')
+                    {
+                        int i = atoi(&(buffer[token[1]])) - 1;
+
+    #ifdef LIMITED
+        //if (i < 2)
+            uart1_puts("Not allowed in Limited Edition!\r\n");
+    #else
+                        if (i < MAX_GLUONSCRIPTCODES)
+                        {
+                            gluonscript_data.codes[i].opcode = atoi(&(buffer[token[2]]));
+                            gluonscript_data.codes[i].x = atof(&(buffer[token[3]]));
+                            gluonscript_data.codes[i].y = atof(&(buffer[token[4]]));
+                            gluonscript_data.codes[i].a = atoi(&(buffer[token[5]]));
+                            gluonscript_data.codes[i].b = atoi(&(buffer[token[6]]));
+
+                            if (navigation_data.relative_positions_calculated)
+                                navigation_calculate_relative_position(i);
+
+                            // confirm by sending it back...
+                            printf_checksum("ND;%d;%d;%f;%f;%d;%d", i+1, gluonscript_data.codes[i].opcode,
+                                            gluonscript_data.codes[i].x, gluonscript_data.codes[i].y,
+                                            gluonscript_data.codes[i].a, gluonscript_data.codes[i].b);
+                        }
+    #endif
+                    }
+                    ///////////////////////////////////////////////////////////////
+                    //                 JUMP TO NAVIGATION LINE                   //
+                    ///////////////////////////////////////////////////////////////
+                    else if (buffer[token[0]] == 'J')
+                    {
+                        int number = atoi(&(buffer[token[1]]));
+                        gluonscript_goto_from_gcs(number);
+                    }
+                    ///////////////////////////////////////////////////////////////
+                    //                       BURN NAVIGATION                     //
+                    ///////////////////////////////////////////////////////////////
+                    else if (buffer[token[0]] == 'F')
+                    {
+                        gluonscript_burn();
+                        printf_message("Script burned to flash\r\n");
+                    }
+                    ///////////////////////////////////////////////////////////////
+                    //                       LOAD NAVIGATION                     //
+                    ///////////////////////////////////////////////////////////////
+                    else if (buffer[token[0]] == 'L')
+                    {
+                        gluonscript_load();
+                        if (navigation_data.relative_positions_calculated)
+                            navigation_calculate_relative_positions();
+                    }
+                    ///////////////////////////////////////////////////////////////
+                    //                       READ NAVIGATION                     //
+                    ///////////////////////////////////////////////////////////////
+                    else if (buffer[token[0]] == 'R')
+                    {
+                        print_navigation();
+                    }
+                }
+				///////////////////////////////////////////////////////////////
+				//                       SET CONTROL                         //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'C')    // Set control
+				{
+                    config.control.servo_mix = (buffer[token[1] + 0]) - '0';
+                    config.control.max_pitch = atof(&(buffer[token[2]])) / 180.0 * 3.14;
+                    config.control.max_roll = atof(&(buffer[token[3]])) / 180.0 * 3.14;
+                    config.control.aileron_differential = atoi(&(buffer[token[4]])) / 10;
+
+                    config.control.waypoint_radius_m = atof(&(buffer[token[5]]));
+                    config.control.cruising_speed_ms = atof(&(buffer[token[6]]));
+                    config.control.stabilization_with_altitude_hold = atoi(&(buffer[token[7]])) == 0? 0 : 1;
+                    config.control.min_pitch = DEG2RAD(atof(&(buffer[token[8]])));
+                    config.control.altitude_mode = atoi(&(buffer[token[9]]));
+                    if (config.control.altitude_mode < 1 || config.control.altitude_mode > 3)
+                        config.control.altitude_mode = 1;
+				}	
+				///////////////////////////////////////////////////////////////
+				//                  SET GPS CONFIGURATION                    //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'G')    // Set GPS
+				{
+					unsigned int x;
+					sscanf(&(buffer[token[1]]), "%u", &x);
+					config.gps.initial_baudrate = (long)x * 10;
+					config.gps.operational_baudrate = 0;	
+				}
+				///////////////////////////////////////////////////////////////
+				//                 SET PID PITCH 2 ELEVATOR                  //
+				///////////////////////////////////////////////////////////////				
+				else if (buffer[token[0]] == 'P' && buffer[token[0] + 1] == 'P')    // Set PID
+				{
+					config.control.pid_pitch2elevator.p_gain = (float)atof(&(buffer[token[1]]));
+					config.control.pid_pitch2elevator.i_gain = (float)atof(&(buffer[token[2]]));
+					config.control.pid_pitch2elevator.d_gain = (float)atof(&(buffer[token[3]]));
+					config.control.pid_pitch2elevator.i_min = (float)atof(&(buffer[token[4]]));
+					config.control.pid_pitch2elevator.i_max = (float)atof(&(buffer[token[5]]));
+					config.control.pid_pitch2elevator.d_term_min_var = (float)atof(&(buffer[token[6]]));
+				}
+				///////////////////////////////////////////////////////////////
+				//                  SET PID ROLL 2 AILERON                   //
+				///////////////////////////////////////////////////////////////				
+				else if (buffer[token[0]] == 'P' && buffer[token[0] + 1] == 'R')    // Set PID
+				{
+					config.control.pid_roll2aileron.p_gain = (float)atof(&(buffer[token[1]]));
+					config.control.pid_roll2aileron.i_gain = (float)atof(&(buffer[token[2]]));
+					config.control.pid_roll2aileron.d_gain = (float)atof(&(buffer[token[3]]));
+					config.control.pid_roll2aileron.i_min = (float)atof(&(buffer[token[4]]));
+					config.control.pid_roll2aileron.i_max = (float)atof(&(buffer[token[5]]));
+					config.control.pid_roll2aileron.d_term_min_var = (float)atof(&(buffer[token[6]]));
+				}
+				///////////////////////////////////////////////////////////////
+				//                SET PID HEADING 2 ROLL/YAW                 //
+				///////////////////////////////////////////////////////////////				
+				else if (buffer[token[0]] == 'P' && buffer[token[0] + 1] == 'H')    // Set PID
+				{
+					config.control.pid_heading2roll.p_gain = (float)atof(&(buffer[token[1]]));
+					config.control.pid_heading2roll.i_gain = (float)atof(&(buffer[token[2]]));
+					config.control.pid_heading2roll.d_gain = (float)atof(&(buffer[token[3]]));
+					config.control.pid_heading2roll.i_min = (float)atof(&(buffer[token[4]]));
+					config.control.pid_heading2roll.i_max = (float)atof(&(buffer[token[5]]));
+					config.control.pid_heading2roll.d_term_min_var = (float)atof(&(buffer[token[6]]));
+				}
+				///////////////////////////////////////////////////////////////
+				//                  SET PID ALTITUDE 2 PITCH                 //
+				///////////////////////////////////////////////////////////////				
+				else if (buffer[token[0]] == 'P' && buffer[token[0] + 1] == 'A')    // Set PID
+				{
+					config.control.pid_altitude2pitch.p_gain = (float)atof(&(buffer[token[1]]));
+					config.control.pid_altitude2pitch.i_gain = (float)atof(&(buffer[token[2]]));
+					config.control.pid_altitude2pitch.d_gain = (float)atof(&(buffer[token[3]]));
+					config.control.pid_altitude2pitch.i_min = (float)atof(&(buffer[token[4]]));
+					config.control.pid_altitude2pitch.i_max = (float)atof(&(buffer[token[5]]));
+					config.control.pid_altitude2pitch.d_term_min_var = (float)atof(&(buffer[token[6]]));
+				}
+                ///////////////////////////////////////////////////////////////
+				//                  SET AUTOTHROTTLE                 //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'A' && buffer[token[0] + 1] == 'T')    // Set PID
+				{
+					config.control.auto_throttle_min_pct = atoi(&(buffer[token[1]]));
+					config.control.auto_throttle_max_pct = atoi(&(buffer[token[2]]));
+					config.control.auto_throttle_cruise_pct = atoi(&(buffer[token[3]]));
+					config.control.auto_throttle_p_gain = atoi(&(buffer[token[4]]));
+                    config.control.autopilot_auto_throttle = atoi(&(buffer[token[5]])) == 1;
+				}
+				
+				///////////////////////////////////////////////////////////////
+				//                      ENABLE SIMULATION                    //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'E') 
+				{
+					printf_message("Simulation enabled\r\n");
+					control_state.simulation_mode = 1;
+					sensor_data.gps.satellites_in_view = 9;
+					sensor_data.gps.status = ACTIVE;
+					sensor_data.gps.date = atol(&(buffer[token[1]]));
+					sensor_data.gps.time = atol(&(buffer[token[2]]));
+				}
+				///////////////////////////////////////////////////////////////
+				//                      WRITE SIMULATION                    //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'W') 
+				{
+					sensor_data.gps.longitude_rad = (float)atof(&(buffer[token[1]]));
+					sensor_data.gps.latitude_rad = (float)atof(&(buffer[token[2]]));
+					sensor_data.gps.heading_rad	= (float)atof(&(buffer[token[3]]));
+					sensor_data.yaw = sensor_data.gps.heading_rad;
+					sensor_data.gps.speed_ms = (float)atof(&(buffer[token[4]]));
+					sensor_data.pressure_height = (float)atoi(&(buffer[token[5]]));
+					sensor_data.roll =  (float)atof(&(buffer[token[6]]));
+					sensor_data.pitch =  (float)atof(&(buffer[token[7]]));
+					//sensor_data.vertical_speed
+					//sensor_data.battery_voltage_10
+
+					//navigation_update();
+					//gluonscript_do();
+				}
 				///////////////////////////////////////////////////////////////
 				//                      SET TELEMETRY                        //
 				///////////////////////////////////////////////////////////////
-				if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'T')    // Set Telemetry
+                else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'T')    // Set Telemetry
 				{
 					config.telemetry.stream_GpsBasic = atoi(&(buffer[token[1]]));
 					config.telemetry.stream_GyroAccRaw = atoi(&(buffer[token[2]]));
@@ -449,101 +633,17 @@ void communication_input_task( void *parameters )
 				    config.control.servo_neutral[nr] = neutral;
 				    config.control.servo_max[nr] = max;
 				}
-				///////////////////////////////////////////////////////////////
-				//                       SET CONTROL                         //
-				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'C')    // Set control
-				{
-                    config.control.servo_mix = (buffer[token[1] + 0]) - '0';
-                    config.control.max_pitch = atof(&(buffer[token[2]])) / 180.0 * 3.14;
-                    config.control.max_roll = atof(&(buffer[token[3]])) / 180.0 * 3.14;
-                    config.control.aileron_differential = atoi(&(buffer[token[4]])) / 10;
-
-                    config.control.waypoint_radius_m = atof(&(buffer[token[5]]));
-                    config.control.cruising_speed_ms = atof(&(buffer[token[6]]));
-                    config.control.stabilization_with_altitude_hold = atoi(&(buffer[token[7]])) == 0? 0 : 1;
-                    config.control.min_pitch = DEG2RAD(atof(&(buffer[token[8]])));
-				}	
-				///////////////////////////////////////////////////////////////
-				//                  SET GPS CONFIGURATION                    //
-				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'G')    // Set GPS
-				{
-					unsigned int x;
-					sscanf(&(buffer[token[1]]), "%u", &x);
-					config.gps.initial_baudrate = (long)x * 10;
-					config.gps.operational_baudrate = 0;	
-				}
-				///////////////////////////////////////////////////////////////
-				//                 SET PID PITCH 2 ELEVATOR                  //
-				///////////////////////////////////////////////////////////////				
-				else if (buffer[token[0]] == 'P' && buffer[token[0] + 1] == 'P')    // Set PID
-				{
-					config.control.pid_pitch2elevator.p_gain = (float)atof(&(buffer[token[1]]));
-					config.control.pid_pitch2elevator.i_gain = (float)atof(&(buffer[token[2]]));
-					config.control.pid_pitch2elevator.d_gain = (float)atof(&(buffer[token[3]]));
-					config.control.pid_pitch2elevator.i_min = (float)atof(&(buffer[token[4]]));
-					config.control.pid_pitch2elevator.i_max = (float)atof(&(buffer[token[5]]));
-					config.control.pid_pitch2elevator.d_term_min_var = (float)atof(&(buffer[token[6]]));
-				}
-				///////////////////////////////////////////////////////////////
-				//                  SET PID ROLL 2 AILERON                   //
-				///////////////////////////////////////////////////////////////				
-				else if (buffer[token[0]] == 'P' && buffer[token[0] + 1] == 'R')    // Set PID
-				{
-					config.control.pid_roll2aileron.p_gain = (float)atof(&(buffer[token[1]]));
-					config.control.pid_roll2aileron.i_gain = (float)atof(&(buffer[token[2]]));
-					config.control.pid_roll2aileron.d_gain = (float)atof(&(buffer[token[3]]));
-					config.control.pid_roll2aileron.i_min = (float)atof(&(buffer[token[4]]));
-					config.control.pid_roll2aileron.i_max = (float)atof(&(buffer[token[5]]));
-					config.control.pid_roll2aileron.d_term_min_var = (float)atof(&(buffer[token[6]]));
-				}
-				///////////////////////////////////////////////////////////////
-				//                SET PID HEADING 2 ROLL/YAW                 //
-				///////////////////////////////////////////////////////////////				
-				else if (buffer[token[0]] == 'P' && buffer[token[0] + 1] == 'H')    // Set PID
-				{
-					config.control.pid_heading2roll.p_gain = (float)atof(&(buffer[token[1]]));
-					config.control.pid_heading2roll.i_gain = (float)atof(&(buffer[token[2]]));
-					config.control.pid_heading2roll.d_gain = (float)atof(&(buffer[token[3]]));
-					config.control.pid_heading2roll.i_min = (float)atof(&(buffer[token[4]]));
-					config.control.pid_heading2roll.i_max = (float)atof(&(buffer[token[5]]));
-					config.control.pid_heading2roll.d_term_min_var = (float)atof(&(buffer[token[6]]));
-				}
-				///////////////////////////////////////////////////////////////
-				//                  SET PID ALTITUDE 2 PITCH                 //
-				///////////////////////////////////////////////////////////////				
-				else if (buffer[token[0]] == 'P' && buffer[token[0] + 1] == 'A')    // Set PID
-				{
-					config.control.pid_altitude2pitch.p_gain = (float)atof(&(buffer[token[1]]));
-					config.control.pid_altitude2pitch.i_gain = (float)atof(&(buffer[token[2]]));
-					config.control.pid_altitude2pitch.d_gain = (float)atof(&(buffer[token[3]]));
-					config.control.pid_altitude2pitch.i_min = (float)atof(&(buffer[token[4]]));
-					config.control.pid_altitude2pitch.i_max = (float)atof(&(buffer[token[5]]));
-					config.control.pid_altitude2pitch.d_term_min_var = (float)atof(&(buffer[token[6]]));
-				}
                 ///////////////////////////////////////////////////////////////
-				//                  SET AUTOTHROTTLE                 //
-				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'A' && buffer[token[0] + 1] == 'T')    // Set PID
-				{
-					config.control.auto_throttle_min_pct = atoi(&(buffer[token[1]]));
-					config.control.auto_throttle_max_pct = atoi(&(buffer[token[2]]));
-					config.control.auto_throttle_cruise_pct = atoi(&(buffer[token[3]]));
-					config.control.auto_throttle_p_gain = atoi(&(buffer[token[4]]));
-                    config.control.autopilot_auto_throttle = atoi(&(buffer[token[5]])) == 1;
-				}
-				///////////////////////////////////////////////////////////////
 				//                      FORMAT DATALOG                       //
 				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'F')   
+				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'F')
 				{
 					datalogger_format();
 				}
 				///////////////////////////////////////////////////////////////
 				//                    DATALOG INDEX TABLE                    //
 				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'I')    
+				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'I')
 				{
 					int i;
                     //uart1_puts("\n\r");
@@ -553,7 +653,7 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////
 				//                           RESET                           //
 				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'Z' && buffer[token[0] + 1] == 'Z')    
+				else if (buffer[token[0]] == 'Z' && buffer[token[0] + 1] == 'Z')
 				{
 					if (atoi(&(buffer[token[1]])) == 1123)  // double check
 					{
@@ -562,15 +662,15 @@ void communication_input_task( void *parameters )
      					xLastWakeTime = xTaskGetTickCount();
 						vTaskDelayUntil( &xLastWakeTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );  // 1s
 						asm("reset");
-					}	
-				}				
+					}
+				}
 				///////////////////////////////////////////////////////////////
 				//                       DATALOG READ                        //
 				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'D' && buffer[token[0] + 1] == 'R')    
+				else if (buffer[token[0]] == 'D' && buffer[token[0] + 1] == 'R')
 				{
 					int i = atoi(&(buffer[token[1]]));
-					
+
 #ifdef DETAILED_LOG
 					printf_message ("\r\nDH;Latitude;Longitude;SpeedGPS;HeadingGPS;HeightGPS;SatellitesGPS;");
 					printf_message ("HeightBaro;Pitch;Roll;DesiredPitch;DesiredRoll;DesiredHeading;DesiredHeight;AccXG;AccYG;");
@@ -584,18 +684,18 @@ void communication_input_task( void *parameters )
 #endif
 
 					datalogger_disable();
-					
+
 					while (datalogger_print_next_page(i, &print_logline))
 						;
-					
-					
+
+
 					/* ** SIMULATION ** */
 					/*ahrs_init();
 					while (datalogger_print_next_page(i, &print_logline_simulation))
 						;
 					*/
 					//datalogger_enable();
-				}	
+				}
 				///////////////////////////////////////////////////////////////
 				//                      WRITE TO FLASH                       //
 				///////////////////////////////////////////////////////////////
@@ -617,98 +717,6 @@ void communication_input_task( void *parameters )
 				else if (buffer[token[0]] == 'L' && buffer[token[0] + 1] == 'D')    // Load default configuration
 				{
 					configuration_default();
-				}	
-				///////////////////////////////////////////////////////////////
-				//                      ENABLE SIMULATION                    //
-				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'E') 
-				{
-					printf_message("Simulation enabled\r\n");
-					control_state.simulation_mode = 1;
-					sensor_data.gps.satellites_in_view = 9;
-					sensor_data.gps.status = ACTIVE;
-					sensor_data.gps.date = atol(&(buffer[token[1]]));
-					sensor_data.gps.time = atol(&(buffer[token[2]]));
-				}
-				///////////////////////////////////////////////////////////////
-				//                      WRITE SIMULATION                    //
-				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'W') 
-				{
-					sensor_data.gps.longitude_rad = (float)atof(&(buffer[token[1]]));
-					sensor_data.gps.latitude_rad = (float)atof(&(buffer[token[2]]));
-					sensor_data.gps.heading_rad	= (float)atof(&(buffer[token[3]]));
-					sensor_data.yaw = sensor_data.gps.heading_rad;
-					sensor_data.gps.speed_ms = (float)atof(&(buffer[token[4]]));
-					sensor_data.pressure_height = (float)atoi(&(buffer[token[5]]));
-					sensor_data.roll =  (float)atof(&(buffer[token[6]]));
-					sensor_data.pitch =  (float)atof(&(buffer[token[7]]));
-					//sensor_data.vertical_speed
-					//sensor_data.battery_voltage_10
-
-					//navigation_update();
-					//gluonscript_do();
-				}
-				///////////////////////////////////////////////////////////////
-				//                       BURN NAVIGATION                     //
-				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'N') 
-				{
-					gluonscript_burn();
-					printf_message("Script burned to flash\r\n");
-				}	
-				///////////////////////////////////////////////////////////////
-				//                       LOAD NAVIGATION                     //
-				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'L' && buffer[token[0] + 1] == 'N') 
-				{
-					gluonscript_load();
-					if (navigation_data.relative_positions_calculated)
-						navigation_calculate_relative_positions();
-				}	
-				///////////////////////////////////////////////////////////////
-				//                       READ NAVIGATION                     //
-				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'R' && buffer[token[0] + 1] == 'N') 
-				{
-					print_navigation();
-				}
-				///////////////////////////////////////////////////////////////
-				//                      WRITE NAVIGATION                     //
-				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'W' && buffer[token[0] + 1] == 'N') 
-				{
-					int i = atoi(&(buffer[token[1]])) - 1;
-					
-#ifdef LIMITED
-	//if (i < 2)
-		uart1_puts("Not allowed in Limited Edition!\r\n");
-#else
-					if (i < MAX_GLUONSCRIPTCODES)
-					{
-						gluonscript_data.codes[i].opcode = atoi(&(buffer[token[2]]));
-						gluonscript_data.codes[i].x = atof(&(buffer[token[3]]));
-						gluonscript_data.codes[i].y = atof(&(buffer[token[4]]));
-						gluonscript_data.codes[i].a = atoi(&(buffer[token[5]]));
-						gluonscript_data.codes[i].b = atoi(&(buffer[token[6]]));
-
-						if (navigation_data.relative_positions_calculated)
-							navigation_calculate_relative_position(i);
-							
-						// confirm by sending it back...
-						printf_checksum("ND;%d;%d;%f;%f;%d;%d", i+1, gluonscript_data.codes[i].opcode,
-										gluonscript_data.codes[i].x, gluonscript_data.codes[i].y,
-										gluonscript_data.codes[i].a, gluonscript_data.codes[i].b);
-					}
-#endif
-				}
-                ///////////////////////////////////////////////////////////////
-				//                 JUMP TO NAVIGATION LINE                   //
-				///////////////////////////////////////////////////////////////
-				else if (buffer[token[0]] == 'J' && buffer[token[0] + 1] == 'N')
-				{
-					int number = atoi(&(buffer[token[1]]));
-					gluonscript_goto_from_gcs(number);
 				}
 				///////////////////////////////////////////////////////////////
 				//                  READ ALL CONFIGURATION                   //
@@ -723,10 +731,10 @@ void communication_input_task( void *parameters )
 						}	
 					}	
 				}
-				else if (current_token > 0)
+				else if (current_token > 0)  // && \n or \r
 				{
 					buffer[BUFFERSIZE-1] = '\0';
-					printf_message("ERROR received data\r\n");
+					printf_nochecksum_direct("ERROR received data: %s\r\n", buffer);
 				}	
 
             	buffer_position = 0;
@@ -740,6 +748,7 @@ void communication_input_task( void *parameters )
             	token[6] = 0;
             	token[7] = 0;
             	token[8] = 0;
+                token[9] = 0;
             }
             else if ((tmp == ';' || tmp == '*'))
             {
@@ -752,6 +761,7 @@ void communication_input_task( void *parameters )
 				{
 					buffer_position = 0;
 					current_token = 0;
+                    printf("\r\n error max token\r\n");
 				}
 	        } 
 	        else if (buffer_position < BUFFERSIZE)
@@ -886,7 +896,7 @@ void print_configuration()
     printf(";%d;%d;%d;%d;%d", (int)config.control.autopilot_auto_throttle, config.control.auto_throttle_min_pct, config.control.auto_throttle_max_pct,
 	                    config.control.auto_throttle_cruise_pct, config.control.auto_throttle_p_gain);
 	printf(";%d", (int)(RAD2DEG(config.control.min_pitch)-0.5));
-	printf(";%d", (int)config.control.manual_trim);
+	printf(";%d;%d", (int)config.control.manual_trim, (int)config.control.altitude_mode);
 	uart1_puts("\r\n");
 }		
 

@@ -46,14 +46,18 @@ void osd_print_integer(int num, int row, int col);
 #define ANTENNA 0xCA
 #define KMH 0xCB
 #define METER 0xCC
-const unsigned char heading[] = {0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF};
+
+//const unsigned char heading[] = {0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF};
+const unsigned char heading45[] = {219, 218, 217, 224, 223, 222, 221, 220};
 const unsigned char number[] = {0x0A, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
 
+/*
+ * Using the circle with arrow
 #define DIR_0 0xA0
 #define DIR_22 0xA1
 #define DIR_45 0xA2
 #define DIR_67 0xA3
-#define DIR_90 0xA4
+#define DIR_90 0xA4  // 217
 #define DIR_112 0xA5
 #define DIR_135 0xA6
 #define DIR_157 0xA7
@@ -64,6 +68,26 @@ const unsigned char number[] = {0x0A, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 
 #define DIR_270 0xAC
 #define DIR_292 0xAD
 #define DIR_315 0xAE
+#define DIR_337 0xAF
+#define DIR_360 0xA0
+*/
+
+// Using only arrow
+#define DIR_0 219
+#define DIR_22 0xA1
+#define DIR_45 218
+#define DIR_67 0xA3
+#define DIR_90  217
+#define DIR_112 0xA5
+#define DIR_135 224
+#define DIR_157 0xA7
+#define DIR_180 223
+#define DIR_202 0xA9
+#define DIR_225 222
+#define DIR_247 0xAB
+#define DIR_270 221
+#define DIR_292 0xAD
+#define DIR_315 220
 #define DIR_337 0xAF
 #define DIR_360 0xA0
 
@@ -439,8 +463,11 @@ void osd_print_home_info()
 	print_meters(2, 25, abs(alt));
 	
 	// home heading
-	osd_set_position(2, 14);	
-	osd_write_char(heading[home_heading_index]);
+	osd_set_position(2, 14);
+    // circle
+	//osd_write_char(heading[home_heading_index]);
+    // arrow
+    osd_write_char(heading45[(int)(home_heading_deg / 45)]);
 	
 	// vario  ^x.y[m/s]
 	//            

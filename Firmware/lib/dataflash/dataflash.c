@@ -212,6 +212,9 @@ void dataflash_write(int page, int size, unsigned char *buffer)
 		while ((dataflash_read_status()  & STATUS_RDY) == 0)
 			;
 		dataflash_write_raw(page+1, PAGE_SIZE, (unsigned char*) &(buffer[PAGE_SIZE]));
+
+        if (size > PAGE_SIZE*2)
+            dataflash_write_raw(page+2, size - PAGE_SIZE*2, (unsigned char*) &(buffer[PAGE_SIZE*2]));
 	}	
 	/*
 	while (size > PAGE_SIZE)

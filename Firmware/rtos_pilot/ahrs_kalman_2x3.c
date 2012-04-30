@@ -329,7 +329,9 @@ void ahrs_filter(float dt)
 		P[1] = 0.0;
 		P[2] = 0.0;
 		P[3] = 1.0;
-		printf("\r\n!\r\n");
+        sensor_data.p_bias = 0.0f;
+        sensor_data.q_bias = 0.0f;
+		//printf("\r\n!\r\n");
 	}
 	if (isNaN(&roll_rad))
 	{
@@ -340,7 +342,9 @@ void ahrs_filter(float dt)
 		P[1] = 0.0;
 		P[2] = 0.0;
 		P[3] = 1.0;
-		printf("\r\n!\r\n");
+        sensor_data.p_bias = 0.0f;
+        sensor_data.q_bias = 0.0f;
+		//printf("\r\n!\r\n");
 	}	
 	normalize(pitch_rad, roll_rad);
    	sensor_data.pitch = pitch_rad;
