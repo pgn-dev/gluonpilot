@@ -149,11 +149,7 @@ void configuration_default()
 	
     config.control.autopilot_auto_throttle = 0;   // disable auto throttle
 
-	config.gps.operational_baudrate = 115200l;
-	config.gps.initial_baudrate = 38400l;
-	
-	
-	config.sensors.acc_x_neutral = 32000;
+    config.control.altitude_mode = PRESSURE;
 	config.sensors.acc_y_neutral = 32000;
 	config.sensors.acc_z_neutral = 32000;
 	
@@ -163,10 +159,10 @@ void configuration_default()
 	
 	
 	config.telemetry.stream_GpsBasic = 5;
-	config.telemetry.stream_GyroAccProc = 25;
-	config.telemetry.stream_GyroAccRaw = 35;
-	config.telemetry.stream_PPM = 35;
-	config.telemetry.stream_PressureTemp = 30;
+	config.telemetry.stream_GyroAccProc = 40;
+	config.telemetry.stream_GyroAccRaw = 30;
+	config.telemetry.stream_PPM = 60;
+	config.telemetry.stream_PressureTemp = 50;
 	config.telemetry.stream_Attitude = 5;
-	config.telemetry.stream_Control = 20;
+	config.telemetry.stream_Control = 10;
 }

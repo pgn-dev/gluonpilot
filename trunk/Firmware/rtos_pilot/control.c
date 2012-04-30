@@ -298,12 +298,19 @@ void control_wing_navigate(float dt, int altitude_controllable)
 	
 	/* Calculate desired pitch */
   	// altitude hold
-  	
-  	control_state.desired_altitude = navigation_data.desired_altitude_agl + navigation_data.home_pressure_height;
-  	
+#ifdef USE_GPS_ABSOLUTE_ALTITUDE
+#warning Using Gps Absolute altitude!!!
+    control_state.desired_altitude = navigation_data.desired_altitude_agl;
+    float altitude_error = control_state.desired_altitude - sensor_data.gps.height_m;
+#else
+  	control_state.desired_altitude = navigation_data.desired_altitude_agl;
+    float altitude_error = control_state.desired_altitude  + navigation_data.home_pressure_height - sensor_data.pressure_height;
+#endif
+
+    control_state.desired_pitch = pid_update(&config.control.pid_altitude2pitch,
+	                                         altitude_error, dt);
+
 	//control_state.desired_pitch = (control_state.desired_height - sensor_data.pressure_height) / 10.0 * config.control.max_pitch; 
-	control_state.desired_pitch = pid_update(&config.control.pid_altitude2pitch, 
-	                                         control_state.desired_altitude - sensor_data.pressure_height, dt);
 	
 	if (altitude_controllable)  // control altitude with pitch transmitter stick?
 	{
@@ -319,7 +326,7 @@ void control_wing_navigate(float dt, int altitude_controllable)
 	// auto-throttle
 	if (config.control.autopilot_auto_throttle)
 	{
-		int d_altitude = (int)control_state.desired_altitude - (int)sensor_data.pressure_height;
+		int d_altitude = (int)altitude_error;
 		int target = config.control.auto_throttle_cruise_pct +
 					(d_altitude * config.control.auto_throttle_p_gain) / 10;
 		if (target > config.control.auto_throttle_max_pct)
@@ -548,7 +555,7 @@ void control_mix_out()
 	int number_of_controlled_channels = 4;
 	
 	// aileron differential
-	/*if (aileron_out > 0)
+	if (aileron_out > 0)
 	{
 		aileron_out_right = aileron_out + (aileron_out / 10) * config.control.aileron_differential;
 		aileron_out_left = aileron_out - (aileron_out / 10) * config.control.aileron_differential;
@@ -558,10 +565,10 @@ void control_mix_out()
 		aileron_out_right = aileron_out - (aileron_out / 10) * config.control.aileron_differential;
 		aileron_out_left = aileron_out + (aileron_out / 10) * config.control.aileron_differential;		
 	}
-	*/
+	
 	// no differential
-	aileron_out_right = aileron_out;
-	aileron_out_left = aileron_out;		
+	//aileron_out_right = aileron_out;
+	//aileron_out_left = aileron_out;
 		
 	
 	switch(config.control.servo_mix)

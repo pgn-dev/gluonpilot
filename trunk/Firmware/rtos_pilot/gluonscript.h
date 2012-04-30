@@ -2,7 +2,7 @@
 #define GLUONSCRIPT_H
 
 
-#define MAX_GLUONSCRIPTCODES 36
+#define MAX_GLUONSCRIPTCODES 72
 #define GLUONSCRIPT_HZ 5
 
 enum gluonscript_handler_return

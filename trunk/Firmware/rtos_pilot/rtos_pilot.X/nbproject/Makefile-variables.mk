@@ -25,3 +25,10 @@ CND_ARTIFACT_PATH_F1E=dist/F1E/production/rtos_pilot.X.production.hex
 CND_PACKAGE_DIR_F1E=${CND_DISTDIR}/F1E/package
 CND_PACKAGE_NAME_F1E=rtospilot.x.tar
 CND_PACKAGE_PATH_F1E=${CND_DISTDIR}/F1E/package/rtospilot.x.tar
+# fixed_wing_gps_altitude configuration
+CND_ARTIFACT_DIR_fixed_wing_gps_altitude=dist/fixed_wing_gps_altitude/production
+CND_ARTIFACT_NAME_fixed_wing_gps_altitude=rtos_pilot.X.production.hex
+CND_ARTIFACT_PATH_fixed_wing_gps_altitude=dist/fixed_wing_gps_altitude/production/rtos_pilot.X.production.hex
+CND_PACKAGE_DIR_fixed_wing_gps_altitude=${CND_DISTDIR}/fixed_wing_gps_altitude/package
+CND_PACKAGE_NAME_fixed_wing_gps_altitude=rtospilot.x.tar
+CND_PACKAGE_PATH_fixed_wing_gps_altitude=${CND_DISTDIR}/fixed_wing_gps_altitude/package/rtospilot.x.tar

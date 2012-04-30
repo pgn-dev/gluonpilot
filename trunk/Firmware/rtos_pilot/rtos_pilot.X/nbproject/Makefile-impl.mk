@@ -31,7 +31,7 @@ DEFAULTCONF=fixed_wing
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=fixed_wing quadrocopter F1E 
+ALLCONFS=fixed_wing quadrocopter F1E fixed_wing_gps_altitude 
 
 
 # build
