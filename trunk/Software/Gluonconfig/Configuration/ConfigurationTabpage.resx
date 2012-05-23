@@ -121,6 +121,9 @@
   <data name="tabControl1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="_btn_telemetry_inflight.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="_btn_telemetry_inflight.Location" type="System.Drawing.Point, System.Drawing">
     <value>396, 8</value>
@@ -148,6 +151,9 @@
   </data>
   <data name="&gt;&gt;_btn_telemetry_inflight.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="_btn_telemetry_configuration.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_btn_telemetry_configuration.Location" type="System.Drawing.Point, System.Drawing">
     <value>255, 8</value>
@@ -178,6 +184,9 @@
   <data name="_lbl_control_hz.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_lbl_control_hz.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_lbl_control_hz.Location" type="System.Drawing.Point, System.Drawing">
     <value>239, 214</value>
   </data>
@@ -201,6 +210,9 @@
   </data>
   <data name="_lbl_rc_hz.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_lbl_rc_hz.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_lbl_rc_hz.Location" type="System.Drawing.Point, System.Drawing">
     <value>239, 187</value>
@@ -229,6 +241,9 @@
   <data name="_lbl_imuprocessed_hz.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_lbl_imuprocessed_hz.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_lbl_imuprocessed_hz.Location" type="System.Drawing.Point, System.Drawing">
     <value>239, 161</value>
   </data>
@@ -255,6 +270,9 @@
   </data>
   <data name="_lbl_imu_raw_hz.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_lbl_imu_raw_hz.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_lbl_imu_raw_hz.Location" type="System.Drawing.Point, System.Drawing">
     <value>239, 135</value>
@@ -283,6 +301,9 @@
   <data name="_lbl_pressure_hz.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_lbl_pressure_hz.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_lbl_pressure_hz.Location" type="System.Drawing.Point, System.Drawing">
     <value>239, 109</value>
   </data>
@@ -307,6 +328,9 @@
   <data name="_lbl_basicgps_hz.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_lbl_basicgps_hz.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_lbl_basicgps_hz.Location" type="System.Drawing.Point, System.Drawing">
     <value>239, 83</value>
   </data>
@@ -330,6 +354,9 @@
   </data>
   <data name="_lbl_attitude_hz.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_lbl_attitude_hz.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_lbl_attitude_hz.Location" type="System.Drawing.Point, System.Drawing">
     <value>239, 57</value>
@@ -375,6 +402,9 @@
   </data>
   <data name="label87.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label87.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label87.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 214</value>
@@ -424,6 +454,9 @@
   <data name="label84.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label84.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label84.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 55</value>
   </data>
@@ -472,6 +505,9 @@
   <data name="label59.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label59.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label59.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 161</value>
   </data>
@@ -498,6 +534,9 @@
   </data>
   <data name="linkLabel2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="linkLabel2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="linkLabel2.Location" type="System.Drawing.Point, System.Drawing">
     <value>551, 8</value>
@@ -526,6 +565,9 @@
   <data name="label49.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
   </data>
+  <data name="label49.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label49.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 12</value>
   </data>
@@ -536,7 +578,7 @@
     <value>8</value>
   </data>
   <data name="label49.Text" xml:space="preserve">
-    <value>Output telemetry every "x/20" seconds.
+    <value>Output telemetry every "x/10" seconds.
 Set to "0" to disable.</value>
   </data>
   <data name="&gt;&gt;label49.Name" xml:space="preserve">
@@ -638,6 +680,9 @@ Set to "0" to disable.</value>
   <data name="label48.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label48.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label48.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 83</value>
   </data>
@@ -664,6 +709,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label47.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label47.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label47.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 109</value>
@@ -692,6 +740,9 @@ Set to "0" to disable.</value>
   <data name="label46.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label46.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label46.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 187</value>
   </data>
@@ -718,6 +769,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label45.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label45.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label45.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 135</value>
@@ -766,6 +820,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="&gt;&gt;_tpTelemetry.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="_btn_use_current_gyro.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_btn_use_current_gyro.Location" type="System.Drawing.Point, System.Drawing">
     <value>467, 151</value>
@@ -842,6 +899,9 @@ Set to "0" to disable.</value>
   <data name="label74.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label74.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label74.Location" type="System.Drawing.Point, System.Drawing">
     <value>55, 182</value>
   </data>
@@ -893,6 +953,9 @@ Set to "0" to disable.</value>
   <data name="label73.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label73.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label73.Location" type="System.Drawing.Point, System.Drawing">
     <value>78, 130</value>
   </data>
@@ -919,6 +982,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label72.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label72.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label72.Location" type="System.Drawing.Point, System.Drawing">
     <value>71, 157</value>
@@ -967,6 +1033,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label60.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label60.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label60.Location" type="System.Drawing.Point, System.Drawing">
     <value>488, 96</value>
@@ -1055,6 +1124,9 @@ Set to "0" to disable.</value>
   <data name="&gt;&gt;_tbGyroXRaw.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
+  <data name="_btn_sensors_current_to_neutral.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_btn_sensors_current_to_neutral.Location" type="System.Drawing.Point, System.Drawing">
     <value>467, 63</value>
   </data>
@@ -1081,6 +1153,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_llConfigSensors.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_llConfigSensors.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_llConfigSensors.Location" type="System.Drawing.Point, System.Drawing">
     <value>544, 15</value>
@@ -1109,6 +1184,9 @@ Set to "0" to disable.</value>
   <data name="label20.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label20.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label20.Location" type="System.Drawing.Point, System.Drawing">
     <value>467, 182</value>
   </data>
@@ -1136,6 +1214,9 @@ Set to "0" to disable.</value>
   <data name="label19.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label19.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
     <value>327, 182</value>
   </data>
@@ -1162,6 +1243,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label18.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label18.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
     <value>194, 182</value>
@@ -1253,6 +1337,9 @@ Set to "0" to disable.</value>
   <data name="label17.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label17.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
     <value>464, 96</value>
   </data>
@@ -1279,6 +1366,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label16.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
     <value>327, 96</value>
@@ -1307,6 +1397,9 @@ Set to "0" to disable.</value>
   <data name="label15.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
     <value>195, 96</value>
   </data>
@@ -1333,6 +1426,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label14.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 130</value>
@@ -1423,6 +1519,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label13.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
     <value>55, 96</value>
@@ -1523,6 +1622,9 @@ Set to "0" to disable.</value>
   <data name="label12.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
     <value>71, 68</value>
   </data>
@@ -1550,6 +1652,9 @@ Set to "0" to disable.</value>
   <data name="label11.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
     <value>86, 42</value>
   </data>
@@ -1576,6 +1681,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
     <value>420, 23</value>
@@ -1625,6 +1733,9 @@ Set to "0" to disable.</value>
   <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
     <value>282, 23</value>
   </data>
@@ -1673,6 +1784,9 @@ Set to "0" to disable.</value>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
     <value>147, 23</value>
   </data>
@@ -1720,6 +1834,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 42</value>
@@ -1772,6 +1889,9 @@ Set to "0" to disable.</value>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
     <value>511, 22</value>
   </data>
@@ -1820,6 +1940,9 @@ Set to "0" to disable.</value>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
     <value>386, 22</value>
   </data>
@@ -1846,6 +1969,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>329, 22</value>
@@ -1895,6 +2021,9 @@ Set to "0" to disable.</value>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
     <value>204, 22</value>
   </data>
@@ -1921,6 +2050,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>133, 22</value>
@@ -1969,6 +2101,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>1, 22</value>
@@ -2051,6 +2186,9 @@ Set to "0" to disable.</value>
   <data name="_rb_gps_notfound.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="_rb_gps_notfound.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rb_gps_notfound.Location" type="System.Drawing.Point, System.Drawing">
     <value>235, 127</value>
   </data>
@@ -2078,6 +2216,9 @@ Set to "0" to disable.</value>
   <data name="_llConfigGps.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_llConfigGps.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_llConfigGps.Location" type="System.Drawing.Point, System.Drawing">
     <value>550, 9</value>
   </data>
@@ -2104,6 +2245,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_llGoogleMaps.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_llGoogleMaps.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_llGoogleMaps.Location" type="System.Drawing.Point, System.Drawing">
     <value>370, 129</value>
@@ -2258,6 +2402,9 @@ Set to "0" to disable.</value>
   <data name="label57.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label57.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label57.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 189</value>
   </data>
@@ -2284,6 +2431,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label56.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label56.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label56.Location" type="System.Drawing.Point, System.Drawing">
     <value>462, 156</value>
@@ -2312,6 +2462,9 @@ Set to "0" to disable.</value>
   <data name="label55.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label55.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label55.Location" type="System.Drawing.Point, System.Drawing">
     <value>367, 156</value>
   </data>
@@ -2338,6 +2491,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label54.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label54.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label54.Location" type="System.Drawing.Point, System.Drawing">
     <value>272, 156</value>
@@ -2366,6 +2522,9 @@ Set to "0" to disable.</value>
   <data name="label53.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label53.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label53.Location" type="System.Drawing.Point, System.Drawing">
     <value>140, 156</value>
   </data>
@@ -2393,6 +2552,9 @@ Set to "0" to disable.</value>
   <data name="label52.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label52.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label52.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 156</value>
   </data>
@@ -2419,6 +2581,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label51.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label51.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label51.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 130</value>
@@ -2450,6 +2615,9 @@ Set to "0" to disable.</value>
   <data name="_rb_gps_status_active.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="_rb_gps_status_active.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rb_gps_status_active.Location" type="System.Drawing.Point, System.Drawing">
     <value>168, 127</value>
   </data>
@@ -2480,6 +2648,9 @@ Set to "0" to disable.</value>
   <data name="_rb_gps_status_void.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="_rb_gps_status_void.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rb_gps_status_void.Location" type="System.Drawing.Point, System.Drawing">
     <value>71, 127</value>
   </data>
@@ -2507,6 +2678,9 @@ Set to "0" to disable.</value>
   <data name="label456.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label456.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label456.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 40</value>
   </data>
@@ -2533,6 +2707,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label50.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label50.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label50.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 16</value>
@@ -2636,6 +2813,9 @@ Set to "0" to disable.</value>
   <data name="label78.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label78.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label78.Location" type="System.Drawing.Point, System.Drawing">
     <value>173, 248</value>
   </data>
@@ -2662,6 +2842,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_llRc.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_llRc.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_llRc.Location" type="System.Drawing.Point, System.Drawing">
     <value>552, 8</value>
@@ -2690,6 +2873,9 @@ Set to "0" to disable.</value>
   <data name="label75.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label75.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label75.Location" type="System.Drawing.Point, System.Drawing">
     <value>278, 22</value>
   </data>
@@ -2716,6 +2902,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label77.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label77.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label77.Location" type="System.Drawing.Point, System.Drawing">
     <value>208, 190</value>
@@ -2744,6 +2933,9 @@ Set to "0" to disable.</value>
   <data name="label76.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label76.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label76.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 190</value>
   </data>
@@ -2770,6 +2962,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label24.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label24.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
     <value>213, 25</value>
@@ -2798,6 +2993,9 @@ Set to "0" to disable.</value>
   <data name="label22.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label22.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
     <value>122, 25</value>
   </data>
@@ -2824,6 +3022,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label38.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label38.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label38.Location" type="System.Drawing.Point, System.Drawing">
     <value>482, 21</value>
@@ -2852,6 +3053,9 @@ Set to "0" to disable.</value>
   <data name="_rbApCh7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbApCh7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbApCh7.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 137</value>
   </data>
@@ -2875,6 +3079,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbApCh4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbApCh4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbApCh4.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 74</value>
@@ -2900,6 +3107,9 @@ Set to "0" to disable.</value>
   <data name="_rbApCh6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbApCh6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbApCh6.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 116</value>
   </data>
@@ -2923,6 +3133,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbApCh5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbApCh5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbApCh5.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 95</value>
@@ -2948,6 +3161,9 @@ Set to "0" to disable.</value>
   <data name="_rbApCh3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbApCh3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbApCh3.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 53</value>
   </data>
@@ -2972,6 +3188,9 @@ Set to "0" to disable.</value>
   <data name="_rbApCh2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbApCh2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbApCh2.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 32</value>
   </data>
@@ -2995,6 +3214,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbApCh1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbApCh1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbApCh1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 11</value>
@@ -3041,6 +3263,9 @@ Set to "0" to disable.</value>
   <data name="label37.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label37.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label37.Location" type="System.Drawing.Point, System.Drawing">
     <value>451, 21</value>
   </data>
@@ -3068,6 +3293,9 @@ Set to "0" to disable.</value>
   <data name="_rbMotorCh7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbMotorCh7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbMotorCh7.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 137</value>
   </data>
@@ -3091,6 +3319,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbMotorCh4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbMotorCh4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbMotorCh4.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 74</value>
@@ -3116,6 +3347,9 @@ Set to "0" to disable.</value>
   <data name="_rbMotorCh6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbMotorCh6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbMotorCh6.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 116</value>
   </data>
@@ -3139,6 +3373,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbMotorCh5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbMotorCh5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbMotorCh5.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 95</value>
@@ -3164,6 +3401,9 @@ Set to "0" to disable.</value>
   <data name="_rbMotorCh3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbMotorCh3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbMotorCh3.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 53</value>
   </data>
@@ -3188,6 +3428,9 @@ Set to "0" to disable.</value>
   <data name="_rbMotorCh2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbMotorCh2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbMotorCh2.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 32</value>
   </data>
@@ -3211,6 +3454,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbMotorCh1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbMotorCh1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbMotorCh1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 11</value>
@@ -3257,6 +3503,9 @@ Set to "0" to disable.</value>
   <data name="label36.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label36.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label36.Location" type="System.Drawing.Point, System.Drawing">
     <value>417, 21</value>
   </data>
@@ -3287,6 +3536,9 @@ Set to "0" to disable.</value>
   <data name="_rbYawCh7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbYawCh7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbYawCh7.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 137</value>
   </data>
@@ -3310,6 +3562,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbYawCh4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbYawCh4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbYawCh4.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 74</value>
@@ -3335,6 +3590,9 @@ Set to "0" to disable.</value>
   <data name="_rbYawCh6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbYawCh6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbYawCh6.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 116</value>
   </data>
@@ -3358,6 +3616,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbYawCh5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbYawCh5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbYawCh5.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 95</value>
@@ -3383,6 +3644,9 @@ Set to "0" to disable.</value>
   <data name="_rbYawCh3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbYawCh3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbYawCh3.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 53</value>
   </data>
@@ -3407,6 +3671,9 @@ Set to "0" to disable.</value>
   <data name="_rbYawCh2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbYawCh2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbYawCh2.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 32</value>
   </data>
@@ -3430,6 +3697,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbYawCh1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbYawCh1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbYawCh1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 11</value>
@@ -3476,6 +3746,9 @@ Set to "0" to disable.</value>
   <data name="label35.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label35.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label35.Location" type="System.Drawing.Point, System.Drawing">
     <value>382, 21</value>
   </data>
@@ -3503,6 +3776,9 @@ Set to "0" to disable.</value>
   <data name="_rbPitchCh7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbPitchCh7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbPitchCh7.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 137</value>
   </data>
@@ -3526,6 +3802,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbPitchCh4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbPitchCh4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbPitchCh4.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 74</value>
@@ -3551,6 +3830,9 @@ Set to "0" to disable.</value>
   <data name="_rbPitchCh6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbPitchCh6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbPitchCh6.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 116</value>
   </data>
@@ -3574,6 +3856,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbPitchCh5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbPitchCh5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbPitchCh5.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 95</value>
@@ -3599,6 +3884,9 @@ Set to "0" to disable.</value>
   <data name="_rbPitchCh3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbPitchCh3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbPitchCh3.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 53</value>
   </data>
@@ -3623,6 +3911,9 @@ Set to "0" to disable.</value>
   <data name="_rbPitchCh2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbPitchCh2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbPitchCh2.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 32</value>
   </data>
@@ -3646,6 +3937,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbPitchCh1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbPitchCh1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbPitchCh1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 11</value>
@@ -3692,6 +3986,9 @@ Set to "0" to disable.</value>
   <data name="label34.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label34.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label34.Location" type="System.Drawing.Point, System.Drawing">
     <value>347, 21</value>
   </data>
@@ -3719,6 +4016,9 @@ Set to "0" to disable.</value>
   <data name="_rbRollCh7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbRollCh7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbRollCh7.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 137</value>
   </data>
@@ -3742,6 +4042,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbRollCh4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbRollCh4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbRollCh4.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 74</value>
@@ -3767,6 +4070,9 @@ Set to "0" to disable.</value>
   <data name="_rbRollCh6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbRollCh6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbRollCh6.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 116</value>
   </data>
@@ -3790,6 +4096,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbRollCh5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbRollCh5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbRollCh5.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 95</value>
@@ -3815,6 +4124,9 @@ Set to "0" to disable.</value>
   <data name="_rbRollCh3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbRollCh3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbRollCh3.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 53</value>
   </data>
@@ -3839,6 +4151,9 @@ Set to "0" to disable.</value>
   <data name="_rbRollCh2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbRollCh2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbRollCh2.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 32</value>
   </data>
@@ -3862,6 +4177,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbRollCh1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbRollCh1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbRollCh1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 11</value>
@@ -3908,6 +4226,9 @@ Set to "0" to disable.</value>
   <data name="_lblCh7Ms.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_lblCh7Ms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_lblCh7Ms.Location" type="System.Drawing.Point, System.Drawing">
     <value>296, 168</value>
   </data>
@@ -3935,6 +4256,9 @@ Set to "0" to disable.</value>
   <data name="label33.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label33.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label33.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 168</value>
   </data>
@@ -3959,6 +4283,9 @@ Set to "0" to disable.</value>
   <data name="&gt;&gt;label33.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
+  <data name="_pbCh7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_pbCh7.Location" type="System.Drawing.Point, System.Drawing">
     <value>70, 167</value>
   </data>
@@ -3982,6 +4309,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_lblCh6Ms.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_lblCh6Ms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_lblCh6Ms.Location" type="System.Drawing.Point, System.Drawing">
     <value>296, 147</value>
@@ -4010,6 +4340,9 @@ Set to "0" to disable.</value>
   <data name="label31.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label31.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label31.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 147</value>
   </data>
@@ -4034,6 +4367,9 @@ Set to "0" to disable.</value>
   <data name="&gt;&gt;label31.ZOrder" xml:space="preserve">
     <value>18</value>
   </data>
+  <data name="_pbCh6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_pbCh6.Location" type="System.Drawing.Point, System.Drawing">
     <value>70, 146</value>
   </data>
@@ -4057,6 +4393,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_lblCh5Ms.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_lblCh5Ms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_lblCh5Ms.Location" type="System.Drawing.Point, System.Drawing">
     <value>296, 126</value>
@@ -4085,6 +4424,9 @@ Set to "0" to disable.</value>
   <data name="label29.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label29.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label29.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 126</value>
   </data>
@@ -4109,6 +4451,9 @@ Set to "0" to disable.</value>
   <data name="&gt;&gt;label29.ZOrder" xml:space="preserve">
     <value>21</value>
   </data>
+  <data name="_pbCh5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_pbCh5.Location" type="System.Drawing.Point, System.Drawing">
     <value>70, 125</value>
   </data>
@@ -4132,6 +4477,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_lblCh4Ms.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_lblCh4Ms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_lblCh4Ms.Location" type="System.Drawing.Point, System.Drawing">
     <value>296, 105</value>
@@ -4160,6 +4508,9 @@ Set to "0" to disable.</value>
   <data name="label27.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label27.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label27.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 105</value>
   </data>
@@ -4184,6 +4535,9 @@ Set to "0" to disable.</value>
   <data name="&gt;&gt;label27.ZOrder" xml:space="preserve">
     <value>24</value>
   </data>
+  <data name="_pbCh4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_pbCh4.Location" type="System.Drawing.Point, System.Drawing">
     <value>70, 104</value>
   </data>
@@ -4207,6 +4561,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_lblCh3Ms.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_lblCh3Ms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_lblCh3Ms.Location" type="System.Drawing.Point, System.Drawing">
     <value>296, 84</value>
@@ -4235,6 +4592,9 @@ Set to "0" to disable.</value>
   <data name="label25.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label25.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label25.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 84</value>
   </data>
@@ -4259,6 +4619,9 @@ Set to "0" to disable.</value>
   <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
     <value>27</value>
   </data>
+  <data name="_pbCh3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_pbCh3.Location" type="System.Drawing.Point, System.Drawing">
     <value>70, 83</value>
   </data>
@@ -4282,6 +4645,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_lblCh2Ms.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_lblCh2Ms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_lblCh2Ms.Location" type="System.Drawing.Point, System.Drawing">
     <value>296, 63</value>
@@ -4310,6 +4676,9 @@ Set to "0" to disable.</value>
   <data name="label23.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label23.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label23.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 63</value>
   </data>
@@ -4334,6 +4703,9 @@ Set to "0" to disable.</value>
   <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
     <value>30</value>
   </data>
+  <data name="_pbCh2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_pbCh2.Location" type="System.Drawing.Point, System.Drawing">
     <value>70, 62</value>
   </data>
@@ -4357,6 +4729,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_lblCh1Ms.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_lblCh1Ms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_lblCh1Ms.Location" type="System.Drawing.Point, System.Drawing">
     <value>296, 42</value>
@@ -4385,6 +4760,9 @@ Set to "0" to disable.</value>
   <data name="label21.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label21.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 42</value>
   </data>
@@ -4408,6 +4786,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
     <value>33</value>
+  </data>
+  <data name="_pbCh1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_pbCh1.Location" type="System.Drawing.Point, System.Drawing">
     <value>70, 41</value>
@@ -4457,6 +4838,9 @@ Set to "0" to disable.</value>
   <data name="_rbPwm.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rbPwm.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rbPwm.Location" type="System.Drawing.Point, System.Drawing">
     <value>134, 20</value>
   </data>
@@ -4483,6 +4867,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rbPpm.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rbPpm.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rbPpm.Location" type="System.Drawing.Point, System.Drawing">
     <value>29, 20</value>
@@ -4952,6 +5339,9 @@ Set to "0" to disable.</value>
   <data name="label83.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label83.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label83.Location" type="System.Drawing.Point, System.Drawing">
     <value>365, 199</value>
   </data>
@@ -4978,6 +5368,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label71.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label71.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label71.Location" type="System.Drawing.Point, System.Drawing">
     <value>353, 64</value>
@@ -5006,6 +5399,9 @@ Set to "0" to disable.</value>
   <data name="label70.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label70.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label70.Location" type="System.Drawing.Point, System.Drawing">
     <value>365, 170</value>
   </data>
@@ -5032,6 +5428,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label69.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label69.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label69.Location" type="System.Drawing.Point, System.Drawing">
     <value>365, 141</value>
@@ -5060,6 +5459,9 @@ Set to "0" to disable.</value>
   <data name="label68.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label68.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label68.Location" type="System.Drawing.Point, System.Drawing">
     <value>365, 112</value>
   </data>
@@ -5086,6 +5488,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label67.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label67.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label67.Location" type="System.Drawing.Point, System.Drawing">
     <value>365, 83</value>
@@ -5114,6 +5519,9 @@ Set to "0" to disable.</value>
   <data name="_llServos.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_llServos.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_llServos.Location" type="System.Drawing.Point, System.Drawing">
     <value>551, 9</value>
   </data>
@@ -5140,6 +5548,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_rb_serovs_neutral_auto.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_rb_serovs_neutral_auto.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_rb_serovs_neutral_auto.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 18</value>
@@ -5168,6 +5579,9 @@ Set to "0" to disable.</value>
   <data name="_rb_servos_neutral_configurable.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_rb_servos_neutral_configurable.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_rb_servos_neutral_configurable.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 41</value>
   </data>
@@ -5195,6 +5609,9 @@ Set to "0" to disable.</value>
   <data name="_cb_reverse_servo6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_cb_reverse_servo6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_cb_reverse_servo6.Location" type="System.Drawing.Point, System.Drawing">
     <value>302, 228</value>
   </data>
@@ -5218,6 +5635,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_cb_reverse_servo5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_cb_reverse_servo5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_cb_reverse_servo5.Location" type="System.Drawing.Point, System.Drawing">
     <value>302, 199</value>
@@ -5243,6 +5663,9 @@ Set to "0" to disable.</value>
   <data name="_cb_reverse_servo4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_cb_reverse_servo4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_cb_reverse_servo4.Location" type="System.Drawing.Point, System.Drawing">
     <value>302, 170</value>
   </data>
@@ -5266,6 +5689,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="_cb_reverse_servo3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_cb_reverse_servo3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_cb_reverse_servo3.Location" type="System.Drawing.Point, System.Drawing">
     <value>302, 140</value>
@@ -5291,6 +5717,9 @@ Set to "0" to disable.</value>
   <data name="_cb_reverse_servo2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_cb_reverse_servo2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_cb_reverse_servo2.Location" type="System.Drawing.Point, System.Drawing">
     <value>302, 111</value>
   </data>
@@ -5315,6 +5744,9 @@ Set to "0" to disable.</value>
   <data name="_cb_reverse_servo1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="_cb_reverse_servo1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="_cb_reverse_servo1.Location" type="System.Drawing.Point, System.Drawing">
     <value>302, 83</value>
   </data>
@@ -5338,6 +5770,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label44.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label44.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label44.Location" type="System.Drawing.Point, System.Drawing">
     <value>287, 64</value>
@@ -5366,6 +5801,9 @@ Set to "0" to disable.</value>
   <data name="label43.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label43.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label43.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 228</value>
   </data>
@@ -5392,6 +5830,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label42.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label42.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label42.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 199</value>
@@ -5420,6 +5861,9 @@ Set to "0" to disable.</value>
   <data name="label41.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label41.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label41.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 170</value>
   </data>
@@ -5446,6 +5890,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label40.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label40.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label40.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 140</value>
@@ -5474,6 +5921,9 @@ Set to "0" to disable.</value>
   <data name="label39.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label39.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label39.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 111</value>
   </data>
@@ -5500,6 +5950,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label32.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label32.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label32.Location" type="System.Drawing.Point, System.Drawing">
     <value>235, 64</value>
@@ -5528,6 +5981,9 @@ Set to "0" to disable.</value>
   <data name="label30.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label30.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label30.Location" type="System.Drawing.Point, System.Drawing">
     <value>112, 64</value>
   </data>
@@ -5555,6 +6011,9 @@ Set to "0" to disable.</value>
   <data name="label28.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label28.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label28.Location" type="System.Drawing.Point, System.Drawing">
     <value>168, 64</value>
   </data>
@@ -5581,6 +6040,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label26.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label26.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label26.Location" type="System.Drawing.Point, System.Drawing">
     <value>34, 83</value>
@@ -5660,6 +6122,9 @@ Set to "0" to disable.</value>
   <data name="label92.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label92.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label92.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 125</value>
   </data>
@@ -5729,6 +6194,9 @@ Set to "0" to disable.</value>
   <data name="label91.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label91.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label91.Location" type="System.Drawing.Point, System.Drawing">
     <value>218, 80</value>
   </data>
@@ -5756,6 +6224,9 @@ Set to "0" to disable.</value>
   <data name="label89.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label89.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label89.Location" type="System.Drawing.Point, System.Drawing">
     <value>162, 80</value>
   </data>
@@ -5782,6 +6253,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label90.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label90.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label90.Location" type="System.Drawing.Point, System.Drawing">
     <value>116, 80</value>
@@ -5831,6 +6305,9 @@ Set to "0" to disable.</value>
   <data name="label88.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label88.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label88.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 98</value>
   </data>
@@ -5879,6 +6356,9 @@ Set to "0" to disable.</value>
   <data name="label86.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label86.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label86.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 27</value>
   </data>
@@ -5905,6 +6385,9 @@ Set to "0" to disable.</value>
   </data>
   <data name="label85.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label85.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label85.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 55</value>
@@ -5984,6 +6467,9 @@ Set to "0" to disable.</value>
   <data name="label82.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label82.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label82.Location" type="System.Drawing.Point, System.Drawing">
     <value>310, 83</value>
   </data>
@@ -6011,6 +6497,9 @@ Set to "0" to disable.</value>
   <data name="label81.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label81.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label81.Location" type="System.Drawing.Point, System.Drawing">
     <value>310, 44</value>
   </data>
@@ -6036,21 +6525,84 @@ Set to "0" to disable.</value>
   <data name="&gt;&gt;label81.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="_cbAltitudeMode.Items" xml:space="preserve">
+    <value>Pressure relative to home</value>
+  </data>
+  <data name="_cbAltitudeMode.Items1" xml:space="preserve">
+    <value>GPS altitude (absolute!)</value>
+  </data>
+  <data name="_cbAltitudeMode.Items2" xml:space="preserve">
+    <value>GPS altitude relative to home</value>
+  </data>
+  <data name="_cbAltitudeMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>83, 63</value>
+  </data>
+  <data name="_cbAltitudeMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 21</value>
+  </data>
+  <data name="_cbAltitudeMode.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;_cbAltitudeMode.Name" xml:space="preserve">
+    <value>_cbAltitudeMode</value>
+  </data>
+  <data name="&gt;&gt;_cbAltitudeMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_cbAltitudeMode.Parent" xml:space="preserve">
+    <value>groupBox6</value>
+  </data>
+  <data name="&gt;&gt;_cbAltitudeMode.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label93.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label93.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label93.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 66</value>
+  </data>
+  <data name="label93.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 13</value>
+  </data>
+  <data name="label93.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="label93.Text" xml:space="preserve">
+    <value>Altitude mode</value>
+  </data>
+  <data name="&gt;&gt;label93.Name" xml:space="preserve">
+    <value>label93</value>
+  </data>
+  <data name="&gt;&gt;label93.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label93.Parent" xml:space="preserve">
+    <value>groupBox6</value>
+  </data>
+  <data name="&gt;&gt;label93.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="cb_altitudehold.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="cb_altitudehold.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="cb_altitudehold.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 19</value>
   </data>
   <data name="cb_altitudehold.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 30</value>
+    <value>256, 30</value>
   </data>
   <data name="cb_altitudehold.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="cb_altitudehold.Text" xml:space="preserve">
-    <value>Stabilized: Elevator stick: (ON) altitude - (OFF) pitch
-Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
+    <value>Stabilized: Elevator stick: altitude instead of pitch
+Navigation: Altitude: manual instead of WP</value>
   </data>
   <data name="&gt;&gt;cb_altitudehold.Name" xml:space="preserve">
     <value>cb_altitudehold</value>
@@ -6062,7 +6614,7 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
     <value>groupBox6</value>
   </data>
   <data name="&gt;&gt;cb_altitudehold.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="groupBox6.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 138</value>
@@ -6090,6 +6642,9 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
   </data>
   <data name="label80.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label80.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label80.Location" type="System.Drawing.Point, System.Drawing">
     <value>157, 108</value>
@@ -6139,6 +6694,9 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
   <data name="label79.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label79.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label79.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 108</value>
   </data>
@@ -6166,6 +6724,9 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
   <data name="label64.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label64.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label64.Location" type="System.Drawing.Point, System.Drawing">
     <value>76, 82</value>
   </data>
@@ -6192,6 +6753,9 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
   </data>
   <data name="label65.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label65.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label65.Location" type="System.Drawing.Point, System.Drawing">
     <value>157, 82</value>
@@ -6262,6 +6826,9 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
   <data name="label66.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label66.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label66.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 82</value>
   </data>
@@ -6289,6 +6856,9 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
   <data name="label63.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label63.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label63.Location" type="System.Drawing.Point, System.Drawing">
     <value>151, 54</value>
   </data>
@@ -6315,6 +6885,9 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
   </data>
   <data name="label62.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label62.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label62.Location" type="System.Drawing.Point, System.Drawing">
     <value>240, 54</value>
@@ -6364,6 +6937,9 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
   <data name="label61.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label61.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label61.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 56</value>
   </data>
@@ -6390,6 +6966,9 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
   </data>
   <data name="_lblControlMixInfo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="_lblControlMixInfo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="_lblControlMixInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>212, 19</value>
@@ -6453,6 +7032,9 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
   </data>
   <data name="label58.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label58.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label58.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 19</value>
@@ -6572,7 +7154,7 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
     <value>295, 136</value>
   </data>
   <data name="groupBox8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>281, 123</value>
+    <value>281, 116</value>
   </data>
   <data name="groupBox8.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -6617,7 +7199,7 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
     <value>12, 136</value>
   </data>
   <data name="groupBox5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 123</value>
+    <value>277, 116</value>
   </data>
   <data name="groupBox5.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -6636,6 +7218,33 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
   </data>
   <data name="&gt;&gt;groupBox5.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="_btnWriteRollPid.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="_btnWriteRollPid.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 84</value>
+  </data>
+  <data name="_btnWriteRollPid.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 22</value>
+  </data>
+  <data name="_btnWriteRollPid.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="_btnWriteRollPid.Text" xml:space="preserve">
+    <value>Write</value>
+  </data>
+  <data name="&gt;&gt;_btnWriteRollPid.Name" xml:space="preserve">
+    <value>_btnWriteRollPid</value>
+  </data>
+  <data name="&gt;&gt;_btnWriteRollPid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_btnWriteRollPid.Parent" xml:space="preserve">
+    <value>_pid_roll2aileron</value>
+  </data>
+  <data name="&gt;&gt;_btnWriteRollPid.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="_pid_roll_to_aileron.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 19</value>
@@ -6656,7 +7265,7 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
     <value>_pid_roll2aileron</value>
   </data>
   <data name="&gt;&gt;_pid_roll_to_aileron.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="_pid_roll2aileron.Location" type="System.Drawing.Point, System.Drawing">
     <value>295, 15</value>
@@ -6682,6 +7291,33 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
   <data name="&gt;&gt;_pid_roll2aileron.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="_btnWritePitchPid.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="_btnWritePitchPid.Location" type="System.Drawing.Point, System.Drawing">
+    <value>217, 84</value>
+  </data>
+  <data name="_btnWritePitchPid.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 22</value>
+  </data>
+  <data name="_btnWritePitchPid.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="_btnWritePitchPid.Text" xml:space="preserve">
+    <value>Write</value>
+  </data>
+  <data name="&gt;&gt;_btnWritePitchPid.Name" xml:space="preserve">
+    <value>_btnWritePitchPid</value>
+  </data>
+  <data name="&gt;&gt;_btnWritePitchPid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_btnWritePitchPid.Parent" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="&gt;&gt;_btnWritePitchPid.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="_pid_pitch_to_elevator.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 19</value>
   </data>
@@ -6701,7 +7337,7 @@ Navigation: Altitude: (ON) manual  (OFF) waypoint</value>
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;_pid_pitch_to_elevator.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="groupBox4.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 15</value>

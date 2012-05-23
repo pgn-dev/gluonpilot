@@ -32,7 +32,13 @@ namespace Configuration.NavigationCommands
         public void SetNavigationInstruction(NavigationInstruction ni)
         {
             this.ni = ni;
-            _tbName.Text = ni.GetStringArgument();
+            try
+            {
+                _tbName.Text = ni.GetStringArgument();
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         #endregion

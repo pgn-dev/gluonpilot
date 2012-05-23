@@ -35,12 +35,12 @@
             this._tc_main = new System.Windows.Forms.TabControl();
             this.config = new System.Windows.Forms.TabPage();
             this.configurationControl = new Configuration.ConfigurationControl();
-            this.Navigation = new System.Windows.Forms.TabPage();
-            this.navigationListView1 = new Configuration.NavigationListView();
             this.datalog = new System.Windows.Forms.TabPage();
             this.datalogging = new Configuration.Datalogging();
             this.gcs = new System.Windows.Forms.TabPage();
             this._gcsMainPanel = new GCS.GcsMainPanel();
+            this.Navigation = new System.Windows.Forms.TabPage();
+            this.navigationListView1 = new Configuration.NavigationListView();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -70,38 +70,25 @@
             this.splitContainer1.SuspendLayout();
             this._tc_main.SuspendLayout();
             this.config.SuspendLayout();
-            this.Navigation.SuspendLayout();
             this.datalog.SuspendLayout();
             this.gcs.SuspendLayout();
+            this.Navigation.SuspendLayout();
             this._statusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer1
             // 
-            resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
-            // 
-            // toolStripContainer1.BottomToolStripPanel
-            // 
-            resources.ApplyResources(this.toolStripContainer1.BottomToolStripPanel, "toolStripContainer1.BottomToolStripPanel");
             // 
             // toolStripContainer1.ContentPanel
             // 
-            resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            // 
-            // toolStripContainer1.LeftToolStripPanel
-            // 
-            resources.ApplyResources(this.toolStripContainer1.LeftToolStripPanel, "toolStripContainer1.LeftToolStripPanel");
+            resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
+            resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
             this.toolStripContainer1.Name = "toolStripContainer1";
-            // 
-            // toolStripContainer1.RightToolStripPanel
-            // 
-            resources.ApplyResources(this.toolStripContainer1.RightToolStripPanel, "toolStripContainer1.RightToolStripPanel");
             // 
             // toolStripContainer1.TopToolStripPanel
             // 
-            resources.ApplyResources(this.toolStripContainer1.TopToolStripPanel, "toolStripContainer1.TopToolStripPanel");
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
             this.toolStripContainer1.TopToolStripPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             // 
@@ -113,12 +100,11 @@
             // 
             // splitContainer1.Panel1
             // 
-            resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
             this.splitContainer1.Panel1.Controls.Add(this._tc_main);
+            resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
             // 
             // splitContainer1.Panel2
             // 
-            resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
             this.splitContainer1.Panel2.Controls.Add(this._statusStrip);
             this.splitContainer1.Panel2.Controls.Add(this._tb_logging);
             this.splitContainer1.Panel2.Controls.Add(this._cb_print_timestamp);
@@ -129,17 +115,17 @@
             // 
             resources.ApplyResources(this._tc_main, "_tc_main");
             this._tc_main.Controls.Add(this.config);
-            this._tc_main.Controls.Add(this.Navigation);
             this._tc_main.Controls.Add(this.datalog);
             this._tc_main.Controls.Add(this.gcs);
+            this._tc_main.Controls.Add(this.Navigation);
             this._tc_main.ImageList = this.imageList;
             this._tc_main.Name = "_tc_main";
             this._tc_main.SelectedIndex = 0;
             // 
             // config
             // 
-            resources.ApplyResources(this.config, "config");
             this.config.Controls.Add(this.configurationControl);
+            resources.ApplyResources(this.config, "config");
             this.config.Name = "config";
             this.config.UseVisualStyleBackColor = true;
             // 
@@ -148,22 +134,10 @@
             resources.ApplyResources(this.configurationControl, "configurationControl");
             this.configurationControl.Name = "configurationControl";
             // 
-            // Navigation
-            // 
-            resources.ApplyResources(this.Navigation, "Navigation");
-            this.Navigation.Controls.Add(this.navigationListView1);
-            this.Navigation.Name = "Navigation";
-            this.Navigation.UseVisualStyleBackColor = true;
-            // 
-            // navigationListView1
-            // 
-            resources.ApplyResources(this.navigationListView1, "navigationListView1");
-            this.navigationListView1.Name = "navigationListView1";
-            // 
             // datalog
             // 
-            resources.ApplyResources(this.datalog, "datalog");
             this.datalog.Controls.Add(this.datalogging);
+            resources.ApplyResources(this.datalog, "datalog");
             this.datalog.Name = "datalog";
             this.datalog.UseVisualStyleBackColor = true;
             // 
@@ -174,8 +148,8 @@
             // 
             // gcs
             // 
-            resources.ApplyResources(this.gcs, "gcs");
             this.gcs.Controls.Add(this._gcsMainPanel);
+            resources.ApplyResources(this.gcs, "gcs");
             this.gcs.Name = "gcs";
             this.gcs.UseVisualStyleBackColor = true;
             // 
@@ -183,6 +157,19 @@
             // 
             resources.ApplyResources(this._gcsMainPanel, "_gcsMainPanel");
             this._gcsMainPanel.Name = "_gcsMainPanel";
+            // 
+            // Navigation
+            // 
+            this.Navigation.Controls.Add(this.navigationListView1);
+            this.Navigation.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            resources.ApplyResources(this.Navigation, "Navigation");
+            this.Navigation.Name = "Navigation";
+            this.Navigation.UseVisualStyleBackColor = true;
+            // 
+            // navigationListView1
+            // 
+            resources.ApplyResources(this.navigationListView1, "navigationListView1");
+            this.navigationListView1.Name = "navigationListView1";
             // 
             // imageList
             // 
@@ -197,29 +184,29 @@
             // 
             // _statusStrip
             // 
-            resources.ApplyResources(this._statusStrip, "_statusStrip");
             this._statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this._tssl_time,
             this.toolStripStatusLabel2,
             this._tssl_downloadspeed});
+            resources.ApplyResources(this._statusStrip, "_statusStrip");
             this._statusStrip.Name = "_statusStrip";
             // 
             // toolStripStatusLabel1
             // 
-            resources.ApplyResources(this.toolStripStatusLabel1, "toolStripStatusLabel1");
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            resources.ApplyResources(this.toolStripStatusLabel1, "toolStripStatusLabel1");
             // 
             // _tssl_time
             // 
-            resources.ApplyResources(this._tssl_time, "_tssl_time");
             this._tssl_time.Name = "_tssl_time";
+            resources.ApplyResources(this._tssl_time, "_tssl_time");
             this._tssl_time.Spring = true;
             // 
             // toolStripStatusLabel2
             // 
-            resources.ApplyResources(this.toolStripStatusLabel2, "toolStripStatusLabel2");
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            resources.ApplyResources(this.toolStripStatusLabel2, "toolStripStatusLabel2");
             // 
             // _tssl_downloadspeed
             // 
@@ -271,21 +258,21 @@
             // 
             // toolStripSeparator1
             // 
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // _btn_showlogging
             // 
-            resources.ApplyResources(this._btn_showlogging, "_btn_showlogging");
             this._btn_showlogging.Checked = true;
             this._btn_showlogging.CheckState = System.Windows.Forms.CheckState.Checked;
+            resources.ApplyResources(this._btn_showlogging, "_btn_showlogging");
             this._btn_showlogging.Name = "_btn_showlogging";
             this._btn_showlogging.Click += new System.EventHandler(this._btn_showlogging_Click);
             // 
             // toolStripSeparator2
             // 
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // _btn_reboot
             // 
@@ -295,8 +282,8 @@
             // 
             // toolStripSeparator3
             // 
-            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // _btn_firmware_upgrade
             // 
@@ -306,8 +293,8 @@
             // 
             // toolStripSeparator4
             // 
-            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             // 
             // _btnBasicConfiguration
             // 
@@ -340,9 +327,9 @@
             this.splitContainer1.ResumeLayout(false);
             this._tc_main.ResumeLayout(false);
             this.config.ResumeLayout(false);
-            this.Navigation.ResumeLayout(false);
             this.datalog.ResumeLayout(false);
             this.gcs.ResumeLayout(false);
+            this.Navigation.ResumeLayout(false);
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();
             this.toolStrip1.ResumeLayout(false);

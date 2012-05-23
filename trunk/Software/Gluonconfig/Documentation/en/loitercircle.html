@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.3  (Win32)">
+	<META NAME="AUTHOR" CONTENT="Tom P">
+	<META NAME="CREATED" CONTENT="20110813;20530400">
+	<META NAME="CHANGEDBY" CONTENT="Tom P">
+	<META NAME="CHANGED" CONTENT="20120316;23052516">
+	<META NAME="CHANGEDBY" CONTENT="Tom P">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+		P.western { font-family: "Verdana", sans-serif; font-size: 7pt }
+		H1 { margin-top: 0.02cm; margin-bottom: 0.11cm }
+		H1.western { font-family: "Arial", sans-serif; font-size: 11pt }
+		H1.cjk { font-family: "Lucida Sans Unicode"; font-size: 16pt }
+		H1.ctl { font-family: "Tahoma"; font-size: 16pt }
+		A:link { so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<H1 CLASS="western">LOITER CIRCLE</H1>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt">This
+command will fly in a circle around the point that has previously
+been set with the SET_LOITER_POSITION command.</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt">Example:</FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt">This
+example will <SPAN STYLE="font-style: normal">circle for 2 minutes
+around the current position. It should be called with CALL(3)</SPAN></FONT></P>
+<OL START=3>
+	<LI><P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt">BLOCK
+	(Loiter)</FONT></P>
+	<LI><P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt">SET_LOITER_POSITION</FONT></P>
+	<LI><P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt">LOITER_CIRCLE(100m)</FONT></P>
+	<LI><P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt">UNTIL(time
+	in block[s] &gt; 120)</FONT></P>
+	<LI><P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt">RETURN</FONT></P>
+</OL>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt"><I>Parameters:</I></FONT></P>
+<UL>
+	<LI><P CLASS="western" STYLE="margin-bottom: 0cm"><FONT SIZE=1 STYLE="font-size: 8pt">Radius:
+	The circling radius (meter)</FONT></P>
+</UL>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0cm"><BR>
+</P>
+</BODY>
+</HTML>

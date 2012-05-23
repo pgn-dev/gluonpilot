@@ -82,9 +82,9 @@ namespace Gluonpilot
                 else
                 {
                     connected = DateTime.Now;
-                    if (_serial != null)
+                    /*if (_serial != null)
                     {
-                        _serial.Close();
+                        //_serial.Close();
                         string portname = _serial.PortName;
                         int baudrate = _serial.BaudRate;
                         //if (_serial == null)
@@ -93,13 +93,17 @@ namespace Gluonpilot
                         _btnBasicConfiguration.Enabled = true;
                     }
                     else
-                    {
+                    {*/
                         ConnectDialog cd = new ConnectDialog();
                         cd.ShowDialog(this);
-                        _serial = new SerialCommunication_CSV();
+                        if (_serial == null)
+                        {
+                            _serial = new SerialCommunication_CSV();
+                            ConnectPanels();
+                        }
                         _serial.Open(cd.SelectedPort(), cd.SelectedBaudrate());
-                        ConnectPanels();
-                    }
+                       
+                    //}
                     //ConnectPanels();
                     _btn_connect.Checked = true;
                 }
@@ -168,6 +172,9 @@ namespace Gluonpilot
 
         private void _btn_firmware_upgrade_Click(object sender, EventArgs e)
         {
+            int baudrate = _serial.BaudRate;
+            string port = _serial.PortName;
+
             bool connected = _btn_connect.Checked;
 
             if (MessageBox.Show(this, "Upgrading the firmware may enable features\r\nwhich are not legal in your country.\r\nYou are fully responsibel for your flights.\r\nAre you sure you wish to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
@@ -186,10 +193,10 @@ namespace Gluonpilot
             if (fd.ShowDialog() != DialogResult.OK)
                 return;
 
-            if (connected)  // Close the current connection if it's open
+            if (_serial.IsOpen)  // Close the current connection if it's open
                 _serial.Close(); //_btn_connect_Click(null, null);
 
-            string c = " -k=" + _serial.PortName + " -f=\"" + fd.FileName + "\"  -p -d=dsPIC33FJ256MC710 -u=" + _serial.BaudRate + " -q=0a;5a;5a;3b;31;31;32;33;0a -r=115200 -b=1200 -o";
+            string c = " -k=" + port + " -f=\"" + fd.FileName + "\"  -p -d=dsPIC33FJ256MC710 -u=" + baudrate + " -q=0a;5a;5a;3b;31;31;32;33;0a -r=115200 -b=1200 -o";
             Process p = System.Diagnostics.Process.Start(Application.StartupPath + "\\ds30loader\\ds30LoaderConsole.exe", c);
             p.WaitForExit();
 
@@ -205,7 +212,7 @@ namespace Gluonpilot
             
             if (connected)  // Reconnect if the state was connected
             {
-                _serial.Open(_serial.PortName, _serial.BaudRate);//_btn_connect_Click(null, null);
+                _serial.Open(port, baudrate);//_btn_connect_Click(null, null);
             }
         }
 

@@ -83,11 +83,6 @@
             0,
             0,
             0});
-            this._nud_us.Minimum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
             this._nud_us.Name = "_nud_us";
             this._nud_us.Size = new System.Drawing.Size(62, 20);
             this._nud_us.TabIndex = 5;

@@ -35,8 +35,10 @@ namespace Configuration.NavigationCommands
         {
             this.ni = ni;
             _nud_channel.Value = Math.Min(7, ni.a) + 1;
-            _nud_us.Value = Math.Min(2500, Math.Max(500, ni.b));
+            _nud_us.Value = Math.Min(_nud_us.Maximum, Math.Max(_nud_us.Minimum, ni.b));
+            //_nud_us.Value = ni.b;
             _nud_position_hold.Value = (int)(Math.Max(0.001, Math.Min(3, ni.x)) * 1000.0);
+            //_nud_position_hold.Value = (int)(ni.x * 1000.0);
         }
 
         #endregion

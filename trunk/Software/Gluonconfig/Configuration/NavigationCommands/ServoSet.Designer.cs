@@ -54,12 +54,7 @@
             0});
             this._nud_us.Location = new System.Drawing.Point(98, 30);
             this._nud_us.Maximum = new decimal(new int[] {
-            2500,
-            0,
-            0,
-            0});
-            this._nud_us.Minimum = new decimal(new int[] {
-            500,
+            25000,
             0,
             0,
             0});

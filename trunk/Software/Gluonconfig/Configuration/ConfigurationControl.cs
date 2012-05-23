@@ -20,7 +20,12 @@ namespace Configuration
         public ConfigurationControl()
         {
             InitializeComponent();
-            Disconnect();
+            _serial = null;
+            _btn_burn.Enabled = false;
+            _btn_default.Enabled = false;
+            _btn_read.Enabled = false;
+            _btn_reload.Enabled = false;
+            _btn_write.Enabled = false;
         }
 
         public void Connect(SerialCommunication serial)
@@ -43,6 +48,8 @@ namespace Configuration
             _btn_read.Enabled = false;
             _btn_reload.Enabled = false;
             _btn_write.Enabled = false;
+
+            configurationTabpage1.Disconnect();
         }
 
         public void SetModel(ConfigurationModel model)

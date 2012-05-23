@@ -74,8 +74,16 @@ namespace Configuration
                 _cb_opcode.SelectedIndex = GetIndexFor("FROM_TO");
             else if (ni.opcode == NavigationInstruction.navigation_command.GOTO)
                 _cb_opcode.SelectedIndex = GetIndexFor("GOTO");
+            else if (ni.opcode == NavigationInstruction.navigation_command.CALL)
+                _cb_opcode.SelectedIndex = GetIndexFor("CALL");
+            else if (ni.opcode == NavigationInstruction.navigation_command.RETURN)
+                _cb_opcode.SelectedIndex = GetIndexFor("RETURN");
             else if (ni.opcode == NavigationInstruction.navigation_command.SERVO_SET)
                 _cb_opcode.SelectedIndex = GetIndexFor("SERVO_SET");
+            else if (ni.opcode == NavigationInstruction.navigation_command.SERVO_TRIGGER_START)
+                _cb_opcode.SelectedIndex = GetIndexFor("SERVO_TRIGGER_START");
+            else if (ni.opcode == NavigationInstruction.navigation_command.SERVO_TRIGGER_STOP)
+                _cb_opcode.SelectedIndex = GetIndexFor("SERVO_TRIGGER_STOP");
             else if (ni.opcode == NavigationInstruction.navigation_command.SERVO_TRIGGER)
                 _cb_opcode.SelectedIndex = GetIndexFor("SERVO_TRIGGER");
             else if (ni.opcode == NavigationInstruction.navigation_command.IF_EQ ||
@@ -151,15 +159,41 @@ namespace Configuration
                 webBrowser.Navigate(directoryname + "\\goto.html");
                 c = new NavigationCommands.Goto(ni);
             }
+            else if (_cb_opcode.Text.StartsWith("CALL"))
+            {
+                webBrowser.Navigate(directoryname + "\\call.html");
+                c = new NavigationCommands.Call(ni);
+            }
+            else if (_cb_opcode.Text.StartsWith("RETURN"))
+            {
+                webBrowser.Navigate(directoryname + "\\return.html");
+                c = new NavigationCommands.Return(ni);
+            }
             else if (_cb_opcode.Text.StartsWith("CLIMB"))
             {
                 webBrowser.Navigate(directoryname + "\\climb.html");
                 c = new NavigationCommands.Climb(ni);
             }
             else if (_cb_opcode.Text.StartsWith("SERVO_SET"))
+            {
+                webBrowser.Navigate(directoryname + "\\servoset.html");
                 c = new NavigationCommands.ServoSet(ni);
+            }
+            else if (_cb_opcode.Text.StartsWith("SERVO_TRIGGER_START"))
+            {
+                //webBrowser.Navigate(directoryname + "\\servotrigger.html");
+                c = new NavigationCommands.ServoStartTrigger(ni);
+            }
+            else if (_cb_opcode.Text.StartsWith("SERVO_TRIGGER_STOP"))
+            {
+                //webBrowser.Navigate(directoryname + "\\servotrigger.html");
+                c = new NavigationCommands.ServoStopTrigger(ni);
+            }
             else if (_cb_opcode.Text.StartsWith("SERVO_TRIGGER"))
+            {
+                webBrowser.Navigate(directoryname + "\\servotrigger.html");
                 c = new NavigationCommands.ServoTrigger(ni);
+            }
             else if (_cb_opcode.Text.StartsWith("FLY_TO"))
             {
                 webBrowser.Navigate(directoryname + "\\flyto.html");

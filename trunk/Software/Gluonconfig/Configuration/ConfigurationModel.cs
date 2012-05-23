@@ -68,6 +68,8 @@ namespace Gluonpilot
         public double AutoThrottlePGain;
         public bool AutoThrottleEnabled;
 
+        public int AltitudeMode;
+
 
         /*!
          *    Converts to _model to AllConfig communication frame.
@@ -99,6 +101,7 @@ namespace Gluonpilot
             ac.control_stabilization_with_altitude_hold = _model.StabilizationWithAltitudeHold;
             ac.control_cruising_speed = _model.CruisingSpeed;
             ac.control_aileron_differential = _model.ControlAileronDiff;
+            ac.control_altitude_mode = _model.AltitudeMode;
 
             ac.telemetry_basicgps = _model.TelemetryGpsBasic;
             ac.telemetry_gyroaccraw = _model.TelemetryGyroAccRaw;
@@ -206,6 +209,7 @@ namespace Gluonpilot
             _model.ControlMinPitch = ac.control_min_pitch;
             _model.ControlMaxRoll = ac.control_max_roll;
             _model.ControlAileronDiff = ac.control_aileron_differential;
+            _model.AltitudeMode = ac.control_altitude_mode;
 
             _model.CruisingSpeed = ac.control_cruising_speed;
             _model.StabilizationWithAltitudeHold = ac.control_stabilization_with_altitude_hold;

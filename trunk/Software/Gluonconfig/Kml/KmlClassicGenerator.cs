@@ -120,12 +120,16 @@ namespace Kml
                     if (dr.Table.Columns.Contains("HeadingGPS") && dr.Table.Columns.Contains("HeightBaro"))
                     {
                         sb.Append("<Placemark><Point><coordinates>\r\n");
-                        sb.Append(dr["Longitude"] + "," + dr["Latitude"] + "," + (double.Parse(dr["HeightBaro"].ToString(), System.Globalization.CultureInfo.InvariantCulture) - startheight).ToString(System.Globalization.CultureInfo.InvariantCulture) + "\r\n");
-
-                        sb.Append("</coordinates><altitudeMode>relativeToGround</altitudeMode></Point><styleUrl>#dataStyle_" + int.Parse(dr["HeadingGPS"].ToString()) / 2 + "</styleUrl>\r\n");
+                        double heightbaro = 0;
+                        double.TryParse(dr["HeightBaro"].ToString(), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out heightbaro);
+                        sb.Append(dr["Longitude"] + "," + dr["Latitude"] + "," + (heightbaro - startheight).ToString(System.Globalization.CultureInfo.InvariantCulture) + "\r\n");
+                        int heading = 0;
+                        int.TryParse(dr["HeadingGPS"].ToString(), out heading);
+                        sb.Append("</coordinates><altitudeMode>relativeToGround</altitudeMode></Point><styleUrl>#dataStyle_" + heading + "</styleUrl>\r\n");
                         if (dr.Table.Columns.Contains("Pitch") && dr.Table.Columns.Contains("HeightGPS"))
                         {
-                            sb.Append("<description>" + (int)time + " - Roll: " + dr["Roll"].ToString() + ", Desired: " + dr["DesiredRoll"].ToString() + " - Pitch: " + dr["Pitch"].ToString() + ", Desired: " + dr["DesiredPitch"].ToString() + " - Height: " + dr["HeightGPS"].ToString() + "</description>");
+                            //sb.Append("<description>" + (int)time + " - Roll: " + dr["Roll"].ToString() + ", Desired: " + dr["DesiredRoll"].ToString() + " - Pitch: " + dr["Pitch"].ToString() + ", Desired: " + dr["DesiredPitch"].ToString() + " - Height: " + dr["HeightGPS"].ToString() + "</description>");
+                            sb.Append("<description>" + (int)time + " - Roll: " + dr["Roll"].ToString() + " - Pitch: " + dr["Pitch"].ToString() + " - Height: " + dr["HeightGPS"].ToString() + "</description>");
                         }
                         else if (dr.Table.Columns.Contains("Time"))
                         {
