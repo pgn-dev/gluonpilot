@@ -29,6 +29,7 @@
 #include "navigation.h"
 #include "gluonscript.h"
 #include "trigger.h"
+#include "common.h"
 
 
 struct LogIndex datalogger_index_table[MAX_INDEX];
@@ -69,7 +70,7 @@ void datalogger_init()
 	// read index page
 	datalogger_read(LOG_INDEX_PAGE, sizeof(struct LogIndex) * MAX_INDEX, (unsigned char*)datalogger_index_table);
 	
-	// find the index with the oldest date
+	// find the index with the oldest date: date
 	for (i = 0; i < MAX_INDEX; i++)
 	{
 		date = (datalogger_index_table[i].date % 100) * 100000000 + 
@@ -119,6 +120,8 @@ void datalogger_init()
 		}
 		last_index = *index;
 	}
+
+    
 	//printf("index %d , page %d\r\n", current_index, current_page);
 }
 
@@ -192,6 +195,8 @@ void datalogger_writeline(struct LogLine *line)
 		b[i] = a[i];
 }
 
+
+static long last_totalseconds = -1;
 /*!
  *    Prints the contents of the next available page on "index" using the
  *    "printer" function.
@@ -219,14 +224,41 @@ int datalogger_print_next_page(int index, void(*printer)(struct LogLine*))
 	if (last_page >= MAX_PAGE)
 			last_page = START_LOG_PAGE;
 
-	if (*i != index+1)
+#ifdef DETAILED_LOG || RAW_50HZ_LOG
+    if (*i != index+1)
 	{
 		printf ("%d != %d\r\n", *i, index+1);
 		return 0;
-	}	
+	}
+#else
+    /*long hours = (lines[0].time / 10000);
+    long minutes = (lines[0].time % 10000) / 100;
+    long seconds = (lines[0].time) % 100;
+	long totalseconds =  seconds + minutes * 60 + hours * 3600;
+    if (abs(totalseconds  - last_totalseconds) > 2 && last_totalseconds != -1)
+    {
+        printf("\r\n Stop: new line: %lu  %lu \r\n", lines[0].date, lines[0].time);
+        return 0;
+    }
+    hours = (lines[PAGE_SIZE / sizeof(struct LogLine) - 2].time / 10000);
+    minutes = (lines[PAGE_SIZE / sizeof(struct LogLine) - 2].time % 10000) / 100;
+    seconds = (lines[PAGE_SIZE / sizeof(struct LogLine) - 2].time) % 100;
+	totalseconds =  seconds + minutes * 60 + hours * 3600;
+    last_totalseconds = totalseconds;*/
+    if (*i != index+1)
+	{
+		printf ("%d != %d\r\n", *i, index+1);
+		return 0;
+	}
+#endif
 
 	for (j = 0; j < (PAGE_SIZE - 2) / sizeof(struct LogLine); j++)
-		printer(&lines[j]);
+    {
+        if (lines[j].gps_latitude_rad < DEG2RAD(360.0) && lines[j].gps_longitude_rad < DEG2RAD(360.0) )
+            printer(&lines[j]);
+        else
+            return 0;
+    }
 		
 	return 1;
 }
@@ -416,5 +448,10 @@ void datalogger_task( void *parameters )
 #endif
 			datalogger_writeline(&l);
 		}
+        else // logging disabled:
+        {
+            printf("\r\nLogging task stopped\r\n");
+            vTaskDelete(NULL);
+        }
 	}
 }

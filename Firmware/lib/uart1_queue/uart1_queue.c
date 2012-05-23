@@ -1,6 +1,6 @@
 
 #include "microcontroller/microcontroller.h"
-#include "uart1_queue//uart1_queue.h"
+#include "uart1_queue/uart1_queue.h"
 
 #include "FreeRTOS/FreeRTOS.h"
 #include "FreeRTOS/queue.h"
@@ -55,7 +55,7 @@ void uart1_queue_init(long baud)
 	// I think I have the thing working now.	
 	
 	
-	xRxedChars = xQueueCreate( 50, ( unsigned portBASE_TYPE ) sizeof( char ) );
+	xRxedChars = xQueueCreate( 150, ( unsigned portBASE_TYPE ) sizeof( char ) );
 }	
 
 
@@ -67,14 +67,14 @@ void __attribute__((__interrupt__, auto_psv)) _U1RXInterrupt( void )
 	/* Get the character and post it on the queue of Rxed characters.
 	If the post causes a task to wake force a context switch as the woken task
 	may have a higher priority than the task we have interrupted. */
-	IFS0bits.U1RXIF = 0;
+
 	
 	while( U1STAbits.URXDA )
 	{
 		cChar = U1RXREG;
 		xQueueSendFromISR( xRxedChars, &cChar, &xHigherPriorityTaskWoken );
 	}
-
+	IFS0bits.U1RXIF = 0;
 	// NO YIELDING! We are in an interrupt routine, and parsing input is not urgent anyway
 	/*if( xHigherPriorityTaskWoken != pdFALSE )
 	{
