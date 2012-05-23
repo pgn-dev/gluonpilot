@@ -28,7 +28,8 @@ namespace GCS
         public GcsMainPanel()
         {
             InitializeComponent();
-            Disconnnect();
+            _btn_ge_server.Enabled = false;
+            _btn_goto_ge.Enabled = false;
             artificialHorizon.BackColor = toolStripContainer1.ContentPanel.BackColor;
             _heightLine = _zgc_height.GraphPane.AddCurve("Height", new PointPairList(), Color.Blue, SymbolType.None);
             _zgc_height.GraphPane.Title.IsVisible = false;
@@ -53,17 +54,50 @@ namespace GCS
             _beginDateTime = DateTime.Now;
         }
 
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+
+            if (_serial != null)
+            {
+                //_serial.AttitudeCommunicationReceived -= new SerialCommunication.ReceiveAttitudeCommunicationFrame(serial_AttitudeCommunicationReceived);
+                //_serial.PressureTempCommunicationReceived -= new SerialCommunication.ReceivePressureTempCommunicationFrame(serial_PressureTempCommunicationReceived);
+                //_serial.GpsBasicCommunicationReceived -= new SerialCommunication.ReceiveGpsBasicCommunicationFrame(serial_GpsBasicCommunicationReceived);
+                //_serial.ControlInfoCommunicationReceived -= new SerialCommunication.ReceiveControlInfoCommunicationFrame(serial_ControlInfoCommunicationReceived);
+            }
+        }
+
+
         public void Connect(SerialCommunication serial)
         {
             _serial = serial;
             _btn_ge_server.Enabled = true;
             //_graphControl.SetSerial(serial);
-            serial.AttitudeCommunicationReceived += new SerialCommunication.ReceiveAttitudeCommunicationFrame(serial_AttitudeCommunicationReceived);
-            serial.PressureTempCommunicationReceived += new SerialCommunication.ReceivePressureTempCommunicationFrame(serial_PressureTempCommunicationReceived);
-            serial.GpsBasicCommunicationReceived += new SerialCommunication.ReceiveGpsBasicCommunicationFrame(serial_GpsBasicCommunicationReceived);
-            serial.ControlInfoCommunicationReceived += new SerialCommunication.ReceiveControlInfoCommunicationFrame(serial_ControlInfoCommunicationReceived);
-            _graphControl.SetSerial(serial);
+            _serial.AttitudeCommunicationReceived += new SerialCommunication.ReceiveAttitudeCommunicationFrame(serial_AttitudeCommunicationReceived);
+            _serial.PressureTempCommunicationReceived += new SerialCommunication.ReceivePressureTempCommunicationFrame(serial_PressureTempCommunicationReceived);
+            _serial.GpsBasicCommunicationReceived += new SerialCommunication.ReceiveGpsBasicCommunicationFrame(serial_GpsBasicCommunicationReceived);
+            _serial.ControlInfoCommunicationReceived += new SerialCommunication.ReceiveControlInfoCommunicationFrame(serial_ControlInfoCommunicationReceived);
+            _graphControl.SetSerial(_serial);
         }
+
+
+        public void Disconnnect()
+        {
+            //_serial = null;
+            _btn_ge_server.Enabled = false;
+            _btn_goto_ge.Enabled = false;
+            //_graphControl.Stop();
+            _serial.AttitudeCommunicationReceived -= new SerialCommunication.ReceiveAttitudeCommunicationFrame(serial_AttitudeCommunicationReceived);
+            _serial.PressureTempCommunicationReceived -= new SerialCommunication.ReceivePressureTempCommunicationFrame(serial_PressureTempCommunicationReceived);
+            _serial.GpsBasicCommunicationReceived -= new SerialCommunication.ReceiveGpsBasicCommunicationFrame(serial_GpsBasicCommunicationReceived);
+            _serial.ControlInfoCommunicationReceived -= new SerialCommunication.ReceiveControlInfoCommunicationFrame(serial_ControlInfoCommunicationReceived);
+        }
+
 
         void serial_ControlInfoCommunicationReceived(ControlInfo ci)
         {
@@ -145,16 +179,21 @@ namespace GCS
 
         void serial_AttitudeCommunicationReceived(Communication.Frames.Incoming.Attitude attitude)
         {
-            artificialHorizon.pitch_angle = attitude.PitchDeg;
-            artificialHorizon.roll_angle = -attitude.RollDeg;
-        }
+            MethodInvoker m = delegate()
+            {
+                artificialHorizon.pitch_angle = attitude.PitchDeg;
+                artificialHorizon.roll_angle = -attitude.RollDeg;
+                _lblPitch.Text = "Pitch: " + ((int)attitude.PitchDeg).ToString();
+                _lblRoll.Text = "Roll: " + ((int)attitude.RollDeg).ToString();
+            };
 
-        public void Disconnnect()
-        {
-            _serial = null;
-            _btn_ge_server.Enabled = false;
-            _btn_goto_ge.Enabled = false;
-            //_graphControl.Stop();
+            try
+            {
+                BeginInvoke(m);
+            }
+            catch
+            {
+            } 
         }
 
         private void _btn_ge_server_Click(object sender, EventArgs e)

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,44 +117,86 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="_btn_ge_server.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="_btnCancel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEdSURBVDhPY2AYdKB+9YsvdStetJPtsIbVr/7XNB74V7zo
-        EXmGVC5/9n/tiff/2ze8+B8/9U4fyS7JW/Do/4rj7/4vPvT2f+mSx//dW67NI8mQpOkP/y88+Ob/pO0v
-        /s/c/fJ/4vS7/7ULzy4h2pDgvttAja/+N6x6/L9x9eP/XRuf/PfuuPZfNOnoI6IMcW659n/C1uf/SxY/
-        +F++5AHQkEf/nesv/5eMOLaZKANMyy/9b1//5H/Rwvv/a1Y+/G9fdeG/ePCBNQz2+1mIMkA57+z/uhUP
-        /1cue/DftvzCfzG/PSuJ0ghTJJV08n/p4vv/bUrO/xfz2L2IJM0gxRKRR/5bF575L+KyfQHJmkEaxPwO
-        /Bd23DabLM0DogkAbRWSfIWSWJQAAAAASUVORK5CYII=
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAjRJREFUOE+Vk+1P
+        UmEYxl1b21l/Q0W5msuT01xvpoBHRYhp2qa8C8IhURMQOIOhxKoPtfWX9HdpVsabkRzg8ByubjDQs2Mf
+        /PBsz3ae63ff93XdZwDAwFVOY128cfG9VixlDJAy/P+AjUCIr3vX4jWH29R7cw7oiDN7aKezUONJHaTh
+        D/KNYBjNzW38eb3ytbq49KADOQP8EyP/AW06akJCa2unD6mvrfNUHa1oHMjl0bmfWO3x8ozl2hkgleba
+        CUlt770DPn+Bms11AGgGRb7uC/BUHcpODKDv9UAQJ/MvWVmYu37eAUHUWIJjb2NMlTLAx09gqTQaoTCo
+        OpTtKJDd794rFhuJZzm9BwRpRba4prjBWtFdIP8e2M+TMAdksqj7/KjMWVl5eqYv1nTQI1K7nOxZU5Gl
+        cbx+wOUFpDQqs/NqySxoxJcCZLevExVAacDhBlacwG6S5rahMDGlS0ezB7LLy8seH5RwBEhKJEwBMRqH
+        DKyvOlE2mvFzbFwD6QNqTg8vu71QxA2AYpRdHpBZrDhlUk8Xl4HIJmqvllF4/BRHQ8N9SBdAm8VTdSih
+        N1Q1AZlaJ7NYcdLEFZ5NcMfjT1jVYgVCIk5tdhyPjOLwzmAX0gXQZgk1hwtKUIS86gKZxYovjH3DfoyM
+        cd+HH7LfZgGyfQG/Rh/h4JZB0JhImyVUF5ZQMk2rZJbO7aP7Q9y3wXvsoliXQsloFgrPJ3XiXsSHhrvc
+        wc3b3cqXLtJVfuve279yu6THdnerNQAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="_btn_goto_ge.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="_btnSaveAndClose.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOSSURBVDhPdZNtTJNnFIbfRDdjNrNlP5YtYZK4xWwkhDTO
-        6RCWJWTEEUWdQQPIR2W0DNoXEcSIw1Zgs4NV24UpAhXaWkBQ+0UL4tsPSkup/aYtLZQVh8xBN4ZhwxlZ
-        cq/ww0yTPcnz40nOfZ375Dw3QbxwWObCVLaZ3ls2Qp8pMdP/Is25T0gDfYE001VsU8HeF+ufvTkGzkbS
-        VHh9TXD3Zxkc0SHo71vQP2WBIqjDzWAXCjryVhlD2dpSQ9arz4EYDsZLsQ5mSeh7zK84MbXoh2/RBfmM
-        G5rIBCR+P8QeF3o9ZghtF5B7+6A3qzfrtWeQmGVZZ/ACIstGTCxbEVgKwL3gQVc4gL7INATOMJrGgrg4
-        bIM8oIPQWoMvJBnadQA5Qk8hVfuezv5pRP+SBjcfaTCwOIyBB360hybxo28KbI0TbLUVDXYNWmea4fxV
-        jgROwj8ZzZ8eIGLWb2kiLXD8pkH3khI3/rDBFvWC7w6gyT4JRr8TTIpCxUQrKiN1qJiugdQjxPUxHtIu
-        pdwhYvZnx39XQzLbBn5UFOvuhzXqAXnHDYbSgVM2O5jhauyfZGB/sBh5PhbO3a2EKSzDJ7zdDwnSkL0y
-        /UiP+tB5sMOn0fqLAd0zDuT13ANLZ0LT1CAKQ10o6U5BcQcNB6lssPqK4JpT4WNOwmOiaLDw8U9LetR6
-        K8HyCnDtPoX8bivyFT4cvjoKkhpFjVeOLyV7cF6dg6Mt74MpzYHrgRJJ5Ul/E6WG7Dn3ggICfz0apw2o
-        s4/giMSBclkq2NJkMMU7QRfR8LU8C712Iar6DiD90lugQmLQapLmieKhHJU8+AP6I504MdoArqcHx2QW
-        lEl3QeG6jFvO5nVhj10AAVUFsbURJbJ07OJtBu1MooE4rjqantdxeNUX1aCK+goVOhJsrR5FsXnXxBeH
-        yvHdYBm+0TLAVdNRp2GixVSPY50piC8gVtf/wpGefUq+sRrq4FVwjWdwzkQht+0D3LgngGyMD/FoI65Z
-        eDFIKa6Y6sCQ7cW7J19eiasgNq8DMtszt2S0fOb9duAErPO30TluxKEr2/C5MC626zexp+l15Hck4/Iw
-        F8el6XijdtOThNPbtj6Xh8z25C1p/FRtfGP8qsjSBpFJjfZhHUQjeijHFfiQ9woKxGl45+ym5cTq9+L+
-        N5W7G3Ye+oi7Y2BHLW1u+8ntK2s38VTiw7drNzzdenYDCA6x8b/ifwEcAFLBiT1uwwAAAABJRU5ErkJg
-        gg==
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAbZJREFUOE+lkmsv
+        QnEcx3kk5724lwhz21iuSxE5nMg1midUp9I9hrkcD839OltorsNsHirJeA3mTUhf/86mjTKas52H38vv
+        8/+mAkj51xc1+M+ftFi52cA1rdTYPkOTMmjZqOd0JxoMHjGQcuUsf/5f6zev13HDx92Yf3LCc2eCeleJ
+        UneB+U8GirVaTutTY/bRgZlHG7r2WlHmKYTEKhTEDLTXTGX/Bd37vZF8tZaLVp4O2TAVsvLJJU5xuHA8
+        TxA7QXvFFPed06/srQ6Mt3nk04TA4gYOOzH1MI7JBwuYnRYUO/LDBZZcXswbDF52VvWdtb9M+FnMhuxQ
+        7crCBNaIbFk6039AYyJogeeeRce2AkV2UVhszomJeYPeU1W6xtcG/c0QFp7d8PhN0B6roTvVwOU3wnlv
+        BL0lh8QmfM83fRXHTqD35RRJhu5Mw985GTTDEdDD4ddDtdkUhRURsdlfkuN2QGBRsiUperztcAYMsN6N
+        om1dBgIrIjJmJRTH7UC6WEFVz5WRygoo1xpBYEWEhswfxQmHRN6XKnGJQWC95ekz034bWsIhEVhU7ljG
+        r+KkpvxTkw+TOHxqGWjxLQAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>46</value>
-  </metadata>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Calibratie</value>
+  </data>
+  <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 13</value>
+  </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>Functie</value>
+  </data>
+  <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
+    <value>352, 26</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>U moet uw zender-input hier kunnen zien.
+Als de "interpretatie" fout is, gelieve uw zender-instellingen aan te passen
+</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>Verzeker u ervan dat de module gecalibreerd is, 
+en zich normaal gedraagd na installatie in het vliegtuig</value>
+  </data>
+  <data name="label33.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 13</value>
+  </data>
+  <data name="label33.Text" xml:space="preserve">
+    <value>Huidige waarde</value>
+  </data>
+  <data name="label34.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 13</value>
+  </data>
+  <data name="label34.Text" xml:space="preserve">
+    <value>Functie</value>
+  </data>
+  <data name="label35.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 13</value>
+  </data>
+  <data name="label35.Text" xml:space="preserve">
+    <value>Interpretatie</value>
+  </data>
+  <data name="_btnCalibrateGyroscopes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 109</value>
+  </data>
+  <data name="_btnCalibrateGyroscopes.Text" xml:space="preserve">
+    <value>Calibreer gyroscopen</value>
+  </data>
+  <data name="_btnCalibrateAccelerometers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 138</value>
+  </data>
+  <data name="_btnCalibrateAccelerometers.Text" xml:space="preserve">
+    <value>Calibreer versnellingsmeters</value>
+  </data>
 </root>

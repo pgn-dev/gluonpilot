@@ -23,6 +23,7 @@ namespace Communication.Frames.Configuration
         public bool control_stabilization_with_altitude_hold;
         public double control_cruising_speed;
         public double control_waypoint_radius;
+        public int control_altitude_mode;
 
         // gps
         public int gps_initial_baudrate;

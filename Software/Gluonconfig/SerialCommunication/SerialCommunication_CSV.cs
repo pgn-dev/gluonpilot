@@ -16,6 +16,7 @@ using Communication.Frames.Configuration;
 using Communication.Frames.Incoming;
 using System.Threading;
 using System.Globalization;
+using Common;
 
 namespace Communication
 {
@@ -28,8 +29,8 @@ namespace Communication
             {
                 try
                 {
-                    filename = value;
-                    logfile = new System.IO.StreamWriter(filename);
+                        filename = value;
+                        logfile = new System.IO.StreamWriter(filename);
                 }
                 catch (Exception e)
                 {
@@ -96,8 +97,8 @@ namespace Communication
             _serialPort = new SerialPort();
             last_throughput_calculation = DateTime.Now;
 
-            _smartThreadPool = new SmartThreadPool();
-            _smartThreadPool.Name = "ReceiveThreadedData";
+            _smartThreadPool = SmartThreadPoolSingleton.GetInstance();
+            //_smartThreadPool.Name = "ReceiveThreadedData";
 
             IWorkItemResult wir =
                         _smartThreadPool.QueueWorkItem(
@@ -106,12 +107,24 @@ namespace Communication
 
         ~SerialCommunication_CSV()
         {
-            if (_smartThreadPool != null)
-                _smartThreadPool.Shutdown(false, 100);
-            if (logfile != null)
-                logfile.Close();
+            try
+            {
+                //if (_smartThreadPool != null)
+                //    _smartThreadPool.Shutdown(false, 100);
+            }
+            catch (Exception ex)  // threadpool already shut down
+            {
+            }
 
-            _serialPort.Dispose();
+            try
+            {
+                //if (logfile != null)
+                //    logfile.Close();
+            }
+            catch (Exception ex) // logfile already closed
+            {
+            }
+            //_serialPort.Dispose();
         }
 
         public double ThroughputKbS()
@@ -148,8 +161,21 @@ namespace Communication
         public override void Close()
         {
             if (_serialPort != null)
-                _serialPort.Close();
-
+            {
+                _serialPort.DiscardInBuffer();
+                _serialPort.DiscardOutBuffer();
+                try
+                {
+                    _serialPort.Close();
+                    _serialPort = new SerialPort();
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+            if (logfile != null)
+                logfile.Close();
+            logfile = null;
         }
 
         /*!
@@ -163,12 +189,19 @@ namespace Communication
             bool recognised_frame = true;
             string line = string.Empty;
 
-            while (true)//_serialPort.IsOpen)
+            while (!SmartThreadPool.IsWorkItemCanceled)//_serialPort.IsOpen)
             {
                 try
                 {
+                    if (_serialPort == null || !_serialPort.IsOpen)
+                    {
+                        Thread.Sleep(100);
+                        continue;
+                    }
+                    line = "";
+                    recognised_frame = false;
                     // A bit extra logic to set communication lost after 1 second of no data 
-                    while (/*_serialPort == null || !_serialPort.IsOpen ||*/ _serialPort.BytesToRead < 3)
+                    while (_serialPort.BytesToRead < 3)
                     {
                         if (CommunicationAlive && SecondsConnectionLost() > 1.0)
                         {
@@ -183,10 +216,13 @@ namespace Communication
                     }
 
                     line = _serialPort.ReadLine().Replace("\r", "").Replace("\n", "");
+                    if (line.Length < 3)
+                        continue;
+
 
                     if (line.StartsWith("$")) // line with checksum
                     {
-                        string[] frame = line.Substring(1, line.Length-1).Split('*');
+                        string[] frame = line.Substring(1, line.Length - 1).Split('*');
                         //line = frame[0];
                         if (calculateChecksum(frame[0]) == Int32.Parse(frame[1], System.Globalization.NumberStyles.HexNumber))
                             line = frame[0];
@@ -345,11 +381,18 @@ namespace Communication
                         if (lines.Length > 77)
                             ac.control_min_pitch = int.Parse(lines[77]);
                         if (lines.Length > 78)
+                        {
                             ac.manual_trim = int.Parse(lines[78]) == 0 ? false : true;
+                            Console.WriteLine("receive: " + lines[78]);
+                        }
+                        if (lines.Length > 79)
+                        {
+                            ac.control_altitude_mode = int.Parse(lines[79]);
+                        }
                         else
                             Console.WriteLine("FOUT");
 
-                        Console.WriteLine("receive: " + lines[78]);
+
                         if (AllConfigCommunicationReceived != null)
                             AllConfigCommunicationReceived(ac);
                     }
@@ -392,7 +435,7 @@ namespace Communication
                             double.Parse(lines[1], CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0,
                             double.Parse(lines[2], CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0,
                             /*double.Parse(lines[3], CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0,
-                            double.Parse(lines[4], CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0,*/0,0,
+                            double.Parse(lines[4], CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0,*/0, 0,
                             double.Parse(lines[3], CultureInfo.InvariantCulture) / 1000.0 / 3.14 * 180.0
                             );
                         if (AttitudeCommunicationReceived != null)
@@ -441,23 +484,23 @@ namespace Communication
                         lines[5] = lines[5].Replace("nan", "0");
                         lines[6] = lines[6].Replace("nan", "0");
 
-                        NavigationInstruction ni = 
+                        NavigationInstruction ni =
                             new NavigationInstruction(
                                 int.Parse(lines[1]),
                                 (NavigationInstruction.navigation_command)int.Parse(lines[2]),
                                 double.Parse(lines[3], CultureInfo.InvariantCulture),
                                 double.Parse(lines[4], CultureInfo.InvariantCulture),
                                 int.Parse(lines[5]),
-                                int.Parse(lines[6]) );
+                                int.Parse(lines[6]));
                         if (NavigationInstructionCommunicationReceived != null)
                             NavigationInstructionCommunicationReceived(ni);
                     }
                     // TS: Servos (simulation)
                     else if (lines[0].EndsWith("TS") && lines.Length >= 3)
                     {
-                        Console.WriteLine(line);
+                        //Console.WriteLine(line);
 
-                        Servos s = 
+                        Servos s =
                             new Servos(
                                 int.Parse(lines[1]),
                                 int.Parse(lines[2]),
@@ -512,9 +555,8 @@ namespace Communication
                 }
                 catch (Exception e)
                 {
-                    ;
+                    Console.WriteLine("error in Serial");
                 }
-
                 try
                 {
                     if (recognised_frame)
@@ -641,7 +683,7 @@ namespace Communication
                 (auto_throttle_enabled ? "1" : "0"));*/
         }
 
-        public override void SendControlSettings(int mixing, double max_pitch, double min_pitch, double max_roll, int aileron_differential, double waypoint_radius, double cruising_speed, bool stabilization_with_altitude_hold)
+        public override void SendControlSettings(int mixing, double max_pitch, double min_pitch, double max_roll, int aileron_differential, double waypoint_radius, double cruising_speed, bool stabilization_with_altitude_hold, int altitude_mode)
         {
             WriteChecksumLine("SC;" +
                 mixing.ToString() + ";" +
@@ -651,7 +693,8 @@ namespace Communication
                 waypoint_radius.ToString(CultureInfo.InvariantCulture) + ";" +
                 cruising_speed.ToString(CultureInfo.InvariantCulture) + ";" +
                 (stabilization_with_altitude_hold == false ? 0 : 1).ToString() + ";"+
-                min_pitch.ToString(CultureInfo.InvariantCulture));
+                min_pitch.ToString(CultureInfo.InvariantCulture) + ";" +
+                altitude_mode.ToString());
 
 
             /*Console.WriteLine("\nSC;" +
@@ -776,7 +819,8 @@ namespace Communication
                                 ac.control_aileron_differential,
                                 ac.control_waypoint_radius,
                                 ac.control_cruising_speed,
-                                ac.control_stabilization_with_altitude_hold);
+                                ac.control_stabilization_with_altitude_hold,
+                                ac.control_altitude_mode);
 
             Thread.Sleep(200);
 
@@ -870,25 +914,26 @@ namespace Communication
 
         public override void SetSimulationOn()
         {
-            _serialPort.WriteLine("\nSE;\n");
+            _serialPort.WriteLine("\nSE;" + DateTime.Now.ToString("ddMMyy") + ";" + DateTime.Now.ToString("HHmmss") + "\n");
         }
 
         public override void SendSimulationUpdate(double lat_rad, double lng_rad, double roll_rad, double pitch_rad, double altitude_m, double speed_ms, double heading_rad)
         {
-            _serialPort.WriteLine("\nSW;" + lng_rad.ToString("#.######", CultureInfo.InvariantCulture) + ";" +
-                                          lat_rad.ToString("#.######", CultureInfo.InvariantCulture) + ";" +
-                                          heading_rad.ToString("#.####", CultureInfo.InvariantCulture) + ";" +
-                                          speed_ms.ToString("#.###", CultureInfo.InvariantCulture) + ";" +
+            
+            WriteChecksumLine("SW;" + lng_rad.ToString("0.#######", CultureInfo.InvariantCulture) + ";" +
+                                          lat_rad.ToString("0.#######", CultureInfo.InvariantCulture) + ";" +
+                                          heading_rad.ToString("0.####", CultureInfo.InvariantCulture) + ";" +
+                                          speed_ms.ToString("0.###", CultureInfo.InvariantCulture) + ";" +
                                           ((int)altitude_m).ToString() + ";" +
-                                          roll_rad.ToString("#.###", CultureInfo.InvariantCulture) + ";" +
-                                          pitch_rad.ToString("#.###", CultureInfo.InvariantCulture) + "\n");
-            Console.WriteLine("\nSW;" + lng_rad.ToString("#.######", CultureInfo.InvariantCulture) + ";" +
+                                          roll_rad.ToString("0.###", CultureInfo.InvariantCulture) + ";" +
+                                          pitch_rad.ToString("0.###", CultureInfo.InvariantCulture) + "");
+            /*Console.WriteLine("\nSW;" + lng_rad.ToString("#.######", CultureInfo.InvariantCulture) + ";" +
                                           lat_rad.ToString("#.######", CultureInfo.InvariantCulture) + ";" +
                                           heading_rad.ToString("#.####", CultureInfo.InvariantCulture) + ";" +
                                           speed_ms.ToString("#.###", CultureInfo.InvariantCulture) + ";" +
                                           ((int)altitude_m).ToString() + ";" +
                                           roll_rad.ToString("#.####", CultureInfo.InvariantCulture) + ";" +
-                                          pitch_rad.ToString("#.###", CultureInfo.InvariantCulture) + "\n");
+                                          pitch_rad.ToString("#.###", CultureInfo.InvariantCulture) + "\n");*/
         }
 
 
@@ -920,14 +965,24 @@ namespace Communication
             if (chk < 16)
             {
                 if (_serialPort.BytesToWrite > 0)
-                    Thread.Sleep(200); ;
+                    Thread.Sleep(200);
+                if (_serialPort.BytesToWrite > 0)
+                    Thread.Sleep(200);
+                if (_serialPort.BytesToWrite > 0)
+                    Thread.Sleep(200);
+                if (_serialPort.BytesToWrite > 0)
+                    Thread.Sleep(200);
                 _serialPort.WriteLine("\n$" + s + "*0" + Convert.ToString(chk, 16) + "\n");
+                if (logfile != null)
+                    logfile.WriteLine("-> \r\n$" + s + "*0" + Convert.ToString(chk, 16) + "\r\n");
                 //Console.WriteLine("\n$" + s + "*0" + Convert.ToString(chk, 16) + "\n");
             }
             else
             {
+                Console.WriteLine("\n$" + s + "*" + Convert.ToString(chk, 16) + "\n");
                 _serialPort.WriteLine("\n$" + s + "*" + Convert.ToString(chk, 16) + "\n");
-                //Console.WriteLine("\n$" + s + "*" + Convert.ToString(chk, 16) + "\n");
+                if (logfile != null)
+                    logfile.WriteLine("-> \r\n$" + s + "*" + Convert.ToString(chk, 16) + "\n");
             }
         }
     }

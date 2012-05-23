@@ -80,134 +80,143 @@ namespace Gluonpilot
          */
         private void ReadModel()
         {
-            _tbAccXNeutral.Text = _model.NeutralAccX.ToString();
-            _tbAccYNeutral.Text = _model.NeutralAccY.ToString();
-            _tbAccZNeutral.Text = _model.NeutralAccZ.ToString();
-            _tbGyroXNeutral.Text = _model.NeutralGyroX.ToString();
-            _tbGyroYNeutral.Text = _model.NeutralGyroY.ToString();
-            _tbGyroZNeutral.Text = _model.NeutralGyroZ.ToString();
-
-            _nud_gpsbasic_telemetry.Value = _model.TelemetryGpsBasic;
-            _nud_gyroaccraw_telemetry.Value = _model.TelemetryGyroAccRaw;
-            _nud_gyroaccproc_telemetry.Value = _model.TelemetryGyroAccProc;
-            _nud_ppm_telemetry.Value = _model.TelemetryPpm;
-            _nud_pressuretemp_telemetry.Value = _model.TelemetryPressureTemp;
-            _nud_attitude_telemetry.Value = _model.TelemetryAttitude;
-            _nud_control_telemetry.Value = _model.TelemetryControl;
-
-            _tb_initial_baudrate.Text = _model.GpsInitialBaudrate.ToString();
-            _tb_operational_baudrate.Text = _model.GpsOperationalBaudrate.ToString();
-
-            _pid_pitch_to_elevator.SetModel(_model.Pitch2ElevatorPidModel);
-            _pid_roll_to_aileron.SetModel(_model.Roll2AileronPidModel);
-            _pid_heading_to_roll.SetModel(_model.Heading2RollPidModel);
-            _pid_altitude_to_pitch.SetModel(_model.Altitude2PitchPidModel);
-
-            _cb_reverse_servo1.Checked = _model.ReverseServo1;
-            _cb_reverse_servo2.Checked = _model.ReverseServo2;
-            _cb_reverse_servo3.Checked = _model.ReverseServo3;
-            _cb_reverse_servo4.Checked = _model.ReverseServo4;
-            _cb_reverse_servo5.Checked = _model.ReverseServo5;
-            _cb_reverse_servo6.Checked = _model.ReverseServo6;
-
-            _rbPpm.Checked = _model.RcTransmitterFromPpm == 1? true : false;
-            _rbPwm.Checked = _model.RcTransmitterFromPpm == 0? true : false;
-
-            _nud_control_pitch_max.Value = (int)_model.ControlMaxPitch;
-            _nud_control_pitch_min.Value = (int)_model.ControlMinPitch;
-            _nud_control_roll_max.Value = (int)_model.ControlMaxRoll;
-            _nud_aileron_diff.Value = _model.ControlAileronDiff;
-
-            tb_speed.SpeedMS = _model.CruisingSpeed;
-            _dtb_waypoint_radius.DistanceM = _model.WaypointRadius;
-            cb_altitudehold.Checked = _model.StabilizationWithAltitudeHold;
-
-            if (_model.ControlMixing >= 0 && _model.ControlMixing < _cbControlMix.Items.Count)
-                _cbControlMix.SelectedIndex = _model.ControlMixing;
-
-            switch (_model.ChannelRoll)
+            try
             {
-                case 1: _rbRollCh1.Checked = true; break;
-                case 2: _rbRollCh2.Checked = true; break;
-                case 3: _rbRollCh3.Checked = true; break;
-                case 4: _rbRollCh4.Checked = true; break;
-                case 5: _rbRollCh5.Checked = true; break;
-                case 6: _rbRollCh6.Checked = true; break;
-                case 7: _rbRollCh7.Checked = true; break;
-            }
-            switch (_model.ChannelPitch)
-            {
-                case 1: _rbPitchCh1.Checked = true; break;
-                case 2: _rbPitchCh2.Checked = true; break;
-                case 3: _rbPitchCh3.Checked = true; break;
-                case 4: _rbPitchCh4.Checked = true; break;
-                case 5: _rbPitchCh5.Checked = true; break;
-                case 6: _rbPitchCh6.Checked = true; break;
-                case 7: _rbPitchCh7.Checked = true; break;
-            }
-            switch (_model.ChannelYaw)
-            {
-                case 1: _rbYawCh1.Checked = true; break;
-                case 2: _rbYawCh2.Checked = true; break;
-                case 3: _rbYawCh3.Checked = true; break;
-                case 4: _rbYawCh4.Checked = true; break;
-                case 5: _rbYawCh5.Checked = true; break;
-                case 6: _rbYawCh6.Checked = true; break;
-                case 7: _rbYawCh7.Checked = true; break;
-            }
-            switch (_model.ChannelMotor)
-            {
-                case 1: _rbMotorCh1.Checked = true; break;
-                case 2: _rbMotorCh2.Checked = true; break;
-                case 3: _rbMotorCh3.Checked = true; break;
-                case 4: _rbMotorCh4.Checked = true; break;
-                case 5: _rbMotorCh5.Checked = true; break;
-                case 6: _rbMotorCh6.Checked = true; break;
-                case 7: _rbMotorCh7.Checked = true; break;
-            }
-            switch (_model.ChannelAp)
-            {
-                case 1: _rbApCh1.Checked = true; break;
-                case 2: _rbApCh2.Checked = true; break;
-                case 3: _rbApCh3.Checked = true; break;
-                case 4: _rbApCh4.Checked = true; break;
-                case 5: _rbApCh5.Checked = true; break;
-                case 6: _rbApCh6.Checked = true; break;
-                case 7: _rbApCh7.Checked = true; break;
-            }
+                _tbAccXNeutral.Text = _model.NeutralAccX.ToString();
+                _tbAccYNeutral.Text = _model.NeutralAccY.ToString();
+                _tbAccZNeutral.Text = _model.NeutralAccZ.ToString();
+                _tbGyroXNeutral.Text = _model.NeutralGyroX.ToString();
+                _tbGyroYNeutral.Text = _model.NeutralGyroY.ToString();
+                _tbGyroZNeutral.Text = _model.NeutralGyroZ.ToString();
 
-            if (_model.ServoMin != null) // EXTREMELY ANNOYING BUG
-            {
-                _tb_servo1_min.Text = _model.ServoMin[0].ToString();
-                _tb_servo2_min.Text = _model.ServoMin[1].ToString();
-                _tb_servo3_min.Text = _model.ServoMin[2].ToString();
-                _tb_servo4_min.Text = _model.ServoMin[3].ToString();
-                _tb_servo5_min.Text = _model.ServoMin[4].ToString();
-                _tb_servo6_min.Text = _model.ServoMin[5].ToString();
-                _tb_servo1_max.Text = _model.ServoMax[0].ToString();
-                _tb_servo2_max.Text = _model.ServoMax[1].ToString();
-                _tb_servo3_max.Text = _model.ServoMax[2].ToString();
-                _tb_servo4_max.Text = _model.ServoMax[3].ToString();
-                _tb_servo5_max.Text = _model.ServoMax[4].ToString();
-                _tb_servo6_max.Text = _model.ServoMax[5].ToString();
-                _tb_servo1_neutral.Text = _model.ServoNeutral[0].ToString();
-                _tb_servo2_neutral.Text = _model.ServoNeutral[1].ToString();
-                _tb_servo3_neutral.Text = _model.ServoNeutral[2].ToString();
-                _tb_servo4_neutral.Text = _model.ServoNeutral[3].ToString();
-                _tb_servo5_neutral.Text = _model.ServoNeutral[4].ToString();
-                _tb_servo6_neutral.Text = _model.ServoNeutral[5].ToString();
+                _nud_gpsbasic_telemetry.Value = Math.Min(100, _model.TelemetryGpsBasic);
+                _nud_gyroaccraw_telemetry.Value = Math.Min(100, _model.TelemetryGyroAccRaw);
+                _nud_gyroaccproc_telemetry.Value = Math.Min(100, _model.TelemetryGyroAccProc);
+                _nud_ppm_telemetry.Value = Math.Min(100, _model.TelemetryPpm);
+                _nud_pressuretemp_telemetry.Value = Math.Min(100, _model.TelemetryPressureTemp);
+                _nud_attitude_telemetry.Value = Math.Min(100, _model.TelemetryAttitude);
+                _nud_control_telemetry.Value = Math.Min(100, _model.TelemetryControl);
+
+                _tb_initial_baudrate.Text = _model.GpsInitialBaudrate.ToString();
+                _tb_operational_baudrate.Text = _model.GpsOperationalBaudrate.ToString();
+
+                _pid_pitch_to_elevator.SetModel(_model.Pitch2ElevatorPidModel);
+                _pid_roll_to_aileron.SetModel(_model.Roll2AileronPidModel);
+                _pid_heading_to_roll.SetModel(_model.Heading2RollPidModel);
+                _pid_altitude_to_pitch.SetModel(_model.Altitude2PitchPidModel);
+
+                _cb_reverse_servo1.Checked = _model.ReverseServo1;
+                _cb_reverse_servo2.Checked = _model.ReverseServo2;
+                _cb_reverse_servo3.Checked = _model.ReverseServo3;
+                _cb_reverse_servo4.Checked = _model.ReverseServo4;
+                _cb_reverse_servo5.Checked = _model.ReverseServo5;
+                _cb_reverse_servo6.Checked = _model.ReverseServo6;
+
+                _rbPpm.Checked = _model.RcTransmitterFromPpm == 1 ? true : false;
+                _rbPwm.Checked = _model.RcTransmitterFromPpm == 0 ? true : false;
+
+                _nud_control_pitch_max.Value = (int)_model.ControlMaxPitch;
+                _nud_control_pitch_min.Value = (int)_model.ControlMinPitch;
+                _nud_control_roll_max.Value = (int)_model.ControlMaxRoll;
+                _nud_aileron_diff.Value = _model.ControlAileronDiff;
+
+                tb_speed.SpeedMS = _model.CruisingSpeed;
+                _dtb_waypoint_radius.DistanceM = _model.WaypointRadius;
+                cb_altitudehold.Checked = _model.StabilizationWithAltitudeHold;
+
+                if (_model.ControlMixing >= 0 && _model.ControlMixing < _cbControlMix.Items.Count)
+                    _cbControlMix.SelectedIndex = _model.ControlMixing;
+
+                switch (_model.ChannelRoll)
+                {
+                    case 1: _rbRollCh1.Checked = true; break;
+                    case 2: _rbRollCh2.Checked = true; break;
+                    case 3: _rbRollCh3.Checked = true; break;
+                    case 4: _rbRollCh4.Checked = true; break;
+                    case 5: _rbRollCh5.Checked = true; break;
+                    case 6: _rbRollCh6.Checked = true; break;
+                    case 7: _rbRollCh7.Checked = true; break;
+                }
+                switch (_model.ChannelPitch)
+                {
+                    case 1: _rbPitchCh1.Checked = true; break;
+                    case 2: _rbPitchCh2.Checked = true; break;
+                    case 3: _rbPitchCh3.Checked = true; break;
+                    case 4: _rbPitchCh4.Checked = true; break;
+                    case 5: _rbPitchCh5.Checked = true; break;
+                    case 6: _rbPitchCh6.Checked = true; break;
+                    case 7: _rbPitchCh7.Checked = true; break;
+                }
+                switch (_model.ChannelYaw)
+                {
+                    case 1: _rbYawCh1.Checked = true; break;
+                    case 2: _rbYawCh2.Checked = true; break;
+                    case 3: _rbYawCh3.Checked = true; break;
+                    case 4: _rbYawCh4.Checked = true; break;
+                    case 5: _rbYawCh5.Checked = true; break;
+                    case 6: _rbYawCh6.Checked = true; break;
+                    case 7: _rbYawCh7.Checked = true; break;
+                }
+                switch (_model.ChannelMotor)
+                {
+                    case 1: _rbMotorCh1.Checked = true; break;
+                    case 2: _rbMotorCh2.Checked = true; break;
+                    case 3: _rbMotorCh3.Checked = true; break;
+                    case 4: _rbMotorCh4.Checked = true; break;
+                    case 5: _rbMotorCh5.Checked = true; break;
+                    case 6: _rbMotorCh6.Checked = true; break;
+                    case 7: _rbMotorCh7.Checked = true; break;
+                }
+                switch (_model.ChannelAp)
+                {
+                    case 1: _rbApCh1.Checked = true; break;
+                    case 2: _rbApCh2.Checked = true; break;
+                    case 3: _rbApCh3.Checked = true; break;
+                    case 4: _rbApCh4.Checked = true; break;
+                    case 5: _rbApCh5.Checked = true; break;
+                    case 6: _rbApCh6.Checked = true; break;
+                    case 7: _rbApCh7.Checked = true; break;
+                }
+
+                if (_model.ServoMin != null) // EXTREMELY ANNOYING BUG
+                {
+                    _tb_servo1_min.Text = _model.ServoMin[0].ToString();
+                    _tb_servo2_min.Text = _model.ServoMin[1].ToString();
+                    _tb_servo3_min.Text = _model.ServoMin[2].ToString();
+                    _tb_servo4_min.Text = _model.ServoMin[3].ToString();
+                    _tb_servo5_min.Text = _model.ServoMin[4].ToString();
+                    _tb_servo6_min.Text = _model.ServoMin[5].ToString();
+                    _tb_servo1_max.Text = _model.ServoMax[0].ToString();
+                    _tb_servo2_max.Text = _model.ServoMax[1].ToString();
+                    _tb_servo3_max.Text = _model.ServoMax[2].ToString();
+                    _tb_servo4_max.Text = _model.ServoMax[3].ToString();
+                    _tb_servo5_max.Text = _model.ServoMax[4].ToString();
+                    _tb_servo6_max.Text = _model.ServoMax[5].ToString();
+                    _tb_servo1_neutral.Text = _model.ServoNeutral[0].ToString();
+                    _tb_servo2_neutral.Text = _model.ServoNeutral[1].ToString();
+                    _tb_servo3_neutral.Text = _model.ServoNeutral[2].ToString();
+                    _tb_servo4_neutral.Text = _model.ServoNeutral[3].ToString();
+                    _tb_servo5_neutral.Text = _model.ServoNeutral[4].ToString();
+                    _tb_servo6_neutral.Text = _model.ServoNeutral[5].ToString();
+                }
+
+                if (_model.ManualTrim)
+                    _rb_servos_neutral_configurable.Checked = true;
+                else
+                    _rb_serovs_neutral_auto.Checked = true;
+
+                _nudAutoThrottleMinPct.Value = _model.AutoThrottleMinPct;
+                _nudAutoThrottleMaxPct.Value = _model.AutoThrottleMaxPct;
+                _nudAutoThrottleCruisePct.Value = _model.AutoThrottleCruisePct;
+                _ntbAutoThrottlePGain.DoubleValue = _model.AutoThrottlePGain;
+                _cbMotor.SelectedIndex = _model.AutoThrottleEnabled ? 1 : 0;
+                if (_model.AltitudeMode-1 < _cbAltitudeMode.Items.Count)
+                    _cbAltitudeMode.SelectedIndex = _model.AltitudeMode - 1;
             }
-
-            if (_model.ManualTrim)
-                _rb_servos_neutral_configurable.Checked = true;
-            else
-                _rb_serovs_neutral_auto.Checked = true;
-
-            _nudAutoThrottleMinPct.Value = _model.AutoThrottleMinPct;
-            _nudAutoThrottleMaxPct.Value = _model.AutoThrottleMaxPct;
-            _nudAutoThrottleCruisePct.Value = _model.AutoThrottleCruisePct;
-            _ntbAutoThrottlePGain.DoubleValue = _model.AutoThrottlePGain;
-            _cbMotor.SelectedIndex = _model.AutoThrottleEnabled ? 1 : 0;
+            catch (Exception ex)
+            {
+                MessageBox.Show("The configuration data received from the module seems to be invalid. Did you do a firmware upgrade?\nNot all settings have been loaded.\nPlease carefully examin these config settings before writing them!", "Error");
+            }
         }
 
         /*!
@@ -222,6 +231,15 @@ namespace Gluonpilot
             _serial.AllConfigCommunicationReceived += new SerialCommunication_CSV.ReceiveAllConfigCommunicationFrame(ReceiveAllConfig);
             _serial.RcInputCommunicationReceived += new SerialCommunication_CSV.ReceiveRcInputCommunicationFrame(ReceiveRcInput);
             _serial.GpsBasicCommunicationReceived += new SerialCommunication.ReceiveGpsBasicCommunicationFrame(ReceiveGpsBasic);
+        }
+        public void Disconnect()
+        {
+            _serial.GyroAccRawCommunicationReceived -= new SerialCommunication_CSV.ReceiveGyroAccRawCommunicationFrame(ReceiveGyroAccRaw);
+            _serial.GyroAccProcCommunicationReceived -= new SerialCommunication_CSV.ReceiveGyroAccProcCommunicationFrame(ReceiveGyroAccProc);
+            _serial.PressureTempCommunicationReceived -= new SerialCommunication_CSV.ReceivePressureTempCommunicationFrame(ReceivePressureTemp);
+            _serial.AllConfigCommunicationReceived -= new SerialCommunication_CSV.ReceiveAllConfigCommunicationFrame(ReceiveAllConfig);
+            _serial.RcInputCommunicationReceived -= new SerialCommunication_CSV.ReceiveRcInputCommunicationFrame(ReceiveRcInput);
+            _serial.GpsBasicCommunicationReceived -= new SerialCommunication.ReceiveGpsBasicCommunicationFrame(ReceiveGpsBasic);
         }
 
 
@@ -471,7 +489,7 @@ namespace Gluonpilot
             if (_model.TelemetryGyroAccProc == 0)
                 _lbl_imuprocessed_hz.Text = "disabled";
             else
-                _lbl_imuprocessed_hz.Text = (20.0 / (double)_model.TelemetryGyroAccProc).ToString("F") + " Hz";
+                _lbl_imuprocessed_hz.Text = (10.0 / (double)_model.TelemetryGyroAccProc).ToString("F") + " Hz";
         }
 
         private void _nud_ppm_telemetry_ValueChanged(object sender, EventArgs e)
@@ -480,7 +498,7 @@ namespace Gluonpilot
             if (_model.TelemetryPpm == 0)
                 _lbl_rc_hz.Text = "disabled";
             else
-                _lbl_rc_hz.Text = (20.0 / (double)_model.TelemetryPpm).ToString("F") + " Hz";
+                _lbl_rc_hz.Text = (10.0 / (double)_model.TelemetryPpm).ToString("F") + " Hz";
         }
 
         private void _nud_pressuretemp_telemetry_ValueChanged(object sender, EventArgs e)
@@ -489,7 +507,7 @@ namespace Gluonpilot
             if (_model.TelemetryPressureTemp == 0)
                 _lbl_pressure_hz.Text = "disabled";
             else
-                _lbl_pressure_hz.Text = (20.0 / (double)_model.TelemetryPressureTemp).ToString("F") + " Hz";
+                _lbl_pressure_hz.Text = (10.0 / (double)_model.TelemetryPressureTemp).ToString("F") + " Hz";
         }
 
         private void _nud_gpsbasic_telemetry_ValueChanged(object sender, EventArgs e)
@@ -498,7 +516,7 @@ namespace Gluonpilot
             if (_model.TelemetryGpsBasic == 0)
                 _lbl_basicgps_hz.Text = "disabled";
             else
-                _lbl_basicgps_hz.Text = (20.0 / (double)_model.TelemetryGpsBasic).ToString("F") + " Hz";
+                _lbl_basicgps_hz.Text = (10.0 / (double)_model.TelemetryGpsBasic).ToString("F") + " Hz";
         }
         
         private void _nud_gyroacc_telemetry_ValueChanged(object sender, EventArgs e)
@@ -507,7 +525,7 @@ namespace Gluonpilot
             if (_model.TelemetryGyroAccRaw == 0)
                 _lbl_imu_raw_hz.Text = "disabled";
             else
-                _lbl_imu_raw_hz.Text = (20.0 / (double)_model.TelemetryGyroAccRaw).ToString("F") + " Hz";
+                _lbl_imu_raw_hz.Text = (10.0 / (double)_model.TelemetryGyroAccRaw).ToString("F") + " Hz";
         }
 
         private void _nud_attitude_telemetry_ValueChanged(object sender, EventArgs e)
@@ -516,7 +534,7 @@ namespace Gluonpilot
             if (_model.TelemetryAttitude == 0)
                 _lbl_attitude_hz.Text = "disabled";
             else
-                _lbl_attitude_hz.Text = (20.0 / (double)_model.TelemetryAttitude).ToString("F") + " Hz";
+                _lbl_attitude_hz.Text = (10.0 / (double)_model.TelemetryAttitude).ToString("F") + " Hz";
         }
         
         private void _nud_control_telemetry_ValueChanged(object sender, EventArgs e)
@@ -525,7 +543,7 @@ namespace Gluonpilot
             if (_model.TelemetryControl == 0)
                 _lbl_control_hz.Text = "disabled";
             else
-                _lbl_control_hz.Text = (20.0 / (double)_model.TelemetryControl).ToString("F") + " Hz";
+                _lbl_control_hz.Text = (10.0 / (double)_model.TelemetryControl).ToString("F") + " Hz";
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -537,7 +555,7 @@ namespace Gluonpilot
         private void _btn_telemetry_configuration_Click(object sender, EventArgs e)
         {
             _nud_attitude_telemetry.Value = 4;
-            _nud_control_telemetry.Value = 10;
+            _nud_control_telemetry.Value = 5;
             _nud_gpsbasic_telemetry.Value = 5;
             _nud_gyroaccproc_telemetry.Value = 6;
             _nud_gyroaccraw_telemetry.Value = 5;
@@ -559,13 +577,13 @@ namespace Gluonpilot
 
         private void _btn_telemetry_inflight_Click(object sender, EventArgs e)
         {
-            _nud_attitude_telemetry.Value = 7;
-            _nud_control_telemetry.Value = 10;
-            _nud_gpsbasic_telemetry.Value = 5;
-            _nud_gyroaccproc_telemetry.Value = 1; _nud_gyroaccproc_telemetry.Value = 0;
-            _nud_gyroaccraw_telemetry.Value = 1; _nud_gyroaccraw_telemetry.Value = 0;
-            _nud_pressuretemp_telemetry.Value = 1; _nud_pressuretemp_telemetry.Value = 0;
-            _nud_ppm_telemetry.Value = 1; _nud_ppm_telemetry.Value = 0;
+            _nud_attitude_telemetry.Value = 3;
+            _nud_control_telemetry.Value = 5;
+            _nud_gpsbasic_telemetry.Value = 3;
+            _nud_gyroaccproc_telemetry.Value = 1; _nud_gyroaccproc_telemetry.Value = 30;
+            _nud_gyroaccraw_telemetry.Value = 1; _nud_gyroaccraw_telemetry.Value = 20;
+            _nud_pressuretemp_telemetry.Value = 1; _nud_pressuretemp_telemetry.Value = 40;
+            _nud_ppm_telemetry.Value = 1; _nud_ppm_telemetry.Value = 60;
             if (_serial != null && _serial.IsOpen)
             {
                 _serial.SendWriteTelemetry(
@@ -678,8 +696,8 @@ namespace Gluonpilot
 
         private void ReceiveGpsBasic(GpsBasic gb)
         {
-            string s = "";
-            this.BeginInvoke(new D_UpdateGpsBasic(UpdateGpsBasic), new object[] { gb });
+            D_UpdateGpsBasic d = new D_UpdateGpsBasic(UpdateGpsBasic);
+            this.BeginInvoke(d, new object[] { gb });
         }
         private delegate void D_UpdateGpsBasic(GpsBasic gb);
         private void UpdateGpsBasic(GpsBasic gb)
@@ -834,19 +852,26 @@ namespace Gluonpilot
             _model.AutoThrottlePGain = _ntbAutoThrottlePGain.DoubleValue;
         }
 
+        private void _cbAltitudeMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _model.AltitudeMode = _cbAltitudeMode.SelectedIndex + 1;
+        }
 #endregion
 
 
-
-        private void label63_Click(object sender, EventArgs e)
+#region PID
+        private void _btnWritePitchPid_Click(object sender, EventArgs e)
         {
-
+            _serial.SendPidPitch2Elevator(_pid_pitch_to_elevator.P, _pid_pitch_to_elevator.I, _pid_pitch_to_elevator.D, _pid_pitch_to_elevator.Imin,
+                _pid_pitch_to_elevator.Imax, _pid_pitch_to_elevator.Dmin);
         }
+#endregion
 
-
-
-
-
+        private void _btnWriteRollPid_Click(object sender, EventArgs e)
+        {
+            _serial.SendPidRoll2Aileron(_pid_roll_to_aileron.P, _pid_roll_to_aileron.I, _pid_roll_to_aileron.D, _pid_roll_to_aileron.Imin,
+                _pid_roll_to_aileron.Imax, _pid_roll_to_aileron.Dmin);
+        }
 
     }
 }

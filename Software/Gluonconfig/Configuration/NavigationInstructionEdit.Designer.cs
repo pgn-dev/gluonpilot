@@ -65,9 +65,11 @@
             this._cb_opcode.FormattingEnabled = true;
             this._cb_opcode.Items.AddRange(new object[] {
             "- Structure -",
+            "CALL",
             "BLOCK",
             "EMPTY",
             "GOTO",
+            "RETURN",
             "",
             "- Waypoints -",
             "CIRCLE",
@@ -85,6 +87,8 @@
             "- Servo -",
             "SERVO_SET",
             "SERVO_TRIGGER",
+            "SERVO_TRIGGER_START",
+            "SERVO_TRIGGER_STOP",
             "",
             "- Loiter -",
             "SET_LOITER_POSITION",
@@ -171,6 +175,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NavigationInstructionEdit";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit navigation instruction";
             this.Resize += new System.EventHandler(this.NavigationInstructionEdit_Resize);
             this._gbParameters.ResumeLayout(false);

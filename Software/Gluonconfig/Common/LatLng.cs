@@ -13,6 +13,9 @@ namespace Common
         public double Lat;
         public double Lng;
 
+        public double LatRad { get { return Lat * Math.PI / 180.0; } }
+        public double LngRad { get { return Lng * Math.PI / 180.0; } }
+
         public LatLng(double Lat, double Lng)
         {
             this.Lat = Lat;

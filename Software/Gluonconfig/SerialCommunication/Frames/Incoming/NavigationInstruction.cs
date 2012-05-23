@@ -43,7 +43,11 @@ namespace Communication.Frames.Incoming
             LOITER_CIRCLE = 25,
             CIRCLE_TO_ABS = 26,
             CIRCLE_TO_REL = 27,
-            SET_BATTERY_ALARM = 28
+            SET_BATTERY_ALARM = 28,
+            CALL = 29,
+            RETURN = 30,
+            SERVO_TRIGGER_START = 31,
+            SERVO_TRIGGER_STOP = 32
         };
 
         public navigation_command opcode;
@@ -154,6 +158,12 @@ namespace Communication.Frames.Incoming
             case navigation_command.GOTO:	   // line number
                 s += "Goto(" + (a+1) + ")";
                 break;
+            case navigation_command.RETURN:	   // line number
+                s += "Return";
+                break;
+            case navigation_command.CALL:	   // line number
+                s += "Call(" + (a + 1) + ")";
+                break;
             case navigation_command.CIRCLE_ABS:    // x, y, radius, height <-- should be inside a while  12 B
                 s += "Circle[Absolute](radius: " + a + "m, alt: " + b + "m, lat: " + RAD2DEG(X).ToString("F5") + "°, lon: " + RAD2DEG(y).ToString("F5") + "°)";
                 break;
@@ -207,6 +217,15 @@ namespace Communication.Frames.Incoming
                 break;
             case navigation_command.SET_BATTERY_ALARM:
                 s += "SetBatteryAlarm(Warning < " + X + "V, Panic < " + Y + "V -> " + a + ")";
+                break;
+            case navigation_command.SERVO_TRIGGER_STOP:
+                s += "ServoTriggerStop()";
+                break;
+            case navigation_command.SERVO_TRIGGER_START:
+                if (Math.Round(y) == 1)
+                    s += "ServoTriggerStart(channel: " + (a + 1) + ", CHDK mode)";
+                else
+                    s += "ServoTriggerStart(channel: " + (a + 1) + ", position: " + b + "us, delay: " + x + "s)";
                 break;
             default:
                 s += "Unknown/Unsupported (" + (int)opcode + " : " +  X + ", " + Y + ", " + a + ", " + b + ")";

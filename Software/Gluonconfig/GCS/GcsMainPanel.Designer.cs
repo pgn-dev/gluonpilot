@@ -7,19 +7,6 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         #region Component Designer generated code
 
         /// <summary> 
@@ -28,7 +15,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GcsMainPanel));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.label7 = new System.Windows.Forms.Label();
@@ -55,6 +41,8 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this._btn_ge_server = new System.Windows.Forms.ToolStripButton();
             this._btn_goto_ge = new System.Windows.Forms.ToolStripButton();
+            this._lblRoll = new System.Windows.Forms.Label();
+            this._lblPitch = new System.Windows.Forms.Label();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -70,6 +58,8 @@
             // 
             // toolStripContainer1.ContentPanel
             // 
+            this.toolStripContainer1.ContentPanel.Controls.Add(this._lblPitch);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this._lblRoll);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.label7);
             this.toolStripContainer1.ContentPanel.Controls.Add(this._tb_battvoltage);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.label6);
@@ -158,19 +148,21 @@
             // 
             // _dtb_altitude
             // 
-            this._dtb_altitude.DistanceM = 0;
+            this._dtb_altitude.Color = System.Drawing.SystemColors.Window;
+            this._dtb_altitude.DistanceM = 0D;
             this._dtb_altitude.Location = new System.Drawing.Point(93, 29);
             this._dtb_altitude.Name = "_dtb_altitude";
             this._dtb_altitude.ReadOnly = false;
             this._dtb_altitude.Size = new System.Drawing.Size(110, 21);
             this._dtb_altitude.TabIndex = 10;
+            this._dtb_altitude.UseAltitudeColoring = false;
             // 
             // _stb_speed
             // 
             this._stb_speed.Location = new System.Drawing.Point(93, 55);
             this._stb_speed.Name = "_stb_speed";
             this._stb_speed.Size = new System.Drawing.Size(110, 21);
-            this._stb_speed.SpeedMS = 0;
+            this._stb_speed.SpeedMS = 0D;
             this._stb_speed.TabIndex = 9;
             // 
             // label4
@@ -212,10 +204,11 @@
             // artificialHorizon
             // 
             this.artificialHorizon.AutoScroll = true;
+            this.artificialHorizon.CornersRadius = 35F;
             this.artificialHorizon.Location = new System.Drawing.Point(225, 7);
             this.artificialHorizon.Name = "artificialHorizon";
-            this.artificialHorizon.pitch_angle = 0;
-            this.artificialHorizon.roll_angle = 0;
+            this.artificialHorizon.pitch_angle = 0D;
+            this.artificialHorizon.roll_angle = 0D;
             this.artificialHorizon.Size = new System.Drawing.Size(145, 138);
             this.artificialHorizon.TabIndex = 3;
             // 
@@ -254,13 +247,13 @@
             this._zgc_height.Location = new System.Drawing.Point(2, 4);
             this._zgc_height.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this._zgc_height.Name = "_zgc_height";
-            this._zgc_height.ScrollGrace = 0;
-            this._zgc_height.ScrollMaxX = 0;
-            this._zgc_height.ScrollMaxY = 0;
-            this._zgc_height.ScrollMaxY2 = 0;
-            this._zgc_height.ScrollMinX = 0;
-            this._zgc_height.ScrollMinY = 0;
-            this._zgc_height.ScrollMinY2 = 0;
+            this._zgc_height.ScrollGrace = 0D;
+            this._zgc_height.ScrollMaxX = 0D;
+            this._zgc_height.ScrollMaxY = 0D;
+            this._zgc_height.ScrollMaxY2 = 0D;
+            this._zgc_height.ScrollMinX = 0D;
+            this._zgc_height.ScrollMinY = 0D;
+            this._zgc_height.ScrollMinY2 = 0D;
             this._zgc_height.Size = new System.Drawing.Size(578, 131);
             this._zgc_height.TabIndex = 0;
             // 
@@ -284,13 +277,13 @@
             this._zgc_speed.Location = new System.Drawing.Point(3, 5);
             this._zgc_speed.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this._zgc_speed.Name = "_zgc_speed";
-            this._zgc_speed.ScrollGrace = 0;
-            this._zgc_speed.ScrollMaxX = 0;
-            this._zgc_speed.ScrollMaxY = 0;
-            this._zgc_speed.ScrollMaxY2 = 0;
-            this._zgc_speed.ScrollMinX = 0;
-            this._zgc_speed.ScrollMinY = 0;
-            this._zgc_speed.ScrollMinY2 = 0;
+            this._zgc_speed.ScrollGrace = 0D;
+            this._zgc_speed.ScrollMaxX = 0D;
+            this._zgc_speed.ScrollMaxY = 0D;
+            this._zgc_speed.ScrollMaxY2 = 0D;
+            this._zgc_speed.ScrollMinX = 0D;
+            this._zgc_speed.ScrollMinY = 0D;
+            this._zgc_speed.ScrollMinY2 = 0D;
             this._zgc_speed.Size = new System.Drawing.Size(578, 131);
             this._zgc_speed.TabIndex = 1;
             // 
@@ -323,7 +316,7 @@
             this._btn_goto_ge});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(214, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(223, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // _btn_ge_server
@@ -331,7 +324,7 @@
             this._btn_ge_server.Image = ((System.Drawing.Image)(resources.GetObject("_btn_ge_server.Image")));
             this._btn_ge_server.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._btn_ge_server.Name = "_btn_ge_server";
-            this._btn_ge_server.Size = new System.Drawing.Size(149, 22);
+            this._btn_ge_server.Size = new System.Drawing.Size(155, 22);
             this._btn_ge_server.Text = "Start google earth server";
             this._btn_ge_server.Click += new System.EventHandler(this._btn_ge_server_Click);
             // 
@@ -341,9 +334,27 @@
             this._btn_goto_ge.Image = ((System.Drawing.Image)(resources.GetObject("_btn_goto_ge.Image")));
             this._btn_goto_ge.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._btn_goto_ge.Name = "_btn_goto_ge";
-            this._btn_goto_ge.Size = new System.Drawing.Size(53, 22);
+            this._btn_goto_ge.Size = new System.Drawing.Size(56, 22);
             this._btn_goto_ge.Text = "Open";
             this._btn_goto_ge.Click += new System.EventHandler(this._btn_goto_ge_Click);
+            // 
+            // _lblRoll
+            // 
+            this._lblRoll.AutoSize = true;
+            this._lblRoll.Location = new System.Drawing.Point(234, 148);
+            this._lblRoll.Name = "_lblRoll";
+            this._lblRoll.Size = new System.Drawing.Size(16, 13);
+            this._lblRoll.TabIndex = 18;
+            this._lblRoll.Text = "...";
+            // 
+            // _lblPitch
+            // 
+            this._lblPitch.AutoSize = true;
+            this._lblPitch.Location = new System.Drawing.Point(325, 148);
+            this._lblPitch.Name = "_lblPitch";
+            this._lblPitch.Size = new System.Drawing.Size(16, 13);
+            this._lblPitch.TabIndex = 19;
+            this._lblPitch.Text = "...";
             // 
             // GcsMainPanel
             // 
@@ -396,5 +407,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox _tb_battvoltage;
+        private System.Windows.Forms.Label _lblPitch;
+        private System.Windows.Forms.Label _lblRoll;
     }
 }

@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="_btnCancel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAjRJREFUOE+Vk+1P
+        UmEYxl1b21l/Q0W5msuT01xvpoBHRYhp2qa8C8IhURMQOIOhxKoPtfWX9HdpVsabkRzg8ByubjDQs2Mf
+        /PBsz3ae63ff93XdZwDAwFVOY128cfG9VixlDJAy/P+AjUCIr3vX4jWH29R7cw7oiDN7aKezUONJHaTh
+        D/KNYBjNzW38eb3ytbq49KADOQP8EyP/AW06akJCa2unD6mvrfNUHa1oHMjl0bmfWO3x8ozl2hkgleba
+        CUlt770DPn+Bms11AGgGRb7uC/BUHcpODKDv9UAQJ/MvWVmYu37eAUHUWIJjb2NMlTLAx09gqTQaoTCo
+        OpTtKJDd794rFhuJZzm9BwRpRba4prjBWtFdIP8e2M+TMAdksqj7/KjMWVl5eqYv1nTQI1K7nOxZU5Gl
+        cbx+wOUFpDQqs/NqySxoxJcCZLevExVAacDhBlacwG6S5rahMDGlS0ezB7LLy8seH5RwBEhKJEwBMRqH
+        DKyvOlE2mvFzbFwD6QNqTg8vu71QxA2AYpRdHpBZrDhlUk8Xl4HIJmqvllF4/BRHQ8N9SBdAm8VTdSih
+        N1Q1AZlaJ7NYcdLEFZ5NcMfjT1jVYgVCIk5tdhyPjOLwzmAX0gXQZgk1hwtKUIS86gKZxYovjH3DfoyM
+        cd+HH7LfZgGyfQG/Rh/h4JZB0JhImyVUF5ZQMk2rZJbO7aP7Q9y3wXvsoliXQsloFgrPJ3XiXsSHhrvc
+        wc3b3cqXLtJVfuve279yu6THdnerNQAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="_btnSaveAndClose.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAbZJREFUOE+lkmsv
+        QnEcx3kk5724lwhz21iuSxE5nMg1midUp9I9hrkcD839OltorsNsHirJeA3mTUhf/86mjTKas52H38vv
+        8/+mAkj51xc1+M+ftFi52cA1rdTYPkOTMmjZqOd0JxoMHjGQcuUsf/5f6zev13HDx92Yf3LCc2eCeleJ
+        UneB+U8GirVaTutTY/bRgZlHG7r2WlHmKYTEKhTEDLTXTGX/Bd37vZF8tZaLVp4O2TAVsvLJJU5xuHA8
+        TxA7QXvFFPed06/srQ6Mt3nk04TA4gYOOzH1MI7JBwuYnRYUO/LDBZZcXswbDF52VvWdtb9M+FnMhuxQ
+        7crCBNaIbFk6039AYyJogeeeRce2AkV2UVhszomJeYPeU1W6xtcG/c0QFp7d8PhN0B6roTvVwOU3wnlv
+        BL0lh8QmfM83fRXHTqD35RRJhu5Mw985GTTDEdDD4ddDtdkUhRURsdlfkuN2QGBRsiUperztcAYMsN6N
+        om1dBgIrIjJmJRTH7UC6WEFVz5WRygoo1xpBYEWEhswfxQmHRN6XKnGJQWC95ekz034bWsIhEVhU7ljG
+        r+KkpvxTkw+TOHxqGWjxLQAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>2.</value>
+  </data>
+  <data name="label35.Text" xml:space="preserve">
+    <value>Auslegung</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Roll Empfindlichkeit</value>
+  </data>
+  <data name="_cbMixing.Items3" xml:space="preserve">
+    <value>Quadrocopter</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Tuning</value>
+  </data>
+  <data name="_cbMixing.Items2" xml:space="preserve">
+    <value>Delta-</value>
+  </data>
+  <data name="_cbInputFunction6.Items" xml:space="preserve">
+    <value>Nicken</value>
+  </data>
+  <data name="_lblInterpretation4.Text" xml:space="preserve">
+    <value>   </value>
+  </data>
+  <data name="label34.Text" xml:space="preserve">
+    <value>Funktion</value>
+  </data>
+  <data name="_cbInputFunction5.Items" xml:space="preserve">
+    <value>Nicken</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>Alle Änderungen werden sofort übernommen!</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Eingabe</value>
+  </data>
+  <data name="_cbInputFunction3.Items2" xml:space="preserve">
+    <value>Gieren</value>
+  </data>
+  <data name="_btnCalibrateGyroscopes.Text" xml:space="preserve">
+    <value>Gyroskope Kalibrieren</value>
+  </data>
+  <data name="_lblInterpretation3.Text" xml:space="preserve">
+    <value>   </value>
+  </data>
+  <data name="_cbAutothrottle.Text" xml:space="preserve">
+    <value>automatische Gas aktivieren</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Kalibrierung</value>
+  </data>
+  <data name="_cbInputFunction2.Items" xml:space="preserve">
+    <value>Nicken</value>
+  </data>
+  <data name="_cbInputFunction1.Items" xml:space="preserve">
+    <value>Nicken</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Mischen</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>4.</value>
+  </data>
+  <data name="_lblFunctionOut3.Text" xml:space="preserve">
+    <value>Höhenruder</value>
+  </data>
+  <data name="_cbInputFunction5.Items3" xml:space="preserve">
+    <value>Motor</value>
+  </data>
+  <data name="_cbInputFunction4.Items3" xml:space="preserve">
+    <value>Motor</value>
+  </data>
+  <data name="label26.Text" xml:space="preserve">
+    <value>3.</value>
+  </data>
+  <data name="_lblFunctionOut4.Text" xml:space="preserve">
+    <value>Motor</value>
+  </data>
+  <data name="_lblInterpretation1.Text" xml:space="preserve">
+    <value>   </value>
+  </data>
+  <data name="_cbMixing.Items" xml:space="preserve">
+    <value>Querruder</value>
+  </data>
+  <data name="_lblCruiseThrottle.Text" xml:space="preserve">
+    <value>(80 %)</value>
+  </data>
+  <data name="_cbInputFunction2.Items3" xml:space="preserve">
+    <value>Motor</value>
+  </data>
+  <data name="_cbInputFunction3.Items" xml:space="preserve">
+    <value>Nicken</value>
+  </data>
+  <data name="_cbInputFunction1.Items3" xml:space="preserve">
+    <value>Motor</value>
+  </data>
+  <data name="_lblInterpretation2.Text" xml:space="preserve">
+    <value>   </value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Nick Empfindlichkeit</value>
+  </data>
+  <data name="_cbInputFunction6.Items5" xml:space="preserve">
+    <value>(keine)</value>
+  </data>
+  <data name="_cbInputFunction5.Items5" xml:space="preserve">
+    <value>(keine)</value>
+  </data>
+  <data name="_lblPitchSensitivity.Text" xml:space="preserve">
+    <value>(0.5)</value>
+  </data>
+  <data name="_cbInputFunction4.Items5" xml:space="preserve">
+    <value>(keine)</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>sicher Stellen, dass das Modul richtig Kalibriert ist wenn es im Modell ist</value>
+  </data>
+  <data name="_cbInputFunction4.Items" xml:space="preserve">
+    <value>Nicken</value>
+  </data>
+  <data name="label30.Text" xml:space="preserve">
+    <value>6.</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Ausgabe</value>
+  </data>
+  <data name="_cbInputFunction2.Items5" xml:space="preserve">
+    <value>(keine)</value>
+  </data>
+  <data name="_cbInputFunction3.Items3" xml:space="preserve">
+    <value>Motor</value>
+  </data>
+  <data name="_cbInputFunction1.Items5" xml:space="preserve">
+    <value>(keine)</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>Hier solltest du die Anderung der Steuerknüppel des Sender sehen.
+Wenn die "Interpretation" falsch ist, ändern die einstellungen des RC-Senders.
+</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>Inv</value>
+  </data>
+  <data name="_btnReloadFactorySettings.Text" xml:space="preserve">
+    <value>Laden der Werkseinstellung</value>
+  </data>
+  <data name="label27.Text" xml:space="preserve">
+    <value>2.</value>
+  </data>
+  <data name="_btnCalibrateAccelerometers.Text" xml:space="preserve">
+    <value>Beschleunigungssensoren Kalibrieren</value>
+  </data>
+  <data name="_cbInputFunction6.Items4" xml:space="preserve">
+    <value>Modus</value>
+  </data>
+  <data name="_cbInputFunction5.Items4" xml:space="preserve">
+    <value>Modus</value>
+  </data>
+  <data name="_lblFunctionOut5.Text" xml:space="preserve">
+    <value>Motor</value>
+  </data>
+  <data name="_cbInputFunction4.Items4" xml:space="preserve">
+    <value>Modus</value>
+  </data>
+  <data name="_cbInputFunction3.Items5" xml:space="preserve">
+    <value>(keine)</value>
+  </data>
+  <data name="_lblFunctionOut1.Text" xml:space="preserve">
+    <value>Querruder 1</value>
+  </data>
+  <data name="_cbInputFunction6.Items1" xml:space="preserve">
+    <value>Rollen</value>
+  </data>
+  <data name="_cbInputFunction2.Items4" xml:space="preserve">
+    <value>Modus</value>
+  </data>
+  <data name="_cbInputFunction1.Items4" xml:space="preserve">
+    <value>Modus</value>
+  </data>
+  <data name="label23.Text" xml:space="preserve">
+    <value>Anpassen der Nick und Roll empfindlichkeit wenn zu schnell oder zu unruhig im Stapilisierten oder Autopilot Modus</value>
+  </data>
+  <data name="_cbMixing.Items1" xml:space="preserve">
+    <value>Delta +</value>
+  </data>
+  <data name="_cbInputFunction6.Items3" xml:space="preserve">
+    <value>Motor</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>1.</value>
+  </data>
+  <data name="_cbInputFunction3.Items4" xml:space="preserve">
+    <value>Modus</value>
+  </data>
+  <data name="_btnCancel.Text" xml:space="preserve">
+    <value>Abbrechen &amp;&amp; ursprüngliche Einstellungen laden</value>
+  </data>
+  <data name="label25.Text" xml:space="preserve">
+    <value>4.</value>
+  </data>
+  <data name="_cbInputFunction5.Items1" xml:space="preserve">
+    <value>Rollen</value>
+  </data>
+  <data name="label32.Text" xml:space="preserve">
+    <value>5.</value>
+  </data>
+  <data name="_cbInputFunction4.Items1" xml:space="preserve">
+    <value>Rollen</value>
+  </data>
+  <data name="label24.Text" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="_lblFunctionOut6.Text" xml:space="preserve">
+    <value>Motor</value>
+  </data>
+  <data name="_cbInputFunction2.Items1" xml:space="preserve">
+    <value>Rollen</value>
+  </data>
+  <data name="label28.Text" xml:space="preserve">
+    <value>1.</value>
+  </data>
+  <data name="label31.Text" xml:space="preserve">
+    <value>6.</value>
+  </data>
+  <data name="label29.Text" xml:space="preserve">
+    <value>5.</value>
+  </data>
+  <data name="_cbInputFunction1.Items1" xml:space="preserve">
+    <value>Rollen</value>
+  </data>
+  <data name="_lblInterpretation5.Text" xml:space="preserve">
+    <value>   </value>
+  </data>
+  <data name="_btnSaveAndClose.Text" xml:space="preserve">
+    <value>Schließen &amp;&amp; Einstellungen brennen</value>
+  </data>
+  <data name="_cbMixing.Items4" xml:space="preserve">
+    <value>### Querruder-Flaperons auf Scherung</value>
+  </data>
+  <data name="_lblInterpretation6.Text" xml:space="preserve">
+    <value>   </value>
+  </data>
+  <data name="_lblRollSensitivity.Text" xml:space="preserve">
+    <value>(0.5)</value>
+  </data>
+  <data name="_cbInputFunction3.Items1" xml:space="preserve">
+    <value>Rollen</value>
+  </data>
+  <data name="label33.Text" xml:space="preserve">
+    <value>Aktuellen Wert</value>
+  </data>
+  <data name="_cbInputFunction6.Items2" xml:space="preserve">
+    <value>Gieren</value>
+  </data>
+  <data name="_cbInputFunction5.Items2" xml:space="preserve">
+    <value>Gieren</value>
+  </data>
+  <data name="_cbInputFunction4.Items2" xml:space="preserve">
+    <value>Gieren</value>
+  </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>Funktion</value>
+  </data>
+  <data name="_cbInputFunction1.Items2" xml:space="preserve">
+    <value>Gieren</value>
+  </data>
+  <data name="_lblFunctionOut2.Text" xml:space="preserve">
+    <value>Querruder 2</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>3.</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>Normal Gas</value>
+  </data>
+  <data name="label18.Text" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="_cbInputFunction2.Items2" xml:space="preserve">
+    <value>Gieren</value>
+  </data>
+</root>

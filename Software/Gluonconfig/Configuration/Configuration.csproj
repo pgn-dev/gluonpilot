@@ -51,6 +51,26 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -117,6 +137,12 @@
     </Compile>
     <Compile Include="NavigationCommands\Block.Designer.cs">
       <DependentUpon>Block.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\Call.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\Call.Designer.cs">
+      <DependentUpon>Call.cs</DependentUpon>
     </Compile>
     <Compile Include="NavigationCommands\Circle.cs">
       <SubType>UserControl</SubType>
@@ -288,11 +314,29 @@
     <Compile Include="NavigationCommands\NavigationCommandEditor.Designer.cs">
       <DependentUpon>NavigationCommandEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="NavigationCommands\Return.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\Return.Designer.cs">
+      <DependentUpon>Return.cs</DependentUpon>
+    </Compile>
     <Compile Include="NavigationCommands\ServoSet.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="NavigationCommands\ServoSet.Designer.cs">
       <DependentUpon>ServoSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\ServoStartTrigger.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\ServoStartTrigger.Designer.cs">
+      <DependentUpon>ServoStartTrigger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\ServoStopTrigger.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\ServoStopTrigger.Designer.cs">
+      <DependentUpon>ServoStopTrigger.cs</DependentUpon>
     </Compile>
     <Compile Include="NavigationCommands\ServoTrigger.cs">
       <SubType>UserControl</SubType>
@@ -411,6 +455,9 @@
     <EmbeddedResource Include="NavigationCommands\Block.resx">
       <DependentUpon>Block.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\Call.resx">
+      <DependentUpon>Call.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\Circle.resx">
       <DependentUpon>Circle.cs</DependentUpon>
     </EmbeddedResource>
@@ -491,8 +538,17 @@
     <EmbeddedResource Include="NavigationCommands\NavigationCommandEditor.resx">
       <DependentUpon>NavigationCommandEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\Return.resx">
+      <DependentUpon>Return.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\ServoSet.resx">
       <DependentUpon>ServoSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\ServoStartTrigger.resx">
+      <DependentUpon>ServoStartTrigger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\ServoStopTrigger.resx">
+      <DependentUpon>ServoStopTrigger.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\ServoTrigger.resx">
       <DependentUpon>ServoTrigger.cs</DependentUpon>

@@ -23,7 +23,9 @@ namespace Configuration
         {
             InitializeComponent();
 
-            Disconnect();
+            _btn_read.Enabled = false;
+            _btn_download.Enabled = false;
+            _btn_format.Enabled = false;
         }
 
         private void xMLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -63,6 +65,9 @@ namespace Configuration
             _btn_read.Enabled = false;
             _btn_download.Enabled = false;
             _btn_format.Enabled = false;
+
+            serial.DatalogTableCommunicationReceived -= new SerialCommunication.ReceiveDatalogTableCommunicationFrame(ReceiveDatalogTable);
+            serial.DatalogLineCommunicationReceived -= new SerialCommunication.ReceiveDatalogLineCommunicationFrame(ReceiveDatalogLine);
         }
 
         private void _btn_read_Click(object sender, EventArgs e)

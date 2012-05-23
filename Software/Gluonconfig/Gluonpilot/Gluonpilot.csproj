@@ -135,12 +135,15 @@
     </Compile>
     <None Include="..\Models\EasyStar\easystar.x">
       <Link>Models\Easystar\easystar.x</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\Models\FunJet\funjet.x">
       <Link>Models\Funjet\funjet.x</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\Models\MQ-9 Reaper\MQ-9 Reaper.x">
       <Link>Models\Reaper\MQ-9 Reaper.x</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.config">
       <SubType>Designer</SubType>
@@ -180,27 +183,35 @@
   <ItemGroup>
     <Content Include="..\Models\EasyStar\easystar.jpg">
       <Link>Models\Easystar\easystar.jpg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Models\EasyStar\texture.jpg">
       <Link>Models\Easystar\texture.jpg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Models\FunJet\funjet.jpg">
       <Link>Models\Funjet\funjet.jpg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Models\FunJet\texture.jpg">
       <Link>Models\Funjet\texture.jpg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Models\MQ-9 Reaper\Missile01.jpg">
       <Link>Models\Reaper\Missile01.jpg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Models\MQ-9 Reaper\Missile02.jpg">
       <Link>Models\Reaper\Missile02.jpg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Models\MQ-9 Reaper\Sketchy_Crosshatch_Wavy.jpg">
       <Link>Models\Reaper\Sketchy_Crosshatch_Wavy.jpg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Models\MQ-9 Reaper\Texture.jpg">
       <Link>Models\Reaper\Texture.jpg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="ds30loader\devices.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -22,10 +22,10 @@
             this._btn_readloggings = new System.Windows.Forms.Button();
             this._dgv_datalog = new System.Windows.Forms.DataGridView();
             this._lv_datalogtable = new System.Windows.Forms.ListView();
-            this.columnHeaderIndex = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderPage = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderDate = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderTime = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderIndex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderPage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this._btn_read = new System.Windows.Forms.ToolStripButton();
             this._btn_download = new System.Windows.Forms.ToolStripButton();
@@ -153,7 +153,7 @@
             this._pb});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(465, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(513, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // _btn_read
@@ -161,7 +161,7 @@
             this._btn_read.Image = ((System.Drawing.Image)(resources.GetObject("_btn_read.Image")));
             this._btn_read.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._btn_read.Name = "_btn_read";
-            this._btn_read.Size = new System.Drawing.Size(81, 22);
+            this._btn_read.Size = new System.Drawing.Size(84, 22);
             this._btn_read.Text = "Read index";
             this._btn_read.ToolTipText = "Read loggings table";
             this._btn_read.Click += new System.EventHandler(this._btn_read_Click);
@@ -171,7 +171,7 @@
             this._btn_download.Image = ((System.Drawing.Image)(resources.GetObject("_btn_download.Image")));
             this._btn_download.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._btn_download.Name = "_btn_download";
-            this._btn_download.Size = new System.Drawing.Size(74, 22);
+            this._btn_download.Size = new System.Drawing.Size(81, 22);
             this._btn_download.Text = "Download";
             this._btn_download.ToolTipText = "Download selected logging";
             this._btn_download.Click += new System.EventHandler(this._btn_download_Click);
@@ -186,7 +186,7 @@
             this._btn_open.Image = ((System.Drawing.Image)(resources.GetObject("_btn_open.Image")));
             this._btn_open.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._btn_open.Name = "_btn_open";
-            this._btn_open.Size = new System.Drawing.Size(53, 22);
+            this._btn_open.Size = new System.Drawing.Size(56, 22);
             this._btn_open.Text = "Open";
             this._btn_open.Click += new System.EventHandler(this._btn_open_Click);
             // 
@@ -208,7 +208,7 @@
             this._btn_kml_track});
             this.xMLToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("xMLToolStripMenuItem.Image")));
             this.xMLToolStripMenuItem.Name = "xMLToolStripMenuItem";
-            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.xMLToolStripMenuItem.Text = "KML";
             this.xMLToolStripMenuItem.Click += new System.EventHandler(this.xMLToolStripMenuItem_Click);
             // 
@@ -217,7 +217,7 @@
             this._btn_kml_classic.Image = ((System.Drawing.Image)(resources.GetObject("_btn_kml_classic.Image")));
             this._btn_kml_classic.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this._btn_kml_classic.Name = "_btn_kml_classic";
-            this._btn_kml_classic.Size = new System.Drawing.Size(221, 126);
+            this._btn_kml_classic.Size = new System.Drawing.Size(214, 126);
             this._btn_kml_classic.Text = "Classic";
             this._btn_kml_classic.Click += new System.EventHandler(this._btn_kml_classic_Click);
             // 
@@ -226,7 +226,7 @@
             this._btn_kml_track.Image = ((System.Drawing.Image)(resources.GetObject("_btn_kml_track.Image")));
             this._btn_kml_track.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this._btn_kml_track.Name = "_btn_kml_track";
-            this._btn_kml_track.Size = new System.Drawing.Size(221, 126);
+            this._btn_kml_track.Size = new System.Drawing.Size(214, 126);
             this._btn_kml_track.Text = "Track";
             this._btn_kml_track.Click += new System.EventHandler(this._btn_kml_track_Click);
             // 
@@ -234,7 +234,7 @@
             // 
             this.xMLToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("xMLToolStripMenuItem1.Image")));
             this.xMLToolStripMenuItem1.Name = "xMLToolStripMenuItem1";
-            this.xMLToolStripMenuItem1.Size = new System.Drawing.Size(104, 22);
+            this.xMLToolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
             this.xMLToolStripMenuItem1.Text = "XML";
             this.xMLToolStripMenuItem1.Click += new System.EventHandler(this.xMLToolStripMenuItem1_Click);
             // 
@@ -248,7 +248,7 @@
             this._btn_format.Image = ((System.Drawing.Image)(resources.GetObject("_btn_format.Image")));
             this._btn_format.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._btn_format.Name = "_btn_format";
-            this._btn_format.Size = new System.Drawing.Size(61, 22);
+            this._btn_format.Size = new System.Drawing.Size(65, 22);
             this._btn_format.Text = "Format";
             this._btn_format.ToolTipText = "Format flash used for datalogging";
             this._btn_format.Click += new System.EventHandler(this._btn_format_Click);

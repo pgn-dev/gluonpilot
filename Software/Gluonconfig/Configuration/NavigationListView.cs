@@ -39,7 +39,11 @@ namespace Configuration
                 lvi.SubItems.Add(new ListViewItem.ListViewSubItem());
             }
 
-            Disconnect();
+            _btn_burn.Enabled = false;
+            _btn_read.Enabled = false;
+            _btn_reload.Enabled = false;
+            _btn_save.Enabled = false;
+            _btn_format.Enabled = false;
             _gb_edit.Enabled = false;
             _btn_to_kml.Enabled = true;
         }
@@ -74,7 +78,7 @@ namespace Configuration
 
         public void Disconnect()
         {
-            serial = null;
+            serial.NavigationInstructionCommunicationReceived -= new SerialCommunication.ReceiveNavigationInstructionCommunicationFrame(_serial_NavigationInstructionCommunicationReceived);
 
             _btn_burn.Enabled = false;
             _btn_read.Enabled = false;
@@ -95,6 +99,8 @@ namespace Configuration
                 Console.WriteLine("ERROR: navigation line = 0");
             else
             {
+                while (_lv_navigation.Items.Count <= ni.line)
+                    _lv_navigation.Items.Add(new ListViewItem());
                 _lv_navigation.Items[ni.line - 1].Tag = ni;
                 if (_lv_navigation.Items[ni.line - 1].SubItems.Count <= 1)
                 {
