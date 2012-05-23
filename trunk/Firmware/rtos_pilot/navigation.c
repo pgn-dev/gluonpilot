@@ -377,12 +377,16 @@ ScriptHandlerReturn navigation_handle_gluonscriptcommand (struct GluonscriptCode
 	        float altitude_agl = (sensor_data.pressure_height - navigation_data.home_pressure_height);
 	        //float desired_pitch = -fabs(atanf(altitude_agl / (nav_leg_length*(1.0-nav_leg_progress))));
 	        float desired_pitch = -fabs(atanf(altitude_agl / (nav_leg_length*(1.0-nav_leg_progress_aim))));
+
 	        navigation_data.desired_altitude_agl = desired_pitch / config.control.pid_altitude2pitch.p_gain + altitude_agl;
+
+            //if (desired_pitch > DEG2RAD(-3.0) && altitude_agl > 5 && sensor_data.gps.speed_ms > 1.0)
+	        //	navigation_data.desired_throttle_pct = 10;
+
+            if (config.control.altitude_mode == GPS_ABSOLUTE)
+                navigation_data.desired_altitude_agl += navigation_data.home_gps_height;
 	        
-	        if (desired_pitch > DEG2RAD(-3.0) && altitude_agl > 5 && sensor_data.gps.speed_ms > 1.0)
-	        	navigation_data.desired_throttle_pct = 10;
-	        
-	        printf("\r\n%d: %d %d (%d-%d | %d)\r\n", (int)(nav_leg_progress*100.f), (int)navigation_data.desired_altitude_agl, (int)altitude_agl, (int)(desired_pitch/3.14*180.0), (int)(control_state.desired_pitch/3.14*180.0), (int)(sensor_data.pitch/3.14*180.0));
+	        //printf("\r\n%d: %d %d (%d-%d | %d)\r\n", (int)(nav_leg_progress*100.f), (int)navigation_data.desired_altitude_agl, (int)altitude_agl, (int)(desired_pitch/3.14*180.0), (int)(control_state.desired_pitch/3.14*180.0), (int)(sensor_data.pitch/3.14*180.0));
 		    return HANDLED_UNFINISHED;
 		}
 		case SET_LOITER_POSITION:

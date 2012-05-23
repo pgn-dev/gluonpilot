@@ -54,21 +54,21 @@ static char  buffer[BUFFERSIZE];
 
 extern unsigned long idle_counter;
 
-#define COMM_BUFFER_LEN 80
+#define COMM_BUFFER_LEN 100
 char comm_buffer[COMM_BUFFER_LEN];
 void comm_send_buffer_with_checksum(int length);
 
 // Only write to output when the uart is available
 #define printf_checksum_direct(T,...) \
    if (xSemaphoreTake( xUart1Semaphore, 0 ) == pdTRUE) { \
-      comm_send_buffer_with_checksum(sprintf(comm_buffer, T, __VA_ARGS__)); \
+      comm_send_buffer_with_checksum(snprintf(comm_buffer, COMM_BUFFER_LEN, T, __VA_ARGS__)); \
       xSemaphoreGive( xUart1Semaphore ); \
       }
 
 // Write to output and wait at most 100ms until the semaphore becomes available
 #define printf_checksum(T,...) \
    if (xSemaphoreTake( xUart1Semaphore, ( portTickType ) 100 / portTICK_RATE_MS )  == pdTRUE) { \
-      comm_send_buffer_with_checksum(sprintf(comm_buffer, T, __VA_ARGS__)); \
+      comm_send_buffer_with_checksum(snprintf(comm_buffer, COMM_BUFFER_LEN, T, __VA_ARGS__)); \
       xSemaphoreGive( xUart1Semaphore ); \
       }
 
@@ -199,8 +199,10 @@ void communication_telemetry_task( void *parameters )
 		//                         ATTITUDE                          //
 		///////////////////////////////////////////////////////////////	
 		if (counters.stream_Attitude == config.telemetry.stream_Attitude)
-		{		
-			printf_checksum_direct("TA;%d;%d;%d", (int)(sensor_data.roll*1000), (int)(sensor_data.pitch*1000), (int)(sensor_data.yaw*1000));
+		{
+            int *t = (int*)&sensor_data.pitch;
+
+			printf_checksum_direct("TA;%d;%d;%d;%x;%x", (int)(sensor_data.roll*1000), (int)(sensor_data.pitch*1000), (int)(sensor_data.yaw*1000), t[1], t[0]);
 
 			if (control_state.simulation_mode)
 			{
@@ -276,10 +278,17 @@ void communication_telemetry_task( void *parameters )
 			if (throttle < 0 || throttle > 100)
 				throttle = 0;
 			//printf("\r\n %d %d\r\n", config.control.servo_neutral[3], (int)servo_read_us(3));
-				
 			
+            int altitude;
+            if (config.control.altitude_mode == GPS_ABSOLUTE)
+                altitude =  sensor_data.gps.height_m;
+            else if (config.control.altitude_mode == GPS_RELATIVE)
+                altitude = sensor_data.gps.height_m - navigation_data.home_gps_height;
+            else //if (config.control.altitude_mode == PRESSURE)
+                altitude = (int)(sensor_data.pressure_height - navigation_data.home_pressure_height);
+            
 			printf_checksum_direct("TC;%d;%d;%d;%u;%d;%d;%d;%d", (int)control_state.flight_mode,
-			       gluonscript_data.current_codeline, (int)(sensor_data.pressure_height - navigation_data.home_pressure_height),
+			       gluonscript_data.current_codeline, altitude,
 			       sensor_data.battery_voltage_10,
 			       navigation_data.time_airborne_s, navigation_data.time_block_s,
 			       sig_quality, throttle);
@@ -332,7 +341,7 @@ void communication_input_task( void *parameters )
 		        	if (check_checksum(buffer))
 		        	{
 			        	buffer[0] = buffer[1];
-			        	buffer[1] = buffer[2];	
+			        	buffer[1] = buffer[2];
 			        } else
 			        	printf_message("Error checksum\r\n");
 		        } 
@@ -502,6 +511,8 @@ void communication_input_task( void *parameters )
 					sensor_data.gps.status = ACTIVE;
 					sensor_data.gps.date = atol(&(buffer[token[1]]));
 					sensor_data.gps.time = atol(&(buffer[token[2]]));
+                    navigation_data.home_pressure_height = 0;
+                    navigation_data.home_gps_height = 0;
 				}
 				///////////////////////////////////////////////////////////////
 				//                      WRITE SIMULATION                    //
@@ -516,6 +527,8 @@ void communication_input_task( void *parameters )
 					sensor_data.pressure_height = (float)atoi(&(buffer[token[5]]));
 					sensor_data.roll =  (float)atof(&(buffer[token[6]]));
 					sensor_data.pitch =  (float)atof(&(buffer[token[7]]));
+                    navigation_data.home_pressure_height = 0;
+                    navigation_data.home_gps_height = 0;
 					//sensor_data.vertical_speed
 					//sensor_data.battery_voltage_10
 
@@ -733,7 +746,8 @@ void communication_input_task( void *parameters )
 				}
 				else if (current_token > 0)  // && \n or \r
 				{
-					buffer[BUFFERSIZE-1] = '\0';
+					buffer[buffer_position++] = '\0';
+                    buffer[buffer_position] = '\0';
 					printf_nochecksum_direct("ERROR received data: %s\r\n", buffer);
 				}	
 
@@ -930,10 +944,16 @@ void print_logline(struct LogLine *l)
 	printf ("%f;%d;%d;%d\r\n", ((float)l->height_m_5) / 5.0, l->pitch, l->roll, l->pitch_acc);
 #else
 	// Normal logging
-	printf_nochecksum ("DD;%lu;%lu;%.9f;%.9f;", l->date, l->time, RAD2DEG(l->gps_latitude_rad), RAD2DEG(l->gps_longitude_rad));
-	printf_nochecksum ("%f;%d;%d;", ((float)l->gps_speed_m_s)/3.0, l->gps_heading, l->gps_height_m);
-	printf_nochecksum ("%d;%d;%d;%d;", l->height_m, l->pitch, l->roll, l->yaw);
-	printf_nochecksum ("%d;%d;%d;%u\r\n", (int)l->temperature_c, (int)l->control_state, l->navigation_code_line+1, l->servo_trigger);
+	//printf_nochecksum ("DD;%lu;%lu;%.9f;%.9f;", l->date, l->time, RAD2DEG(l->gps_latitude_rad), RAD2DEG(l->gps_longitude_rad));
+	//printf_nochecksum ("%f;%d;%d;", ((float)l->gps_speed_m_s)/3.0, l->gps_heading, l->gps_height_m);
+	//printf_nochecksum ("%d;%d;%d;%d;", l->height_m, l->pitch, l->roll, l->yaw);
+	//printf_nochecksum ("%d;%d;%d;%u\r\n", (int)l->temperature_c, (int)l->control_state, l->navigation_code_line+1, l->servo_trigger);
+
+    printf_checksum("DD;%lu;%lu;%.6f;%.6f;%.1f;%d;%d;%d;%d;%d;%d;%d;%d;%d;%u",
+                            l->date, l->time, RAD2DEG(l->gps_latitude_rad), RAD2DEG(l->gps_longitude_rad),
+                            ((float)l->gps_speed_m_s)/3.0, l->gps_heading, l->gps_height_m,
+                            l->height_m, l->pitch, l->roll, l->yaw,
+                            (int)l->temperature_c, (int)l->control_state, l->navigation_code_line+1, l->servo_trigger);
 #endif
 }	
 
@@ -1070,7 +1090,7 @@ void comm_send_buffer_with_checksum(int length)
 	char checksum = 0;
 	int j;
 	uart1_putc('$');
-	for (j=0;j < length; j++)
+	for (j=0;j < length && j < COMM_BUFFER_LEN; j++)
 	{
 		char c = comm_buffer[j];
 		uart1_putc(c);

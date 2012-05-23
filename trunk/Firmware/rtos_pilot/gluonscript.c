@@ -18,6 +18,7 @@
 #include "navigation.h"
 #include "sensors.h"
 #include "control.h"
+#include "configuration.h"
 #include "alarms.h"
 #include "gluonscript.h"
 
@@ -221,7 +222,12 @@ float gluonscript_get_variable(enum gluonscript_variable i)
 	switch (i)
 	{
 		case HEIGHT:
-			return sensor_data.pressure_height - navigation_data.home_pressure_height;
+            if (config.control.altitude_mode == GPS_ABSOLUTE)
+                return sensor_data.gps.height_m;
+            else if (config.control.altitude_mode == GPS_RELATIVE)
+                return sensor_data.gps.height_m - navigation_data.home_gps_height;
+            else //if (config.control.altitude_mode == PRESSURE)
+                return sensor_data.pressure_height - navigation_data.home_pressure_height;
 		case SPEED_MS:
 			return sensor_data.gps.speed_ms;
 		case HEADING_DEG:
@@ -256,7 +262,7 @@ float gluonscript_get_variable(enum gluonscript_variable i)
         case BLOCK_TIME:
             return (float)navigation_data.time_block_s;
         case ABS_ALTITUDE_ERROR:
-        	return fabs(control_state.desired_altitude - sensor_data.pressure_height);
+        	return fabs(control_state.desired_altitude - gluonscript_get_variable(HEIGHT));
         case ABS_HEADING_ERROR:
         {
 	        struct GluonscriptCode *next_code = & gluonscript_data.codes[gluonscript_data.current_codeline+1];
@@ -285,7 +291,7 @@ float gluonscript_get_variable(enum gluonscript_variable i)
 	    } 
         case ABS_ALT_AND_HEADING_ERR:
         {
-            struct GluonscriptCode *next = gluonscript_next_waypoint_code(gluonscript_data.current_codeline);
+            /*struct GluonscriptCode *next = gluonscript_next_waypoint_code(gluonscript_data.current_codeline);
 			                
             float heading_error = navigation_heading_rad_fromto((float)(sensor_data.gps.longitude_rad - (double)(next->y)),
 	                                                           (float)(sensor_data.gps.latitude_rad - (double)(next->x)));
@@ -294,8 +300,8 @@ float gluonscript_get_variable(enum gluonscript_variable i)
 	        if (heading_error > 180.0f)
 	        	heading_error -= 360.0f;
 	        else if (heading_error < -180.0f)
-	        	heading_error += 360.0f;
-        	return fabs(control_state.desired_altitude - sensor_data.pressure_height) + fabs(heading_error);
+	        	heading_error += 360.0f;*/
+        	return gluonscript_get_variable(ABS_ALTITUDE_ERROR) + gluonscript_get_variable(ABS_HEADING_ERROR); //fabs(heading_error);
         }	
         default:
 			return 0.0;

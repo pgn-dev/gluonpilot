@@ -19,7 +19,7 @@
 
 #define INVERT_3X3(b,det,a)         \
 {                       			\
-   float tmp;                  	\
+   float tmp;                       \
    DETERMINANT_3X3 (det, a);        \
    tmp = 1.0 / (det);               \
    SCALE_ADJOINT_3X3 (b, tmp, a);   \

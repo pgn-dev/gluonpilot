@@ -114,7 +114,7 @@ int main()
 
 	xTaskCreate( sensors_task,                 ( signed portCHAR * ) "Sensors",      ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 6, NULL );
 	xTaskCreate( sensors_gps_task,             ( signed portCHAR * ) "GpsNavi",      ( configMINIMAL_STACK_SIZE * 4 ), NULL, tskIDLE_PRIORITY + 5, NULL );
-	xTaskCreate( communication_input_task,     ( signed portCHAR * ) "ConsoleInput", ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 4, NULL );
+	xTaskCreate( communication_input_task,     ( signed portCHAR * ) "ConsoleInput", ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 4, NULL );
 	xTaskCreate( datalogger_task,              ( signed portCHAR * ) "Dataflash",    ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 3, NULL );
 	xTaskCreate( communication_telemetry_task, ( signed portCHAR * ) "Telemetry",    ( configMINIMAL_STACK_SIZE * 2 ), NULL, tskIDLE_PRIORITY + 2, NULL );
 	xTaskCreate( osd_task,                     ( signed portCHAR * ) "OSD",          ( configMINIMAL_STACK_SIZE * 1 ), NULL, tskIDLE_PRIORITY + 1, NULL );

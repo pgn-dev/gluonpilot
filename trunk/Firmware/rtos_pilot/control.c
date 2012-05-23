@@ -298,14 +298,22 @@ void control_wing_navigate(float dt, int altitude_controllable)
 	
 	/* Calculate desired pitch */
   	// altitude hold
-#ifdef USE_GPS_ABSOLUTE_ALTITUDE
-#warning Using Gps Absolute altitude!!!
-    control_state.desired_altitude = navigation_data.desired_altitude_agl;
-    float altitude_error = control_state.desired_altitude - sensor_data.gps.height_m;
-#else
-  	control_state.desired_altitude = navigation_data.desired_altitude_agl;
-    float altitude_error = control_state.desired_altitude  + navigation_data.home_pressure_height - sensor_data.pressure_height;
-#endif
+    float altitude_error;
+    if (config.control.altitude_mode == GPS_ABSOLUTE)
+    {
+        control_state.desired_altitude = navigation_data.desired_altitude_agl;
+        altitude_error = control_state.desired_altitude - sensor_data.gps.height_m;
+    }
+    else if (config.control.altitude_mode == GPS_RELATIVE)
+    {
+        control_state.desired_altitude = navigation_data.desired_altitude_agl;
+        altitude_error = control_state.desired_altitude  + navigation_data.home_gps_height - sensor_data.gps.height_m;
+    }
+    else //if (config.control.altitude_mode == PRESSURE)
+    {
+        control_state.desired_altitude = navigation_data.desired_altitude_agl;
+        altitude_error = control_state.desired_altitude  + navigation_data.home_pressure_height - sensor_data.pressure_height;
+    }
 
     control_state.desired_pitch = pid_update(&config.control.pid_altitude2pitch,
 	                                         altitude_error, dt);
