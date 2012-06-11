@@ -141,7 +141,7 @@ void __attribute__((__interrupt__, __auto_psv__)) _IC6Interrupt(void)
 		
 		if (in < servo_pulse_max && in > servo_pulse_min)// && !invalid_pulse)
 		{
-			ppm.channel[5] = pwm_in_raw_to_us(in);
+			ppm.channel[4] = pwm_in_raw_to_us(in);
 			ppm.valid_frame = 1;
 		}
 		else
@@ -171,7 +171,7 @@ void __attribute__((__interrupt__, __auto_psv__)) _IC5Interrupt(void)
 		
 		if (in < servo_pulse_max && in > servo_pulse_min)// && !invalid_pulse)
 		{
-			ppm.channel[4] = pwm_in_raw_to_us(in);
+			ppm.channel[5] = pwm_in_raw_to_us(in);
 			ppm.valid_frame = 1;
 		}
 		else
