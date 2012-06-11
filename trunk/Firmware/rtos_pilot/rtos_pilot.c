@@ -44,7 +44,7 @@
 extern xSemaphoreHandle xGpsSemaphore;
 extern xSemaphoreHandle xSpiSemaphore;
 
-static char version[] = "0.8 BETA 3";
+static char version[] = "0.8 BETA 4";
 
 unsigned long idle_counter = 0;
 

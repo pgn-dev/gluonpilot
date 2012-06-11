@@ -150,6 +150,9 @@ void configuration_default()
     config.control.autopilot_auto_throttle = 0;   // disable auto throttle
 
     config.control.altitude_mode = PRESSURE;
+    config.gps.operational_baudrate = 115200l;
+    config.gps.initial_baudrate = 38400l;
+    config.sensors.acc_x_neutral = 32000;
 	config.sensors.acc_y_neutral = 32000;
 	config.sensors.acc_z_neutral = 32000;
 	
