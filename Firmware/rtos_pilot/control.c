@@ -13,6 +13,9 @@
  *  @author   Tom Pycke
  *  @date     24-dec-2009
  *  @since    0.1
+ *
+ *  Revision No    : $Rev$
+ *  Last changed on: $Date$
  */
 
 #include <math.h>
@@ -138,7 +141,7 @@ void control_wing_task(void *parameters)
 		// Update RC link status
 		if (config.control.use_pwm)
 		{
-			if (ppm.channel[config.control.channel_motor] < 900)  // We assume failsafe kicked in when motor channel < 900ms
+			if (ppm.channel[config.control.channel_motor] < 930)  // We assume failsafe kicked in when motor channel < 930ms
 			{
 				//ppm.valid_frame = 0;
 				ppm.connection_alive = 0;
@@ -342,7 +345,7 @@ void control_wing_navigate(float dt, int altitude_controllable)
 		else if (target < config.control.auto_throttle_min_pct)
 			target = config.control.auto_throttle_min_pct;
 
-		if (navigation_data.desired_throttle_pct != -1)  // currently only flare
+		if (navigation_data.desired_throttle_pct != -1)  // currently only flare & glide
 			target = navigation_data.desired_throttle_pct;
 
 		motor_out = /*1000 + */target*10;
