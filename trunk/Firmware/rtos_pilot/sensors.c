@@ -15,6 +15,8 @@
  *  @author   Tom Pycke
  *  @date     24-dec-2009
  *  @since    0.1
+ *
+ *
  */
  
 #include <math.h>
@@ -40,7 +42,7 @@
 #include "sensors.h"
 #include "configuration.h"
 #include "ahrs.h"
-#include "navigation.h"
+#include "handler_navigation.h"
 #include "common.h"
 #include "gluonscript.h"
 
@@ -66,6 +68,8 @@ float scale_z_gyro = 0.0f;
  *   sensor_data struct.
  *
  *   The current execution rate is 100Hz.
+ *
+ *   Measured stackspace consumption: 576 bytes (2150 available)
  */
 void sensors_task( void *parameters )
 {
@@ -79,6 +83,7 @@ void sensors_task( void *parameters )
 		
 	/* Used to wake the task at the correct frequency. */
 	portTickType xLastExecutionTime; 
+
 
 	uart1_puts("Sensors task initializing...");
 #if ENABLE_QUADROCOPTER || F1E_STEERING
@@ -155,7 +160,10 @@ void sensors_task( void *parameters )
             //    printf("\r\n%lu [%u %u] [%u %u] [%u %u]\r\n", var_gyros, (unsigned int)(mean_gyro_x - sensor_data.gyro_x_raw), sensor_data.gyro_x_raw,mean_gyro_y, sensor_data.gyro_y_raw,mean_gyro_z, sensor_data.gyro_z_raw);
 
 			if (control_state.simulation_mode)
+            {
+                uart1_puts("\r\nSimulation mode: disabling sensors task!\r\n");
 				vTaskDelete(xTaskGetCurrentTaskHandle());
+            }
 				
 			sensor_data.battery_voltage_10 = ((float)adc_get_channel(8) * (3.3f * 5.1f / 6550.0f));
 			if (HARDWARE_VERSION >= V01O)
@@ -186,8 +194,8 @@ void sensors_task( void *parameters )
 				last_height = sensor_data.pressure_height;
 				dt_since_last_height = 0.0f;
 			}
-		}	
-		
+		}
+
 
 		// x = (Pitch; Roll)'
 #if (ENABLE_QUADROCOPTER || F1E_STEERING)
@@ -301,6 +309,9 @@ void scale_raw_sensor_data()
  *
  *   The inner loop contains a semaphore that is only released when a complete and
  *   valid NMEA sentence has been received
+ *
+ *   Use stackspace 312 / 1720 bytes
+ *
  */
 
 //! This semaphore is set in the uart2 interrupt routine when a new GPS message arrives
@@ -383,5 +394,7 @@ void sensors_gps_task( void *parameters )
 			led2_off();
 		else if (sensor_data.gps.status != EMPTY)
 			led2_on();
+
+
 	}
 }

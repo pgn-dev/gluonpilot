@@ -1,7 +1,7 @@
 #ifndef ALARMS_H
 #define ALARMS_H
 
-#include "navigation.h"
+#include "handler_navigation.h"
 
 struct BatteryAlarm {
 	float panic_v;

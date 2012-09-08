@@ -113,7 +113,7 @@ unsigned int servo_raw_to_us(unsigned int raw)
 
 
 volatile unsigned int* OCxRS[] = { &OC1RS, &OC2RS, &OC3RS, &OC4RS, &OC5RS, &OC6RS, &OC7RS, &OC8RS };
-volatile OC1CONBITS* OCxCONbits[] = { &OC1CONbits, &OC2CONbits, &OC3CONbits, &OC4CONbits, &OC5CONbits, &OC6CONbits, &OC7CONbits, &OC8CONbits };
+volatile OC1CONBITS* OCxCONbits[] = { (volatile OC1CONBITS*)&OC1CONbits, (volatile OC1CONBITS*)&OC2CONbits, (volatile OC1CONBITS*)&OC3CONbits, (volatile OC1CONBITS*)&OC4CONbits, (volatile OC1CONBITS*)&OC5CONbits, (volatile OC1CONBITS*)&OC6CONbits, (volatile OC1CONBITS*)&OC7CONbits, (volatile OC1CONBITS*)&OC8CONbits };
 
 /*!
  *  Assigns a new value to the servo-output buffer.

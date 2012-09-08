@@ -14,8 +14,6 @@
  *  @date     24-dec-2009
  *  @since    0.1
  *
- *  Revision No    : $Rev$
- *  Last changed on: $Date$
  */
 
 #include <math.h>
@@ -38,7 +36,7 @@
 #include "control.h"
 #include "configuration.h"
 #include "sensors.h"
-#include "navigation.h"
+#include "handler_navigation.h"
 #include "common.h"
 
 void control_wing_manual();
@@ -101,6 +99,13 @@ void control_init()
 			
 		//printf("\r\n<- %d ->\r\n", config.control.servo_neutral[0]);
 	}
+    else // manual trim in gluonconfig
+    {
+        // question: should we re-use the channel neutrals values? RC transmitter might not be on!
+        // i guess not... tricky however when the transmitter's trim settings are changed after
+        // burning this configuration
+        // servo settings & channel neutral settings are now loaded from flash and not determined at startup!
+    }
 	
 	if (config.control.cruising_speed_ms < 0.5)  // not valid? change to 18 to avoid /0
 		config.control.cruising_speed_ms = 18.0;  
@@ -117,11 +122,13 @@ void control_init()
 
 /*!
  *   FreeRTOS task for fixed wing aircraft (not QUAD mixing)
+ *
+ *   Measured used stack space: 266 / 1290
+ *
  */
 void control_wing_task(void *parameters)
 {
 	enum FlightModes lastMode = MANUAL;
-	int i = 0;
 	
 	/* Used to wake the task at the correct frequency. */
 	portTickType xLastExecutionTime; 

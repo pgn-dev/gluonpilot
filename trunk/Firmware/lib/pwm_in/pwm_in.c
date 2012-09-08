@@ -132,7 +132,7 @@ void __attribute__((__interrupt__, __auto_psv__)) _IC6Interrupt(void)
 	
 	_IC6IF = 0;		
 	raw_in = IC6BUF;
-	if (PORTDbits.RD12 == 0)
+	if (PORTDbits.RD13 == 0)
 	{	
 		if (last_raw_in < raw_in)
 			in = raw_in - last_raw_in;

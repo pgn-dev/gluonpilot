@@ -72,7 +72,8 @@ enum gluonscript_command {
 	CALL = 29,
 	RETURN = 30,
     SERVO_START_TRIGGER = 31,
-    SERVO_STOP_TRIGGER = 32
+    SERVO_STOP_TRIGGER = 32,
+    SET_FLIGHTPLAN_SWITCH = 33
 };
 
 
@@ -95,7 +96,7 @@ struct GluonscriptData
 	unsigned int tick;
 };	
 
-extern struct GluonscriptData gluonscript_data;
+extern volatile struct GluonscriptData gluonscript_data;
 
 void gluonscript_do();
 float gluonscript_get_variable(enum gluonscript_variable i);

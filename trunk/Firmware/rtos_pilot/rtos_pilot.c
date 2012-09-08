@@ -10,6 +10,7 @@
  *  @author   Tom Pycke
  *  @date     24-dec-2009
  *  @since    0.1
+ *
  */
  
 #include <stdio.h>
@@ -35,7 +36,7 @@
 #include "communication.h"
 #include "configuration.h"
 #include "datalogger.h"
-#include "navigation.h"
+#include "handler_navigation.h"
 #include "gluonscript.h"
 #include "osd.h"
 
@@ -131,7 +132,7 @@ int main()
 
 void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed portCHAR *pcTaskName )
 {
-	uart1_puts("Stack overflow! ");
+	uart1_puts("\n\rStack overflow! ");
 	uart1_puts((char*)pcTaskName);
 	uart1_puts("\n\r");
 	while(1) ; 

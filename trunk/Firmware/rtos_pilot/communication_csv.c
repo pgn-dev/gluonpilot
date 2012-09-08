@@ -35,8 +35,8 @@
 #include "communication.h"
 #include "configuration.h"
 #include "datalogger.h"
-#include "navigation.h"
-#include "alarms.h"
+#include "handler_navigation.h"
+#include "handler_alarms.h"
 
 #include "common.h"
 
@@ -98,6 +98,8 @@ xSemaphoreHandle xUart1Semaphore;
 /*!
  *    This task will send telemetry directly to uart1 at a rate of maximum 
  *    20 times a second.
+ *
+ *    Used stackspace: 356 / 860 bytes
  */
 void communication_telemetry_task( void *parameters )
 {
@@ -105,7 +107,8 @@ void communication_telemetry_task( void *parameters )
 	struct TelemetryConfig counters;
 		
 	/* Used to wake the task at the correct frequency. */
-	portTickType xLastExecutionTime; 
+	portTickType xLastExecutionTime;
+
 
 	uart1_puts("Telemetry task initializing...");
 	
@@ -287,11 +290,11 @@ void communication_telemetry_task( void *parameters )
             else //if (config.control.altitude_mode == PRESSURE)
                 altitude = (int)(sensor_data.pressure_height - navigation_data.home_pressure_height);
             
-			printf_checksum_direct("TC;%d;%d;%d;%u;%d;%d;%d;%d", (int)control_state.flight_mode,
+			printf_checksum_direct("TC;%d;%d;%d;%u;%d;%d;%d;%d;%d", (int)control_state.flight_mode,
 			       gluonscript_data.current_codeline, altitude,
 			       sensor_data.battery_voltage_10,
 			       navigation_data.time_airborne_s, navigation_data.time_block_s,
-			       sig_quality, throttle);
+			       sig_quality, throttle, (int)navigation_data.desired_altitude_agl);
 			 
 			counters.stream_Control = 0;
 			//printf_checksum_poll("-- %lu --", idle_counter);
@@ -300,6 +303,7 @@ void communication_telemetry_task( void *parameters )
 		}
 		else if (counters.stream_Control > config.telemetry.stream_Control)
 			counters.stream_Control = 0;
+
 	}
 }
 
@@ -313,6 +317,10 @@ extern xQueueHandle xRxedChars;
  *   or configuration utility. It depends on uart1_queue.c because all data received
  *   on the uart1 is stored in a FreeRTOS queue. When there is data in the queue, the
  *   RTOS executes this function so the data can be parsed.
+ *
+ *   Measured used stackspace: 388 / 2150 bytes
+ *
+ *
  */
 void communication_input_task( void *parameters )
 {
@@ -321,6 +329,7 @@ void communication_input_task( void *parameters )
 	static int   current_token;
 	
 	char tmp;
+
 
 	uart1_puts("Console input task initializing...");
 	uart1_puts("done\r\n");
@@ -393,7 +402,7 @@ void communication_input_task( void *parameters )
                     else if (buffer[token[0]] == 'F')
                     {
                         gluonscript_burn();
-                        printf_message("Script burned to flash\r\n");
+                        printf_message("\r\nScript burned to flash\r\n");
                     }
                     ///////////////////////////////////////////////////////////////
                     //                       LOAD NAVIGATION                     //

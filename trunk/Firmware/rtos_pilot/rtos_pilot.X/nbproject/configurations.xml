@@ -39,17 +39,18 @@
         <itemPath>../../lib/uart2/uart2.h</itemPath>
       </logicalFolder>
       <itemPath>../ahrs.h</itemPath>
-      <itemPath>../alarms.h</itemPath>
       <itemPath>../common.h</itemPath>
       <itemPath>../communication.h</itemPath>
       <itemPath>../configuration.h</itemPath>
       <itemPath>../control.h</itemPath>
       <itemPath>../datalogger.h</itemPath>
       <itemPath>../gluonscript.h</itemPath>
-      <itemPath>../navigation.h</itemPath>
       <itemPath>../osd.h</itemPath>
       <itemPath>../sensors.h</itemPath>
-      <itemPath>../trigger.h</itemPath>
+      <itemPath>../handler_alarms.h</itemPath>
+      <itemPath>../handler_trigger.h</itemPath>
+      <itemPath>../handler_navigation.h</itemPath>
+      <itemPath>../handler_flightplan_switch.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -84,18 +85,19 @@
         <itemPath>../../lib/uart1_queue/uart1_queue.c</itemPath>
         <itemPath>../../lib/uart2/uart2.c</itemPath>
       </logicalFolder>
-      <itemPath>../ahrs_kalman_2x3.c</itemPath>
-      <itemPath>../alarms.c</itemPath>
       <itemPath>../communication_csv.c</itemPath>
       <itemPath>../configuration.c</itemPath>
       <itemPath>../control.c</itemPath>
       <itemPath>../datalogger.c</itemPath>
       <itemPath>../gluonscript.c</itemPath>
-      <itemPath>../navigation.c</itemPath>
       <itemPath>../osd_max7456.c</itemPath>
       <itemPath>../rtos_pilot.c</itemPath>
       <itemPath>../sensors.c</itemPath>
-      <itemPath>../trigger.c</itemPath>
+      <itemPath>../ahrs_kalman_2x3.c</itemPath>
+      <itemPath>../handler_alarms.c</itemPath>
+      <itemPath>../handler_trigger.c</itemPath>
+      <itemPath>../handler_navigation.c</itemPath>
+      <itemPath>../handler_flightplan_switch.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -205,8 +207,8 @@
       </C30-LD>
       <C30Global>
         <property key="fast-math" value="false"/>
-        <property key="legacy-libc" value="false"/>
         <property key="output-file-format" value="elf"/>
+        <property key="legacy-libc" value="false"/>
       </C30Global>
       <ICD3PlatformTool>
         <property key="tracecontrol.select" value="0"/>

@@ -9,8 +9,8 @@
 #include "servo/servo.h"
 
 #include "common.h"
-#include "trigger.h"
-#include "navigation.h"
+#include "handler_trigger.h"
+#include "handler_navigation.h"
 #include "gluonscript.h"
 
 

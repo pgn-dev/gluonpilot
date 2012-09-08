@@ -1,7 +1,7 @@
 #ifndef TRIGGER_H
 #define TRIGGER_H
 
-#include "navigation.h"
+#include "handler_navigation.h"
 #include "gluonscript.h"
 
 

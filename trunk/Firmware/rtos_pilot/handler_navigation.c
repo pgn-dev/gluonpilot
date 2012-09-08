@@ -23,10 +23,10 @@
 
 #include "configuration.h"
 #include "sensors.h"
-#include "navigation.h"
 #include "common.h"
-#include "trigger.h"
-#include "alarms.h"
+#include "handler_navigation.h"
+#include "handler_trigger.h"
+#include "handler_alarms.h"
 #include "gluonscript.h"
 
 
@@ -164,9 +164,9 @@ ScriptHandlerReturn navigation_handle_gluonscriptcommand (struct GluonscriptCode
 			navigation_data.desired_pre_bank = 0.0;
 			//navigation_data.current_codeline = 0;
 			// also return home @ 100m height
-			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
-	                                                   		                    sensor_data.gps.latitude_rad);
-            navigation_data.desired_altitude_agl = 100.0;
+//			navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
+//	                                                   		                    sensor_data.gps.latitude_rad);
+//            navigation_data.desired_altitude_agl = 100.0;
 		}	
 		//return;
 	}
@@ -192,7 +192,7 @@ ScriptHandlerReturn navigation_handle_gluonscriptcommand (struct GluonscriptCode
 			else 
 				navigation_data.desired_heading_rad = sensor_data.gps.heading_rad;
 
-			navigation_data.desired_altitude_agl = current_code->x + 1000.0f;
+			navigation_data.desired_altitude_agl = current_code->x + 1000.0f; // +1000 to make sure is easily overshoots 
 			if (sensor_data.pressure_height - navigation_data.home_pressure_height > current_code->x)
 				return HANDLED_FINISHED;
 			else
