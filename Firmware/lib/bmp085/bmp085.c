@@ -63,6 +63,34 @@ int bmp085ReadInt(unsigned char address)
   return (int) ((int) msb<<8 | lsb);
 }
 
+// Read 2 bytes from the BMP085
+// First byte will be from 'address'
+// Second byte will be from 'address'+1
+long bmp085ReadUT(unsigned char address)
+{
+	unsigned char msb, lsb;
+
+	i2c_start();
+
+	send_i2c_byte(BMP085_ADDRESS);
+	send_i2c_byte(address);
+	microcontroller_delay_us(10);
+	i2c_restart();
+	send_i2c_byte(BMP085_ADDRESS | 0x01);
+
+	msb = i2c_read_byte();
+
+	I2C1CONbits.ACKDT = 0;
+	I2C1CONbits.ACKEN = 1;
+	i2c_wait_acken();
+
+	lsb = i2c_read_byte();
+
+	reset_i2c_bus();
+
+  return (long) ((long) msb<<8 | (long)lsb);
+}
+
 long bmp085ReadLong3(unsigned char address)
 {
 	unsigned char msb, lsb, xlsb;
@@ -156,7 +184,7 @@ void bmp085_start_convert_temp()
 
 long bmp085_read_temp(void)
 {
-	return (long) bmp085ReadInt(0xF6);
+	return (long) bmp085ReadUT(0xF6);
 }
 
 long bmp085_read_pressure(void)

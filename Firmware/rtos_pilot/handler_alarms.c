@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "alarms.h"
-#include "navigation.h"
+#include "handler_alarms.h"
+#include "handler_navigation.h"
 #include "sensors.h"
 #include "gluonscript.h"
 

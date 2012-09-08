@@ -61,39 +61,39 @@ void microcontroller_reset_type()
 {
 	if (RCONbits_backup.BOR)
 	{
-		uart1_puts("A Brown-out Reset has occurred\r\n");
+		uart1_puts("\r\nA Brown-out Reset has occurred\r\n");
 	}
 	if (RCONbits_backup.EXTR)
 	{
-		uart1_puts("A Master Clear (pin) Reset has occurred\r\n");
+		uart1_puts("\r\nA Master Clear (pin) Reset has occurred\r\n");
 	}
 	if (RCONbits_backup.IDLE)
 	{
-		uart1_puts("Device was in Idle mode\r\n");
+		uart1_puts("\r\nDevice was in Idle mode\r\n");
 	}
 	if (RCONbits_backup.IOPUWR)
 	{
-		uart1_puts("An illegal opcode detection, an illegal address mode or uninitialized W register used as an Address Pointer caused a Reset\r\n");
+		uart1_puts("\r\nAn illegal opcode detection, an illegal address mode or uninitialized W register used as an Address Pointer caused a Reset\r\n");
 	}	
 	if (RCONbits_backup.POR)
 	{
-		uart1_puts("A Power-up Reset has occurred\r\n");
+		uart1_puts("\r\nA Power-up Reset has occurred\r\n");
 	}
 	if (RCONbits_backup.SLEEP)
 	{
-		uart1_puts("Device has been in Sleep mode\r\n");
+		uart1_puts("\r\nDevice has been in Sleep mode\r\n");
 	}
 	if (RCONbits_backup.SWDTEN)
 	{
-		uart1_puts("WDT is enabled\r\n");
+		uart1_puts("\r\nWDT is enabled\r\n");
 	}
 	if (RCONbits_backup.SWR)
 	{
-		uart1_puts("A RESET instruction has been executed\r\n");
+		uart1_puts("\r\nA RESET instruction has been executed\r\n");
 	}
 	if (RCONbits_backup.TRAPR)
 	{
-		uart1_puts("A Trap Conflict Reset has occurred\r\n");
+		uart1_puts("\r\nA Trap Conflict Reset has occurred\r\n");
 	}
 	/*if (RCONbits_backup.VREGS)
 	{
@@ -101,7 +101,7 @@ void microcontroller_reset_type()
 	}*/
 	if (RCONbits_backup.WDTO)
 	{
-		uart1_puts("WDT time-out has occurred\r\n");
+		uart1_puts("\r\nWDT time-out has occurred\r\n");
 	}										
 }
 	
@@ -122,14 +122,14 @@ int microcontroller_after_reboot()
 void _trapISR _OscillatorFail(void)
 {
         INTCON1bits.OSCFAIL = 0;
-        uart1_puts("Oscillator error!\n\r");
+        uart1_puts("\r\nOscillator error!\n\r");
         //while(1);
 }
 
 void _trapISR _AddressError(void)
 {
         INTCON1bits.ADDRERR = 0;
-        uart1_puts("Address error!\n\r");
+        uart1_puts("\r\nAddress error!\n\r");
         //while(1);
         asm("reset");
 }
@@ -137,7 +137,7 @@ void _trapISR _AddressError(void)
 void _trapISR _StackError(void)
 {
         INTCON1bits.STKERR = 0;
-        uart1_puts("Stack error!\n\r");
+        uart1_puts("\r\nStack error!\n\r");
         //while(1);
         asm("reset");
 }
@@ -145,9 +145,9 @@ void _trapISR _StackError(void)
 void _trapISR _MathError(void)
 {
         INTCON1bits.MATHERR = 0;
-        uart1_puts("Math error!\n\r");
+        uart1_puts("\r\nMath error!\n\r");
         //while(1);
-        asm("reset");
+        //asm("reset");
 }
 
 
@@ -156,7 +156,7 @@ void _trapISR _MathError(void)
 void __attribute__((interrupt, no_auto_psv)) _AltOscillatorFail(void)
 {
         INTCON1bits.OSCFAIL = 0;
-        uart1_puts("Oscillator error!\n\r");
+        uart1_puts("\r\nOscillator error!\n\r");
         //while(1);
 }
 
@@ -173,7 +173,7 @@ void __attribute__((interrupt, no_auto_psv)) _AltStackError(void)
         INTCON1bits.STKERR = 0;
         uart1_puts("Stack error!\n\r");
         //while(1);
-        asm("reset");
+        //asm("reset");
 }
 
 void __attribute__((interrupt, no_auto_psv)) _AltMathError(void)
@@ -181,5 +181,5 @@ void __attribute__((interrupt, no_auto_psv)) _AltMathError(void)
         INTCON1bits.MATHERR = 0;
         uart1_puts("Math error!\n\r");
         //while(1);
-        asm("reset");
+        //asm("reset");
 }

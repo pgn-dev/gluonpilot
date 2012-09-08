@@ -53,15 +53,18 @@ void ahrs_init()
 	pid_init(&pid_p_bias, 0.0, 0.6, /*0.00001*/ 0.001, -100.0, 100.0, 0.0);
 	pid_init(&pid_q_bias, 0.0, 0.6, /*0.00001*/ 0.001, -100.0, 100.0, 0.0);
 	//pid_init(&r_bias, 0.0f, float p_gain, float i_gain, float i_min, float i_max, float d_term_min_var);
-	
-	quaternion_from_attitude(0.0, 0.0, 0.0, q);
+
+    pitch_rad = gravity_to_pitch(sensor_data.acc_x, sensor_data.acc_z);
+    roll_rad = gravity_to_roll(sensor_data.acc_y, sensor_data.acc_z);
+    hmc5843_read(&sensor_data.magnetometer_raw);
+	quaternion_from_attitude(roll_rad, pitch_rad, atan2f(-(float)sensor_data.magnetometer_raw.y.i16,(float)sensor_data.magnetometer_raw.x.i16)/3.14*180.0, q);
 	
 	p_bias = 0.0;
 	q_bias = 0.0;
 }	
 
 
-#define Kp 1.0f			// proportional gain governs rate of convergence to accelerometer/magnetometer
+#define Kp 2.0f			// proportional gain governs rate of convergence to accelerometer/magnetometer  WAS 1
 #define Ki 0.003f		// integral gain governs rate of convergence of gyroscope biases
 #define halfT 0.002f		// half the sample period
 
@@ -80,6 +83,11 @@ void ahrs_filter()
 	float hx, hy, hz, bx, bz;
 	float vx, vy, vz, wx, wy, wz;
 	float ex, ey, ez;
+
+    if (button_down())
+	{
+		quaternion_from_attitude(0.0, 0.0, 0.0, q);
+	}	
 
 	// auxiliary variables to reduce number of repeated operations
 	float q0q0 = q[0]*q[0];
@@ -161,8 +169,13 @@ void ahrs_filter()
 	sensor_data.pitch = quaternion_to_pitch(q);
 	sensor_data.yaw = quaternion_to_yaw(q);
 	
-	//if (i++  % 50 == 0)
-	//	printf("\r\n %f \r\n", sensor_data.yaw/3.14*180.0);
+	if (i++  % 210 == 0)
+    {
+        int heading = sensor_data.yaw/3.14*180.0;
+        if (heading < 0)
+            heading += 360;
+		printf("\r\nCompass: %d\r\n", heading);
+    }
 }
 
 

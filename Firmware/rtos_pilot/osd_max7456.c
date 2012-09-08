@@ -18,7 +18,7 @@
 #include "configuration.h"
 #include "osd.h"
 #include "sensors.h"
-#include "navigation.h"
+#include "handler_navigation.h"
 
 int osd_input_available();
 int osd_charactermemory_busy();
@@ -99,7 +99,10 @@ void osd_print_compass();
 
 int use_metric = 1;
 
-
+/*
+ *
+ *   Used stackspace: 260 / 430
+ */
 void osd_task( void *parameters )
 {
 	/* Used to wake the task at the correct frequency. */

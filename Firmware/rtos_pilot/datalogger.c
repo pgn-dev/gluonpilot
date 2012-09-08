@@ -26,9 +26,9 @@
 #include "datalogger.h"
 #include "sensors.h"
 #include "control.h"
-#include "navigation.h"
 #include "gluonscript.h"
-#include "trigger.h"
+#include "handler_navigation.h"
+#include "handler_trigger.h"
 #include "common.h"
 
 
@@ -196,7 +196,7 @@ void datalogger_writeline(struct LogLine *line)
 }
 
 
-static long last_totalseconds = -1;
+//static long last_totalseconds = -1;
 /*!
  *    Prints the contents of the next available page on "index" using the
  *    "printer" function.
@@ -224,7 +224,7 @@ int datalogger_print_next_page(int index, void(*printer)(struct LogLine*))
 	if (last_page >= MAX_PAGE)
 			last_page = START_LOG_PAGE;
 
-#ifdef DETAILED_LOG || RAW_50HZ_LOG
+#ifdef DETAILED_LOG //|| RAW_50HZ_LOG
     if (*i != index+1)
 	{
 		printf ("%d != %d\r\n", *i, index+1);
@@ -340,6 +340,8 @@ void datalogger_enable()
  * 
  *    The initialization of the logging index (page 3) starts when a valid GPS frame
  *    is available. This is needed because the date & time are stored in the index.
+ *
+ *    Measured used stack space: 274 / 1290 bytes
  */
 void datalogger_task( void *parameters )
 {
@@ -447,6 +449,7 @@ void datalogger_task( void *parameters )
             l.servo_trigger = trigger.trigger_counter;
 #endif
 			datalogger_writeline(&l);
+
 		}
         else // logging disabled:
         {

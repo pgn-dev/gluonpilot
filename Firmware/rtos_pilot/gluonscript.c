@@ -14,16 +14,17 @@
 #include "dataflash/dataflash.h"
 
 #include "common.h"
-#include "trigger.h"
-#include "navigation.h"
+#include "handler_trigger.h"
+#include "handler_alarms.h"
+#include "handler_navigation.h"
+#include "handler_flightplan_switch.h"
 #include "sensors.h"
 #include "control.h"
 #include "configuration.h"
-#include "alarms.h"
 #include "gluonscript.h"
 
 
-struct GluonscriptData gluonscript_data = {.current_codeline = 0, .last_code = 0, .tick = 0 };
+volatile struct GluonscriptData gluonscript_data = {.current_codeline = 0, .last_code = 0, .tick = 0 };
 
 void gluonscript_init()
 {
@@ -80,7 +81,8 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 	
 	gluonscript_data.tick++;
 	
-	// call all handlers, returns UNHANDLED, HANDLED_FINISHED or HANDLED_UNFINISHED
+	// call all handlers, returns UNHANDLED 0, HANDLED_FINISHED 1 or HANDLED_UNFINISHED 2
+    handlers_result |= flightplan_switch_handle_gluonscriptcommand(current_code);
 	handlers_result |= alarms_handle_gluonscriptcommand(current_code);
  	handlers_result |= trigger_handle_gluonscriptcommand(current_code);
  	handlers_result |= navigation_handle_gluonscriptcommand(current_code);
@@ -185,14 +187,14 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 	            navigation_data.time_block_s = 0;
 	            gluonscript_data.current_codeline++;
 	            break;
-			case EMPTYCMD:
+			case EMPTYCMD: // should not happen!!!
 				navigation_data.desired_pre_bank = 0.0f;
 				navigation_data.desired_throttle_pct = -1;
 				gluonscript_data.current_codeline = 0;
 				// also return home @ 100m height
 				navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
 		                                                   		         sensor_data.gps.latitude_rad);
-	            navigation_data.desired_altitude_agl = 100.0f;
+	            navigation_data.desired_altitude_agl = 98.0f;
 				break;
 			default:
 				if (handlers_result == NOT_HANDLED)
@@ -202,7 +204,7 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 					// also return home @ 100m height
 					navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
 			                                                   		         sensor_data.gps.latitude_rad);
-			        navigation_data.desired_altitude_agl = 100.0f; 
+			        navigation_data.desired_altitude_agl = 99.0f;
 			 	}       
 				break;
 		}
