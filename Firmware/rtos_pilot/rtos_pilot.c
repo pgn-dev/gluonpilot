@@ -141,6 +141,13 @@ void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed portCHAR *pcTask
 
 void vApplicationIdleHook( void )
 {
-    idle_counter++;
+    TRISBbits.TRISB2 = 0;  // use OSD SPI CS
+    while (1)
+    {
+        PORTBbits.RB2 = 0;
+        idle_counter+=2;
+        PORTBbits.RB2 = 1;
+        idle_counter-=1;
+    }
 }
 
