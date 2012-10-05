@@ -62,4 +62,14 @@ to exclude the API function. */
 
 #define configKERNEL_INTERRUPT_PRIORITY	0x01
 
+// for tracing tasks in DEBUG
+#define configUSE_APPLICATION_TASK_TAG 1
+#ifdef USE_TRACING
+    #define traceTASK_SWITCHED_OUT()                    \
+        PORTD &= (unsigned int)0b1111111100000000;
+    #define traceTASK_SWITCHED_IN()                    \
+        if ((int) pxCurrentTCB->pxTaskTag > 0) \
+            PORTD |= 1 << (( int ) pxCurrentTCB->pxTaskTag - 1);
+#endif
+
 #endif /* FREERTOS_CONFIG_H */

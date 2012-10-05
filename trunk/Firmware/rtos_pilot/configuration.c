@@ -15,7 +15,7 @@
 #include "gps/gps.h"
 
 // rtos_pilot includes
-#include "sensors.h"
+#include "task_sensors_analog.h"
 #include "communication.h"
 #include "configuration.h"
 
@@ -32,7 +32,7 @@ int HARDWARE_VERSION;
  */
 void configuration_load()
 {
-	dataflash_read(CONFIGURATION_PAGE, sizeof(struct Configuration), (unsigned char*)&config);
+	dataflash.read(CONFIGURATION_PAGE, sizeof(struct Configuration), (unsigned char*)&config);
 }
 
 
@@ -43,6 +43,7 @@ void configuration_determine_hardware_version()
 	// input
 	TRISGbits.TRISG12 = 1;
 	TRISGbits.TRISG13 = 1;
+    TRISEbits.TRISE2 = 1;
 	
 	// are they connected? --> v0.1n or newer
 	PORTGbits.RG14 = 1;
@@ -60,7 +61,16 @@ void configuration_determine_hardware_version()
 				PORTGbits.RG14 = 1;
 				microcontroller_delay_us(10);
 				if (PORTGbits.RG13 == 1)
-					HARDWARE_VERSION = V01O;
+                {
+                    if (PORTEbits.RE2 == 1)
+                    {
+                        PORTGbits.RG14 = 0;
+                        microcontroller_delay_us(10);
+                        if (PORTEbits.RE2 == 0)
+                            HARDWARE_VERSION = V01Q;
+                    } else
+                        HARDWARE_VERSION = V01O;
+                }
 				else
 					HARDWARE_VERSION = V01N;
 			}
@@ -89,7 +99,7 @@ void configuration_determine_hardware_version()
  */
 void configuration_write()
 {
-	dataflash_write(CONFIGURATION_PAGE, sizeof(struct Configuration), (unsigned char*)&config);
+	dataflash.write(CONFIGURATION_PAGE, sizeof(struct Configuration), (unsigned char*)&config);
 }
 
 

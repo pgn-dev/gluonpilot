@@ -1,81 +1,110 @@
 /*
-	FreeRTOS.org V5.3.0 - Copyright (C) 2003-2009 Richard Barry.
-
-	This file is part of the FreeRTOS.org distribution.
-
-	FreeRTOS.org is free software; you can redistribute it and/or modify it
-	under the terms of the GNU General Public License (version 2) as published
-	by the Free Software Foundation and modified by the FreeRTOS exception.
-	**NOTE** The exception to the GPL is included to allow you to distribute a
-	combined work that includes FreeRTOS.org without being obliged to provide
-	the source code for any proprietary components.  Alternative commercial
-	license and support terms are also available upon request.  See the 
-	licensing section of http://www.FreeRTOS.org for full details.
-
-	FreeRTOS.org is distributed in the hope that it will be useful,	but WITHOUT
-	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-	FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-	more details.
-
-	You should have received a copy of the GNU General Public License along
-	with FreeRTOS.org; if not, write to the Free Software Foundation, Inc., 59
-	Temple Place, Suite 330, Boston, MA  02111-1307  USA.
+    FreeRTOS V7.2.0 - Copyright (C) 2012 Real Time Engineers Ltd.
 
 
-	***************************************************************************
-	*                                                                         *
-	* Get the FreeRTOS eBook!  See http://www.FreeRTOS.org/Documentation      *
-	*                                                                         *
-	* This is a concise, step by step, 'hands on' guide that describes both   *
-	* general multitasking concepts and FreeRTOS specifics. It presents and   *
-	* explains numerous examples that are written using the FreeRTOS API.     *
-	* Full source code for all the examples is provided in an accompanying    *
-	* .zip file.                                                              *
-	*                                                                         *
-	***************************************************************************
+    ***************************************************************************
+     *                                                                       *
+     *    FreeRTOS tutorial books are available in pdf and paperback.        *
+     *    Complete, revised, and edited pdf reference manuals are also       *
+     *    available.                                                         *
+     *                                                                       *
+     *    Purchasing FreeRTOS documentation will not only help you, by       *
+     *    ensuring you get running as quickly as possible and with an        *
+     *    in-depth knowledge of how to use FreeRTOS, it will also help       *
+     *    the FreeRTOS project to continue with its mission of providing     *
+     *    professional grade, cross platform, de facto standard solutions    *
+     *    for microcontrollers - completely free of charge!                  *
+     *                                                                       *
+     *    >>> See http://www.FreeRTOS.org/Documentation for details. <<<     *
+     *                                                                       *
+     *    Thank you for using FreeRTOS, and thank you for your support!      *
+     *                                                                       *
+    ***************************************************************************
 
-	1 tab == 4 spaces!
 
-	Please ensure to read the configuration and relevant port sections of the
-	online documentation.
+    This file is part of the FreeRTOS distribution.
 
-	http://www.FreeRTOS.org - Documentation, latest information, license and
-	contact details.
+    FreeRTOS is free software; you can redistribute it and/or modify it under
+    the terms of the GNU General Public License (version 2) as published by the
+    Free Software Foundation AND MODIFIED BY the FreeRTOS exception.
+    >>>NOTE<<< The modification to the GPL is included to allow you to
+    distribute a combined work that includes FreeRTOS without being obliged to
+    provide the source code for proprietary components outside of the FreeRTOS
+    kernel.  FreeRTOS is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+    or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+    more details. You should have received a copy of the GNU General Public
+    License and the FreeRTOS license exception along with FreeRTOS; if not it
+    can be viewed here: http://www.freertos.org/a00114.html and also obtained
+    by writing to Richard Barry, contact details for whom are available on the
+    FreeRTOS WEB site.
 
-	http://www.SafeRTOS.com - A version that is certified for use in safety
-	critical systems.
+    1 tab == 4 spaces!
+    
+    ***************************************************************************
+     *                                                                       *
+     *    Having a problem?  Start by reading the FAQ "My application does   *
+     *    not run, what could be wrong?                                      *
+     *                                                                       *
+     *    http://www.FreeRTOS.org/FAQHelp.html                               *
+     *                                                                       *
+    ***************************************************************************
 
-	http://www.OpenRTOS.com - Commercial support, development, porting,
-	licensing and training services.
+    
+    http://www.FreeRTOS.org - Documentation, training, latest information, 
+    license and contact details.
+    
+    http://www.FreeRTOS.org/plus - A selection of FreeRTOS ecosystem products,
+    including FreeRTOS+Trace - an indispensable productivity tool.
+
+    Real Time Engineers ltd license FreeRTOS to High Integrity Systems, who sell 
+    the code with commercial support, indemnification, and middleware, under 
+    the OpenRTOS brand: http://www.OpenRTOS.com.  High Integrity Systems also
+    provide a safety engineered and independently SIL3 certified version under 
+    the SafeRTOS brand: http://www.SafeRTOS.com.
 */
-
-#ifndef INC_FREERTOS_H
-	#error "#include FreeRTOS.h" must appear in source files before "#include queue.h"
-#endif
-
-
 
 
 #ifndef QUEUE_H
 #define QUEUE_H
 
+#ifndef INC_FREERTOS_H
+	#error "include FreeRTOS.h" must appear in source files before "include queue.h"
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+
+#include "mpu_wrappers.h"
+
+/**
+ * Type by which queues are referenced.  For example, a call to xQueueCreate
+ * returns (via a pointer parameter) an xQueueHandle variable that can then
+ * be used as a parameter to xQueueSend(), xQueueReceive(), etc.
+ */
 typedef void * xQueueHandle;
+
 
 /* For internal use only. */
 #define	queueSEND_TO_BACK	( 0 )
 #define	queueSEND_TO_FRONT	( 1 )
 
+/* For internal use only.  These definitions *must* match those in queue.c. */
+#define queueQUEUE_TYPE_BASE				( 0U )
+#define queueQUEUE_TYPE_MUTEX 				( 1U )
+#define queueQUEUE_TYPE_COUNTING_SEMAPHORE	( 2U )
+#define queueQUEUE_TYPE_BINARY_SEMAPHORE	( 3U )
+#define queueQUEUE_TYPE_RECURSIVE_MUTEX		( 4U )
 
 /**
  * queue. h
  * <pre>
  xQueueHandle xQueueCreate(
-                              unsigned portBASE_TYPE uxQueueLength,
-                              unsigned portBASE_TYPE uxItemSize
-                          );
+							  unsigned portBASE_TYPE uxQueueLength,
+							  unsigned portBASE_TYPE uxItemSize
+						  );
  * </pre>
  *
  * Creates a new queue instance.  This allocates the storage required by the
@@ -96,45 +125,45 @@ typedef void * xQueueHandle;
    <pre>
  struct AMessage
  {
-    portCHAR ucMessageID;
-    portCHAR ucData[ 20 ];
+	char ucMessageID;
+	char ucData[ 20 ];
  };
 
  void vATask( void *pvParameters )
  {
  xQueueHandle xQueue1, xQueue2;
 
-    // Create a queue capable of containing 10 unsigned long values.
-    xQueue1 = xQueueCreate( 10, sizeof( unsigned portLONG ) );
-    if( xQueue1 == 0 )
-    {
-        // Queue was not created and must not be used.
-    }
+	// Create a queue capable of containing 10 unsigned long values.
+	xQueue1 = xQueueCreate( 10, sizeof( unsigned long ) );
+	if( xQueue1 == 0 )
+	{
+		// Queue was not created and must not be used.
+	}
 
-    // Create a queue capable of containing 10 pointers to AMessage structures.
-    // These should be passed by pointer as they contain a lot of data.
-    xQueue2 = xQueueCreate( 10, sizeof( struct AMessage * ) );
-    if( xQueue2 == 0 )
-    {
-        // Queue was not created and must not be used.
-    }
+	// Create a queue capable of containing 10 pointers to AMessage structures.
+	// These should be passed by pointer as they contain a lot of data.
+	xQueue2 = xQueueCreate( 10, sizeof( struct AMessage * ) );
+	if( xQueue2 == 0 )
+	{
+		// Queue was not created and must not be used.
+	}
 
-    // ... Rest of task code.
+	// ... Rest of task code.
  }
  </pre>
  * \defgroup xQueueCreate xQueueCreate
  * \ingroup QueueManagement
  */
-xQueueHandle xQueueCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBASE_TYPE uxItemSize );
+#define xQueueCreate( uxQueueLength, uxItemSize ) xQueueGenericCreate( uxQueueLength, uxItemSize, queueQUEUE_TYPE_BASE )
 
 /**
  * queue. h
  * <pre>
  portBASE_TYPE xQueueSendToToFront(
-                                   xQueueHandle xQueue,
-                                   const void * pvItemToQueue,
-                                   portTickType xTicksToWait
-                               );
+								   xQueueHandle	xQueue,
+								   const void	*	pvItemToQueue,
+								   portTickType	xTicksToWait
+							   );
  * </pre>
  *
  * This is a macro that calls xQueueGenericSend().
@@ -154,7 +183,7 @@ xQueueHandle xQueueCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBA
  * @param xTicksToWait The maximum amount of time the task should block
  * waiting for space to become available on the queue, should it already
  * be full.  The call will return immediately if this is set to 0 and the
- * queue is full.  The time is defined in tick periods so the constant 
+ * queue is full.  The time is defined in tick periods so the constant
  * portTICK_RATE_MS should be used to convert to real time if this is required.
  *
  * @return pdTRUE if the item was successfully posted, otherwise errQUEUE_FULL.
@@ -163,43 +192,43 @@ xQueueHandle xQueueCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBA
    <pre>
  struct AMessage
  {
-    portCHAR ucMessageID;
-    portCHAR ucData[ 20 ];
+	char ucMessageID;
+	char ucData[ 20 ];
  } xMessage;
 
- unsigned portLONG ulVar = 10UL;
+ unsigned long ulVar = 10UL;
 
  void vATask( void *pvParameters )
  {
  xQueueHandle xQueue1, xQueue2;
  struct AMessage *pxMessage;
 
-    // Create a queue capable of containing 10 unsigned long values.
-    xQueue1 = xQueueCreate( 10, sizeof( unsigned portLONG ) );
+	// Create a queue capable of containing 10 unsigned long values.
+	xQueue1 = xQueueCreate( 10, sizeof( unsigned long ) );
 
-    // Create a queue capable of containing 10 pointers to AMessage structures.
-    // These should be passed by pointer as they contain a lot of data.
-    xQueue2 = xQueueCreate( 10, sizeof( struct AMessage * ) );
+	// Create a queue capable of containing 10 pointers to AMessage structures.
+	// These should be passed by pointer as they contain a lot of data.
+	xQueue2 = xQueueCreate( 10, sizeof( struct AMessage * ) );
 
-    // ...
+	// ...
 
-    if( xQueue1 != 0 )
-    {
-        // Send an unsigned long.  Wait for 10 ticks for space to become
-        // available if necessary.
-        if( xQueueSendToFront( xQueue1, ( void * ) &ulVar, ( portTickType ) 10 ) != pdPASS )
-        {
-            // Failed to post the message, even after 10 ticks.
-        }
-    }
+	if( xQueue1 != 0 )
+	{
+		// Send an unsigned long.  Wait for 10 ticks for space to become
+		// available if necessary.
+		if( xQueueSendToFront( xQueue1, ( void * ) &ulVar, ( portTickType ) 10 ) != pdPASS )
+		{
+			// Failed to post the message, even after 10 ticks.
+		}
+	}
 
-    if( xQueue2 != 0 )
-    {
-        // Send a pointer to a struct AMessage object.  Don't block if the
-        // queue is already full.
-        pxMessage = & xMessage;
-        xQueueSendToFront( xQueue2, ( void * ) &pxMessage, ( portTickType ) 0 );
-    }
+	if( xQueue2 != 0 )
+	{
+		// Send a pointer to a struct AMessage object.  Don't block if the
+		// queue is already full.
+		pxMessage = & xMessage;
+		xQueueSendToFront( xQueue2, ( void * ) &pxMessage, ( portTickType ) 0 );
+	}
 
 	// ... Rest of task code.
  }
@@ -207,16 +236,16 @@ xQueueHandle xQueueCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBA
  * \defgroup xQueueSend xQueueSend
  * \ingroup QueueManagement
  */
-#define xQueueSendToFront( xQueue, pvItemToQueue, xTicksToWait ) xQueueGenericSend( xQueue, pvItemToQueue, xTicksToWait, queueSEND_TO_FRONT )
+#define xQueueSendToFront( xQueue, pvItemToQueue, xTicksToWait ) xQueueGenericSend( ( xQueue ), ( pvItemToQueue ), ( xTicksToWait ), queueSEND_TO_FRONT )
 
 /**
  * queue. h
  * <pre>
  portBASE_TYPE xQueueSendToBack(
-                                   xQueueHandle xQueue,
-                                   const void * pvItemToQueue,
-                                   portTickType xTicksToWait
-                               );
+								   xQueueHandle	xQueue,
+								   const	void	*	pvItemToQueue,
+								   portTickType	xTicksToWait
+							   );
  * </pre>
  *
  * This is a macro that calls xQueueGenericSend().
@@ -236,7 +265,7 @@ xQueueHandle xQueueCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBA
  * @param xTicksToWait The maximum amount of time the task should block
  * waiting for space to become available on the queue, should it already
  * be full.  The call will return immediately if this is set to 0 and the queue
- * is full.  The  time is defined in tick periods so the constant 
+ * is full.  The  time is defined in tick periods so the constant
  * portTICK_RATE_MS should be used to convert to real time if this is required.
  *
  * @return pdTRUE if the item was successfully posted, otherwise errQUEUE_FULL.
@@ -245,43 +274,43 @@ xQueueHandle xQueueCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBA
    <pre>
  struct AMessage
  {
-    portCHAR ucMessageID;
-    portCHAR ucData[ 20 ];
+	char ucMessageID;
+	char ucData[ 20 ];
  } xMessage;
 
- unsigned portLONG ulVar = 10UL;
+ unsigned long ulVar = 10UL;
 
  void vATask( void *pvParameters )
  {
  xQueueHandle xQueue1, xQueue2;
  struct AMessage *pxMessage;
 
-    // Create a queue capable of containing 10 unsigned long values.
-    xQueue1 = xQueueCreate( 10, sizeof( unsigned portLONG ) );
+	// Create a queue capable of containing 10 unsigned long values.
+	xQueue1 = xQueueCreate( 10, sizeof( unsigned long ) );
 
-    // Create a queue capable of containing 10 pointers to AMessage structures.
-    // These should be passed by pointer as they contain a lot of data.
-    xQueue2 = xQueueCreate( 10, sizeof( struct AMessage * ) );
+	// Create a queue capable of containing 10 pointers to AMessage structures.
+	// These should be passed by pointer as they contain a lot of data.
+	xQueue2 = xQueueCreate( 10, sizeof( struct AMessage * ) );
 
-    // ...
+	// ...
 
-    if( xQueue1 != 0 )
-    {
-        // Send an unsigned long.  Wait for 10 ticks for space to become
-        // available if necessary.
-        if( xQueueSendToBack( xQueue1, ( void * ) &ulVar, ( portTickType ) 10 ) != pdPASS )
-        {
-            // Failed to post the message, even after 10 ticks.
-        }
-    }
+	if( xQueue1 != 0 )
+	{
+		// Send an unsigned long.  Wait for 10 ticks for space to become
+		// available if necessary.
+		if( xQueueSendToBack( xQueue1, ( void * ) &ulVar, ( portTickType ) 10 ) != pdPASS )
+		{
+			// Failed to post the message, even after 10 ticks.
+		}
+	}
 
-    if( xQueue2 != 0 )
-    {
-        // Send a pointer to a struct AMessage object.  Don't block if the
-        // queue is already full.
-        pxMessage = & xMessage;
-        xQueueSendToBack( xQueue2, ( void * ) &pxMessage, ( portTickType ) 0 );
-    }
+	if( xQueue2 != 0 )
+	{
+		// Send a pointer to a struct AMessage object.  Don't block if the
+		// queue is already full.
+		pxMessage = & xMessage;
+		xQueueSendToBack( xQueue2, ( void * ) &pxMessage, ( portTickType ) 0 );
+	}
 
 	// ... Rest of task code.
  }
@@ -289,16 +318,16 @@ xQueueHandle xQueueCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBA
  * \defgroup xQueueSend xQueueSend
  * \ingroup QueueManagement
  */
-#define xQueueSendToBack( xQueue, pvItemToQueue, xTicksToWait ) xQueueGenericSend( xQueue, pvItemToQueue, xTicksToWait, queueSEND_TO_BACK )
+#define xQueueSendToBack( xQueue, pvItemToQueue, xTicksToWait ) xQueueGenericSend( ( xQueue ), ( pvItemToQueue ), ( xTicksToWait ), queueSEND_TO_BACK )
 
 /**
  * queue. h
  * <pre>
  portBASE_TYPE xQueueSend(
-                              xQueueHandle xQueue,
-                              const void * pvItemToQueue,
-                              portTickType xTicksToWait
-                         );
+							  xQueueHandle xQueue,
+							  const void * pvItemToQueue,
+							  portTickType xTicksToWait
+						 );
  * </pre>
  *
  * This is a macro that calls xQueueGenericSend().  It is included for
@@ -320,7 +349,7 @@ xQueueHandle xQueueCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBA
  * @param xTicksToWait The maximum amount of time the task should block
  * waiting for space to become available on the queue, should it already
  * be full.  The call will return immediately if this is set to 0 and the
- * queue is full.  The time is defined in tick periods so the constant 
+ * queue is full.  The time is defined in tick periods so the constant
  * portTICK_RATE_MS should be used to convert to real time if this is required.
  *
  * @return pdTRUE if the item was successfully posted, otherwise errQUEUE_FULL.
@@ -329,43 +358,43 @@ xQueueHandle xQueueCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBA
    <pre>
  struct AMessage
  {
-    portCHAR ucMessageID;
-    portCHAR ucData[ 20 ];
+	char ucMessageID;
+	char ucData[ 20 ];
  } xMessage;
 
- unsigned portLONG ulVar = 10UL;
+ unsigned long ulVar = 10UL;
 
  void vATask( void *pvParameters )
  {
  xQueueHandle xQueue1, xQueue2;
  struct AMessage *pxMessage;
 
-    // Create a queue capable of containing 10 unsigned long values.
-    xQueue1 = xQueueCreate( 10, sizeof( unsigned portLONG ) );
+	// Create a queue capable of containing 10 unsigned long values.
+	xQueue1 = xQueueCreate( 10, sizeof( unsigned long ) );
 
-    // Create a queue capable of containing 10 pointers to AMessage structures.
-    // These should be passed by pointer as they contain a lot of data.
-    xQueue2 = xQueueCreate( 10, sizeof( struct AMessage * ) );
+	// Create a queue capable of containing 10 pointers to AMessage structures.
+	// These should be passed by pointer as they contain a lot of data.
+	xQueue2 = xQueueCreate( 10, sizeof( struct AMessage * ) );
 
-    // ...
+	// ...
 
-    if( xQueue1 != 0 )
-    {
-        // Send an unsigned long.  Wait for 10 ticks for space to become
-        // available if necessary.
-        if( xQueueSend( xQueue1, ( void * ) &ulVar, ( portTickType ) 10 ) != pdPASS )
-        {
-            // Failed to post the message, even after 10 ticks.
-        }
-    }
+	if( xQueue1 != 0 )
+	{
+		// Send an unsigned long.  Wait for 10 ticks for space to become
+		// available if necessary.
+		if( xQueueSend( xQueue1, ( void * ) &ulVar, ( portTickType ) 10 ) != pdPASS )
+		{
+			// Failed to post the message, even after 10 ticks.
+		}
+	}
 
-    if( xQueue2 != 0 )
-    {
-        // Send a pointer to a struct AMessage object.  Don't block if the
-        // queue is already full.
-        pxMessage = & xMessage;
-        xQueueSend( xQueue2, ( void * ) &pxMessage, ( portTickType ) 0 );
-    }
+	if( xQueue2 != 0 )
+	{
+		// Send a pointer to a struct AMessage object.  Don't block if the
+		// queue is already full.
+		pxMessage = & xMessage;
+		xQueueSend( xQueue2, ( void * ) &pxMessage, ( portTickType ) 0 );
+	}
 
 	// ... Rest of task code.
  }
@@ -373,7 +402,7 @@ xQueueHandle xQueueCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBA
  * \defgroup xQueueSend xQueueSend
  * \ingroup QueueManagement
  */
-#define xQueueSend( xQueue, pvItemToQueue, xTicksToWait ) xQueueGenericSend( xQueue, pvItemToQueue, xTicksToWait, queueSEND_TO_BACK )
+#define xQueueSend( xQueue, pvItemToQueue, xTicksToWait ) xQueueGenericSend( ( xQueue ), ( pvItemToQueue ), ( xTicksToWait ), queueSEND_TO_BACK )
 
 
 /**
@@ -404,7 +433,7 @@ xQueueHandle xQueueCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBA
  * @param xTicksToWait The maximum amount of time the task should block
  * waiting for space to become available on the queue, should it already
  * be full.  The call will return immediately if this is set to 0 and the
- * queue is full.  The time is defined in tick periods so the constant 
+ * queue is full.  The time is defined in tick periods so the constant
  * portTICK_RATE_MS should be used to convert to real time if this is required.
  *
  * @param xCopyPosition Can take the value queueSEND_TO_BACK to place the
@@ -417,43 +446,43 @@ xQueueHandle xQueueCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBA
    <pre>
  struct AMessage
  {
-    portCHAR ucMessageID;
-    portCHAR ucData[ 20 ];
+	char ucMessageID;
+	char ucData[ 20 ];
  } xMessage;
 
- unsigned portLONG ulVar = 10UL;
+ unsigned long ulVar = 10UL;
 
  void vATask( void *pvParameters )
  {
  xQueueHandle xQueue1, xQueue2;
  struct AMessage *pxMessage;
 
-    // Create a queue capable of containing 10 unsigned long values.
-    xQueue1 = xQueueCreate( 10, sizeof( unsigned portLONG ) );
+	// Create a queue capable of containing 10 unsigned long values.
+	xQueue1 = xQueueCreate( 10, sizeof( unsigned long ) );
 
-    // Create a queue capable of containing 10 pointers to AMessage structures.
-    // These should be passed by pointer as they contain a lot of data.
-    xQueue2 = xQueueCreate( 10, sizeof( struct AMessage * ) );
+	// Create a queue capable of containing 10 pointers to AMessage structures.
+	// These should be passed by pointer as they contain a lot of data.
+	xQueue2 = xQueueCreate( 10, sizeof( struct AMessage * ) );
 
-    // ...
+	// ...
 
-    if( xQueue1 != 0 )
-    {
-        // Send an unsigned long.  Wait for 10 ticks for space to become
-        // available if necessary.
-        if( xQueueGenericSend( xQueue1, ( void * ) &ulVar, ( portTickType ) 10, queueSEND_TO_BACK ) != pdPASS )
-        {
-            // Failed to post the message, even after 10 ticks.
-        }
-    }
+	if( xQueue1 != 0 )
+	{
+		// Send an unsigned long.  Wait for 10 ticks for space to become
+		// available if necessary.
+		if( xQueueGenericSend( xQueue1, ( void * ) &ulVar, ( portTickType ) 10, queueSEND_TO_BACK ) != pdPASS )
+		{
+			// Failed to post the message, even after 10 ticks.
+		}
+	}
 
-    if( xQueue2 != 0 )
-    {
-        // Send a pointer to a struct AMessage object.  Don't block if the
-        // queue is already full.
-        pxMessage = & xMessage;
-        xQueueGenericSend( xQueue2, ( void * ) &pxMessage, ( portTickType ) 0, queueSEND_TO_BACK );
-    }
+	if( xQueue2 != 0 )
+	{
+		// Send a pointer to a struct AMessage object.  Don't block if the
+		// queue is already full.
+		pxMessage = & xMessage;
+		xQueueGenericSend( xQueue2, ( void * ) &pxMessage, ( portTickType ) 0, queueSEND_TO_BACK );
+	}
 
 	// ... Rest of task code.
  }
@@ -461,16 +490,16 @@ xQueueHandle xQueueCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBA
  * \defgroup xQueueSend xQueueSend
  * \ingroup QueueManagement
  */
-signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const pvItemToQueue, portTickType xTicksToWait, portBASE_TYPE xCopyPosition );
+signed portBASE_TYPE xQueueGenericSend( xQueueHandle pxQueue, const void * const pvItemToQueue, portTickType xTicksToWait, portBASE_TYPE xCopyPosition );
 
 /**
  * queue. h
  * <pre>
  portBASE_TYPE xQueuePeek(
-                             xQueueHandle xQueue,
-                             void *pvBuffer,
-                             portTickType xTicksToWait
-                         );</pre>
+							 xQueueHandle xQueue,
+							 void *pvBuffer,
+							 portTickType xTicksToWait
+						 );</pre>
  *
  * This is a macro that calls the xQueueGenericReceive() function.
  *
@@ -492,7 +521,7 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
  *
  * @param xTicksToWait The maximum amount of time the task should block
  * waiting for an item to receive should the queue be empty at the time
- * of the call.    The time is defined in tick periods so the constant
+ * of the call.	 The time is defined in tick periods so the constant
  * portTICK_RATE_MS should be used to convert to real time if this is required.
  * xQueuePeek() will return immediately if xTicksToWait is 0 and the queue
  * is empty.
@@ -504,8 +533,8 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
    <pre>
  struct AMessage
  {
-    portCHAR ucMessageID;
-    portCHAR ucData[ 20 ];
+	char ucMessageID;
+	char ucData[ 20 ];
  } xMessage;
 
  xQueueHandle xQueue;
@@ -515,20 +544,20 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
  {
  struct AMessage *pxMessage;
 
-    // Create a queue capable of containing 10 pointers to AMessage structures.
-    // These should be passed by pointer as they contain a lot of data.
-    xQueue = xQueueCreate( 10, sizeof( struct AMessage * ) );
-    if( xQueue == 0 )
-    {
-        // Failed to create the queue.
-    }
+	// Create a queue capable of containing 10 pointers to AMessage structures.
+	// These should be passed by pointer as they contain a lot of data.
+	xQueue = xQueueCreate( 10, sizeof( struct AMessage * ) );
+	if( xQueue == 0 )
+	{
+		// Failed to create the queue.
+	}
 
-    // ...
+	// ...
 
-    // Send a pointer to a struct AMessage object.  Don't block if the
-    // queue is already full.
-    pxMessage = & xMessage;
-    xQueueSend( xQueue, ( void * ) &pxMessage, ( portTickType ) 0 );
+	// Send a pointer to a struct AMessage object.  Don't block if the
+	// queue is already full.
+	pxMessage = & xMessage;
+	xQueueSend( xQueue, ( void * ) &pxMessage, ( portTickType ) 0 );
 
 	// ... Rest of task code.
  }
@@ -538,16 +567,16 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
  {
  struct AMessage *pxRxedMessage;
 
-    if( xQueue != 0 )
-    {
-        // Peek a message on the created queue.  Block for 10 ticks if a
-        // message is not immediately available.
-        if( xQueuePeek( xQueue, &( pxRxedMessage ), ( portTickType ) 10 ) )
-        {
-            // pcRxedMessage now points to the struct AMessage variable posted
-            // by vATask, but the item still remains on the queue.
-        }
-    }
+	if( xQueue != 0 )
+	{
+		// Peek a message on the created queue.  Block for 10 ticks if a
+		// message is not immediately available.
+		if( xQueuePeek( xQueue, &( pxRxedMessage ), ( portTickType ) 10 ) )
+		{
+			// pcRxedMessage now points to the struct AMessage variable posted
+			// by vATask, but the item still remains on the queue.
+		}
+	}
 
 	// ... Rest of task code.
  }
@@ -555,16 +584,16 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
  * \defgroup xQueueReceive xQueueReceive
  * \ingroup QueueManagement
  */
-#define xQueuePeek( xQueue, pvBuffer, xTicksToWait ) xQueueGenericReceive( xQueue, pvBuffer, xTicksToWait, pdTRUE )
+#define xQueuePeek( xQueue, pvBuffer, xTicksToWait ) xQueueGenericReceive( ( xQueue ), ( pvBuffer ), ( xTicksToWait ), pdTRUE )
 
 /**
  * queue. h
  * <pre>
  portBASE_TYPE xQueueReceive(
-                                 xQueueHandle xQueue,
-                                 void *pvBuffer,
-                                 portTickType xTicksToWait
-                            );</pre>
+								 xQueueHandle xQueue,
+								 void *pvBuffer,
+								 portTickType xTicksToWait
+							);</pre>
  *
  * This is a macro that calls the xQueueGenericReceive() function.
  *
@@ -585,9 +614,9 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
  *
  * @param xTicksToWait The maximum amount of time the task should block
  * waiting for an item to receive should the queue be empty at the time
- * of the call.    xQueueReceive() will return immediately if xTicksToWait
- * is zero and the queue is empty.  The time is defined in tick periods so the 
- * constant portTICK_RATE_MS should be used to convert to real time if this is 
+ * of the call.	 xQueueReceive() will return immediately if xTicksToWait
+ * is zero and the queue is empty.  The time is defined in tick periods so the
+ * constant portTICK_RATE_MS should be used to convert to real time if this is
  * required.
  *
  * @return pdTRUE if an item was successfully received from the queue,
@@ -597,8 +626,8 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
    <pre>
  struct AMessage
  {
-    portCHAR ucMessageID;
-    portCHAR ucData[ 20 ];
+	char ucMessageID;
+	char ucData[ 20 ];
  } xMessage;
 
  xQueueHandle xQueue;
@@ -608,20 +637,20 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
  {
  struct AMessage *pxMessage;
 
-    // Create a queue capable of containing 10 pointers to AMessage structures.
-    // These should be passed by pointer as they contain a lot of data.
-    xQueue = xQueueCreate( 10, sizeof( struct AMessage * ) );
-    if( xQueue == 0 )
-    {
-        // Failed to create the queue.
-    }
+	// Create a queue capable of containing 10 pointers to AMessage structures.
+	// These should be passed by pointer as they contain a lot of data.
+	xQueue = xQueueCreate( 10, sizeof( struct AMessage * ) );
+	if( xQueue == 0 )
+	{
+		// Failed to create the queue.
+	}
 
-    // ...
+	// ...
 
-    // Send a pointer to a struct AMessage object.  Don't block if the
-    // queue is already full.
-    pxMessage = & xMessage;
-    xQueueSend( xQueue, ( void * ) &pxMessage, ( portTickType ) 0 );
+	// Send a pointer to a struct AMessage object.  Don't block if the
+	// queue is already full.
+	pxMessage = & xMessage;
+	xQueueSend( xQueue, ( void * ) &pxMessage, ( portTickType ) 0 );
 
 	// ... Rest of task code.
  }
@@ -631,16 +660,16 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
  {
  struct AMessage *pxRxedMessage;
 
-    if( xQueue != 0 )
-    {
-        // Receive a message on the created queue.  Block for 10 ticks if a
-        // message is not immediately available.
-        if( xQueueReceive( xQueue, &( pxRxedMessage ), ( portTickType ) 10 ) )
-        {
-            // pcRxedMessage now points to the struct AMessage variable posted
-            // by vATask.
-        }
-    }
+	if( xQueue != 0 )
+	{
+		// Receive a message on the created queue.  Block for 10 ticks if a
+		// message is not immediately available.
+		if( xQueueReceive( xQueue, &( pxRxedMessage ), ( portTickType ) 10 ) )
+		{
+			// pcRxedMessage now points to the struct AMessage variable posted
+			// by vATask.
+		}
+	}
 
 	// ... Rest of task code.
  }
@@ -648,18 +677,18 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
  * \defgroup xQueueReceive xQueueReceive
  * \ingroup QueueManagement
  */
-#define xQueueReceive( xQueue, pvBuffer, xTicksToWait ) xQueueGenericReceive( xQueue, pvBuffer, xTicksToWait, pdFALSE )
+#define xQueueReceive( xQueue, pvBuffer, xTicksToWait ) xQueueGenericReceive( ( xQueue ), ( pvBuffer ), ( xTicksToWait ), pdFALSE )
 
 
 /**
  * queue. h
  * <pre>
  portBASE_TYPE xQueueGenericReceive(
-                                       xQueueHandle xQueue,
-                                       void *pvBuffer,
-                                       portTickType xTicksToWait
-                                       portBASE_TYPE xJustPeek
-                                    );</pre>
+									   xQueueHandle	xQueue,
+									   void	*pvBuffer,
+									   portTickType	xTicksToWait
+									   portBASE_TYPE	xJustPeek
+									);</pre>
  *
  * It is preferred that the macro xQueueReceive() be used rather than calling
  * this function directly.
@@ -679,7 +708,7 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
  *
  * @param xTicksToWait The maximum amount of time the task should block
  * waiting for an item to receive should the queue be empty at the time
- * of the call.    The time is defined in tick periods so the constant
+ * of the call.	 The time is defined in tick periods so the constant
  * portTICK_RATE_MS should be used to convert to real time if this is required.
  * xQueueGenericReceive() will return immediately if the queue is empty and
  * xTicksToWait is 0.
@@ -696,8 +725,8 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
    <pre>
  struct AMessage
  {
-    portCHAR ucMessageID;
-    portCHAR ucData[ 20 ];
+	char ucMessageID;
+	char ucData[ 20 ];
  } xMessage;
 
  xQueueHandle xQueue;
@@ -707,20 +736,20 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
  {
  struct AMessage *pxMessage;
 
-    // Create a queue capable of containing 10 pointers to AMessage structures.
-    // These should be passed by pointer as they contain a lot of data.
-    xQueue = xQueueCreate( 10, sizeof( struct AMessage * ) );
-    if( xQueue == 0 )
-    {
-        // Failed to create the queue.
-    }
+	// Create a queue capable of containing 10 pointers to AMessage structures.
+	// These should be passed by pointer as they contain a lot of data.
+	xQueue = xQueueCreate( 10, sizeof( struct AMessage * ) );
+	if( xQueue == 0 )
+	{
+		// Failed to create the queue.
+	}
 
-    // ...
+	// ...
 
-    // Send a pointer to a struct AMessage object.  Don't block if the
-    // queue is already full.
-    pxMessage = & xMessage;
-    xQueueSend( xQueue, ( void * ) &pxMessage, ( portTickType ) 0 );
+	// Send a pointer to a struct AMessage object.  Don't block if the
+	// queue is already full.
+	pxMessage = & xMessage;
+	xQueueSend( xQueue, ( void * ) &pxMessage, ( portTickType ) 0 );
 
 	// ... Rest of task code.
  }
@@ -730,16 +759,16 @@ signed portBASE_TYPE xQueueGenericSend( xQueueHandle xQueue, const void * const 
  {
  struct AMessage *pxRxedMessage;
 
-    if( xQueue != 0 )
-    {
-        // Receive a message on the created queue.  Block for 10 ticks if a
-        // message is not immediately available.
-        if( xQueueGenericReceive( xQueue, &( pxRxedMessage ), ( portTickType ) 10 ) )
-        {
-            // pcRxedMessage now points to the struct AMessage variable posted
-            // by vATask.
-        }
-    }
+	if( xQueue != 0 )
+	{
+		// Receive a message on the created queue.  Block for 10 ticks if a
+		// message is not immediately available.
+		if( xQueueGenericReceive( xQueue, &( pxRxedMessage ), ( portTickType ) 10 ) )
+		{
+			// pcRxedMessage now points to the struct AMessage variable posted
+			// by vATask.
+		}
+	}
 
 	// ... Rest of task code.
  }
@@ -776,16 +805,16 @@ unsigned portBASE_TYPE uxQueueMessagesWaiting( const xQueueHandle xQueue );
  * \page vQueueDelete vQueueDelete
  * \ingroup QueueManagement
  */
-void vQueueDelete( xQueueHandle xQueue );
+void vQueueDelete( xQueueHandle pxQueue );
 
 /**
  * queue. h
  * <pre>
  portBASE_TYPE xQueueSendToFrontFromISR(
-                                         xQueueHandle pxQueue,
-                                         const void *pvItemToQueue,
-                                         portBASE_TYPE *pxHigherPriorityTaskWoken
-                                      );
+										 xQueueHandle pxQueue,
+										 const void *pvItemToQueue,
+										 portBASE_TYPE *pxHigherPriorityTaskWoken
+									  );
  </pre>
  *
  * This is a macro that calls xQueueGenericSendFromISR().
@@ -818,45 +847,45 @@ void vQueueDelete( xQueueHandle xQueue );
    <pre>
  void vBufferISR( void )
  {
- portCHAR cIn;
+ char cIn;
  portBASE_TYPE xHigherPrioritTaskWoken;
 
-    // We have not woken a task at the start of the ISR.
-    xHigherPriorityTaskWoken = pdFALSE;
+	// We have not woken a task at the start of the ISR.
+	xHigherPriorityTaskWoken = pdFALSE;
 
-    // Loop until the buffer is empty.
-    do
-    {
-        // Obtain a byte from the buffer.
-        cIn = portINPUT_BYTE( RX_REGISTER_ADDRESS );						
+	// Loop until the buffer is empty.
+	do
+	{
+		// Obtain a byte from the buffer.
+		cIn = portINPUT_BYTE( RX_REGISTER_ADDRESS );
 
-        // Post the byte.  
-        xQueueSendToFrontFromISR( xRxQueue, &cIn, &xHigherPriorityTaskWoken );
+		// Post the byte.
+		xQueueSendToFrontFromISR( xRxQueue, &cIn, &xHigherPriorityTaskWoken );
 
-    } while( portINPUT_BYTE( BUFFER_COUNT ) );
+	} while( portINPUT_BYTE( BUFFER_COUNT ) );
 
-    // Now the buffer is empty we can switch context if necessary.
-    if( xHigherPriorityTaskWoken )
-    {
-        taskYIELD ();
-    }
+	// Now the buffer is empty we can switch context if necessary.
+	if( xHigherPriorityTaskWoken )
+	{
+		taskYIELD ();
+	}
  }
  </pre>
  *
  * \defgroup xQueueSendFromISR xQueueSendFromISR
  * \ingroup QueueManagement
  */
-#define xQueueSendToFrontFromISR( pxQueue, pvItemToQueue, pxHigherPriorityTaskWoken ) xQueueGenericSendFromISR( pxQueue, pvItemToQueue, pxHigherPriorityTaskWoken, queueSEND_TO_FRONT )
+#define xQueueSendToFrontFromISR( pxQueue, pvItemToQueue, pxHigherPriorityTaskWoken ) xQueueGenericSendFromISR( ( pxQueue ), ( pvItemToQueue ), ( pxHigherPriorityTaskWoken ), queueSEND_TO_FRONT )
 
 
 /**
  * queue. h
  * <pre>
  portBASE_TYPE xQueueSendToBackFromISR(
-                                         xQueueHandle pxQueue,
-                                         const void *pvItemToQueue,
-                                         portBASE_TYPE *pxHigherPriorityTaskWoken
-                                      );
+										 xQueueHandle pxQueue,
+										 const void *pvItemToQueue,
+										 portBASE_TYPE *pxHigherPriorityTaskWoken
+									  );
  </pre>
  *
  * This is a macro that calls xQueueGenericSendFromISR().
@@ -889,44 +918,44 @@ void vQueueDelete( xQueueHandle xQueue );
    <pre>
  void vBufferISR( void )
  {
- portCHAR cIn;
+ char cIn;
  portBASE_TYPE xHigherPriorityTaskWoken;
 
-    // We have not woken a task at the start of the ISR.
-    xHigherPriorityTaskWoken = pdFALSE;
+	// We have not woken a task at the start of the ISR.
+	xHigherPriorityTaskWoken = pdFALSE;
 
-    // Loop until the buffer is empty.
-    do
-    {
-        // Obtain a byte from the buffer.
-        cIn = portINPUT_BYTE( RX_REGISTER_ADDRESS );						
+	// Loop until the buffer is empty.
+	do
+	{
+		// Obtain a byte from the buffer.
+		cIn = portINPUT_BYTE( RX_REGISTER_ADDRESS );
 
-        // Post the byte.
-        xQueueSendToBackFromISR( xRxQueue, &cIn, &xHigherPriorityTaskWoken );
+		// Post the byte.
+		xQueueSendToBackFromISR( xRxQueue, &cIn, &xHigherPriorityTaskWoken );
 
-    } while( portINPUT_BYTE( BUFFER_COUNT ) );
+	} while( portINPUT_BYTE( BUFFER_COUNT ) );
 
-    // Now the buffer is empty we can switch context if necessary.
-    if( xHigherPriorityTaskWoken )
-    {
-        taskYIELD ();
-    }
+	// Now the buffer is empty we can switch context if necessary.
+	if( xHigherPriorityTaskWoken )
+	{
+		taskYIELD ();
+	}
  }
  </pre>
  *
  * \defgroup xQueueSendFromISR xQueueSendFromISR
  * \ingroup QueueManagement
  */
-#define xQueueSendToBackFromISR( pxQueue, pvItemToQueue, pxHigherPriorityTaskWoken ) xQueueGenericSendFromISR( pxQueue, pvItemToQueue, pxHigherPriorityTaskWoken, queueSEND_TO_BACK )
+#define xQueueSendToBackFromISR( pxQueue, pvItemToQueue, pxHigherPriorityTaskWoken ) xQueueGenericSendFromISR( ( pxQueue ), ( pvItemToQueue ), ( pxHigherPriorityTaskWoken ), queueSEND_TO_BACK )
 
 /**
  * queue. h
  * <pre>
  portBASE_TYPE xQueueSendFromISR(
-                                     xQueueHandle pxQueue,
-                                     const void *pvItemToQueue,
-                                     portBASE_TYPE *pxHigherPriorityTaskWoken
-                                );
+									 xQueueHandle pxQueue,
+									 const void *pvItemToQueue,
+									 portBASE_TYPE *pxHigherPriorityTaskWoken
+								);
  </pre>
  *
  * This is a macro that calls xQueueGenericSendFromISR().  It is included
@@ -962,46 +991,46 @@ void vQueueDelete( xQueueHandle xQueue );
    <pre>
  void vBufferISR( void )
  {
- portCHAR cIn;
+ char cIn;
  portBASE_TYPE xHigherPriorityTaskWoken;
 
-    // We have not woken a task at the start of the ISR.
-    xHigherPriorityTaskWoken = pdFALSE;
+	// We have not woken a task at the start of the ISR.
+	xHigherPriorityTaskWoken = pdFALSE;
 
-    // Loop until the buffer is empty.
-    do
-    {
-        // Obtain a byte from the buffer.
-        cIn = portINPUT_BYTE( RX_REGISTER_ADDRESS );						
+	// Loop until the buffer is empty.
+	do
+	{
+		// Obtain a byte from the buffer.
+		cIn = portINPUT_BYTE( RX_REGISTER_ADDRESS );
 
-        // Post the byte.  
-        xQueueSendFromISR( xRxQueue, &cIn, &xHigherPriorityTaskWoken );
+		// Post the byte.
+		xQueueSendFromISR( xRxQueue, &cIn, &xHigherPriorityTaskWoken );
 
-    } while( portINPUT_BYTE( BUFFER_COUNT ) );
+	} while( portINPUT_BYTE( BUFFER_COUNT ) );
 
-    // Now the buffer is empty we can switch context if necessary.
-    if( xHigherPriorityTaskWoken )
-    {
-        // Actual macro used here is port specific.
-        taskYIELD_FROM_ISR ();
-    }
+	// Now the buffer is empty we can switch context if necessary.
+	if( xHigherPriorityTaskWoken )
+	{
+		// Actual macro used here is port specific.
+		taskYIELD_FROM_ISR ();
+	}
  }
  </pre>
  *
  * \defgroup xQueueSendFromISR xQueueSendFromISR
  * \ingroup QueueManagement
  */
-#define xQueueSendFromISR( pxQueue, pvItemToQueue, pxHigherPriorityTaskWoken ) xQueueGenericSendFromISR( pxQueue, pvItemToQueue, pxHigherPriorityTaskWoken, queueSEND_TO_BACK )
+#define xQueueSendFromISR( pxQueue, pvItemToQueue, pxHigherPriorityTaskWoken ) xQueueGenericSendFromISR( ( pxQueue ), ( pvItemToQueue ), ( pxHigherPriorityTaskWoken ), queueSEND_TO_BACK )
 
 /**
  * queue. h
  * <pre>
  portBASE_TYPE xQueueGenericSendFromISR(
-                                           xQueueHandle pxQueue,
-                                           const void *pvItemToQueue,
-                                           portBASE_TYPE *pxHigherPriorityTaskWoken,
-										   portBASE_TYPE xCopyPosition
-                                       );
+										   xQueueHandle	pxQueue,
+										   const	void	*pvItemToQueue,
+										   portBASE_TYPE	*pxHigherPriorityTaskWoken,
+										   portBASE_TYPE	xCopyPosition
+									   );
  </pre>
  *
  * It is preferred that the macros xQueueSendFromISR(),
@@ -1040,29 +1069,29 @@ void vQueueDelete( xQueueHandle xQueue );
    <pre>
  void vBufferISR( void )
  {
- portCHAR cIn;
+ char cIn;
  portBASE_TYPE xHigherPriorityTaskWokenByPost;
 
-    // We have not woken a task at the start of the ISR.
-    xHigherPriorityTaskWokenByPost = pdFALSE;
+	// We have not woken a task at the start of the ISR.
+	xHigherPriorityTaskWokenByPost = pdFALSE;
 
-    // Loop until the buffer is empty.
-    do
-    {
-        // Obtain a byte from the buffer.
-        cIn = portINPUT_BYTE( RX_REGISTER_ADDRESS );						
+	// Loop until the buffer is empty.
+	do
+	{
+		// Obtain a byte from the buffer.
+		cIn = portINPUT_BYTE( RX_REGISTER_ADDRESS );
 
-        // Post each byte.
-        xQueueGenericSendFromISR( xRxQueue, &cIn, &xHigherPriorityTaskWokenByPost, queueSEND_TO_BACK );
+		// Post each byte.
+		xQueueGenericSendFromISR( xRxQueue, &cIn, &xHigherPriorityTaskWokenByPost, queueSEND_TO_BACK );
 
-    } while( portINPUT_BYTE( BUFFER_COUNT ) );
+	} while( portINPUT_BYTE( BUFFER_COUNT ) );
 
-    // Now the buffer is empty we can switch context if necessary.  Note that the
-    // name of the yield function required is port specific.
-    if( xHigherPriorityTaskWokenByPost )
-    {
-        taskYIELD_YIELD_FROM_ISR();
-    }
+	// Now the buffer is empty we can switch context if necessary.  Note that the
+	// name of the yield function required is port specific.
+	if( xHigherPriorityTaskWokenByPost )
+	{
+		taskYIELD_YIELD_FROM_ISR();
+	}
  }
  </pre>
  *
@@ -1075,10 +1104,10 @@ signed portBASE_TYPE xQueueGenericSendFromISR( xQueueHandle pxQueue, const void 
  * queue. h
  * <pre>
  portBASE_TYPE xQueueReceiveFromISR(
-                                       xQueueHandle pxQueue,
-                                       void *pvBuffer,
-                                       portBASE_TYPE *pxTaskWoken
-                                   );
+									   xQueueHandle	pxQueue,
+									   void	*pvBuffer,
+									   portBASE_TYPE	*pxTaskWoken
+								   );
  * </pre>
  *
  * Receive an item from a queue.  It is safe to use this function from within an
@@ -1106,62 +1135,62 @@ signed portBASE_TYPE xQueueGenericSendFromISR( xQueueHandle pxQueue, const void 
  // Function to create a queue and post some values.
  void vAFunction( void *pvParameters )
  {
- portCHAR cValueToPost;
+ char cValueToPost;
  const portTickType xBlockTime = ( portTickType )0xff;
 
-    // Create a queue capable of containing 10 characters.
-    xQueue = xQueueCreate( 10, sizeof( portCHAR ) );
-    if( xQueue == 0 )
-    {
-        // Failed to create the queue.
-    }
+	// Create a queue capable of containing 10 characters.
+	xQueue = xQueueCreate( 10, sizeof( char ) );
+	if( xQueue == 0 )
+	{
+		// Failed to create the queue.
+	}
 
-    // ...
+	// ...
 
-    // Post some characters that will be used within an ISR.  If the queue
-    // is full then this task will block for xBlockTime ticks.
-    cValueToPost = 'a';
-    xQueueSend( xQueue, ( void * ) &cValueToPost, xBlockTime );
-    cValueToPost = 'b';
-    xQueueSend( xQueue, ( void * ) &cValueToPost, xBlockTime );
+	// Post some characters that will be used within an ISR.  If the queue
+	// is full then this task will block for xBlockTime ticks.
+	cValueToPost = 'a';
+	xQueueSend( xQueue, ( void * ) &cValueToPost, xBlockTime );
+	cValueToPost = 'b';
+	xQueueSend( xQueue, ( void * ) &cValueToPost, xBlockTime );
 
-    // ... keep posting characters ... this task may block when the queue
-    // becomes full.
+	// ... keep posting characters ... this task may block when the queue
+	// becomes full.
 
-    cValueToPost = 'c';
-    xQueueSend( xQueue, ( void * ) &cValueToPost, xBlockTime );
+	cValueToPost = 'c';
+	xQueueSend( xQueue, ( void * ) &cValueToPost, xBlockTime );
  }
 
  // ISR that outputs all the characters received on the queue.
  void vISR_Routine( void )
  {
  portBASE_TYPE xTaskWokenByReceive = pdFALSE;
- portCHAR cRxedChar;
+ char cRxedChar;
 
-    while( xQueueReceiveFromISR( xQueue, ( void * ) &cRxedChar, &xTaskWokenByReceive) )
-    {
-        // A character was received.  Output the character now.
-        vOutputCharacter( cRxedChar );
+	while( xQueueReceiveFromISR( xQueue, ( void * ) &cRxedChar, &xTaskWokenByReceive) )
+	{
+		// A character was received.  Output the character now.
+		vOutputCharacter( cRxedChar );
 
-        // If removing the character from the queue woke the task that was
-        // posting onto the queue cTaskWokenByReceive will have been set to
-        // pdTRUE.  No matter how many times this loop iterates only one
-        // task will be woken.
-    }
+		// If removing the character from the queue woke the task that was
+		// posting onto the queue cTaskWokenByReceive will have been set to
+		// pdTRUE.  No matter how many times this loop iterates only one
+		// task will be woken.
+	}
 
-    if( cTaskWokenByPost != ( portCHAR ) pdFALSE;
-    {
-        taskYIELD ();
-    }
+	if( cTaskWokenByPost != ( char ) pdFALSE;
+	{
+		taskYIELD ();
+	}
  }
  </pre>
  * \defgroup xQueueReceiveFromISR xQueueReceiveFromISR
  * \ingroup QueueManagement
  */
-signed portBASE_TYPE xQueueReceiveFromISR( xQueueHandle pxQueue, void * const pvBuffer, signed portBASE_TYPE *pxTaskWoken );
+signed portBASE_TYPE xQueueReceiveFromISR( xQueueHandle pxQueue, void * const pvBuffer, signed portBASE_TYPE *pxHigherPriorityTaskWoken );
 
 /*
- * Utilities to query queue that are safe to use from an ISR.  These utilities
+ * Utilities to query queues that are safe to use from an ISR.  These utilities
  * should be used only from witin an ISR, or within a critical section.
  */
 signed portBASE_TYPE xQueueIsQueueEmptyFromISR( const xQueueHandle pxQueue );
@@ -1169,26 +1198,26 @@ signed portBASE_TYPE xQueueIsQueueFullFromISR( const xQueueHandle pxQueue );
 unsigned portBASE_TYPE uxQueueMessagesWaitingFromISR( const xQueueHandle pxQueue );
 
 
-/* 
+/*
  * xQueueAltGenericSend() is an alternative version of xQueueGenericSend().
  * Likewise xQueueAltGenericReceive() is an alternative version of
  * xQueueGenericReceive().
  *
- * The source code that implements the alternative (Alt) API is much 
- * simpler	because it executes everything from within a critical section.  
- * This is	the approach taken by many other RTOSes, but FreeRTOS.org has the 
- * preferred fully featured API too.  The fully featured API has more 
- * complex	code that takes longer to execute, but makes much less use of 
- * critical sections.  Therefore the alternative API sacrifices interrupt 
+ * The source code that implements the alternative (Alt) API is much
+ * simpler	because it executes everything from within a critical section.
+ * This is	the approach taken by many other RTOSes, but FreeRTOS.org has the
+ * preferred fully featured API too.  The fully featured API has more
+ * complex	code that takes longer to execute, but makes much less use of
+ * critical sections.  Therefore the alternative API sacrifices interrupt
  * responsiveness to gain execution speed, whereas the fully featured API
  * sacrifices execution speed to ensure better interrupt responsiveness.
  */
 signed portBASE_TYPE xQueueAltGenericSend( xQueueHandle pxQueue, const void * const pvItemToQueue, portTickType xTicksToWait, portBASE_TYPE xCopyPosition );
 signed portBASE_TYPE xQueueAltGenericReceive( xQueueHandle pxQueue, void * const pvBuffer, portTickType xTicksToWait, portBASE_TYPE xJustPeeking );
-#define xQueueAltSendToFront( xQueue, pvItemToQueue, xTicksToWait ) xQueueAltGenericSend( xQueue, pvItemToQueue, xTicksToWait, queueSEND_TO_FRONT )
-#define xQueueAltSendToBack( xQueue, pvItemToQueue, xTicksToWait ) xQueueAltGenericSend( xQueue, pvItemToQueue, xTicksToWait, queueSEND_TO_BACK )
-#define xQueueAltReceive( xQueue, pvBuffer, xTicksToWait ) xQueueAltGenericReceive( xQueue, pvBuffer, xTicksToWait, pdFALSE )
-#define xQueueAltPeek( xQueue, pvBuffer, xTicksToWait ) xQueueAltGenericReceive( xQueue, pvBuffer, xTicksToWait, pdTRUE )
+#define xQueueAltSendToFront( xQueue, pvItemToQueue, xTicksToWait ) xQueueAltGenericSend( ( xQueue ), ( pvItemToQueue ), ( xTicksToWait ), queueSEND_TO_FRONT )
+#define xQueueAltSendToBack( xQueue, pvItemToQueue, xTicksToWait ) xQueueAltGenericSend( ( xQueue ), ( pvItemToQueue ), ( xTicksToWait ), queueSEND_TO_BACK )
+#define xQueueAltReceive( xQueue, pvBuffer, xTicksToWait ) xQueueAltGenericReceive( ( xQueue ), ( pvBuffer ), ( xTicksToWait ), pdFALSE )
+#define xQueueAltPeek( xQueue, pvBuffer, xTicksToWait ) xQueueAltGenericReceive( ( xQueue ), ( pvBuffer ), ( xTicksToWait ), pdTRUE )
 
 /*
  * The functions defined above are for passing data to and from tasks.  The
@@ -1205,30 +1234,40 @@ signed portBASE_TYPE xQueueCRSend( xQueueHandle pxQueue, const void *pvItemToQue
 signed portBASE_TYPE xQueueCRReceive( xQueueHandle pxQueue, void *pvBuffer, portTickType xTicksToWait );
 
 /*
- * For internal use only.  Use xSemaphoreCreateMutex() or
- * xSemaphoreCreateCounting() instead of calling these functions directly.
+ * For internal use only.  Use xSemaphoreCreateMutex(), 
+ * xSemaphoreCreateCounting() or xSemaphoreGetMutexHolder() instead of calling 
+ * these functions directly.
  */
-xQueueHandle xQueueCreateMutex( void );
+xQueueHandle xQueueCreateMutex( unsigned char ucQueueType );
 xQueueHandle xQueueCreateCountingSemaphore( unsigned portBASE_TYPE uxCountValue, unsigned portBASE_TYPE uxInitialCount );
+void* xQueueGetMutexHolder( xQueueHandle xSemaphore );
 
 /*
  * For internal use only.  Use xSemaphoreTakeMutexRecursive() or
  * xSemaphoreGiveMutexRecursive() instead of calling these functions directly.
  */
-portBASE_TYPE xQueueTakeMutexRecursive( xQueueHandle xMutex, portTickType xBlockTime );
-portBASE_TYPE xQueueGiveMutexRecursive( xQueueHandle xMutex );
+portBASE_TYPE xQueueTakeMutexRecursive( xQueueHandle pxMutex, portTickType xBlockTime );
+portBASE_TYPE xQueueGiveMutexRecursive( xQueueHandle pxMutex );
+
+/*
+ * Reset a queue back to its original empty state.  pdPASS is returned if the
+ * queue is successfully reset.  pdFAIL is returned if the queue could not be
+ * reset because there are tasks blocked on the queue waiting to either
+ * receive from the queue or send to the queue.
+ */
+#define xQueueReset( pxQueue ) xQueueGenericReset( pxQueue, pdFALSE )
 
 /*
  * The registry is provided as a means for kernel aware debuggers to
  * locate queues, semaphores and mutexes.  Call vQueueAddToRegistry() add
- * a queue, semaphore or mutex handle to the registry if you want the handle 
- * to be available to a kernel aware debugger.  If you are not using a kernel 
+ * a queue, semaphore or mutex handle to the registry if you want the handle
+ * to be available to a kernel aware debugger.  If you are not using a kernel
  * aware debugger then this function can be ignored.
  *
  * configQUEUE_REGISTRY_SIZE defines the maximum number of handles the
- * registry can hold.  configQUEUE_REGISTRY_SIZE must be greater than 0 
+ * registry can hold.  configQUEUE_REGISTRY_SIZE must be greater than 0
  * within FreeRTOSConfig.h for the registry to be available.  Its value
- * does not effect the number of queues, semaphores and mutexes that can be 
+ * does not effect the number of queues, semaphores and mutexes that can be
  * created - just the number that the registry can hold.
  *
  * @param xQueue The handle of the queue being added to the registry.  This
@@ -1238,11 +1277,19 @@ portBASE_TYPE xQueueGiveMutexRecursive( xQueueHandle xMutex );
  * @param pcName The name to be associated with the handle.  This is the
  * name that the kernel aware debugger will display.
  */
-#if configQUEUE_REGISTRY_SIZE > 0
-	void vQueueAddToRegistry( xQueueHandle xQueue, signed portCHAR *pcName );
+#if configQUEUE_REGISTRY_SIZE > 0U
+	void vQueueAddToRegistry( xQueueHandle xQueue, signed char *pcName );
 #endif
 
+/*
+ * Generic version of the queue creation function, which is in turn called by 
+ * any queue, semaphore or mutex creation function or macro.
+ */
+xQueueHandle xQueueGenericCreate( unsigned portBASE_TYPE uxQueueLength, unsigned portBASE_TYPE uxItemSize, unsigned char ucQueueType );
 
+/* Not public API functions. */
+void vQueueWaitForMessageRestricted( xQueueHandle pxQueue, portTickType xTicksToWait );
+portBASE_TYPE xQueueGenericReset( xQueueHandle pxQueue, portBASE_TYPE xNewQueue );
 
 
 #ifdef __cplusplus

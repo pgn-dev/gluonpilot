@@ -2,9 +2,9 @@
 #define CONFIGURATION_H
 
 
-#include "sensors.h"
+#include "task_sensors_analog.h"
 #include "communication.h"
-#include "control.h"
+#include "task_control.h"
 #include "gps/gps.h"
 
 
@@ -21,6 +21,7 @@ extern struct Configuration config;
 #define V01J 1
 #define V01N 2
 #define V01O 3
+#define V01Q 4
 extern int HARDWARE_VERSION;
 
 

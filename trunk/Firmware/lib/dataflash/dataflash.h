@@ -15,31 +15,17 @@ extern int CONFIGURATION_PAGE;
 extern int NAVIGATION_PAGE;
 
 
+struct Dataflash {
+        void (*open) ();
+        void (*read) (int page, int size, unsigned char *buffer);
+        void (*write) (int page, int size, unsigned char *buffer);
+        int (*read_Mbit) ();
+} ;
+
+extern struct Dataflash dataflash;
+
 /*!
  *    Opens the connection with the hardware.
  */
 void dataflash_open();
-
-/*!
- *    Reads a page from the flash chip
- *    @param page   The page number.
- *    @param size   Number of bytes to read into buffer
- *    @param buffer Pointer to a buffer of at least "size" bytes. This will store the result.
- */
-void dataflash_read(int page, int size, unsigned char *buffer);
-
-void dataflash_read_config(int size, unsigned char *configbuffer);
-
-/*!
- *    Writes a page to the flash chip
- *    @param page   The page address
- *    @param size   Number of bytes to read into buffer
- *    @param buffer Pointer to a buffer of at least "size" bytes. 
- */
-void dataflash_write(int page, int size, unsigned char *buffer);
-
-/*!
- *    Reads the AT45xxxx chip type and returns the nr. of megabits
- */
-int dataflash_read_Mbit();
 

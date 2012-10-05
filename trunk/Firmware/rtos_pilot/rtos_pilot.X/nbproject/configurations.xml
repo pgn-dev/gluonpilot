@@ -16,6 +16,8 @@
         <itemPath>../../lib/FreeRTOS/queue.h</itemPath>
         <itemPath>../../lib/FreeRTOS/semphr.h</itemPath>
         <itemPath>../../lib/FreeRTOS/task.h</itemPath>
+        <itemPath>../../lib/FreeRTOS/mpu_wrappers.h</itemPath>
+        <itemPath>../../lib/FreeRTOS/timers.h</itemPath>
       </logicalFolder>
       <logicalFolder name="lib" displayName="lib" projectFiles="true">
         <itemPath>../../lib/adc/adc.h</itemPath>
@@ -37,20 +39,22 @@
         <itemPath>../../lib/servo/servo.h</itemPath>
         <itemPath>../../lib/uart1_queue/uart1_queue.h</itemPath>
         <itemPath>../../lib/uart2/uart2.h</itemPath>
+        <itemPath>../../lib/mpu6000/mpu6000.h</itemPath>
       </logicalFolder>
       <itemPath>../ahrs.h</itemPath>
       <itemPath>../common.h</itemPath>
       <itemPath>../communication.h</itemPath>
       <itemPath>../configuration.h</itemPath>
-      <itemPath>../control.h</itemPath>
-      <itemPath>../datalogger.h</itemPath>
       <itemPath>../gluonscript.h</itemPath>
       <itemPath>../osd.h</itemPath>
-      <itemPath>../sensors.h</itemPath>
       <itemPath>../handler_alarms.h</itemPath>
       <itemPath>../handler_trigger.h</itemPath>
       <itemPath>../handler_navigation.h</itemPath>
       <itemPath>../handler_flightplan_switch.h</itemPath>
+      <itemPath>../task_gps.h</itemPath>
+      <itemPath>../task_datalogger.h</itemPath>
+      <itemPath>../task_control.h</itemPath>
+      <itemPath>../task_sensors_analog.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -63,6 +67,7 @@
         <itemPath>../../lib/FreeRTOS/portasm_dsPIC.S</itemPath>
         <itemPath>../../lib/FreeRTOS/queue.c</itemPath>
         <itemPath>../../lib/FreeRTOS/tasks.c</itemPath>
+        <itemPath>../../lib/FreeRTOS/timers.c</itemPath>
       </logicalFolder>
       <logicalFolder name="lib" displayName="lib" projectFiles="true">
         <itemPath>../../lib/adc/adc.c</itemPath>
@@ -84,20 +89,22 @@
         <itemPath>../../lib/servo/servo.c</itemPath>
         <itemPath>../../lib/uart1_queue/uart1_queue.c</itemPath>
         <itemPath>../../lib/uart2/uart2.c</itemPath>
+        <itemPath>../../lib/mpu6000/mpu6000.c</itemPath>
       </logicalFolder>
       <itemPath>../communication_csv.c</itemPath>
       <itemPath>../configuration.c</itemPath>
-      <itemPath>../control.c</itemPath>
-      <itemPath>../datalogger.c</itemPath>
       <itemPath>../gluonscript.c</itemPath>
       <itemPath>../osd_max7456.c</itemPath>
       <itemPath>../rtos_pilot.c</itemPath>
-      <itemPath>../sensors.c</itemPath>
       <itemPath>../ahrs_kalman_2x3.c</itemPath>
       <itemPath>../handler_alarms.c</itemPath>
       <itemPath>../handler_trigger.c</itemPath>
       <itemPath>../handler_navigation.c</itemPath>
       <itemPath>../handler_flightplan_switch.c</itemPath>
+      <itemPath>../task_gps.c</itemPath>
+      <itemPath>../task_datalogger.c</itemPath>
+      <itemPath>../task_control.c</itemPath>
+      <itemPath>../task_sensors_analog.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -112,9 +119,10 @@
         <developmentServer>localhost</developmentServer>
         <targetDevice>dsPIC33FJ256MC710</targetDevice>
         <targetHeader></targetHeader>
+        <targetPluginBoard></targetPluginBoard>
         <platformTool>ICD3PlatformTool</platformTool>
-        <languageToolchain>C30</languageToolchain>
-        <languageToolchainVersion>3_30b</languageToolchainVersion>
+        <languageToolchain>XC16</languageToolchain>
+        <languageToolchainVersion>1.10</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -122,98 +130,102 @@
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
+        <loading>
+          <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <alternateLoadableFile></alternateLoadableFile>
+        </loading>
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
         <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
-        <makeCustomizationAlternativeFileToLoadEnabled>false</makeCustomizationAlternativeFileToLoadEnabled>
-        <makeCustomizationAlternativeFileToLoad></makeCustomizationAlternativeFileToLoad>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
+        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <C30>
-        <property key="optimization-level" value="1"/>
-        <property key="preprocessor-macros" value="MPLAB_DSPIC_PORT"/>
         <property key="code-model" value="large-code"/>
         <property key="const-model" value="default"/>
-        <property key="enable-procedural-abstraction" value="false"/>
+        <property key="data-model" value="large-data"/>
+        <property key="enable-all-warnings" value="true"/>
+        <property key="enable-ansi-std" value="false"/>
         <property key="enable-ansi-warnings" value="false"/>
+        <property key="enable-fatal-warnings" value="false"/>
+        <property key="enable-large-arrays" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-procedural-abstraction" value="false"/>
         <property key="enable-short-double" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
         <property key="extra-include-directories"
                   value="../../lib/FreeRTOS;../../lib;../../lib/button;../../lib/adc;..;../../lib/i2c;../../lib/bmp085;../../lib/hmc5843;../../lib/max7456;../../lib/matrix;../../lib/quaternion;../../lib/pid;../../lib/pwm_in;../../lib/led;../../lib/ppm_in;../../lib/uart2;../../lib/uart1_queue;../../lib/servo;../../lib/scp1000;../../lib/microcontroller;../../lib/gps;../../lib/dataflash"/>
-        <property key="post-instruction-scheduling" value="default"/>
-        <property key="enable-unroll-loops" value="false"/>
-        <property key="enable-symbols" value="true"/>
-        <property key="data-model" value="large-data"/>
         <property key="isolate-each-function" value="false"/>
-        <property key="enable-fatal-warnings" value="false"/>
-        <property key="enable-omit-frame-pointer" value="false"/>
-        <property key="enable-ansi-std" value="false"/>
-        <property key="enable-all-warnings" value="true"/>
+        <property key="optimization-level" value="1"/>
+        <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
-        <property key="enable-large-arrays" value="false"/>
+        <property key="preprocessor-macros" value="MPLAB_DSPIC_PORT"/>
         <property key="scalar-model" value="default"/>
       </C30>
       <C30-AS>
-        <property key="omit-debug-dirs" value="false"/>
+        <property key="assembler-symbols" value=""/>
+        <property key="expand-macros" value="false"/>
         <property key="extra-include-directories-for-assembler" value=".."/>
-        <property key="preprocessor-macros" value=""/>
-        <property key="list-file" value=""/>
-        <property key="list-source" value="false"/>
-        <property key="list-assembly" value="false"/>
-        <property key="relax" value="false"/>
-        <property key="warning-level" value="emit-warnings"/>
         <property key="extra-include-directories-for-preprocessor"
                   value="../../lib/FreeRTOS;../../lib;../../lib/button;../../lib/adc;..;../../lib/i2c;../../lib/bmp085;../../lib/hmc5843;../../lib/max7456;../../lib/matrix;../../lib/quaternion;../../lib/pid;../../lib/pwm_in;../../lib/led;../../lib/ppm_in;../../lib/uart2;../../lib/uart1_queue;../../lib/servo;../../lib/scp1000;../../lib/microcontroller;../../lib/gps;../../lib/dataflash"/>
-        <property key="list-section-info" value="false"/>
-        <property key="omit-forms" value="false"/>
-        <property key="list-symbols" value="false"/>
-        <property key="keep-locals" value="false"/>
         <property key="false-conditionals" value="false"/>
-        <property key="expand-macros" value="false"/>
-        <property key="assembler-symbols" value=""/>
+        <property key="keep-locals" value="false"/>
+        <property key="list-assembly" value="false"/>
+        <property key="list-file" value=""/>
+        <property key="list-section-info" value="false"/>
+        <property key="list-source" value="false"/>
+        <property key="list-symbols" value="false"/>
+        <property key="omit-debug-dirs" value="false"/>
+        <property key="omit-forms" value="false"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="relax" value="false"/>
+        <property key="warning-level" value="emit-warnings"/>
       </C30-AS>
       <C30-LD>
-        <property key="preprocessor-macros" value=""/>
-        <property key="general-code-protect" value="no_code_protect"/>
-        <property key="secure-write-protect" value="no_write_protect"/>
-        <property key="warn-section-align" value="false"/>
-        <property key="heap-size" value="11300"/>
-        <property key="remove-unused-sections" value="false"/>
-        <property key="stack-size" value=""/>
-        <property key="linker-symbols" value=""/>
-        <property key="trace-symbols" value=""/>
-        <property key="map-file" value="&quot;${DISTDIR}/rtos_pilot.X.${IMAGE_TYPE}.map&quot;"/>
-        <property key="enable-pack-data" value="true"/>
         <property key="boot-eeprom" value="no_eeprom"/>
-        <property key="general-write-protect" value="no_write_protect"/>
-        <property key="enable-handles" value="true"/>
-        <property key="enable-data-init" value="true"/>
-        <property key="secure-flash" value="no_flash"/>
-        <property key="boot-write-protect" value="no_write_protect"/>
         <property key="boot-flash" value="no_flash"/>
-        <property key="report-memory-usage" value="true"/>
-        <property key="generate-cross-reference-file" value="false"/>
-        <property key="input-libraries" value=""/>
-        <property key="secure-ram" value="no_ram"/>
-        <property key="enable-check-sections" value="false"/>
-        <property key="enable-default-isr" value="true"/>
-        <property key="symbol-stripping" value="keep-all"/>
         <property key="boot-ram" value="no_ram"/>
-        <property key="secure-eeprom" value="no_eeprom"/>
+        <property key="boot-write-protect" value="no_write_protect"/>
+        <property key="enable-check-sections" value="false"/>
+        <property key="enable-data-init" value="true"/>
+        <property key="enable-default-isr" value="true"/>
+        <property key="enable-handles" value="true"/>
+        <property key="enable-pack-data" value="true"/>
         <property key="extra-lib-directories"
                   value="../../../../../../../../Program Files/Microchip/MPLAB C30/lib"/>
+        <property key="general-code-protect" value="no_code_protect"/>
+        <property key="general-write-protect" value="no_write_protect"/>
+        <property key="generate-cross-reference-file" value="false"/>
+        <property key="heap-size" value="11300"/>
+        <property key="input-libraries" value=""/>
+        <property key="linker-symbols" value=""/>
+        <property key="map-file" value="&quot;${DISTDIR}/rtos_pilot.X.${IMAGE_TYPE}.map&quot;"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="remove-unused-sections" value="false"/>
+        <property key="report-memory-usage" value="true"/>
+        <property key="secure-eeprom" value="no_eeprom"/>
+        <property key="secure-flash" value="no_flash"/>
+        <property key="secure-ram" value="no_ram"/>
+        <property key="secure-write-protect" value="no_write_protect"/>
+        <property key="stack-size" value=""/>
+        <property key="symbol-stripping" value="keep-all"/>
+        <property key="trace-symbols" value=""/>
+        <property key="warn-section-align" value="false"/>
       </C30-LD>
       <C30Global>
         <property key="fast-math" value="false"/>
-        <property key="output-file-format" value="elf"/>
         <property key="legacy-libc" value="false"/>
+        <property key="output-file-format" value="elf"/>
       </C30Global>
       <ICD3PlatformTool>
-        <property key="tracecontrol.select" value="0"/>
-        <property key="tracecontrol.medium" value="0"/>
         <property key="tracecontrol.disablemacros" value="true"/>
+        <property key="tracecontrol.medium" value="0"/>
+        <property key="tracecontrol.select" value="0"/>
       </ICD3PlatformTool>
     </conf>
     <conf name="quadrocopter" type="2">
@@ -221,6 +233,7 @@
         <developmentServer>localhost</developmentServer>
         <targetDevice>dsPIC33FJ256MC710</targetDevice>
         <targetHeader></targetHeader>
+        <targetPluginBoard></targetPluginBoard>
         <platformTool>ICD3PlatformTool</platformTool>
         <languageToolchain>C30</languageToolchain>
         <languageToolchainVersion>3_30b</languageToolchainVersion>
@@ -231,89 +244,93 @@
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
+        <loading>
+          <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <alternateLoadableFile></alternateLoadableFile>
+        </loading>
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
         <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
-        <makeCustomizationAlternativeFileToLoadEnabled>false</makeCustomizationAlternativeFileToLoadEnabled>
-        <makeCustomizationAlternativeFileToLoad></makeCustomizationAlternativeFileToLoad>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
+        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <C30>
-        <property key="optimization-level" value="1"/>
-        <property key="preprocessor-macros"
-                  value="MPLAB_DSPIC_PORT;ENABLE_QUADROCOPTER"/>
         <property key="code-model" value="large-code"/>
         <property key="const-model" value="default"/>
-        <property key="enable-procedural-abstraction" value="false"/>
+        <property key="data-model" value="large-data"/>
+        <property key="enable-all-warnings" value="true"/>
+        <property key="enable-ansi-std" value="false"/>
         <property key="enable-ansi-warnings" value="false"/>
+        <property key="enable-fatal-warnings" value="false"/>
+        <property key="enable-large-arrays" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-procedural-abstraction" value="false"/>
         <property key="enable-short-double" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
         <property key="extra-include-directories"
                   value="../../lib/FreeRTOS;../../lib;../../lib/button;../../lib/adc;..;../../lib/i2c;../../lib/bmp085;../../lib/hmc5843;../../lib/max7456;../../lib/matrix;../../lib/quaternion;../../lib/pid;../../lib/pwm_in;../../lib/led;../../lib/ppm_in;../../lib/uart2;../../lib/uart1_queue;../../lib/servo;../../lib/scp1000;../../lib/microcontroller;../../lib/gps;../../lib/dataflash"/>
-        <property key="post-instruction-scheduling" value="default"/>
-        <property key="enable-unroll-loops" value="false"/>
-        <property key="enable-symbols" value="true"/>
-        <property key="data-model" value="large-data"/>
         <property key="isolate-each-function" value="false"/>
-        <property key="enable-fatal-warnings" value="false"/>
-        <property key="enable-omit-frame-pointer" value="false"/>
-        <property key="enable-ansi-std" value="false"/>
-        <property key="enable-all-warnings" value="true"/>
+        <property key="optimization-level" value="1"/>
+        <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
-        <property key="enable-large-arrays" value="false"/>
+        <property key="preprocessor-macros"
+                  value="MPLAB_DSPIC_PORT;ENABLE_QUADROCOPTER"/>
         <property key="scalar-model" value="default"/>
       </C30>
       <C30-AS>
-        <property key="omit-debug-dirs" value="false"/>
+        <property key="assembler-symbols" value=""/>
+        <property key="expand-macros" value="false"/>
         <property key="extra-include-directories-for-assembler" value=".."/>
-        <property key="preprocessor-macros" value=""/>
-        <property key="list-file" value=""/>
-        <property key="list-source" value="false"/>
-        <property key="list-assembly" value="false"/>
-        <property key="relax" value="false"/>
-        <property key="warning-level" value="emit-warnings"/>
         <property key="extra-include-directories-for-preprocessor"
                   value="../../lib/FreeRTOS;../../lib;../../lib/button;../../lib/adc;..;../../lib/i2c;../../lib/bmp085;../../lib/hmc5843;../../lib/max7456;../../lib/matrix;../../lib/quaternion;../../lib/pid;../../lib/pwm_in;../../lib/led;../../lib/ppm_in;../../lib/uart2;../../lib/uart1_queue;../../lib/servo;../../lib/scp1000;../../lib/microcontroller;../../lib/gps;../../lib/dataflash"/>
-        <property key="list-section-info" value="false"/>
-        <property key="omit-forms" value="false"/>
-        <property key="list-symbols" value="false"/>
-        <property key="keep-locals" value="false"/>
         <property key="false-conditionals" value="false"/>
-        <property key="expand-macros" value="false"/>
-        <property key="assembler-symbols" value=""/>
+        <property key="keep-locals" value="false"/>
+        <property key="list-assembly" value="false"/>
+        <property key="list-file" value=""/>
+        <property key="list-section-info" value="false"/>
+        <property key="list-source" value="false"/>
+        <property key="list-symbols" value="false"/>
+        <property key="omit-debug-dirs" value="false"/>
+        <property key="omit-forms" value="false"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="relax" value="false"/>
+        <property key="warning-level" value="emit-warnings"/>
       </C30-AS>
       <C30-LD>
-        <property key="preprocessor-macros" value=""/>
-        <property key="general-code-protect" value="no_code_protect"/>
-        <property key="secure-write-protect" value="no_write_protect"/>
-        <property key="warn-section-align" value="false"/>
-        <property key="heap-size" value="11300"/>
-        <property key="remove-unused-sections" value="false"/>
-        <property key="stack-size" value=""/>
-        <property key="linker-symbols" value=""/>
-        <property key="trace-symbols" value=""/>
-        <property key="map-file" value="&quot;${DISTDIR}/rtos_pilot.X.${IMAGE_TYPE}.map&quot;"/>
-        <property key="enable-pack-data" value="true"/>
         <property key="boot-eeprom" value="no_eeprom"/>
-        <property key="general-write-protect" value="no_write_protect"/>
-        <property key="enable-handles" value="true"/>
-        <property key="enable-data-init" value="true"/>
-        <property key="secure-flash" value="no_flash"/>
-        <property key="boot-write-protect" value="no_write_protect"/>
         <property key="boot-flash" value="no_flash"/>
-        <property key="report-memory-usage" value="true"/>
-        <property key="generate-cross-reference-file" value="false"/>
-        <property key="input-libraries" value=""/>
-        <property key="secure-ram" value="no_ram"/>
-        <property key="enable-check-sections" value="false"/>
-        <property key="enable-default-isr" value="true"/>
-        <property key="symbol-stripping" value="keep-all"/>
         <property key="boot-ram" value="no_ram"/>
-        <property key="secure-eeprom" value="no_eeprom"/>
+        <property key="boot-write-protect" value="no_write_protect"/>
+        <property key="enable-check-sections" value="false"/>
+        <property key="enable-data-init" value="true"/>
+        <property key="enable-default-isr" value="true"/>
+        <property key="enable-handles" value="true"/>
+        <property key="enable-pack-data" value="true"/>
         <property key="extra-lib-directories"
                   value="../../../../../../../../Program Files/Microchip/MPLAB C30/lib"/>
+        <property key="general-code-protect" value="no_code_protect"/>
+        <property key="general-write-protect" value="no_write_protect"/>
+        <property key="generate-cross-reference-file" value="false"/>
+        <property key="heap-size" value="11300"/>
+        <property key="input-libraries" value=""/>
+        <property key="linker-symbols" value=""/>
+        <property key="map-file" value="&quot;${DISTDIR}/rtos_pilot.X.${IMAGE_TYPE}.map&quot;"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="remove-unused-sections" value="false"/>
+        <property key="report-memory-usage" value="true"/>
+        <property key="secure-eeprom" value="no_eeprom"/>
+        <property key="secure-flash" value="no_flash"/>
+        <property key="secure-ram" value="no_ram"/>
+        <property key="secure-write-protect" value="no_write_protect"/>
+        <property key="stack-size" value=""/>
+        <property key="symbol-stripping" value="keep-all"/>
+        <property key="trace-symbols" value=""/>
+        <property key="warn-section-align" value="false"/>
       </C30-LD>
       <C30Global>
         <property key="fast-math" value="false"/>
@@ -321,9 +338,9 @@
         <property key="output-file-format" value="elf"/>
       </C30Global>
       <ICD3PlatformTool>
-        <property key="tracecontrol.select" value="0"/>
-        <property key="tracecontrol.medium" value="0"/>
         <property key="tracecontrol.disablemacros" value="true"/>
+        <property key="tracecontrol.medium" value="0"/>
+        <property key="tracecontrol.select" value="0"/>
       </ICD3PlatformTool>
     </conf>
     <conf name="F1E" type="2">
@@ -331,6 +348,7 @@
         <developmentServer>localhost</developmentServer>
         <targetDevice>dsPIC33FJ256MC710</targetDevice>
         <targetHeader></targetHeader>
+        <targetPluginBoard></targetPluginBoard>
         <platformTool>ICD3PlatformTool</platformTool>
         <languageToolchain>C30</languageToolchain>
         <languageToolchainVersion>3_30b</languageToolchainVersion>
@@ -341,98 +359,102 @@
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
+        <loading>
+          <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <alternateLoadableFile></alternateLoadableFile>
+        </loading>
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
         <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
-        <makeCustomizationAlternativeFileToLoadEnabled>false</makeCustomizationAlternativeFileToLoadEnabled>
-        <makeCustomizationAlternativeFileToLoad></makeCustomizationAlternativeFileToLoad>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
+        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <C30>
-        <property key="optimization-level" value="1"/>
-        <property key="preprocessor-macros" value="MPLAB_DSPIC_PORT;F1E_STEERING"/>
         <property key="code-model" value="large-code"/>
         <property key="const-model" value="default"/>
-        <property key="enable-procedural-abstraction" value="false"/>
+        <property key="data-model" value="large-data"/>
+        <property key="enable-all-warnings" value="true"/>
+        <property key="enable-ansi-std" value="false"/>
         <property key="enable-ansi-warnings" value="false"/>
+        <property key="enable-fatal-warnings" value="false"/>
+        <property key="enable-large-arrays" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-procedural-abstraction" value="false"/>
         <property key="enable-short-double" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
         <property key="extra-include-directories"
                   value="../../lib/FreeRTOS;../../lib;../../lib/button;../../lib/adc;..;../../lib/i2c;../../lib/bmp085;../../lib/hmc5843;../../lib/max7456;../../lib/matrix;../../lib/quaternion;../../lib/pid;../../lib/pwm_in;../../lib/led;../../lib/ppm_in;../../lib/uart2;../../lib/uart1_queue;../../lib/servo;../../lib/scp1000;../../lib/microcontroller;../../lib/gps;../../lib/dataflash"/>
-        <property key="post-instruction-scheduling" value="default"/>
-        <property key="enable-unroll-loops" value="false"/>
-        <property key="enable-symbols" value="true"/>
-        <property key="data-model" value="large-data"/>
         <property key="isolate-each-function" value="false"/>
-        <property key="enable-fatal-warnings" value="false"/>
-        <property key="enable-omit-frame-pointer" value="false"/>
-        <property key="enable-ansi-std" value="false"/>
-        <property key="enable-all-warnings" value="true"/>
+        <property key="optimization-level" value="1"/>
+        <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
-        <property key="enable-large-arrays" value="false"/>
+        <property key="preprocessor-macros" value="MPLAB_DSPIC_PORT;F1E_STEERING"/>
         <property key="scalar-model" value="default"/>
       </C30>
       <C30-AS>
-        <property key="omit-debug-dirs" value="false"/>
+        <property key="assembler-symbols" value=""/>
+        <property key="expand-macros" value="false"/>
         <property key="extra-include-directories-for-assembler" value=".."/>
-        <property key="preprocessor-macros" value=""/>
-        <property key="list-file" value=""/>
-        <property key="list-source" value="false"/>
-        <property key="list-assembly" value="false"/>
-        <property key="relax" value="false"/>
-        <property key="warning-level" value="emit-warnings"/>
         <property key="extra-include-directories-for-preprocessor"
                   value="../../lib/FreeRTOS;../../lib;../../lib/button;../../lib/adc;..;../../lib/i2c;../../lib/bmp085;../../lib/hmc5843;../../lib/max7456;../../lib/matrix;../../lib/quaternion;../../lib/pid;../../lib/pwm_in;../../lib/led;../../lib/ppm_in;../../lib/uart2;../../lib/uart1_queue;../../lib/servo;../../lib/scp1000;../../lib/microcontroller;../../lib/gps;../../lib/dataflash"/>
-        <property key="list-section-info" value="false"/>
-        <property key="omit-forms" value="false"/>
-        <property key="list-symbols" value="false"/>
-        <property key="keep-locals" value="false"/>
         <property key="false-conditionals" value="false"/>
-        <property key="expand-macros" value="false"/>
-        <property key="assembler-symbols" value=""/>
+        <property key="keep-locals" value="false"/>
+        <property key="list-assembly" value="false"/>
+        <property key="list-file" value=""/>
+        <property key="list-section-info" value="false"/>
+        <property key="list-source" value="false"/>
+        <property key="list-symbols" value="false"/>
+        <property key="omit-debug-dirs" value="false"/>
+        <property key="omit-forms" value="false"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="relax" value="false"/>
+        <property key="warning-level" value="emit-warnings"/>
       </C30-AS>
       <C30-LD>
-        <property key="preprocessor-macros" value=""/>
-        <property key="general-code-protect" value="no_code_protect"/>
-        <property key="secure-write-protect" value="no_write_protect"/>
-        <property key="warn-section-align" value="false"/>
-        <property key="heap-size" value="11300"/>
-        <property key="remove-unused-sections" value="false"/>
-        <property key="stack-size" value=""/>
-        <property key="linker-symbols" value=""/>
-        <property key="trace-symbols" value=""/>
-        <property key="map-file" value="&quot;${DISTDIR}/rtos_pilot.X.${IMAGE_TYPE}.map&quot;"/>
-        <property key="enable-pack-data" value="true"/>
         <property key="boot-eeprom" value="no_eeprom"/>
-        <property key="general-write-protect" value="no_write_protect"/>
-        <property key="enable-handles" value="true"/>
-        <property key="enable-data-init" value="true"/>
-        <property key="secure-flash" value="no_flash"/>
-        <property key="boot-write-protect" value="no_write_protect"/>
         <property key="boot-flash" value="no_flash"/>
-        <property key="report-memory-usage" value="true"/>
-        <property key="generate-cross-reference-file" value="false"/>
-        <property key="input-libraries" value=""/>
-        <property key="secure-ram" value="no_ram"/>
-        <property key="enable-check-sections" value="false"/>
-        <property key="enable-default-isr" value="true"/>
-        <property key="symbol-stripping" value="keep-all"/>
         <property key="boot-ram" value="no_ram"/>
-        <property key="secure-eeprom" value="no_eeprom"/>
+        <property key="boot-write-protect" value="no_write_protect"/>
+        <property key="enable-check-sections" value="false"/>
+        <property key="enable-data-init" value="true"/>
+        <property key="enable-default-isr" value="true"/>
+        <property key="enable-handles" value="true"/>
+        <property key="enable-pack-data" value="true"/>
         <property key="extra-lib-directories"
                   value="../../../../../../../../Program Files/Microchip/MPLAB C30/lib"/>
+        <property key="general-code-protect" value="no_code_protect"/>
+        <property key="general-write-protect" value="no_write_protect"/>
+        <property key="generate-cross-reference-file" value="false"/>
+        <property key="heap-size" value="11300"/>
+        <property key="input-libraries" value=""/>
+        <property key="linker-symbols" value=""/>
+        <property key="map-file" value="&quot;${DISTDIR}/rtos_pilot.X.${IMAGE_TYPE}.map&quot;"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="remove-unused-sections" value="false"/>
+        <property key="report-memory-usage" value="true"/>
+        <property key="secure-eeprom" value="no_eeprom"/>
+        <property key="secure-flash" value="no_flash"/>
+        <property key="secure-ram" value="no_ram"/>
+        <property key="secure-write-protect" value="no_write_protect"/>
+        <property key="stack-size" value=""/>
+        <property key="symbol-stripping" value="keep-all"/>
+        <property key="trace-symbols" value=""/>
+        <property key="warn-section-align" value="false"/>
       </C30-LD>
       <C30Global>
         <property key="fast-math" value="false"/>
-        <property key="output-file-format" value="elf"/>
         <property key="legacy-libc" value="false"/>
+        <property key="output-file-format" value="elf"/>
       </C30Global>
       <ICD3PlatformTool>
-        <property key="tracecontrol.select" value="0"/>
-        <property key="tracecontrol.medium" value="0"/>
         <property key="tracecontrol.disablemacros" value="true"/>
+        <property key="tracecontrol.medium" value="0"/>
+        <property key="tracecontrol.select" value="0"/>
       </ICD3PlatformTool>
     </conf>
     <conf name="fixed_wing_gps_altitude" type="2">
@@ -440,6 +462,7 @@
         <developmentServer>localhost</developmentServer>
         <targetDevice>dsPIC33FJ256MC710</targetDevice>
         <targetHeader></targetHeader>
+        <targetPluginBoard></targetPluginBoard>
         <platformTool>ICD3PlatformTool</platformTool>
         <languageToolchain>C30</languageToolchain>
         <languageToolchainVersion>3_30b</languageToolchainVersion>
@@ -450,89 +473,93 @@
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
+        <loading>
+          <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <alternateLoadableFile></alternateLoadableFile>
+        </loading>
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
         <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
-        <makeCustomizationAlternativeFileToLoadEnabled>false</makeCustomizationAlternativeFileToLoadEnabled>
-        <makeCustomizationAlternativeFileToLoad></makeCustomizationAlternativeFileToLoad>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
+        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <C30>
-        <property key="optimization-level" value="1"/>
-        <property key="preprocessor-macros"
-                  value="MPLAB_DSPIC_PORT;USE_GPS_ABSOLUTE_ALTITUDE"/>
         <property key="code-model" value="large-code"/>
         <property key="const-model" value="default"/>
-        <property key="enable-procedural-abstraction" value="false"/>
+        <property key="data-model" value="large-data"/>
+        <property key="enable-all-warnings" value="true"/>
+        <property key="enable-ansi-std" value="false"/>
         <property key="enable-ansi-warnings" value="false"/>
+        <property key="enable-fatal-warnings" value="false"/>
+        <property key="enable-large-arrays" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-procedural-abstraction" value="false"/>
         <property key="enable-short-double" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
         <property key="extra-include-directories"
                   value="../../lib/FreeRTOS;../../lib;../../lib/button;../../lib/adc;..;../../lib/i2c;../../lib/bmp085;../../lib/hmc5843;../../lib/max7456;../../lib/matrix;../../lib/quaternion;../../lib/pid;../../lib/pwm_in;../../lib/led;../../lib/ppm_in;../../lib/uart2;../../lib/uart1_queue;../../lib/servo;../../lib/scp1000;../../lib/microcontroller;../../lib/gps;../../lib/dataflash"/>
-        <property key="post-instruction-scheduling" value="default"/>
-        <property key="enable-unroll-loops" value="false"/>
-        <property key="enable-symbols" value="true"/>
-        <property key="data-model" value="large-data"/>
         <property key="isolate-each-function" value="false"/>
-        <property key="enable-fatal-warnings" value="false"/>
-        <property key="enable-omit-frame-pointer" value="false"/>
-        <property key="enable-ansi-std" value="false"/>
-        <property key="enable-all-warnings" value="true"/>
+        <property key="optimization-level" value="1"/>
+        <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
-        <property key="enable-large-arrays" value="false"/>
+        <property key="preprocessor-macros"
+                  value="MPLAB_DSPIC_PORT;USE_GPS_ABSOLUTE_ALTITUDE"/>
         <property key="scalar-model" value="default"/>
       </C30>
       <C30-AS>
-        <property key="omit-debug-dirs" value="false"/>
+        <property key="assembler-symbols" value=""/>
+        <property key="expand-macros" value="false"/>
         <property key="extra-include-directories-for-assembler" value=".."/>
-        <property key="preprocessor-macros" value=""/>
-        <property key="list-file" value=""/>
-        <property key="list-source" value="false"/>
-        <property key="list-assembly" value="false"/>
-        <property key="relax" value="false"/>
-        <property key="warning-level" value="emit-warnings"/>
         <property key="extra-include-directories-for-preprocessor"
                   value="../../lib/FreeRTOS;../../lib;../../lib/button;../../lib/adc;..;../../lib/i2c;../../lib/bmp085;../../lib/hmc5843;../../lib/max7456;../../lib/matrix;../../lib/quaternion;../../lib/pid;../../lib/pwm_in;../../lib/led;../../lib/ppm_in;../../lib/uart2;../../lib/uart1_queue;../../lib/servo;../../lib/scp1000;../../lib/microcontroller;../../lib/gps;../../lib/dataflash"/>
-        <property key="list-section-info" value="false"/>
-        <property key="omit-forms" value="false"/>
-        <property key="list-symbols" value="false"/>
-        <property key="keep-locals" value="false"/>
         <property key="false-conditionals" value="false"/>
-        <property key="expand-macros" value="false"/>
-        <property key="assembler-symbols" value=""/>
+        <property key="keep-locals" value="false"/>
+        <property key="list-assembly" value="false"/>
+        <property key="list-file" value=""/>
+        <property key="list-section-info" value="false"/>
+        <property key="list-source" value="false"/>
+        <property key="list-symbols" value="false"/>
+        <property key="omit-debug-dirs" value="false"/>
+        <property key="omit-forms" value="false"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="relax" value="false"/>
+        <property key="warning-level" value="emit-warnings"/>
       </C30-AS>
       <C30-LD>
-        <property key="preprocessor-macros" value=""/>
-        <property key="general-code-protect" value="no_code_protect"/>
-        <property key="secure-write-protect" value="no_write_protect"/>
-        <property key="warn-section-align" value="false"/>
-        <property key="heap-size" value="11300"/>
-        <property key="remove-unused-sections" value="false"/>
-        <property key="stack-size" value=""/>
-        <property key="linker-symbols" value=""/>
-        <property key="trace-symbols" value=""/>
-        <property key="map-file" value="&quot;${DISTDIR}/rtos_pilot.X.${IMAGE_TYPE}.map&quot;"/>
-        <property key="enable-pack-data" value="true"/>
         <property key="boot-eeprom" value="no_eeprom"/>
-        <property key="general-write-protect" value="no_write_protect"/>
-        <property key="enable-handles" value="true"/>
-        <property key="enable-data-init" value="true"/>
-        <property key="secure-flash" value="no_flash"/>
-        <property key="boot-write-protect" value="no_write_protect"/>
         <property key="boot-flash" value="no_flash"/>
-        <property key="report-memory-usage" value="true"/>
-        <property key="generate-cross-reference-file" value="false"/>
-        <property key="input-libraries" value=""/>
-        <property key="secure-ram" value="no_ram"/>
-        <property key="enable-check-sections" value="false"/>
-        <property key="enable-default-isr" value="true"/>
-        <property key="symbol-stripping" value="keep-all"/>
         <property key="boot-ram" value="no_ram"/>
-        <property key="secure-eeprom" value="no_eeprom"/>
+        <property key="boot-write-protect" value="no_write_protect"/>
+        <property key="enable-check-sections" value="false"/>
+        <property key="enable-data-init" value="true"/>
+        <property key="enable-default-isr" value="true"/>
+        <property key="enable-handles" value="true"/>
+        <property key="enable-pack-data" value="true"/>
         <property key="extra-lib-directories"
                   value="../../../../../../../../Program Files/Microchip/MPLAB C30/lib"/>
+        <property key="general-code-protect" value="no_code_protect"/>
+        <property key="general-write-protect" value="no_write_protect"/>
+        <property key="generate-cross-reference-file" value="false"/>
+        <property key="heap-size" value="11300"/>
+        <property key="input-libraries" value=""/>
+        <property key="linker-symbols" value=""/>
+        <property key="map-file" value="&quot;${DISTDIR}/rtos_pilot.X.${IMAGE_TYPE}.map&quot;"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="remove-unused-sections" value="false"/>
+        <property key="report-memory-usage" value="true"/>
+        <property key="secure-eeprom" value="no_eeprom"/>
+        <property key="secure-flash" value="no_flash"/>
+        <property key="secure-ram" value="no_ram"/>
+        <property key="secure-write-protect" value="no_write_protect"/>
+        <property key="stack-size" value=""/>
+        <property key="symbol-stripping" value="keep-all"/>
+        <property key="trace-symbols" value=""/>
+        <property key="warn-section-align" value="false"/>
       </C30-LD>
       <C30Global>
         <property key="fast-math" value="false"/>
@@ -540,9 +567,9 @@
         <property key="output-file-format" value="elf"/>
       </C30Global>
       <ICD3PlatformTool>
-        <property key="tracecontrol.select" value="0"/>
-        <property key="tracecontrol.medium" value="0"/>
         <property key="tracecontrol.disablemacros" value="true"/>
+        <property key="tracecontrol.medium" value="0"/>
+        <property key="tracecontrol.select" value="0"/>
       </ICD3PlatformTool>
     </conf>
   </confs>

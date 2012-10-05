@@ -43,6 +43,24 @@ ALLCONFS=fixed_wing quadrocopter F1E fixed_wing_gps_altitude
 .clean-impl: .clean-pre
 	${MAKE} -f nbproject/Makefile-${CONF}.mk SUBPROJECTS=${SUBPROJECTS} .clean-conf
 
+# clobber
+.clobber-impl: .clobber-pre .depcheck-impl
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=fixed_wing clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=quadrocopter clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=F1E clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=fixed_wing_gps_altitude clean
+
+
+
+# all
+.all-impl: .all-pre .depcheck-impl
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=fixed_wing build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=quadrocopter build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=F1E build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=fixed_wing_gps_altitude build
+
+
+
 # dependency checking support
 .depcheck-impl:
 #	@echo "# This code depends on make tool being used" >.dep.inc

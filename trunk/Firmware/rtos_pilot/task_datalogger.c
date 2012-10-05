@@ -23,9 +23,9 @@
 #include "dataflash/dataflash.h"
 #include "uart1_queue/uart1_queue.h"
 
-#include "datalogger.h"
-#include "sensors.h"
-#include "control.h"
+#include "task_datalogger.h"
+#include "task_sensors_analog.h"
+#include "task_control.h"
 #include "gluonscript.h"
 #include "handler_navigation.h"
 #include "handler_trigger.h"
@@ -153,7 +153,7 @@ void datalogger_read(int page, int size, unsigned char *buffer)
 {
 	if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 10 ))   // Spi1 is shared with SCP1000 and Dataflash
 	{
-		dataflash_read(page, size, buffer);
+		dataflash.read(page, size, buffer);
 		xSemaphoreGive( xSpiSemaphore );
 	}	
 }	
@@ -162,7 +162,7 @@ void datalogger_write(int page, int size, unsigned char *buffer)
 {
 	if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 10 ))   // Spi1 is shared with SCP1000 and Dataflash
 	{
-		dataflash_write(page, size, buffer);
+		dataflash.write(page, size, buffer);
 		xSemaphoreGive( xSpiSemaphore );
 	}	
 }	
@@ -352,6 +352,7 @@ void datalogger_task( void *parameters )
 
 	uart1_puts("Datalogger task initializing...");
 
+    vTaskSetApplicationTaskTag( NULL, ( void * ) 5 );
 	datalogger_init();
 	
 	uart1_puts("done\r\n");

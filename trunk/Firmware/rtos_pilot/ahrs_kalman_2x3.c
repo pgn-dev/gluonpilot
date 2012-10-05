@@ -25,7 +25,7 @@
 #include "pid/pid.h"
 #include "quaternion/quaternion.h"
 
-#include "sensors.h"
+#include "task_sensors_analog.h"
 #include "configuration.h"
 #include "common.h"
 
@@ -307,14 +307,15 @@ void ahrs_filter(float dt)
 		
 		if (fabs(pitch_rad) < DEG2RAD(89.0f)) // to overcome secans +-inf
 		{
-			sensor_data.yaw += (sin_roll * sensor_data.q / cos_pitch + cos_roll * sensor_data.r / cos_pitch) * 0.04 ;  // try to calculate yaw approx.
+			sensor_data.yaw += (sin_roll * sensor_data.q / cos_pitch + cos_roll * sensor_data.r / cos_pitch) * dt*2 ;  // try to calculate yaw approx.
 			if (sensor_data.yaw >= DEG2RAD(360.0))
 				sensor_data.yaw -= DEG2RAD(360.0);
 			else if (sensor_data.yaw < DEG2RAD(0.0))
 				sensor_data.yaw += DEG2RAD(360.0);
-				
-			if (fabs(sensor_data.yaw - sensor_data.gps.heading_rad) < DEG2RAD(250.0))  // do not chang if e.g. yaw = 355° and heading = 2°
+#ifndef F1E_STEERING
+			if (fabs(sensor_data.yaw - sensor_data.gps.heading_rad) < DEG2RAD(250.0))  // do not change if e.g. yaw = 355° and heading = 2°
 				sensor_data.yaw = sensor_data.yaw*0.99 + sensor_data.gps.heading_rad*0.01;
+#endif
 		}	
     }
 	else if (i % 25 == 0) // outer loop at 2Hz
@@ -336,11 +337,52 @@ void ahrs_filter(float dt)
 
 		float YH =                my*cos_roll           - mz*sin_roll;
 		float XH = mx*cos_pitch + my*sin_roll*sin_pitch + mz*cos_roll*sin_pitch;
-		
-		sensor_data.yaw = atan2f (-YH, XH);
-		while (sensor_data.yaw < 0.0)
-			sensor_data.yaw += DEG2RAD(360.0);
+
+        
+        float magneto_yaw = atan2f (-YH, XH);
+        
+        if (magneto_yaw >= DEG2RAD(360.0))
+				magneto_yaw -= DEG2RAD(360.0);
+        else if (magneto_yaw < DEG2RAD(0.0))
+            magneto_yaw += DEG2RAD(360.0);
+
+        if (fabs(sensor_data.pitch) > DEG2RAD(30.0) || fabs(sensor_data.roll) > DEG2RAD(30.0))
+        {
+            // keep gyroscope sensor_data.yaw
+        }
+        else if (fabs(sensor_data.pitch) > DEG2RAD(5.0) || fabs(sensor_data.roll) > DEG2RAD(5.0))
+        {
+            if (magneto_yaw > DEG2RAD(250.0) && sensor_data.yaw < DEG2RAD(50.0))
+                sensor_data.yaw = (magneto_yaw - DEG2RAD(360.0)) * 0.1 + sensor_data.yaw * 0.9;
+            else if (sensor_data.yaw > DEG2RAD(250.0) && magneto_yaw < DEG2RAD(50.0))
+                sensor_data.yaw = (magneto_yaw) * 0.1 + (sensor_data.yaw  - DEG2RAD(360.0)) * 0.9;
+            else
+                sensor_data.yaw = (magneto_yaw) * 0.1 + (sensor_data.yaw) * 0.9;
+        }
+        else
+        {
+            if (magneto_yaw > DEG2RAD(250.0) && sensor_data.yaw < DEG2RAD(50.0))
+                sensor_data.yaw = (magneto_yaw - DEG2RAD(360.0)) * 0.5 + sensor_data.yaw * 0.5;
+            else if (sensor_data.yaw > DEG2RAD(250.0) && magneto_yaw < DEG2RAD(50.0))
+                sensor_data.yaw = (magneto_yaw) * 0.5 + (sensor_data.yaw  - DEG2RAD(360.0)) * 0.5;
+            else
+                sensor_data.yaw = (magneto_yaw) * 0.5 + (sensor_data.yaw) * 0.5;
+        }
+
+		if (sensor_data.yaw >= DEG2RAD(360.0))
+				sensor_data.yaw -= DEG2RAD(360.0);
+        else if (sensor_data.yaw < DEG2RAD(0.0))
+            sensor_data.yaw += DEG2RAD(360.0);
+
 		//sensor_data.yaw /= 2.0f;
+
+        /*if (i  % 25 == 0)
+        {
+            int heading = sensor_data.yaw/3.14*180.0;
+            if (heading < 0)
+                heading += 360;
+            printf("\r\nCompass: %d\r\n", heading);
+        }*/
 
 		/*printf("\r\n%5d %5d %5d -> %f\r\n",sensor_data.magnetometer_raw.x.i16, 
 							sensor_data.magnetometer_raw.y.i16,

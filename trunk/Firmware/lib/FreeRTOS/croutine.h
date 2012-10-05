@@ -1,63 +1,75 @@
 /*
-	FreeRTOS.org V5.3.0 - Copyright (C) 2003-2009 Richard Barry.
-
-	This file is part of the FreeRTOS.org distribution.
-
-	FreeRTOS.org is free software; you can redistribute it and/or modify it
-	under the terms of the GNU General Public License (version 2) as published
-	by the Free Software Foundation and modified by the FreeRTOS exception.
-	**NOTE** The exception to the GPL is included to allow you to distribute a
-	combined work that includes FreeRTOS.org without being obliged to provide
-	the source code for any proprietary components.  Alternative commercial
-	license and support terms are also available upon request.  See the 
-	licensing section of http://www.FreeRTOS.org for full details.
-
-	FreeRTOS.org is distributed in the hope that it will be useful,	but WITHOUT
-	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-	FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-	more details.
-
-	You should have received a copy of the GNU General Public License along
-	with FreeRTOS.org; if not, write to the Free Software Foundation, Inc., 59
-	Temple Place, Suite 330, Boston, MA  02111-1307  USA.
+    FreeRTOS V7.2.0 - Copyright (C) 2012 Real Time Engineers Ltd.
 
 
-	***************************************************************************
-	*                                                                         *
-	* Get the FreeRTOS eBook!  See http://www.FreeRTOS.org/Documentation      *
-	*                                                                         *
-	* This is a concise, step by step, 'hands on' guide that describes both   *
-	* general multitasking concepts and FreeRTOS specifics. It presents and   *
-	* explains numerous examples that are written using the FreeRTOS API.     *
-	* Full source code for all the examples is provided in an accompanying    *
-	* .zip file.                                                              *
-	*                                                                         *
-	***************************************************************************
+    ***************************************************************************
+     *                                                                       *
+     *    FreeRTOS tutorial books are available in pdf and paperback.        *
+     *    Complete, revised, and edited pdf reference manuals are also       *
+     *    available.                                                         *
+     *                                                                       *
+     *    Purchasing FreeRTOS documentation will not only help you, by       *
+     *    ensuring you get running as quickly as possible and with an        *
+     *    in-depth knowledge of how to use FreeRTOS, it will also help       *
+     *    the FreeRTOS project to continue with its mission of providing     *
+     *    professional grade, cross platform, de facto standard solutions    *
+     *    for microcontrollers - completely free of charge!                  *
+     *                                                                       *
+     *    >>> See http://www.FreeRTOS.org/Documentation for details. <<<     *
+     *                                                                       *
+     *    Thank you for using FreeRTOS, and thank you for your support!      *
+     *                                                                       *
+    ***************************************************************************
 
-	1 tab == 4 spaces!
 
-	Please ensure to read the configuration and relevant port sections of the
-	online documentation.
+    This file is part of the FreeRTOS distribution.
 
-	http://www.FreeRTOS.org - Documentation, latest information, license and
-	contact details.
+    FreeRTOS is free software; you can redistribute it and/or modify it under
+    the terms of the GNU General Public License (version 2) as published by the
+    Free Software Foundation AND MODIFIED BY the FreeRTOS exception.
+    >>>NOTE<<< The modification to the GPL is included to allow you to
+    distribute a combined work that includes FreeRTOS without being obliged to
+    provide the source code for proprietary components outside of the FreeRTOS
+    kernel.  FreeRTOS is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+    or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+    more details. You should have received a copy of the GNU General Public
+    License and the FreeRTOS license exception along with FreeRTOS; if not it
+    can be viewed here: http://www.freertos.org/a00114.html and also obtained
+    by writing to Richard Barry, contact details for whom are available on the
+    FreeRTOS WEB site.
 
-	http://www.SafeRTOS.com - A version that is certified for use in safety
-	critical systems.
+    1 tab == 4 spaces!
+    
+    ***************************************************************************
+     *                                                                       *
+     *    Having a problem?  Start by reading the FAQ "My application does   *
+     *    not run, what could be wrong?                                      *
+     *                                                                       *
+     *    http://www.FreeRTOS.org/FAQHelp.html                               *
+     *                                                                       *
+    ***************************************************************************
 
-	http://www.OpenRTOS.com - Commercial support, development, porting,
-	licensing and training services.
+    
+    http://www.FreeRTOS.org - Documentation, training, latest information, 
+    license and contact details.
+    
+    http://www.FreeRTOS.org/plus - A selection of FreeRTOS ecosystem products,
+    including FreeRTOS+Trace - an indispensable productivity tool.
+
+    Real Time Engineers ltd license FreeRTOS to High Integrity Systems, who sell 
+    the code with commercial support, indemnification, and middleware, under 
+    the OpenRTOS brand: http://www.OpenRTOS.com.  High Integrity Systems also
+    provide a safety engineered and independently SIL3 certified version under 
+    the SafeRTOS brand: http://www.SafeRTOS.com.
 */
-
-#ifndef INC_FREERTOS_H
-	#error "#include FreeRTOS.h" must appear in source files before "#include croutine.h"
-#endif
-
-
-
 
 #ifndef CO_ROUTINE_H
 #define CO_ROUTINE_H
+
+#ifndef INC_FREERTOS_H
+	#error "include FreeRTOS.h must appear in source files before include croutine.h"
+#endif
 
 #include "list.h"
 
@@ -80,7 +92,7 @@ typedef struct corCoRoutineControlBlock
 	xListItem				xEventListItem;		/*< List item used to place the CRCB in event lists. */
 	unsigned portBASE_TYPE 	uxPriority;			/*< The priority of the co-routine in relation to other co-routines. */
 	unsigned portBASE_TYPE 	uxIndex;			/*< Used to distinguish between co-routines when multiple co-routines use the same co-routine function. */
-	unsigned portSHORT 		uxState;			/*< Used internally by the co-routine implementation. */
+	unsigned short 		uxState;			/*< Used internally by the co-routine implementation. */
 } corCRCB; /* Co-routine control block.  Note must be identical in size down to uxPriority with tskTCB. */
 
 /**
@@ -117,7 +129,7 @@ typedef struct corCoRoutineControlBlock
  // Variables in co-routines must be declared static if they must maintain value across a blocking call.
  // This may not be necessary for const variables.
  static const char cLedToFlash[ 2 ] = { 5, 6 };
- static const portTickType xTimeToDelay[ 2 ] = { 200, 400 };
+ static const portTickType uxFlashRates[ 2 ] = { 200, 400 };
 
      // Must start every co-routine with a call to crSTART();
      crSTART( xHandle );
@@ -212,7 +224,7 @@ void vCoRoutineSchedule( void );
  void vACoRoutine( xCoRoutineHandle xHandle, unsigned portBASE_TYPE uxIndex )
  {
  // Variables in co-routines must be declared static if they must maintain value across a blocking call.
- static portLONG ulAVariable;
+ static long ulAVariable;
 
      // Must start every co-routine with a call to crSTART();
      crSTART( xHandle );
@@ -228,7 +240,7 @@ void vCoRoutineSchedule( void );
  * \defgroup crSTART crSTART
  * \ingroup Tasks
  */
-#define crSTART( pxCRCB ) switch( ( ( corCRCB * )pxCRCB )->uxState ) { case 0:
+#define crSTART( pxCRCB ) switch( ( ( corCRCB * )( pxCRCB ) )->uxState ) { case 0:
 
 /**
  * croutine. h
@@ -243,7 +255,7 @@ void vCoRoutineSchedule( void );
  void vACoRoutine( xCoRoutineHandle xHandle, unsigned portBASE_TYPE uxIndex )
  {
  // Variables in co-routines must be declared static if they must maintain value across a blocking call.
- static portLONG ulAVariable;
+ static long ulAVariable;
 
      // Must start every co-routine with a call to crSTART();
      crSTART( xHandle );
@@ -265,8 +277,8 @@ void vCoRoutineSchedule( void );
  * These macros are intended for internal use by the co-routine implementation
  * only.  The macros should not be used directly by application writers.
  */
-#define crSET_STATE0( xHandle ) ( ( corCRCB * )xHandle)->uxState = (__LINE__ * 2); return; case (__LINE__ * 2):
-#define crSET_STATE1( xHandle ) ( ( corCRCB * )xHandle)->uxState = ((__LINE__ * 2)+1); return; case ((__LINE__ * 2)+1):
+#define crSET_STATE0( xHandle ) ( ( corCRCB * )( xHandle ) )->uxState = (__LINE__ * 2); return; case (__LINE__ * 2):
+#define crSET_STATE1( xHandle ) ( ( corCRCB * )( xHandle ) )->uxState = ((__LINE__ * 2)+1); return; case ((__LINE__ * 2)+1):
 
 /**
  * croutine. h
@@ -315,11 +327,11 @@ void vCoRoutineSchedule( void );
  * \ingroup Tasks
  */
 #define crDELAY( xHandle, xTicksToDelay )												\
-	if( xTicksToDelay > 0 )																\
+	if( ( xTicksToDelay ) > 0 )															\
 	{																					\
-		vCoRoutineAddToDelayedList( xTicksToDelay, NULL );								\
+		vCoRoutineAddToDelayedList( ( xTicksToDelay ), NULL );							\
 	}																					\
-	crSET_STATE0( xHandle );
+	crSET_STATE0( ( xHandle ) );
 
 /**
  * <pre>
@@ -406,15 +418,15 @@ void vCoRoutineSchedule( void );
  */
 #define crQUEUE_SEND( xHandle, pxQueue, pvItemToQueue, xTicksToWait, pxResult )			\
 {																						\
-	*pxResult = xQueueCRSend( pxQueue, pvItemToQueue, xTicksToWait );					\
-	if( *pxResult == errQUEUE_BLOCKED )													\
+	*( pxResult ) = xQueueCRSend( ( pxQueue) , ( pvItemToQueue) , ( xTicksToWait ) );	\
+	if( *( pxResult ) == errQUEUE_BLOCKED )												\
 	{																					\
-		crSET_STATE0( xHandle );														\
-		*pxResult = xQueueCRSend( pxQueue, pvItemToQueue, 0 );							\
+		crSET_STATE0( ( xHandle ) );													\
+		*pxResult = xQueueCRSend( ( pxQueue ), ( pvItemToQueue ), 0 );					\
 	}																					\
 	if( *pxResult == errQUEUE_YIELD )													\
 	{																					\
-		crSET_STATE1( xHandle );														\
+		crSET_STATE1( ( xHandle ) );													\
 		*pxResult = pdPASS;																\
 	}																					\
 }
@@ -498,16 +510,16 @@ void vCoRoutineSchedule( void );
  */
 #define crQUEUE_RECEIVE( xHandle, pxQueue, pvBuffer, xTicksToWait, pxResult )			\
 {																						\
-	*pxResult = xQueueCRReceive( pxQueue, pvBuffer, xTicksToWait );						\
-	if( *pxResult == errQUEUE_BLOCKED ) 												\
+	*( pxResult ) = xQueueCRReceive( ( pxQueue) , ( pvBuffer ), ( xTicksToWait ) );		\
+	if( *( pxResult ) == errQUEUE_BLOCKED ) 											\
 	{																					\
-		crSET_STATE0( xHandle );														\
-		*pxResult = xQueueCRReceive( pxQueue, pvBuffer, 0 );							\
+		crSET_STATE0( ( xHandle ) );													\
+		*( pxResult ) = xQueueCRReceive( ( pxQueue) , ( pvBuffer ), 0 );				\
 	}																					\
-	if( *pxResult == errQUEUE_YIELD )													\
+	if( *( pxResult ) == errQUEUE_YIELD )												\
 	{																					\
-		crSET_STATE1( xHandle );														\
-		*pxResult = pdPASS;																\
+		crSET_STATE1( ( xHandle ) );													\
+		*( pxResult ) = pdPASS;															\
 	}																					\
 }
 
@@ -557,7 +569,7 @@ void vCoRoutineSchedule( void );
  // A co-routine that blocks on a queue waiting for characters to be received.
  static void vReceivingCoRoutine( xCoRoutineHandle xHandle, unsigned portBASE_TYPE uxIndex )
  {
- portCHAR cRxedChar;
+ char cRxedChar;
  portBASE_TYPE xResult;
 
      // All co-routines must start with a call to crSTART().
@@ -584,7 +596,7 @@ void vCoRoutineSchedule( void );
  // a co-routine.
  void vUART_ISR( void )
  {
- portCHAR cRxedChar;
+ char cRxedChar;
  portBASE_TYPE xCRWokenByPost = pdFALSE;
 
      // We loop around reading characters until there are none left in the UART.
@@ -605,7 +617,7 @@ void vCoRoutineSchedule( void );
  * \defgroup crQUEUE_SEND_FROM_ISR crQUEUE_SEND_FROM_ISR
  * \ingroup Tasks
  */
-#define crQUEUE_SEND_FROM_ISR( pxQueue, pvItemToQueue, xCoRoutinePreviouslyWoken ) xQueueCRSendFromISR( pxQueue, pvItemToQueue, xCoRoutinePreviouslyWoken )
+#define crQUEUE_SEND_FROM_ISR( pxQueue, pvItemToQueue, xCoRoutinePreviouslyWoken ) xQueueCRSendFromISR( ( pxQueue ), ( pvItemToQueue ), ( xCoRoutinePreviouslyWoken ) )
 
 
 /**
@@ -657,7 +669,7 @@ void vCoRoutineSchedule( void );
  {
  // cChar holds its value while this co-routine is blocked and must therefore
  // be declared static.
- static portCHAR cCharToTx = 'a';
+ static char cCharToTx = 'a';
  portBASE_TYPE xResult;
 
      // All co-routines must start with a call to crSTART().
@@ -700,7 +712,7 @@ void vCoRoutineSchedule( void );
  // An ISR that uses a queue to receive characters to send on a UART.
  void vUART_ISR( void )
  {
- portCHAR cCharToTx;
+ char cCharToTx;
  portBASE_TYPE xCRWokenByPost = pdFALSE;
 
      while( UART_TX_REG_EMPTY() )
@@ -718,7 +730,7 @@ void vCoRoutineSchedule( void );
  * \defgroup crQUEUE_RECEIVE_FROM_ISR crQUEUE_RECEIVE_FROM_ISR
  * \ingroup Tasks
  */
-#define crQUEUE_RECEIVE_FROM_ISR( pxQueue, pvBuffer, pxCoRoutineWoken ) xQueueCRReceiveFromISR( pxQueue, pvBuffer, pxCoRoutineWoken )
+#define crQUEUE_RECEIVE_FROM_ISR( pxQueue, pvBuffer, pxCoRoutineWoken ) xQueueCRReceiveFromISR( ( pxQueue ), ( pvBuffer ), ( pxCoRoutineWoken ) )
 
 /*
  * This function is intended for internal use by the co-routine macros only.
