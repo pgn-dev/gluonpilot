@@ -18,13 +18,13 @@
 #include "handler_alarms.h"
 #include "handler_navigation.h"
 #include "handler_flightplan_switch.h"
-#include "sensors.h"
-#include "control.h"
+#include "task_sensors_analog.h"
+#include "task_control.h"
 #include "configuration.h"
 #include "gluonscript.h"
 
 
-volatile struct GluonscriptData gluonscript_data = {.current_codeline = 0, .last_code = 0, .tick = 0 };
+/*volatile */struct GluonscriptData gluonscript_data = {.current_codeline = 0, .last_code = 0, .tick = 0 };
 
 void gluonscript_init()
 {
@@ -349,11 +349,11 @@ struct GluonscriptCode * gluonscript_next_waypoint_code(int current_codeline)
 
 void gluonscript_burn()
 {
-	dataflash_write(NAVIGATION_PAGE, sizeof(gluonscript_data.codes), (unsigned char*) & (gluonscript_data.codes));
+	dataflash.write(NAVIGATION_PAGE, sizeof(gluonscript_data.codes), (unsigned char*) & (gluonscript_data.codes));
 }
 
 	
 void gluonscript_load()
 {
-	dataflash_read(NAVIGATION_PAGE, sizeof(gluonscript_data.codes), (unsigned char*) & (gluonscript_data.codes));
+	dataflash.read(NAVIGATION_PAGE, sizeof(gluonscript_data.codes), (unsigned char*) & (gluonscript_data.codes));
 }	

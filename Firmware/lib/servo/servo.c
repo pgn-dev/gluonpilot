@@ -20,7 +20,8 @@ void servo_turbopwm()
 
 
 void servo_init()
-{	
+{
+#ifndef USE_TRACING
 	T2CONbits.TCS = 0;	     // Use internal clock source
     T2CONbits.TCKPS = 0b10;  // Prescale Select 1:64  -> 1,6us
     T2CONbits.TON = 1;	
@@ -59,6 +60,7 @@ void servo_init()
 	OC8R = 0;
 	OC8CONbits.OCTSEL = 0;
 	OC8CONbits.OCM = 6;
+#endif
 }
 
 

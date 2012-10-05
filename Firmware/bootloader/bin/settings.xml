@@ -4,7 +4,7 @@
   <WindowOnTop>false</WindowOnTop>
   <WindowWidth>368</WindowWidth>
   <WindowHeight>455</WindowHeight>
-  <Filename>C:\Users\Tom\Documents\Gluonpilot\SVN gluonpilot\Firmware\rtos_pilot\rtos_pilot.X\dist\fixed_wing\production\rtos_pilot.X.production.hex</Filename>
+  <Filename>C:\Users\Tom\Documents\Gluonpilot\SVN gluonpilot\Firmware\examples\mpu6000_test\mpu6000_test.X\dist\default\production\mpu6000_test.X.production.hex</Filename>
   <DefaultStartSettings>
     <AdvancedMode>false</AdvancedMode>
     <AdvancedModeAllow>true</AdvancedModeAllow>

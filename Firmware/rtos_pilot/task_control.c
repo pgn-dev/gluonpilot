@@ -33,9 +33,9 @@
 #include "uart1_queue/uart1_queue.h"
 
 // rtos_pilot includes
-#include "control.h"
+#include "task_control.h"
 #include "configuration.h"
-#include "sensors.h"
+#include "task_sensors_analog.h"
 #include "handler_navigation.h"
 #include "common.h"
 
@@ -129,6 +129,7 @@ void control_init()
 void control_wing_task(void *parameters)
 {
 	enum FlightModes lastMode = MANUAL;
+    static int i = 0; // for F1E
 	
 	/* Used to wake the task at the correct frequency. */
 	portTickType xLastExecutionTime; 
@@ -137,7 +138,8 @@ void control_wing_task(void *parameters)
 	servo_init();
 	control_init();
 	uart1_puts("done\r\n");
-	
+
+    vTaskSetApplicationTaskTag( NULL, ( void * ) 1 );
 	/* Initialise xLastExecutionTime so the first call to vTaskDelayUntil()	works correctly. */
 	xLastExecutionTime = xTaskGetTickCount();
 
@@ -148,7 +150,7 @@ void control_wing_task(void *parameters)
 		// Update RC link status
 		if (config.control.use_pwm)
 		{
-			if (ppm.channel[config.control.channel_motor] < 930)  // We assume failsafe kicked in when motor channel < 930ms
+			if (ppm.channel[config.control.channel_motor] < 900)  // We assume failsafe kicked in when motor channel < 930ms
 			{
 				//ppm.valid_frame = 0;
 				ppm.connection_alive = 0;
@@ -190,12 +192,12 @@ void control_wing_task(void *parameters)
 				if (button_down())
 				{
 					sensor_data.gps.speed_ms = config.control.cruising_speed_ms;  // no GPS, so we need a cruising speed for kalman filter
-					printf("\r\n%f - %f -> %d\r\n", (double)RAD2DEG(navigation_data.desired_heading_rad), (double)RAD2DEG(sensor_data.yaw), servo_out[0]);
+					//printf("\r\nDesired %d - Actual %d -> %d\r\n", (int)RAD2DEG(navigation_data.desired_heading_rad), (int)RAD2DEG(sensor_data.yaw), servo_out[0]);
 					navigation_data.desired_heading_rad = sensor_data.yaw;
 				}
 				if (i++ % 50 == 0)
 				{
-					printf("\r\n%f - %f -> %d\r\n", (double)RAD2DEG(navigation_data.desired_heading_rad), (double)RAD2DEG(sensor_data.yaw), servo_out[0]);
+					printf("\r\nDesired %d - Actual %d -> %d\r\n", (int)RAD2DEG(navigation_data.desired_heading_rad), (int)RAD2DEG(sensor_data.yaw), servo_out[0]);
 				}
 			}
 #else	
@@ -430,6 +432,7 @@ void control_copter_task( void *parameters )
 	servo_init();
 	control_init();
 
+    vTaskSetApplicationTaskTag( NULL, ( void * ) 1 );
 	vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );
 	servo_turbopwm();
 	int i = 0;

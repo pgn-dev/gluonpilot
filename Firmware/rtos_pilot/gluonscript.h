@@ -96,7 +96,7 @@ struct GluonscriptData
 	unsigned int tick;
 };	
 
-extern volatile struct GluonscriptData gluonscript_data;
+extern /*volatile*/ struct GluonscriptData gluonscript_data;
 
 void gluonscript_do();
 float gluonscript_get_variable(enum gluonscript_variable i);

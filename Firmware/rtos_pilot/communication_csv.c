@@ -31,10 +31,10 @@
 #include "led/led.h"
 #include "servo/servo.h"
 
-#include "sensors.h"
+#include "task_sensors_analog.h"
 #include "communication.h"
 #include "configuration.h"
-#include "datalogger.h"
+#include "task_datalogger.h"
 #include "handler_navigation.h"
 #include "handler_alarms.h"
 
@@ -111,7 +111,7 @@ void communication_telemetry_task( void *parameters )
 
 
 	uart1_puts("Telemetry task initializing...");
-	
+	vTaskSetApplicationTaskTag( NULL, ( void * ) 6 );
 	vSemaphoreCreateBinary(xUart1Semaphore);
 	
 	counters.stream_PPM = 0;
@@ -330,6 +330,7 @@ void communication_input_task( void *parameters )
 	
 	char tmp;
 
+    vTaskSetApplicationTaskTag( NULL, ( void * ) 4 );
 
 	uart1_puts("Console input task initializing...");
 	uart1_puts("done\r\n");

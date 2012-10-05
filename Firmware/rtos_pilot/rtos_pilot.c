@@ -29,32 +29,37 @@
 #include "pwm_in/pwm_in.h"
 #include "ppm_in/ppm_in.h"
 #include "led/led.h"
+#include "servo/servo.h"
 
 // rtos_pilot includes
-#include "control.h"
-#include "sensors.h"
+#include "task_control.h"
+#include "task_sensors_analog.h"
 #include "communication.h"
 #include "configuration.h"
-#include "datalogger.h"
+#include "task_datalogger.h"
 #include "handler_navigation.h"
 #include "gluonscript.h"
 #include "osd.h"
+#include "task_gps.h"
 
 #include "common.h"
 
 extern xSemaphoreHandle xGpsSemaphore;
 extern xSemaphoreHandle xSpiSemaphore;
 
-static char version[] = "0.8 BETA 4";
+static char version[] = "0.8";
 
 unsigned long idle_counter = 0;
+
+void setup_trace_pins();
 
 int main()
 {
 	microcontroller_init();
-	
+
 	uart1_queue_init(57600l);  // default baudrate: 57600 due to XBee bi-direction communication
-	
+
+
 	printf("Gluonpilot v%s ", version);
 #ifdef LIMITED  // Limited version is pre-loaded on modules sent to Non-European countries
 	printf("Limited version");
@@ -76,6 +81,8 @@ int main()
 		printf("Found hardware version v0.1n\r\n");
 	else if (HARDWARE_VERSION == V01O)
 		printf("Found hardware version v0.1o\r\n");
+    else if (HARDWARE_VERSION == V01Q)
+		printf("Found hardware version v0.1q (GP2)\r\n");
 	else
 		printf("Found hardware version v0.1j or earlier\r\n");
 	
@@ -113,12 +120,17 @@ int main()
 	else
 		xTaskCreate( control_wing_task,            ( signed portCHAR * ) "WControl",      ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 7, NULL );
 
-	xTaskCreate( sensors_task,                 ( signed portCHAR * ) "Sensors",      ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 6, NULL );
+	xTaskCreate( sensors_analog_task,                 ( signed portCHAR * ) "Sensors",      ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 6, NULL );
 	xTaskCreate( sensors_gps_task,             ( signed portCHAR * ) "GpsNavi",      ( configMINIMAL_STACK_SIZE * 4 ), NULL, tskIDLE_PRIORITY + 5, NULL );
 	xTaskCreate( communication_input_task,     ( signed portCHAR * ) "ConsoleInput", ( configMINIMAL_STACK_SIZE * 5 ), NULL, tskIDLE_PRIORITY + 4, NULL );
 	xTaskCreate( datalogger_task,              ( signed portCHAR * ) "Dataflash",    ( configMINIMAL_STACK_SIZE * 3 ), NULL, tskIDLE_PRIORITY + 3, NULL );
 	xTaskCreate( communication_telemetry_task, ( signed portCHAR * ) "Telemetry",    ( configMINIMAL_STACK_SIZE * 2 ), NULL, tskIDLE_PRIORITY + 2, NULL );
-	xTaskCreate( osd_task,                     ( signed portCHAR * ) "OSD",          ( configMINIMAL_STACK_SIZE * 1 ), NULL, tskIDLE_PRIORITY + 1, NULL );
+	//xTaskCreate( osd_task,                     ( signed portCHAR * ) "OSD",          ( configMINIMAL_STACK_SIZE * 1 ), NULL, tskIDLE_PRIORITY + 1, NULL );
+
+#ifdef USE_TRACING
+    printf("\r\nENABLING TRACING\r\n");
+    setup_trace_pins();
+#endif
 
 	// Order the scheduler to start scheduling our two tasks.
 	vTaskStartScheduler();
@@ -141,6 +153,7 @@ void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed portCHAR *pcTask
 
 void vApplicationIdleHook( void )
 {
+    vTaskSetApplicationTaskTag( NULL, ( void * ) 8 );
     TRISBbits.TRISB2 = 0;  // use OSD SPI CS
     while (1)
     {
@@ -151,3 +164,19 @@ void vApplicationIdleHook( void )
     }
 }
 
+
+// TRACE functionality for tasks
+
+void setup_trace_pins()
+{
+    //TRISCbits.TRISC13 = 0;  // PGD
+    //TRISCbits.TRISC14 = 0;  // PGC
+    servo_set_logical_1(0);
+    servo_set_logical_1(1);
+    servo_set_logical_1(2);
+    servo_set_logical_1(3);
+    servo_set_logical_1(4);
+    servo_set_logical_1(5);
+    servo_set_logical_1(6);
+    servo_set_logical_1(7);
+}
