@@ -15,7 +15,7 @@
 #include "gps/gps.h"
 
 // rtos_pilot includes
-#include "task_sensors_analog.h"
+#include "sensors.h"
 #include "communication.h"
 #include "configuration.h"
 

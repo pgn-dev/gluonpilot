@@ -233,7 +233,7 @@ unsigned char gp1_spi_comm_bitbang(unsigned char outgoing_byte)
     unsigned char incoming_byte = 0, x;
     
 
-    /*for(x = 0 ; x < 8 ; x++)
+    for(x = 0 ; x < 8 ; x++)
     {
         PORTGbits.RG6 = 0; //Toggle the SPI clock
 
@@ -247,8 +247,8 @@ unsigned char gp1_spi_comm_bitbang(unsigned char outgoing_byte)
         incoming_byte <<= 1; //Rotate byte 1 to the left
         incoming_byte |= PORTGbits.RG7 & 0x01; //Read bit on SPI data bus, SDI
 		asm("nop");asm("nop");asm("nop");
-    }*/
-
+    }
+/*
     PORTGbits.RG6 = 0;
     for (x = 0 ; x < 8 ; x++)
     {
@@ -260,7 +260,7 @@ unsigned char gp1_spi_comm_bitbang(unsigned char outgoing_byte)
         incoming_byte += PORTGbits.RG7;                                // Read the data bit
         PORTGbits.RG6 = 0;                                         // Drop the clock ready for th enext bit
     }
-    
+    */
     return(incoming_byte);
 }
 
@@ -458,6 +458,9 @@ void gp2_dataflash_open()
     TRISFbits.TRISF7 = 0;  // output
     TRISFbits.TRISF0 = 0;  // CS
     TRISFbits.TRISF8 = 1;  // input
+
+    TRISBbits.TRISB2 = 0;   // SS1 for OSD
+    PORTBbits.RB2 = 1; // disable OSD SPI
 
 	// Open hardware SPI, as fast as possible, don't use hardware SS2
 	/*OpenSPI2(ENABLE_SCK_PIN & ENABLE_SDO_PIN & SPI_MODE16_OFF & SPI_SMP_OFF & SPI_CKE_OFF &

@@ -37,6 +37,7 @@
 #include "i2c/i2c.h"
 #include "bmp085/bmp085.h"
 
+#include "sensors.h"
 #include "task_sensors_analog.h"
 #include "configuration.h"
 #include "ahrs.h"
@@ -45,9 +46,6 @@
 
 #define INVERT_X -1.0   // set to -1 if front becomes back
 
-
-//! Contains all usefull (processed) sensor data
-struct SensorData sensor_data;
 
 static const float acc_value_g = 6600.0f;
 

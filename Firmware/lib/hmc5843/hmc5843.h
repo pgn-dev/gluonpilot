@@ -1,3 +1,6 @@
+#ifndef __HMC5843_H__
+#define __HMC5843_H__
+
 /*	
 	hmc5843.h
 	Mitch
@@ -54,4 +57,6 @@ void hmc5843_init(void);
 void hmc5843_read(struct intvector *magdata);
 
 // read misc registers
-void test_HMC5843(void); 
+void test_HMC5843(void);
+
+#endif //__HMC5843_H__

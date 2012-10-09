@@ -17,7 +17,7 @@
 #include "common.h"
 #include "configuration.h"
 #include "osd.h"
-#include "task_sensors_analog.h"
+#include "sensors.h"
 #include "handler_navigation.h"
 
 

@@ -2,7 +2,7 @@
 
 #include "handler_alarms.h"
 #include "handler_navigation.h"
-#include "task_sensors_analog.h"
+#include "sensors.h"
 #include "gluonscript.h"
 #include "osd.h"
 
