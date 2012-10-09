@@ -25,7 +25,7 @@
 #include "pid/pid.h"
 #include "quaternion/quaternion.h"
 
-#include "task_sensors_analog.h"
+#include "sensors.h"
 #include "configuration.h"
 #include "common.h"
 

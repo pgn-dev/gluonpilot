@@ -22,7 +22,7 @@
 #include "ppm_in/ppm_in.h"
 
 #include "configuration.h"
-#include "task_sensors_analog.h"
+#include "sensors.h"
 #include "common.h"
 #include "handler_navigation.h"
 #include "handler_trigger.h"

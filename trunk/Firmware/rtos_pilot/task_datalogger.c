@@ -24,7 +24,7 @@
 #include "uart1_queue/uart1_queue.h"
 
 #include "task_datalogger.h"
-#include "task_sensors_analog.h"
+#include "sensors.h"
 #include "task_control.h"
 #include "gluonscript.h"
 #include "handler_navigation.h"

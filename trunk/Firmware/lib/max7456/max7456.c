@@ -24,16 +24,14 @@ volatile unsigned char data[DATA_BUF_LENGTH];
 extern const char *chars[] ;
 
 
-
+void max7456_set_tris();
 
 
 
 void max7456_init()
 {
-	TRISFbits.TRISF7 = 0;	// make this an output MOSI
-	TRISFbits.TRISF8 = 1;	// make this an input MISO
-	TRISFbits.TRISF6 = 0;	// make this an output CSK 
-	TRISBbits.TRISB2 = 0;   // SS1
+    max7456_set_tris();
+    SPI_CS = 1;  // disable
 /*
     OpenSPI1(ENABLE_SCK_PIN & ENABLE_SDO_PIN & SPI_MODE16_OFF & SPI_SMP_OFF & SPI_CKE_OFF &
          SLAVE_ENABLE_OFF & MASTER_ENABLE_ON & PRI_PRESCAL_64_1 & SEC_PRESCAL_8_1,
@@ -41,7 +39,15 @@ void max7456_init()
          SPI_ENABLE & SPI_RX_OVFLOW_CLR);
 
 	microcontroller_delay_ms(90);*/
-}	
+}
+
+void max7456_set_tris()
+{
+    TRISFbits.TRISF7 = 0;	// make this an output MOSI
+	TRISFbits.TRISF8 = 1;	// make this an input MISO
+	TRISFbits.TRISF6 = 0;	// make this an output CSK
+	TRISBbits.TRISB2 = 0;   // SS1
+}
 
 
 int max756_read_status()
@@ -77,8 +83,9 @@ void spiWriteReg(const unsigned char regAddr, const unsigned char regData)
 {
 
   unsigned char SPICount;                               // Counter used to clock out the data
-
   unsigned char SPIData;                                // Define a data structure for the SPI data.
+
+  //max7456_set_tris();
 
   SPI_CS = 1;                                           // Make sure we start with /CS high
   SPI_CK = 0;                                           // and CK low
@@ -137,6 +144,76 @@ void spiWriteReg(const unsigned char regAddr, const unsigned char regData)
    */
 }
 
+
+
+/**************************************************************************************
+ * spiReadReg
+ *
+ * Reads an 8-bit register with the SPI port.
+ * Data is returned.
+ **************************************************************************************/
+
+unsigned char spiReadReg (const unsigned char regAddr)
+{
+  unsigned char SPICount;                               // Counter used to clock out the data
+  unsigned char SPIData;
+
+  //max7456_set_tris();
+
+  SPI_CS = 1;                                           // Make sure we start with /CS high
+  SPI_CK = 0;                                           // and CK low
+  SPIData = regAddr;                                    // Preload the data to be sent with Address & Data
+
+  SPI_CS = 0;                                           // Set /CS low to start the SPI cycle
+  for (SPICount = 0; SPICount < 8; SPICount++)          // Prepare to clock out the Address & Data
+  {
+    if (SPIData & 0x80)
+      SPI_MOSI = 1;
+    else
+      SPI_MOSI = 0;
+    SPI_CK = 1;
+    SPI_CK = 0;
+    SPIData <<= 1;
+  }                                                     // and loop back to send the next bit
+  SPI_MOSI = 0;                                         // Reset the MOSI data line
+
+  SPIData = 0;
+  for (SPICount = 0; SPICount < 8; SPICount++)          // Prepare to clock in the data to be fread
+  {
+    SPIData <<=1;                                       // Rotate the data
+    SPI_CK = 1;                                         // Raise the clock to clock the data out of the MAX7456
+    SPIData += SPI_MISO;                                // Read the data bit
+    SPI_CK = 0;                                         // Drop the clock ready for th enext bit
+  }                                                     // and loop back
+  SPI_CS = 1;                                           // Raise CS
+
+  return ((unsigned char)SPIData);                      // Finally return the read data
+
+
+/*
+    while(SPI1STATbits.SPITBF) ;
+
+	int i = SPI1BUF;
+
+	SPI_CS = 0;
+	microcontroller_delay_us(10);
+
+	SPI1BUF = regAddr;
+	while(SPI1STATbits.SPITBF) ;
+	while(! SPI1STATbits.SPIRBF) ;
+	microcontroller_delay_us(1);
+	i = SPI1BUF;
+
+	SPI1BUF = 0x00;
+	while(SPI1STATbits.SPITBF) ;
+	while(! SPI1STATbits.SPIRBF) ;
+	microcontroller_delay_us(1);
+	SPI_CS = 1;
+    return SPI1BUF;*/
+}
+
+
+
 /**************************************************************************************
  * spiWriteRegAutoIncr
  *
@@ -166,72 +243,6 @@ void spiWriteRegAutoIncr(const unsigned char regData)
     SPIData <<= 1;
   }                                                     // and loop back to send the next bit   
   SPI_MOSI = 0;                                         // Reset the MOSI data line
-}
-
-/**************************************************************************************
- * spiReadReg
- *
- * Reads an 8-bit register with the SPI port.
- * Data is returned. 
- **************************************************************************************/
-
-unsigned char spiReadReg (const unsigned char regAddr)
-{
-
-  unsigned char SPICount;                               // Counter used to clock out the data
-  
-  unsigned char SPIData;                  
-  
-  SPI_CS = 1;                                           // Make sure we start with /CS high
-  SPI_CK = 0;                                           // and CK low
-  SPIData = regAddr;                                    // Preload the data to be sent with Address & Data
-
-  SPI_CS = 0;                                           // Set /CS low to start the SPI cycle
-  for (SPICount = 0; SPICount < 8; SPICount++)          // Prepare to clock out the Address & Data
-  {
-    if (SPIData & 0x80)
-      SPI_MOSI = 1;
-    else
-      SPI_MOSI = 0;
-    SPI_CK = 1;
-    SPI_CK = 0;
-    SPIData <<= 1;
-  }                                                     // and loop back to send the next bit   
-  SPI_MOSI = 0;                                         // Reset the MOSI data line
-  
-  SPIData = 0;
-  for (SPICount = 0; SPICount < 8; SPICount++)          // Prepare to clock in the data to be fread
-  {
-    SPIData <<=1;                                       // Rotate the data
-    SPI_CK = 1;                                         // Raise the clock to clock the data out of the MAX7456
-    SPIData += SPI_MISO;                                // Read the data bit
-    SPI_CK = 0;                                         // Drop the clock ready for th enext bit
-  }                                                     // and loop back
-  SPI_CS = 1;                                           // Raise CS   
-                      
-  return ((unsigned char)SPIData);                      // Finally return the read data
-
-
-/*
-    while(SPI1STATbits.SPITBF) ;
-
-	int i = SPI1BUF;
-
-	SPI_CS = 0;
-	microcontroller_delay_us(10);
-
-	SPI1BUF = regAddr;
-	while(SPI1STATbits.SPITBF) ;
-	while(! SPI1STATbits.SPIRBF) ;
-	microcontroller_delay_us(1);
-	i = SPI1BUF;
-
-	SPI1BUF = 0x00;
-	while(SPI1STATbits.SPITBF) ;
-	while(! SPI1STATbits.SPIRBF) ;
-	microcontroller_delay_us(1);
-	SPI_CS = 1;
-    return SPI1BUF;*/
 }
 
 /**************************************************************************************

@@ -2,7 +2,7 @@
 #define CONFIGURATION_H
 
 
-#include "task_sensors_analog.h"
+#include "sensors.h"
 #include "communication.h"
 #include "task_control.h"
 #include "gps/gps.h"

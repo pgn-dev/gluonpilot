@@ -31,7 +31,7 @@
 #include "led/led.h"
 #include "servo/servo.h"
 
-#include "task_sensors_analog.h"
+#include "sensors.h"
 #include "communication.h"
 #include "configuration.h"
 #include "task_datalogger.h"
@@ -597,6 +597,7 @@ void communication_input_task( void *parameters )
 					// reset bias offsets
 					sensor_data.p_bias = 0.0;
 					sensor_data.q_bias = 0.0;
+                    printf("Gyros calibrated\r\n");
 				}
 				///////////////////////////////////////////////////////////////
 				//                    CALIBRATE ACCELERO                     //
@@ -614,7 +615,11 @@ void communication_input_task( void *parameters )
 					}	
 					config.sensors.acc_x_neutral = (float)(x / 10);
 					config.sensors.acc_y_neutral = (float)(y / 10);
-					config.sensors.acc_z_neutral = (float)(z / 10) - 6600.0;
+                    if (HARDWARE_VERSION < V01Q)
+                        config.sensors.acc_z_neutral = (float)(z / 10) - 6600.0;
+                    else
+                        config.sensors.acc_z_neutral = (float)(z / 10) - 4096.0;
+                    printf("Accelerometers calibrated\r\n");
 				}
 				///////////////////////////////////////////////////////////////
 				//                    SET INPUT CHANNELS                     //

@@ -18,7 +18,7 @@
 #include "handler_alarms.h"
 #include "handler_navigation.h"
 #include "handler_flightplan_switch.h"
-#include "task_sensors_analog.h"
+#include "sensors.h"
 #include "task_control.h"
 #include "configuration.h"
 #include "gluonscript.h"

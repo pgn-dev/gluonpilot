@@ -35,7 +35,7 @@
 // rtos_pilot includes
 #include "task_control.h"
 #include "configuration.h"
-#include "task_sensors_analog.h"
+#include "sensors.h"
 #include "handler_navigation.h"
 #include "common.h"
 
