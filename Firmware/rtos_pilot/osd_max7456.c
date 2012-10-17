@@ -118,6 +118,7 @@ void osd_print_mode();
 void osd_print_home_heading();
 void osd_print_home_distance();
 void osd_print_artificial_horizon();
+void osd_print_artificial_horizon2();
 void osd_print_gluonpilot_logo(int, int);
 
 int use_metric = 1;
@@ -168,7 +169,7 @@ void osd_task( void *parameters )
         char ball = 0x80;
         for (i = 0; i < 16; i++)
         {
-            vTaskDelay( ( ( portTickType ) 300 / portTICK_RATE_MS ) );
+            //vTaskDelay( ( ( portTickType ) 300 / portTICK_RATE_MS ) );
             osd_set_position(8, 22);
             osd_write_char(ball++);
         }
@@ -187,7 +188,7 @@ void osd_task( void *parameters )
         osd_print_satellites_in_view();
 		//spiWriteReg(0x04, 0x04); // clear
         
-		osd_print_artificial_horizon();
+		osd_print_artificial_horizon2();
 		//osd_print_home_info();
 		//osd_print_static_data();
 		//osd_print_satellites_in_view();
@@ -744,6 +745,41 @@ float gravity_to_pitch2(float a_x, float a_z)
 }
 
 #define AH_LINE_START 5
+void osd_print_artificial_horizon2()
+{
+    static int previous_positions[15] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    int i;
+    for (i = 0; i < 15; i++)
+    {
+        osd_set_position(AH_LINE_START+previous_positions[i], 7+i);
+        osd_write_char(0x00);
+    }
+    float FOV_V = 28.0;
+
+    // 6 vertical positions => 6 * 6 = 36 possible positions (18 up & down)
+    int pitch_increment = (int)(sensor_data.pitch*(180.0/3.14/FOV_V*18.0));
+
+    //double FOV_H =
+    float tanroll = tanf(sensor_data.roll);
+    for (i = -7; i < 7; i++) // -0.7..0.7 -> -18..18
+    {
+        if (i == 0)
+            continue;
+        int y = 18 - (int)(tanroll / 1.0f * 18.0f * ((float)i/7.0f) ) - pitch_increment;  // -45..45 -> 0..36
+        // y = -18..18 => 3..7 = 3 + (y+18)
+        // hor: 7..14..21    ver: 3.3 .. 7.1 (15 stappen) -> 1..8..15
+        if (y <= 36 && y >= 0)
+        {
+            previous_positions[i+7] = y / 6;
+            osd_set_position(AH_LINE_START +  y / 6, 14 + i); // AH_LINE_START + 0..6
+            osd_write_char(0x56 - y % 6);
+        }
+    }
+
+    osd_set_position(AH_LINE_START+2, 14);
+	osd_write_char(0x70);
+}
+
 void osd_print_artificial_horizon()
 {
     static int previous_positions[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -1048,7 +1084,7 @@ void osd_print_home_info()
 	osd_write_char(0x8A);	
 	
 	// voltage
-	int volt10 = sensor_data.battery_voltage_10;
+	int volt10 = sensor_data.battery1_voltage_10;
 	if (volt10 >= 100)
 	{
 		osd_set_position (COMPASS_LINE+1, 1);

@@ -326,7 +326,6 @@ void ahrs_filter(float dt)
 		//printf("\r\n %f \r\n", (roll_rad_sum_error/20.0));
 		roll_rad_sum_error = 0.0f;
 		pitch_rad_sum_error = 0.0f;
-		
 	}
 #ifdef F1E_STEERING
 	if (i % 5 == 0)
@@ -384,7 +383,7 @@ void ahrs_filter(float dt)
             printf("\r\nCompass: %d\r\n", heading);
         }*/
 
-		/*printf("\r\n%5d %5d %5d -> %f\r\n",sensor_data.magnetometer_raw.x.i16, 
+		/*printf("\r\n%5d %5d %5d -> %f\r\n",sensor_data.magnetometer_raw.x.i16,
 							sensor_data.magnetometer_raw.y.i16,
 							sensor_data.magnetometer_raw.z.i16, 
 							sensor_data.yaw*180.0/3.14159);*/

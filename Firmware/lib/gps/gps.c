@@ -80,7 +80,7 @@ void gps_init(struct GpsConfig *gpsconfig)
 	// First we configure which sentences we want. If the unit outputs all sentences at 5Hz by default, then 38400 will be too slow 
 	// and the unit won't allow us to change the baudrate.
 	
-	gps_config_output();
+	gps_config_output(gpsconfig);
 }
 
 
@@ -107,7 +107,7 @@ void gps_open_port(struct GpsConfig *gpsconfig)
 
 
 // Configs the GPS using MTK sentences to use RMC & GGA sentences at 5Hz, and switch to 115200 baud
-void gps_config_output()
+void gps_config_output(struct GpsConfig *gpsconfig)
 {
 	// Change to 115200 baud
 	
@@ -123,6 +123,23 @@ void gps_config_output()
 	// 5Hz mode
 	microcontroller_delay_ms(10);
 	uart2_puts("$PMTK220,200*2C\r\n");
+
+    if (gpsconfig->enable_waas)
+    {
+        microcontroller_delay_ms(10);
+        // DGPS data source mode
+        // ?0?: No DGPS source
+        // ?1?: RTCM
+        // ?2?: WAAS
+        microcontroller_delay_ms(10);
+        uart2_puts("$PMTK301,2*2E\r\n");
+
+        // Enable to search a SBAS satellite or not
+        // ?0? = Disable
+        // ?1? = Enable
+        microcontroller_delay_ms(10);
+        uart2_puts("$PMTK313,1*2E\r\n");
+    }
 }
 
 

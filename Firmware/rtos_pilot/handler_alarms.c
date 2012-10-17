@@ -16,7 +16,7 @@ ScriptHandlerReturn alarms_handle_gluonscriptcommand (struct GluonscriptCode *co
 	// Alarms, check every 10 seconds
 	if (gluonscript_data.tick % (GLUONSCRIPT_HZ*10) == 0) // check for alarms every 10 seconds
 	{
-		if ((int)sensor_data.battery_voltage_10 < (int)(battery_alarm.panic_v*10.0))
+		if ((int)sensor_data.battery1_voltage_10 < (int)(battery_alarm.panic_v*10.0))
 		{
 			//printf("%d < %d\r\n", sensor_data.battery_voltage_10, (int)(battery_alarm.panic_v*10.0));
 			battery_alarm.alarm_battery_panic++;
@@ -28,7 +28,7 @@ ScriptHandlerReturn alarms_handle_gluonscriptcommand (struct GluonscriptCode *co
 				return HANDLED_UNFINISHED;
 			}	
 		}
-		else if (sensor_data.battery_voltage_10 < (int)(battery_alarm.warning_v*10.0))
+		else if (sensor_data.battery1_voltage_10 < (int)(battery_alarm.warning_v*10.0))
         {
 			battery_alarm.alarm_battery_warning++;
             osd_post_message("Battery warning", 1);

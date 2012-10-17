@@ -161,7 +161,7 @@ void sensors_analog_task( void *parameters )
 				vTaskDelete(xTaskGetCurrentTaskHandle());
             }
 				
-			sensor_data.battery_voltage_10 = ((float)adc_get_channel(8) * (3.3f * 5.1f / 6550.0f));
+			sensor_data.battery1_voltage_10 = ((float)adc_get_channel(8) * (3.3f * 5.1f / 6550.0f));
 			if (HARDWARE_VERSION >= V01O)
 			{
 				bmp085_do_10Hz();

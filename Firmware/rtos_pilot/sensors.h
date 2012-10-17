@@ -22,7 +22,10 @@ struct SensorData
 	float temperature;
 	float pressure_height;
 	int temperature_10;
-	unsigned int battery_voltage_10;
+	unsigned int battery1_voltage_10;
+    float battery1_current;
+    float battery1_mAh;
+    unsigned int battery2_voltage_10;
 
 	struct gps_info gps;
 };

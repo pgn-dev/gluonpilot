@@ -26,7 +26,8 @@ struct gps_info {
 struct GpsConfig
 {
 	long initial_baudrate;
-	long operational_baudrate;	
+	long operational_baudrate;
+    unsigned int enable_waas : 1;
 };	
 
 void gps_init(struct GpsConfig *gpsconfig);
