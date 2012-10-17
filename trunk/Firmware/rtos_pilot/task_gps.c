@@ -37,11 +37,11 @@ void sensors_gps_task( void *parameters )
 	int i = 0;
 
 #ifdef F1E_STEERING
-	while(1)
+	/*while(1)
     {
 		vTaskDelay( ( ( portTickType ) 1000 / portTICK_RATE_MS ) );
-        sensor_data.gps.speed_ms = 0.0;//config.control.cruising_speed_ms;
-    }
+        sensor_data.gps.speed_ms = config.control.cruising_speed_ms;
+    }*/
 #endif
 
     vTaskSetApplicationTaskTag( NULL, ( void * ) 3 );

@@ -59,7 +59,7 @@ void sensors_mpu6000_task( void *parameters )
 
 	/* Used to wake the task at the correct frequency. */
 	portTickType xLastExecutionTime;
-
+    
     vTaskSetApplicationTaskTag( NULL, ( void * ) 2 );
 
 	uart1_puts("Sensors task initializing...");
@@ -67,13 +67,16 @@ void sensors_mpu6000_task( void *parameters )
 	i2c_init();
 	vTaskDelay(( portTickType ) 20 / portTICK_RATE_MS );
 	hmc5843_init();
+    uart1_puts("magnetometer...");
+    test_HMC5843();
+#else
+    i2c_init();
 #endif
     
 	adc_open();
 
     mpu6000_init();
 
-    i2c_init();
     bmp085_init();
 
 	read_mpu6000_sensor_data();
@@ -107,7 +110,7 @@ void sensors_mpu6000_task( void *parameters )
 
 		read_mpu6000_sensor_data();
 
-		if (low_update_counter % 25 == 0) // 10Hz
+		if (low_update_counter % 25 == 0) // 2Hz
 		{
 			if (control_state.simulation_mode)
             {
@@ -115,7 +118,14 @@ void sensors_mpu6000_task( void *parameters )
 				vTaskDelete(xTaskGetCurrentTaskHandle());
             }
 
-			sensor_data.battery_voltage_10 = ((float)adc_get_channel(8) * (3.3f * 5.1f / 6550.0f));
+			sensor_data.battery1_voltage_10 = (int)((float)adc_get_channel(8) * (3.3f * 5.1f / 6552.0f * 10.0f)) / 10;
+            sensor_data.battery2_voltage_10 = (int)((float)adc_get_channel(9) * (3.3f * 5.1f / 6552.0f * 10.0f)) / 10;
+            sensor_data.battery1_current = ((float)adc_get_channel(23) * (3.30f * (10.0f) / 65520.0f));
+            sensor_data.battery1_mAh += sensor_data.battery1_current * 1000.0 / 60.0 / 60.0 * 0.5;
+            //printf("\r\n%fA\r\n",sensor_data.battery1_current);
+            //printf("\r\n%u %u %u %u %u\r\n",
+            //        adc_get_channel(7), adc_get_channel(8), adc_get_channel(9),
+            //        adc_get_channel(10), adc_get_channel(11));
 			bmp085_do_10Hz_2();
 		}
 

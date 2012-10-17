@@ -290,11 +290,12 @@ void communication_telemetry_task( void *parameters )
             else //if (config.control.altitude_mode == PRESSURE)
                 altitude = (int)(sensor_data.pressure_height - navigation_data.home_pressure_height);
             
-			printf_checksum_direct("TC;%d;%d;%d;%u;%d;%d;%d;%d;%d", (int)control_state.flight_mode,
+			printf_checksum_direct("TC;%d;%d;%d;%u;%d;%d;%d;%d;%d;%d;%u", (int)control_state.flight_mode,
 			       gluonscript_data.current_codeline, altitude,
-			       sensor_data.battery_voltage_10,
+			       sensor_data.battery1_voltage_10,
 			       navigation_data.time_airborne_s, navigation_data.time_block_s,
-			       sig_quality, throttle, (int)navigation_data.desired_altitude_agl);
+			       sig_quality, throttle, (int)navigation_data.desired_altitude_agl,
+                   sensor_data.battery2_voltage_10,(unsigned int)(sensor_data.battery1_mAh/10.0));
 			 
 			counters.stream_Control = 0;
 			//printf_checksum_poll("-- %lu --", idle_counter);
@@ -448,7 +449,11 @@ void communication_input_task( void *parameters )
 					unsigned int x;
 					sscanf(&(buffer[token[1]]), "%u", &x);
 					config.gps.initial_baudrate = (long)x * 10;
-					config.gps.operational_baudrate = 0;	
+					config.gps.operational_baudrate = 0;
+                    if (buffer[token[2]] == '1')
+                        config.gps.enable_waas = 1;
+                    else
+                        config.gps.enable_waas = 0;
 				}
 				///////////////////////////////////////////////////////////////
 				//                 SET PID PITCH 2 ELEVATOR                  //
@@ -925,7 +930,7 @@ void print_configuration()
     printf(";%d;%d;%d;%d;%d", (int)config.control.autopilot_auto_throttle, config.control.auto_throttle_min_pct, config.control.auto_throttle_max_pct,
 	                    config.control.auto_throttle_cruise_pct, config.control.auto_throttle_p_gain);
 	printf(";%d", (int)(RAD2DEG(config.control.min_pitch)-0.5));
-	printf(";%d;%d", (int)config.control.manual_trim, (int)config.control.altitude_mode);
+	printf(";%d;%d;%u", (int)config.control.manual_trim, (int)config.control.altitude_mode, (unsigned int)config.gps.enable_waas);
 	uart1_puts("\r\n");
 }		
 
