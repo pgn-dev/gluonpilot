@@ -179,4 +179,21 @@ void configuration_default()
 	config.telemetry.stream_PressureTemp = 50;
 	config.telemetry.stream_Attitude = 5;
 	config.telemetry.stream_Control = 10;
+
+    config.osd.show_altitude = 1;
+    config.osd.show_arrow_home = 1;
+    config.osd.show_artificial_horizon = 1;
+    config.osd.show_block_name = 1;
+    config.osd.show_current = 1;
+    config.osd.show_distance_home = 1;
+    config.osd.show_flight_time = 1;
+    config.osd.show_gps_status = 1;
+    config.osd.show_mah = 1;
+    config.osd.show_mode = 1;
+    config.osd.show_rc_link = 1;
+    config.osd.show_speed = 1;
+    config.osd.show_vario = 1;
+    config.osd.show_voltage1 = 1;
+    config.osd.show_voltage2 = 1;
+    config.osd.show_block_name = 1;
 }

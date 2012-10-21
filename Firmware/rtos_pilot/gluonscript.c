@@ -260,7 +260,7 @@ float gluonscript_get_variable(enum gluonscript_variable i)
 		case CHANNEL_8:
 			return (float)ppm.channel[7];
 		case BATT_V:
-			return (float)(sensor_data.battery_voltage_10)/10.0f;
+			return (float)(sensor_data.battery1_voltage_10)/10.0f;
         case BLOCK_TIME:
             return (float)navigation_data.time_block_s;
         case ABS_ALTITUDE_ERROR:

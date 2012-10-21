@@ -15,8 +15,8 @@
 #include "uart1_queue/uart1_queue.h"
 
 #include "common.h"
-#include "configuration.h"
 #include "osd.h"
+#include "configuration.h"
 #include "sensors.h"
 #include "handler_navigation.h"
 
@@ -123,6 +123,8 @@ void osd_print_gluonpilot_logo(int, int);
 
 int use_metric = 1;
 
+int do_clear_screen = 0;
+
 /*
  *
  *   Used stackspace: 260 / 430
@@ -182,29 +184,47 @@ void osd_task( void *parameters )
 	{
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 200 / portTICK_RATE_MS ) );   // 5Hz
 
-        osd_print_mode();
-        osd_print_home_heading();
-        osd_print_home_distance();
-        osd_print_satellites_in_view();
-		//spiWriteReg(0x04, 0x04); // clear
-        
-		osd_print_artificial_horizon2();
-		//osd_print_home_info();
-		//osd_print_static_data();
-		//osd_print_satellites_in_view();
-		//osd_print_compass();
+        if (do_clear_screen)
+        {
+            spiWriteReg(0x04, 0x04);
+            do_clear_screen = 0;
+        }
 
-        osd_print_altitude();
-        osd_print_rcinfo();
-        osd_print_speed();
-        osd_print_fly_time();
-        osd_print_voltage1();
-        osd_print_current1();
-        osd_print_mah1();
-        osd_print_voltage2();
         osd_print_posted_message();
-        osd_print_active_block();
-        osd_print_vario();
+
+        if (config.osd.show_mode)
+            osd_print_mode();
+        if (config.osd.show_arrow_home)
+            osd_print_home_heading();
+        if (config.osd.show_distance_home)
+            osd_print_home_distance();
+        if (config.osd.show_gps_status)
+            osd_print_satellites_in_view();
+		//spiWriteReg(0x04, 0x04); // clear
+        if (config.osd.show_artificial_horizon)
+            osd_print_artificial_horizon2();
+
+        if (config.osd.show_altitude)
+            osd_print_altitude();
+        if (config.osd.show_rc_link)
+            osd_print_rcinfo();
+        if (config.osd.show_speed)
+            osd_print_speed();
+        if (config.osd.show_flight_time)
+            osd_print_fly_time();
+        if (config.osd.show_voltage1)
+            osd_print_voltage1();
+        if (config.osd.show_current)
+            osd_print_current1();
+        if (config.osd.show_mah)
+            osd_print_mah1();
+        if (config.osd.show_voltage2)
+            osd_print_voltage2();
+
+        if (config.osd.show_block_name)
+            osd_print_active_block();
+        if (config.osd.show_vario)
+            osd_print_vario();
 	}
 }
 
@@ -389,9 +409,7 @@ void osd_print_rcinfo()
 void osd_print_voltage1()
 {
     osd_set_position(VOLTAGE_LINE, 1);
-
     osd_write_char(0xE4);
-
 
     int volt10 = 114;//sensor_data.battery_voltage_10;
     int decrement = 1;
@@ -434,8 +452,8 @@ void osd_print_voltage2()
 
 void osd_print_current1()
 {
-    osd_set_position(VOLTAGE_LINE, 1);
-    osd_write_char(0xE4);
+    //osd_set_position(VOLTAGE_LINE, 1);
+    //osd_write_char(0xE4);
 
     int current10 = 121;//sensor_data.battery_voltage_10;
     int decrement = 1;
@@ -576,7 +594,7 @@ void osd_print_home_heading()
 		home_heading_deg -= 360;
     int symbol = (home_heading_deg + 22) / 45;
     
-    if (old_symbol != symbol)
+    //if (old_symbol != symbol)
     {
         osd_set_position(11, 14);
         osd_write_char(symbol_mapping[symbol % 8]);
@@ -590,8 +608,8 @@ void osd_print_home_heading()
 void osd_print_mode()
 {
     static enum FlightModes last_mode = -1;
-    if (last_mode == control_state.flight_mode)
-        return;
+    //if (last_mode == control_state.flight_mode)
+    //    return;
     
     if (control_state.flight_mode == AUTOPILOT)
     {
@@ -632,7 +650,7 @@ void osd_print_centered(int row, char *str)
     while (str[len] != 0)
         len++;
 
-    int start_pos = (30 - len) / 2;
+    int start_pos = 15 - len / 2;
 
     
     for (i = 0; i < len; i++)
@@ -744,12 +762,12 @@ float gravity_to_pitch2(float a_x, float a_z)
 	return pitch_acc;
 }
 
-#define AH_LINE_START 5
+#define AH_LINE_START 4
 void osd_print_artificial_horizon2()
 {
-    static int previous_positions[15] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    static int previous_positions[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     int i;
-    for (i = 0; i < 15; i++)
+    for (i = 0; i < 16; i++)
     {
         osd_set_position(AH_LINE_START+previous_positions[i], 7+i);
         osd_write_char(0x00);
@@ -757,15 +775,15 @@ void osd_print_artificial_horizon2()
     float FOV_V = 28.0;
 
     // 6 vertical positions => 6 * 6 = 36 possible positions (18 up & down)
-    int pitch_increment = (int)(sensor_data.pitch*(180.0/3.14/FOV_V*18.0));
+    int pitch_increment = (int)(sensor_data.pitch*(180.0/3.14/FOV_V*18.0)) + 3;
 
     //double FOV_H =
     float tanroll = tanf(sensor_data.roll);
-    for (i = -7; i < 7; i++) // -0.7..0.7 -> -18..18
+    for (i = -7; i < 8; i++) // -0.7..0.7 -> -18..18
     {
         if (i == 0)
             continue;
-        int y = 18 - (int)(tanroll / 1.0f * 18.0f * ((float)i/7.0f) ) - pitch_increment;  // -45..45 -> 0..36
+        int y = 18 - (int)(tanroll / 1.0f * 18.0f * ((float)i/7.0f) ) + pitch_increment;  // -45..45 -> 0..36
         // y = -18..18 => 3..7 = 3 + (y+18)
         // hor: 7..14..21    ver: 3.3 .. 7.1 (15 stappen) -> 1..8..15
         if (y <= 36 && y >= 0)
@@ -776,7 +794,7 @@ void osd_print_artificial_horizon2()
         }
     }
 
-    osd_set_position(AH_LINE_START+2, 14);
+    osd_set_position(AH_LINE_START+3, 14);
 	osd_write_char(0x70);
 }
 
@@ -1153,6 +1171,11 @@ void osd_print_home_info()
 		osd_write_char(0x80);
 	else
 		osd_write_char(0x7D);
+}
+
+void osd_clear()
+{
+    do_clear_screen = 1;
 }
 
 void osd_print_integer(int num, int row, int col)

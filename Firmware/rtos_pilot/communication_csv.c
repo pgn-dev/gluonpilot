@@ -667,6 +667,30 @@ void communication_input_task( void *parameters )
 				    config.control.servo_max[nr] = max;
 				}
                 ///////////////////////////////////////////////////////////////
+				//                    SET OSD                            //
+				///////////////////////////////////////////////////////////////
+				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'O')    // Set osd
+				{
+                    osd_clear();
+                    unsigned long bits = (unsigned long)atol(&(buffer[token[1]]));
+                    config.osd.show_altitude = ((bits & 1) != 0) ? 1 : 0;
+                    config.osd.show_arrow_home = ((bits & 2) != 0) ? 1 : 0;
+                    config.osd.show_artificial_horizon = ((bits & 4) != 0) ? 1 : 0;
+                    config.osd.show_block_name = ((bits & 8) != 0) ? 1 : 0;
+                    config.osd.show_current = ((bits & 16) != 0) ? 1 : 0;
+                    config.osd.show_distance_home = ((bits & 32) != 0) ? 1 : 0;
+                    config.osd.show_flight_time = (((bits & 64) != 0) ? 1 : 0);
+                    config.osd.show_gps_status = ((bits & 128) != 0) ? 1 : 0;
+                    config.osd.show_mah = ((bits & 256) != 0) ? 1 : 0;
+                    config.osd.show_mode = ((bits & 512) != 0) ? 1 : 0;
+                    config.osd.show_rc_link = ((bits & 1024) != 0) ? 1 : 0;
+                    config.osd.show_speed = ((bits & 2048) != 0) ? 1 : 0;
+                    config.osd.show_vario = ((bits & 4096) != 0) ? 1 : 0;
+                    config.osd.show_voltage1 = ((bits & 8192) != 0) ? 1 : 0;
+                    config.osd.show_voltage2 = ((bits & 16384) != 0) ? 1 : 0;
+                    config.osd.show_block_name = ((bits & 32768) != 0) ? 1 : 0;
+				}
+                ///////////////////////////////////////////////////////////////
 				//                      FORMAT DATALOG                       //
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'F' && buffer[token[0] + 1] == 'F')
@@ -931,7 +955,27 @@ void print_configuration()
 	                    config.control.auto_throttle_cruise_pct, config.control.auto_throttle_p_gain);
 	printf(";%d", (int)(RAD2DEG(config.control.min_pitch)-0.5));
 	printf(";%d;%d;%u", (int)config.control.manual_trim, (int)config.control.altitude_mode, (unsigned int)config.gps.enable_waas);
-	uart1_puts("\r\n");
+
+    // osd
+    unsigned int bitmask = 0;
+    bitmask  =  (config.osd.show_altitude? 1 : 0) +
+                (config.osd.show_arrow_home? 2 : 0) +
+                (config.osd.show_artificial_horizon? 4 : 0) +
+                (config.osd.show_block_name? 8 : 0) +
+                (config.osd.show_current? 16 : 0) +
+                (config.osd.show_distance_home? 32 : 0) +
+                (config.osd.show_flight_time? 64 : 0) +
+                (config.osd.show_gps_status? 128 : 0) +
+                (config.osd.show_mah? 256 : 0) +
+                (config.osd.show_mode? 512 : 0) +
+                (config.osd.show_rc_link? 1024 : 0) +
+                (config.osd.show_speed? 2048 : 0) +
+                (config.osd.show_vario? 4096 : 0) +
+                (config.osd.show_voltage1? 8192 : 0) +
+                (config.osd.show_voltage2? 16384 : 0) +
+                (config.osd.show_block_name? 32768 : 0) ;
+    printf(";%u;%u;%u;%u", bitmask, config.osd.show_voltage2, config.osd.show_voltage1, config.osd.show_vario);
+    uart1_puts("\r\n");
 }		
 
 
