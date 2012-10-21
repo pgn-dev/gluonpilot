@@ -20,8 +20,8 @@ struct Dataflash dataflash;
 
 /****************** OLD before v1q modules! *******************/
 // Let's use the hardware module!
-//#define gp1_spi_comm(x) gp1_spi_comm_hw(x)
-#define gp1_spi_comm(x) gp1_spi_comm_bitbang(x)
+#define gp1_spi_comm(x) gp1_spi_comm_hw(x)
+//#define gp1_spi_comm(x) gp1_spi_comm_bitbang(x)
 
 inline void gp1_dataflash_disable_spi();
 inline void gp1_dataflash_enable_spi();
@@ -117,10 +117,10 @@ void gp1_dataflash_open()
 	TRISGbits.TRISG7 = 1;	// make this an input
 	
 	// Open hardware SPI, as fast as possible, don't use hardware SS2
-	/*OpenSPI2(ENABLE_SCK_PIN & ENABLE_SDO_PIN & SPI_MODE16_OFF & SPI_SMP_OFF & SPI_CKE_OFF &
+	OpenSPI2(ENABLE_SCK_PIN & ENABLE_SDO_PIN & SPI_MODE16_OFF & SPI_SMP_OFF & SPI_CKE_OFF &
 	         SLAVE_ENABLE_OFF & MASTER_ENABLE_ON & PRI_PRESCAL_4_1 & SEC_PRESCAL_1_1,
 	         FRAME_ENABLE_OFF, SPI_ENABLE & SPI_RX_OVFLOW_CLR); 
-*/
+
 	gp1_dataflash_disable_spi();
 	
 	switch (gp1_dataflash_read_Mbit())
@@ -248,19 +248,20 @@ unsigned char gp1_spi_comm_bitbang(unsigned char outgoing_byte)
         incoming_byte |= PORTGbits.RG7 & 0x01; //Read bit on SPI data bus, SDI
 		asm("nop");asm("nop");asm("nop");
     }
-/*
-    PORTGbits.RG6 = 0;
+
+    /*PORTGbits.RG6 = 0;
     for (x = 0 ; x < 8 ; x++)
     {
-        PORTGbits.RG8 = outgoing_byte & 0x80; //Put bit on SPI data bus , SDO
+        PORTGbits.RG6 = 0;
+        PORTGbits.RG8 = outgoing_byte  >> 7; //Put bit on SPI data bus , SDO
         outgoing_byte <<= 1; //Rotate byte 1 to the left
         
         PORTGbits.RG6 = 1;                                         // Raise the clock to clock the data out of the MAX7456
         incoming_byte <<=1;                                       // Rotate the data
-        incoming_byte += PORTGbits.RG7;                                // Read the data bit
-        PORTGbits.RG6 = 0;                                         // Drop the clock ready for th enext bit
+        incoming_byte |= PORTGbits.RG7 & 0x01;                                // Read the data bit                                       // Drop the clock ready for th enext bit
     }
     */
+    
     return(incoming_byte);
 }
 

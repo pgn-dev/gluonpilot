@@ -127,6 +127,7 @@ void sensors_mpu6000_task( void *parameters )
             //        adc_get_channel(7), adc_get_channel(8), adc_get_channel(9),
             //        adc_get_channel(10), adc_get_channel(11));
 			bmp085_do_10Hz_2();
+            sensor_data.vertical_speed = sensor_data.vertical_speed * 0.8f + (sensor_data.pressure_height - last_height)/0.5 * 0.2f; // too much noise otherwise
 		}
 
 #if (ENABLE_QUADROCOPTER || F1E_STEERING)

@@ -5,6 +5,7 @@
 #include "sensors.h"
 #include "communication.h"
 #include "task_control.h"
+#include "osd.h"
 #include "gps/gps.h"
 
 
@@ -14,6 +15,7 @@ struct Configuration
 	struct TelemetryConfig telemetry;
 	struct GpsConfig gps;
 	struct ControlConfig control;
+    struct OsdConfig osd;
 };	
 
 extern struct Configuration config;
