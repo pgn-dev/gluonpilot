@@ -48,7 +48,7 @@
 extern xSemaphoreHandle xGpsSemaphore;
 extern xSemaphoreHandle xSpiSemaphore;
 
-static char version[] = "0.8";
+static char version[] = "0.9Beta";
 
 unsigned long idle_counter = 0;
 
@@ -89,7 +89,7 @@ int main()
 	
 	// Open flash & load configuration
 	dataflash_open();
-	printf("%d MB flash found\r\n", (int)PAGE_SIZE/264);
+	printf("%d MB flash found \r\n", (int)PAGE_SIZE/264);
 	printf("Loading configuration...");
 	configuration_load();
 	printf("done\r\n");

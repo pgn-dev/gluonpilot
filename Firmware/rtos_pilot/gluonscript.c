@@ -18,6 +18,7 @@
 #include "handler_alarms.h"
 #include "handler_navigation.h"
 #include "handler_flightplan_switch.h"
+#include "handler_maximum_range.h"
 #include "sensors.h"
 #include "task_control.h"
 #include "configuration.h"
@@ -82,6 +83,7 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 	gluonscript_data.tick++;
 	
 	// call all handlers, returns UNHANDLED 0, HANDLED_FINISHED 1 or HANDLED_UNFINISHED 2
+    handlers_result |= maximum_range_handle_gluonscriptcommand(current_code);
     handlers_result |= flightplan_switch_handle_gluonscriptcommand(current_code);
 	handlers_result |= alarms_handle_gluonscriptcommand(current_code);
  	handlers_result |= trigger_handle_gluonscriptcommand(current_code);
@@ -352,7 +354,7 @@ void gluonscript_burn()
 	dataflash.write(NAVIGATION_PAGE, sizeof(gluonscript_data.codes), (unsigned char*) & (gluonscript_data.codes));
 }
 
-	
+
 void gluonscript_load()
 {
 	dataflash.read(NAVIGATION_PAGE, sizeof(gluonscript_data.codes), (unsigned char*) & (gluonscript_data.codes));

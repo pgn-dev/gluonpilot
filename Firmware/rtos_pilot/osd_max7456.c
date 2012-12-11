@@ -13,6 +13,7 @@
 #include "ppm_in/ppm_in.h"
 #include "adc/adc.h"
 #include "uart1_queue/uart1_queue.h"
+#include "ppm_in/ppm_in.h"
 
 #include "common.h"
 #include "osd.h"
@@ -384,25 +385,52 @@ void osd_print_altitude()
 
 void osd_print_rcinfo()
 {
+	int no_frame_times_20_s = ppm_signal_quality() * 4;
+    int link_pct = 100 - no_frame_times_20_s;
+
+    if (config.osd.rssi == Analog)
+    {
+        link_pct = (int)(((float)adc_get_channel(3) / 65520.0f * 3.3f - (float)config.osd.voltage_low/50.0f) / ((float)config.osd.voltage_high/50.0f - (float)config.osd.voltage_low/50.0f) * 100.0);
+        if (link_pct < 0)
+            link_pct = 0;
+        else if (link_pct > 100)
+            link_pct = 100;
+        //printf("\r\n%u %d\r\n", adc_get_channel(3), link_pct);
+    }
+    else if (config.osd.rssi >= Ch1)
+    {
+        int us = ppm.channel[config.osd.rssi - 2];
+        if (us < 1000)
+            us = 1000;
+        if (us > 2000)
+            us = 2000;
+        link_pct = (us - 1000) / 10;
+    }
+
     // rc-link
 	osd_set_position(1, 1);
 	osd_write_char(0xB8);
-	int no_frame_times_20_s = ppm_signal_quality() * 4;
+
 	//if (no_frame_times_20_s > 50)
 	//	no_frame_times_20_s = 50;
-	osd_print_integer(100 - no_frame_times_20_s, 1, 3);
+	osd_print_integer(link_pct, 1, 3);
 	osd_write_char(0xFF);
 
-    if (no_frame_times_20_s < 100)
+    if (link_pct < 100)
     {
         osd_set_position (1, 6);
 		osd_write_char(0x00);
     }
-    if (no_frame_times_20_s < 10)
+    if (link_pct < 10)
     {
         osd_set_position (1, 5);
 		osd_write_char(0x00);
+    } else if (link_pct == 100)
+    {
+        osd_set_position (1, 7);
+		osd_write_char(0x00);
     }
+
 }
 
 #define VOLTAGE_LINE 14
@@ -411,7 +439,7 @@ void osd_print_voltage1()
     osd_set_position(VOLTAGE_LINE, 1);
     osd_write_char(0xE4);
 
-    int volt10 = 114;//sensor_data.battery_voltage_10;
+    int volt10 = sensor_data.battery1_voltage_10;
     int decrement = 1;
 	if (volt10 >= 100)  // > 10v0
 	{
@@ -433,7 +461,7 @@ void osd_print_voltage2()
     osd_set_position(VOLTAGE_LINE-1, 1);
     osd_write_char(0xE5);
 
-    int current10 = 121;//sensor_data.battery_voltage_10;
+    int current10 = sensor_data.battery2_voltage_10;
     int decrement = 1;
 	if (current10 >= 100)  // > 10v0
 	{
@@ -455,7 +483,7 @@ void osd_print_current1()
     //osd_set_position(VOLTAGE_LINE, 1);
     //osd_write_char(0xE4);
 
-    int current10 = 121;//sensor_data.battery_voltage_10;
+    int current10 = (int)(sensor_data.battery1_current * 10.0);
     int decrement = 1;
 	if (current10 >= 100)  // > 10v0
 	{
@@ -474,7 +502,7 @@ void osd_print_current1()
 
 void osd_print_mah1()
 {
-    int mah = 950;//sensor_data.battery_voltage_10;
+    int mah = sensor_data.battery1_mAh;
     int decrement = 1;
 	if (mah >= 1000)
 	{
@@ -483,12 +511,18 @@ void osd_print_mah1()
 		mah = mah % 1000;
         decrement = 0;
 	}
-	osd_set_position (VOLTAGE_LINE, 9 - decrement);
-	osd_write_char(number[mah/100]);
-    mah = mah % 100;
-	osd_set_position (VOLTAGE_LINE, 10 - decrement);
-	osd_write_char(number[mah/10]);
-    mah = mah % 10;
+    if (mah >= 100)
+	{
+        osd_set_position (VOLTAGE_LINE, 9 - decrement);
+        osd_write_char(number[mah/100]);
+        mah = mah % 100;
+    }
+    if (mah >= 10)
+    {
+        osd_set_position (VOLTAGE_LINE, 10 - decrement);
+        osd_write_char(number[mah/10]);
+        mah = mah % 10;
+    }
 	osd_set_position (VOLTAGE_LINE, 11 - decrement);
 	osd_write_char(number[mah]);
     osd_set_position (VOLTAGE_LINE, 12 - decrement);

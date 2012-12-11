@@ -4,6 +4,8 @@
 #include "hmc5843/hmc5843.h"
 #include "gps/gps.h"
 
+enum BoardRotation { ROTATION_0 = 0, ROTATION_90 = 1, ROTATION_180 = 2, ROTATION_270 = 3 };
+
 struct SensorData
 {
 	unsigned int acc_x_raw, acc_y_raw, acc_z_raw;
@@ -39,6 +41,9 @@ struct SensorConfig
 	float gyro_x_neutral;
 	float gyro_y_neutral;
 	float gyro_z_neutral;
+
+    enum BoardRotation imu_rotated;
+    float neutral_pitch;
 };
 
 extern struct SensorData sensor_data;

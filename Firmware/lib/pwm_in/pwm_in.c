@@ -35,7 +35,7 @@ void pwm_in_wait_for()
 	for (i = 0; i < 150; i++) // 25ms * 60 = 1.5 second, which is how long it can take for a 2.4GHz receiver to come online
 	{
 		uart1_putc('.');
-		if (! (ppm.channel[1] > 900 && ppm.channel[1] < 2100)) // valid signal
+		if (! (ppm.channel[1] > 800 && ppm.channel[1] < 2200)) // valid signal
 			microcontroller_delay_ms(25);  // wait for RC-receiver to boot (long enough?)
 		else
 			break;

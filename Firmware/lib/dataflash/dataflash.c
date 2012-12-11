@@ -73,7 +73,7 @@ void gp2_dataflash_read(int page, int size, unsigned char *buffer);
 
 // This became a variable so we can use different AT45xxx chips
 int MAX_PAGE = 4095;
-int PAGE_SIZE;
+int PAGE_SIZE = 0;
 
 int START_LOG_PAGE = 5;
 int	LOG_INDEX_PAGE = 4;
