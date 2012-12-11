@@ -65,8 +65,8 @@ void ppm_in_open()
 
 	_IC4IP = 5;
 	
-	servo_pulse_max = ppm_in_us_to_raw(2200);
-	servo_pulse_min = ppm_in_us_to_raw(800);	
+	servo_pulse_max = ppm_in_us_to_raw(2300);
+	servo_pulse_min = ppm_in_us_to_raw(700);
 	sync_pulse = ppm_in_us_to_raw(4500);
 	
 	ppm.valid_frame = 0;

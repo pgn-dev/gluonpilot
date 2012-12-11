@@ -100,8 +100,8 @@ void normalize_pitch_roll()
         if (pitch_rad < DEG2RAD(-180.0f))
         {
             pitch_rad = fmod(pitch_rad, DEG2RAD(360.0f));
-            if (pitch_rad < DEG2RAD(-180.0f))
-                pitch_rad += DEG2RAD(360.0f);
+            if (pitch_rad > DEG2RAD(180.0f))
+                pitch_rad -= DEG2RAD(360.0f);
         }
     }
 
@@ -121,8 +121,8 @@ void normalize_pitch_roll()
         if (roll_rad < DEG2RAD(-180.0f))
         {
             roll_rad = fmod(roll_rad, DEG2RAD(360.0f));
-            if (roll_rad < DEG2RAD(-180.0f))
-                roll_rad += DEG2RAD(360.0f);
+            if (roll_rad > DEG2RAD(180.0f))
+                roll_rad -= DEG2RAD(360.0f);
         }
     }
 }
@@ -253,15 +253,26 @@ void ahrs_filter(float dt)
 	   	tmp2[4] += 30.0f;
 	   	tmp2[8] += 35.0f;   // z-axis = vertical acceleration (not compensated for the moment, possibly using barometer?)
 	   	
-	   	float d;
-	   	if (fabs(d) < 0.01f)  // almost division by 0 
-	   	{
-            if (d > 0)
-                d = 0.01f;
-            else
-                d = -0.01f;
-	   	}	
-	   	INVERT_3X3(tmp1, d, tmp2); // result = tmp1
+        float d;
+        //INVERT_3X3(tmp1, d, tmp2); // result = tmp1
+        DETERMINANT_3X3 (d, tmp2);
+        if (fabs(d) < 0.01f)
+        {
+            uart1_puts("\r\n!!\r\n"); // debug output to let us know
+            if (d > 0.0)
+            {
+                SCALE_ADJOINT_3X3 (tmp1, 9999.0f, tmp2);
+            }
+            else // if (d < 0.0)
+            {
+                SCALE_ADJOINT_3X3 (tmp1, -9999.0f, tmp2);
+            }
+        }
+        else
+        {
+            SCALE_ADJOINT_3X3 (tmp1, (1.0 / (d)), tmp2);
+        }
+
 
 	   	// P * C'  [2x3] = tmp2
 	   	matrix_2x2_times_3x2_transp(P, dh_dx_3x2, tmp2);  // P * C' = tmp2
@@ -313,16 +324,20 @@ void ahrs_filter(float dt)
 			else if (sensor_data.yaw < DEG2RAD(0.0))
 				sensor_data.yaw += DEG2RAD(360.0);
 #ifndef F1E_STEERING
-			if (fabs(sensor_data.yaw - sensor_data.gps.heading_rad) < DEG2RAD(250.0))  // do not change if e.g. yaw = 355° and heading = 2°
+			if (fabs(sensor_data.yaw - sensor_data.gps.heading_rad) < DEG2RAD(250.0) && sensor_data.gps.satellites_in_view > 5)  // do not change if e.g. yaw = 355° and heading = 2°
 				sensor_data.yaw = sensor_data.yaw*0.99 + sensor_data.gps.heading_rad*0.01;
 #endif
-		}	
+		}
+
+        normalize_pitch_roll();
+        normalize(pitch_rad, roll_rad, sensor_data.yaw);
+        normalize_pitch_roll();
     }
 	else if (i % 25 == 0) // outer loop at 2Hz
 	{
-		// change bias with a max of 0.1°/s per second
-		sensor_data.p_bias -= BIND(roll_rad_sum_error/10.0f, DEG2RAD(-0.1f), DEG2RAD(0.1f));
-		sensor_data.q_bias -= BIND(pitch_rad_sum_error/10.0f, DEG2RAD(-0.1f), DEG2RAD(0.1f));
+		// change bias with a max of 0.1°/s per second, update me, to 2°/s/minute
+		sensor_data.p_bias -= BIND(roll_rad_sum_error/10.0f, DEG2RAD(-0.05f), DEG2RAD(0.05f));
+		sensor_data.q_bias -= BIND(pitch_rad_sum_error/10.0f, DEG2RAD(-0.05f), DEG2RAD(0.05f));
 		//printf("\r\n %f \r\n", (roll_rad_sum_error/20.0));
 		roll_rad_sum_error = 0.0f;
 		pitch_rad_sum_error = 0.0f;
@@ -409,8 +424,8 @@ void ahrs_filter(float dt)
 	}*/
    
     
-	normalize(pitch_rad, roll_rad, sensor_data.yaw);
-   	sensor_data.pitch = pitch_rad;
+	//normalize(pitch_rad, roll_rad, sensor_data.yaw);
+   	sensor_data.pitch = pitch_rad - config.sensors.neutral_pitch;
 	sensor_data.roll = roll_rad;
 }	
 
@@ -461,7 +476,13 @@ inline float fast_sin(float x)
 {
 	// -180..180 -> -60..60
 	//int i = (int)(x/(2.0f/(180.0f/3.14159f))) + (180/2);
+
+
+    // improve rounding
 	int i = (int)(x/0.034906585f) + 90;  // 0 = -180.. 180=+180
+
+    if (i < 0 || i > 180)
+        printf("\r\nSIN error: %d\r\n",(int) RAD2DEG(x));
     if (i > 180)
         i -= 180;
     else if (i < 0)
@@ -470,6 +491,9 @@ inline float fast_sin(float x)
 }	
 inline float fast_cos(float x)
 {
-	// -180..180 -> -60..60
-	return fast_sin((1.5707963f) - x);
+	// -180..180 -> 270..-90
+    double a = DEG2RAD(90.0f) - x;
+    if (a > DEG2RAD(180.0f))
+        a -= DEG2RAD(360.0f);
+	return fast_sin(a);
 }	

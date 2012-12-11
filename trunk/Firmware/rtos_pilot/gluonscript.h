@@ -73,7 +73,8 @@ enum gluonscript_command {
 	RETURN = 30,
     SERVO_START_TRIGGER = 31,
     SERVO_STOP_TRIGGER = 32,
-    SET_FLIGHTPLAN_SWITCH = 33
+    SET_FLIGHTPLAN_SWITCH = 33,
+    SET_MAXIMUM_RANGE = 34
 };
 
 

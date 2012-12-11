@@ -75,7 +75,12 @@ void sensors_mpu6000_task( void *parameters )
     
 	adc_open();
 
+    vTaskDelay( ( ( portTickType ) 1 / portTICK_RATE_MS ) );   // 1ms
+
     mpu6000_init();
+
+    //vTaskDelay( ( ( portTickType ) 1 / portTICK_RATE_MS ) );   // 1ms
+    //mpu6000_init();
 
     bmp085_init();
 
@@ -127,7 +132,9 @@ void sensors_mpu6000_task( void *parameters )
             //        adc_get_channel(7), adc_get_channel(8), adc_get_channel(9),
             //        adc_get_channel(10), adc_get_channel(11));
 			bmp085_do_10Hz_2();
-            sensor_data.vertical_speed = sensor_data.vertical_speed * 0.8f + (sensor_data.pressure_height - last_height)/0.5 * 0.2f; // too much noise otherwise
+            sensor_data.vertical_speed = sensor_data.vertical_speed * 0.9f + (sensor_data.pressure_height - last_height)/0.5 * 0.1f; // too much noise otherwise
+            last_height = sensor_data.pressure_height;
+            dt_since_last_height = 0;
 		}
 
 #if (ENABLE_QUADROCOPTER || F1E_STEERING)
@@ -216,12 +223,46 @@ void read_mpu6000_sensor_data()
     else
         sensor_data.gyro_z_raw = 32768 + (unsigned int)mpu6000_raw_sensor_readings.gyro_z;
 
-    sensor_data.acc_x = ((float)config.sensors.acc_x_neutral - (float)sensor_data.acc_x_raw) / 4096.0;
-    sensor_data.acc_y = ((float)sensor_data.acc_y_raw - (float)config.sensors.acc_y_neutral) / 4096.0;
-    sensor_data.acc_z = ((float)config.sensors.acc_z_neutral - (float)sensor_data.acc_z_raw) / 4096.0;
+    
+    if (config.sensors.imu_rotated == 1)  // 90° CCW
+    {
+        sensor_data.acc_y = -((float)config.sensors.acc_x_neutral - (float)sensor_data.acc_x_raw) / 4096.0;
+        sensor_data.acc_x = ((float)sensor_data.acc_y_raw - (float)config.sensors.acc_y_neutral) / 4096.0;
+        sensor_data.acc_z = ((float)config.sensors.acc_z_neutral - (float)sensor_data.acc_z_raw) / 4096.0;
 
-    sensor_data.p = ((float)config.sensors.gyro_x_neutral - (float)sensor_data.gyro_x_raw) * (3.14159 / 180.0 / 32.8);
-    sensor_data.q = ((float)sensor_data.gyro_y_raw - (float)config.sensors.gyro_y_neutral) * (3.14159 / 180.0 / 32.8);
-    sensor_data.r = ((float)config.sensors.gyro_z_neutral - (float)sensor_data.gyro_z_raw) * (3.14159 / 180.0 / 32.8);
+        sensor_data.q = -((float)config.sensors.gyro_x_neutral - (float)sensor_data.gyro_x_raw) * (3.14159 / 180.0 / 32.8);
+        sensor_data.p = ((float)sensor_data.gyro_y_raw - (float)config.sensors.gyro_y_neutral) * (3.14159 / 180.0 / 32.8);
+        sensor_data.r = ((float)config.sensors.gyro_z_neutral - (float)sensor_data.gyro_z_raw) * (3.14159 / 180.0 / 32.8);
+    }
+    else if (config.sensors.imu_rotated == 3)  // 270° CCW
+    {
+        sensor_data.acc_y = ((float)config.sensors.acc_x_neutral - (float)sensor_data.acc_x_raw) / 4096.0;
+        sensor_data.acc_x = -((float)sensor_data.acc_y_raw - (float)config.sensors.acc_y_neutral) / 4096.0;
+        sensor_data.acc_z = ((float)config.sensors.acc_z_neutral - (float)sensor_data.acc_z_raw) / 4096.0;
+
+        sensor_data.q = ((float)config.sensors.gyro_x_neutral - (float)sensor_data.gyro_x_raw) * (3.14159 / 180.0 / 32.8);
+        sensor_data.p = -((float)sensor_data.gyro_y_raw - (float)config.sensors.gyro_y_neutral) * (3.14159 / 180.0 / 32.8);
+        sensor_data.r = ((float)config.sensors.gyro_z_neutral - (float)sensor_data.gyro_z_raw) * (3.14159 / 180.0 / 32.8);
+    }
+    else if (config.sensors.imu_rotated == 2)  // 180°
+    {
+        sensor_data.acc_x = ((float)sensor_data.acc_x_raw - (float)config.sensors.acc_x_neutral) / 4096.0;
+        sensor_data.acc_y = ((float)config.sensors.acc_y_neutral - (float)sensor_data.acc_y_raw) / 4096.0;
+        sensor_data.acc_z = ((float)config.sensors.acc_z_neutral - (float)sensor_data.acc_z_raw) / 4096.0;
+
+        sensor_data.p = ((float)sensor_data.gyro_x_raw - (float)config.sensors.gyro_x_neutral) * (3.14159 / 180.0 / 32.8);
+        sensor_data.q = ((float)config.sensors.gyro_y_neutral - (float)sensor_data.gyro_y_raw) * (3.14159 / 180.0 / 32.8);
+        sensor_data.r = ((float)config.sensors.gyro_z_neutral - (float)sensor_data.gyro_z_raw) * (3.14159 / 180.0 / 32.8);
+    }
+    else //if (config.sensors.imu_rotated == 0)
+    {
+        sensor_data.acc_x = ((float)config.sensors.acc_x_neutral - (float)sensor_data.acc_x_raw) / 4096.0;
+        sensor_data.acc_y = ((float)sensor_data.acc_y_raw - (float)config.sensors.acc_y_neutral) / 4096.0;
+        sensor_data.acc_z = ((float)config.sensors.acc_z_neutral - (float)sensor_data.acc_z_raw) / 4096.0;
+
+        sensor_data.p = ((float)config.sensors.gyro_x_neutral - (float)sensor_data.gyro_x_raw) * (3.14159 / 180.0 / 32.8);
+        sensor_data.q = ((float)sensor_data.gyro_y_raw - (float)config.sensors.gyro_y_neutral) * (3.14159 / 180.0 / 32.8);
+        sensor_data.r = ((float)config.sensors.gyro_z_neutral - (float)sensor_data.gyro_z_raw) * (3.14159 / 180.0 / 32.8);
+    }
 }
 

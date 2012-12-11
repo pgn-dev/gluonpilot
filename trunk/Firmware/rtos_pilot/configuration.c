@@ -87,15 +87,6 @@ void configuration_determine_hardware_version()
 
 /*!
  *  Writes the configuration struct to the 1st dataflash page.
- *  @param pid    The to be initialized struct.
- *  @param d_gain The deriative gain.
- *  @param i_gain The integral gain.
- *  @param p_gain The proportional gain.
- *  @param i_min  Anti-windup for the integral term. Preferably -i_max.
- *  @param i_max  Positive anti-windup for the integral term.
- *  @param d_term_min_var Minimum difference required to active the derivative
- *                        term. Used to prevent jitter on the output.
- *  @todo  Add global min and max value for the output.
  */
 void configuration_write()
 {
@@ -170,8 +161,10 @@ void configuration_default()
 	config.sensors.gyro_x_neutral = 27180.0f;
 	config.sensors.gyro_y_neutral = 26304.0f;
 	config.sensors.gyro_z_neutral = 31850.0f;
-	
-	
+
+    config.sensors.imu_rotated = ROTATION_0;
+    config.sensors.neutral_pitch = 0.0f;
+
 	config.telemetry.stream_GpsBasic = 5;
 	config.telemetry.stream_GyroAccProc = 40;
 	config.telemetry.stream_GyroAccRaw = 30;
@@ -196,4 +189,8 @@ void configuration_default()
     config.osd.show_voltage1 = 1;
     config.osd.show_voltage2 = 1;
     config.osd.show_block_name = 1;
+
+    config.osd.rssi = None;
+    config.osd.voltage_low = 30;
+    config.osd.voltage_high = 80;
 }

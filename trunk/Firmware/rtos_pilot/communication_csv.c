@@ -30,6 +30,7 @@
 #include "ppm_in/ppm_in.h"
 #include "led/led.h"
 #include "servo/servo.h"
+#include "osd.h"
 
 #include "sensors.h"
 #include "communication.h"
@@ -581,6 +582,14 @@ void communication_input_task( void *parameters )
 					config.sensors.gyro_y_neutral = (float)atof(&(buffer[token[2]]));
 					config.sensors.gyro_z_neutral = (float)atof(&(buffer[token[3]]));
 				}
+                ///////////////////////////////////////////////////////////////
+				//                        SET IMU                            //
+				///////////////////////////////////////////////////////////////
+                else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == '6')    // Set 6DOF settings
+				{
+					config.sensors.imu_rotated = atoi(&(buffer[token[1]]));
+					config.sensors.neutral_pitch = DEG2RAD((float)atof(&(buffer[token[2]])));
+				}
 				///////////////////////////////////////////////////////////////
 				//                     CALIBRATE GYRO                        //
 				///////////////////////////////////////////////////////////////
@@ -689,6 +698,9 @@ void communication_input_task( void *parameters )
                     config.osd.show_voltage1 = ((bits & 8192) != 0) ? 1 : 0;
                     config.osd.show_voltage2 = ((bits & 16384) != 0) ? 1 : 0;
                     config.osd.show_block_name = ((bits & 32768) != 0) ? 1 : 0;
+                    config.osd.rssi = (enum RssiMode) atoi(&(buffer[token[2]]));
+                    config.osd.voltage_low  = (unsigned char) atoi(&(buffer[token[3]]));
+                    config.osd.voltage_high  = (unsigned char) atoi(&(buffer[token[4]]));
 				}
                 ///////////////////////////////////////////////////////////////
 				//                      FORMAT DATALOG                       //
@@ -974,7 +986,8 @@ void print_configuration()
                 (config.osd.show_voltage1? 8192 : 0) +
                 (config.osd.show_voltage2? 16384 : 0) +
                 (config.osd.show_block_name? 32768 : 0) ;
-    printf(";%u;%u;%u;%u", bitmask, config.osd.show_voltage2, config.osd.show_voltage1, config.osd.show_vario);
+    printf(";%u;%u;%u;%u", bitmask, (unsigned int)config.osd.rssi, (unsigned int)config.osd.voltage_low, (unsigned int)config.osd.voltage_high);
+    printf(";%d;%d", (int)config.sensors.imu_rotated, (int)RAD2DEG(config.sensors.neutral_pitch));
     uart1_puts("\r\n");
 }		
 

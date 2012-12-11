@@ -392,7 +392,7 @@ ScriptHandlerReturn navigation_handle_gluonscriptcommand (struct GluonscriptCode
 		case SET_LOITER_POSITION:
 			navigation_data.loiter_waypoint_latitude_rad = sensor_data.gps.latitude_rad;
 			navigation_data.loiter_waypoint_longitude_rad = sensor_data.gps.longitude_rad;
-			navigation_data.loiter_waypoint_altitude_agl = sensor_data.pressure_height - navigation_data.home_pressure_height;
+			navigation_data.loiter_waypoint_altitude_agl = gluonscript_get_variable(HEIGHT); //sensor_data.pressure_height - navigation_data.home_pressure_height;
 			return HANDLED_FINISHED;
 		case LOITER_CIRCLE:
 		{
