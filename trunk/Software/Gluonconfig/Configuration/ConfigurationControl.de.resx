@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,67 +59,67 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="_btn_load.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+	<data name="_btn_load.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+		<value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAApNJREFUOE+NkN9P
         UmEcxqnNP6CrLrrvIqPWnFR/QVurO1t3bZGbtVVr3lUWkwbKBhTxo4Eb6khc0dJhuppOnQuEmEEIeMIQ
@@ -135,9 +135,9 @@
         Qfu7Qftug/beQmzZxgfUbdk9A0reeo/qP2kN9J3Y9vYL2X+qT8h+6RfSlKxV+8vgB2t8QY2NCkx5AAAA
         AElFTkSuQmCC
 </value>
-  </data>
-  <data name="_btn_save.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
+	</data>
+	<data name="_btn_save.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+		<value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAArZJREFUOE+NkllP
         E1EcxW+R6IvvPpr47gOlrT74CfwMxrAVWpYEEJFNo4kPYgSJRiKLgG1TdkU2saNoqghFwILBFGjpglAK
@@ -153,9 +153,9 @@
         hIyspiSTqgzrg993MTi1c6r1C3tU1zqD6pfTyLih8TK5+sNTuXpiTJY94ZOr3tP1HBNvmCx/GJnKITqq
         N5DmDtCG9VHlXkrtEZMvZ+mDGdn6b38BtlwEmPcchyAAAAAASUVORK5CYII=
 </value>
-  </data>
-  <data name="_btn_read.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
+	</data>
+	<data name="_btn_read.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+		<value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAbdJREFUOE+Vk8lL
         QlEUxrUW/QlBGLSQFtVCcmhjtMg2QevWtssGFFsYGZhGhREootKqfW1ctCiQwLAggoL+g8IBJxyfc37d
@@ -167,9 +167,9 @@
         CY6nE9gfrVg+00CyOLbWfh8UbHs4Bul7mTSn8zh+OID13ozZnRnqgbwdMM4miubpoiPaJbVFCeWuDDLD
         NKY2JglAHtEXRet3WZ0SPPQAAAAASUVORK5CYII=
 </value>
-  </data>
-  <data name="_btn_write.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
+	</data>
+	<data name="_btn_write.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+		<value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAbtJREFUOE+Vk8tL
         AlEUxntA/0KbgloVYhFlroL+gDahlUHSWyJrEbVpF9QmpIUiZgYptIjAFi4iWrSMIIKKivaFD3zh+J4Z
@@ -181,9 +181,9 @@
         K2cLsN7uwnKzjclDHXrX1W+qLVWLPBMadjxZBvl1mEyeGRjd45g4GMXw3vAHMw78HKh2ttCUbxddUUX1
         b6hfepa7H8tm8jR8AgFBb7OeoHYGAAAAAElFTkSuQmCC
 </value>
-  </data>
-  <data name="_btn_default.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
+	</data>
+	<data name="_btn_default.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+		<value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAVVJREFUOE/Nkr1u
         gmAUhm1vQwYGFycSTYyJg4sDYWHgArwbtzM0DNyQidEoItdgTDQY8YdfbU55vxajxVrSqSRvwvfxnYfn
@@ -193,9 +193,9 @@
         41EMu7RBbuQ4jpgLZgLQQ8CzfwAWaZoKE8zlTwa5BSClDfDm28ACuQL6/f7AMAzSdZ00TSNVVanX61G3
         26VOp0PtdpsajQYpikL1ep1qtRrJskzVapUkSRp8AL77UVzP4VF8AAAAAElFTkSuQmCC
 </value>
-  </data>
-  <data name="_btn_burn.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
+	</data>
+	<data name="_btn_burn.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+		<value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAA0JJREFUOE9Vkv1P
         U1cYx0tMhv6w7F9Y9ouJUYmObPMtLig6s2QOyIxEJygIRKP8MF+TNXGKUReWkMGI2eZLXDSK2WrKWyct
@@ -214,9 +214,9 @@
         I/1Ty4LSpn9PltTr9JsaBpIlDRqyzHH6Ttn4jnoNWVvfn1p/rN+w8Whf3Vsk+MQ8SnWpegAAAABJRU5E
         rkJggg==
 </value>
-  </data>
-  <data name="_btn_reload.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
+	</data>
+	<data name="_btn_reload.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+		<value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAA0JJREFUOE9VkvtL
         U2EYxyf9YP0Q/QH9UNFFstroihBdCOwmFXaRpLI551parVUWXSQtKwsLuiddMAqtrLSh09IpmtNZWobu
@@ -235,50 +235,50 @@
         uEz5Pl0ir6xerKhySRQlJEwqvVPElGjlak4sLyFR8orhhbIKnThZm/JP8AdkUJ5JS9V9FgAAAABJRU5E
         rkJggg==
 </value>
-  </data>
-  <data name="_btn_save.Text" xml:space="preserve">
+	</data>
+	<data name="_btn_save.Text" xml:space="preserve">
     <value>Speichern</value>
   </data>
-  <data name="_btn_load.Text" xml:space="preserve">
+	<data name="_btn_load.Text" xml:space="preserve">
     <value>Öffnen</value>
   </data>
-  <data name="_btn_burn.Text" xml:space="preserve">
+	<data name="_btn_burn.Text" xml:space="preserve">
     <value>Brennen</value>
   </data>
-  <data name="_btn_reload.Text" xml:space="preserve">
+	<data name="_btn_reload.Text" xml:space="preserve">
     <value>Neu laden</value>
   </data>
-  <data name="_btn_write.Text" xml:space="preserve">
+	<data name="_btn_write.Text" xml:space="preserve">
     <value>Schreiben</value>
   </data>
-  <data name="_btn_write.ToolTipText" xml:space="preserve">
+	<data name="_btn_write.ToolTipText" xml:space="preserve">
     <value>in flüchtigen Speicher des Moduls schreiben</value>
   </data>
-  <data name="_btn_reload.ToolTipText" xml:space="preserve">
+	<data name="_btn_reload.ToolTipText" xml:space="preserve">
     <value>Laden von Flash zum flüchtigen Speicher des Moduls</value>
   </data>
-  <data name="_btn_default.ToolTipText" xml:space="preserve">
+	<data name="_btn_default.ToolTipText" xml:space="preserve">
     <value>Standardkonfiguration in flüchtigen Speicher des Moduls laden</value>
   </data>
-  <data name="_btn_burn.ToolTipText" xml:space="preserve">
+	<data name="_btn_burn.ToolTipText" xml:space="preserve">
     <value>Konfiguration im Flash-Speicher des Moduls Brennen</value>
   </data>
-  <data name="_btn_default.Text" xml:space="preserve">
+	<data name="_btn_default.Text" xml:space="preserve">
     <value>Standard Laden</value>
   </data>
-  <data name="_btn_load.ToolTipText" xml:space="preserve">
+	<data name="_btn_load.ToolTipText" xml:space="preserve">
     <value>Aus Datei laden...</value>
   </data>
-  <data name="_btn_read.Text" xml:space="preserve">
+	<data name="_btn_read.Text" xml:space="preserve">
     <value>Lesen</value>
   </data>
-  <data name="toolStripContainer1.Text" xml:space="preserve">
+	<data name="toolStripContainer1.Text" xml:space="preserve">
     <value>toolStripContainer1</value>
   </data>
-  <data name="_btn_save.ToolTipText" xml:space="preserve">
+	<data name="_btn_save.ToolTipText" xml:space="preserve">
     <value>In Datei speichern...</value>
   </data>
-  <data name="_btn_read.ToolTipText" xml:space="preserve">
+	<data name="_btn_read.ToolTipText" xml:space="preserve">
     <value>Lesen von flüchtigen Speicher des Moduls</value>
   </data>
 </root>

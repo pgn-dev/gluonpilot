@@ -45,41 +45,59 @@
             this.label46 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
             this._tpSensors = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this._btn_use_current_gyro = new System.Windows.Forms.Button();
-            this.label74 = new System.Windows.Forms.Label();
-            this.label73 = new System.Windows.Forms.Label();
-            this.label72 = new System.Windows.Forms.Label();
-            this._tbSumAcc = new System.Windows.Forms.TextBox();
-            this.label60 = new System.Windows.Forms.Label();
-            this._tbGyroZRaw = new System.Windows.Forms.TextBox();
-            this._tbGyroYRaw = new System.Windows.Forms.TextBox();
-            this._tbGyroXRaw = new System.Windows.Forms.TextBox();
-            this._btn_sensors_current_to_neutral = new System.Windows.Forms.Button();
             this._llConfigSensors = new System.Windows.Forms.LinkLabel();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this._tbGyroZ = new System.Windows.Forms.TextBox();
-            this._tbGyroY = new System.Windows.Forms.TextBox();
-            this._tbGyroX = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this._tbAccZ = new System.Windows.Forms.TextBox();
-            this._tbAccY = new System.Windows.Forms.TextBox();
-            this._tbAccX = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this._tbAccZRaw = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this._tbAccYRaw = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label98 = new System.Windows.Forms.Label();
+            this._nud_current_scaling = new System.Windows.Forms.NumericUpDown();
+            this.label97 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
             this._tbAccXRaw = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this._btn_use_current_gyro = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this._tbGyroZNeutral = new Configuration.NumericTextBox();
+            this._tbAccYRaw = new System.Windows.Forms.TextBox();
+            this._tbGyroYNeutral = new Configuration.NumericTextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label74 = new System.Windows.Forms.Label();
+            this._tbAccZRaw = new System.Windows.Forms.TextBox();
+            this._tbGyroXNeutral = new Configuration.NumericTextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label73 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label72 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this._tbSumAcc = new System.Windows.Forms.TextBox();
+            this._tbAccXNeutral = new Configuration.NumericTextBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this._tbAccYNeutral = new Configuration.NumericTextBox();
+            this._tbGyroZRaw = new System.Windows.Forms.TextBox();
+            this._tbAccZNeutral = new Configuration.NumericTextBox();
+            this._tbGyroYRaw = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this._tbGyroXRaw = new System.Windows.Forms.TextBox();
+            this._tbAccX = new System.Windows.Forms.TextBox();
+            this._btn_sensors_current_to_neutral = new System.Windows.Forms.Button();
+            this._tbAccY = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this._tbAccZ = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this._tbGyroZ = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this._tbGyroY = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this._tbGyroX = new System.Windows.Forms.TextBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this._btn_read_pitch = new System.Windows.Forms.Button();
+            this.label96 = new System.Windows.Forms.Label();
+            this._nud_neutral_pitch = new System.Windows.Forms.NumericUpDown();
+            this.label95 = new System.Windows.Forms.Label();
+            this._cb_imu_rotation = new System.Windows.Forms.ComboBox();
+            this.label94 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this._tbTemperature = new System.Windows.Forms.TextBox();
@@ -91,6 +109,7 @@
             this._tbPressure = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this._tbGps = new System.Windows.Forms.TabPage();
+            this._cbWaas = new System.Windows.Forms.CheckBox();
             this._rb_gps_notfound = new System.Windows.Forms.RadioButton();
             this._llConfigGps = new System.Windows.Forms.LinkLabel();
             this._llGoogleMaps = new System.Windows.Forms.LinkLabel();
@@ -111,6 +130,8 @@
             this._rb_gps_status_void = new System.Windows.Forms.RadioButton();
             this.label456 = new System.Windows.Forms.Label();
             this.label50 = new System.Windows.Forms.Label();
+            this._tb_initial_baudrate = new Configuration.NumericTextBox();
+            this._tb_operational_baudrate = new Configuration.NumericTextBox();
             this._tpRc = new System.Windows.Forms.TabPage();
             this.label78 = new System.Windows.Forms.Label();
             this._llRc = new System.Windows.Forms.LinkLabel();
@@ -191,6 +212,12 @@
             this._tpServos = new System.Windows.Forms.TabPage();
             this._panelServos = new System.Windows.Forms.Panel();
             this._tb_servo1_min = new System.Windows.Forms.TextBox();
+            this._tb_servo1_neutral = new Configuration.NumericTextBox();
+            this._tb_servo2_neutral = new Configuration.NumericTextBox();
+            this._tb_servo3_neutral = new Configuration.NumericTextBox();
+            this._tb_servo4_neutral = new Configuration.NumericTextBox();
+            this._tb_servo5_neutral = new Configuration.NumericTextBox();
+            this._tb_servo6_neutral = new Configuration.NumericTextBox();
             this._tb_servo1_max = new System.Windows.Forms.TextBox();
             this._tb_servo2_min = new System.Windows.Forms.TextBox();
             this._tb_servo2_max = new System.Windows.Forms.TextBox();
@@ -229,6 +256,7 @@
             this.label26 = new System.Windows.Forms.Label();
             this._tbControl = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this._ntbAutoThrottlePGain = new Configuration.NumericTextBox();
             this.label92 = new System.Windows.Forms.Label();
             this._nudAutoThrottleMinPct = new System.Windows.Forms.NumericUpDown();
             this._nudAutoThrottleMaxPct = new System.Windows.Forms.NumericUpDown();
@@ -237,6 +265,7 @@
             this.label90 = new System.Windows.Forms.Label();
             this._nudAutoThrottleCruisePct = new System.Windows.Forms.NumericUpDown();
             this.label88 = new System.Windows.Forms.Label();
+            this._dtb_waypoint_radius = new Configuration.DistanceTextBox();
             this.label86 = new System.Windows.Forms.Label();
             this.label85 = new System.Windows.Forms.Label();
             this._cbMotor = new System.Windows.Forms.ComboBox();
@@ -261,34 +290,18 @@
             this._lblControlMixInfo = new System.Windows.Forms.Label();
             this._cbControlMix = new System.Windows.Forms.ComboBox();
             this.label58 = new System.Windows.Forms.Label();
-            this._tbPid = new System.Windows.Forms.TabPage();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this._pid_roll2aileron = new System.Windows.Forms.GroupBox();
-            this._btnWriteRollPid = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this._btnWritePitchPid = new System.Windows.Forms.Button();
-            this._tbGyroZNeutral = new Configuration.NumericTextBox();
-            this._tbGyroYNeutral = new Configuration.NumericTextBox();
-            this._tbGyroXNeutral = new Configuration.NumericTextBox();
-            this._tbAccZNeutral = new Configuration.NumericTextBox();
-            this._tbAccYNeutral = new Configuration.NumericTextBox();
-            this._tbAccXNeutral = new Configuration.NumericTextBox();
-            this._tb_initial_baudrate = new Configuration.NumericTextBox();
-            this._tb_operational_baudrate = new Configuration.NumericTextBox();
-            this._tb_servo1_neutral = new Configuration.NumericTextBox();
-            this._tb_servo2_neutral = new Configuration.NumericTextBox();
-            this._tb_servo3_neutral = new Configuration.NumericTextBox();
-            this._tb_servo4_neutral = new Configuration.NumericTextBox();
-            this._tb_servo5_neutral = new Configuration.NumericTextBox();
-            this._tb_servo6_neutral = new Configuration.NumericTextBox();
-            this._ntbAutoThrottlePGain = new Configuration.NumericTextBox();
-            this._dtb_waypoint_radius = new Configuration.DistanceTextBox();
             this.tb_min_circle_radius = new Configuration.DistanceTextBox();
             this.tb_speed = new Configuration.SpeedTextBox();
+            this._tbPid = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this._pid_altitude_to_pitch = new Configuration.PidControl();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this._pid_heading_to_roll = new Configuration.PidControl();
+            this._pid_roll2aileron = new System.Windows.Forms.GroupBox();
+            this._btnWriteRollPid = new System.Windows.Forms.Button();
             this._pid_roll_to_aileron = new Configuration.PidControl();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this._btnWritePitchPid = new System.Windows.Forms.Button();
             this._pid_pitch_to_elevator = new Configuration.PidControl();
             this.tabControl1.SuspendLayout();
             this._tpTelemetry.SuspendLayout();
@@ -300,7 +313,12 @@
             ((System.ComponentModel.ISupportInitialize)(this._nud_ppm_telemetry)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gyroaccraw_telemetry)).BeginInit();
             this._tpSensors.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._nud_current_scaling)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._nud_neutral_pitch)).BeginInit();
             this.groupBox1.SuspendLayout();
             this._tbGps.SuspendLayout();
             this._tpRc.SuspendLayout();
@@ -538,115 +556,13 @@
             // 
             // _tpSensors
             // 
+            this._tpSensors.Controls.Add(this._llConfigSensors);
+            this._tpSensors.Controls.Add(this.groupBox11);
             this._tpSensors.Controls.Add(this.groupBox2);
             this._tpSensors.Controls.Add(this.groupBox1);
             resources.ApplyResources(this._tpSensors, "_tpSensors");
             this._tpSensors.Name = "_tpSensors";
             this._tpSensors.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this._btn_use_current_gyro);
-            this.groupBox2.Controls.Add(this._tbGyroZNeutral);
-            this.groupBox2.Controls.Add(this._tbGyroYNeutral);
-            this.groupBox2.Controls.Add(this.label74);
-            this.groupBox2.Controls.Add(this._tbGyroXNeutral);
-            this.groupBox2.Controls.Add(this.label73);
-            this.groupBox2.Controls.Add(this.label72);
-            this.groupBox2.Controls.Add(this._tbSumAcc);
-            this.groupBox2.Controls.Add(this.label60);
-            this.groupBox2.Controls.Add(this._tbGyroZRaw);
-            this.groupBox2.Controls.Add(this._tbGyroYRaw);
-            this.groupBox2.Controls.Add(this._tbGyroXRaw);
-            this.groupBox2.Controls.Add(this._btn_sensors_current_to_neutral);
-            this.groupBox2.Controls.Add(this._llConfigSensors);
-            this.groupBox2.Controls.Add(this.label20);
-            this.groupBox2.Controls.Add(this.label19);
-            this.groupBox2.Controls.Add(this.label18);
-            this.groupBox2.Controls.Add(this._tbGyroZ);
-            this.groupBox2.Controls.Add(this._tbGyroY);
-            this.groupBox2.Controls.Add(this._tbGyroX);
-            this.groupBox2.Controls.Add(this.label17);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.label15);
-            this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Controls.Add(this._tbAccZ);
-            this.groupBox2.Controls.Add(this._tbAccY);
-            this.groupBox2.Controls.Add(this._tbAccX);
-            this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this._tbAccZNeutral);
-            this.groupBox2.Controls.Add(this._tbAccYNeutral);
-            this.groupBox2.Controls.Add(this._tbAccXNeutral);
-            this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this._tbAccZRaw);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this._tbAccYRaw);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this._tbAccXRaw);
-            this.groupBox2.Controls.Add(this.label7);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
-            // 
-            // _btn_use_current_gyro
-            // 
-            resources.ApplyResources(this._btn_use_current_gyro, "_btn_use_current_gyro");
-            this._btn_use_current_gyro.Name = "_btn_use_current_gyro";
-            this._btn_use_current_gyro.UseVisualStyleBackColor = true;
-            this._btn_use_current_gyro.Click += new System.EventHandler(this._btn_use_current_gyro_Click);
-            // 
-            // label74
-            // 
-            resources.ApplyResources(this.label74, "label74");
-            this.label74.Name = "label74";
-            // 
-            // label73
-            // 
-            resources.ApplyResources(this.label73, "label73");
-            this.label73.Name = "label73";
-            // 
-            // label72
-            // 
-            resources.ApplyResources(this.label72, "label72");
-            this.label72.Name = "label72";
-            // 
-            // _tbSumAcc
-            // 
-            resources.ApplyResources(this._tbSumAcc, "_tbSumAcc");
-            this._tbSumAcc.Name = "_tbSumAcc";
-            this._tbSumAcc.ReadOnly = true;
-            // 
-            // label60
-            // 
-            resources.ApplyResources(this.label60, "label60");
-            this.label60.Name = "label60";
-            // 
-            // _tbGyroZRaw
-            // 
-            resources.ApplyResources(this._tbGyroZRaw, "_tbGyroZRaw");
-            this._tbGyroZRaw.Name = "_tbGyroZRaw";
-            this._tbGyroZRaw.ReadOnly = true;
-            // 
-            // _tbGyroYRaw
-            // 
-            resources.ApplyResources(this._tbGyroYRaw, "_tbGyroYRaw");
-            this._tbGyroYRaw.Name = "_tbGyroYRaw";
-            this._tbGyroYRaw.ReadOnly = true;
-            // 
-            // _tbGyroXRaw
-            // 
-            resources.ApplyResources(this._tbGyroXRaw, "_tbGyroXRaw");
-            this._tbGyroXRaw.Name = "_tbGyroXRaw";
-            this._tbGyroXRaw.ReadOnly = true;
-            // 
-            // _btn_sensors_current_to_neutral
-            // 
-            resources.ApplyResources(this._btn_sensors_current_to_neutral, "_btn_sensors_current_to_neutral");
-            this._btn_sensors_current_to_neutral.Name = "_btn_sensors_current_to_neutral";
-            this._btn_sensors_current_to_neutral.UseVisualStyleBackColor = true;
-            this._btn_sensors_current_to_neutral.Click += new System.EventHandler(this._btn_sensors_current_to_neutral_Click);
             // 
             // _llConfigSensors
             // 
@@ -655,118 +571,92 @@
             this._llConfigSensors.TabStop = true;
             this._llConfigSensors.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this._llConfigSensors_LinkClicked);
             // 
-            // label20
+            // groupBox11
             // 
-            resources.ApplyResources(this.label20, "label20");
-            this.label20.Name = "label20";
+            this.groupBox11.Controls.Add(this.label98);
+            this.groupBox11.Controls.Add(this._nud_current_scaling);
+            this.groupBox11.Controls.Add(this.label97);
+            resources.ApplyResources(this.groupBox11, "groupBox11");
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.TabStop = false;
             // 
-            // label19
+            // label98
             // 
-            resources.ApplyResources(this.label19, "label19");
-            this.label19.Name = "label19";
+            resources.ApplyResources(this.label98, "label98");
+            this.label98.Name = "label98";
             // 
-            // label18
+            // _nud_current_scaling
             // 
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = "label18";
+            resources.ApplyResources(this._nud_current_scaling, "_nud_current_scaling");
+            this._nud_current_scaling.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this._nud_current_scaling.Name = "_nud_current_scaling";
+            this._nud_current_scaling.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             // 
-            // _tbGyroZ
+            // label97
             // 
-            resources.ApplyResources(this._tbGyroZ, "_tbGyroZ");
-            this._tbGyroZ.Name = "_tbGyroZ";
-            this._tbGyroZ.ReadOnly = true;
+            resources.ApplyResources(this.label97, "label97");
+            this.label97.Name = "label97";
             // 
-            // _tbGyroY
+            // groupBox2
             // 
-            resources.ApplyResources(this._tbGyroY, "_tbGyroY");
-            this._tbGyroY.Name = "_tbGyroY";
-            this._tbGyroY.ReadOnly = true;
+            this.groupBox2.Controls.Add(this.groupBox10);
+            this.groupBox2.Controls.Add(this.groupBox9);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
             // 
-            // _tbGyroX
+            // groupBox10
             // 
-            resources.ApplyResources(this._tbGyroX, "_tbGyroX");
-            this._tbGyroX.Name = "_tbGyroX";
-            this._tbGyroX.ReadOnly = true;
-            // 
-            // label17
-            // 
-            resources.ApplyResources(this.label17, "label17");
-            this.label17.Name = "label17";
-            // 
-            // label16
-            // 
-            resources.ApplyResources(this.label16, "label16");
-            this.label16.Name = "label16";
-            // 
-            // label15
-            // 
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = "label15";
-            // 
-            // label14
-            // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.Name = "label14";
-            // 
-            // _tbAccZ
-            // 
-            resources.ApplyResources(this._tbAccZ, "_tbAccZ");
-            this._tbAccZ.Name = "_tbAccZ";
-            this._tbAccZ.ReadOnly = true;
-            // 
-            // _tbAccY
-            // 
-            resources.ApplyResources(this._tbAccY, "_tbAccY");
-            this._tbAccY.Name = "_tbAccY";
-            this._tbAccY.ReadOnly = true;
-            // 
-            // _tbAccX
-            // 
-            resources.ApplyResources(this._tbAccX, "_tbAccX");
-            this._tbAccX.Name = "_tbAccX";
-            this._tbAccX.ReadOnly = true;
-            // 
-            // label13
-            // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = "label13";
-            // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            // 
-            // _tbAccZRaw
-            // 
-            resources.ApplyResources(this._tbAccZRaw, "_tbAccZRaw");
-            this._tbAccZRaw.Name = "_tbAccZRaw";
-            this._tbAccZRaw.ReadOnly = true;
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // _tbAccYRaw
-            // 
-            resources.ApplyResources(this._tbAccYRaw, "_tbAccYRaw");
-            this._tbAccYRaw.Name = "_tbAccYRaw";
-            this._tbAccYRaw.ReadOnly = true;
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
+            this.groupBox10.Controls.Add(this._tbAccXRaw);
+            this.groupBox10.Controls.Add(this.label7);
+            this.groupBox10.Controls.Add(this._btn_use_current_gyro);
+            this.groupBox10.Controls.Add(this.label8);
+            this.groupBox10.Controls.Add(this._tbGyroZNeutral);
+            this.groupBox10.Controls.Add(this._tbAccYRaw);
+            this.groupBox10.Controls.Add(this._tbGyroYNeutral);
+            this.groupBox10.Controls.Add(this.label9);
+            this.groupBox10.Controls.Add(this.label74);
+            this.groupBox10.Controls.Add(this._tbAccZRaw);
+            this.groupBox10.Controls.Add(this._tbGyroXNeutral);
+            this.groupBox10.Controls.Add(this.label10);
+            this.groupBox10.Controls.Add(this.label73);
+            this.groupBox10.Controls.Add(this.label11);
+            this.groupBox10.Controls.Add(this.label72);
+            this.groupBox10.Controls.Add(this.label12);
+            this.groupBox10.Controls.Add(this._tbSumAcc);
+            this.groupBox10.Controls.Add(this._tbAccXNeutral);
+            this.groupBox10.Controls.Add(this.label60);
+            this.groupBox10.Controls.Add(this._tbAccYNeutral);
+            this.groupBox10.Controls.Add(this._tbGyroZRaw);
+            this.groupBox10.Controls.Add(this._tbAccZNeutral);
+            this.groupBox10.Controls.Add(this._tbGyroYRaw);
+            this.groupBox10.Controls.Add(this.label13);
+            this.groupBox10.Controls.Add(this._tbGyroXRaw);
+            this.groupBox10.Controls.Add(this._tbAccX);
+            this.groupBox10.Controls.Add(this._btn_sensors_current_to_neutral);
+            this.groupBox10.Controls.Add(this._tbAccY);
+            this.groupBox10.Controls.Add(this.label20);
+            this.groupBox10.Controls.Add(this._tbAccZ);
+            this.groupBox10.Controls.Add(this.label19);
+            this.groupBox10.Controls.Add(this.label14);
+            this.groupBox10.Controls.Add(this.label18);
+            this.groupBox10.Controls.Add(this.label15);
+            this.groupBox10.Controls.Add(this._tbGyroZ);
+            this.groupBox10.Controls.Add(this.label16);
+            this.groupBox10.Controls.Add(this._tbGyroY);
+            this.groupBox10.Controls.Add(this.label17);
+            this.groupBox10.Controls.Add(this._tbGyroX);
+            resources.ApplyResources(this.groupBox10, "groupBox10");
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.TabStop = false;
             // 
             // _tbAccXRaw
             // 
@@ -778,6 +668,323 @@
             // 
             resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
+            // 
+            // _btn_use_current_gyro
+            // 
+            resources.ApplyResources(this._btn_use_current_gyro, "_btn_use_current_gyro");
+            this._btn_use_current_gyro.Name = "_btn_use_current_gyro";
+            this._btn_use_current_gyro.UseVisualStyleBackColor = true;
+            this._btn_use_current_gyro.Click += new System.EventHandler(this._btn_use_current_gyro_Click);
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
+            // _tbGyroZNeutral
+            // 
+            this._tbGyroZNeutral.AllowSpace = false;
+            this._tbGyroZNeutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tbGyroZNeutral.DoubleValue = 0D;
+            this._tbGyroZNeutral.IntValue = 0;
+            resources.ApplyResources(this._tbGyroZNeutral, "_tbGyroZNeutral");
+            this._tbGyroZNeutral.Name = "_tbGyroZNeutral";
+            this._tbGyroZNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
+            // 
+            // _tbAccYRaw
+            // 
+            resources.ApplyResources(this._tbAccYRaw, "_tbAccYRaw");
+            this._tbAccYRaw.Name = "_tbAccYRaw";
+            this._tbAccYRaw.ReadOnly = true;
+            // 
+            // _tbGyroYNeutral
+            // 
+            this._tbGyroYNeutral.AllowSpace = false;
+            this._tbGyroYNeutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tbGyroYNeutral.DoubleValue = 0D;
+            this._tbGyroYNeutral.IntValue = 0;
+            resources.ApplyResources(this._tbGyroYNeutral, "_tbGyroYNeutral");
+            this._tbGyroYNeutral.Name = "_tbGyroYNeutral";
+            this._tbGyroYNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // label74
+            // 
+            resources.ApplyResources(this.label74, "label74");
+            this.label74.Name = "label74";
+            // 
+            // _tbAccZRaw
+            // 
+            resources.ApplyResources(this._tbAccZRaw, "_tbAccZRaw");
+            this._tbAccZRaw.Name = "_tbAccZRaw";
+            this._tbAccZRaw.ReadOnly = true;
+            // 
+            // _tbGyroXNeutral
+            // 
+            this._tbGyroXNeutral.AllowSpace = false;
+            this._tbGyroXNeutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tbGyroXNeutral.DoubleValue = 0D;
+            this._tbGyroXNeutral.IntValue = 0;
+            resources.ApplyResources(this._tbGyroXNeutral, "_tbGyroXNeutral");
+            this._tbGyroXNeutral.Name = "_tbGyroXNeutral";
+            this._tbGyroXNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // label73
+            // 
+            resources.ApplyResources(this.label73, "label73");
+            this.label73.Name = "label73";
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // label72
+            // 
+            resources.ApplyResources(this.label72, "label72");
+            this.label72.Name = "label72";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
+            // _tbSumAcc
+            // 
+            resources.ApplyResources(this._tbSumAcc, "_tbSumAcc");
+            this._tbSumAcc.Name = "_tbSumAcc";
+            this._tbSumAcc.ReadOnly = true;
+            // 
+            // _tbAccXNeutral
+            // 
+            this._tbAccXNeutral.AllowSpace = false;
+            this._tbAccXNeutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tbAccXNeutral.DoubleValue = 0D;
+            this._tbAccXNeutral.IntValue = 0;
+            resources.ApplyResources(this._tbAccXNeutral, "_tbAccXNeutral");
+            this._tbAccXNeutral.Name = "_tbAccXNeutral";
+            this._tbAccXNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
+            // 
+            // label60
+            // 
+            resources.ApplyResources(this.label60, "label60");
+            this.label60.Name = "label60";
+            // 
+            // _tbAccYNeutral
+            // 
+            this._tbAccYNeutral.AllowSpace = false;
+            this._tbAccYNeutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tbAccYNeutral.DoubleValue = 0D;
+            this._tbAccYNeutral.IntValue = 0;
+            resources.ApplyResources(this._tbAccYNeutral, "_tbAccYNeutral");
+            this._tbAccYNeutral.Name = "_tbAccYNeutral";
+            this._tbAccYNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
+            // 
+            // _tbGyroZRaw
+            // 
+            resources.ApplyResources(this._tbGyroZRaw, "_tbGyroZRaw");
+            this._tbGyroZRaw.Name = "_tbGyroZRaw";
+            this._tbGyroZRaw.ReadOnly = true;
+            // 
+            // _tbAccZNeutral
+            // 
+            this._tbAccZNeutral.AllowSpace = false;
+            this._tbAccZNeutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tbAccZNeutral.DoubleValue = 0D;
+            this._tbAccZNeutral.IntValue = 0;
+            resources.ApplyResources(this._tbAccZNeutral, "_tbAccZNeutral");
+            this._tbAccZNeutral.Name = "_tbAccZNeutral";
+            this._tbAccZNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
+            // 
+            // _tbGyroYRaw
+            // 
+            resources.ApplyResources(this._tbGyroYRaw, "_tbGyroYRaw");
+            this._tbGyroYRaw.Name = "_tbGyroYRaw";
+            this._tbGyroYRaw.ReadOnly = true;
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            // 
+            // _tbGyroXRaw
+            // 
+            resources.ApplyResources(this._tbGyroXRaw, "_tbGyroXRaw");
+            this._tbGyroXRaw.Name = "_tbGyroXRaw";
+            this._tbGyroXRaw.ReadOnly = true;
+            // 
+            // _tbAccX
+            // 
+            resources.ApplyResources(this._tbAccX, "_tbAccX");
+            this._tbAccX.Name = "_tbAccX";
+            this._tbAccX.ReadOnly = true;
+            // 
+            // _btn_sensors_current_to_neutral
+            // 
+            resources.ApplyResources(this._btn_sensors_current_to_neutral, "_btn_sensors_current_to_neutral");
+            this._btn_sensors_current_to_neutral.Name = "_btn_sensors_current_to_neutral";
+            this._btn_sensors_current_to_neutral.UseVisualStyleBackColor = true;
+            this._btn_sensors_current_to_neutral.Click += new System.EventHandler(this._btn_sensors_current_to_neutral_Click);
+            // 
+            // _tbAccY
+            // 
+            resources.ApplyResources(this._tbAccY, "_tbAccY");
+            this._tbAccY.Name = "_tbAccY";
+            this._tbAccY.ReadOnly = true;
+            // 
+            // label20
+            // 
+            resources.ApplyResources(this.label20, "label20");
+            this.label20.Name = "label20";
+            // 
+            // _tbAccZ
+            // 
+            resources.ApplyResources(this._tbAccZ, "_tbAccZ");
+            this._tbAccZ.Name = "_tbAccZ";
+            this._tbAccZ.ReadOnly = true;
+            // 
+            // label19
+            // 
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.Name = "label19";
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // label18
+            // 
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
+            // 
+            // _tbGyroZ
+            // 
+            resources.ApplyResources(this._tbGyroZ, "_tbGyroZ");
+            this._tbGyroZ.Name = "_tbGyroZ";
+            this._tbGyroZ.ReadOnly = true;
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
+            // _tbGyroY
+            // 
+            resources.ApplyResources(this._tbGyroY, "_tbGyroY");
+            this._tbGyroY.Name = "_tbGyroY";
+            this._tbGyroY.ReadOnly = true;
+            // 
+            // label17
+            // 
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.Name = "label17";
+            // 
+            // _tbGyroX
+            // 
+            resources.ApplyResources(this._tbGyroX, "_tbGyroX");
+            this._tbGyroX.Name = "_tbGyroX";
+            this._tbGyroX.ReadOnly = true;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this._btn_read_pitch);
+            this.groupBox9.Controls.Add(this.label96);
+            this.groupBox9.Controls.Add(this._nud_neutral_pitch);
+            this.groupBox9.Controls.Add(this.label95);
+            this.groupBox9.Controls.Add(this._cb_imu_rotation);
+            this.groupBox9.Controls.Add(this.label94);
+            resources.ApplyResources(this.groupBox9, "groupBox9");
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.TabStop = false;
+            // 
+            // _btn_read_pitch
+            // 
+            resources.ApplyResources(this._btn_read_pitch, "_btn_read_pitch");
+            this._btn_read_pitch.Name = "_btn_read_pitch";
+            this._btn_read_pitch.UseVisualStyleBackColor = true;
+            this._btn_read_pitch.Click += new System.EventHandler(this._btn_read_pitch_Click);
+            // 
+            // label96
+            // 
+            resources.ApplyResources(this.label96, "label96");
+            this.label96.Name = "label96";
+            // 
+            // _nud_neutral_pitch
+            // 
+            resources.ApplyResources(this._nud_neutral_pitch, "_nud_neutral_pitch");
+            this._nud_neutral_pitch.Maximum = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this._nud_neutral_pitch.Minimum = new decimal(new int[] {
+            25,
+            0,
+            0,
+            -2147483648});
+            this._nud_neutral_pitch.Name = "_nud_neutral_pitch";
+            this._nud_neutral_pitch.ValueChanged += new System.EventHandler(this._nud_neutral_pitch_ValueChanged);
+            // 
+            // label95
+            // 
+            resources.ApplyResources(this.label95, "label95");
+            this.label95.Name = "label95";
+            // 
+            // _cb_imu_rotation
+            // 
+            this._cb_imu_rotation.FormattingEnabled = true;
+            this._cb_imu_rotation.Items.AddRange(new object[] {
+            resources.GetString("_cb_imu_rotation.Items"),
+            resources.GetString("_cb_imu_rotation.Items1"),
+            resources.GetString("_cb_imu_rotation.Items2"),
+            resources.GetString("_cb_imu_rotation.Items3")});
+            resources.ApplyResources(this._cb_imu_rotation, "_cb_imu_rotation");
+            this._cb_imu_rotation.Name = "_cb_imu_rotation";
+            this._cb_imu_rotation.SelectedIndexChanged += new System.EventHandler(this._cb_imu_rotation_SelectedIndexChanged);
+            // 
+            // label94
+            // 
+            resources.ApplyResources(this.label94, "label94");
+            this.label94.Name = "label94";
             // 
             // groupBox1
             // 
@@ -798,6 +1005,7 @@
             // 
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // _tbTemperature
             // 
@@ -814,6 +1022,7 @@
             // 
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // _tbHeight
             // 
@@ -844,6 +1053,7 @@
             // 
             // _tbGps
             // 
+            this._tbGps.Controls.Add(this._cbWaas);
             this._tbGps.Controls.Add(this._rb_gps_notfound);
             this._tbGps.Controls.Add(this._llConfigGps);
             this._tbGps.Controls.Add(this._llGoogleMaps);
@@ -869,6 +1079,13 @@
             resources.ApplyResources(this._tbGps, "_tbGps");
             this._tbGps.Name = "_tbGps";
             this._tbGps.UseVisualStyleBackColor = true;
+            // 
+            // _cbWaas
+            // 
+            resources.ApplyResources(this._cbWaas, "_cbWaas");
+            this._cbWaas.Name = "_cbWaas";
+            this._cbWaas.UseVisualStyleBackColor = true;
+            this._cbWaas.CheckedChanged += new System.EventHandler(this._cbWaas_CheckedChanged);
             // 
             // _rb_gps_notfound
             // 
@@ -985,6 +1202,34 @@
             // 
             resources.ApplyResources(this.label50, "label50");
             this.label50.Name = "label50";
+            // 
+            // _tb_initial_baudrate
+            // 
+            this._tb_initial_baudrate.AllowSpace = false;
+            this._tb_initial_baudrate.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tb_initial_baudrate.DoubleValue = 0D;
+            this._tb_initial_baudrate.IntValue = 0;
+            resources.ApplyResources(this._tb_initial_baudrate, "_tb_initial_baudrate");
+            this._tb_initial_baudrate.Name = "_tb_initial_baudrate";
+            this._tb_initial_baudrate.TextChanged += new System.EventHandler(this._tb_initial_baudrate_TextChanged);
+            // 
+            // _tb_operational_baudrate
+            // 
+            this._tb_operational_baudrate.AllowSpace = false;
+            this._tb_operational_baudrate.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tb_operational_baudrate.DoubleValue = 0D;
+            resources.ApplyResources(this._tb_operational_baudrate, "_tb_operational_baudrate");
+            this._tb_operational_baudrate.IntValue = 0;
+            this._tb_operational_baudrate.Name = "_tb_operational_baudrate";
+            this._tb_operational_baudrate.TextChanged += new System.EventHandler(this._tb_operational_baudrate_TextChanged);
             // 
             // _tpRc
             // 
@@ -1650,6 +1895,96 @@
             this._tb_servo1_min.ReadOnly = true;
             this._tb_servo1_min.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
             // 
+            // _tb_servo1_neutral
+            // 
+            this._tb_servo1_neutral.AllowSpace = false;
+            this._tb_servo1_neutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tb_servo1_neutral.DoubleValue = 0D;
+            this._tb_servo1_neutral.IntValue = 0;
+            resources.ApplyResources(this._tb_servo1_neutral, "_tb_servo1_neutral");
+            this._tb_servo1_neutral.Name = "_tb_servo1_neutral";
+            this._tb_servo1_neutral.ReadOnly = true;
+            this._tb_servo1_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo2_neutral
+            // 
+            this._tb_servo2_neutral.AllowSpace = false;
+            this._tb_servo2_neutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tb_servo2_neutral.DoubleValue = 0D;
+            this._tb_servo2_neutral.IntValue = 0;
+            resources.ApplyResources(this._tb_servo2_neutral, "_tb_servo2_neutral");
+            this._tb_servo2_neutral.Name = "_tb_servo2_neutral";
+            this._tb_servo2_neutral.ReadOnly = true;
+            this._tb_servo2_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo3_neutral
+            // 
+            this._tb_servo3_neutral.AllowSpace = false;
+            this._tb_servo3_neutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tb_servo3_neutral.DoubleValue = 0D;
+            this._tb_servo3_neutral.IntValue = 0;
+            resources.ApplyResources(this._tb_servo3_neutral, "_tb_servo3_neutral");
+            this._tb_servo3_neutral.Name = "_tb_servo3_neutral";
+            this._tb_servo3_neutral.ReadOnly = true;
+            this._tb_servo3_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo4_neutral
+            // 
+            this._tb_servo4_neutral.AllowSpace = false;
+            this._tb_servo4_neutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tb_servo4_neutral.DoubleValue = 0D;
+            this._tb_servo4_neutral.IntValue = 0;
+            resources.ApplyResources(this._tb_servo4_neutral, "_tb_servo4_neutral");
+            this._tb_servo4_neutral.Name = "_tb_servo4_neutral";
+            this._tb_servo4_neutral.ReadOnly = true;
+            this._tb_servo4_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo5_neutral
+            // 
+            this._tb_servo5_neutral.AllowSpace = false;
+            this._tb_servo5_neutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tb_servo5_neutral.DoubleValue = 0D;
+            this._tb_servo5_neutral.IntValue = 0;
+            resources.ApplyResources(this._tb_servo5_neutral, "_tb_servo5_neutral");
+            this._tb_servo5_neutral.Name = "_tb_servo5_neutral";
+            this._tb_servo5_neutral.ReadOnly = true;
+            this._tb_servo5_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
+            // _tb_servo6_neutral
+            // 
+            this._tb_servo6_neutral.AllowSpace = false;
+            this._tb_servo6_neutral.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._tb_servo6_neutral.DoubleValue = 0D;
+            this._tb_servo6_neutral.IntValue = 0;
+            resources.ApplyResources(this._tb_servo6_neutral, "_tb_servo6_neutral");
+            this._tb_servo6_neutral.Name = "_tb_servo6_neutral";
+            this._tb_servo6_neutral.ReadOnly = true;
+            this._tb_servo6_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
+            // 
             // _tb_servo1_max
             // 
             resources.ApplyResources(this._tb_servo1_max, "_tb_servo1_max");
@@ -1766,8 +2101,8 @@
             // 
             // _rb_serovs_neutral_auto
             // 
-            resources.ApplyResources(this._rb_serovs_neutral_auto, "_rb_serovs_neutral_auto");
             this._rb_serovs_neutral_auto.Checked = true;
+            resources.ApplyResources(this._rb_serovs_neutral_auto, "_rb_serovs_neutral_auto");
             this._rb_serovs_neutral_auto.Name = "_rb_serovs_neutral_auto";
             this._rb_serovs_neutral_auto.TabStop = true;
             this._rb_serovs_neutral_auto.UseVisualStyleBackColor = true;
@@ -1918,6 +2253,20 @@
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.TabStop = false;
             // 
+            // _ntbAutoThrottlePGain
+            // 
+            this._ntbAutoThrottlePGain.AllowSpace = false;
+            this._ntbAutoThrottlePGain.DecimalValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this._ntbAutoThrottlePGain.DoubleValue = 0D;
+            this._ntbAutoThrottlePGain.IntValue = 0;
+            resources.ApplyResources(this._ntbAutoThrottlePGain, "_ntbAutoThrottlePGain");
+            this._ntbAutoThrottlePGain.Name = "_ntbAutoThrottlePGain";
+            this._ntbAutoThrottlePGain.TextChanged += new System.EventHandler(this._ntbAutoThrottlePGain_TextChanged);
+            // 
             // label92
             // 
             resources.ApplyResources(this.label92, "label92");
@@ -1975,6 +2324,16 @@
             // 
             resources.ApplyResources(this.label88, "label88");
             this.label88.Name = "label88";
+            // 
+            // _dtb_waypoint_radius
+            // 
+            this._dtb_waypoint_radius.Color = System.Drawing.SystemColors.Window;
+            this._dtb_waypoint_radius.DistanceM = 0D;
+            resources.ApplyResources(this._dtb_waypoint_radius, "_dtb_waypoint_radius");
+            this._dtb_waypoint_radius.Name = "_dtb_waypoint_radius";
+            this._dtb_waypoint_radius.ReadOnly = false;
+            this._dtb_waypoint_radius.UseAltitudeColoring = false;
+            this._dtb_waypoint_radius.DistanceChanged += new System.EventHandler(this._dtb_waypoint_radius_DistanceChanged);
             // 
             // label86
             // 
@@ -2145,286 +2504,6 @@
             resources.ApplyResources(this.label58, "label58");
             this.label58.Name = "label58";
             // 
-            // _tbPid
-            // 
-            this._tbPid.Controls.Add(this.groupBox8);
-            this._tbPid.Controls.Add(this.groupBox5);
-            this._tbPid.Controls.Add(this._pid_roll2aileron);
-            this._tbPid.Controls.Add(this.groupBox4);
-            resources.ApplyResources(this._tbPid, "_tbPid");
-            this._tbPid.Name = "_tbPid";
-            this._tbPid.UseVisualStyleBackColor = true;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this._pid_altitude_to_pitch);
-            resources.ApplyResources(this.groupBox8, "groupBox8");
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.TabStop = false;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this._pid_heading_to_roll);
-            resources.ApplyResources(this.groupBox5, "groupBox5");
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.TabStop = false;
-            // 
-            // _pid_roll2aileron
-            // 
-            this._pid_roll2aileron.Controls.Add(this._btnWriteRollPid);
-            this._pid_roll2aileron.Controls.Add(this._pid_roll_to_aileron);
-            resources.ApplyResources(this._pid_roll2aileron, "_pid_roll2aileron");
-            this._pid_roll2aileron.Name = "_pid_roll2aileron";
-            this._pid_roll2aileron.TabStop = false;
-            // 
-            // _btnWriteRollPid
-            // 
-            resources.ApplyResources(this._btnWriteRollPid, "_btnWriteRollPid");
-            this._btnWriteRollPid.Name = "_btnWriteRollPid";
-            this._btnWriteRollPid.UseVisualStyleBackColor = true;
-            this._btnWriteRollPid.Click += new System.EventHandler(this._btnWriteRollPid_Click);
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this._btnWritePitchPid);
-            this.groupBox4.Controls.Add(this._pid_pitch_to_elevator);
-            resources.ApplyResources(this.groupBox4, "groupBox4");
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.TabStop = false;
-            // 
-            // _btnWritePitchPid
-            // 
-            resources.ApplyResources(this._btnWritePitchPid, "_btnWritePitchPid");
-            this._btnWritePitchPid.Name = "_btnWritePitchPid";
-            this._btnWritePitchPid.UseVisualStyleBackColor = true;
-            this._btnWritePitchPid.Click += new System.EventHandler(this._btnWritePitchPid_Click);
-            // 
-            // _tbGyroZNeutral
-            // 
-            this._tbGyroZNeutral.AllowSpace = false;
-            this._tbGyroZNeutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tbGyroZNeutral.DoubleValue = 0D;
-            this._tbGyroZNeutral.IntValue = 0;
-            resources.ApplyResources(this._tbGyroZNeutral, "_tbGyroZNeutral");
-            this._tbGyroZNeutral.Name = "_tbGyroZNeutral";
-            this._tbGyroZNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
-            // 
-            // _tbGyroYNeutral
-            // 
-            this._tbGyroYNeutral.AllowSpace = false;
-            this._tbGyroYNeutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tbGyroYNeutral.DoubleValue = 0D;
-            this._tbGyroYNeutral.IntValue = 0;
-            resources.ApplyResources(this._tbGyroYNeutral, "_tbGyroYNeutral");
-            this._tbGyroYNeutral.Name = "_tbGyroYNeutral";
-            this._tbGyroYNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
-            // 
-            // _tbGyroXNeutral
-            // 
-            this._tbGyroXNeutral.AllowSpace = false;
-            this._tbGyroXNeutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tbGyroXNeutral.DoubleValue = 0D;
-            this._tbGyroXNeutral.IntValue = 0;
-            resources.ApplyResources(this._tbGyroXNeutral, "_tbGyroXNeutral");
-            this._tbGyroXNeutral.Name = "_tbGyroXNeutral";
-            this._tbGyroXNeutral.TextChanged += new System.EventHandler(this._tbGyroNeutral_TextChanged);
-            // 
-            // _tbAccZNeutral
-            // 
-            this._tbAccZNeutral.AllowSpace = false;
-            this._tbAccZNeutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tbAccZNeutral.DoubleValue = 0D;
-            this._tbAccZNeutral.IntValue = 0;
-            resources.ApplyResources(this._tbAccZNeutral, "_tbAccZNeutral");
-            this._tbAccZNeutral.Name = "_tbAccZNeutral";
-            this._tbAccZNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
-            // 
-            // _tbAccYNeutral
-            // 
-            this._tbAccYNeutral.AllowSpace = false;
-            this._tbAccYNeutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tbAccYNeutral.DoubleValue = 0D;
-            this._tbAccYNeutral.IntValue = 0;
-            resources.ApplyResources(this._tbAccYNeutral, "_tbAccYNeutral");
-            this._tbAccYNeutral.Name = "_tbAccYNeutral";
-            this._tbAccYNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
-            // 
-            // _tbAccXNeutral
-            // 
-            this._tbAccXNeutral.AllowSpace = false;
-            this._tbAccXNeutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tbAccXNeutral.DoubleValue = 0D;
-            this._tbAccXNeutral.IntValue = 0;
-            resources.ApplyResources(this._tbAccXNeutral, "_tbAccXNeutral");
-            this._tbAccXNeutral.Name = "_tbAccXNeutral";
-            this._tbAccXNeutral.TextChanged += new System.EventHandler(this._tbAccNeutral_TextChanged);
-            // 
-            // _tb_initial_baudrate
-            // 
-            this._tb_initial_baudrate.AllowSpace = false;
-            this._tb_initial_baudrate.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tb_initial_baudrate.DoubleValue = 0D;
-            this._tb_initial_baudrate.IntValue = 0;
-            resources.ApplyResources(this._tb_initial_baudrate, "_tb_initial_baudrate");
-            this._tb_initial_baudrate.Name = "_tb_initial_baudrate";
-            this._tb_initial_baudrate.TextChanged += new System.EventHandler(this._tb_initial_baudrate_TextChanged);
-            // 
-            // _tb_operational_baudrate
-            // 
-            this._tb_operational_baudrate.AllowSpace = false;
-            this._tb_operational_baudrate.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tb_operational_baudrate.DoubleValue = 0D;
-            resources.ApplyResources(this._tb_operational_baudrate, "_tb_operational_baudrate");
-            this._tb_operational_baudrate.IntValue = 0;
-            this._tb_operational_baudrate.Name = "_tb_operational_baudrate";
-            this._tb_operational_baudrate.TextChanged += new System.EventHandler(this._tb_operational_baudrate_TextChanged);
-            // 
-            // _tb_servo1_neutral
-            // 
-            this._tb_servo1_neutral.AllowSpace = false;
-            this._tb_servo1_neutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tb_servo1_neutral.DoubleValue = 0D;
-            this._tb_servo1_neutral.IntValue = 0;
-            resources.ApplyResources(this._tb_servo1_neutral, "_tb_servo1_neutral");
-            this._tb_servo1_neutral.Name = "_tb_servo1_neutral";
-            this._tb_servo1_neutral.ReadOnly = true;
-            this._tb_servo1_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
-            // 
-            // _tb_servo2_neutral
-            // 
-            this._tb_servo2_neutral.AllowSpace = false;
-            this._tb_servo2_neutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tb_servo2_neutral.DoubleValue = 0D;
-            this._tb_servo2_neutral.IntValue = 0;
-            resources.ApplyResources(this._tb_servo2_neutral, "_tb_servo2_neutral");
-            this._tb_servo2_neutral.Name = "_tb_servo2_neutral";
-            this._tb_servo2_neutral.ReadOnly = true;
-            this._tb_servo2_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
-            // 
-            // _tb_servo3_neutral
-            // 
-            this._tb_servo3_neutral.AllowSpace = false;
-            this._tb_servo3_neutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tb_servo3_neutral.DoubleValue = 0D;
-            this._tb_servo3_neutral.IntValue = 0;
-            resources.ApplyResources(this._tb_servo3_neutral, "_tb_servo3_neutral");
-            this._tb_servo3_neutral.Name = "_tb_servo3_neutral";
-            this._tb_servo3_neutral.ReadOnly = true;
-            this._tb_servo3_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
-            // 
-            // _tb_servo4_neutral
-            // 
-            this._tb_servo4_neutral.AllowSpace = false;
-            this._tb_servo4_neutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tb_servo4_neutral.DoubleValue = 0D;
-            this._tb_servo4_neutral.IntValue = 0;
-            resources.ApplyResources(this._tb_servo4_neutral, "_tb_servo4_neutral");
-            this._tb_servo4_neutral.Name = "_tb_servo4_neutral";
-            this._tb_servo4_neutral.ReadOnly = true;
-            this._tb_servo4_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
-            // 
-            // _tb_servo5_neutral
-            // 
-            this._tb_servo5_neutral.AllowSpace = false;
-            this._tb_servo5_neutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tb_servo5_neutral.DoubleValue = 0D;
-            this._tb_servo5_neutral.IntValue = 0;
-            resources.ApplyResources(this._tb_servo5_neutral, "_tb_servo5_neutral");
-            this._tb_servo5_neutral.Name = "_tb_servo5_neutral";
-            this._tb_servo5_neutral.ReadOnly = true;
-            this._tb_servo5_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
-            // 
-            // _tb_servo6_neutral
-            // 
-            this._tb_servo6_neutral.AllowSpace = false;
-            this._tb_servo6_neutral.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._tb_servo6_neutral.DoubleValue = 0D;
-            this._tb_servo6_neutral.IntValue = 0;
-            resources.ApplyResources(this._tb_servo6_neutral, "_tb_servo6_neutral");
-            this._tb_servo6_neutral.Name = "_tb_servo6_neutral";
-            this._tb_servo6_neutral.ReadOnly = true;
-            this._tb_servo6_neutral.TextChanged += new System.EventHandler(this._nud_servo_TextChanged);
-            // 
-            // _ntbAutoThrottlePGain
-            // 
-            this._ntbAutoThrottlePGain.AllowSpace = false;
-            this._ntbAutoThrottlePGain.DecimalValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this._ntbAutoThrottlePGain.DoubleValue = 0D;
-            this._ntbAutoThrottlePGain.IntValue = 0;
-            resources.ApplyResources(this._ntbAutoThrottlePGain, "_ntbAutoThrottlePGain");
-            this._ntbAutoThrottlePGain.Name = "_ntbAutoThrottlePGain";
-            this._ntbAutoThrottlePGain.TextChanged += new System.EventHandler(this._ntbAutoThrottlePGain_TextChanged);
-            // 
-            // _dtb_waypoint_radius
-            // 
-            this._dtb_waypoint_radius.Color = System.Drawing.SystemColors.Window;
-            this._dtb_waypoint_radius.DistanceM = 0D;
-            resources.ApplyResources(this._dtb_waypoint_radius, "_dtb_waypoint_radius");
-            this._dtb_waypoint_radius.Name = "_dtb_waypoint_radius";
-            this._dtb_waypoint_radius.ReadOnly = false;
-            this._dtb_waypoint_radius.UseAltitudeColoring = false;
-            this._dtb_waypoint_radius.DistanceChanged += new System.EventHandler(this._dtb_waypoint_radius_DistanceChanged);
-            // 
             // tb_min_circle_radius
             // 
             this.tb_min_circle_radius.Color = System.Drawing.SystemColors.Control;
@@ -2442,6 +2521,23 @@
             this.tb_speed.SpeedChanged += new System.EventHandler(this.tb_speed_SpeedChanged);
             this.tb_speed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CalculateMinimumRadius);
             // 
+            // _tbPid
+            // 
+            this._tbPid.Controls.Add(this.groupBox8);
+            this._tbPid.Controls.Add(this.groupBox5);
+            this._tbPid.Controls.Add(this._pid_roll2aileron);
+            this._tbPid.Controls.Add(this.groupBox4);
+            resources.ApplyResources(this._tbPid, "_tbPid");
+            this._tbPid.Name = "_tbPid";
+            this._tbPid.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this._pid_altitude_to_pitch);
+            resources.ApplyResources(this.groupBox8, "groupBox8");
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.TabStop = false;
+            // 
             // _pid_altitude_to_pitch
             // 
             this._pid_altitude_to_pitch.D = 0D;
@@ -2453,6 +2549,13 @@
             this._pid_altitude_to_pitch.Name = "_pid_altitude_to_pitch";
             this._pid_altitude_to_pitch.P = 0D;
             this._pid_altitude_to_pitch.IsChanged += new System.EventHandler(this._pid_altitude_to_pitch_IsChanged);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this._pid_heading_to_roll);
+            resources.ApplyResources(this.groupBox5, "groupBox5");
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.TabStop = false;
             // 
             // _pid_heading_to_roll
             // 
@@ -2466,6 +2569,21 @@
             this._pid_heading_to_roll.P = 0D;
             this._pid_heading_to_roll.IsChanged += new System.EventHandler(this._pid_heading_to_roll_IsChanged);
             // 
+            // _pid_roll2aileron
+            // 
+            this._pid_roll2aileron.Controls.Add(this._btnWriteRollPid);
+            this._pid_roll2aileron.Controls.Add(this._pid_roll_to_aileron);
+            resources.ApplyResources(this._pid_roll2aileron, "_pid_roll2aileron");
+            this._pid_roll2aileron.Name = "_pid_roll2aileron";
+            this._pid_roll2aileron.TabStop = false;
+            // 
+            // _btnWriteRollPid
+            // 
+            resources.ApplyResources(this._btnWriteRollPid, "_btnWriteRollPid");
+            this._btnWriteRollPid.Name = "_btnWriteRollPid";
+            this._btnWriteRollPid.UseVisualStyleBackColor = true;
+            this._btnWriteRollPid.Click += new System.EventHandler(this._btnWriteRollPid_Click);
+            // 
             // _pid_roll_to_aileron
             // 
             this._pid_roll_to_aileron.D = 0D;
@@ -2477,6 +2595,21 @@
             this._pid_roll_to_aileron.Name = "_pid_roll_to_aileron";
             this._pid_roll_to_aileron.P = 0D;
             this._pid_roll_to_aileron.IsChanged += new System.EventHandler(this._pid_roll_to_aileron_IsChanged);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this._btnWritePitchPid);
+            this.groupBox4.Controls.Add(this._pid_pitch_to_elevator);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.TabStop = false;
+            // 
+            // _btnWritePitchPid
+            // 
+            resources.ApplyResources(this._btnWritePitchPid, "_btnWritePitchPid");
+            this._btnWritePitchPid.Name = "_btnWritePitchPid";
+            this._btnWritePitchPid.UseVisualStyleBackColor = true;
+            this._btnWritePitchPid.Click += new System.EventHandler(this._btnWritePitchPid_Click);
             // 
             // _pid_pitch_to_elevator
             // 
@@ -2507,8 +2640,16 @@
             ((System.ComponentModel.ISupportInitialize)(this._nud_ppm_telemetry)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._nud_gyroaccraw_telemetry)).EndInit();
             this._tpSensors.ResumeLayout(false);
+            this._tpSensors.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._nud_current_scaling)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._nud_neutral_pitch)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this._tbGps.ResumeLayout(false);
@@ -2828,5 +2969,18 @@
         private System.Windows.Forms.Button _btnWritePitchPid;
         private System.Windows.Forms.ComboBox _cbAltitudeMode;
         private System.Windows.Forms.Label label93;
+        private System.Windows.Forms.CheckBox _cbWaas;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.ComboBox _cb_imu_rotation;
+        private System.Windows.Forms.Label label94;
+        private System.Windows.Forms.Label label96;
+        private System.Windows.Forms.NumericUpDown _nud_neutral_pitch;
+        private System.Windows.Forms.Label label95;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.Button _btn_read_pitch;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.Label label98;
+        private System.Windows.Forms.NumericUpDown _nud_current_scaling;
+        private System.Windows.Forms.Label label97;
     }
 }

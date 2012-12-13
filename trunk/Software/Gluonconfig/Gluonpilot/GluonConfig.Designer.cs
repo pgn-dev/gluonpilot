@@ -33,14 +33,16 @@
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this._tc_main = new System.Windows.Forms.TabControl();
+            this.easyconfig = new System.Windows.Forms.TabPage();
+            this.gluonConfigEasy = new Configuration.GluonConfigEasy();
+            this.osd = new System.Windows.Forms.TabPage();
+            this.osdConfig1 = new Configuration.OsdConfig();
             this.config = new System.Windows.Forms.TabPage();
             this.configurationControl = new Configuration.ConfigurationControl();
             this.datalog = new System.Windows.Forms.TabPage();
             this.datalogging = new Configuration.Datalogging();
-            this.gcs = new System.Windows.Forms.TabPage();
-            this._gcsMainPanel = new GCS.GcsMainPanel();
-            this.Navigation = new System.Windows.Forms.TabPage();
-            this.navigationListView1 = new Configuration.NavigationListView();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.gcsMainPanel1 = new GCS.GcsMainPanel();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -58,8 +60,6 @@
             this._btn_reboot = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this._btn_firmware_upgrade = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this._btnBasicConfiguration = new System.Windows.Forms.ToolStripButton();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -69,10 +69,11 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this._tc_main.SuspendLayout();
+            this.easyconfig.SuspendLayout();
+            this.osd.SuspendLayout();
             this.config.SuspendLayout();
             this.datalog.SuspendLayout();
-            this.gcs.SuspendLayout();
-            this.Navigation.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this._statusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -113,14 +114,41 @@
             // 
             // _tc_main
             // 
-            resources.ApplyResources(this._tc_main, "_tc_main");
+            this._tc_main.Controls.Add(this.easyconfig);
+            this._tc_main.Controls.Add(this.osd);
             this._tc_main.Controls.Add(this.config);
             this._tc_main.Controls.Add(this.datalog);
-            this._tc_main.Controls.Add(this.gcs);
-            this._tc_main.Controls.Add(this.Navigation);
+            this._tc_main.Controls.Add(this.tabPage1);
+            resources.ApplyResources(this._tc_main, "_tc_main");
             this._tc_main.ImageList = this.imageList;
             this._tc_main.Name = "_tc_main";
             this._tc_main.SelectedIndex = 0;
+            this._tc_main.Selected += new System.Windows.Forms.TabControlEventHandler(this._tc_main_Selected);
+            this._tc_main.TabIndexChanged += new System.EventHandler(this._tc_main_TabIndexChanged);
+            // 
+            // easyconfig
+            // 
+            this.easyconfig.Controls.Add(this.gluonConfigEasy);
+            resources.ApplyResources(this.easyconfig, "easyconfig");
+            this.easyconfig.Name = "easyconfig";
+            this.easyconfig.UseVisualStyleBackColor = true;
+            // 
+            // gluonConfigEasy
+            // 
+            resources.ApplyResources(this.gluonConfigEasy, "gluonConfigEasy");
+            this.gluonConfigEasy.Name = "gluonConfigEasy";
+            // 
+            // osd
+            // 
+            this.osd.Controls.Add(this.osdConfig1);
+            resources.ApplyResources(this.osd, "osd");
+            this.osd.Name = "osd";
+            this.osd.UseVisualStyleBackColor = true;
+            // 
+            // osdConfig1
+            // 
+            resources.ApplyResources(this.osdConfig1, "osdConfig1");
+            this.osdConfig1.Name = "osdConfig1";
             // 
             // config
             // 
@@ -146,30 +174,17 @@
             resources.ApplyResources(this.datalogging, "datalogging");
             this.datalogging.Name = "datalogging";
             // 
-            // gcs
+            // tabPage1
             // 
-            this.gcs.Controls.Add(this._gcsMainPanel);
-            resources.ApplyResources(this.gcs, "gcs");
-            this.gcs.Name = "gcs";
-            this.gcs.UseVisualStyleBackColor = true;
+            this.tabPage1.Controls.Add(this.gcsMainPanel1);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // _gcsMainPanel
+            // gcsMainPanel1
             // 
-            resources.ApplyResources(this._gcsMainPanel, "_gcsMainPanel");
-            this._gcsMainPanel.Name = "_gcsMainPanel";
-            // 
-            // Navigation
-            // 
-            this.Navigation.Controls.Add(this.navigationListView1);
-            this.Navigation.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            resources.ApplyResources(this.Navigation, "Navigation");
-            this.Navigation.Name = "Navigation";
-            this.Navigation.UseVisualStyleBackColor = true;
-            // 
-            // navigationListView1
-            // 
-            resources.ApplyResources(this.navigationListView1, "navigationListView1");
-            this.navigationListView1.Name = "navigationListView1";
+            resources.ApplyResources(this.gcsMainPanel1, "gcsMainPanel1");
+            this.gcsMainPanel1.Name = "gcsMainPanel1";
             // 
             // imageList
             // 
@@ -181,6 +196,8 @@
             this.imageList.Images.SetKeyName(3, "folder_table.png");
             this.imageList.Images.SetKeyName(4, "transmit.png");
             this.imageList.Images.SetKeyName(5, "map.png");
+            this.imageList.Images.SetKeyName(6, "wand.png");
+            this.imageList.Images.SetKeyName(7, "webcam.png");
             // 
             // _statusStrip
             // 
@@ -245,10 +262,9 @@
             this.toolStripSeparator2,
             this._btn_reboot,
             this.toolStripSeparator3,
-            this._btn_firmware_upgrade,
-            this.toolStripSeparator4,
-            this._btnBasicConfiguration});
+            this._btn_firmware_upgrade});
             this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Stretch = true;
             // 
             // _btn_connect
             // 
@@ -291,20 +307,9 @@
             this._btn_firmware_upgrade.Name = "_btn_firmware_upgrade";
             this._btn_firmware_upgrade.Click += new System.EventHandler(this._btn_firmware_upgrade_Click);
             // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
-            // 
-            // _btnBasicConfiguration
-            // 
-            resources.ApplyResources(this._btnBasicConfiguration, "_btnBasicConfiguration");
-            this._btnBasicConfiguration.Name = "_btnBasicConfiguration";
-            this._btnBasicConfiguration.Click += new System.EventHandler(this._btnBasicConfiguration_Click);
-            // 
             // timer
             // 
-            this.timer.Interval = 1000;
+            this.timer.Interval = 500;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // GluonConfig
@@ -314,10 +319,10 @@
             this.Controls.Add(this.toolStripContainer1);
             this.Name = "GluonConfig";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GluonConfig_FormClosing);
+            this.Shown += new System.EventHandler(this.GluonConfig_Shown);
             this.Resize += new System.EventHandler(this.GluonConfig_Resize);
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -326,10 +331,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this._tc_main.ResumeLayout(false);
+            this.easyconfig.ResumeLayout(false);
+            this.osd.ResumeLayout(false);
             this.config.ResumeLayout(false);
             this.datalog.ResumeLayout(false);
-            this.gcs.ResumeLayout(false);
-            this.Navigation.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -345,12 +351,9 @@
         private System.Windows.Forms.ToolStripButton _btn_connect;
         private System.Windows.Forms.TabControl _tc_main;
         private System.Windows.Forms.TabPage config;
-        private System.Windows.Forms.TabPage Navigation;
         private System.Windows.Forms.TabPage datalog;
         private System.Windows.Forms.ImageList imageList;
-        private System.Windows.Forms.TabPage gcs;
         private System.Windows.Forms.ToolStripButton _btn_showlogging;
-        private Configuration.NavigationListView navigationListView1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private Configuration.ConfigurationControl configurationControl;
@@ -358,7 +361,6 @@
         private System.Windows.Forms.CheckBox _cb_print_timestamp;
         private System.Windows.Forms.CheckBox _cb_hide_parsed;
         private System.Windows.Forms.TextBox _tb_logging;
-        private GCS.GcsMainPanel _gcsMainPanel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton _btn_reboot;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
@@ -369,8 +371,12 @@
         private System.Windows.Forms.ToolStripStatusLabel _tssl_time;
         private System.Windows.Forms.ToolStripStatusLabel _tssl_downloadspeed;
         private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripButton _btnBasicConfiguration;
+        private System.Windows.Forms.TabPage easyconfig;
+        private System.Windows.Forms.TabPage osd;
+        private Configuration.GluonConfigEasy gluonConfigEasy;
+        private Configuration.OsdConfig osdConfig1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private GCS.GcsMainPanel gcsMainPanel1;
 
 
 

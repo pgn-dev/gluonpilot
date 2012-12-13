@@ -83,6 +83,8 @@ namespace Communication
         // Communication status
         public override event LostCommunication CommunicationLost;
         public override event EstablishedCommunication CommunicationEstablished;
+        // Home position
+        public override event HomePositionFrame HomePositionReceived;
 
         public override double SecondsConnectionLost()
         {
@@ -256,6 +258,14 @@ namespace Communication
                         if (GyroAccRawCommunicationReceived != null)
                             GyroAccRawCommunicationReceived(ga);
                     }
+                    // Home psoition
+                    else if (lines[0].EndsWith("HP") && lines.Length >= 2)
+                    {
+                        double lat = double.Parse(lines[1], System.Globalization.CultureInfo.InvariantCulture);
+                        double lng = double.Parse(lines[2], System.Globalization.CultureInfo.InvariantCulture);
+                        if (HomePositionReceived != null)
+                            HomePositionReceived(lat, lng);
+                    }
 
                     // TP: Processed gyro & acc
                     else if (lines[0].EndsWith("TP") && lines.Length >= 6)
@@ -392,6 +402,25 @@ namespace Communication
                         else
                             Console.WriteLine("FOUT");
 
+                        if (lines.Length > 80)
+                        {
+                            ac.gps_enable_waas = int.Parse(lines[80]);
+                        }
+                        else
+                            Console.WriteLine("FOUT");
+
+                        if (lines.Length > 81)
+                        {
+                            ac.osd_bitmask = int.Parse(lines[81]);
+                            ac.osd_RssiMode = int.Parse(lines[82]);
+                            ac.osd_voltage_low = ((double)int.Parse(lines[83])) / 50.0;
+                            ac.osd_voltage_high = ((double)int.Parse(lines[84])) / 50.0;
+                        }
+                        if (lines.Length > 85)
+                        {
+                            ac.imu_rotated = int.Parse(lines[85]);
+                            ac.neutral_pitch = int.Parse(lines[86]);
+                        }
 
                         if (AllConfigCommunicationReceived != null)
                             AllConfigCommunicationReceived(ac);
@@ -515,16 +544,25 @@ namespace Communication
                             new ControlInfo();
                         ci.FlightMode = (ControlInfo.FlightModes)int.Parse(lines[1]);
                         ci.CurrentNavigationLine = int.Parse(lines[2]);
-                        ci.HeightAboveStartGround = int.Parse(lines[3]);
+                        ci.Altitude = int.Parse(lines[3]);
                         if (lines.Length >= 5)
                         {
-                            ci.BattVoltage = double.Parse(lines[4]) / 10.0;
+                            ci.Batt1Voltage = double.Parse(lines[4]) / 10.0;
                             if (lines.Length >= 6)
                             {
                                 ci.FlightTime = int.Parse(lines[5]);
                                 ci.BlockTime = int.Parse(lines[6]);
                                 ci.RcLink = int.Parse(lines[7]);
                                 ci.Throttle = int.Parse(lines[8]);
+                            }
+                            if (lines.Length >= 10)
+                            {
+                                ci.TargetAltitude = int.Parse(lines[9]);
+                            }
+                            if (lines.Length >= 11)
+                            {
+                                ci.Batt2Voltage = double.Parse(lines[10]) / 10.0;
+                                ci.Batt_mAh = double.Parse(lines[11]) * 10.0;
                             }
                         }
                         if (ControlInfoCommunicationReceived != null)
@@ -576,7 +614,7 @@ namespace Communication
                 }
                 catch (Exception e)
                 {
-                    ;
+                    System.Diagnostics.Debug.WriteLine("unknown serial error") ;
                 }
             }
 
@@ -750,7 +788,7 @@ namespace Communication
 
             Thread.Sleep(200);
             // gps config
-            WriteChecksumLine("SG;" + (ac.gps_initial_baudrate / 10).ToString() + "");
+            WriteChecksumLine("SG;" + (ac.gps_initial_baudrate / 10).ToString() + ";" + ac.gps_enable_waas);
             //Console.WriteLine("\nSG;" + (ac.gps_initial_baudrate / 10).ToString() + "\n");
 
             Thread.Sleep(200);
@@ -948,6 +986,11 @@ namespace Communication
             WriteChecksumLine("CA;");
         }
 
+        public override void SendImuSettings(int neutral_pitch, int imu_rotated)
+        {
+            WriteChecksumLine("S6;" + imu_rotated + ";" + neutral_pitch);
+        }
+
         public int calculateChecksum(string s)
         {
             int c = 0;
@@ -984,6 +1027,13 @@ namespace Communication
                 if (logfile != null)
                     logfile.WriteLine("-> \r\n$" + s + "*" + Convert.ToString(chk, 16) + "\n");
             }
+        }
+
+        public override void SendOsdConfiguration(int bitmask, int rssi_mode, double voltage_low, double voltage_high)
+        {
+            int v_l = (int)(voltage_low * 50.0);
+            int v_h = (int)(voltage_high * 50.0);
+            WriteChecksumLine("SO;" + bitmask + ";" + rssi_mode + ";" + v_l + ";" + v_h);
         }
     }
 }

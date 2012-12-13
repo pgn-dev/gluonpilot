@@ -38,10 +38,12 @@ namespace Configuration
             _btn_write.Enabled = true;
             
             configurationTabpage1.Connect(serial);
+            timer1.Start();
         }
 
         public void Disconnect()
         {
+            timer1.Stop();
             _serial = null;
             _btn_burn.Enabled = false;
             _btn_default.Enabled = false;
@@ -65,6 +67,7 @@ namespace Configuration
         private void _btn_write_Click(object sender, EventArgs e)
         {
             _serial.Send(configurationTabpage1.GetModel().ToAllConfig());
+            _serial.SendImuSettings(configurationTabpage1.GetModel().NeutralPitch, configurationTabpage1.GetModel().ImuRotated);
         }
 
         private void _btn_default_Click(object sender, EventArgs e)
@@ -114,6 +117,26 @@ namespace Configuration
                 ConfigurationModel model = (ConfigurationModel)xmlSerializer.Deserialize(stream);
                 configurationTabpage1.SetModel(model);
                 stream.Close();
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (_serial != null && _serial.IsOpen)
+            {
+                _btn_burn.Enabled = true;
+                _btn_default.Enabled = true;
+                _btn_read.Enabled = true;
+                _btn_reload.Enabled = true;
+                _btn_write.Enabled = true;
+            }
+            else
+            {
+                _btn_burn.Enabled = false;
+                _btn_default.Enabled = false;
+                _btn_read.Enabled = false;
+                _btn_reload.Enabled = false;
+                _btn_write.Enabled = false;
             }
         }
     }

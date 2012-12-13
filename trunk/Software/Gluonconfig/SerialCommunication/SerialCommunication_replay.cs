@@ -87,7 +87,8 @@ namespace Communication
         // Communication status
         public override event LostCommunication CommunicationLost;
         public override event EstablishedCommunication CommunicationEstablished;
-
+        // Home position
+        public override event HomePositionFrame HomePositionReceived;
 
         private string[] DatalogHeader;
         private System.IO.StreamReader file_to_replay;
@@ -360,6 +361,40 @@ namespace Communication
                         }
                         if (lines.Length > 77)
                             ac.control_min_pitch = int.Parse(lines[77]);
+
+                        if (lines.Length > 78)
+                        {
+                            ac.manual_trim = int.Parse(lines[78]) == 0 ? false : true;
+                            Console.WriteLine("receive: " + lines[78]);
+                        }
+                        if (lines.Length > 79)
+                        {
+                            ac.control_altitude_mode = int.Parse(lines[79]);
+                        }
+                        else
+                            Console.WriteLine("FOUT");
+
+                        if (lines.Length > 80)
+                        {
+                            ac.gps_enable_waas = int.Parse(lines[80]);
+                        }
+                        else
+                            Console.WriteLine("FOUT");
+
+                        if (lines.Length > 81)
+                        {
+                            ac.osd_bitmask = int.Parse(lines[81]);
+                            ac.osd_RssiMode = int.Parse(lines[82]);
+                            ac.osd_voltage_low = ((double)int.Parse(lines[83])) / 50.0;
+                            ac.osd_voltage_high = ((double)int.Parse(lines[84])) / 50.0;
+                        }
+
+                        if (lines.Length > 84)
+                        {
+                            ac.imu_rotated = int.Parse(lines[85]);
+                            ac.neutral_pitch = int.Parse(lines[86]);
+                        }
+
                         if (AllConfigCommunicationReceived != null)
                             AllConfigCommunicationReceived(ac);
                     }
@@ -482,16 +517,25 @@ namespace Communication
                             new ControlInfo();
                         ci.FlightMode = (ControlInfo.FlightModes)int.Parse(lines[1]);
                         ci.CurrentNavigationLine = int.Parse(lines[2]);
-                        ci.HeightAboveStartGround = int.Parse(lines[3]);
+                        ci.Altitude = int.Parse(lines[3]);
                         if (lines.Length >= 5)
                         {
-                            ci.BattVoltage = double.Parse(lines[4]) / 10.0;
+                            ci.Batt1Voltage = double.Parse(lines[4]) / 10.0;
                             if (lines.Length >= 6)
                             {
                                 ci.FlightTime = int.Parse(lines[5]);
                                 ci.BlockTime = int.Parse(lines[6]);
                                 ci.RcLink = int.Parse(lines[7]);
                                 ci.Throttle = int.Parse(lines[8]);
+                            }
+                            if (lines.Length >= 10)
+                            {
+                                ci.TargetAltitude = int.Parse(lines[9]);
+                            }
+                            if (lines.Length >= 11)
+                            {
+                                ci.Batt2Voltage = double.Parse(lines[10]) / 10.0;
+                                ci.Batt_mAh = double.Parse(lines[11]) * 10.0;
                             }
                         }
                         if (ControlInfoCommunicationReceived != null)
@@ -685,6 +729,14 @@ namespace Communication
                 c ^= (int)(h);
             }
             return c;
+        }
+
+        public override void SendOsdConfiguration(int bitmask, int rssi_mode, double voltage_low, double voltage_high)
+        {
+        }
+
+        public override void SendImuSettings(int neutral_pitch, int imu_rotated)
+        {
         }
     }
 }

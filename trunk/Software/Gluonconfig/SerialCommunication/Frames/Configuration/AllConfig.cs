@@ -13,6 +13,8 @@ namespace Communication.Frames.Configuration
         public int gyro_x_neutral;
         public int gyro_y_neutral;
         public int gyro_z_neutral;
+        public int neutral_pitch;
+        public int imu_rotated;
 
         // control
         public double control_max_roll;
@@ -28,6 +30,7 @@ namespace Communication.Frames.Configuration
         // gps
         public int gps_initial_baudrate;
         public int gps_operational_baudrate;
+        public int gps_enable_waas;
 
         // channels 1 - 8
         public int channel_roll;
@@ -89,5 +92,11 @@ namespace Communication.Frames.Configuration
         public int[] servo_max = new int[6];
         public int[] servo_neutral = new int[6];
         public bool manual_trim;
+
+        // osd
+        public int osd_bitmask;
+        public int osd_RssiMode;
+        public double osd_voltage_low;
+        public double osd_voltage_high;
     }
 }

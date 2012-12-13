@@ -11,9 +11,12 @@ namespace Communication.Frames.Incoming
         };
 
         public FlightModes FlightMode = FlightModes.AUTOPILOT;
-        public double HeightAboveStartGround = 0;
+        public double Altitude = 0;
+        public double TargetAltitude = 0;
         public int CurrentNavigationLine = 1;
-        public double BattVoltage = 0;
+        public double Batt1Voltage = 0;
+        public double Batt2Voltage = 0;
+        public double Batt_mAh = 0;
         public int FlightTime = 0;
         public int BlockTime = 0;
         public int Throttle = 0;

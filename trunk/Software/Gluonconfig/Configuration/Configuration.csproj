@@ -72,6 +72,15 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ArtificialHorizon">
+      <HintPath>..\Libs\ArtificialHorizon.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PSTaskDialog">
+      <HintPath>..\Libs\PSTaskDialog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -82,7 +91,11 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GluonCS\Properties\Settings.Designer.cs">
@@ -125,6 +138,12 @@
     </Compile>
     <Compile Include="DistanceTextBox.Designer.cs">
       <DependentUpon>DistanceTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GluonConfigEasy.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GluonConfigEasy.Designer.cs">
+      <DependentUpon>GluonConfigEasy.cs</DependentUpon>
     </Compile>
     <Compile Include="NavigationCommands\BattAlarm.cs">
       <SubType>UserControl</SubType>
@@ -203,6 +222,12 @@
     </Compile>
     <Compile Include="NavigationCommands\FlareToRel.designer.cs">
       <DependentUpon>FlareToRel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationCommands\FlightplanSwitch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\FlightplanSwitch.Designer.cs">
+      <DependentUpon>FlightplanSwitch.cs</DependentUpon>
     </Compile>
     <Compile Include="NavigationCommands\GlideTo.cs">
       <SubType>UserControl</SubType>
@@ -350,6 +375,12 @@
     <Compile Include="NavigationCommands\SetLoiterPosition.Designer.cs">
       <DependentUpon>SetLoiterPosition.cs</DependentUpon>
     </Compile>
+    <Compile Include="NavigationCommands\SetMaximumRange.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationCommands\SetMaximumRange.Designer.cs">
+      <DependentUpon>SetMaximumRange.cs</DependentUpon>
+    </Compile>
     <Compile Include="NavigationCommands\Until.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -398,6 +429,12 @@
     <Compile Include="OrientedTextLabel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="OsdConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OsdConfig.Designer.cs">
+      <DependentUpon>OsdConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="PidControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -410,6 +447,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ReadConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReadConfiguration.Designer.cs">
+      <DependentUpon>ReadConfiguration.cs</DependentUpon>
     </Compile>
     <Compile Include="SpeedTextBox.cs">
       <SubType>UserControl</SubType>
@@ -431,6 +474,9 @@
     <EmbeddedResource Include="ConfigurationControl.resx">
       <DependentUpon>ConfigurationControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfigurationControl.vi.resx">
+      <DependentUpon>ConfigurationControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfigurationTabpage.de.resx">
       <DependentUpon>ConfigurationTabpage.cs</DependentUpon>
     </EmbeddedResource>
@@ -438,6 +484,9 @@
       <DependentUpon>ConfigurationTabpage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigurationTabpage.resx">
+      <DependentUpon>ConfigurationTabpage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigurationTabpage.vi.resx">
       <DependentUpon>ConfigurationTabpage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CoordinateEdit.resx">
@@ -448,6 +497,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DistanceTextBox.resx">
       <DependentUpon>DistanceTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GluonConfigEasy.resx">
+      <DependentUpon>GluonConfigEasy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\BattAlarm.resx">
       <DependentUpon>BattAlarm.cs</DependentUpon>
@@ -484,6 +536,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\FlareToAbs.resx" />
     <EmbeddedResource Include="NavigationCommands\FlareToRel.resx" />
+    <EmbeddedResource Include="NavigationCommands\FlightplanSwitch.resx">
+      <DependentUpon>FlightplanSwitch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\FlyTo.resx">
       <DependentUpon>FlyTo.cs</DependentUpon>
     </EmbeddedResource>
@@ -556,6 +611,9 @@
     <EmbeddedResource Include="NavigationCommands\SetLoiterPosition.resx">
       <DependentUpon>SetLoiterPosition.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NavigationCommands\SetMaximumRange.resx">
+      <DependentUpon>SetMaximumRange.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NavigationCommands\Until.resx">
       <DependentUpon>Until.cs</DependentUpon>
     </EmbeddedResource>
@@ -577,12 +635,18 @@
     <EmbeddedResource Include="NavigationListView.resx">
       <DependentUpon>NavigationListView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OsdConfig.resx">
+      <DependentUpon>OsdConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PidControl.resx">
       <DependentUpon>PidControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReadConfiguration.resx">
+      <DependentUpon>ReadConfiguration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SpeedTextBox.resx">
       <DependentUpon>SpeedTextBox.cs</DependentUpon>

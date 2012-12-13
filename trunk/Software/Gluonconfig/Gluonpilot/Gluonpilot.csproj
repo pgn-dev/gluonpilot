@@ -64,6 +64,9 @@
       <HintPath>..\Libs\D3DControls.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PSTaskDialog">
+      <HintPath>..\Libs\PSTaskDialog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>

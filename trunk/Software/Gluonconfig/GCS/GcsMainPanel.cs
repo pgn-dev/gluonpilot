@@ -123,7 +123,7 @@ namespace GCS
             }
 
             double time = (DateTime.Now - _beginDateTime).TotalSeconds;
-            _heightLine.AddPoint(new PointPair(time, ci.HeightAboveStartGround));
+            _heightLine.AddPoint(new PointPair(time, ci.Altitude));
             Scale xScale = _zgc_height.GraphPane.XAxis.Scale;
             if (time > xScale.Max - xScale.MajorStep)
             {
@@ -134,10 +134,10 @@ namespace GCS
             _zgc_height.AxisChange();
             _zgc_height.Invalidate(true);
 
-            _dtb_altitude.DistanceM = ci.HeightAboveStartGround;
+            _dtb_altitude.DistanceM = ci.Altitude;
             _tb_navigationline.Text = ci.CurrentNavigationLine.ToString();
 
-            _tb_battvoltage.Text = ci.BattVoltage.ToString();
+            _tb_battvoltage.Text = ci.Batt1Voltage.ToString();
         }
 
 
