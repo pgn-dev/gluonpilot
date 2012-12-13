@@ -41,7 +41,7 @@
             // _btn_ok
             // 
             this._btn_ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._btn_ok.Location = new System.Drawing.Point(454, 233);
+            this._btn_ok.Location = new System.Drawing.Point(534, 233);
             this._btn_ok.Name = "_btn_ok";
             this._btn_ok.Size = new System.Drawing.Size(75, 23);
             this._btn_ok.TabIndex = 0;
@@ -62,6 +62,8 @@
             // 
             // _cb_opcode
             // 
+            this._cb_opcode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this._cb_opcode.FormattingEnabled = true;
             this._cb_opcode.Items.AddRange(new object[] {
             "- Structure -",
@@ -95,11 +97,13 @@
             "LOITER_CIRCLE",
             "",
             "- Settings -",
-            "SET_BATTERY_ALARM"});
-            this._cb_opcode.Location = new System.Drawing.Point(74, 12);
+            "SET_BATTERY_ALARM",
+            "SET_FLIGHTPLAN_SWITCH",
+            "SET_MAXIMUM_RANGE"});
+            this._cb_opcode.Location = new System.Drawing.Point(72, 12);
             this._cb_opcode.MaxDropDownItems = 20;
             this._cb_opcode.Name = "_cb_opcode";
-            this._cb_opcode.Size = new System.Drawing.Size(155, 21);
+            this._cb_opcode.Size = new System.Drawing.Size(164, 21);
             this._cb_opcode.TabIndex = 6;
             this._cb_opcode.SelectedIndexChanged += new System.EventHandler(this._cb_opcode_SelectedIndexChanged);
             // 
@@ -134,13 +138,13 @@
             this._gbParameters.AutoSize = true;
             this._gbParameters.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this._gbParameters.Controls.Add(this.tableLayoutPanel);
-            this._gbParameters.Location = new System.Drawing.Point(16, 38);
+            this._gbParameters.Location = new System.Drawing.Point(16, 36);
             this._gbParameters.Margin = new System.Windows.Forms.Padding(0);
             this._gbParameters.MaximumSize = new System.Drawing.Size(270, 195);
-            this._gbParameters.MinimumSize = new System.Drawing.Size(200, 0);
+            this._gbParameters.MinimumSize = new System.Drawing.Size(220, 0);
             this._gbParameters.Name = "_gbParameters";
             this._gbParameters.Padding = new System.Windows.Forms.Padding(10, 0, 3, 0);
-            this._gbParameters.Size = new System.Drawing.Size(200, 33);
+            this._gbParameters.Size = new System.Drawing.Size(220, 33);
             this._gbParameters.TabIndex = 12;
             this._gbParameters.TabStop = false;
             this._gbParameters.Text = "Parameters";
@@ -150,10 +154,10 @@
             // webBrowser
             // 
             this.webBrowser.IsWebBrowserContextMenuEnabled = false;
-            this.webBrowser.Location = new System.Drawing.Point(235, 12);
+            this.webBrowser.Location = new System.Drawing.Point(242, 12);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(294, 215);
+            this.webBrowser.Size = new System.Drawing.Size(367, 215);
             this.webBrowser.TabIndex = 0;
             this.webBrowser.WebBrowserShortcutsEnabled = false;
             // 
@@ -164,7 +168,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.CancelButton = this._btn_cancel;
-            this.ClientSize = new System.Drawing.Size(543, 268);
+            this.ClientSize = new System.Drawing.Size(623, 268);
             this.Controls.Add(this.webBrowser);
             this.Controls.Add(this._gbParameters);
             this.Controls.Add(this.label1);

@@ -102,6 +102,10 @@ namespace Configuration
                 _cb_opcode.SelectedIndex = GetIndexFor("LOITER_CIRCLE");
             else if (ni.opcode == NavigationInstruction.navigation_command.SET_BATTERY_ALARM)
                 _cb_opcode.SelectedIndex = GetIndexFor("SET_BATTERY_ALARM");
+            else if (ni.opcode == NavigationInstruction.navigation_command.SET_FLIGHTPLAN_SWITCH)
+                _cb_opcode.SelectedIndex = GetIndexFor("SET_FLIGHTPLAN_SWITCH");
+            else if (ni.opcode == NavigationInstruction.navigation_command.SET_MAXIMUM_RANGE)
+                _cb_opcode.SelectedIndex = GetIndexFor("SET_MAXIMUM_RANGE");
             else
                 _cb_opcode.SelectedIndex = GetIndexFor("EMPTY");
             //_cb_opcode.SelectedIndex = (int)ni.opcode;
@@ -181,12 +185,12 @@ namespace Configuration
             }
             else if (_cb_opcode.Text.StartsWith("SERVO_TRIGGER_START"))
             {
-                //webBrowser.Navigate(directoryname + "\\servotrigger.html");
+                webBrowser.Navigate(directoryname + "\\servotriggerstart.html");
                 c = new NavigationCommands.ServoStartTrigger(ni);
             }
             else if (_cb_opcode.Text.StartsWith("SERVO_TRIGGER_STOP"))
             {
-                //webBrowser.Navigate(directoryname + "\\servotrigger.html");
+                webBrowser.Navigate(directoryname + "\\servotriggerstop.html");
                 c = new NavigationCommands.ServoStopTrigger(ni);
             }
             else if (_cb_opcode.Text.StartsWith("SERVO_TRIGGER"))
@@ -253,6 +257,16 @@ namespace Configuration
             {
                 c = new NavigationCommands.LoiterCircle(ni);
                 webBrowser.Navigate(directoryname + "\\loitercircle.html");
+            }
+            else if (_cb_opcode.Text.StartsWith("SET_FLIGHTPLAN_SWITCH"))
+            {
+                c = new NavigationCommands.FlightplanSwitch(ni);
+                webBrowser.Navigate(directoryname + "\\setflightplanswitch.html");
+            }
+            else if (_cb_opcode.Text.StartsWith("SET_MAXIMUM_RANGE"))
+            {
+                c = new NavigationCommands.SetMaximumRange(ni);
+                webBrowser.Navigate(directoryname + "\\setmaximumrange.html");
             }
             else if (_cb_opcode.SelectedIndex == (int)NavigationInstruction.navigation_command.FLY_TO_REL)
                 c = new NavigationCommands.FlyToRel(ni);

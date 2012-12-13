@@ -28,19 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigurationControl));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.configurationTabpage1 = new Gluonpilot.ConfigurationTabpage();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this._btn_load = new System.Windows.Forms.ToolStripButton();
             this._btn_save = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this._btn_read = new System.Windows.Forms.ToolStripButton();
             this._btn_write = new System.Windows.Forms.ToolStripButton();
-            this._btn_default = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this._btn_burn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this._btn_default = new System.Windows.Forms.ToolStripButton();
             this._btn_reload = new System.Windows.Forms.ToolStripButton();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.configurationTabpage1 = new Gluonpilot.ConfigurationTabpage();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -49,50 +51,32 @@
             // 
             // toolStripContainer1
             // 
-            resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
-            // 
-            // toolStripContainer1.BottomToolStripPanel
-            // 
-            resources.ApplyResources(this.toolStripContainer1.BottomToolStripPanel, "toolStripContainer1.BottomToolStripPanel");
             // 
             // toolStripContainer1.ContentPanel
             // 
-            resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
             this.toolStripContainer1.ContentPanel.Controls.Add(this.configurationTabpage1);
-            // 
-            // toolStripContainer1.LeftToolStripPanel
-            // 
-            resources.ApplyResources(this.toolStripContainer1.LeftToolStripPanel, "toolStripContainer1.LeftToolStripPanel");
+            resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
+            resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
             this.toolStripContainer1.Name = "toolStripContainer1";
-            // 
-            // toolStripContainer1.RightToolStripPanel
-            // 
-            resources.ApplyResources(this.toolStripContainer1.RightToolStripPanel, "toolStripContainer1.RightToolStripPanel");
             // 
             // toolStripContainer1.TopToolStripPanel
             // 
-            resources.ApplyResources(this.toolStripContainer1.TopToolStripPanel, "toolStripContainer1.TopToolStripPanel");
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
             this.toolStripContainer1.TopToolStripPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             // 
-            // configurationTabpage1
-            // 
-            resources.ApplyResources(this.configurationTabpage1, "configurationTabpage1");
-            this.configurationTabpage1.Name = "configurationTabpage1";
-            // 
             // toolStrip1
             // 
-            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._btn_load,
             this._btn_save,
             this.toolStripSeparator2,
             this._btn_read,
             this._btn_write,
-            this._btn_default,
-            this.toolStripSeparator1,
             this._btn_burn,
+            this.toolStripSeparator1,
+            this._btn_default,
             this._btn_reload});
+            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.Name = "toolStrip1";
             // 
             // _btn_load
@@ -109,8 +93,8 @@
             // 
             // toolStripSeparator2
             // 
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // _btn_read
             // 
@@ -124,28 +108,38 @@
             this._btn_write.Name = "_btn_write";
             this._btn_write.Click += new System.EventHandler(this._btn_write_Click);
             // 
-            // _btn_default
-            // 
-            resources.ApplyResources(this._btn_default, "_btn_default");
-            this._btn_default.Name = "_btn_default";
-            this._btn_default.Click += new System.EventHandler(this._btn_default_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            // 
             // _btn_burn
             // 
             resources.ApplyResources(this._btn_burn, "_btn_burn");
             this._btn_burn.Name = "_btn_burn";
             this._btn_burn.Click += new System.EventHandler(this._btn_burn_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            // 
+            // _btn_default
+            // 
+            resources.ApplyResources(this._btn_default, "_btn_default");
+            this._btn_default.Name = "_btn_default";
+            this._btn_default.Click += new System.EventHandler(this._btn_default_Click);
+            // 
             // _btn_reload
             // 
             resources.ApplyResources(this._btn_reload, "_btn_reload");
             this._btn_reload.Name = "_btn_reload";
             this._btn_reload.Click += new System.EventHandler(this._btn_reload_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // configurationTabpage1
+            // 
+            resources.ApplyResources(this.configurationTabpage1, "configurationTabpage1");
+            this.configurationTabpage1.Name = "configurationTabpage1";
             // 
             // ConfigurationControl
             // 
@@ -179,5 +173,6 @@
         private System.Windows.Forms.ToolStripButton _btn_save;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton _btn_reload;
+        private System.Windows.Forms.Timer timer1;
     }
 }

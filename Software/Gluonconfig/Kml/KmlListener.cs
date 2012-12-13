@@ -35,7 +35,7 @@ namespace Kml
 
         void serial_ControlInfoCommunicationReceived(Communication.Frames.Incoming.ControlInfo ci)
         {
-            pressure_height_m = ci.HeightAboveStartGround;
+            pressure_height_m = ci.Altitude;
         }
 
         void serial_PressureTempCommunicationReceived(Communication.Frames.Incoming.PressureTemp info)

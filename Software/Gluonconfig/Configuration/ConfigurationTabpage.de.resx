@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,532 +59,541 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="_tpSensors.Text" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="_tpSensors.Text" xml:space="preserve">
     <value>Sensoren</value>
   </data>
-  <data name="label37.Text" xml:space="preserve">
+	<data name="label37.Text" xml:space="preserve">
     <value>Motor</value>
   </data>
-  <data name="groupBox8.Text" xml:space="preserve">
+	<data name="groupBox8.Text" xml:space="preserve">
     <value>Flughöhe falsch-&gt; Höhe</value>
   </data>
-  <data name="label57.Text" xml:space="preserve">
+	<data name="label57.Text" xml:space="preserve">
     <value>Anzahl der Satelliten:</value>
   </data>
-  <data name="label49.Text" xml:space="preserve">
+	<data name="label49.Text" xml:space="preserve">
     <value>Telemetrie-Ausgang jedes "X / 20" Sekunden.
 zum Deaktivieren auf "0" setzen.</value>
   </data>
-  <data name="label80.Text" xml:space="preserve">
+	<data name="label80.Text" xml:space="preserve">
     <value>% (-100..100)</value>
   </data>
-  <data name="_rb_servos_neutral_configurable.Text" xml:space="preserve">
+	<data name="_rb_servos_neutral_configurable.Text" xml:space="preserve">
     <value>Servo neutral Wert wird hier festgelegt.</value>
   </data>
-  <data name="label60.Text" xml:space="preserve">
+	<data name="label60.Text" xml:space="preserve">
     <value>=</value>
   </data>
-  <data name="label33.Text" xml:space="preserve">
+	<data name="label33.Text" xml:space="preserve">
     <value>Kanal 7</value>
   </data>
-  <data name="label53.Text" xml:space="preserve">
+	<data name="label53.Text" xml:space="preserve">
     <value>Länge:</value>
   </data>
-  <data name="label77.Text" xml:space="preserve">
+	<data name="label77.Text" xml:space="preserve">
     <value>Oben/rechts/voll Gas/manuell</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
+	<data name="label2.Text" xml:space="preserve">
     <value>Pa</value>
   </data>
-  <data name="label89.Text" xml:space="preserve">
+	<data name="label89.Text" xml:space="preserve">
     <value>Reiseflug</value>
   </data>
-  <data name="label52.Text" xml:space="preserve">
+	<data name="label52.Text" xml:space="preserve">
     <value>Breite:</value>
   </data>
-  <data name="_tb_servo5_neutral.Text" xml:space="preserve">
+	<data name="_tb_servo5_neutral.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label456.Text" xml:space="preserve">
+	<data name="label456.Text" xml:space="preserve">
     <value>Operative Baudrate:</value>
   </data>
-  <data name="_tpRc.Text" xml:space="preserve">
+	<data name="_tpRc.Text" xml:space="preserve">
     <value>RC-Eingang</value>
   </data>
-  <data name="_tb_initial_baudrate.Text" xml:space="preserve">
+	<data name="_tb_initial_baudrate.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="_lblCh5Ms.Text" xml:space="preserve">
+	<data name="_lblCh5Ms.Text" xml:space="preserve">
     <value>1500</value>
   </data>
-  <data name="label48.Text" xml:space="preserve">
+	<data name="label48.Text" xml:space="preserve">
     <value>Grundlegende GPS</value>
   </data>
-  <data name="label30.Text" xml:space="preserve">
+	<data name="label30.Text" xml:space="preserve">
     <value>Min</value>
   </data>
-  <data name="_rb_gps_notfound.Text" xml:space="preserve">
+	<data name="_rb_gps_notfound.Text" xml:space="preserve">
     <value>Nicht gefunden</value>
   </data>
-  <data name="_llConfigGps.Text" xml:space="preserve">
+	<data name="_llConfigGps.Text" xml:space="preserve">
     <value>Wiki</value>
   </data>
-  <data name="label47.Text" xml:space="preserve">
+	<data name="label47.Text" xml:space="preserve">
     <value>Druck &amp;&amp; Temperatur</value>
   </data>
-  <data name="label43.Text" xml:space="preserve">
+	<data name="label43.Text" xml:space="preserve">
     <value>Servo 6</value>
   </data>
-  <data name="label87.Text" xml:space="preserve">
+	<data name="label87.Text" xml:space="preserve">
     <value>Steuerungsinformationen</value>
   </data>
-  <data name="_tpTelemetry.Text" xml:space="preserve">
+	<data name="_tpTelemetry.Text" xml:space="preserve">
     <value>Telemetrie</value>
   </data>
-  <data name="label83.Text" xml:space="preserve">
+	<data name="label83.Text" xml:space="preserve">
     <value>Ruder</value>
   </data>
-  <data name="_btn_sensors_current_to_neutral.Text" xml:space="preserve">
+	<data name="_btn_sensors_current_to_neutral.Text" xml:space="preserve">
     <value>aktuelle verwenden</value>
   </data>
-  <data name="_ntbAutoThrottlePGain.Text" xml:space="preserve">
+	<data name="_ntbAutoThrottlePGain.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label28.Text" xml:space="preserve">
+	<data name="label28.Text" xml:space="preserve">
     <value>Neutral</value>
   </data>
-  <data name="label16.Text" xml:space="preserve">
+	<data name="label16.Text" xml:space="preserve">
     <value>g</value>
   </data>
-  <data name="label56.Text" xml:space="preserve">
+	<data name="label56.Text" xml:space="preserve">
     <value>Rubrik:</value>
   </data>
-  <data name="label14.Text" xml:space="preserve">
+	<data name="label14.Text" xml:space="preserve">
     <value>Gyroskope:</value>
   </data>
-  <data name="label34.Text" xml:space="preserve">
+	<data name="label34.Text" xml:space="preserve">
     <value>Roll</value>
   </data>
-  <data name="label54.Text" xml:space="preserve">
+	<data name="label54.Text" xml:space="preserve">
     <value>Höhe:</value>
   </data>
-  <data name="_rb_gps_status_active.Text" xml:space="preserve">
+	<data name="_rb_gps_status_active.Text" xml:space="preserve">
     <value>erfasst</value>
   </data>
-  <data name="label12.Text" xml:space="preserve">
+	<data name="label12.Text" xml:space="preserve">
     <value>Neutral:</value>
   </data>
-  <data name="label68.Text" xml:space="preserve">
+	<data name="label68.Text" xml:space="preserve">
     <value>Querruder / Höhe (Delta)</value>
   </data>
-  <data name="label32.Text" xml:space="preserve">
+	<data name="label32.Text" xml:space="preserve">
     <value>Max</value>
   </data>
-  <data name="label76.Text" xml:space="preserve">
+	<data name="label76.Text" xml:space="preserve">
     <value>Nach unten/links/Leerlauf/Autopilot</value>
   </data>
-  <data name="label71.Text" xml:space="preserve">
+	<data name="label71.Text" xml:space="preserve">
     <value>Funktion (je Mix)</value>
   </data>
-  <data name="label74.Text" xml:space="preserve">
+	<data name="label74.Text" xml:space="preserve">
     <value>Verarbeitet:</value>
   </data>
-  <data name="label72.Text" xml:space="preserve">
+	<data name="label72.Text" xml:space="preserve">
     <value>Neutral:</value>
   </data>
-  <data name="label92.Text" xml:space="preserve">
+	<data name="label92.Text" xml:space="preserve">
     <value>Gas P-Verstärkung (% / m)</value>
   </data>
-  <data name="label61.Text" xml:space="preserve">
+	<data name="label61.Text" xml:space="preserve">
     <value>Fluglage</value>
   </data>
-  <data name="_tb_servo6_neutral.Text" xml:space="preserve">
+	<data name="_tb_servo6_neutral.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="_lblCh7Ms.Text" xml:space="preserve">
+	<data name="_lblCh7Ms.Text" xml:space="preserve">
     <value>1500</value>
   </data>
-  <data name="_tbAccXNeutral.Text" xml:space="preserve">
+	<data name="_tbAccXNeutral.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label7.Text" xml:space="preserve">
+	<data name="label7.Text" xml:space="preserve">
     <value>Beschleunigungsmesser:</value>
   </data>
-  <data name="_cbControlMix.Items1" xml:space="preserve">
+	<data name="_cbControlMix.Items1" xml:space="preserve">
     <value>Delta +</value>
   </data>
-  <data name="label44.Text" xml:space="preserve">
+	<data name="label44.Text" xml:space="preserve">
     <value>invertiert</value>
   </data>
-  <data name="label86.Text" xml:space="preserve">
+	<data name="label86.Text" xml:space="preserve">
     <value>Wegpunkt Radius</value>
   </data>
-  <data name="_tbAccZNeutral.Text" xml:space="preserve">
+	<data name="_tbAccZNeutral.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label84.Text" xml:space="preserve">
+	<data name="label84.Text" xml:space="preserve">
     <value>Flughöhe</value>
   </data>
-  <data name="label25.Text" xml:space="preserve">
+	<data name="label25.Text" xml:space="preserve">
     <value>Kanal 3</value>
   </data>
-  <data name="label82.Text" xml:space="preserve">
+	<data name="label82.Text" xml:space="preserve">
     <value>Minimaler Kreisradius</value>
   </data>
-  <data name="label21.Text" xml:space="preserve">
+	<data name="label21.Text" xml:space="preserve">
     <value>Kanal 1</value>
   </data>
-  <data name="_tbGyroZNeutral.Text" xml:space="preserve">
+	<data name="_tbGyroZNeutral.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label65.Text" xml:space="preserve">
+	<data name="label65.Text" xml:space="preserve">
     <value>Grad</value>
   </data>
-  <data name="label9.Text" xml:space="preserve">
+	<data name="label9.Text" xml:space="preserve">
     <value>Y</value>
   </data>
-  <data name="groupBox1.Text" xml:space="preserve">
+	<data name="groupBox1.Text" xml:space="preserve">
     <value>SCP1000-Drucksensor</value>
   </data>
-  <data name="groupBox2.Text" xml:space="preserve">
+	<data name="groupBox2.Text" xml:space="preserve">
     <value>6DOF: Beschleunigungsmesser &amp;&amp; Gyroskope</value>
   </data>
-  <data name="_tbControl.Text" xml:space="preserve">
+	<data name="_tbControl.Text" xml:space="preserve">
     <value>Steuerelement</value>
   </data>
-  <data name="label70.Text" xml:space="preserve">
+	<data name="label70.Text" xml:space="preserve">
     <value>Motor</value>
   </data>
-  <data name="label90.Text" xml:space="preserve">
+	<data name="label90.Text" xml:space="preserve">
     <value>Min</value>
   </data>
-  <data name="groupBox3.Text" xml:space="preserve">
+	<data name="groupBox3.Text" xml:space="preserve">
     <value>Kanal Konfiguration</value>
   </data>
-  <data name="groupBox4.Text" xml:space="preserve">
+	<data name="groupBox4.Text" xml:space="preserve">
     <value>Fluglage falsch-&gt; Höhenruder</value>
   </data>
-  <data name="_lblCh1Ms.Text" xml:space="preserve">
+	<data name="_lblCh1Ms.Text" xml:space="preserve">
     <value>1500</value>
   </data>
-  <data name="groupBox5.Text" xml:space="preserve">
+	<data name="groupBox5.Text" xml:space="preserve">
     <value>Ausrichtung flasch-&gt; Rollen/Gieren</value>
   </data>
-  <data name="_tbGyroXNeutral.Text" xml:space="preserve">
+	<data name="_tbGyroXNeutral.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label29.Text" xml:space="preserve">
+	<data name="label29.Text" xml:space="preserve">
     <value>Kanal 5</value>
   </data>
-  <data name="groupBox6.Text" xml:space="preserve">
+	<data name="groupBox6.Text" xml:space="preserve">
     <value>Höhenregelung</value>
   </data>
-  <data name="groupBox7.Text" xml:space="preserve">
+	<data name="groupBox7.Text" xml:space="preserve">
     <value>Navigation</value>
   </data>
-  <data name="label73.Text" xml:space="preserve">
+	<data name="label73.Text" xml:space="preserve">
     <value>Raw:</value>
   </data>
-  <data name="label42.Text" xml:space="preserve">
+	<data name="label42.Text" xml:space="preserve">
     <value>Servo 5</value>
   </data>
-  <data name="label51.Text" xml:space="preserve">
+	<data name="label51.Text" xml:space="preserve">
     <value>Status:</value>
   </data>
-  <data name="_tb_operational_baudrate.Text" xml:space="preserve">
+	<data name="_tb_operational_baudrate.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="_rb_gps_status_void.Text" xml:space="preserve">
+	<data name="_rb_gps_status_void.Text" xml:space="preserve">
     <value>Erfassung</value>
   </data>
-  <data name="label36.Text" xml:space="preserve">
+	<data name="label36.Text" xml:space="preserve">
     <value>Gieren</value>
   </data>
-  <data name="_cbMotor.Items1" xml:space="preserve">
+	<data name="_cbMotor.Items1" xml:space="preserve">
     <value>Auto Gas</value>
   </data>
-  <data name="label50.Text" xml:space="preserve">
+	<data name="label50.Text" xml:space="preserve">
     <value>Start-up-Baudrate:</value>
   </data>
-  <data name="label40.Text" xml:space="preserve">
+	<data name="label40.Text" xml:space="preserve">
     <value>Servo 3</value>
   </data>
-  <data name="label6.Text" xml:space="preserve">
+	<data name="label6.Text" xml:space="preserve">
     <value>° C</value>
   </data>
-  <data name="label13.Text" xml:space="preserve">
+	<data name="label13.Text" xml:space="preserve">
     <value>Verarbeitet:</value>
   </data>
-  <data name="label19.Text" xml:space="preserve">
+	<data name="label19.Text" xml:space="preserve">
     <value>° / s</value>
   </data>
-  <data name="_llGoogleMaps.Text" xml:space="preserve">
+	<data name="_llGoogleMaps.Text" xml:space="preserve">
     <value>zu Google Maps wechseln</value>
   </data>
-  <data name="label27.Text" xml:space="preserve">
+	<data name="label27.Text" xml:space="preserve">
     <value>Kanal 4</value>
   </data>
-  <data name="label10.Text" xml:space="preserve">
+	<data name="label10.Text" xml:space="preserve">
     <value>Z</value>
   </data>
-  <data name="_cbControlMix.Items2" xml:space="preserve">
+	<data name="_cbControlMix.Items2" xml:space="preserve">
     <value>Delta-</value>
   </data>
-  <data name="_tbAccYNeutral.Text" xml:space="preserve">
+	<data name="_tbAccYNeutral.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="_tb_servo4_neutral.Text" xml:space="preserve">
+	<data name="_tb_servo4_neutral.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label46.Text" xml:space="preserve">
+	<data name="label46.Text" xml:space="preserve">
     <value>RC Sender</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
+	<data name="label4.Text" xml:space="preserve">
     <value>m</value>
   </data>
-  <data name="label23.Text" xml:space="preserve">
+	<data name="label23.Text" xml:space="preserve">
     <value>Kanal 2</value>
   </data>
-  <data name="label67.Text" xml:space="preserve">
-    <value>Querruder / Höhenruder (Delta)</value>
+	<data name="label67.Text" xml:space="preserve">
+    <value>Querruder / Höhe (Delta)</value>
   </data>
-  <data name="_cbControlMix.Items" xml:space="preserve">
+	<data name="_cbControlMix.Items" xml:space="preserve">
     <value>Querruder</value>
   </data>
-  <data name="_btn_use_current_gyro.Text" xml:space="preserve">
+	<data name="_btn_use_current_gyro.Text" xml:space="preserve">
     <value>aktuelle verwenden</value>
   </data>
-  <data name="cb_altitudehold.Text" xml:space="preserve">
+	<data name="cb_altitudehold.Text" xml:space="preserve">
     <value>Stabilisierte: Höhenruder: (AN) Manuell Höhe (AUS)
 Navigation: Automatische Höhe: (AN) Handbetrieb (AUS)</value>
   </data>
-  <data name="label38.Text" xml:space="preserve">
+	<data name="label38.Text" xml:space="preserve">
     <value>Autopilot</value>
   </data>
-  <data name="label58.Text" xml:space="preserve">
+	<data name="label58.Text" xml:space="preserve">
     <value>Ausgang Mix:</value>
   </data>
-  <data name="_llServos.Text" xml:space="preserve">
+	<data name="_llServos.Text" xml:space="preserve">
     <value>Wiki</value>
   </data>
-  <data name="_llRc.Text" xml:space="preserve">
+	<data name="_llRc.Text" xml:space="preserve">
     <value>Wiki</value>
   </data>
-  <data name="label63.Text" xml:space="preserve">
+	<data name="label63.Text" xml:space="preserve">
     <value>und</value>
   </data>
-  <data name="_llConfigSensors.Text" xml:space="preserve">
+	<data name="_llConfigSensors.Text" xml:space="preserve">
     <value>Wiki</value>
   </data>
-  <data name="_lblCh6Ms.Text" xml:space="preserve">
+	<data name="_lblCh6Ms.Text" xml:space="preserve">
     <value>1500</value>
   </data>
-  <data name="_lblCh3Ms.Text" xml:space="preserve">
+	<data name="_lblCh3Ms.Text" xml:space="preserve">
     <value>1500</value>
   </data>
-  <data name="label78.Text" xml:space="preserve">
+	<data name="label78.Text" xml:space="preserve">
     <value>Stabilisiert</value>
   </data>
-  <data name="label11.Text" xml:space="preserve">
+	<data name="label11.Text" xml:space="preserve">
     <value>Raw:</value>
   </data>
-  <data name="label31.Text" xml:space="preserve">
+	<data name="label31.Text" xml:space="preserve">
     <value>Kanal 6</value>
   </data>
-  <data name="_cbControlMix.Items3" xml:space="preserve">
+	<data name="_cbControlMix.Items3" xml:space="preserve">
     <value>Quadrocopter</value>
   </data>
-  <data name="label91.Text" xml:space="preserve">
+	<data name="label91.Text" xml:space="preserve">
     <value>Max</value>
   </data>
-  <data name="_tpServos.Text" xml:space="preserve">
+	<data name="_tpServos.Text" xml:space="preserve">
     <value>Servos</value>
   </data>
-  <data name="_tb_servo2_neutral.Text" xml:space="preserve">
+	<data name="_tb_servo2_neutral.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="_rb_serovs_neutral_auto.Text" xml:space="preserve">
+	<data name="_rb_serovs_neutral_auto.Text" xml:space="preserve">
     <value>Die Servo neutralen Wert stammt von den Trim einstellungen aus dem manuellen Modus</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
+	<data name="label3.Text" xml:space="preserve">
     <value>Höhe:</value>
   </data>
-  <data name="_rbPpm.Text" xml:space="preserve">
+	<data name="_rbPpm.Text" xml:space="preserve">
     <value>PPM Pulse train</value>
   </data>
-  <data name="_tbPid.Text" xml:space="preserve">
+	<data name="_tbPid.Text" xml:space="preserve">
     <value>PID</value>
   </data>
-  <data name="label18.Text" xml:space="preserve">
+	<data name="label18.Text" xml:space="preserve">
     <value>° / s</value>
   </data>
-  <data name="label88.Text" xml:space="preserve">
+	<data name="label88.Text" xml:space="preserve">
     <value>Auto Gas (%)</value>
   </data>
-  <data name="label26.Text" xml:space="preserve">
+	<data name="label26.Text" xml:space="preserve">
     <value>Servo 1</value>
   </data>
-  <data name="_btn_telemetry_inflight.Text" xml:space="preserve">
+	<data name="_btn_telemetry_inflight.Text" xml:space="preserve">
     <value>für in-Flight festlegen
 (XBee-Drahtlosverbindung)</value>
   </data>
-  <data name="label15.Text" xml:space="preserve">
+	<data name="label15.Text" xml:space="preserve">
     <value>g</value>
   </data>
-  <data name="label35.Text" xml:space="preserve">
+	<data name="label35.Text" xml:space="preserve">
     <value>Höhe/Nicken</value>
   </data>
-  <data name="_rbPwm.Text" xml:space="preserve">
+	<data name="_rbPwm.Text" xml:space="preserve">
     <value>Separate PWM-Eingänge</value>
   </data>
-  <data name="label24.Text" xml:space="preserve">
+	<data name="label24.Text" xml:space="preserve">
     <value>2ms |</value>
   </data>
-  <data name="label81.Text" xml:space="preserve">
+	<data name="label81.Text" xml:space="preserve">
     <value>Standardgeschwindigkeit
 (bei GPS-Verlust)</value>
   </data>
-  <data name="_lblCh4Ms.Text" xml:space="preserve">
+	<data name="_lblCh4Ms.Text" xml:space="preserve">
     <value>1500</value>
   </data>
-  <data name="label22.Text" xml:space="preserve">
+	<data name="label22.Text" xml:space="preserve">
     <value>| 1ms</value>
   </data>
-  <data name="label66.Text" xml:space="preserve">
+	<data name="label66.Text" xml:space="preserve">
     <value>Max roll</value>
   </data>
-  <data name="label75.Text" xml:space="preserve">
+	<data name="label75.Text" xml:space="preserve">
     <value>(Flash-brennen &amp;&amp; Reset erforderlich!)</value>
   </data>
-  <data name="_pid_roll2aileron.Text" xml:space="preserve">
+	<data name="_pid_roll2aileron.Text" xml:space="preserve">
     <value>Roll Fehler-&gt; Querruder</value>
   </data>
-  <data name="label64.Text" xml:space="preserve">
+	<data name="label64.Text" xml:space="preserve">
     <value>+-</value>
   </data>
-  <data name="label41.Text" xml:space="preserve">
+	<data name="label41.Text" xml:space="preserve">
     <value>Servo 4</value>
   </data>
-  <data name="label69.Text" xml:space="preserve">
+	<data name="label69.Text" xml:space="preserve">
     <value>Höhenruder</value>
   </data>
-  <data name="label5.Text" xml:space="preserve">
+	<data name="label5.Text" xml:space="preserve">
     <value>Temperatur:</value>
   </data>
-  <data name="label62.Text" xml:space="preserve">
+	<data name="label62.Text" xml:space="preserve">
     <value>Grad</value>
   </data>
-  <data name="label8.Text" xml:space="preserve">
+	<data name="label8.Text" xml:space="preserve">
     <value>X</value>
   </data>
-  <data name="label39.Text" xml:space="preserve">
+	<data name="label39.Text" xml:space="preserve">
     <value>Servo 2</value>
   </data>
-  <data name="label59.Text" xml:space="preserve">
+	<data name="label59.Text" xml:space="preserve">
     <value>IMU verarbeitet Sensoren Ausgabe</value>
   </data>
-  <data name="linkLabel2.Text" xml:space="preserve">
+	<data name="linkLabel2.Text" xml:space="preserve">
     <value>Wiki</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
+	<data name="label1.Text" xml:space="preserve">
     <value>Druck:</value>
   </data>
-  <data name="label55.Text" xml:space="preserve">
+	<data name="label55.Text" xml:space="preserve">
     <value>Geschwindigkeit:</value>
   </data>
-  <data name="_cbControlMix.Items4" xml:space="preserve">
+	<data name="_cbControlMix.Items4" xml:space="preserve">
     <value>Querruder-Flaperons auf Scherung</value>
   </data>
-  <data name="label79.Text" xml:space="preserve">
+	<data name="label79.Text" xml:space="preserve">
     <value>Querruder differenzielle</value>
   </data>
-  <data name="_tbGyroYNeutral.Text" xml:space="preserve">
+	<data name="_tbGyroYNeutral.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="_btn_telemetry_configuration.Text" xml:space="preserve">
+	<data name="_btn_telemetry_configuration.Text" xml:space="preserve">
     <value>Legen Sie für die Konfiguration
 (serielle FTDI-Verbindung)</value>
   </data>
-  <data name="_cbMotor.Items" xml:space="preserve">
+	<data name="_cbMotor.Items" xml:space="preserve">
     <value>Manuelle Drossel</value>
   </data>
-  <data name="label45.Text" xml:space="preserve">
+	<data name="label45.Text" xml:space="preserve">
     <value>IMU-roh-Sensoren-Ausgabe</value>
   </data>
-  <data name="_tb_servo3_neutral.Text" xml:space="preserve">
+	<data name="_tb_servo3_neutral.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="_tbGps.Text" xml:space="preserve">
+	<data name="_tbGps.Text" xml:space="preserve">
     <value>GPS</value>
   </data>
-  <data name="_tb_servo1_neutral.Text" xml:space="preserve">
+	<data name="_tb_servo1_neutral.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label85.Text" xml:space="preserve">
+	<data name="label85.Text" xml:space="preserve">
     <value>Motor</value>
   </data>
-  <data name="label20.Text" xml:space="preserve">
+	<data name="label20.Text" xml:space="preserve">
     <value>° / s</value>
   </data>
-  <data name="_lblControlMixInfo.Text" xml:space="preserve">
+	<data name="_lblControlMixInfo.Text" xml:space="preserve">
     <value>&lt;info&gt;</value>
   </data>
+	<data name="_lblCh2Ms.Text" xml:space="preserve">
+		<value>1500</value>
+	</data>
+	<data name="_btnWriteRollPid.Text" xml:space="preserve">
+		<value>Schreiben</value>
+	</data>
+	<data name="_btnWritePitchPid.Text" xml:space="preserve">
+		<value>Schreiben</value>
+	</data>
 </root>

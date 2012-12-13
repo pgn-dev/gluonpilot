@@ -40,6 +40,7 @@ namespace Communication
 
         public delegate void LostCommunication();
         public delegate void EstablishedCommunication();
+        public delegate void HomePositionFrame(double lat, double lon);
 
 
         // General: all lines received will be broadcasted by this event
@@ -69,6 +70,9 @@ namespace Communication
         // Communication status
         public abstract event LostCommunication CommunicationLost;
         public abstract event EstablishedCommunication CommunicationEstablished;
+        // Home position
+        public abstract event HomePositionFrame HomePositionReceived;
+        
 
         public abstract double SecondsConnectionLost();
 
@@ -113,11 +117,15 @@ namespace Communication
 
         public abstract void SendControlSettings(int mixing, double max_pitch, double min_pitch, double max_roll, int aileron_differential, double waypoint_radius, double cruising_speed, bool stabilization_with_altitude_hold, int altitude_mode);
 
+        public abstract void SendImuSettings(int neutral_pitch, int imu_rotated);
+
         public abstract void Send(AllConfig ac);
 
         public abstract void ReadAllConfig();
 
         public abstract void SendFlashConfiguration();
+
+        public abstract void SendOsdConfiguration(int bitmask, int rssi_mode, double voltage_low, double voltage_high);
 
         public abstract void SendLoadConfigurationFromFlash();
         
