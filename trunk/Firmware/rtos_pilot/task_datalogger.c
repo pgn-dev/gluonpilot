@@ -151,7 +151,7 @@ void datalogger_start_session()
 
 void datalogger_read(int page, int size, unsigned char *buffer)
 {
-	if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 10 ))   // Spi1 is shared with SCP1000 and Dataflash
+	if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 10 ) == pdTRUE )   // Spi1 is shared with SCP1000 and Dataflash
 	{
 		dataflash.read(page, size, buffer);
 		xSemaphoreGive( xSpiSemaphore );
@@ -160,7 +160,7 @@ void datalogger_read(int page, int size, unsigned char *buffer)
 
 void datalogger_write(int page, int size, unsigned char *buffer)
 {
-	if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 10 ))   // Spi1 is shared with SCP1000 and Dataflash
+	if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 10 ) == pdTRUE )   // Spi1 is shared with SCP1000 and Dataflash
 	{
 		dataflash.write(page, size, buffer);
 		xSemaphoreGive( xSpiSemaphore );

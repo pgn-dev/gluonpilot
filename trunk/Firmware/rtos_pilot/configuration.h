@@ -5,7 +5,7 @@
 #include "sensors.h"
 #include "communication.h"
 #include "task_control.h"
-#include "osd.h"
+#include "task_osd.h"
 #include "gps/gps.h"
 
 

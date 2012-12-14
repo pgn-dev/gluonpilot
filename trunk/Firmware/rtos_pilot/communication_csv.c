@@ -30,8 +30,8 @@
 #include "ppm_in/ppm_in.h"
 #include "led/led.h"
 #include "servo/servo.h"
-#include "osd.h"
 
+#include "task_osd.h"
 #include "sensors.h"
 #include "communication.h"
 #include "configuration.h"

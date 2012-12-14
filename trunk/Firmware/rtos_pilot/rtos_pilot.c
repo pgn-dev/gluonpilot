@@ -40,7 +40,7 @@
 #include "task_datalogger.h"
 #include "handler_navigation.h"
 #include "gluonscript.h"
-#include "osd.h"
+#include "task_osd.h"
 #include "task_gps.h"
 
 #include "common.h"
