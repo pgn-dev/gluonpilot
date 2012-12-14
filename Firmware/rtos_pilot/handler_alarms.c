@@ -4,7 +4,7 @@
 #include "handler_navigation.h"
 #include "sensors.h"
 #include "gluonscript.h"
-#include "osd.h"
+#include "task_osd.h"
 
 
 struct BatteryAlarm battery_alarm = { .panic_v = 0.0, .warning_v = 0.0, .panic_line = -1, .alarm_battery_panic = 0, .alarm_battery_warning = 0};

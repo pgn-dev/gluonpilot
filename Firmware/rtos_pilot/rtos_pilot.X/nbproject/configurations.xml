@@ -46,7 +46,6 @@
       <itemPath>../communication.h</itemPath>
       <itemPath>../configuration.h</itemPath>
       <itemPath>../gluonscript.h</itemPath>
-      <itemPath>../osd.h</itemPath>
       <itemPath>../handler_alarms.h</itemPath>
       <itemPath>../handler_trigger.h</itemPath>
       <itemPath>../handler_navigation.h</itemPath>
@@ -58,6 +57,7 @@
       <itemPath>../task_sensors_mpu6000.h</itemPath>
       <itemPath>../sensors.h</itemPath>
       <itemPath>../handler_maximum_range.h</itemPath>
+      <itemPath>../task_osd.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -97,7 +97,6 @@
       <itemPath>../communication_csv.c</itemPath>
       <itemPath>../configuration.c</itemPath>
       <itemPath>../gluonscript.c</itemPath>
-      <itemPath>../osd_max7456.c</itemPath>
       <itemPath>../rtos_pilot.c</itemPath>
       <itemPath>../ahrs_kalman_2x3.c</itemPath>
       <itemPath>../handler_alarms.c</itemPath>
@@ -111,6 +110,7 @@
       <itemPath>../sensors.c</itemPath>
       <itemPath>../task_sensors_mpu6000.c</itemPath>
       <itemPath>../handler_maximum_range.c</itemPath>
+      <itemPath>../task_osd.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

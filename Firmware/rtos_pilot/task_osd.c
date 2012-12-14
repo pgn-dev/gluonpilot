@@ -16,10 +16,12 @@
 #include "ppm_in/ppm_in.h"
 
 #include "common.h"
-#include "osd.h"
+#include "task_osd.h"
 #include "configuration.h"
 #include "sensors.h"
 #include "handler_navigation.h"
+
+extern xSemaphoreHandle xSpiSemaphore;
 
 
 // Other characters
@@ -185,47 +187,54 @@ void osd_task( void *parameters )
 	{
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 200 / portTICK_RATE_MS ) );   // 5Hz
 
-        if (do_clear_screen)
+        if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 0 ) == pdTRUE )
         {
-            spiWriteReg(0x04, 0x04);
-            do_clear_screen = 0;
+            //vTaskDelay( ( ( portTickType ) 1 / portTICK_RATE_MS ) );   // 5Hz
+            
+            if (do_clear_screen)
+            {
+                spiWriteReg(0x04, 0x04);
+                do_clear_screen = 0;
+            }
+
+            osd_print_posted_message();
+
+            if (config.osd.show_mode)
+                osd_print_mode();
+            if (config.osd.show_arrow_home)
+                osd_print_home_heading();
+            if (config.osd.show_distance_home)
+                osd_print_home_distance();
+            if (config.osd.show_gps_status)
+                osd_print_satellites_in_view();
+            //spiWriteReg(0x04, 0x04); // clear
+            if (config.osd.show_artificial_horizon)
+                osd_print_artificial_horizon2();
+
+            if (config.osd.show_altitude)
+                osd_print_altitude();
+            if (config.osd.show_rc_link)
+                osd_print_rcinfo();
+            if (config.osd.show_speed)
+                osd_print_speed();
+            if (config.osd.show_flight_time)
+                osd_print_fly_time();
+            if (config.osd.show_voltage1)
+                osd_print_voltage1();
+            if (config.osd.show_current)
+                osd_print_current1();
+            if (config.osd.show_mah)
+                osd_print_mah1();
+            if (config.osd.show_voltage2)
+                osd_print_voltage2();
+
+            if (config.osd.show_block_name)
+                osd_print_active_block();
+            if (config.osd.show_vario)
+                osd_print_vario();
+            
+            xSemaphoreGive( xSpiSemaphore );
         }
-
-        osd_print_posted_message();
-
-        if (config.osd.show_mode)
-            osd_print_mode();
-        if (config.osd.show_arrow_home)
-            osd_print_home_heading();
-        if (config.osd.show_distance_home)
-            osd_print_home_distance();
-        if (config.osd.show_gps_status)
-            osd_print_satellites_in_view();
-		//spiWriteReg(0x04, 0x04); // clear
-        if (config.osd.show_artificial_horizon)
-            osd_print_artificial_horizon2();
-
-        if (config.osd.show_altitude)
-            osd_print_altitude();
-        if (config.osd.show_rc_link)
-            osd_print_rcinfo();
-        if (config.osd.show_speed)
-            osd_print_speed();
-        if (config.osd.show_flight_time)
-            osd_print_fly_time();
-        if (config.osd.show_voltage1)
-            osd_print_voltage1();
-        if (config.osd.show_current)
-            osd_print_current1();
-        if (config.osd.show_mah)
-            osd_print_mah1();
-        if (config.osd.show_voltage2)
-            osd_print_voltage2();
-
-        if (config.osd.show_block_name)
-            osd_print_active_block();
-        if (config.osd.show_vario)
-            osd_print_vario();
 	}
 }
 
