@@ -98,7 +98,6 @@
       <itemPath>../configuration.c</itemPath>
       <itemPath>../gluonscript.c</itemPath>
       <itemPath>../rtos_pilot.c</itemPath>
-      <itemPath>../ahrs_kalman_2x3.c</itemPath>
       <itemPath>../handler_alarms.c</itemPath>
       <itemPath>../handler_trigger.c</itemPath>
       <itemPath>../handler_navigation.c</itemPath>
@@ -111,6 +110,7 @@
       <itemPath>../task_sensors_mpu6000.c</itemPath>
       <itemPath>../handler_maximum_range.c</itemPath>
       <itemPath>../task_osd.c</itemPath>
+      <itemPath>../ahrs_simple_quaternion.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -167,11 +167,27 @@
         <property key="extra-include-directories"
                   value="../../lib/FreeRTOS;../../lib;../../lib/button;../../lib/adc;..;../../lib/i2c;../../lib/bmp085;../../lib/hmc5843;../../lib/max7456;../../lib/matrix;../../lib/quaternion;../../lib/pid;../../lib/pwm_in;../../lib/led;../../lib/ppm_in;../../lib/uart2;../../lib/uart1_queue;../../lib/servo;../../lib/scp1000;../../lib/microcontroller;../../lib/gps;../../lib/dataflash"/>
         <property key="isolate-each-function" value="false"/>
+        <property key="keep-inline" value="false"/>
+        <property key="oXC16gcc-align-arr" value="false"/>
+        <property key="oXC16gcc-cnsts-mauxflash" value="false"/>
+        <property key="oXC16gcc-data-sects" value="false"/>
+        <property key="oXC16gcc-errata" value=""/>
+        <property key="oXC16gcc-fillupper" value=""/>
+        <property key="oXC16gcc-large-aggregate" value="false"/>
+        <property key="oXC16gcc-mauxflash" value="false"/>
+        <property key="oXC16gcc-mpa-lvl" value=""/>
+        <property key="oXC16gcc-name-text-sec" value=""/>
+        <property key="oXC16gcc-near-chars" value="false"/>
+        <property key="oXC16gcc-no-isr-warn" value="false"/>
+        <property key="oXC16gcc-sfr-warn" value="false"/>
+        <property key="oXC16gcc-smar-io-lvl" value="1"/>
+        <property key="oXC16gcc-smart-io-fmt" value=""/>
         <property key="optimization-level" value="1"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros" value="MPLAB_DSPIC_PORT"/>
         <property key="scalar-model" value="default"/>
+        <property key="use-cci" value="false"/>
       </C30>
       <C30-AS>
         <property key="assembler-symbols" value=""/>
@@ -241,8 +257,8 @@
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>ICD3PlatformTool</platformTool>
-        <languageToolchain>C30</languageToolchain>
-        <languageToolchainVersion>3_30b</languageToolchainVersion>
+        <languageToolchain>XC16</languageToolchain>
+        <languageToolchainVersion>1.10</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -281,12 +297,28 @@
         <property key="extra-include-directories"
                   value="../../lib/FreeRTOS;../../lib;../../lib/button;../../lib/adc;..;../../lib/i2c;../../lib/bmp085;../../lib/hmc5843;../../lib/max7456;../../lib/matrix;../../lib/quaternion;../../lib/pid;../../lib/pwm_in;../../lib/led;../../lib/ppm_in;../../lib/uart2;../../lib/uart1_queue;../../lib/servo;../../lib/scp1000;../../lib/microcontroller;../../lib/gps;../../lib/dataflash"/>
         <property key="isolate-each-function" value="false"/>
+        <property key="keep-inline" value="false"/>
+        <property key="oXC16gcc-align-arr" value="false"/>
+        <property key="oXC16gcc-cnsts-mauxflash" value="false"/>
+        <property key="oXC16gcc-data-sects" value="false"/>
+        <property key="oXC16gcc-errata" value=""/>
+        <property key="oXC16gcc-fillupper" value=""/>
+        <property key="oXC16gcc-large-aggregate" value="false"/>
+        <property key="oXC16gcc-mauxflash" value="false"/>
+        <property key="oXC16gcc-mpa-lvl" value=""/>
+        <property key="oXC16gcc-name-text-sec" value=""/>
+        <property key="oXC16gcc-near-chars" value="false"/>
+        <property key="oXC16gcc-no-isr-warn" value="false"/>
+        <property key="oXC16gcc-sfr-warn" value="false"/>
+        <property key="oXC16gcc-smar-io-lvl" value="1"/>
+        <property key="oXC16gcc-smart-io-fmt" value=""/>
         <property key="optimization-level" value="1"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros"
                   value="MPLAB_DSPIC_PORT;ENABLE_QUADROCOPTER"/>
         <property key="scalar-model" value="default"/>
+        <property key="use-cci" value="false"/>
       </C30>
       <C30-AS>
         <property key="assembler-symbols" value=""/>
@@ -344,9 +376,68 @@
         <property key="output-file-format" value="elf"/>
       </C30Global>
       <ICD3PlatformTool>
-        <property key="tracecontrol.disablemacros" value="true"/>
-        <property key="tracecontrol.medium" value="0"/>
-        <property key="tracecontrol.select" value="0"/>
+        <property key="ADC 1" value="true"/>
+        <property key="ADC 2" value="true"/>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="Freeze All Other Peripherals" value="true"/>
+        <property key="I2C1" value="true"/>
+        <property key="I2C2" value="true"/>
+        <property key="INPUT CAPTURE 1" value="true"/>
+        <property key="INPUT CAPTURE 2" value="true"/>
+        <property key="INPUT CAPTURE 3" value="true"/>
+        <property key="INPUT CAPTURE 4" value="true"/>
+        <property key="INPUT CAPTURE 5" value="true"/>
+        <property key="INPUT CAPTURE 6" value="true"/>
+        <property key="INPUT CAPTURE 7" value="true"/>
+        <property key="INPUT CAPTURE 8" value="true"/>
+        <property key="OUTPUT COMPARE 1" value="true"/>
+        <property key="OUTPUT COMPARE 2" value="true"/>
+        <property key="OUTPUT COMPARE 3" value="true"/>
+        <property key="OUTPUT COMPARE 4" value="true"/>
+        <property key="OUTPUT COMPARE 5" value="true"/>
+        <property key="OUTPUT COMPARE 6" value="true"/>
+        <property key="OUTPUT COMPARE 7" value="true"/>
+        <property key="OUTPUT COMPARE 8" value="true"/>
+        <property key="PWM" value="true"/>
+        <property key="QEI" value="true"/>
+        <property key="SPI 1" value="true"/>
+        <property key="SPI 2" value="true"/>
+        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
+        <property key="TIMER1" value="true"/>
+        <property key="TIMER2" value="true"/>
+        <property key="TIMER3" value="true"/>
+        <property key="TIMER4" value="true"/>
+        <property key="TIMER5" value="true"/>
+        <property key="TIMER6" value="true"/>
+        <property key="TIMER7" value="true"/>
+        <property key="TIMER8" value="true"/>
+        <property key="TIMER9" value="true"/>
+        <property key="ToolFirmwareFilePath"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
+        <property key="UART 1" value="true"/>
+        <property key="UART 2" value="true"/>
+        <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="hwtoolclock.frcindebug" value="false"/>
+        <property key="memories.aux" value="false"/>
+        <property key="memories.bootflash" value="false"/>
+        <property key="memories.configurationmemory" value="false"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.flashdata" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.end" value="0x2abff"/>
+        <property key="memories.programmemory.start" value="0x0"/>
+        <property key="poweroptions.powerenable" value="false"/>
+        <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.preserveeeprom" value="false"/>
+        <property key="programoptions.preserveprogramrange" value="false"/>
+        <property key="programoptions.preserveprogramrange.end" value="0x2abff"/>
+        <property key="programoptions.preserveprogramrange.start" value="0x0"/>
+        <property key="programoptions.preserveuserid" value="false"/>
+        <property key="programoptions.usehighvoltageonmclr" value="false"/>
+        <property key="programoptions.uselvpprogramming" value="false"/>
+        <property key="voltagevalue" value="3.25"/>
       </ICD3PlatformTool>
     </conf>
     <conf name="F1E" type="2">

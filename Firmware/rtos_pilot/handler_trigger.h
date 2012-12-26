@@ -7,8 +7,9 @@
 
 enum trigger_mode 
 {
-    SERVO_TRIGGER_MODE = 0,
-    CHDK_MODE = 1
+    TRIGGER_PWM_INTERVAL_MODE = 0,
+    TRIGGER_CHDK_MODE = 1,
+    TRIGGER_PWM_DISTANCE_MODE = 2
 };
 
 
@@ -20,15 +21,13 @@ struct trigger_state
     int usec_pulse;
     float delay_s;
     float period_s;
+    float distance_m;
     unsigned int trigger_counter;
 };	
 
 extern struct trigger_state trigger;
  
 void trigger_set_mode(enum trigger_mode mode);
-void trigger_do();
-void trigger_start();
-void trigger_stop();
 void trigger_servo(int servo, int usec_pulse, float delay_s);
 
 ScriptHandlerReturn trigger_handle_gluonscriptcommand (struct GluonscriptCode *code);

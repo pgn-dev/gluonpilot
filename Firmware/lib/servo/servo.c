@@ -24,10 +24,11 @@ void servo_init()
 #ifndef USE_TRACING
 	T2CONbits.TCS = 0;	     // Use internal clock source
     T2CONbits.TCKPS = 0b10;  // Prescale Select 1:64  -> 1,6us
+    //T2CONbits.TCKPS = 0b01;  // Prescale Select 1:8  -> 0,2us
     T2CONbits.TON = 1;	
 	
 	PR2 = FCY/50/64;         // period = 0.02s
-
+    //PR2 = FCY/50/8;         // period = 0.02s
 	
 	OC1R = 0;  // start pulse
 	OC1CONbits.OCTSEL = 0;   // use TMR2
@@ -84,15 +85,15 @@ void servo_all_neutral()
  */
 unsigned int servo_us_to_raw(unsigned int us)
 {
-	us <<= 2;    // * 4, to prevent losing bits while /8 
-	// scale from 625 to 1000
+	us <<= 2;    // * 4, to prevent losing bits while /8; 1,6 -> 1
+	// scale from 1000 to 625
 	us *= 5;
 	us /= 8;
-	us >>= 2; 
-	
-	//us *= 20;
-	//us /= 32;
-	
+	us >>= 2;
+
+    // 0.2 -> 1
+    //us *= 5;
+
 	return us;
 }
 
