@@ -187,7 +187,7 @@ void osd_task( void *parameters )
 	{
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 200 / portTICK_RATE_MS ) );   // 5Hz
 
-        if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 0 ) == pdTRUE )
+        if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 0 ) == pdTRUE )  // only execute this when SPI port is available
         {
             //vTaskDelay( ( ( portTickType ) 1 / portTICK_RATE_MS ) );   // 5Hz
             
@@ -234,7 +234,8 @@ void osd_task( void *parameters )
                 osd_print_vario();
             
             xSemaphoreGive( xSpiSemaphore );
-        }
+        } else
+            printf("\r\nSPI OSD not available\r\n");
 	}
 }
 

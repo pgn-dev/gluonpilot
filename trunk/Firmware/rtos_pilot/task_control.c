@@ -44,6 +44,7 @@ void control_wing_stabilized(float dt, int h);
 void control_wing_navigate(float dt, int altitude_controllable);
 void control_wing_desired_to_servos(float dt);
 void control_copter_stabilized(float dt, int altitude_hold);
+void control_copter_desired_to_servos(float dt);
 
 //! Contains the last calculated servo position
 int servo_out[6];
@@ -491,7 +492,7 @@ void control_copter_stabilized(float dt, int altitude_hold)
 
 
 	// Comment this line if you want pitch stabilization instead of altitude hold
-	if (altitude_hold)
+	/*if (altitude_hold)
 	{
 		if (fabs(control_state.desired_pitch) > (config.control.max_pitch / 5.0)) // elevator stick not in neutral position
 		{
@@ -500,9 +501,9 @@ void control_copter_stabilized(float dt, int altitude_hold)
 		}	
 		else  // altitude hold
 		  control_state.desired_pitch = (control_state.desired_altitude - sensor_data.pressure_height)  / 20.0 * config.control.max_pitch; 
-	} 
+	} */
 
-	control_wing_desired_to_servos(dt);
+	control_copter_desired_to_servos(dt);
 }
 
 
@@ -750,8 +751,7 @@ void control_mix_out()
 
 			break;
 	}
-	
-	
+
 	
 	for(i = 0; i < number_of_controlled_channels; i++)
 	{	

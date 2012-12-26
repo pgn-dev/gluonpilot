@@ -12,16 +12,19 @@
 #include "handler_trigger.h"
 #include "handler_navigation.h"
 #include "gluonscript.h"
+#include "sensors.h"
+#include "handler_distance_trigger.h"
 
 
-struct trigger_state trigger = { .mode = SERVO_TRIGGER_MODE, .is_triggering = 0, .servo_channel = 5,
-                                 .usec_pulse = 2000, .delay_s = 0.5, .period_s = 2, .trigger_counter = 0};
+struct trigger_state trigger = { .mode = TRIGGER_PWM_INTERVAL_MODE, .is_triggering = 0, .servo_channel = 5,
+                                 .usec_pulse = 2000, .delay_s = 0.5, .period_s = 2, .trigger_counter = 0, .distance_m = 0};
 enum trigger_mode mode;
 
 ScriptHandlerReturn trigger_handle_gluonscriptcommand (struct GluonscriptCode *code)
 {
     static int counter_5hz = 0;
     static float last_delay_s = 0.5;  // will be reused by the start-trigger command
+    static double last_lng = 0.0, last_lat = 0.0;  // for distance trigger
 
 	if (code->opcode == SERVO_TRIGGER)
 	{
@@ -34,12 +37,18 @@ ScriptHandlerReturn trigger_handle_gluonscriptcommand (struct GluonscriptCode *c
     {
         trigger.servo_channel = code->a;
         trigger.usec_pulse = code->b;
-        trigger.period_s = code->x;
         trigger.delay_s = last_delay_s;
         trigger.mode = (int) code->y;
         trigger.is_triggering = 1;
-        if (trigger.mode == CHDK_MODE)
+        if (trigger.mode == TRIGGER_CHDK_MODE)
         {
+            trigger.period_s = code->x;
+            servo_set_logical_1(trigger.servo_channel);
+            trigger.trigger_counter++;
+        }
+        else if (trigger.mode == TRIGGER_PWM_DISTANCE_MODE)
+        {
+            trigger.distance_m = code->x;
             servo_set_logical_1(trigger.servo_channel);
             trigger.trigger_counter++;
         }
@@ -48,14 +57,14 @@ ScriptHandlerReturn trigger_handle_gluonscriptcommand (struct GluonscriptCode *c
     else if (code->opcode == SERVO_STOP_TRIGGER)
     {
         trigger.is_triggering = 0;
-        if (trigger.mode == CHDK_MODE)
+        if (trigger.mode == TRIGGER_CHDK_MODE)
         {
             servo_set_logical_0(trigger.servo_channel);
         }
         return HANDLED_FINISHED;
     }
 
-    if (trigger.is_triggering && trigger.mode == SERVO_TRIGGER_MODE)
+    if (trigger.is_triggering && trigger.mode == TRIGGER_PWM_INTERVAL_MODE)
     {
         counter_5hz++;
         if ((float)counter_5hz >= trigger.period_s * 5.0)
@@ -64,6 +73,19 @@ ScriptHandlerReturn trigger_handle_gluonscriptcommand (struct GluonscriptCode *c
             trigger.trigger_counter++;
             counter_5hz = 0;
         }
+    }
+    else if (trigger.is_triggering && trigger.mode == TRIGGER_PWM_DISTANCE_MODE)
+    {
+        if (navigation_distance_between_meter(sensor_data.gps.longitude_rad, last_lng,
+                                              sensor_data.gps.latitude_rad, last_lat) > trigger.distance_m)
+        {
+            last_lat = sensor_data.gps.latitude_rad;
+            last_lng = sensor_data.gps.longitude_rad;
+            trigger_servo(trigger.servo_channel, trigger.usec_pulse, trigger.delay_s);
+            trigger.trigger_counter++;
+            printf("\r\nTrigger\r\n");
+        }
+
     }
 
     return HANDLED_UNFINISHED;
@@ -100,14 +122,4 @@ void trigger_servo(int servo, int usec_pulse, float delay_s)
         servo_set_us(servo, us);
 }
 
-void trigger_do()
-{
-}	
 
-void trigger_start()
-{
-}	
-
-void trigger_stop()
-{
-}	

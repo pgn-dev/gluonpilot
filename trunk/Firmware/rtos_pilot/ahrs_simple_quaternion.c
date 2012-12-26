@@ -32,20 +32,20 @@
 #define G 9.81
 #define RAD2DEG (180.0/3.14159)
 
-static double pitch_rad = 0.0, roll_rad = 0.0;
-static double pitch_acc = 0.0, roll_acc = 0.0;
-static double q[4];
-static double w; // speed along z axis
+static float pitch_rad = 0.0, roll_rad = 0.0;
+static float pitch_acc = 0.0, roll_acc = 0.0;
+static float q[4];
+static float w; // speed along z axis
 
 struct pid pid_p_bias;   // roll gyro bias
 struct pid pid_q_bias;   // pitch gyro bias
 
-static double p_bias = 0.0;  // in rad/sec
-static double q_bias = 0.0;
+static float p_bias = 0.0;  // in rad/sec
+static float q_bias = 0.0;
 
 
-inline double gravity_to_roll(double a_y, double a_z);
-inline double gravity_to_pitch(double a_x, double a_z);
+inline float gravity_to_roll(float a_y, float a_z);
+inline float gravity_to_pitch(float a_x, float a_z);
 
 void ahrs_init()
 {
@@ -76,7 +76,7 @@ int i = 0;
 // Function
 //====================================================================================================
 
-void ahrs_filter() 
+void ahrs_filter2()
 {
 	float norm;
 	float mx, my, mz;
@@ -179,14 +179,14 @@ void ahrs_filter()
 }
 
 
-void ahrs_filter2(double dt)
+void ahrs_filter(float dt)
 {
 	//static int counter_since_last_update = 0;
 	//static int last_gps_sentence_number_last_fix = 0;
 	
 	if (button_down())
 	{
-		quaternion_from_attitude(0.0, 0.0, 0.0, q);
+		quaternion_from_attitude(0.0f, 0.0f, 0.0f, q);
 	}	
 
 	// for PID:
@@ -251,9 +251,9 @@ void ahrs_filter2(double dt)
  *
  *   Makes sure the output is similar to the quaternion's output.
  */
-inline double gravity_to_roll(double a_y, double a_z)
+inline float gravity_to_roll(float a_y, float a_z)
 {
-	double roll_acc = atan(a_y / a_z);
+	double roll_acc = atanf(a_y / a_z);
 	if (a_z > 0.0)
 	{
 		if (a_y < 0.0)	
@@ -270,9 +270,9 @@ inline double gravity_to_roll(double a_y, double a_z)
  *
  *   Makes sure the output is similar to the quaternion's output.
  */
-inline double gravity_to_pitch(double a_x, double a_z)
+inline float gravity_to_pitch(float a_x, float a_z)
 {
-	double pitch_acc = -atan(a_x / a_z); // replace with asin?
+	double pitch_acc = -atanf(a_x / a_z); // replace with asin?
 
 	if (a_z > 0.0)
 		pitch_acc =  -pitch_acc;

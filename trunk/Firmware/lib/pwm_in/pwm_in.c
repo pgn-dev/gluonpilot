@@ -25,7 +25,17 @@
 extern unsigned int servo_pulse_max; 
 extern unsigned int servo_pulse_min;
 
-extern unsigned int ppm_in_us_to_raw(unsigned int us);
+
+unsigned int pwm_in_us_to_raw(unsigned int us)
+{
+	//us <<= 2;    // * 4, to prevent losing bits while /8
+	// scale from 625 to 1000
+	us *= 5;
+	//us /= 8;
+	//us >>= 2;
+
+	return us;
+}
 
 
 // Wait for RC-receiver to boot and give PWM pulses
@@ -50,7 +60,8 @@ void pwm_in_open()
 	
 	ppm.connection_alive = 0;
 	T3CONbits.TCS = 0;		// Use internal clock source
-    T3CONbits.TCKPS = 0b10;	// Prescale Select 1:64
+    //T3CONbits.TCKPS = 0b10;	// Prescale Select 1:64
+    T3CONbits.TCKPS = 0b01;	// Prescale Select 1:8
     PR3 = 0xFFFF;           // Timer 3 uses full 16 bit
     T3CONbits.TON = 1;	    // Enable timer 3
 
@@ -104,9 +115,9 @@ void pwm_in_open()
 	//IC1CONbits.ICI = 0b11;  // Interrupt on every 4th capture event
 	IC1CONbits.ICM = 0b001; // Capture every edge 
 	_IC1IP = 5;
-	
-	servo_pulse_max = ppm_in_us_to_raw(2300);
-	servo_pulse_min = ppm_in_us_to_raw(700);	
+
+	servo_pulse_max = pwm_in_us_to_raw(2300);
+	servo_pulse_min = pwm_in_us_to_raw(700);
 }
 
 
@@ -114,8 +125,11 @@ unsigned int pwm_in_raw_to_us(unsigned int raw)
 {
 	//raw <<= 2;    // * 4, to prevent losing bits while /8 
 	// scale from 625 to 1000
-	raw *= 8;
-	raw /= 5;
+	//raw *= 8;
+	//raw /= 5;
+
+    raw /= 5;
+
 	//raw >>= 2; 
 	
 	return raw;

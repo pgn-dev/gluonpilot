@@ -538,6 +538,8 @@ int gp2_dataflash_read_status()
 
 inline void gp2_dataflash_enable_spi()
 {
+   PORTBbits.RB2 = 1;  // disable OSD SPI
+        
     //if (HARDWARE_VERSION == V01Q)
         PORTFbits.RF0 = 0;
 }

@@ -37,8 +37,6 @@
 #define INVERT_X -1.0   // set to -1 if front becomes back
 
 
-extern xSemaphoreHandle xSpiSemaphore;
-
 void read_mpu6000_sensor_data();
 void bmp085_do_10Hz_2();
 
@@ -53,8 +51,7 @@ void bmp085_do_10Hz_2();
  */
 void sensors_mpu6000_task( void *parameters )
 {
-	float last_height = 0.0f;
-	float dt_since_last_height = 0.0f;
+	float last_height = 0.0f, dt_since_last_height = 0.0f;
 	unsigned int low_update_counter = 0;
 
 	/* Used to wake the task at the correct frequency. */
@@ -105,7 +102,6 @@ void sensors_mpu6000_task( void *parameters )
 		low_update_counter += 1;
 #else
 		vTaskDelayUntil( &xLastExecutionTime, ( ( portTickType ) 20 / portTICK_RATE_MS ) );   // 50Hz
-		dt_since_last_height += 0.02f;
 		low_update_counter += 5;
 #endif
 		if (low_update_counter > 65000)
@@ -125,8 +121,8 @@ void sensors_mpu6000_task( void *parameters )
 
 			sensor_data.battery1_voltage_10 = (int)((float)adc_get_channel(8) * (3.3f * 5.1f / 6552.0f * 10.0f)) / 10;
             sensor_data.battery2_voltage_10 = (int)((float)adc_get_channel(9) * (3.3f * 5.1f / 6552.0f * 10.0f)) / 10;
-            sensor_data.battery1_current = ((float)adc_get_channel(23) * (3.30f * (10.0f) / 65520.0f));
-            sensor_data.battery1_mAh += sensor_data.battery1_current * 1000.0 / 60.0 / 60.0 * 0.5;
+            sensor_data.battery1_current = ((float)adc_get_channel(23) * (3.30f * (10.0f) / 65520.0f) * 2.0f); // correction factor 2
+            sensor_data.battery1_mAh += sensor_data.battery1_current * (1000.0 / 60.0 / 60.0 * 0.5);
             //printf("\r\n%fA\r\n",sensor_data.battery1_current);
             //printf("\r\n%u %u %u %u %u\r\n",
             //        adc_get_channel(7), adc_get_channel(8), adc_get_channel(9),
@@ -134,7 +130,6 @@ void sensors_mpu6000_task( void *parameters )
 			bmp085_do_10Hz_2();
             sensor_data.vertical_speed = sensor_data.vertical_speed * 0.9f + (sensor_data.pressure_height - last_height)/0.5 * 0.1f; // too much noise otherwise
             last_height = sensor_data.pressure_height;
-            dt_since_last_height = 0;
 		}
 
 #if (ENABLE_QUADROCOPTER || F1E_STEERING)
@@ -145,7 +140,7 @@ void sensors_mpu6000_task( void *parameters )
 #endif
 
 #ifdef ENABLE_QUADROCOPTER
-		ahrs_filter(0.005f);
+		ahrs_filter(0.004f);
 #else
 		ahrs_filter(0.02f);
 #endif

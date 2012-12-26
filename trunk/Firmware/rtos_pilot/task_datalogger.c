@@ -151,20 +151,23 @@ void datalogger_start_session()
 
 void datalogger_read(int page, int size, unsigned char *buffer)
 {
-	if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 10 ) == pdTRUE )   // Spi1 is shared with SCP1000 and Dataflash
+	if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 0 ) == pdTRUE )   // Spi1 is shared with SCP1000 and Dataflash
 	{
 		dataflash.read(page, size, buffer);
 		xSemaphoreGive( xSpiSemaphore );
-	}	
+	} else
+        printf("\r\nSPI Flash not available\r\n");
 }	
 
 void datalogger_write(int page, int size, unsigned char *buffer)
 {
-	if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 10 ) == pdTRUE )   // Spi1 is shared with SCP1000 and Dataflash
+	if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 0 ) == pdTRUE )   // Spi1 is shared with SCP1000 and Dataflash
 	{
 		dataflash.write(page, size, buffer);
 		xSemaphoreGive( xSpiSemaphore );
-	}	
+        //printf("\r\nSPI Flash available\r\n");
+    } else
+        printf("\r\nSPI Flash not available\r\n");
 }	
 
 
