@@ -83,7 +83,9 @@ void sensors_mpu6000_task( void *parameters )
 
 	read_mpu6000_sensor_data();
 
-    vTaskDelay( ( ( portTickType ) 1 / portTICK_RATE_MS ) );   // 1ms
+    vTaskDelay( ( ( portTickType ) 100 / portTICK_RATE_MS ) );   // 1ms
+
+    mpu6000_init();
 
     read_mpu6000_sensor_data();
 

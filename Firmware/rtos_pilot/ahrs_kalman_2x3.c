@@ -58,9 +58,12 @@ void ahrs_init()
 	//printf("-> %f %f %f <-\r\n", sensor_data.acc_x, sensor_data.acc_y, sensor_data.acc_z);
     pitch_rad = gravity_to_pitch(sensor_data.acc_x, sensor_data.acc_z);
     roll_rad = gravity_to_roll(sensor_data.acc_y, sensor_data.acc_z);
-        
+    
     sensor_data.p_bias = 0.0f;
 	sensor_data.q_bias = 0.0f;
+
+    sensor_data.pitch = pitch_rad - config.sensors.neutral_pitch;
+	sensor_data.roll = roll_rad;
 }	
 
 #define normalize(pitch, roll, yaw)              \

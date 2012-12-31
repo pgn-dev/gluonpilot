@@ -41,51 +41,10 @@ extern xSemaphoreHandle xSpiSemaphore;
 
 //const unsigned char heading[] = {0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF};
 const unsigned char heading45[] = {219, 218, 217, 224, 223, 222, 221, 220};
-const unsigned char number[] = {0x0A, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
-
-/*
- * Using the circle with arrow
-#define DIR_0 0xA0
-#define DIR_22 0xA1
-#define DIR_45 0xA2
-#define DIR_67 0xA3
-#define DIR_90 0xA4  // 217
-#define DIR_112 0xA5
-#define DIR_135 0xA6
-#define DIR_157 0xA7
-#define DIR_180 0xA8
-#define DIR_202 0xA9
-#define DIR_225 0xAA
-#define DIR_247 0xAB
-#define DIR_270 0xAC
-#define DIR_292 0xAD
-#define DIR_315 0xAE
-#define DIR_337 0xAF
-#define DIR_360 0xA0
-*/
-
-// Using only arrow
-#define DIR_0 219
-#define DIR_22 0xA1
-#define DIR_45 218
-#define DIR_67 0xA3
-#define DIR_90  217
-#define DIR_112 0xA5
-#define DIR_135 224
-#define DIR_157 0xA7
-#define DIR_180 223
-#define DIR_202 0xA9
-#define DIR_225 222
-#define DIR_247 0xAB
-#define DIR_270 221
-#define DIR_292 0xAD
-#define DIR_315 220
-#define DIR_337 0xAF
-#define DIR_360 0xA0
+const unsigned char number_large[] = {0x0A, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
+const unsigned char number_small[] = {0x7A, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79};
 
 int home_heading_deg = 0;
-
-
 
 int osd_input_available();
 int osd_charactermemory_busy();
@@ -96,37 +55,45 @@ int osd_initialize(portTickType *xLastExecutionTime);
 void osd_set_position(int row, int column);
 void osd_write_char(unsigned char x);
 void osd_write_string(const unsigned char *x);
-void osd_write_ascii_char(unsigned char x);
-void osd_write_ascii_string(unsigned char *x);
+void osd_write_ascii_char(unsigned char x, int small);
+void osd_write_ascii_string(unsigned char *x, int small);
 void osd_print_static_data();
-void osd_print_integer(int num, int row, int col);
-void print_meters(int row, int col, int m);
+void osd_print_integer(int num, int row, int col, int small);
+void print_meters(int row, int col, int m, int small);
 
 void osd_print_home_info();
-void osd_print_satellites_in_view();
-void osd_print_compass();
-void osd_print_vario();
-void osd_print_posted_message();
-void osd_print_centered(int row, char *str);
-void osd_print_altitude();
-void osd_print_rcinfo();
-void osd_print_speed();
-void osd_print_fly_time();
-void osd_print_voltage1();
-void osd_print_current1();
-void osd_print_mah1();
-void osd_print_voltage2();
-void osd_print_active_block();
+void osd_print_satellites_in_view(int small);
+void osd_print_vario(int small);
+void osd_print_posted_message(int small);
+void osd_print_centered(int row, char *str, int small);
+void osd_print_altitude(int small);
+void osd_print_rcinfo(int small);
+void osd_print_speed(int small);
+void osd_print_fly_time(int small);
+void osd_print_voltage1(int small);
+void osd_print_current1(int small);
+void osd_print_mah1(int small);
+void osd_print_voltage2(int small);
+void osd_print_active_block(int small);
 void osd_print_mode();
 void osd_print_home_heading();
-void osd_print_home_distance();
+void osd_print_home_distance(int small);
 void osd_print_artificial_horizon();
 void osd_print_artificial_horizon2();
 void osd_print_gluonpilot_logo(int, int);
 
+void osd_menu_osd();
+void osd_menu_blocks();
+
 int use_metric = 1;
 
 int do_clear_screen = 0;
+
+enum menu { OSD, BLOCKS };
+
+enum menu active_menu = BLOCKS;
+
+int last_roll_ppm;
 
 /*
  *
@@ -166,11 +133,11 @@ void osd_task( void *parameters )
     osd_print_gluonpilot_logo(5, 8);
     spiWriteReg(0x04, 0x04); // clear
     osd_print_gluonpilot_logo(5, 8);
-    osd_print_centered(10, "  Menu >");
-    osd_print_centered(14, "http://www.gluonpilot.com");
+    osd_print_centered(10, "  Menu >", 0);
+    osd_print_centered(14, "http://www.gluonpilot.com", 0);
 
     {
-        osd_print_centered(8, " Waiting... ");
+        osd_print_centered(8, " Waiting... ", 0);
         char ball = 0x80;
         for (i = 0; i < 16; i++)
         {
@@ -197,41 +164,25 @@ void osd_task( void *parameters )
                 do_clear_screen = 0;
             }
 
-            osd_print_posted_message();
+            osd_set_position(1, 10);
+            osd_write_ascii_char(' ', 0);
 
-            if (config.osd.show_mode)
-                osd_print_mode();
-            if (config.osd.show_arrow_home)
-                osd_print_home_heading();
-            if (config.osd.show_distance_home)
-                osd_print_home_distance();
-            if (config.osd.show_gps_status)
-                osd_print_satellites_in_view();
-            //spiWriteReg(0x04, 0x04); // clear
-            if (config.osd.show_artificial_horizon)
-                osd_print_artificial_horizon2();
+            osd_print_posted_message(1);
 
-            if (config.osd.show_altitude)
-                osd_print_altitude();
-            if (config.osd.show_rc_link)
-                osd_print_rcinfo();
-            if (config.osd.show_speed)
-                osd_print_speed();
-            if (config.osd.show_flight_time)
-                osd_print_fly_time();
-            if (config.osd.show_voltage1)
-                osd_print_voltage1();
-            if (config.osd.show_current)
-                osd_print_current1();
-            if (config.osd.show_mah)
-                osd_print_mah1();
-            if (config.osd.show_voltage2)
-                osd_print_voltage2();
+            for (i = 0; i < 30; i++)
+            {
+                osd_set_position(2, i);
+                osd_write_char(0x70);
+                osd_set_position(13, i);
+                osd_write_char(0x9C);
+            }
 
-            if (config.osd.show_block_name)
-                osd_print_active_block();
-            if (config.osd.show_vario)
-                osd_print_vario();
+            if (active_menu == BLOCKS)
+                osd_menu_blocks();
+            else
+                osd_menu_osd();
+
+            last_roll_ppm = ppm.channel[config.control.channel_roll];
             
             xSemaphoreGive( xSpiSemaphore );
         } else
@@ -239,12 +190,157 @@ void osd_task( void *parameters )
 	}
 }
 
-void osd_print_vario()
+void osd_menu_osd()
 {
+    if (ppm.channel[config.control.channel_roll] > 1750 && last_roll_ppm < 1700 && control_state.flight_mode == AUTOPILOT)
+    {
+        if (active_menu == OSD)
+        {
+            do_clear_screen = 1;
+            active_menu = BLOCKS;
+        }
+    }
+    
+    if (config.osd.show_mode)
+        osd_print_mode();
+    if (config.osd.show_arrow_home)
+        osd_print_home_heading();
+    if (config.osd.show_distance_home)
+        osd_print_home_distance(0);
+    if (config.osd.show_gps_status)
+        osd_print_satellites_in_view(0);
+    //spiWriteReg(0x04, 0x04); // clear
+    if (config.osd.show_artificial_horizon)
+        osd_print_artificial_horizon2();
+
+    if (config.osd.show_altitude)
+        osd_print_altitude(0);
+    if (config.osd.show_rc_link)
+        osd_print_rcinfo(0);
+    if (config.osd.show_speed)
+        osd_print_speed(0);
+    if (config.osd.show_flight_time)
+        osd_print_fly_time(0);
+    if (config.osd.show_voltage1)
+        osd_print_voltage1(0);
+    if (config.osd.show_current)
+        osd_print_current1(0);
+    if (config.osd.show_mah)
+        osd_print_mah1(0);
+    if (config.osd.show_voltage2)
+        osd_print_voltage2(0);
+
+    if (config.osd.show_block_name)
+        osd_print_active_block(1);
+    if (config.osd.show_vario)
+        osd_print_vario(0);
+}
+
+void osd_menu_blocks()
+{
+    static int selected_blocknum = 0, max_block = 0, last_ppm;
+    int blocknum = 0, i;
+    char ptr[9];
+
+    if (ppm.channel[config.control.channel_roll] > 1750 && last_roll_ppm < 1700)  // select mode
+    {
+        if (selected_blocknum == 0)
+        {
+            active_menu = OSD;
+            do_clear_screen = 1;
+            selected_blocknum = 0;
+            //return;
+        }
+        else
+            {
+            for (i = 0; i < MAX_GLUONSCRIPTCODES; i++)
+            {
+                if (gluonscript_data.codes[i].opcode == BLOCK)
+                {
+                    selected_blocknum--;
+                    if (selected_blocknum == 0)
+                    {
+                        gluonscript_data.current_codeline = i;
+                        active_menu = OSD;
+                        do_clear_screen = 1;
+                        selected_blocknum = 0;
+                        break;//return;
+                    }
+                }
+            }
+        }
+    }
+    else if (ppm.channel[config.control.channel_roll] < 1250 && last_roll_ppm > 1300)  // select mode
+    {
+        active_menu = OSD;
+        do_clear_screen = 1;
+        //return;
+    }
+
+
+    // clear '>'
+    for (i = 0; i <= max_block; i++)
+    {
+        osd_set_position(i + 5, 8);
+        osd_write_ascii_char(' ', 0);
+    }
+    // set selected '>'
+    if (ppm.channel[config.control.channel_pitch] > 1700)
+        selected_blocknum = (selected_blocknum + 1) % (max_block + 1);
+    else if (ppm.channel[config.control.channel_pitch] < 1300)
+        selected_blocknum = (selected_blocknum + max_block) % (max_block + 1);
+
+    osd_print_centered(14, "Aileron: right:OK, left:BACK ", 1);
+    osd_print_centered(1, "Goto block...", 1);
+
+    osd_print_centered(blocknum + 5, "Return  ", 0);
+    if (blocknum == selected_blocknum)
+    {
+        osd_set_position(blocknum + 5, 8);
+        osd_write_ascii_char('>', 0);
+    }
+    
+    for (i = 0; i < MAX_GLUONSCRIPTCODES; i++)
+    {
+        if (gluonscript_data.codes[i].opcode == BLOCK)
+        {
+            blocknum++;
+            struct GluonscriptCode *current_code = &(gluonscript_data.codes[i]);
+            int x = (int)current_code->x;
+            int y = (int)current_code->y;
+            ptr[0] = ((char*)(& current_code->a))[1];
+            ptr[1] = ((char*)(& current_code->a))[0];
+            ptr[2] = ((char*)(& current_code->b))[1];
+            ptr[3] = ((char*)(& current_code->b))[0];
+            ptr[4] = ((char*)(& x))[1];
+            ptr[5] = ((char*)(& x))[0];
+            ptr[6] = ((char*)(& y))[1];
+            ptr[7] = ((char*)(& y))[0];
+            ptr[8] = '\0';
+            osd_print_centered(blocknum + 5, ptr, 0);
+            if (blocknum == selected_blocknum)
+            {
+                osd_set_position(blocknum + 5, 8);
+                osd_write_ascii_char('>', 0);
+            }
+            max_block = blocknum;
+        }
+    }
+
+}
+
+void osd_print_vario(int small)
+{
+    const unsigned char* number;
+    if (small)
+        number = number_small;
+    else
+        number = number_large;
+
     // vario  ^x.y[m/s]
 	//
 //	sensor_data.vertical_speed; // m/s
-	osd_set_position(7, 24);
+	osd_set_position(8, 24);
 	if (sensor_data.vertical_speed > 5.0)
 		osd_write_char(0xF6);
 	else if (sensor_data.vertical_speed > 2.0)
@@ -265,13 +361,13 @@ void osd_print_vario()
 		osd_write_char(0xFA);
 
 	int vs10 = abs((int)(sensor_data.vertical_speed*10.0));
-	osd_set_position(7, 25);
+	osd_set_position(8, 25);
 	osd_write_char(number[vs10/10]);
-	osd_set_position(7, 26);
+	osd_set_position(8, 26);
 	osd_write_char(0x41);
-	osd_set_position(7, 27);
+	osd_set_position(8, 27);
 	osd_write_char(number[vs10%10]);
-	osd_set_position(7, 28);
+	osd_set_position(8, 28);
 	osd_write_char(0x5F);
 }
 
@@ -291,24 +387,24 @@ void osd_post_message (char *str, int blink)
     blinkme = blink;
 }
 
-void osd_print_posted_message()
+void osd_print_posted_message(int small)
 {
     if (message_duration > 1)
     {
         if (message_duration % 2 == 0 && blinkme)
-            osd_print_centered(3, "                ");
+            osd_print_centered(4, "                ", 0);
         else
-            osd_print_centered(3, message);
+            osd_print_centered(4, message, small);
         
-        osd_set_position(4, 14);
-        osd_write_char(0x80 + 16 - message_duration);
+        //osd_set_position(5, 14);
+        //osd_write_char(0x80 + 16 - message_duration);
         message_duration--;
     } else if (message_duration == 1)
     {
-        osd_print_centered(3, "                ");
+        osd_print_centered(4, "                ", 0);
 
-        osd_set_position(4, 14);
-        osd_write_char(0x00);
+        //osd_set_position(5, 14);
+        //osd_write_char(0x00);
         message_duration--;
     }
 }
@@ -317,7 +413,7 @@ int active_block = -1;
 int show_block_timer = 16;
 char enteringblock[] = "Entering \0\0\0\0\0\0\0\0\0\0";
 
-void osd_print_active_block()
+void osd_print_active_block(int small)
 {
     if (show_block_timer == 0)
     {
@@ -347,7 +443,7 @@ void osd_print_active_block()
                     for (i = 0; i < 8 && ptr[i] != 0 && ptr[i] != ' '; i++)
                         enteringblock[i+9] = ptr[i];
                     enteringblock[i+9] = '\0';
-                    osd_print_centered(2, enteringblock);
+                    osd_print_centered(3, enteringblock, small);
                     show_block_timer = 16;
                 }
                 break;
@@ -356,17 +452,17 @@ void osd_print_active_block()
     }
     else if (show_block_timer == 1)
     {
-        osd_print_centered(2, "                 ");
+        osd_print_centered(3, "                 ", 0);
         show_block_timer = 0;
     }
     else
         show_block_timer--;
 }
 
-void osd_print_altitude()
+void osd_print_altitude(int small)
 {
-    osd_set_position(2, 1);
-	osd_write_char(0xF1);
+    osd_set_position(7, 24);
+	osd_write_char(0x96);
 	int altitude;
     if (config.control.altitude_mode == GPS_ABSOLUTE)
         altitude =  sensor_data.gps.height_m;
@@ -374,26 +470,26 @@ void osd_print_altitude()
         altitude = sensor_data.gps.height_m - navigation_data.home_gps_height;
     else //if (config.control.altitude_mode == PRESSURE)
         altitude = (int)(sensor_data.pressure_height - navigation_data.home_pressure_height);
-	osd_set_position(2, 2);
+	osd_set_position(7, 24);
 	if (altitude < 0)
 		osd_write_char(0x49);
 	else
 		osd_write_char(0x00);
-	print_meters(2, 3, abs(altitude));
+	print_meters(7, 25, abs(altitude), small);
 
     if (altitude < 100)
     {
-        osd_set_position (1, 6);
+        osd_set_position (7, 29);
 		osd_write_char(0x00);
     }
     if (altitude < 10)
     {
-        osd_set_position (1, 5);
+        osd_set_position (7, 28);
 		osd_write_char(0x00);
     }
 }
 
-void osd_print_rcinfo()
+void osd_print_rcinfo(int small)
 {
 	int no_frame_times_20_s = ppm_signal_quality() * 4;
     int link_pct = 100 - no_frame_times_20_s;
@@ -423,8 +519,8 @@ void osd_print_rcinfo()
 
 	//if (no_frame_times_20_s > 50)
 	//	no_frame_times_20_s = 50;
-	osd_print_integer(link_pct, 1, 3);
-	osd_write_char(0xFF);
+	osd_print_integer(link_pct, 1, 3, small);
+	osd_write_ascii_char('%', small);
 
     if (link_pct < 100)
     {
@@ -444,8 +540,14 @@ void osd_print_rcinfo()
 }
 
 #define VOLTAGE_LINE 14
-void osd_print_voltage1()
+void osd_print_voltage1(int small)
 {
+    const unsigned char* number;
+    if (small)
+        number = number_small;
+    else
+        number = number_large;
+    
     osd_set_position(VOLTAGE_LINE, 1);
     osd_write_char(0xE4);
 
@@ -461,13 +563,19 @@ void osd_print_voltage1()
 	osd_set_position (VOLTAGE_LINE, 3 - decrement);
 	osd_write_char(number[volt10/10]);
 	osd_set_position (VOLTAGE_LINE, 4 - decrement);
-	osd_write_char(0x69);
+	osd_write_char(0x9E);
 	osd_set_position (VOLTAGE_LINE, 5 - decrement);
 	osd_write_char(number[volt10%10]);
 }
 
-void osd_print_voltage2()
+void osd_print_voltage2(int small)
 {
+    const unsigned char* number;
+    if (small)
+        number = number_small;
+    else
+        number = number_large;
+
     osd_set_position(VOLTAGE_LINE-1, 1);
     osd_write_char(0xE5);
 
@@ -483,37 +591,47 @@ void osd_print_voltage2()
 	osd_set_position (VOLTAGE_LINE-1, 3 - decrement);
 	osd_write_char(number[current10/10]);
 	osd_set_position (VOLTAGE_LINE-1, 4 - decrement);
-	osd_write_char(0x69);
+	osd_write_char(0x9E);
 	osd_set_position (VOLTAGE_LINE-1, 5 - decrement);
 	osd_write_char(number[current10%10]);
 }
 
-void osd_print_current1()
+void osd_print_current1(int small)
 {
-    //osd_set_position(VOLTAGE_LINE, 1);
-    //osd_write_char(0xE4);
+    const unsigned char* number;
+    if (small)
+        number = number_small;
+    else
+        number = number_large;
 
     int current10 = (int)(sensor_data.battery1_current * 10.0);
     int decrement = 1;
 	if (current10 >= 100)  // > 10v0
 	{
-		osd_set_position (VOLTAGE_LINE, 13);
+		osd_set_position (VOLTAGE_LINE, 15);
 		osd_write_char(number[1]);
 		current10 = current10 % 100;
         decrement = 0;
 	}
-	osd_set_position (VOLTAGE_LINE, 14 - decrement);
-	osd_write_char(number[current10/10]);
-	osd_set_position (VOLTAGE_LINE, 15 - decrement);
-	osd_write_char(0x5A);
 	osd_set_position (VOLTAGE_LINE, 16 - decrement);
+	osd_write_char(number[current10/10]);
+	osd_set_position (VOLTAGE_LINE, 17 - decrement);
+	//osd_write_char(0x5A);
+    osd_write_char(0x9D);
+	osd_set_position (VOLTAGE_LINE, 18 - decrement);
 	osd_write_char(number[current10%10]);
 }
 
-void osd_print_mah1()
+void osd_print_mah1(int small)
 {
     int mah = sensor_data.battery1_mAh;
     int decrement = 1;
+    const unsigned char* number;
+    if (small)
+        number = number_small;
+    else
+        number = number_large;
+
 	if (mah >= 1000)
 	{
 		osd_set_position (VOLTAGE_LINE, 8);
@@ -539,7 +657,7 @@ void osd_print_mah1()
 	osd_write_char(0x64);
 }
 
-void osd_print_speed()
+void osd_print_speed(int small)
 {
     float speed;
 	if (use_metric)  // to kph
@@ -547,7 +665,7 @@ void osd_print_speed()
 	else  // to mph
 		speed = sensor_data.gps.speed_ms * (3.6 * 0.62);
 
-	osd_print_integer((int) speed, 7, 2);
+	osd_print_integer((int) speed, 7, 2, small);
 	if (use_metric)
     {
 		osd_write_char(0x65);
@@ -569,8 +687,14 @@ void osd_print_speed()
     }
 }
 
-void osd_print_fly_time()
+void osd_print_fly_time(int small)
 {
+    const unsigned char* number;
+    if (small)
+        number = number_small;
+    else
+        number = number_large;
+
     osd_set_position (VOLTAGE_LINE, 23);
 	if (navigation_data.airborne)
 		osd_write_char(0xE7);
@@ -614,13 +738,13 @@ void osd_print_fly_time()
 	}
 }
 
-void osd_print_home_distance()
+void osd_print_home_distance(int small)
 {
     int home_distance = (int) navigation_distance_between_meter(sensor_data.gps.longitude_rad, navigation_data.home_longitude_rad,
 	                                                            sensor_data.gps.latitude_rad, navigation_data.home_latitude_rad);
     //osd_set_position(12, 16);
 	//osd_write_char(DISTANCE_M);
-	print_meters(12,13,home_distance);
+	print_meters(12,13,home_distance, small);
 }
 
 void osd_print_home_heading()
@@ -658,7 +782,7 @@ void osd_print_mode()
     if (control_state.flight_mode == AUTOPILOT)
     {
         osd_set_position(1, 14);
-        osd_write_ascii_char('A');
+        osd_write_ascii_char('A', 0);
         osd_set_position(1, 15);
         osd_write_char(0x6A);
         osd_set_position(1, 16);
@@ -667,26 +791,26 @@ void osd_print_mode()
     else if (control_state.flight_mode == STABILIZED)
     {
         osd_set_position(1, 14);
-        osd_write_ascii_char('S');
+        osd_write_ascii_char('S', 0);
         osd_set_position(1, 15);
-        osd_write_ascii_char(0x6C);
+        osd_write_char(0x6C);
         osd_set_position(1, 16);
-        osd_write_ascii_char(0x6D);
+        osd_write_char(0x6D);
     }
     else
     {
         osd_set_position(1, 14);
-        osd_write_ascii_char('M');
+        osd_write_ascii_char('M', 0);
         osd_set_position(1, 15);
-        osd_write_ascii_char(0x6E);
+        osd_write_char(0x6E);
         osd_set_position(1, 16);
-        osd_write_ascii_char(0x6F);
+        osd_write_char(0x6F);
     }
 
     last_mode = control_state.flight_mode;
 }
 
-void osd_print_centered(int row, char *str)
+void osd_print_centered(int row, char *str, int small)
 {
     int len = 0;
     int i;
@@ -697,12 +821,13 @@ void osd_print_centered(int row, char *str)
     int start_pos = 15 - len / 2;
 
     
-    for (i = 0; i < len; i++)
+    for (i = 0; i <= len; i++)
     {
         osd_set_position(row, i + start_pos + 1);
-        osd_write_ascii_char(str[i]);
+        osd_write_ascii_char(str[i], small);
     }
 }
+
 
 void osd_print_gluonpilot_logo(int row, int start_col) // 5, 8
 {
@@ -737,53 +862,7 @@ void osd_print_static_data()
 	osd_write_char(HEIGHT);
 }
 
-#define COMPASS_LINE 12
-void osd_print_compass()
-{
-	int h, x, startheading, endheading, rest;
-	int heading = (int)RAD2DEG(sensor_data.gps.heading_rad);
-		
-	startheading = heading - 90;
-	endheading = heading + 90;
-	if (startheading < 0)
-		startheading += 360;
-	if (endheading > 360)
-		endheading -= 360;
 
-	for (h = startheading, x = 8; x < 21; h += 15, x++)
-	{
-		if (h >= 359)
-			h -= 360;
-		int t = h/15;
-		osd_set_position(COMPASS_LINE+1, x);
-		if (t == home_heading_deg/15 || t == (home_heading_deg+360)/15)
-			osd_write_char(HOME);
-		else if (t == 0)
-			osd_write_char(0xD3);
-		else if (t == 3 || t == 9 || t == 15 || t == 21)
-			osd_write_char(0xD7);
-		else if (t == 6)
-			osd_write_char(0xD5);
-		else if (t == 12)
-			osd_write_char(0xD4);
-		else if (t == 18)
-			osd_write_char(0xD6);
-		else
-			osd_write_char(0xD8);
-	}	
-	
-	x = 13;
-	osd_set_position(COMPASS_LINE, x);
-	osd_write_char(number[heading/100]);
-	osd_set_position(COMPASS_LINE, ++x);
-	rest = heading % 100;
-	osd_write_char(number[rest/10]);
-	osd_set_position(COMPASS_LINE, ++x);
-	rest = rest % 10;
-	osd_write_char(number[rest]);
-	osd_set_position(COMPASS_LINE, ++x);
-	osd_write_char(0xD0);  // degree
-}	
 float gravity_to_roll2(float a_y, float a_z)
 {
 	float roll_acc = atan(a_y / a_z);
@@ -839,7 +918,7 @@ void osd_print_artificial_horizon2()
     }
 
     osd_set_position(AH_LINE_START+3, 14);
-	osd_write_char(0x70);
+	osd_write_char(0x4E);
 }
 
 void osd_print_artificial_horizon()
@@ -938,8 +1017,14 @@ void osd_print_artificial_horizon()
 }	
 
 
-void osd_print_satellites_in_view()
+void osd_print_satellites_in_view(int small)
 {
+    const unsigned char* number;
+    if (small)
+        number = number_small;
+    else
+        number = number_large;
+
 	// print satellite
 	osd_set_position(1, 25);
 	osd_write_char(SATELLITE_1);
@@ -953,11 +1038,11 @@ void osd_print_satellites_in_view()
 	else
 	{
 		if (sensor_data.gps.satellites_in_view == 0)
-			osd_write_char(0x0A);
+			osd_write_char(number[0]);
 		else if (sensor_data.gps.satellites_in_view < 10)
-			osd_write_char(sensor_data.gps.satellites_in_view);
+			osd_write_char(number[sensor_data.gps.satellites_in_view]);
 		else
-			osd_write_char(9);
+			osd_write_char(number[9]);
 	}		
 }
 
@@ -965,27 +1050,27 @@ void osd_print_satellites_in_view()
 /**
  *    A distance in meter, print it to screen using metric or imperial units.
  */
-void print_meters(int row, int col, int m)
+void print_meters(int row, int col, int m, int small)
 {
 	if (use_metric)
 	{
 		if (m > 999)
 		{
-			osd_print_integer((int)m/1000, row, col);
+			osd_print_integer((int)m/1000, row, col, small);
 			osd_write_char(0x41);
 			if (m > 9999)
 				col += 3;
 			else
 				col += 2;
 			
-			osd_print_integer((m % 1000) / 100, row, col);
+			osd_print_integer((m % 1000) / 100, row, col, small);
 			osd_write_char(DISTANCE_KM); // km
             spiWriteReg(DM_ADDRL_WRITE, spiReadReg(DM_ADDRL_READ)+1);
 			osd_write_char(0x00);
 		}
 		else
 		{
-			osd_print_integer(m, row, col);
+			osd_print_integer(m, row, col, small);
 			osd_write_char(DISTANCE_M); // m
             spiWriteReg(DM_ADDRL_WRITE, spiReadReg(DM_ADDRL_READ)+1);
 			osd_write_char(0x00);
@@ -1000,18 +1085,18 @@ void print_meters(int row, int col, int m)
 		if (m > 9999)
 		{
 			//m = m / 5280; // mile
-			osd_print_integer(m/5280, row, col);
+			osd_print_integer(m/5280, row, col, small);
 			osd_write_char(0x41);
 			col += 2;
 			
-			osd_print_integer((m % 5280) / 528, row, col);
+			osd_print_integer((m % 5280) / 528, row, col, small);
 			osd_write_char(DISTANCE_MI); // mi
             spiWriteReg(DM_ADDRL_WRITE, spiReadReg(DM_ADDRL_READ)+1);
 			osd_write_char(0x00);
 		}
 		else
 		{
-			osd_print_integer(m, row, col);
+			osd_print_integer(m, row, col, small);
 			osd_write_char(DISTANCE_FT); // ft
             spiWriteReg(DM_ADDRL_WRITE, spiReadReg(DM_ADDRL_READ)+1);
 			osd_write_char(0x00); 
@@ -1021,214 +1106,31 @@ void print_meters(int row, int col, int m)
 
 
 	
-const unsigned char fourninemeter[] = {0x09,0x09,0x09,0x09,METER,0x00};
+const unsigned char fourninemeter_large[] = {0x09,0x09,0x09,0x09,METER,0x00};
+const unsigned char fourninemeter_small[] = {0x79,0x79,0x79,0x79,METER,0x00};
 
-void osd_print_home_info()
-{
-	static int last_flight_mode = -1;
-//	int index;
-	
-	
-	// Pre-calculate some data used for OSD
-	home_heading_deg = RAD2DEG(navigation_heading_rad_fromto(sensor_data.gps.longitude_rad - navigation_data.home_longitude_rad,
-	                                                         sensor_data.gps.latitude_rad - navigation_data.home_latitude_rad) 
-	                           - sensor_data.gps.heading_rad);
-	if (home_heading_deg < 0)
-		home_heading_deg += 360;
-	else if (home_heading_deg > 360)
-		home_heading_deg -= 360;
-	int home_distance = (int) navigation_distance_between_meter(sensor_data.gps.longitude_rad, navigation_data.home_longitude_rad,
-	                                                            sensor_data.gps.latitude_rad, navigation_data.home_latitude_rad);
-	int home_heading_index = (int)(home_heading_deg / 22);
-
-	if (home_heading_index < 0)
-		home_heading_index += 16; 
-	//osd_set_position(1, 4);	
-	//osd_write_char(heading[home_heading_index]);
-
-	
-	// rc-link
-	osd_set_position(1, 2);	
-	osd_write_char(0xB3);
-	int no_frame_times_20_s = ppm_signal_quality() * 4;
-	//if (no_frame_times_20_s > 50)
-	//	no_frame_times_20_s = 50;
-	osd_print_integer(100 - no_frame_times_20_s, 1, 4);
-	osd_write_char(0x81);
-	
-	// print flight mode
-	if (1)//control_state.flight_mode != last_flight_mode)
-	{
-		if (control_state.flight_mode == AUTOPILOT)
-		{
-			osd_set_position(1, 13);	
-			osd_write_char(0x0B);
-			osd_set_position(1, 14);	
-			osd_write_char(0x49); // A AutoPilot
-			osd_set_position(1, 15);	
-			osd_write_char(0x1A); // P
-		}	
-		else if (control_state.flight_mode == STABILIZED)
-		{
-			osd_set_position(1, 13);	
-			osd_write_char(0x1D); // S
-			osd_set_position(1, 14); 	
-			osd_write_char(0x1E); // T
-			osd_set_position(1, 15);	
-			osd_write_char(0x0C); // B
-		}
-		else
-		{
-			osd_set_position(1, 13);	
-			osd_write_char(0x17); // M
-			osd_set_position(1, 14); 	
-			osd_write_char(0x0B); // A
-			osd_set_position(1, 15);	
-			osd_write_char(0x18); // N
-		}
-		last_flight_mode = control_state.flight_mode;
-	}
-	
-	// distance to home 
-	osd_set_position(2, 2);
-	osd_write_char(DISTANCE_M);
-	print_meters(2,4,home_distance);
-	
-	// altitude
-	osd_set_position(2, 23);
-	osd_write_char(HEIGHT);
-	int alt = (int)(sensor_data.pressure_height - navigation_data.home_pressure_height);
-	osd_set_position(2, 24);
-	if (alt < 0)
-		osd_write_char(0x49);
-	else
-		osd_write_char(0x00);
-	print_meters(2, 25, abs(alt));
-	
-	// home heading
-	osd_set_position(2, 14);
-    // circle
-	//osd_write_char(heading[home_heading_index]);
-    // arrow
-    osd_write_char(heading45[(int)(home_heading_deg / 45)]);
-	
-	// vario  ^x.y[m/s]
-	//            
-//	sensor_data.vertical_speed; // m/s
-	osd_set_position(7, 24);
-	if (sensor_data.vertical_speed > 5.0)
-		osd_write_char(0xB7); 
-	else if (sensor_data.vertical_speed > 2.0)
-		osd_write_char(0xB8); 
-	else if (sensor_data.vertical_speed > 1.0)
-		osd_write_char(0xB9); 
-	else if (sensor_data.vertical_speed > 0.1)
-		osd_write_char(0xBA); 
-	else if (sensor_data.vertical_speed < -5.0)
-		osd_write_char(0xBF); 
-	else if (sensor_data.vertical_speed < -2.0)
-		osd_write_char(0xBE); 
-	else if (sensor_data.vertical_speed < -1.0)
-		osd_write_char(0xBD); 
-	else if (sensor_data.vertical_speed < 0.1)
-		osd_write_char(0xBC); 
-	else
-		osd_write_char(0xBB); 
-	
-	int vs10 = abs((int)(sensor_data.vertical_speed*10.0));
-	osd_set_position(7, 25);
-	osd_write_char(number[vs10/10]);
-	osd_set_position(7, 26);
-	osd_write_char(0x41);
-	osd_set_position(7, 27);
-	osd_write_char(number[vs10%10]);
-	osd_set_position(7, 28);
-	osd_write_char(0x8A);	
-	
-	// voltage
-	int volt10 = sensor_data.battery1_voltage_10;
-	if (volt10 >= 100)
-	{
-		osd_set_position (COMPASS_LINE+1, 1);
-		osd_write_char(number[1]);
-		volt10 = volt10 % 100;
-	}	
-	osd_set_position (COMPASS_LINE+1, 2);
-	osd_write_char(number[volt10/10]);
-	osd_set_position (COMPASS_LINE+1, 3);
-	osd_write_char(0x9E);
-	osd_set_position (COMPASS_LINE+1, 4);
-	osd_write_char(number[volt10%10]);
-	
-	// time airborne
-	osd_set_position (COMPASS_LINE+1, 23);
-	if (navigation_data.airborne)
-		osd_write_char(0xD2);
-	else
-		osd_write_char(0xD1);
-	
-	if (navigation_data.time_airborne_s >= 6000) //mmm
-	{
-		osd_set_position (COMPASS_LINE+1, 25);
-		osd_write_char(navigation_data.time_airborne_s/60/100);
-		osd_set_position (COMPASS_LINE+1, 26);
-		osd_write_char(number[((navigation_data.time_airborne_s/60)%100)/10]);
-		osd_set_position (COMPASS_LINE+1, 27);
-		osd_write_char(number[((navigation_data.time_airborne_s/60)%10)]);
-		osd_set_position (COMPASS_LINE+1, 28);
-		osd_write_char(0x31);
-	}
-	else if (navigation_data.time_airborne_s >= 600) //mm:ss
-	{
-		osd_set_position (COMPASS_LINE+1, 24);
-		osd_write_char(navigation_data.time_airborne_s/60/10);
-		osd_set_position (COMPASS_LINE+1, 25);
-		osd_write_char(number[((navigation_data.time_airborne_s/60)%10)]);
-		osd_set_position (COMPASS_LINE+1, 26);
-		osd_write_char(0x44);
-		osd_set_position (COMPASS_LINE+1, 27);
-		osd_write_char(number[(navigation_data.time_airborne_s%60)/10]);
-		osd_set_position (COMPASS_LINE+1, 28);
-		osd_write_char(number[navigation_data.time_airborne_s%10]);
-	} 
-	else //m:ss
-	{
-		osd_set_position (COMPASS_LINE+1, 25);
-		osd_write_char(number[((navigation_data.time_airborne_s/60)%10)]);
-		osd_set_position (COMPASS_LINE+1, 26);
-		osd_write_char(0x44);
-		osd_set_position (COMPASS_LINE+1, 27);
-		osd_write_char(number[(navigation_data.time_airborne_s%60)/10]);
-		osd_set_position (COMPASS_LINE+1, 28);
-		osd_write_char((number[navigation_data.time_airborne_s%10]));
-	}	
-	
-	
-	// speed
-	float speed;
-	if (use_metric)  // to kph
-		speed = sensor_data.gps.speed_ms * 3.6;
-	else  // to mph
-		speed = sensor_data.gps.speed_ms * (3.6 * 0.62);
-	osd_print_integer((int) speed, 7, 2);
-	if (use_metric)
-		osd_write_char(0x80);
-	else
-		osd_write_char(0x7D);
-}
 
 void osd_clear()
 {
     do_clear_screen = 1;
 }
 
-void osd_print_integer(int num, int row, int col)
+void osd_print_integer(int num, int row, int col, int small)
 {
 	int index = col;
+    const unsigned char* number;
+    if (small)
+        number = number_small;
+    else
+        number = number_large;
+    
 	if (num > 9999)
 	{
 		osd_set_position(row, index);
-		osd_write_string(fourninemeter);
+        if (small)
+            osd_write_string(fourninemeter_small);
+        else
+            osd_write_string(fourninemeter_large);
 	}	
 	else
 	{
@@ -1308,7 +1210,8 @@ int osd_initialize(portTickType *xLastExecutionTime)
 
 
 
-char osd_get_char(int c)
+
+char osd_get_char_large(int c)
 {
     if (c >= 'a' && c <= 'z')
         return 0x25 + (c - 'a');
@@ -1330,9 +1233,48 @@ char osd_get_char(int c)
         case '(': return 0x3F; break;
         case ')': return 0x40; break;
         case '0': return 0x0A; break;
+        case '%': return 0x95; break;
+        case ',': return 0x45; break;
 		default: return 0x00;
 	}		
-}	
+}
+char osd_get_char_small(int c)
+{
+    if (c > 'Z')
+        c = c - 'a' + 'A';
+    
+    if (c >= 'A' && c <= 'Z')
+        return 0x7B + (c - 'A');
+    if (c >= '1' && c <= '9')
+        return c - '1' + 0x71;
+
+	switch(c)
+	{
+		case ' ': return 0x00; break;
+		case '.': return 0x41; break;
+        case '?': return 0x42; break;
+        case '<': return 0x4A; break;
+        case '>': return 0x4B; break;
+        case '-': return 0x49; break;
+        case '/': return 0x47; break;
+        case ':': return 0x44; break;
+        case '(': return 0x3F; break;
+        case ')': return 0x40; break;
+        case '0': return 0x0A; break;
+        case ',': return 0x45; break;
+        case '%': return 0x95; break;
+		default: return 0x00;
+	}
+}
+
+
+char osd_get_char(int c, int small)
+{
+    if (small)
+        return osd_get_char_small(c);
+    else
+        return osd_get_char_large(c);
+}
 
 
 /*!
@@ -1375,20 +1317,20 @@ void osd_write_string(const unsigned char *x)
 }
 
 
-void osd_write_ascii_char(unsigned char x)
+void osd_write_ascii_char(unsigned char x, int small)
 {
-	spiWriteReg(DM_CODE_IN_WRITE, osd_get_char(x));	
+	spiWriteReg(DM_CODE_IN_WRITE, osd_get_char(x, small));
 }
 
 
-void osd_write_ascii_string(unsigned char *x)
+void osd_write_ascii_string(unsigned char *x, int small)
 {
 	unsigned char l = spiReadReg(DM_ADDRL_READ);
 	unsigned char h = spiReadReg(DM_ADDRH_READ);
 	int pos = ((int)h)*256 + (int)l;
 	while (*x != 0x00)
 	{
-		spiWriteReg(DM_CODE_IN_WRITE, osd_get_char(*x++));
+		spiWriteReg(DM_CODE_IN_WRITE, osd_get_char(*x++, small));
 		pos++;
 		if (pos == 256)
 			spiWriteReg(DM_ADDRH_WRITE, (unsigned char)(pos>255?1:0));

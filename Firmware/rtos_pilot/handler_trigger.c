@@ -13,7 +13,6 @@
 #include "handler_navigation.h"
 #include "gluonscript.h"
 #include "sensors.h"
-#include "handler_distance_trigger.h"
 
 
 struct trigger_state trigger = { .mode = TRIGGER_PWM_INTERVAL_MODE, .is_triggering = 0, .servo_channel = 5,
@@ -82,8 +81,8 @@ ScriptHandlerReturn trigger_handle_gluonscriptcommand (struct GluonscriptCode *c
             last_lat = sensor_data.gps.latitude_rad;
             last_lng = sensor_data.gps.longitude_rad;
             trigger_servo(trigger.servo_channel, trigger.usec_pulse, trigger.delay_s);
+            printf("\r\nTrigger %d\r\n", trigger.trigger_counter);
             trigger.trigger_counter++;
-            printf("\r\nTrigger\r\n");
         }
 
     }
