@@ -110,7 +110,7 @@
       <itemPath>../task_sensors_mpu6000.c</itemPath>
       <itemPath>../handler_maximum_range.c</itemPath>
       <itemPath>../task_osd.c</itemPath>
-      <itemPath>../ahrs_simple_quaternion.c</itemPath>
+      <itemPath>../ahrs_kalman_2x3.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

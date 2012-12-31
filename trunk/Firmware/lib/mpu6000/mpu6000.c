@@ -25,8 +25,8 @@ void mpu6000_init()
     TRISGbits.TRISG8 = 1; // MISO
 
 
-    //spi_write_reg(MPUREG_PWR_MGMT_1, BIT_H_RESET);
-    //microcontroller_delay_us(10);
+    spi_write_reg(MPUREG_PWR_MGMT_1, BIT_H_RESET);
+    microcontroller_delay_us(10);
     //spi_write_reg(MPUREG_PWR_MGMT_1, BIT_H_RESET);
 
     //microcontroller_delay_us(1200);

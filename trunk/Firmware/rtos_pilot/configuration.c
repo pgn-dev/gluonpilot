@@ -185,9 +185,9 @@ void configuration_default()
     config.osd.show_mode = 1;
     config.osd.show_rc_link = 1;
     config.osd.show_speed = 1;
-    config.osd.show_vario = 1;
+    config.osd.show_vario = 0;
     config.osd.show_voltage1 = 1;
-    config.osd.show_voltage2 = 1;
+    config.osd.show_voltage2 = 0;
     config.osd.show_block_name = 1;
 
     config.osd.rssi = None;
