@@ -535,21 +535,24 @@ void communication_input_task( void *parameters )
 				///////////////////////////////////////////////////////////////
 				else if (buffer[token[0]] == 'S' && buffer[token[0] + 1] == 'W') 
 				{
-					sensor_data.gps.longitude_rad = (float)atof(&(buffer[token[1]]));
-					sensor_data.gps.latitude_rad = (float)atof(&(buffer[token[2]]));
-					sensor_data.gps.heading_rad	= (float)atof(&(buffer[token[3]]));
-					sensor_data.yaw = sensor_data.gps.heading_rad;
-					sensor_data.gps.speed_ms = (float)atof(&(buffer[token[4]]));
-					sensor_data.pressure_height = (float)atoi(&(buffer[token[5]]));
-					sensor_data.roll =  (float)atof(&(buffer[token[6]]));
-					sensor_data.pitch =  (float)atof(&(buffer[token[7]]));
-                    navigation_data.home_pressure_height = 0;
-                    navigation_data.home_gps_height = 0;
-					//sensor_data.vertical_speed
-					//sensor_data.battery_voltage_10
+                    if (control_state.simulation_mode == 1)
+                    {
+                        sensor_data.gps.longitude_rad = (float)atof(&(buffer[token[1]]));
+                        sensor_data.gps.latitude_rad = (float)atof(&(buffer[token[2]]));
+                        sensor_data.gps.heading_rad	= (float)atof(&(buffer[token[3]]));
+                        sensor_data.yaw = sensor_data.gps.heading_rad;
+                        sensor_data.gps.speed_ms = (float)atof(&(buffer[token[4]]));
+                        sensor_data.pressure_height = (float)atoi(&(buffer[token[5]]));
+                        sensor_data.roll =  (float)atof(&(buffer[token[6]]));
+                        sensor_data.pitch =  (float)atof(&(buffer[token[7]]));
+                        navigation_data.home_pressure_height = 0;
+                        navigation_data.home_gps_height = 0;
+                        //sensor_data.vertical_speed
+                        //sensor_data.battery_voltage_10
 
-					//navigation_update();
-					//gluonscript_do();
+                        //navigation_update();
+                        //gluonscript_do();
+                    }
 				}
 				///////////////////////////////////////////////////////////////
 				//                      SET TELEMETRY                        //
