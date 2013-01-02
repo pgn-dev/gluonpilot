@@ -22,6 +22,7 @@ ScriptHandlerReturn alarms_handle_gluonscriptcommand (struct GluonscriptCode *co
 			battery_alarm.alarm_battery_panic++;
 			if (battery_alarm.panic_line >= 0 && battery_alarm.alarm_battery_panic == 1)  // only do this one time
 			{
+                printf("\r\nAlarm: new block selected\r\n");
 				gluonscript_data.current_codeline = battery_alarm.panic_line;
 				//printf ("Goto %d\r\n", gluonscript_data.current_codeline);
                 osd_post_message("Battery panic", 1);

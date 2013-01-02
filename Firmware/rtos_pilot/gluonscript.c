@@ -25,7 +25,7 @@
 #include "gluonscript.h"
 
 
-/*volatile */struct GluonscriptData gluonscript_data = {.current_codeline = 0, .last_code = 0, .tick = 0 };
+volatile struct GluonscriptData gluonscript_data = {.current_codeline = 0, .last_code = 0, .tick = 0 };
 
 void gluonscript_init()
 {
@@ -192,6 +192,7 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 			case EMPTYCMD: // should not happen!!!
 				navigation_data.desired_pre_bank = 0.0f;
 				navigation_data.desired_throttle_pct = -1;
+                printf("\r\nEmpty navigation command\r\n");
 				gluonscript_data.current_codeline = 0;
 				// also return home @ 100m height
 				navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
@@ -202,6 +203,7 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 				if (handlers_result == NOT_HANDLED)
 				{
 					navigation_data.desired_pre_bank = 0.0f;
+                    printf("\r\nUnhandled navigation command: opcode %d\r\n", current_code->opcode);
 					gluonscript_data.current_codeline = 0;
 					// also return home @ 100m height
 					navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,
