@@ -260,6 +260,7 @@ void osd_menu_blocks()
                     selected_blocknum--;
                     if (selected_blocknum == 0)
                     {
+                        printf("\r\nOSD: new block selected\r\n");
                         gluonscript_data.current_codeline = i;
                         active_menu = OSD;
                         do_clear_screen = 1;

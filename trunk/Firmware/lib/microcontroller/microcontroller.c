@@ -112,74 +112,77 @@ int microcontroller_after_reboot()
 }
 
 
-/* ****************************************************************
-* Standard Exception Vector handlers if ALTIVT (INTCON2<15>) = 0  *
-*                                                                 *
-* Not required for labs but good to always include                *
-******************************************************************/
-#define _trapISR __attribute__((interrupt,no_auto_psv))
+/* Taken from http://www.microchip.com/forums/m393438.aspx */
+#define TRAP_ISR __attribute__((no_auto_psv,__interrupt__(__preprologue__( \
+                 "mov #_StkAddrHi,w1\n\tpop [w1--]\n\tpop [w1++]\n\tpush [w1--]\n\tpush [w1++]"))))
 
-void _trapISR _OscillatorFail(void)
+unsigned int StkAddrLo;  // order matters
+unsigned int StkAddrHi;
+char TrapMsgBuf[24];
+
+// Notify some debug panel, if possible.
+void NotifyTrapAddress(char* code, unsigned int note)
 {
-        INTCON1bits.OSCFAIL = 0;
-        uart1_puts("\r\nOscillator error!\n\r");
-        //while(1);
+     // generate debug string.
+    sprintf(TrapMsgBuf, "\r\nTrap %s %4x %4x%4x\r\n", code, note, StkAddrHi, StkAddrLo);
+    uart1_puts( TrapMsgBuf );
+
+    // Now get ready to power up.
+    asm("reset");
 }
 
-void _trapISR _AddressError(void)
+/* Primary Exception Vector handlers:
+   These routines are used if INTCON2bits.ALTIVT = 0. */
+void TRAP_ISR _OscillatorFail(void)
 {
-        INTCON1bits.ADDRERR = 0;
-        uart1_puts("\r\nAddress error!\n\r");
-        //while(1);
-        asm("reset");
+    INTCON1bits.OSCFAIL = 0; //Clear the trap flag
+    NotifyTrapAddress("O",0);
+}
+void TRAP_ISR _AddressError(void)
+{
+    INTCON1bits.ADDRERR = 0; //Clear the trap flag
+    NotifyTrapAddress("A",0);
+}
+void TRAP_ISR _StackError(void)
+{
+    INTCON1bits.STKERR = 0;  //Clear the trap flag
+    NotifyTrapAddress("S",0);
+}
+void TRAP_ISR _MathError(void)
+{
+    INTCON1bits.MATHERR = 0; //Clear the trap flag
+    NotifyTrapAddress("M",0);
+}
+void TRAP_ISR _DMACError(void)
+{
+
 }
 
-void _trapISR _StackError(void)
+/* Alternate Exception Vector handlers:
+  These routines are used if INTCON2bits.ALTIVT = 1. */
+void TRAP_ISR _AltOscillatorFail(void)
 {
-        INTCON1bits.STKERR = 0;
-        uart1_puts("\r\nStack error!\n\r");
-        //while(1);
-        asm("reset");
+    INTCON1bits.OSCFAIL = 0;
+    NotifyTrapAddress("AO",0);
+}
+void TRAP_ISR _AltAddressError(void)
+{
+    INTCON1bits.ADDRERR = 0;
+    NotifyTrapAddress("AA",0);
+}
+void TRAP_ISR _AltStackError(void)
+{
+    INTCON1bits.STKERR = 0;
+    NotifyTrapAddress("AS",0);
+}
+void TRAP_ISR _AltMathError(void)
+{
+    INTCON1bits.MATHERR = 0;
+    NotifyTrapAddress("AM",0);
 }
 
-void _trapISR _MathError(void)
+void TRAP_ISR _AltDMACError(void)
 {
-        INTCON1bits.MATHERR = 0;
-        uart1_puts("\r\nMath error!\n\r");
-        //while(1);
-        //asm("reset");
-}
-
-
-
-
-void __attribute__((interrupt, no_auto_psv)) _AltOscillatorFail(void)
-{
-        INTCON1bits.OSCFAIL = 0;
-        uart1_puts("\r\nOscillator error!\n\r");
-        //while(1);
-}
-
-void __attribute__((interrupt, no_auto_psv)) _AltAddressError(void)
-{
-        INTCON1bits.ADDRERR = 0;
-        uart1_puts("Address error!\n\r");
-        //while(1);
-        asm("reset");
-}
-
-void __attribute__((interrupt, no_auto_psv)) _AltStackError(void)
-{
-        INTCON1bits.STKERR = 0;
-        uart1_puts("Stack error!\n\r");
-        //while(1);
-        //asm("reset");
-}
-
-void __attribute__((interrupt, no_auto_psv)) _AltMathError(void)
-{
-        INTCON1bits.MATHERR = 0;
-        uart1_puts("Math error!\n\r");
-        //while(1);
-        //asm("reset");
+    INTCON1bits.DMACERR = 0; //Clear the trap flag
+    NotifyTrapAddress("AD",DMACS0);
 }

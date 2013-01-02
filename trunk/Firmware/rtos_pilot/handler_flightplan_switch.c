@@ -3,7 +3,7 @@
 #include "gluonscript.h"
 #include "handler_flightplan_switch.h"
 
-struct flightplan_switch flightplan_switch = { .active = -1, .current_state = -1 };
+struct flightplan_switch flightplan_switch = { .active = 0, .current_state = -1 };
 
 static int last_switch_state = -1;
 static int i = 0;
@@ -12,7 +12,7 @@ ScriptHandlerReturn flightplan_switch_handle_gluonscriptcommand (struct Gluonscr
 {
     enum FlightplanStates this_state;
 
-    if (i++ % 2 == 1 && flightplan_switch.active)   // save some uC cycles; i++ % 2 == 1 to make sure it has a startup delay (and has a good PWM/PPM reception)
+    if (flightplan_switch.active && i++ % 2 == 1)   // save some uC cycles; i++ % 2 == 1 to make sure it has a startup delay (and has a good PWM/PPM reception)
     {
         int channel_value = ppm.channel[flightplan_switch.channel];
         if (channel_value < 1400)
@@ -31,6 +31,7 @@ ScriptHandlerReturn flightplan_switch_handle_gluonscriptcommand (struct Gluonscr
         if (this_state != flightplan_switch.current_state && this_state == last_switch_state)
         {
             //printf("\r\nVal %d -> State %d->%d -> Line %d \r\n", channel_value, flightplan_switch.current_state, this_state, gluonscript_data.current_codeline+2); // not + 1 -> ++ follows after HANDLED_FINISHED
+            printf("\r\nFlightplan switch: new block selected\r\n");
             gluonscript_data.current_codeline = flightplan_switch.target[this_state] - 1;  // is incremented on HANDLED_FINISHED
             flightplan_switch.current_state = this_state;
             last_switch_state = this_state;
