@@ -90,9 +90,9 @@ int main()
 	// Open flash & load configuration
 	dataflash_open();
 	printf("%d MB flash found \r\n", (int)PAGE_SIZE/264);
-	printf("Loading configuration...");
+	//printf("Loading configuration...");
 	configuration_load();
-	printf("done\r\n");
+	//printf("done\r\n");
 
 	
 	// Open RC receiver input: pwm_in/ppm_in task: in ppm_in/pwm_in.c
