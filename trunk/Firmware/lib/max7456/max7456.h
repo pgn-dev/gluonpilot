@@ -39,6 +39,7 @@
 #define VIDEO_MODE_0_WRITE        0x00          
 #define VIDEO_MODE_0_READ         0x80
 #define VIDEO_MODE_0_40_PAL               0x40
+#define VIDEO_MODE_0_40_NTSC              0x00
 #define VIDEO_MODE_0_20_NoAutoSync        0x20
 #define VIDEO_MODE_0_10_SyncInt           0x10
 #define VIDEO_MODE_0_08_EnOSD             0x08

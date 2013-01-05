@@ -1,6 +1,13 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
+/*
+ *   General configuration options
+ */
+
+#define ENABLE_XBEE_RESET 1
+#define ENABLE_OSD_PAL_DEFAULT 1
+ /***************************************/
 
 #include "sensors.h"
 #include "communication.h"

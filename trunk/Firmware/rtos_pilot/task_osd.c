@@ -1168,7 +1168,7 @@ int osd_initialize(portTickType *xLastExecutionTime)
 	char x;
 	
 	max7456_init();
-	
+
 	spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_PAL);
 	vTaskDelayUntil( xLastExecutionTime, ( ( portTickType ) 100 / portTICK_RATE_MS ) );
 	if (spiReadReg(VIDEO_MODE_0_READ) != VIDEO_MODE_0_40_PAL)
@@ -1190,12 +1190,17 @@ int osd_initialize(portTickType *xLastExecutionTime)
 	else if (osd_use_ntsc())
 	{
 		uart1_puts("found NTSC, using NTSC...");
-		spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_PAL | OSD_EN);
+		spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_NTSC | OSD_EN);
 	}		
 	else
 	{
-		uart1_puts("no video input, using PAL...");
+#ifdef ENABLE_OSD_PAL_DEFAULT
+        uart1_puts("no video input, using PAL...");
 		spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_PAL | OSD_EN);
+#else
+        uart1_puts("no video input, using NTSC...");
+		spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_NTSC | OSD_EN);
+#endif
 	}	
 	
 	x = spiReadReg(0xEC);

@@ -42,7 +42,7 @@ void uart1_queue_init(long baud)
 	U1STAbits.URXISEL = 0;	//Bits6,7 Int. on character recieved
 	U1STAbits.ADDEN = 0;	//Bit5 Address Detect Disabled
 
-	IPC7 = 0x4400;	// Mid Range Interrupt Priority level, no urgent reason
+	//IPC7 = 0x4400;	// Mid Range Interrupt Priority level, no urgent reason
 
 //	IFS1bits.U1TXIF = 0;	// Clear the Transmit Interrupt Flag
 	//IEC1bits.U1TXIE = 1;	// Enable Transmit Interrupts
@@ -52,13 +52,15 @@ void uart1_queue_init(long baud)
 	U1MODEbits.UARTEN = 1;	// And turn the peripheral on
 
 	U1STAbits.UTXEN = 1;
+    _U1RXIP = configKERNEL_INTERRUPT_PRIORITY; // same as freerots?
+    
 	// I think I have the thing working now.	
 	
 	
-	xRxedChars = xQueueCreate( 150, ( unsigned portBASE_TYPE ) sizeof( char ) );
+	xRxedChars = xQueueCreate( 300, ( unsigned portBASE_TYPE ) sizeof( char ) ); // problem in simulation mode if buffer is too small
 }	
 
-
+static const char newline = '\n';
 void __attribute__((__interrupt__, auto_psv)) _U1RXInterrupt( void )
 {
 	char cChar;
@@ -68,18 +70,35 @@ void __attribute__((__interrupt__, auto_psv)) _U1RXInterrupt( void )
 	If the post causes a task to wake force a context switch as the woken task
 	may have a higher priority than the task we have interrupted. */
 
+
+    if (U1STAbits.OERR) // buffer overrun, no way we can receive correct data! (add '\n' to reset parser)
+    {
+        U1STAbits.OERR = 0;
+        uart1_puts("\r\nreceive buffer overrun\r\n");
+        xQueueSendFromISR( xRxedChars, &newline, &xHigherPriorityTaskWoken );  // reset parser
+    }
 	
 	while( U1STAbits.URXDA )
 	{
 		cChar = U1RXREG;
-		xQueueSendFromISR( xRxedChars, &cChar, &xHigherPriorityTaskWoken );
+		if (xQueueSendFromISR( xRxedChars, &cChar, &xHigherPriorityTaskWoken ) == errQUEUE_FULL)  // oh no, the queue is full
+        {
+            if (xQueueReset(xRxedChars) == pdFALSE)  // empty it to avoid another full queue in the near future
+            {
+                uart1_puts("\r\nUnable to reset a blocked queue\r\n");
+            } else
+            {
+                uart1_puts("\r\nQueue reset\r\n");
+                xQueueSendFromISR( xRxedChars, &newline, &xHigherPriorityTaskWoken );  // reset parser
+            }
+        }
 	}
 	IFS0bits.U1RXIF = 0;
 	// NO YIELDING! We are in an interrupt routine, and parsing input is not urgent anyway
-	/*if( xHigherPriorityTaskWoken != pdFALSE )
+    if( xHigherPriorityTaskWoken != pdFALSE )
 	{
 		taskYIELD();
-	}*/
+	}
 }
 
 void uart1_puts(char *str)
