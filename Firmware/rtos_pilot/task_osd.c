@@ -1166,50 +1166,62 @@ void osd_print_integer(int num, int row, int col, int small)
 int osd_initialize(portTickType *xLastExecutionTime)
 {
 	char x;
-	
-	max7456_init();
 
-	spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_PAL);
-	vTaskDelayUntil( xLastExecutionTime, ( ( portTickType ) 100 / portTICK_RATE_MS ) );
-	if (spiReadReg(VIDEO_MODE_0_READ) != VIDEO_MODE_0_40_PAL)
-	{
-		uart1_puts("no OSD found!\r\n");
-		return 0;
-	}
-	
-	while (osd_charactermemory_busy()) // wait for character memory to become available
-		vTaskDelayUntil( xLastExecutionTime, ( ( portTickType ) 200 / portTICK_RATE_MS ) );
-	
-	max7456_loadchars();
-	
-	if (osd_use_pal())
-	{
-		uart1_puts("found PAL, using PAL...");
-		spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_PAL | OSD_EN);
-	}	
-	else if (osd_use_ntsc())
-	{
-		uart1_puts("found NTSC, using NTSC...");
-		spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_NTSC | OSD_EN);
-	}		
-	else
-	{
-#ifdef ENABLE_OSD_PAL_DEFAULT
-        uart1_puts("no video input, using PAL...");
-		spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_PAL | OSD_EN);
-#else
-        uart1_puts("no video input, using NTSC...");
-		spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_NTSC | OSD_EN);
-#endif
-	}	
-	
-	x = spiReadReg(0xEC);
-	vTaskDelayUntil( xLastExecutionTime, ( ( portTickType ) 1 / portTICK_RATE_MS ) );
-	x &= 0xEF;
-	spiWriteReg(0x6C, x);
-	vTaskDelayUntil( xLastExecutionTime, ( ( portTickType ) 1 / portTICK_RATE_MS ) );
-	spiWriteReg(0x04, 0x00);
-	
+    if (xSemaphoreTake( xSpiSemaphore, ( portTickType ) 1000 ) == pdTRUE )
+    {
+        max7456_init();
+
+        spiWriteReg(0x00, 0x02);  // software reset
+        vTaskDelay( ( portTickType ) 50 / portTICK_RATE_MS );
+
+        spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_PAL);
+        vTaskDelay( ( portTickType ) 100 / portTICK_RATE_MS );
+        if (spiReadReg(VIDEO_MODE_0_READ) != VIDEO_MODE_0_40_PAL)
+        {
+            printf("no OSD found!\r\n");
+            xSemaphoreGive( xSpiSemaphore );
+            return 0;
+        }
+
+        while (osd_charactermemory_busy()) // wait for character memory to become available
+            vTaskDelay( ( ( portTickType ) 200 / portTICK_RATE_MS ) );
+
+        max7456_loadchars();
+
+        if (osd_use_pal())
+        {
+            uart1_puts("found PAL, using PAL...");
+            spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_PAL | OSD_EN);
+        }
+        else if (osd_use_ntsc())
+        {
+            uart1_puts("found NTSC, using NTSC...");
+            spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_NTSC | OSD_EN);
+        }
+        else
+        {
+    #ifdef ENABLE_OSD_PAL_DEFAULT
+            uart1_puts("no video input, using PAL...");
+            spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_PAL | OSD_EN);
+    #else
+            uart1_puts("no video input, using NTSC...");
+            spiWriteReg(VIDEO_MODE_0_WRITE, VIDEO_MODE_0_40_NTSC | OSD_EN);
+    #endif
+        }
+
+        // black level
+        x = spiReadReg(0xEC);
+        vTaskDelayUntil( xLastExecutionTime, ( ( portTickType ) 1 / portTICK_RATE_MS ) );
+        x &= 0xEF;
+        spiWriteReg(0x6C, x);
+        vTaskDelayUntil( xLastExecutionTime, ( ( portTickType ) 1 / portTICK_RATE_MS ) );
+        spiWriteReg(0x04, 0x00);
+        xSemaphoreGive( xSpiSemaphore );
+    }
+    else
+    {
+        printf("\r\nCould not initialize OSD\r\n");
+    }
 	return 1;
 }
 

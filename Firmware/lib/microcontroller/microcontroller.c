@@ -1,4 +1,4 @@
-	
+#include <stdio.h>
 #include "microcontroller/microcontroller.h"
 #include "uart1_queue/uart1_queue.h"
 
@@ -120,16 +120,51 @@ unsigned int StkAddrLo;  // order matters
 unsigned int StkAddrHi;
 char TrapMsgBuf[24];
 
+extern void (*getErrLoc(void))(void);  // Get Address Error Loc
+void (*errLoc)(void);           // Function Pointer
+
 // Notify some debug panel, if possible.
 void NotifyTrapAddress(char* code, unsigned int note)
 {
-     // generate debug string.
-    sprintf(TrapMsgBuf, "\r\nTrap %s %4x %4x%4x\r\n", code, note, StkAddrHi, StkAddrLo);
+    unsigned char *p = (unsigned char *)&errLoc;
+    int i;
+
+    for (i = 0; i < sizeof (void*); i++)
+    {
+        printf("%02x ", p[i]);
+    }
+    printf("\n");
+
+    // generate debug string.
+    sprintf(TrapMsgBuf, "\r\nTrap %s %p\r\n", code, errLoc);
     uart1_puts( TrapMsgBuf );
 
     // Now get ready to power up.
     asm("reset");
 }
+
+
+ extern unsigned long _AbortAddressContainer;
+ void where_was_i(void);
+
+ void __attribute__((interrupt(preprologue("rcall _where_was_i")),no_auto_psv)) _AddressError(void)
+ {
+   Nop();   // Set breakpoint here. When hit, variable _errAddress shows the return address
+   Nop();
+   Nop();
+
+   unsigned char *p = (unsigned char *) & _AbortAddressContainer;
+   INTCON1bits.ADDRERR = 0; //Clear the trap flag
+    int i;
+printf("\r\nAddress error: ");
+    for (i = 0; i <6; i++)
+    {
+        printf("%02x ", p[i]);
+    }
+    printf("\n");
+ }
+
+
 
 /* Primary Exception Vector handlers:
    These routines are used if INTCON2bits.ALTIVT = 0. */
@@ -138,11 +173,12 @@ void TRAP_ISR _OscillatorFail(void)
     INTCON1bits.OSCFAIL = 0; //Clear the trap flag
     NotifyTrapAddress("O",0);
 }
-void TRAP_ISR _AddressError(void)
-{
-    INTCON1bits.ADDRERR = 0; //Clear the trap flag
-    NotifyTrapAddress("A",0);
-}
+//void __attribute__((no_auto_psv,__interrupt__)) _AddressError(void)
+//{
+//    errLoc=getErrLoc();
+//    INTCON1bits.ADDRERR = 0; //Clear the trap flag
+//    NotifyTrapAddress("A",0);
+//}
 void TRAP_ISR _StackError(void)
 {
     INTCON1bits.STKERR = 0;  //Clear the trap flag

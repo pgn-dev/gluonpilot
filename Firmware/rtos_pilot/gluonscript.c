@@ -192,7 +192,7 @@ void gluonscript_do()  // executed when a new GPS line has arrived (5Hz)
 			case EMPTYCMD: // should not happen!!!
 				navigation_data.desired_pre_bank = 0.0f;
 				navigation_data.desired_throttle_pct = -1;
-                printf("\r\nEmpty navigation command\r\n");
+                //printf("\r\nEmpty navigation command\r\n");
 				gluonscript_data.current_codeline = 0;
 				// also return home @ 100m height
 				navigation_data.desired_heading_rad = navigation_heading_rad_fromto(sensor_data.gps.longitude_rad,

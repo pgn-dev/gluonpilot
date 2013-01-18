@@ -93,6 +93,7 @@
         <itemPath>../../lib/uart1_queue/uart1_queue.c</itemPath>
         <itemPath>../../lib/uart2/uart2.c</itemPath>
         <itemPath>../../lib/mpu6000/mpu6000.c</itemPath>
+        <itemPath>../../lib/microcontroller/getErrLoc.s</itemPath>
       </logicalFolder>
       <itemPath>../communication_csv.c</itemPath>
       <itemPath>../configuration.c</itemPath>
@@ -126,7 +127,7 @@
         <targetDevice>dsPIC33FJ256MC710</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>ICD3PlatformTool</platformTool>
+        <platformTool>Simulator</platformTool>
         <languageToolchain>XC16</languageToolchain>
         <languageToolchainVersion>1.10</languageToolchainVersion>
         <platform>3</platform>

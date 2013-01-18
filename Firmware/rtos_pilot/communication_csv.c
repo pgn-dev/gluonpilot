@@ -646,10 +646,20 @@ void communication_input_task( void *parameters )
                         }
                         config.sensors.acc_x_neutral = (float)(x / 10);
                         config.sensors.acc_y_neutral = (float)(y / 10);
+                        config.sensors.acc_z_neutral = (float)(z / 10);
                         if (HARDWARE_VERSION < V01Q)
                             config.sensors.acc_z_neutral = (float)(z / 10) - 6600.0;
                         else
-                            config.sensors.acc_z_neutral = (float)(z / 10) - 4096.0;
+                        {
+                            if (config.sensors.imu_rotated == 4)
+                            {
+                                config.sensors.acc_y_neutral = (float)(y / 10) + 4096.0;
+                            }
+                            else
+                            {
+                                config.sensors.acc_z_neutral = (float)(z / 10) - 4096.0;
+                            }
+                        }
                         printf("Accelerometers calibrated\r\n");
                     }
                     ///////////////////////////////////////////////////////////////
@@ -744,9 +754,7 @@ void communication_input_task( void *parameters )
                         if (atoi(&(buffer[token[1]])) == 1123)  // double check
                         {
                             printf_message("Reboot command received...\r\n");
-                            portTickType xLastWakeTime;
-                            xLastWakeTime = xTaskGetTickCount();
-                            vTaskDelayUntil( &xLastWakeTime, ( ( portTickType ) 1000 / portTICK_RATE_MS ) );  // 1s
+                            vTaskDelay( ( ( portTickType ) 1000 / portTICK_RATE_MS ) );  // 1s
                             asm("reset");
                         }
                     }

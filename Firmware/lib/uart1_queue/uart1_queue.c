@@ -10,6 +10,8 @@ xQueueHandle xRxedChars;
 
 void uart1_queue_init(long baud)
 {
+    xRxedChars = xQueueCreate( 300, ( unsigned portBASE_TYPE ) sizeof( char ) ); // problem in simulation mode if buffer is too small
+
 	// configure U2MODE
 	U1MODEbits.UARTEN = 0;	// Bit15 TX, RX DISABLED, ENABLE at end of func
 	U1MODEbits.USIDL = 0;	// Bit13 Continue in Idle
@@ -53,11 +55,6 @@ void uart1_queue_init(long baud)
 
 	U1STAbits.UTXEN = 1;
     _U1RXIP = configKERNEL_INTERRUPT_PRIORITY; // same as freerots?
-    
-	// I think I have the thing working now.	
-	
-	
-	xRxedChars = xQueueCreate( 300, ( unsigned portBASE_TYPE ) sizeof( char ) ); // problem in simulation mode if buffer is too small
 }	
 
 static const char newline = '\n';
@@ -74,8 +71,8 @@ void __attribute__((__interrupt__, auto_psv)) _U1RXInterrupt( void )
     if (U1STAbits.OERR) // buffer overrun, no way we can receive correct data! (add '\n' to reset parser)
     {
         U1STAbits.OERR = 0;
-        uart1_puts("\r\nreceive buffer overrun\r\n");
-        xQueueSendFromISR( xRxedChars, &newline, &xHigherPriorityTaskWoken );  // reset parser
+        //uart1_puts("\r\nreceive buffer overrun\r\n");
+        //xQueueSendFromISR( xRxedChars, &newline, &xHigherPriorityTaskWoken );  // reset parser
     }
 	
 	while( U1STAbits.URXDA )
