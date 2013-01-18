@@ -251,7 +251,7 @@ void read_mpu6000_sensor_data()
         sensor_data.q = ((float)config.sensors.gyro_y_neutral - (float)sensor_data.gyro_y_raw) * (3.14159 / 180.0 / 32.8);
         sensor_data.r = ((float)config.sensors.gyro_z_neutral - (float)sensor_data.gyro_z_raw) * (3.14159 / 180.0 / 32.8);
     }
-    else //if (config.sensors.imu_rotated == 0)
+    else if (config.sensors.imu_rotated == 0)
     {
         sensor_data.acc_x = ((float)config.sensors.acc_x_neutral - (float)sensor_data.acc_x_raw) / 4096.0;
         sensor_data.acc_y = ((float)sensor_data.acc_y_raw - (float)config.sensors.acc_y_neutral) / 4096.0;
@@ -260,6 +260,16 @@ void read_mpu6000_sensor_data()
         sensor_data.p = ((float)config.sensors.gyro_x_neutral - (float)sensor_data.gyro_x_raw) * (3.14159 / 180.0 / 32.8);
         sensor_data.q = ((float)sensor_data.gyro_y_raw - (float)config.sensors.gyro_y_neutral) * (3.14159 / 180.0 / 32.8);
         sensor_data.r = ((float)config.sensors.gyro_z_neutral - (float)sensor_data.gyro_z_raw) * (3.14159 / 180.0 / 32.8);
+    }
+    else if (config.sensors.imu_rotated == 4)  // sideways with top on the left
+    {
+        sensor_data.acc_x = ((float)config.sensors.acc_x_neutral - (float)sensor_data.acc_x_raw) / 4096.0;
+        sensor_data.acc_z = ((float)sensor_data.acc_y_raw - (float)config.sensors.acc_y_neutral) / 4096.0;
+        sensor_data.acc_y = ((float)config.sensors.acc_z_neutral - (float)sensor_data.acc_z_raw) / 4096.0;
+
+        sensor_data.p = ((float)sensor_data.gyro_x_raw - (float)config.sensors.gyro_x_neutral) * (3.14159 / 180.0 / 32.8);
+        sensor_data.r = ((float)sensor_data.gyro_y_raw - (float)config.sensors.gyro_y_neutral) * (3.14159 / 180.0 / 32.8);
+        sensor_data.q = ((float)sensor_data.gyro_z_raw - (float)config.sensors.gyro_z_neutral) * (3.14159 / 180.0 / 32.8);
     }
 }
 
